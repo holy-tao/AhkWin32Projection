@@ -1,3 +1,4 @@
 *.junit.xml
 junit.xml
 errors.txt
+*.log
