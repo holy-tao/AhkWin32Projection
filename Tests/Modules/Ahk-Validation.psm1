@@ -48,9 +48,10 @@ function FlattenErrorBlocks {
 # Print error context from a problem line. Does not print the actual problem line, the
 # caller should still do that
 function PrintErrorContext {
-    param([string]$errorText)
+    param([string]$errorText, [string]$File)
 
     $blocks = @()  # Collect multiple blocks for thread safety
+    $blocks += "Processing $File"
     $currentBlock = New-Object System.Text.StringBuilder
 
     foreach ($line in $errorText -split "`n") {
@@ -128,13 +129,13 @@ function Invoke-AhkValidation {
 
     if (-not [string]::IsNullOrWhiteSpace($stdout)) {
         $stdout = FlattenErrorBlocks $stdout
-        PrintErrorContext $stdout
+        PrintErrorContext -errorText $stdout -File $File
 
         $fails += 1
     }
     if (-not [string]::IsNullOrWhiteSpace($stderr)) {
         $stderr = FlattenErrorBlocks $stderr
-        PrintErrorContext $stderr
+        PrintErrorContext -errorText $stderr -File $File
 
         $fails += 1
     }
