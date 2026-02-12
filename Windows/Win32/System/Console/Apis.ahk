@@ -2,8 +2,11 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\HPCON.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include .\COORD.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\UI\WindowsAndMessaging\HMENU.ahk
+#Include ..\WinRT\Apis.ahk
+#Include ..\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.System.Console
@@ -159,17 +162,17 @@ class Console {
     static CONSOLE_HANDLE_NEVERSET => 268435456
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONSOLE_INPUT_STRING => "CONIN$"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONSOLE_OUTPUT_STRING => "CONOUT$"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CONSOLE_GENERIC => "CON"
 
@@ -496,7 +499,7 @@ class Console {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/allocconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/allocconsole
      */
     static AllocConsole() {
         A_LastError := 0
@@ -515,12 +518,12 @@ class Console {
      * @returns {Integer} 
      */
     static AllocConsoleWithOptions(options) {
-        result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, "int*", &result := 0, "int")
+        result := DllCall("KERNEL32.dll\AllocConsoleWithOptions", "ptr", options, "int*", &result_ := 0, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
 
-        return result
+        return result_
     }
 
     /**
@@ -534,7 +537,7 @@ class Console {
      * If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/freeconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/freeconsole
      */
     static FreeConsole() {
         A_LastError := 0
@@ -566,7 +569,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/attachconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/attachconsole
      */
     static AttachConsole(dwProcessId) {
         A_LastError := 0
@@ -591,7 +594,7 @@ class Console {
      * The return value is a code that identifies the code page. For a list of identifiers, see [Code Page Identifiers](/windows/win32/intl/code-page-identifiers).
      * 
      * If the return value is zero, the function has failed. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolecp
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolecp
      */
     static GetConsoleCP() {
         A_LastError := 0
@@ -616,7 +619,7 @@ class Console {
      * The return value is a code that identifies the code page. For a list of identifiers, see [Code Page Identifiers](/windows/win32/intl/code-page-identifiers).
      * 
      * If the return value is zero, the function has failed. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsoleoutputcp
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoleoutputcp
      */
     static GetConsoleOutputCP() {
         A_LastError := 0
@@ -642,7 +645,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolemode
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolemode
      */
     static GetConsoleMode(hConsoleHandle, lpMode) {
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
@@ -672,7 +675,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolemode
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolemode
      */
     static SetConsoleMode(hConsoleHandle, dwMode) {
         hConsoleHandle := hConsoleHandle is Win32Handle ? NumGet(hConsoleHandle, "ptr") : hConsoleHandle
@@ -700,7 +703,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getnumberofconsoleinputevents
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getnumberofconsoleinputevents
      */
     static GetNumberOfConsoleInputEvents(hConsoleInput, lpNumberOfEvents) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -734,7 +737,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleinput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleinput
      */
     static ReadConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -768,7 +771,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleinput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleinput
      */
     static ReadConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -798,7 +801,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/peekconsoleinput
      */
     static PeekConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -828,7 +831,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/peekconsoleinput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/peekconsoleinput
      */
     static PeekConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -873,7 +876,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsole
      */
     static ReadConsoleA(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -919,7 +922,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsole
      */
     static ReadConsoleW(hConsoleInput, lpBuffer, nNumberOfCharsToRead, lpNumberOfCharsRead, pInputControl) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -960,7 +963,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsole
      */
     static WriteConsoleA(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
@@ -1003,7 +1006,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsole
      */
     static WriteConsoleW(hConsoleOutput, lpBuffer, nNumberOfCharsToWrite, lpNumberOfCharsWritten) {
         static lpReserved := 0 ;Reserved parameters must always be NULL
@@ -1056,7 +1059,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolectrlhandler
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolectrlhandler
      */
     static SetConsoleCtrlHandler(HandlerRoutine, Add) {
         A_LastError := 0
@@ -1083,7 +1086,7 @@ class Console {
      * The handle created by this function must be closed with [ClosePseudoConsole](closepseudoconsole.md) when operations are complete.
      * 
      * If using `PSEUDOCONSOLE_INHERIT_CURSOR`, the calling application should be prepared to respond to the request for the cursor state in an asynchronous fashion on a background thread by forwarding or interpreting the request for cursor information that will be received on `hOutput` and replying on `hInput`. Failure to do so may cause the calling application to hang while making another request of the pseudoconsole system.
-     * @param {COORD} size The dimensions of the window/buffer in count of characters that will be used on initial creation of the pseudoconsole. This can be adjusted later with [ResizePseudoConsole](resizepseudoconsole.md).
+     * @param {COORD} size_ The dimensions of the window/buffer in count of characters that will be used on initial creation of the pseudoconsole. This can be adjusted later with [ResizePseudoConsole](resizepseudoconsole.md).
      * @param {HANDLE} hInput An open handle to a stream of data that represents user input to the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
      * @param {HANDLE} hOutput An open handle to a stream of data that represents application output from the device. This is currently restricted to [synchronous](/windows/desktop/Sync/synchronization-and-overlapped-input-and-output) I/O.
      * @param {Integer} dwFlags The value can be one of the following:
@@ -1093,14 +1096,14 @@ class Console {
      * | **0** | Perform a standard pseudoconsole creation. |
      * | **PSEUDOCONSOLE_INHERIT_CURSOR** (DWORD)1 | The created pseudoconsole session will attempt to inherit the cursor position of the parent console. |
      * @returns {HPCON} Pointer to a location that will receive a handle to the new pseudoconsole device.
-     * @see https://learn.microsoft.com/windows/console/createpseudoconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/createpseudoconsole
      */
-    static CreatePseudoConsole(size, hInput, hOutput, dwFlags) {
+    static CreatePseudoConsole(size_, hInput, hOutput, dwFlags) {
         hInput := hInput is Win32Handle ? NumGet(hInput, "ptr") : hInput
         hOutput := hOutput is Win32Handle ? NumGet(hOutput, "ptr") : hOutput
 
         phPC := HPCON()
-        result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "int")
+        result := DllCall("KERNEL32.dll\CreatePseudoConsole", "ptr", size_, "ptr", hInput, "ptr", hOutput, "uint", dwFlags, "ptr", phPC, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1113,16 +1116,16 @@ class Console {
      * @remarks
      * This function can resize the internal buffers in the pseudoconsole session to match the window/buffer size being used for display on the terminal end. This ensures that attached Command-Line Interface (CUI) applications using the [Console Functions](console-functions.md) to communicate will have the correct dimensions returned in their calls.
      * @param {HPCON} hPC A handle to an active pseudoconsole as opened by [CreatePseudoConsole](createpseudoconsole.md).
-     * @param {COORD} size The dimensions of the window/buffer in count of characters that will be used for the internal buffer of this pseudoconsole.
+     * @param {COORD} size_ The dimensions of the window/buffer in count of characters that will be used for the internal buffer of this pseudoconsole.
      * @returns {HRESULT} Type: **HRESULT**
      * 
      * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
-     * @see https://learn.microsoft.com/windows/console/resizepseudoconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/resizepseudoconsole
      */
-    static ResizePseudoConsole(hPC, size) {
+    static ResizePseudoConsole(hPC, size_) {
         hPC := hPC is Win32Handle ? NumGet(hPC, "ptr") : hPC
 
-        result := DllCall("KERNEL32.dll\ResizePseudoConsole", "ptr", hPC, "ptr", size, "int")
+        result := DllCall("KERNEL32.dll\ResizePseudoConsole", "ptr", hPC, "ptr", size_, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }
@@ -1138,7 +1141,7 @@ class Console {
      * A final painted frame may arrive on the `hOutput` handle originally provided to [CreatePseudoConsole](createpseudoconsole.md) when this API is called. It is expected that the caller will drain this information from the communication channel buffer and either present it or discard it. Failure to drain the buffer may cause the Close call to wait indefinitely until it is drained or the communication channels are broken another way.
      * @param {HPCON} hPC A handle to an active pseudoconsole as opened by [CreatePseudoConsole](createpseudoconsole.md).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/console/closepseudoconsole
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/closepseudoconsole
      */
     static ClosePseudoConsole(hPC) {
         hPC := hPC is Win32Handle ? NumGet(hPC, "ptr") : hPC
@@ -1181,7 +1184,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/fillconsoleoutputcharacter
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/fillconsoleoutputcharacter
      */
     static FillConsoleOutputCharacterA(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1217,7 +1220,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/fillconsoleoutputcharacter
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/fillconsoleoutputcharacter
      */
     static FillConsoleOutputCharacterW(hConsoleOutput, cCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1251,7 +1254,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/fillconsoleoutputattribute
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/fillconsoleoutputattribute
      */
     static FillConsoleOutputAttribute(hConsoleOutput, wAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1286,7 +1289,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/generateconsolectrlevent
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/generateconsolectrlevent
      */
     static GenerateConsoleCtrlEvent(dwCtrlEvent, dwProcessGroupId) {
         A_LastError := 0
@@ -1331,7 +1334,7 @@ class Console {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the new console screen buffer.
      * 
      * If the function fails, the return value is **INVALID\_HANDLE\_VALUE**. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/createconsolescreenbuffer
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/createconsolescreenbuffer
      */
     static CreateConsoleScreenBuffer(dwDesiredAccess, dwShareMode, lpSecurityAttributes, dwFlags) {
         static lpScreenBufferData := 0 ;Reserved parameters must always be NULL
@@ -1357,7 +1360,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsoleactivescreenbuffer
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsoleactivescreenbuffer
      */
     static SetConsoleActiveScreenBuffer(hConsoleOutput) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1381,7 +1384,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/flushconsoleinputbuffer
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/flushconsoleinputbuffer
      */
     static FlushConsoleInputBuffer(hConsoleInput) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -1414,7 +1417,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolecp
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolecp
      */
     static SetConsoleCP(wCodePageID) {
         A_LastError := 0
@@ -1446,7 +1449,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsoleoutputcp
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsoleoutputcp
      */
     static SetConsoleOutputCP(wCodePageID) {
         A_LastError := 0
@@ -1468,7 +1471,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolecursorinfo
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolecursorinfo
      */
     static GetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1495,7 +1498,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolecursorinfo
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolecursorinfo
      */
     static SetConsoleCursorInfo(hConsoleOutput, lpConsoleCursorInfo) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1524,7 +1527,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolescreenbufferinfo
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolescreenbufferinfo
      */
     static GetConsoleScreenBufferInfo(hConsoleOutput, lpConsoleScreenBufferInfo) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1553,7 +1556,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolescreenbufferinfoex
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolescreenbufferinfoex
      */
     static GetConsoleScreenBufferInfoEx(hConsoleOutput, lpConsoleScreenBufferInfoEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1578,7 +1581,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolescreenbufferinfoex
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolescreenbufferinfoex
      */
     static SetConsoleScreenBufferInfoEx(hConsoleOutput, lpConsoleScreenBufferInfoEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1602,7 +1605,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolescreenbuffersize
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolescreenbuffersize
      */
     static SetConsoleScreenBufferSize(hConsoleOutput, dwSize) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1631,7 +1634,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolecursorposition
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolecursorposition
      */
     static SetConsoleCursorPosition(hConsoleOutput, dwCursorPosition) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1656,7 +1659,7 @@ class Console {
      * @returns {COORD} If the function succeeds, the return value is a [**COORD**](coord-str.md) structure that specifies the number of character cell columns (**X** member) and rows (**Y** member) in the largest possible console window. Otherwise, the members of the structure are zero.
      * 
      * To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getlargestconsolewindowsize
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getlargestconsolewindowsize
      */
     static GetLargestConsoleWindowSize(hConsoleOutput) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1683,7 +1686,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsoletextattribute
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsoletextattribute
      */
     static SetConsoleTextAttribute(hConsoleOutput, wAttributes) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1716,7 +1719,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolewindowinfo
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolewindowinfo
      */
     static SetConsoleWindowInfo(hConsoleOutput, bAbsolute, lpConsoleWindow) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1750,7 +1753,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1787,7 +1790,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsoleoutputcharacter
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsoleoutputcharacter
      */
     static WriteConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwWriteCoord, lpNumberOfCharsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1822,7 +1825,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsoleoutputattribute
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsoleoutputattribute
      */
     static WriteConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwWriteCoord, lpNumberOfAttrsWritten) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1856,7 +1859,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterA(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1890,7 +1893,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleoutputcharacter
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleoutputcharacter
      */
     static ReadConsoleOutputCharacterW(hConsoleOutput, lpCharacter, nLength, dwReadCoord, lpNumberOfCharsRead) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1924,7 +1927,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleoutputattribute
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleoutputattribute
      */
     static ReadConsoleOutputAttribute(hConsoleOutput, lpAttribute, nLength, dwReadCoord, lpNumberOfAttrsRead) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -1958,7 +1961,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsoleinput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsoleinput
      */
     static WriteConsoleInputA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -1991,7 +1994,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsoleinput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsoleinput
      */
     static WriteConsoleInputW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsWritten) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -2029,7 +2032,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/scrollconsolescreenbuffer
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/scrollconsolescreenbuffer
      */
     static ScrollConsoleScreenBufferA(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2065,7 +2068,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/scrollconsolescreenbuffer
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/scrollconsolescreenbuffer
      */
     static ScrollConsoleScreenBufferW(hConsoleOutput, lpScrollRectangle, lpClipRectangle, dwDestinationOrigin, lpFill) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2105,7 +2108,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsoleoutput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsoleoutput
      */
     static WriteConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2145,7 +2148,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/writeconsoleoutput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/writeconsoleoutput
      */
     static WriteConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpWriteRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2184,7 +2187,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleoutput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleoutput
      */
     static ReadConsoleOutputA(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2223,7 +2226,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleoutput
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleoutput
      */
     static ReadConsoleOutputW(hConsoleOutput, lpBuffer, dwBufferSize, dwBufferCoord, lpReadRegion) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2252,7 +2255,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is the length of the console window's title, in characters.
      * 
      * If the function fails, the return value is zero and [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns the error code.
-     * @see https://learn.microsoft.com/windows/console/getconsoletitle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoletitle
      */
     static GetConsoleTitleA(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -2281,7 +2284,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is the length of the console window's title, in characters.
      * 
      * If the function fails, the return value is zero and [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns the error code.
-     * @see https://learn.microsoft.com/windows/console/getconsoletitle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoletitle
      */
     static GetConsoleTitleW(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -2312,7 +2315,7 @@ class Console {
      * If the function succeeds, the return value is the length of the original console title, in characters.
      * 
      * If the function fails, the return value is zero and [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns the error code.
-     * @see https://learn.microsoft.com/windows/console/getconsoleoriginaltitle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoleoriginaltitle
      */
     static GetConsoleOriginalTitleA(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -2343,7 +2346,7 @@ class Console {
      * If the function succeeds, the return value is the length of the original console title, in characters.
      * 
      * If the function fails, the return value is zero and [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) returns the error code.
-     * @see https://learn.microsoft.com/windows/console/getconsoleoriginaltitle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoleoriginaltitle
      */
     static GetConsoleOriginalTitleW(lpConsoleTitle, nSize) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -2371,7 +2374,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsoletitle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsoletitle
      */
     static SetConsoleTitleA(lpConsoleTitle) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -2399,7 +2402,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsoletitle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsoletitle
      */
     static SetConsoleTitleW(lpConsoleTitle) {
         lpConsoleTitle := lpConsoleTitle is String ? StrPtr(lpConsoleTitle) : lpConsoleTitle
@@ -2425,7 +2428,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getnumberofconsolemousebuttons
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getnumberofconsolemousebuttons
      */
     static GetNumberOfConsoleMouseButtons(lpNumberOfMouseButtons) {
         lpNumberOfMouseButtonsMarshal := lpNumberOfMouseButtons is VarRef ? "uint*" : "ptr"
@@ -2451,7 +2454,7 @@ class Console {
      * @returns {COORD} If the function succeeds, the return value is a [**COORD**](coord-str.md) structure that contains the width and height of each character in the font, in logical units. The **X** member contains the width, while the **Y** member contains the height.
      * 
      * If the function fails, the width and the height are zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolefontsize
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolefontsize
      */
     static GetConsoleFontSize(hConsoleOutput, nFont) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2478,7 +2481,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getcurrentconsolefont
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getcurrentconsolefont
      */
     static GetCurrentConsoleFont(hConsoleOutput, bMaximumWindow, lpConsoleCurrentFont) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2503,7 +2506,7 @@ class Console {
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * 
      * [!INCLUDE [no-vt-equiv-user-priv](./includes/no-vt-equiv-user-priv.md)]
-     * @see https://learn.microsoft.com/windows/console/getcurrentconsolefontex
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getcurrentconsolefontex
      */
     static GetCurrentConsoleFontEx(hConsoleOutput, bMaximumWindow, lpConsoleCurrentFontEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2530,7 +2533,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setcurrentconsolefontex
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setcurrentconsolefontex
      */
     static SetCurrentConsoleFontEx(hConsoleOutput, bMaximumWindow, lpConsoleCurrentFontEx) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2555,7 +2558,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsoleselectioninfo
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoleselectioninfo
      */
     static GetConsoleSelectionInfo(lpConsoleSelectionInfo) {
         A_LastError := 0
@@ -2578,7 +2581,7 @@ class Console {
      * @returns {BOOL} If the function succeeds the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolehistoryinfo
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolehistoryinfo
      */
     static GetConsoleHistoryInfo(lpConsoleHistoryInfo) {
         A_LastError := 0
@@ -2601,7 +2604,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsolehistoryinfo
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolehistoryinfo
      */
     static SetConsoleHistoryInfo(lpConsoleHistoryInfo) {
         A_LastError := 0
@@ -2632,7 +2635,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsoledisplaymode
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoledisplaymode
      */
     static GetConsoleDisplayMode(lpModeFlags) {
         lpModeFlagsMarshal := lpModeFlags is VarRef ? "uint*" : "ptr"
@@ -2662,7 +2665,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setconsoledisplaymode
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsoledisplaymode
      */
     static SetConsoleDisplayMode(hConsoleOutput, dwFlags, lpNewScreenBufferDimensions) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
@@ -2690,7 +2693,7 @@ class Console {
      * 
      * 
      * The return value is a handle to the window used by the console associated with the calling process or **NULL** if there is no such associated console.
-     * @see https://learn.microsoft.com/windows/console/getconsolewindow
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolewindow
      */
     static GetConsoleWindow() {
         result := DllCall("KERNEL32.dll\GetConsoleWindow", "ptr")
@@ -2710,7 +2713,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is **TRUE**.
      * 
      * If the function fails, the return value is **FALSE**. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/addconsolealias
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/addconsolealias
      */
     static AddConsoleAliasA(Source, Target, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -2739,7 +2742,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is **TRUE**.
      * 
      * If the function fails, the return value is **FALSE**. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/addconsolealias
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/addconsolealias
      */
     static AddConsoleAliasW(Source, Target, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -2769,7 +2772,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolealias
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealias
      */
     static GetConsoleAliasA(Source, TargetBuffer, TargetBufferLength, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -2799,7 +2802,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolealias
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealias
      */
     static GetConsoleAliasW(Source, TargetBuffer, TargetBufferLength, ExeName) {
         Source := Source is String ? StrPtr(Source) : Source
@@ -2824,7 +2827,7 @@ class Console {
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
      * @param {PSTR} ExeName 
      * @returns {Integer} The size of the buffer required to store all console aliases defined for this executable file, in bytes.
-     * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiaseslength
      */
     static GetConsoleAliasesLengthA(ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
@@ -2841,7 +2844,7 @@ class Console {
      * [!INCLUDE [no-vt-equiv-shell-banner](./includes/no-vt-equiv-shell-banner.md)]
      * @param {PWSTR} ExeName 
      * @returns {Integer} The size of the buffer required to store all console aliases defined for this executable file, in bytes.
-     * @see https://learn.microsoft.com/windows/console/getconsolealiaseslength
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiaseslength
      */
     static GetConsoleAliasesLengthW(ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
@@ -2860,7 +2863,7 @@ class Console {
      * 
      * 
      * The size of the buffer required to store the names of all executable files that have console aliases defined, in bytes.
-     * @see https://learn.microsoft.com/windows/console/getconsolealiasexeslength
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiasexeslength
      */
     static GetConsoleAliasExesLengthA() {
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesLengthA", "uint")
@@ -2877,7 +2880,7 @@ class Console {
      * 
      * 
      * The size of the buffer required to store the names of all executable files that have console aliases defined, in bytes.
-     * @see https://learn.microsoft.com/windows/console/getconsolealiasexeslength
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiasexeslength
      */
     static GetConsoleAliasExesLengthW() {
         result := DllCall("KERNEL32.dll\GetConsoleAliasExesLengthW", "uint")
@@ -2898,7 +2901,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolealiases
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiases
      */
     static GetConsoleAliasesA(AliasBuffer, AliasBufferLength, ExeName) {
         AliasBuffer := AliasBuffer is String ? StrPtr(AliasBuffer) : AliasBuffer
@@ -2928,7 +2931,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolealiases
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiases
      */
     static GetConsoleAliasesW(AliasBuffer, AliasBufferLength, ExeName) {
         AliasBuffer := AliasBuffer is String ? StrPtr(AliasBuffer) : AliasBuffer
@@ -2957,7 +2960,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolealiasexes
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiasexes
      */
     static GetConsoleAliasExesA(ExeNameBuffer, ExeNameBufferLength) {
         ExeNameBuffer := ExeNameBuffer is String ? StrPtr(ExeNameBuffer) : ExeNameBuffer
@@ -2985,7 +2988,7 @@ class Console {
      * @returns {Integer} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/getconsolealiasexes
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsolealiasexes
      */
     static GetConsoleAliasExesW(ExeNameBuffer, ExeNameBufferLength) {
         ExeNameBuffer := ExeNameBuffer is String ? StrPtr(ExeNameBuffer) : ExeNameBuffer
@@ -3024,27 +3027,27 @@ class Console {
 
     /**
      * 
-     * @param {Integer} Number_R 
+     * @param {Integer} Number_ 
      * @param {PSTR} ExeName 
      * @returns {BOOL} 
      */
-    static SetConsoleNumberOfCommandsA(Number_R, ExeName) {
+    static SetConsoleNumberOfCommandsA(Number_, ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", Number_R, "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsA", "uint", Number_, "ptr", ExeName, "int")
         return result
     }
 
     /**
      * 
-     * @param {Integer} Number_R 
+     * @param {Integer} Number_ 
      * @param {PWSTR} ExeName 
      * @returns {BOOL} 
      */
-    static SetConsoleNumberOfCommandsW(Number_R, ExeName) {
+    static SetConsoleNumberOfCommandsW(Number_, ExeName) {
         ExeName := ExeName is String ? StrPtr(ExeName) : ExeName
 
-        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", Number_R, "ptr", ExeName, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleNumberOfCommandsW", "uint", Number_, "ptr", ExeName, "int")
         return result
     }
 
@@ -3115,7 +3118,7 @@ class Console {
      * If the return value is zero, the function has failed, because every console has at least one process associated with it. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * 
      * If a `NULL` process list was provided or the process count was 0, the call will return 0 and `GetLastError` will return `ERROR_INVALID_PARAMETER`. Please provide a buffer of at least one element to call this function. Allocate a larger buffer and call again if the return code is larger than the length of the provided buffer.
-     * @see https://learn.microsoft.com/windows/console/getconsoleprocesslist
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getconsoleprocesslist
      */
     static GetConsoleProcessList(lpdwProcessList, dwProcessCount) {
         lpdwProcessListMarshal := lpdwProcessList is VarRef ? "uint*" : "ptr"
@@ -3190,13 +3193,13 @@ class Console {
 
     /**
      * 
-     * @param {HICON} hIcon 
+     * @param {HICON} hIcon_ 
      * @returns {BOOL} 
      */
-    static SetConsoleIcon(hIcon) {
-        hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
+    static SetConsoleIcon(hIcon_) {
+        hIcon_ := hIcon_ is Win32Handle ? NumGet(hIcon_, "ptr") : hIcon_
 
-        result := DllCall("KERNEL32.dll\SetConsoleIcon", "ptr", hIcon, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleIcon", "ptr", hIcon_, "int")
         return result
     }
 
@@ -3238,16 +3241,24 @@ class Console {
     }
 
     /**
+     * Sets the size and visibility of the cursor for the specified console screen buffer.
+     * @remarks
+     * When a screen buffer's cursor is visible, its appearance can vary, ranging from completely filling a character cell to showing up as a horizontal line at the bottom of the cell. The **dwSize** member of the [**CONSOLE\_CURSOR\_INFO**](console-cursor-info-str.md) structure specifies the percentage of a character cell that is filled by the cursor. If this member is less than 1 or greater than 100, **SetConsoleCursorInfo** fails.
      * 
-     * @param {HANDLE} hConsoleOutput 
-     * @param {HCURSOR} hCursor 
-     * @returns {BOOL} 
+     * > [!TIP]
+     * > This API has a **[virtual terminal](console-virtual-terminal-sequences.md)** equivalent in the **[cursor visibility](console-virtual-terminal-sequences.md#cursor-visibility)** section with the `^[[?25h` and `^[[?25l` sequences.
+     * @param {HANDLE} hConsoleOutput A handle to the console screen buffer. The handle must have the **GENERIC\_READ** access right. For more information, see [Console Buffer Security and Access Rights](console-buffer-security-and-access-rights.md).
+     * @param {HCURSOR} hCursor_ 
+     * @returns {BOOL} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setconsolecursorinfo
      */
-    static SetConsoleCursor(hConsoleOutput, hCursor) {
+    static SetConsoleCursor(hConsoleOutput, hCursor_) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
-        hCursor := hCursor is Win32Handle ? NumGet(hCursor, "ptr") : hCursor
+        hCursor_ := hCursor_ is Win32Handle ? NumGet(hCursor_, "ptr") : hCursor_
 
-        result := DllCall("KERNEL32.dll\SetConsoleCursor", "ptr", hConsoleOutput, "ptr", hCursor, "int")
+        result := DllCall("KERNEL32.dll\SetConsoleCursor", "ptr", hConsoleOutput, "ptr", hCursor_, "int")
         return result
     }
 
@@ -3282,15 +3293,15 @@ class Console {
     /**
      * 
      * @param {HANDLE} hConsoleOutput 
-     * @param {HPALETTE} hPalette 
+     * @param {HPALETTE} hPalette_ 
      * @param {Integer} dwUsage 
      * @returns {BOOL} 
      */
-    static SetConsolePalette(hConsoleOutput, hPalette, dwUsage) {
+    static SetConsolePalette(hConsoleOutput, hPalette_, dwUsage) {
         hConsoleOutput := hConsoleOutput is Win32Handle ? NumGet(hConsoleOutput, "ptr") : hConsoleOutput
-        hPalette := hPalette is Win32Handle ? NumGet(hPalette, "ptr") : hPalette
+        hPalette_ := hPalette_ is Win32Handle ? NumGet(hPalette_, "ptr") : hPalette_
 
-        result := DllCall("KERNEL32.dll\SetConsolePalette", "ptr", hConsoleOutput, "ptr", hPalette, "uint", dwUsage, "int")
+        result := DllCall("KERNEL32.dll\SetConsolePalette", "ptr", hConsoleOutput, "ptr", hPalette_, "uint", dwUsage, "int")
         return result
     }
 
@@ -3445,7 +3456,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleinputex
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleinputex
      */
     static ReadConsoleInputExA(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -3479,7 +3490,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/readconsoleinputex
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/readconsoleinputex
      */
     static ReadConsoleInputExW(hConsoleInput, lpBuffer, nLength, lpNumberOfEventsRead, wFlags) {
         hConsoleInput := hConsoleInput is Win32Handle ? NumGet(hConsoleInput, "ptr") : hConsoleInput
@@ -3768,7 +3779,7 @@ class Console {
      * If the function fails, the return value is **INVALID\_HANDLE\_VALUE**. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
      * 
      * If an application does not have associated standard handles, such as a service running on an interactive desktop, and has not redirected them, the return value is **NULL**.
-     * @see https://learn.microsoft.com/windows/console/getstdhandle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/getstdhandle
      */
     static GetStdHandle(nStdHandle) {
         A_LastError := 0
@@ -3801,7 +3812,7 @@ class Console {
      * @returns {BOOL} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/console/setstdhandle
+     * @see https://learn.microsoft.com/windows/console/ocs/docs/setstdhandle
      */
     static SetStdHandle(nStdHandle, hHandle) {
         hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle
@@ -3822,7 +3833,7 @@ class Console {
      * @param {HANDLE} hHandle The handle.
      * @param {Pointer<HANDLE>} phPrevValue Optional. Receives the previous handle.
      * @returns {BOOL} Returns S_OK on success.
-     * @see https://learn.microsoft.com/windows/win32/api/processenv/nf-processenv-setstdhandleex
+     * @see https://learn.microsoft.com/windows/win32/api//content/processenv/nf-processenv-setstdhandleex
      */
     static SetStdHandleEx(nStdHandle, hHandle, phPrevValue) {
         hHandle := hHandle is Win32Handle ? NumGet(hHandle, "ptr") : hHandle

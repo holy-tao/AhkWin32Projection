@@ -57,7 +57,11 @@ class IXMLDOMDocumentType extends IXMLDOMNode{
      */
     get_name() {
         rootName := BSTR()
-        result := ComCall(43, this, "ptr", rootName, "HRESULT")
+        result := ComCall(43, this, "ptr", rootName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return rootName
     }
 
@@ -66,7 +70,11 @@ class IXMLDOMDocumentType extends IXMLDOMNode{
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_entities() {
-        result := ComCall(44, this, "ptr*", &entityMap := 0, "HRESULT")
+        result := ComCall(44, this, "ptr*", &entityMap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNamedNodeMap(entityMap)
     }
 
@@ -75,7 +83,11 @@ class IXMLDOMDocumentType extends IXMLDOMNode{
      * @returns {IXMLDOMNamedNodeMap} 
      */
     get_notations() {
-        result := ComCall(45, this, "ptr*", &notationMap := 0, "HRESULT")
+        result := ComCall(45, this, "ptr*", &notationMap := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNamedNodeMap(notationMap)
     }
 }

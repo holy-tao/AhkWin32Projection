@@ -32,20 +32,28 @@ class ID2D1EffectContext2 extends ID2D1EffectContext1{
     /**
      * 
      * @param {Integer} colorSpace 
-     * @returns {ID2D1ColorContext1} 
+     * @returns {Pointer<ID2D1ColorContext1>} 
      */
     CreateColorContextFromDxgiColorSpace(colorSpace) {
-        result := ComCall(25, this, "int", colorSpace, "ptr*", &colorContext := 0, "HRESULT")
-        return ID2D1ColorContext1(colorContext)
+        result := ComCall(25, this, "int", colorSpace, "ptr*", &colorContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return colorContext
     }
 
     /**
      * 
      * @param {Pointer<D2D1_SIMPLE_COLOR_PROFILE>} simpleProfile 
-     * @returns {ID2D1ColorContext1} 
+     * @returns {Pointer<ID2D1ColorContext1>} 
      */
     CreateColorContextFromSimpleColorProfile(simpleProfile) {
-        result := ComCall(26, this, "ptr", simpleProfile, "ptr*", &colorContext := 0, "HRESULT")
-        return ID2D1ColorContext1(colorContext)
+        result := ComCall(26, this, "ptr", simpleProfile, "ptr*", &colorContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return colorContext
     }
 }

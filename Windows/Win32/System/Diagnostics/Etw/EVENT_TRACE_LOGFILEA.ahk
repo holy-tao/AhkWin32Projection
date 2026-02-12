@@ -50,7 +50,7 @@
  * > mismatches that result in compilation or runtime errors. For more information,
  * > see
  * > [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-event_trace_logfilea
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-event_trace_logfilea
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  * @charset ANSI

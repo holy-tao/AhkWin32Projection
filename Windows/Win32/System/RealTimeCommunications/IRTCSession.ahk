@@ -95,7 +95,11 @@ class IRTCSession extends IUnknown{
      * @returns {IRTCClient} 
      */
     get_Client() {
-        result := ComCall(3, this, "ptr*", &ppClient := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppClient := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCClient(ppClient)
     }
 
@@ -104,7 +108,11 @@ class IRTCSession extends IUnknown{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(4, this, "int*", &penState := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &penState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penState
     }
 
@@ -113,8 +121,12 @@ class IRTCSession extends IUnknown{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(5, this, "int*", &penType := 0, "HRESULT")
-        return penType
+        result := ComCall(5, this, "int*", &penType_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return penType_
     }
 
     /**
@@ -122,7 +134,11 @@ class IRTCSession extends IUnknown{
      * @returns {IRTCProfile} 
      */
     get_Profile() {
-        result := ComCall(6, this, "ptr*", &ppProfile := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppProfile := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCProfile(ppProfile)
     }
 
@@ -131,7 +147,11 @@ class IRTCSession extends IUnknown{
      * @returns {IRTCCollection} 
      */
     get_Participants() {
-        result := ComCall(7, this, "ptr*", &ppCollection := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCCollection(ppCollection)
     }
 
@@ -140,32 +160,49 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     Answer() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Eliminates the cache and ends asynchronous I/O with the DLL.
      * @param {Integer} enReason 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Returns <b>TRUE</b> if the function succeeds; otherwise, it returns <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/filehc/nf-filehc-terminatecache
      */
     Terminate(enReason) {
-        result := ComCall(9, this, "int", enReason, "HRESULT")
+        result := ComCall(9, this, "int", enReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The installer sets the RedirectedDLLSupport property if the system platform performing the installation supports Isolated Components.
      * @param {Integer} enType 
      * @param {BSTR} bstrLocalPhoneURI 
      * @param {IRTCProfile} pProfile 
      * @param {Integer} lFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Msi/redirecteddllsupport
      */
     Redirect(enType, bstrLocalPhoneURI, pProfile, lFlags) {
-        bstrLocalPhoneURI := bstrLocalPhoneURI is String ? BSTR.Alloc(bstrLocalPhoneURI).Value : bstrLocalPhoneURI
+        if(bstrLocalPhoneURI is String) {
+            pin := BSTR.Alloc(bstrLocalPhoneURI)
+            bstrLocalPhoneURI := pin.Value
+        }
 
-        result := ComCall(10, this, "int", enType, "ptr", bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "HRESULT")
+        result := ComCall(10, this, "int", enType, "ptr", bstrLocalPhoneURI, "ptr", pProfile, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -176,10 +213,20 @@ class IRTCSession extends IUnknown{
      * @returns {IRTCParticipant} 
      */
     AddParticipant(bstrAddress, bstrName) {
-        bstrAddress := bstrAddress is String ? BSTR.Alloc(bstrAddress).Value : bstrAddress
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrAddress is String) {
+            pin := BSTR.Alloc(bstrAddress)
+            bstrAddress := pin.Value
+        }
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrAddress, "ptr", bstrName, "ptr*", &ppParticipant := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrAddress, "ptr", bstrName, "ptr*", &ppParticipant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCParticipant(ppParticipant)
     }
 
@@ -189,7 +236,11 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveParticipant(pParticipant) {
-        result := ComCall(12, this, "ptr", pParticipant, "HRESULT")
+        result := ComCall(12, this, "ptr", pParticipant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -198,7 +249,11 @@ class IRTCSession extends IUnknown{
      * @returns {IRTCEnumParticipants} 
      */
     EnumerateParticipants() {
-        result := ComCall(13, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCEnumParticipants(ppEnum)
     }
 
@@ -207,7 +262,11 @@ class IRTCSession extends IUnknown{
      * @returns {VARIANT_BOOL} 
      */
     get_CanAddParticipants() {
-        result := ComCall(14, this, "short*", &pfCanAdd := 0, "HRESULT")
+        result := ComCall(14, this, "short*", &pfCanAdd := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCanAdd
     }
 
@@ -217,7 +276,11 @@ class IRTCSession extends IUnknown{
      */
     get_RedirectedUserURI() {
         pbstrUserURI := BSTR()
-        result := ComCall(15, this, "ptr", pbstrUserURI, "HRESULT")
+        result := ComCall(15, this, "ptr", pbstrUserURI, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserURI
     }
 
@@ -227,7 +290,11 @@ class IRTCSession extends IUnknown{
      */
     get_RedirectedUserName() {
         pbstrUserName := BSTR()
-        result := ComCall(16, this, "ptr", pbstrUserName, "HRESULT")
+        result := ComCall(16, this, "ptr", pbstrUserName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrUserName
     }
 
@@ -236,25 +303,49 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     NextRedirectedUser() {
-        result := ComCall(17, this, "HRESULT")
+        result := ComCall(17, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message.
+     * Sends the specified message to a window or windows. The SendMessage function calls the window procedure for the specified window and does not return until the window procedure has processed the message. (SendMessageW)
+     * @remarks
+     * When a message is blocked by UIPI the last error, retrieved with <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, is set to 5 (access denied).
+     * 
+     * Applications that need to communicate using <b>HWND_BROADCAST</b> should use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerwindowmessagea">RegisterWindowMessage</a> function to obtain a unique message for inter-application communication.
+     * 
+     * The system only does marshalling for system messages (those in the range 0 to (<a href="https://docs.microsoft.com/windows/desktop/winmsg/wm-user">WM_USER</a>-1)). To send other messages (those &gt;= <b>WM_USER</b>) to another process, you must do custom marshalling.
+     * 
+     * If the specified window was created by the calling thread, the window procedure is called immediately as a subroutine. If the specified window was created by a different thread, the system switches to that thread and calls the appropriate window procedure. Messages sent between threads are processed only when the receiving thread executes message retrieval code. The sending thread is blocked until the receiving thread processes the message. However, the sending thread will process incoming nonqueued messages while waiting for its message to be processed. To prevent this, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-sendmessagetimeouta">SendMessageTimeout</a> with SMTO_BLOCK set. For more information on nonqueued messages, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/about-messages-and-message-queues">Nonqueued Messages</a>.
+     * 
+     *  An accessibility application can use <b>SendMessage</b> to send <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-appcommand">WM_APPCOMMAND</a> messages  to the shell to launch applications. This  functionality is not guaranteed to work for other types of applications.
      * @param {BSTR} bstrMessageHeader 
      * @param {BSTR} bstrMessage 
      * @param {Pointer} lCookie 
      * @returns {HRESULT} Type: <b>LRESULT</b>
      * 
      * The return value specifies the result of the message processing; it depends on the message sent.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-sendmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-sendmessage
      */
     SendMessage(bstrMessageHeader, bstrMessage, lCookie) {
-        bstrMessageHeader := bstrMessageHeader is String ? BSTR.Alloc(bstrMessageHeader).Value : bstrMessageHeader
-        bstrMessage := bstrMessage is String ? BSTR.Alloc(bstrMessage).Value : bstrMessage
+        if(bstrMessageHeader is String) {
+            pin := BSTR.Alloc(bstrMessageHeader)
+            bstrMessageHeader := pin.Value
+        }
+        if(bstrMessage is String) {
+            pin := BSTR.Alloc(bstrMessage)
+            bstrMessage := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrMessageHeader, "ptr", bstrMessage, "ptr", lCookie, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrMessageHeader, "ptr", bstrMessage, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -265,7 +356,11 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     SendMessageStatus(enUserStatus, lCookie) {
-        result := ComCall(19, this, "int", enUserStatus, "ptr", lCookie, "HRESULT")
+        result := ComCall(19, this, "int", enUserStatus, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,7 +371,11 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     AddStream(lMediaType, lCookie) {
-        result := ComCall(20, this, "int", lMediaType, "ptr", lCookie, "HRESULT")
+        result := ComCall(20, this, "int", lMediaType, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -287,7 +386,11 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveStream(lMediaType, lCookie) {
-        result := ComCall(21, this, "int", lMediaType, "ptr", lCookie, "HRESULT")
+        result := ComCall(21, this, "int", lMediaType, "ptr", lCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -298,9 +401,16 @@ class IRTCSession extends IUnknown{
      * @returns {HRESULT} 
      */
     put_EncryptionKey(lMediaType, EncryptionKey) {
-        EncryptionKey := EncryptionKey is String ? BSTR.Alloc(EncryptionKey).Value : EncryptionKey
+        if(EncryptionKey is String) {
+            pin := BSTR.Alloc(EncryptionKey)
+            EncryptionKey := pin.Value
+        }
 
-        result := ComCall(22, this, "int", lMediaType, "ptr", EncryptionKey, "HRESULT")
+        result := ComCall(22, this, "int", lMediaType, "ptr", EncryptionKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

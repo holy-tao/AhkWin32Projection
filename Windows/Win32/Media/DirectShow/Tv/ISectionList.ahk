@@ -6,11 +6,8 @@
 /**
  * The ISectionList interface represents a list of MPEG-2 table sections.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ISectionList)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nn-mpeg2data-isectionlist
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nn-mpeg2data-isectionlist
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -43,6 +40,8 @@ class ISectionList extends IUnknown{
 
     /**
      * The Initialize method initializes the object. This method should be called once, immediately after creating the object. The IMpeg2Data::GetSection and IMpeg2Data::GetTable methods call this method internally, so typically an application will not call it.
+     * @remarks
+     * This method is either synchronous or asynchronous, depending on the request type defined in the <i>requestType</i> parameter. When the method is asynchronous, it returns immediately and signals the event specified in <i>hDoneEvent</i>. When the method is synchronous, it blocks until the request completes or until the time out specified in the <i>timeout</i> parameter expires.
      * @param {Integer} requestType Specifies the request type, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ne-mpeg2structs-mpeg_request_type">MPEG_REQUEST_TYPE</a> value.
      * @param {IMpeg2Data} pMpeg2Data Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nn-mpeg2data-impeg2data">IMpeg2Data</a> interface of the MPEG-2 Sections and Tables filter.
      * @param {Pointer<MPEG_CONTEXT>} pContext Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_context">MPEG_CONTEXT</a> structure. This structure indicates the MPEG-2 source.
@@ -103,17 +102,28 @@ class ISectionList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-isectionlist-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-isectionlist-initialize
      */
     Initialize(requestType, pMpeg2Data, pContext, pid, tid, pFilter, timeout, hDoneEvent) {
         hDoneEvent := hDoneEvent is Win32Handle ? NumGet(hDoneEvent, "ptr") : hDoneEvent
 
-        result := ComCall(3, this, "int", requestType, "ptr", pMpeg2Data, "ptr", pContext, "ushort", pid, "char", tid, "ptr", pFilter, "uint", timeout, "ptr", hDoneEvent, "HRESULT")
+        result := ComCall(3, this, "int", requestType, "ptr", pMpeg2Data, "ptr", pContext, "ushort", pid, "char", tid, "ptr", pFilter, "uint", timeout, "ptr", hDoneEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The InitializeWithRawSections method initializes the object with raw section data. This method allows for custom processing of section data.
+     * @remarks
+     * Use this method as follows:
+     * 
+     * <ol>
+     * <li>Get the section data by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2data/nf-mpeg2data-impeg2data-getstreamofsections">IMpeg2Data::GetStreamOfSections</a> method.</li>
+     * <li>Create a new <b>SectionList</b> object and call <b>InitializeWithRawSections</b> with the section data.</li>
+     * </ol>
      * @param {Pointer<MPEG_PACKET_LIST>} pmplSections Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-mpeg_packet_list">MPEG_PACKET_LIST</a> structure that contains a list of MPEG-2 sections.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -156,10 +166,14 @@ class ISectionList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-isectionlist-initializewithrawsections
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-isectionlist-initializewithrawsections
      */
     InitializeWithRawSections(pmplSections) {
-        result := ComCall(4, this, "ptr", pmplSections, "HRESULT")
+        result := ComCall(4, this, "ptr", pmplSections, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,25 +198,37 @@ class ISectionList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-isectionlist-cancelpendingrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-isectionlist-cancelpendingrequest
      */
     CancelPendingRequest() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetNumberOfSections method returns the number of MPEG-2 sections that were received.
      * @returns {Integer} Receives the number of sections.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-isectionlist-getnumberofsections
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-isectionlist-getnumberofsections
      */
     GetNumberOfSections() {
-        result := ComCall(6, this, "ushort*", &pCount := 0, "HRESULT")
+        result := ComCall(6, this, "ushort*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
     /**
      * The GetSectionData method retrieves a section.
+     * @remarks
+     * The section header is converted from network byte order to native byte order. The number of header bytes that are converted depends on the header type. The header types are <i>short header</i> (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-section">SECTION</a> structure), <i>long header</i> (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-long_section">LONG_SECTION</a> structure), or <i>DSM-CC header</i> (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mpeg2structs/ns-mpeg2structs-dsmcc_section">DSMCC_SECTION</a> structure). If the section has a short header, the first three bytes are converted; for a long header, the first eight bytes are converted; and for a DSM-CC header, the first 20 bytes are converted.
+     * 
+     * The body of the section data, after the header, is left unparsed and unconverted.
      * @param {Integer} sectionNumber Specifies the section number to retrieve, indexed from zero. Call the <b>GetNumberOfSections</b> method to get the number of sections.
      * @param {Pointer<Integer>} pdwRawPacketLength Receives the size of the section data, in bytes.
      * @param {Pointer<Pointer<SECTION>>} ppSection Address of a variable that receives a pointer to a <b>SECTION</b> structure, containing the section data. Do not free the memory for the structure; the object frees the memory when the interface is released.
@@ -258,18 +284,24 @@ class ISectionList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-isectionlist-getsectiondata
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-isectionlist-getsectiondata
      */
     GetSectionData(sectionNumber, pdwRawPacketLength, ppSection) {
         pdwRawPacketLengthMarshal := pdwRawPacketLength is VarRef ? "uint*" : "ptr"
         ppSectionMarshal := ppSection is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(7, this, "ushort", sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, ppSectionMarshal, ppSection, "HRESULT")
+        result := ComCall(7, this, "ushort", sectionNumber, pdwRawPacketLengthMarshal, pdwRawPacketLength, ppSectionMarshal, ppSection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetProgramIdentifier method retrieves the program identifier (PID) of the packets that this object is receiving.
+     * @remarks
+     * The PID value is set when the object is first initialized.
      * @param {Pointer<Integer>} pPid Receives the PID.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -301,17 +333,23 @@ class ISectionList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-isectionlist-getprogramidentifier
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-isectionlist-getprogramidentifier
      */
     GetProgramIdentifier(pPid) {
         pPidMarshal := pPid is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, pPidMarshal, pPid, "HRESULT")
+        result := ComCall(8, this, pPidMarshal, pPid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetTableIdentifier method returns the table identifier (TID) of the packets that this object is receiving.
+     * @remarks
+     * The TID value is set when the object is first initialized.
      * @param {Pointer<Integer>} pTableId Receives the TID.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -343,12 +381,16 @@ class ISectionList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2data/nf-mpeg2data-isectionlist-gettableidentifier
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2data/nf-mpeg2data-isectionlist-gettableidentifier
      */
     GetTableIdentifier(pTableId) {
         pTableIdMarshal := pTableId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, pTableIdMarshal, pTableId, "HRESULT")
+        result := ComCall(9, this, pTableIdMarshal, pTableId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

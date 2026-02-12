@@ -4,8 +4,8 @@
 #Include .\ID2D1Image.ahk
 
 /**
- * Represents a producer of pixels that can fill an arbitrary 2D plane.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1imagesource
+ * Represents a producer of pixels that can fill an arbitrary 2D plane. (ID2D1ImageSource)
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1imagesource
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -31,8 +31,8 @@ class ID2D1ImageSource extends ID2D1Image{
     static VTableNames => ["OfferResources", "TryReclaimResources"]
 
     /**
-     * Allows the operating system to free the video memory of resources by discarding their content.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * Allows the operating system to free the video memory of resources by discarding their content. (ID2D1ImageSource.OfferResources)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * <b>OfferResources</b> returns:
      *             
@@ -43,23 +43,36 @@ class ID2D1ImageSource extends ID2D1Image{
      * <li><b>E_INVALIDARG</b> if a resource in the array or the priority is invalid
      *               </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1imagesource-offerresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1imagesource-offerresources
      */
     OfferResources() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Restores access to resources that were previously offered by calling OfferResources.
+     * @remarks
+     * After you call <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1imagesource-offerresources">OfferResources</a> to offer one or more resources, 
+     * you must call <b>TryReclaimResources</b> before you can use those resources again. 
+     * You must check the value in the <b>resourcesDiscarded</b> to determine whether the resource’s content was discarded. 
+     * If a resource’s content was discarded while it was offered, its current content is undefined. Therefore, you must overwrite the resource’s content before you use the resource.
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Returns with TRUE if the corresponding resource’s content was discarded and is now undefined, or FALSE if the corresponding resource’s old content is still intact.
      *             The caller can pass in NULL, if the caller intends to fill the resources with new content regardless of whether the old content was discarded.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1imagesource-tryreclaimresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1imagesource-tryreclaimresources
      */
     TryReclaimResources() {
-        result := ComCall(5, this, "int*", &resourcesDiscarded := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &resourcesDiscarded := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return resourcesDiscarded
     }
 }

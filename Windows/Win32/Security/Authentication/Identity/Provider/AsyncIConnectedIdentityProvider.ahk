@@ -43,7 +43,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
     Begin_ConnectIdentity(AuthBuffer, AuthBufferSize) {
         AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, "uint", AuthBufferSize, "HRESULT")
+        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, "uint", AuthBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +56,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_ConnectIdentity() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_DisconnectIdentity() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_DisconnectIdentity() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +95,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_IsConnected() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,18 +108,26 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {BOOL} 
      */
     Finish_IsConnected() {
-        result := ComCall(8, this, "int*", &Connected := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Connected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Connected
     }
 
     /**
      * 
      * @param {Integer} Identifier 
-     * @param {IBindCtx} Context 
+     * @param {IBindCtx} Context_ 
      * @returns {HRESULT} 
      */
-    Begin_GetUrl(Identifier, Context) {
-        result := ComCall(9, this, "int", Identifier, "ptr", Context, "HRESULT")
+    Begin_GetUrl(Identifier, Context_) {
+        result := ComCall(9, this, "int", Identifier, "ptr", Context_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +140,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
     Finish_GetUrl(PostData, Url) {
         UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(10, this, "ptr", PostData, UrlMarshal, Url, "HRESULT")
+        result := ComCall(10, this, "ptr", PostData, UrlMarshal, Url, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +153,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_GetAccountState() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -130,7 +166,11 @@ class AsyncIConnectedIdentityProvider extends IUnknown{
      * @returns {Integer} 
      */
     Finish_GetAccountState() {
-        result := ComCall(12, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 }

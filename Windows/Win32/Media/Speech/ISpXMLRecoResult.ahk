@@ -34,7 +34,11 @@ class ISpXMLRecoResult extends ISpRecoResult{
      * @returns {PWSTR} 
      */
     GetXMLResult(Options) {
-        result := ComCall(14, this, "ptr*", &ppszCoMemXMLResult := 0, "int", Options, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppszCoMemXMLResult := 0, "int", Options, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszCoMemXMLResult
     }
 
@@ -44,7 +48,11 @@ class ISpXMLRecoResult extends ISpRecoResult{
      * @returns {HRESULT} 
      */
     GetXMLErrorInfo(pSemanticErrorInfo) {
-        result := ComCall(15, this, "ptr", pSemanticErrorInfo, "HRESULT")
+        result := ComCall(15, this, "ptr", pSemanticErrorInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

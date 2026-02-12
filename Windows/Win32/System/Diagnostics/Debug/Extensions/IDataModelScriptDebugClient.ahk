@@ -39,7 +39,11 @@ class IDataModelScriptDebugClient extends IUnknown{
     NotifyDebugEvent(pEventInfo, pScript, pEventDataObject, resumeEventKind) {
         resumeEventKindMarshal := resumeEventKind is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pEventInfo, "ptr", pScript, "ptr", pEventDataObject, resumeEventKindMarshal, resumeEventKind, "HRESULT")
+        result := ComCall(3, this, "ptr", pEventInfo, "ptr", pScript, "ptr", pEventDataObject, resumeEventKindMarshal, resumeEventKind, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

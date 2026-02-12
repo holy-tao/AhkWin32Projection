@@ -34,7 +34,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {ISyncChange} 
      */
     GetDestinationProviderConflictingChange() {
-        result := ComCall(3, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppConflictingChange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChange(ppConflictingChange)
     }
 
@@ -43,7 +47,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {ISyncChange} 
      */
     GetSourceProviderConflictingChange() {
-        result := ComCall(4, this, "ptr*", &ppConflictingChange := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppConflictingChange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChange(ppConflictingChange)
     }
 
@@ -52,7 +60,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {ISyncChange} 
      */
     GetDestinationProviderOriginalChange() {
-        result := ComCall(5, this, "ptr*", &ppOriginalChange := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppOriginalChange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncChange(ppOriginalChange)
     }
 
@@ -61,7 +73,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {IUnknown} 
      */
     GetDestinationProviderConflictingData() {
-        result := ComCall(6, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppConflictingData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppConflictingData)
     }
 
@@ -70,7 +86,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {IUnknown} 
      */
     GetSourceProviderConflictingData() {
-        result := ComCall(7, this, "ptr*", &ppConflictingData := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppConflictingData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppConflictingData)
     }
 
@@ -79,7 +99,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {IUnknown} 
      */
     GetDestinationProviderOriginalData() {
-        result := ComCall(8, this, "ptr*", &ppOriginalData := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppOriginalData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppOriginalData)
     }
 
@@ -91,7 +115,11 @@ class IConstraintConflict extends IUnknown{
     GetConstraintResolveActionForChange(pConstraintResolveAction) {
         pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pConstraintResolveActionMarshal, pConstraintResolveAction, "HRESULT")
+        result := ComCall(9, this, pConstraintResolveActionMarshal, pConstraintResolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -101,7 +129,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConstraintResolveActionForChange(constraintResolveAction) {
-        result := ComCall(10, this, "int", constraintResolveAction, "HRESULT")
+        result := ComCall(10, this, "int", constraintResolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,7 +146,11 @@ class IConstraintConflict extends IUnknown{
     GetConstraintResolveActionForChangeUnit(pChangeUnit, pConstraintResolveAction) {
         pConstraintResolveActionMarshal := pConstraintResolveAction is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, "ptr", pChangeUnit, pConstraintResolveActionMarshal, pConstraintResolveAction, "HRESULT")
+        result := ComCall(11, this, "ptr", pChangeUnit, pConstraintResolveActionMarshal, pConstraintResolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -125,7 +161,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConstraintResolveActionForChangeUnit(pChangeUnit, constraintResolveAction) {
-        result := ComCall(12, this, "ptr", pChangeUnit, "int", constraintResolveAction, "HRESULT")
+        result := ComCall(12, this, "ptr", pChangeUnit, "int", constraintResolveAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,7 +177,11 @@ class IConstraintConflict extends IUnknown{
     GetConstraintConflictReason(pConstraintConflictReason) {
         pConstraintConflictReasonMarshal := pConstraintConflictReason is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, pConstraintConflictReasonMarshal, pConstraintConflictReason, "HRESULT")
+        result := ComCall(13, this, pConstraintConflictReasonMarshal, pConstraintConflictReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +190,11 @@ class IConstraintConflict extends IUnknown{
      * @returns {HRESULT} 
      */
     IsTemporary() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

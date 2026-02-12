@@ -5,7 +5,7 @@
  * Specifies the set of types of interactive UI context data supplied to certain supplicant API calls.
  * @remarks
  * The <b>EAP_INTERACTIVE_UI_DATA_TYPE</b> is used to support Single-Sign-On (SSO).
- * @see https://learn.microsoft.com/windows/win32/api/eaptypes/ne-eaptypes-eap_interactive_ui_data_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/eaptypes/ne-eaptypes-eap_interactive_ui_data_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * Provides methods of interaction with a connected identity provider.
- * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nn-identityprovider-iconnectedidentityprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nn-identityprovider-iconnectedidentityprovider
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IConnectedIdentityProvider extends IUnknown{
 
     /**
      * Connects an identity to a domain user.
+     * @remarks
+     * The <i>AuthBuffer</i> parameter can be encrypted in the system context if the credential is collected on the secure desktop. In that case, the identity provider cannot decrypt the credential in the current process. To decrypt the buffer, the identity provider will need to send the credential to a process that is running in the system context.
      * @param {Pointer<Integer>} AuthBuffer A marshaled authentication buffer <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that contains the credential of the online identity. The buffer can be constructed by the caller by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function with the CRED_PACK_ID_PROVIDER_CREDENTIALS option or returned by an online identity credential provider from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> function. The buffer can be optionally encrypted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiencryptauthidentityex">SspiEncryptAuthIdentityEx</a> function with the SEC_WINNT_AUTH_IDENTITY_ENCRYPT_SAME_LOGON option.
      * @param {Integer} AuthBufferSize Size, in bytes, of the <i>AuthBuffer</i> parameter.
      * @returns {HRESULT} If the method succeeds, returns S_OK.
@@ -88,12 +90,16 @@ class IConnectedIdentityProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
      */
     ConnectIdentity(AuthBuffer, AuthBufferSize) {
         AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, "uint", AuthBufferSize, "HRESULT")
+        result := ComCall(3, this, AuthBufferMarshal, AuthBuffer, "uint", AuthBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,10 +137,14 @@ class IConnectedIdentityProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-disconnectidentity
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iconnectedidentityprovider-disconnectidentity
      */
     DisconnectIdentity() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,25 +153,33 @@ class IConnectedIdentityProvider extends IUnknown{
      * @returns {BOOL} 
      */
     IsConnected() {
-        result := ComCall(5, this, "int*", &Connected := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &Connected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Connected
     }
 
     /**
      * Returns the URL string for the specified wizard or webpage.
      * @param {Integer} Identifier Identifies the wizard or webpage that should be returned.
-     * @param {IBindCtx} Context Describes the context in which the URL will be displayed.
+     * @param {IBindCtx} Context_ Describes the context in which the URL will be displayed.
      * @param {Pointer<VARIANT>} PostData A <b>VARIANT</b> of type VT_ARRAY and VT_UI1 that will be posted to the provided URL. If the post data is not required, this parameter should be set to VT_EMPTY.
      * @param {Pointer<PWSTR>} Url Returns a URL for the specified identity wizard or webpage. The URL must begin with <b>https://</b>.
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, the method returns a Win32 error code.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
      */
-    GetUrl(Identifier, Context, PostData, Url) {
+    GetUrl(Identifier, Context_, PostData, Url) {
         UrlMarshal := Url is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, "int", Identifier, "ptr", Context, "ptr", PostData, UrlMarshal, Url, "HRESULT")
+        result := ComCall(6, this, "int", Identifier, "ptr", Context_, "ptr", PostData, UrlMarshal, Url, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,7 +188,11 @@ class IConnectedIdentityProvider extends IUnknown{
      * @returns {Integer} 
      */
     GetAccountState() {
-        result := ComCall(7, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 }

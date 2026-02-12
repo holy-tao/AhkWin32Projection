@@ -6,7 +6,6 @@
 /**
  * Callback interface for the Microsoft Media Foundation sink writer.
  * @remarks
- * 
  * Set the callback pointer by setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-sink-writer-async-callback">MF_SINK_WRITER_ASYNC_CALLBACK</a> attribute when you first create the sink writer.
  * 
  * 
@@ -14,9 +13,7 @@
  * The callback methods can be called from any thread, so an object that implements this interface must be thread-safe.
  * 
  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nn-mfreadwrite-imfsinkwritercallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nn-mfreadwrite-imfsinkwritercallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -43,26 +40,38 @@ class IMFSinkWriterCallback extends IUnknown{
 
     /**
      * Called when the IMFSinkWriter::Finalize method completes.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {HRESULT} hrStatus The status code for the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-finalize">Finalize</a> operation. If the value is an error code, the output file might be invalid.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the sink writer ignores the return value.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onfinalize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onfinalize
      */
     OnFinalize(hrStatus) {
-        result := ComCall(3, this, "int", hrStatus, "HRESULT")
+        result := ComCall(3, this, "int", hrStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Called when the IMFSinkWriter::PlaceMarker method completes.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The zero-based index of the stream. This parameter equals the value of the <i>dwStreamIndex</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-placemarker">PlaceMarker</a> method.
      * @param {Pointer<Void>} pvContext The application-defined value that was given in the <i>pvContext</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsinkwriter-placemarker">PlaceMarker</a> method.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Currently, the sink writer ignores the return value.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onmarker
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfreadwrite/nf-mfreadwrite-imfsinkwritercallback-onmarker
      */
     OnMarker(dwStreamIndex, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(4, this, "uint", dwStreamIndex, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(4, this, "uint", dwStreamIndex, pvContextMarshal, pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

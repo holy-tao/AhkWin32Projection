@@ -62,7 +62,11 @@ class IVBSAXLocator extends IDispatch{
      * @returns {Integer} 
      */
     get_columnNumber() {
-        result := ComCall(7, this, "int*", &nColumn := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &nColumn := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return nColumn
     }
 
@@ -71,7 +75,11 @@ class IVBSAXLocator extends IDispatch{
      * @returns {Integer} 
      */
     get_lineNumber() {
-        result := ComCall(8, this, "int*", &nLine := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &nLine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return nLine
     }
 
@@ -81,7 +89,11 @@ class IVBSAXLocator extends IDispatch{
      */
     get_publicId() {
         strPublicId := BSTR()
-        result := ComCall(9, this, "ptr", strPublicId, "HRESULT")
+        result := ComCall(9, this, "ptr", strPublicId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strPublicId
     }
 
@@ -91,7 +103,11 @@ class IVBSAXLocator extends IDispatch{
      */
     get_systemId() {
         strSystemId := BSTR()
-        result := ComCall(10, this, "ptr", strSystemId, "HRESULT")
+        result := ComCall(10, this, "ptr", strSystemId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strSystemId
     }
 }

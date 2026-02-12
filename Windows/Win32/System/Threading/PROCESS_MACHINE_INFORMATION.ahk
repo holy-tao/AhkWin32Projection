@@ -5,7 +5,7 @@
  * Specifies the architecture of a process and if that architecture of code can run in user mode, kernel mode, and/or under WoW64 on the host operating system.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/ns-processthreadsapi-process_machine_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/processthreadsapi/ns-processthreadsapi-process_machine_information
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

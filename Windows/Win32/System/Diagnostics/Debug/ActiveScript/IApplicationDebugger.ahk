@@ -33,7 +33,11 @@ class IApplicationDebugger extends IUnknown{
      * @returns {HRESULT} 
      */
     QueryAlive() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,22 +47,30 @@ class IApplicationDebugger extends IUnknown{
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
-     * @returns {IUnknown} 
+     * @returns {Pointer<IUnknown>} 
      */
     CreateInstanceAtDebugger(rclsid, pUnkOuter, dwClsContext, riid) {
-        result := ComCall(4, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
-        return IUnknown(ppvObject)
+        result := ComCall(4, this, "ptr", rclsid, "ptr", pUnkOuter, "uint", dwClsContext, "ptr", riid, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppvObject
     }
 
     /**
      * 
-     * @param {PWSTR} pstr 
+     * @param {PWSTR} pstr_ 
      * @returns {HRESULT} 
      */
-    onDebugOutput(pstr) {
-        pstr := pstr is String ? StrPtr(pstr) : pstr
+    onDebugOutput(pstr_) {
+        pstr_ := pstr_ is String ? StrPtr(pstr_) : pstr_
 
-        result := ComCall(5, this, "ptr", pstr, "HRESULT")
+        result := ComCall(5, this, "ptr", pstr_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +82,11 @@ class IApplicationDebugger extends IUnknown{
      * @returns {HRESULT} 
      */
     onHandleBreakPoint(prpt, br, pError) {
-        result := ComCall(6, this, "ptr", prpt, "int", br, "ptr", pError, "HRESULT")
+        result := ComCall(6, this, "ptr", prpt, "int", br, "ptr", pError, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +95,11 @@ class IApplicationDebugger extends IUnknown{
      * @returns {HRESULT} 
      */
     onClose() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +110,11 @@ class IApplicationDebugger extends IUnknown{
      * @returns {HRESULT} 
      */
     onDebuggerEvent(riid, punk) {
-        result := ComCall(8, this, "ptr", riid, "ptr", punk, "HRESULT")
+        result := ComCall(8, this, "ptr", riid, "ptr", punk, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -33,7 +33,7 @@
  * <td>The camera supports relative controls for this setting. A relative control is divided into a number of steps with no defined units. The absolute size of each step depends on the camera model.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-cameracontrolflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-cameracontrolflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

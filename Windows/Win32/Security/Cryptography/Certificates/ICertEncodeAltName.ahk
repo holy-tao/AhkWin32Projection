@@ -6,7 +6,7 @@
 
 /**
  * Provides methods for handling alternate names used in certificate extensions.
- * @see https://docs.microsoft.com/windows/win32/api//certenc/nn-certenc-icertencodealtname
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nn-certenc-icertencodealtname
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -37,23 +37,34 @@ class ICertEncodeAltName extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodealtname-decode
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nf-certenc-icertencodealtname-decode
      */
     Decode(strBinary) {
-        strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
+        if(strBinary is String) {
+            pin := BSTR.Alloc(strBinary)
+            strBinary := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", strBinary, "HRESULT")
+        result := ComCall(7, this, "ptr", strBinary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns the number of names in the alternate name array.
      * @returns {Integer} The number of alternate names in the array.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodealtname-getnamecount
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nf-certenc-icertencodealtname-getnamecount
      */
     GetNameCount() {
-        result := ComCall(8, this, "int*", &pNameCount := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pNameCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNameCount
     }
 
@@ -61,10 +72,14 @@ class ICertEncodeAltName extends IDispatch{
      * Returns the name choice at a specified index of an alternate name array.
      * @param {Integer} NameIndex Specifies the index of the alternate name entry. The first entry is at index zero.
      * @returns {Integer} A pointer to a <b>LONG</b> that receives the name choice specifier.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodealtname-getnamechoice
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nf-certenc-icertencodealtname-getnamechoice
      */
     GetNameChoice(NameIndex) {
-        result := ComCall(9, this, "int", NameIndex, "int*", &pNameChoice := 0, "HRESULT")
+        result := ComCall(9, this, "int", NameIndex, "int*", &pNameChoice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNameChoice
     }
 
@@ -74,11 +89,15 @@ class ICertEncodeAltName extends IDispatch{
      * 
      * To retrieve the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID) of a CERT_ALT_NAME_OTHER_NAME name, combine the index value with EAN_NAMEOBJECTID (defined as 0x80000000) with a bitwise-<b>OR</b> operation. Otherwise, the binary value is retrieved. To determine the type of name, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenc/nf-certenc-icertencodealtname-getnamechoice">ICertEncodeAltName::GetNameChoice</a> method.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the alternate name. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodealtname-getname
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nf-certenc-icertencodealtname-getname
      */
     GetName(NameIndex) {
         pstrName := BSTR()
-        result := ComCall(10, this, "int", NameIndex, "ptr", pstrName, "HRESULT")
+        result := ComCall(10, this, "int", NameIndex, "ptr", pstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrName
     }
 
@@ -88,11 +107,15 @@ class ICertEncodeAltName extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodealtname-reset
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nf-certenc-icertencodealtname-reset
      */
     Reset(NameCount) {
-        result := ComCall(11, this, "int", NameCount, "HRESULT")
+        result := ComCall(11, this, "int", NameCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -106,24 +129,35 @@ class ICertEncodeAltName extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodealtname-setnameentry
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nf-certenc-icertencodealtname-setnameentry
      */
     SetNameEntry(NameIndex, NameChoice, strName) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(12, this, "int", NameIndex, "int", NameChoice, "ptr", strName, "HRESULT")
+        result := ComCall(12, this, "int", NameIndex, "int", NameChoice, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Returns an ASN.1-encoded string of the alternate name array stored in this object. The names in the object are not encoded.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that receives the ASN.1-encoded alternate name extension. When done, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free <i>pbstrBinary</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodealtname-encode
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenc/nf-certenc-icertencodealtname-encode
      */
     Encode() {
         pstrBinary := BSTR()
-        result := ComCall(13, this, "ptr", pstrBinary, "HRESULT")
+        result := ComCall(13, this, "ptr", pstrBinary, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pstrBinary
     }
 }

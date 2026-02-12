@@ -9,7 +9,6 @@
 /**
  * Represents a collection of IInkExtendedProperty objects that contain application-defined data.
  * @remarks
- * 
  * The extended property data is indexed by an application-specific globally unique identifier (GUID).
  * 
  * <div class="alert"><b>Note</b>  You cannot store an empty <b>IInkExtendedProperties</b> object. The object must contain data before it can be stored. For example, if you try to add extended properties to a stroke for later use, an exception is thrown if the extended property contains no data.</div>
@@ -19,9 +18,7 @@
  * For more information about collections in Automation, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkextendedproperties
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkextendedproperties
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -61,12 +58,16 @@ class IInkExtendedProperties extends IDispatch{
     }
 
     /**
-     * Gets the number of objects or collections contained in a collection.
+     * Gets the number of objects or collections contained in a collection. (IInkExtendedProperties.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-get_count
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperties-get_count
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &Count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Count
     }
 
@@ -75,25 +76,53 @@ class IInkExtendedProperties extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &_NewEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(_NewEnum)
     }
 
     /**
      * Retrieves the IInkExtendedProperty object at the specified index within the IInkExtendedProperties collection.
+     * @remarks
+     * An error occurs if the index doesn't match any existing member of the collection.
+     * 
+     * The <b>Item</b> method takes an input argument of type VARIANT. However, the subtype of this variable must be integer or STRING (BSTR). This means that when you are using late binding, such as when you use a scripting language, you must pass in the argument as a STRING literal and not use a variable.
+     * 
+     * For more information about the VARIANT and BSTR data types, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @param {VARIANT} Identifier The zero-based index or GUID of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object to get.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {IInkExtendedProperty} When this method returns, contains a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperties">IInkExtendedProperties</a> collection.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-item
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperties-item
      */
     Item(Identifier) {
-        result := ComCall(9, this, "ptr", Identifier, "ptr*", &Item := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", Identifier, "ptr*", &Item := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkExtendedProperty(Item)
     }
 
     /**
      * Creates and adds an IInkExtendedProperty object to the IInkExtendedProperties collection.
+     * @remarks
+     * <div class="alert"><b>Note</b>  You cannot store an empty <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object. The object must contain data before it can be stored. For example, if you try to add extended properties to a stroke for later use, an exception is thrown if the extended property contains no data.</div>
+     * <div> </div>
+     * The following types are acceptable:
+     * 
+     * <ul>
+     * <li>Byte or CHAR array</li>
+     * <li>Arrays of integers, floats, large integers, doubles, dates, or decimals</li>
+     * <li>Booleans (but not arrays of Booleans)</li>
+     * <li>BSTRs (but not arrays of BSTRs)</li>
+     * <li>Arrays of Variants. All arrays of variants passed as an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> must be of the same type and be all numeric. For example, variant arrays of BSTRS, arrays of arrays, VT_NULL and VT_EMPTY are not supported.</li>
+     * </ul>
+     * <div class="alert"><b>Note</b>  If you call this method with the <i>Guid</i> parameter set to a GUID that already exists in the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperties">IInkExtendedProperties</a> collection, the new data will replace the existing extended property for that GUID instead of adding a second element.</div>
+     * <div> </div>
      * @param {BSTR} Guid The name of the new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object. The name is expressed as a BSTR that represents the globally unique identifier (GUID) in the following format:
      * 
      * {dfc71f44-354b-4ca1-93d7-7459410b6343} (Including curly braces)
@@ -102,18 +131,31 @@ class IInkExtendedProperties extends IDispatch{
      * @param {VARIANT} Data The data for the new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
-     * @returns {IInkExtendedProperty} When this method returns, contains a poitner to the new extended property.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-add
+     * @returns {IInkExtendedProperty} When this method returns, contains a pointer to the new extended property.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperties-add
      */
     Add(Guid, Data) {
-        Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
+        if(Guid is String) {
+            pin := BSTR.Alloc(Guid)
+            Guid := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", Guid, "ptr", Data, "ptr*", &InkExtendedProperty := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", Guid, "ptr", Data, "ptr*", &InkExtendedProperty := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkExtendedProperty(InkExtendedProperty)
     }
 
     /**
      * Removes the IInkExtendedProperty object from the IInkExtendedProperties collection.
+     * @remarks
+     * This method removes only the extended property from a snapshot of, or reference to, the ink data and does not remove the actual ink data.
+     * 
+     * The <i>Identifier</i> parameter can be a BSTR, a LONG, or an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>. Use a BSTR for the GUID of the property, a LONG for the index of the property, and an <b>IDispatch</b> for a reference to a specific property. To specify the GUID of the property when you are using late binding, such as when you use a scripting language, you must pass in the argument as a STRING literal and not use a variable.
+     * 
+     * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @param {VARIANT} Identifier The identifier of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperty">IInkExtendedProperty</a> object to remove from the collection. The identifier can be a globally unique identifier (GUID), an index, or an extended property object.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
@@ -213,15 +255,21 @@ class IInkExtendedProperties extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-remove
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperties-remove
      */
     Remove(Identifier) {
-        result := ComCall(11, this, "ptr", Identifier, "HRESULT")
+        result := ComCall(11, this, "ptr", Identifier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Clears all of the IInkExtendedProperty objects from the IInkExtendedProperties collection.
+     * @remarks
+     * To clear only one extended property at a time, call the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkextendedproperties-remove">Remove</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkextendedproperties">IInkExtendedProperties</a> collection.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -263,10 +311,14 @@ class IInkExtendedProperties extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-clear
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperties-clear
      */
     Clear() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,12 +328,19 @@ class IInkExtendedProperties extends IDispatch{
      * 
      * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {VARIANT_BOOL} When this method returns, contains <b>VARIANT_TRUE</b> if the property exists within the collection; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkextendedproperties-doespropertyexist
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkextendedproperties-doespropertyexist
      */
     DoesPropertyExist(Guid) {
-        Guid := Guid is String ? BSTR.Alloc(Guid).Value : Guid
+        if(Guid is String) {
+            pin := BSTR.Alloc(Guid)
+            Guid := pin.Value
+        }
 
-        result := ComCall(13, this, "ptr", Guid, "short*", &DoesPropertyExist := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", Guid, "short*", &DoesPropertyExist := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DoesPropertyExist
     }
 }

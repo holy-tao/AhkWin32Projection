@@ -33,7 +33,11 @@ class IOfflineFilesEvents4 extends IOfflineFilesEvents3{
      * @returns {HRESULT} 
      */
     PrefetchCloseHandleBegin() {
-        result := ComCall(40, this, "HRESULT")
+        result := ComCall(40, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IOfflineFilesEvents4 extends IOfflineFilesEvents3{
      * @returns {HRESULT} 
      */
     PrefetchCloseHandleEnd(dwClosedHandleCount, dwOpenHandleCount, hrResult) {
-        result := ComCall(41, this, "uint", dwClosedHandleCount, "uint", dwOpenHandleCount, "int", hrResult, "HRESULT")
+        result := ComCall(41, this, "uint", dwClosedHandleCount, "uint", dwOpenHandleCount, "int", hrResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

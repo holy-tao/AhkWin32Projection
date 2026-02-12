@@ -17,7 +17,7 @@
  * 
  * <div class="alert"><b>Note</b>  Because VBScript cannot read data from a type library, Visual Basic Scripting Edition (VBScript) applications do not recognize symbolic, as constants defined above. Instead, use the numerical constants instead to set the appropriate flags in your VBScript applications. To use the symbolic constants, write explicit declarations of such constants, as done here.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/iads/ne-iads-ads_escape_mode_enum
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/ne-iads-ads_escape_mode_enum
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

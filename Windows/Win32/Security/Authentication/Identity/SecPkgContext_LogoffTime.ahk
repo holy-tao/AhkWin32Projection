@@ -5,7 +5,7 @@
  * The logoff time of the security context.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-secpkgcontext_logofftime
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-secpkgcontext_logofftime
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

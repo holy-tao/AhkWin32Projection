@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that allows communication between Windows Explorer and a folder view implemented using the system folder view object (the IShellView object returned through SHCreateShellFolderView) so that the folder view can be notified of events and modify its view accordingly.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-ishellfolderviewcb
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nn-shlobj_core-ishellfolderviewcb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -218,10 +218,10 @@ class IShellFolderViewCB extends IUnknown{
      * <td>Notifies the callback object that the folder view window is being created.</td>
      * </tr>
      * </table>
-     * @param {WPARAM} wParam Type: <b>WPARAM</b>
+     * @param {WPARAM} wParam_ Type: <b>WPARAM</b>
      * 
      * Additional information. See the individual notification pages for specific requirements.
-     * @param {LPARAM} lParam Type: <b>LPARAM</b>
+     * @param {LPARAM} lParam_ Type: <b>LPARAM</b>
      * 
      * Additional information. See the individual notification pages for specific requirements.
      * @returns {HRESULT} Type: <b>HRESULT</b>
@@ -256,10 +256,17 @@ class IShellFolderViewCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderviewcb-messagesfvcb
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-ishellfolderviewcb-messagesfvcb
      */
-    MessageSFVCB(uMsg, wParam, lParam) {
-        result := ComCall(3, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
+    MessageSFVCB(uMsg, wParam_, lParam_) {
+        wParam_ := wParam_ is Win32Handle ? NumGet(wParam_, "ptr") : wParam_
+        lParam_ := lParam_ is Win32Handle ? NumGet(lParam_, "ptr") : lParam_
+
+        result := ComCall(3, this, "uint", uMsg, "ptr", wParam_, "ptr", lParam_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

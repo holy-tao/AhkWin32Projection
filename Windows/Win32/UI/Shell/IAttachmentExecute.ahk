@@ -7,7 +7,6 @@
 /**
  * Exposes methods that work with client applications to present a user environment that provides safe download and exchange of files through email and messaging attachments.
  * @remarks
- * 
  * This interface assumes the following:
  *                 
  * 
@@ -154,8 +153,7 @@
  *     return hr;
  * }
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iattachmentexecute
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iattachmentexecute
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -182,55 +180,83 @@ class IAttachmentExecute extends IUnknown{
 
     /**
      * Specifies and stores the title of the prompt window.
+     * @remarks
+     * If <b>IAttachmentExecute::SetClientTitle</b> is not called, a default title of <b>File Download</b> is used in the prompt's title bar.
      * @param {PWSTR} pszTitle Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that contains the title text.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-setclienttitle
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setclienttitle
      */
     SetClientTitle(pszTitle) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
 
-        result := ComCall(3, this, "ptr", pszTitle, "HRESULT")
+        result := ComCall(3, this, "ptr", pszTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies and stores the GUID for the client.
+     * @remarks
+     * A user can choose not to display certain prompts. That information is stored in the registry on a per-client basis, indexed by <i>guid</i>.
      * @param {Pointer<Guid>} guid Type: <b>REFGUID</b>
      * 
      * The GUID that represents the client.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-setclientguid
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setclientguid
      */
     SetClientGuid(guid) {
-        result := ComCall(4, this, "ptr", guid, "HRESULT")
+        result := ComCall(4, this, "ptr", guid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets and stores the path to the file.
+     * @remarks
+     * Calling <b>IAttachmentExecute::SetLocalPath</b> is required.
+     * 
+     * When the attachment is approved for execution by the user (either through policy or prompt), the path specified by this method is used. If only <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setfilename">IAttachmentExecute::SetFileName</a> was called before calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-checkpolicy">IAttachmentExecute::CheckPolicy</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt">IAttachmentExecute::Prompt</a>, that trust could be revoked if the assumed local path was different from that set by <b>IAttachmentExecute::SetLocalPath</b>. Trust can be granted by various Zone APIs, antivirus services, file type information, policies as well as other system trust providers.
+     * 
+     * <b>IAttachmentExecute::SetLocalPath</b> must be called before calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-execute">IAttachmentExecute::Execute</a>.
      * @param {PWSTR} pszLocalPath Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that contains the local path where the attachment file is to be stored.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath
      */
     SetLocalPath(pszLocalPath) {
         pszLocalPath := pszLocalPath is String ? StrPtr(pszLocalPath) : pszLocalPath
 
-        result := ComCall(5, this, "ptr", pszLocalPath, "HRESULT")
+        result := ComCall(5, this, "ptr", pszLocalPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Specifies and stores the proposed name of the file.
+     * @remarks
+     * No path information should be included at <i>pszFileName</i>, just the file's name.
+     * 
+     * <b>IAttachmentExecute::SetFileName</b> can be used by the calling application to check the validity of the file name before copying the file locally. The file name is checked for name collisions against other files stored at the local path location.
+     * 
+     * <b>IAttachmentExecute::SetFileName</b> is optional.
      * @param {PWSTR} pszFileName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string that contains the file name.
@@ -266,51 +292,102 @@ class IAttachmentExecute extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-setfilename
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setfilename
      */
     SetFileName(pszFileName) {
         pszFileName := pszFileName is String ? StrPtr(pszFileName) : pszFileName
 
-        result := ComCall(6, this, "ptr", pszFileName, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFileName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets an alternate path or URL for the source of a file transfer.
+     * @remarks
+     * The path or URL declared here is used as the primary zone determinant. The policy under which the attachment is handled is based partially on the perceived zone. If <i>pszSource</i> is <b>NULL</b>, the default is Restricted Zone.
+     * 
+     * Calling <b>IAttachmentExecute::SetSource</b> is optional.
+     * 
+     * The path or URL declared here can also be used in the prompt UI as the <b>From</b> field.
+     * 
+     * The path or URL declared here can also be sent to handlers that can process URLs.
      * @param {PWSTR} pszSource Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string containing the path or URL to use as the source.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-setsource
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setsource
      */
     SetSource(pszSource) {
         pszSource := pszSource is String ? StrPtr(pszSource) : pszSource
 
-        result := ComCall(7, this, "ptr", pszSource, "HRESULT")
+        result := ComCall(7, this, "ptr", pszSource, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Sets the security zone associated with the attachment file based on the referring file.
+     * @remarks
+     * <b>IAttachmentExecute::SetReferrer</b> and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setsource">IAttachmentExecute::SetSource</a> have similar functionality. If both are set, the least-trusted zone of the two is used.
+     * 
+     * <b>IAttachmentExecute::SetReferrer</b> is used by container files to indicate indirect inheritance and avoid zone elevation. It can also be used with shortcut files to limit elevation based on parameters.
+     * 
+     * Calling <b>IAttachmentExecute::SetReferrer</b> is optional.
+     * 
+     * <b>IAttachmentExecute::SetReferrer</b> is only used to determine the security zone and its associated policies.
      * @param {PWSTR} pszReferrer Type: <b>LPCWSTR</b>
      * 
      * A pointer to a string containing the path of the referring file.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-setreferrer
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setreferrer
      */
     SetReferrer(pszReferrer) {
         pszReferrer := pszReferrer is String ? StrPtr(pszReferrer) : pszReferrer
 
-        result := ComCall(8, this, "ptr", pszReferrer, "HRESULT")
+        result := ComCall(8, this, "ptr", pszReferrer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Provides a Boolean test that can be used to make decisions based on the attachment's execution policy.
+     * @remarks
+     * <b>IAttachmentExecute::CheckPolicy</b> examines a set of properties known collectively as <i>evidence</i>. Anything used to determine trust level is considered evidence. These properties are set using the following methods.
+     * 
+     * 				
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setfilename">IAttachmentExecute::SetFileName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setreferrer">IAttachmentExecute::SetReferrer</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setsource">IAttachmentExecute::SetSource</a>
+     * </li>
+     * </ul>
+     * The information returned by <b>IAttachmentExecute::CheckPolicy</b> enables an application to modify its UI appropriately for the situation.
+     * 			
+     * 
+     * <b>IAttachmentExecute::CheckPolicy</b> requires the application first to call either <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setfilename">IAttachmentExecute::SetFileName</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns one of the following values.
@@ -334,16 +411,24 @@ class IAttachmentExecute extends IUnknown{
      * <td>Disable</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-checkpolicy
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-checkpolicy
      */
     CheckPolicy() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Presents a prompt UI to the user.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @remarks
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setfilename">IAttachmentExecute::SetFileName</a> or <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a> before calling <b>IAttachmentExecute::Prompt</b>.
+     * 
+     * <b>IAttachmentExecute::Prompt</b> can be called by the application to force UI presentation before the file has been copied to disk.
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * A handle to the parent window.
      * @param {Integer} prompt Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-attachment_prompt">ATTACHMENT_PROMPT</a></b>
@@ -352,30 +437,58 @@ class IAttachmentExecute extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-attachment_action">ATTACHMENT_ACTION</a>*</b>
      * 
      * A member of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-attachment_action">ATTACHMENT_ACTION</a> enumeration that indicates the action to be performed upon user confirmation.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt
      */
-    Prompt(hwnd, prompt) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Prompt(hwnd_, prompt) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(10, this, "ptr", hwnd, "int", prompt, "int*", &paction := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", hwnd_, "int", prompt, "int*", &paction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return paction
     }
 
     /**
      * Saves the attachment.
+     * @remarks
+     * Before calling <b>IAttachmentExecute::Save</b>, you must call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a> with a valid path. The file should be copied to that local path before <b>IAttachmentExecute::Save</b> is called.
+     * 
+     * <b>IAttachmentExecute::Save</b> should always be called if the local path declared in <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a> is not the path of a temporary directory.
+     * 
+     * <b>IAttachmentExecute::Save</b> may run virus scanners or other trust services to validate the file before saving it. Note that these services can delete or alter the file.
+     * 
+     * <b>IAttachmentExecute::Save</b> may attach <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-checkpolicy">evidence</a> to the local path in its NTFS alternate data stream (ADS).
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-save
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-save
      */
     Save() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Executes an action on an attachment.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @remarks
+     * Before calling <b>IAttachmentExecute::Execute</b>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a> must be called with a valid local path and the file must be copied to that location.
+     * 
+     * If a prompt is indicated, <b>IAttachmentExecute::Execute</b> calls <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt">IAttachmentExecute::Prompt</a> using the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-attachment_action">ATTACHMENT_ACTION_EXEC</a> value.
+     * 
+     * <b>IAttachmentExecute::Execute</b> may run virus scanners or other trust services to validate the file before executing it. Note that these services can delete or alter the file.
+     * 
+     * <b>IAttachmentExecute::Execute</b> may attach <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-checkpolicy">evidence</a> to the local path in its NTFS alternate data stream (ADS).
+     * 
+     * If <i>phProcess</i> is not <b>NULL</b>, <b>IAttachmentExecute::Execute</b> operates as a synchronous process and returns an <b>HPROCESS</b>, if available. If <i>phProcess</i> is <b>NULL</b>, <b>IAttachmentExecute::Execute</b> operates as an asynchronous process. This implies that the calling application has a message pump and a long-lived window.
+     * 
+     * If the handle pointed to by <i>phProcess</i> is non-<b>NULL</b> when the method returns, the calling application is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/handleapi/nf-handleapi-closehandle">CloseHandle</a> to free the handle when it is no longer needed.
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window.
      * @param {PWSTR} pszVerb Type: <b>LPCWSTR</b>
@@ -384,43 +497,65 @@ class IAttachmentExecute extends IUnknown{
      * @returns {HANDLE} Type: <b>HANDLE*</b>
      * 
      * A pointer to a handle to the source process, used for synchronous operation. This value can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-execute
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-execute
      */
-    Execute(hwnd, pszVerb) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    Execute(hwnd_, pszVerb) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
 
         phProcess := HANDLE()
-        result := ComCall(12, this, "ptr", hwnd, "ptr", pszVerb, "ptr", phProcess, "HRESULT")
+        result := ComCall(12, this, "ptr", hwnd_, "ptr", pszVerb, "ptr", phProcess, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phProcess
     }
 
     /**
      * Presents the user with explanatory error UI if the save action fails.
-     * @param {HWND} hwnd Type: <b>HWND</b>
+     * @remarks
+     * <b>IAttachmentExecute::SaveWithUI</b> does not call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-prompt">IAttachmentExecute::Prompt</a>.
+     * 
+     * Before calling <b>IAttachmentExecute::SaveWithUI</b>, you must call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setlocalpath">IAttachmentExecute::SetLocalPath</a> with a valid path. The file is copied to that local path before <b>IAttachmentExecute::SaveWithUI</b> is called.
+     * 
+     * <b>IAttachmentExecute::SaveWithUI</b> may run virus scanners or other trust services to validate the file before saving it. Note that these services can delete or alter the file.
+     * 
+     * <b>IAttachmentExecute::SaveWithUI</b> may attach <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-checkpolicy">evidence</a> to the local path in its NTFS alternate data stream (ADS).
+     * @param {HWND} hwnd_ Type: <b>HWND</b>
      * 
      * The handle of the parent window.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-savewithui
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-savewithui
      */
-    SaveWithUI(hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SaveWithUI(hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(13, this, "ptr", hwnd, "HRESULT")
+        result := ComCall(13, this, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes any stored state that is based on the client's GUID. An example might be a setting based on a checked box that indicates a prompt should not be displayed again for a particular file type.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iattachmentexecute-setclientguid">IAttachmentExecute::SetClientGuid</a> must be called before using <b>IAttachmentExecute::ClearClientState</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iattachmentexecute-clearclientstate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iattachmentexecute-clearclientstate
      */
     ClearClientState() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

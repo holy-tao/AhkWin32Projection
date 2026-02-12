@@ -7,7 +7,7 @@
 
 /**
  * Enables providers to supply refreshable objects and enumerators.
- * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemhiperfprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nn-wbemprov-iwbemhiperfprovider
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -34,6 +34,16 @@ class IWbemHiPerfProvider extends IUnknown{
 
     /**
      * Returns instances of the specified class using the supplied IWbemObjectSink instance.
+     * @remarks
+     * WMI calls 
+     * <b>QueryInstances</b> in response to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-createinstanceenum">IWbemServices::CreateInstanceEnum</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-createinstanceenumasync">IWbemServices::CreateInstanceEnumAsync</a> request.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus">IWbemObjectSink::SetStatus</a> method is called to indicate the end of the result set. When error conditions occur, 
+     * <b>IWbemObjectSink::SetStatus</b> may also be called with no intervening calls to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-indicate">IWbemObjectSink::Indicate</a>.
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back to WMI that can service any request from the provider. The provider should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on this pointer if it  needs to call back to WMI during  execution.
      * @param {PWSTR} wszClass Pointer to a <b>WCHAR</b> string that specifies the class whose instances are returned.
@@ -48,34 +58,49 @@ class IWbemHiPerfProvider extends IUnknown{
      * 
      * HiPerf providers can report success or failure either through the return code from 
      * <b>QueryInstances</b> or through a call to the 
-     * <a href="/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus">SetStatus</a> method of <i>pResponseHandler</i>. If you call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemobjectsink-setstatus">SetStatus</a> method of <i>pResponseHandler</i>. If you call the 
      * <b>SetStatus</b> method, the return code sent through <i>pResponseHandler</i> takes precedence over the 
      * <b>QueryInstances</b> return code.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemhiperfprovider-queryinstances
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemhiperfprovider-queryinstances
      */
     QueryInstances(pNamespace, wszClass, lFlags, pCtx, pSink) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszClass, "int", lFlags, "ptr", pCtx, "ptr", pSink, "HRESULT")
+        result := ComCall(3, this, "ptr", pNamespace, "ptr", wszClass, "int", lFlags, "ptr", pCtx, "ptr", pSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a refresher.
+     * @remarks
+     * The provider must supply its own implementation of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemrefresher">IWbemRefresher</a> interface. It is valid for WMI to request multiple refreshers, each of which will be used for its own refresh operations.
+     * 
+     * When you release a refresher, the provider should clean up any refreshable objects or enumerators that were added to the refresher.
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back into Windows Management, which can service any request made by the provider. The provider should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on this pointer if it is going to call back into Windows Management during its execution.
      * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
      * @returns {IWbemRefresher} Pointer to hold the reference to the provider's implementation of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemrefresher">IWbemRefresher</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefresher
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefresher
      */
     CreateRefresher(pNamespace, lFlags) {
-        result := ComCall(4, this, "ptr", pNamespace, "int", lFlags, "ptr*", &ppRefresher := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pNamespace, "int", lFlags, "ptr*", &ppRefresher := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemRefresher(ppRefresher)
     }
 
     /**
      * Requests a refreshable instance object.
+     * @remarks
+     * The supplied instance template will contain an object with the key properties filled out. The returned object should be a unique, refreshable object. The provider must not touch the refreshable object except during a refresh operation. Your provider must not access the returned object, unless the object owning the refresher restores the object. The key properties of the supplied instance template will be filled out. The provider should also validate the instance path.
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back into Windows Management, which can service any request made by the provider. If the pointer must call back into WMI during its execution, the provider calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on it.
      * @param {IWbemObjectAccess} pTemplate Pointer to a 
@@ -91,32 +116,48 @@ class IWbemHiPerfProvider extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemobjectaccess">IWbemObjectAccess</a> object, which will contain the refreshable object.
      * @param {Pointer<Integer>} plId Pointer to an integer returned by the provider that uniquely identifies this refreshable object.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefreshableobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefreshableobject
      */
     CreateRefreshableObject(pNamespace, pTemplate, pRefresher, lFlags, pContext, ppRefreshable, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "HRESULT")
+        result := ComCall(5, this, "ptr", pNamespace, "ptr", pTemplate, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr*", ppRefreshable, plIdMarshal, plId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Stops refreshing the object or enumerator corresponding to the supplied identifier.
+     * @remarks
+     * It is not necessary to call 
+     * <b>StopRefreshing</b> to clean up a refresher. It is sufficient simply to delete the refresher; that is, to release all references to it. Deleting the refresher causes the cleanup of all objects and enumerators within it.
      * @param {IWbemRefresher} pRefresher A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemrefresher">IWbemRefresher</a> object that contains a refresher obtained by calling 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefresher">IWbemHiPerfProvider::CreateRefresher</a>.
      * @param {Integer} lId An integer containing a refresher identifier that uniquely identifies the object to stop refreshing.
      * @param {Integer} lFlags An integer containing the flags.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemhiperfprovider-stoprefreshing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemhiperfprovider-stoprefreshing
      */
     StopRefreshing(pRefresher, lId, lFlags) {
-        result := ComCall(6, this, "ptr", pRefresher, "int", lId, "int", lFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pRefresher, "int", lId, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a new refreshable enumeration.
+     * @remarks
+     * The provider must not modify the refreshable enumerator except during a refresh operation. The enumeration is shallow, so all instances placed in the enumerator should be of the class specified by <i>wszClass</i>.
+     * 
+     * The provider must not access the enumerator unless WMI calls the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemrefresher-refresh">IWbemRefresher::Refresh</a> method of the owner. As with refreshable objects, the provider must not update the enumerator unless the object owning the enumerator refreshes the enumerator.
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back into Windows Management, which can service any requests made by the provider. If <i>pNamespace</i> must call back into Windows Management during its execution, the provider calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on this pointer.
      * @param {PWSTR} wszClass Constant, <b>null</b>-terminated string of 16-bit, Unicode characters that contains the name of the class, whose instances are refreshed in the <i>pHiPerfEnum </i> parameter.
@@ -130,17 +171,23 @@ class IWbemHiPerfProvider extends IUnknown{
      * @param {IWbemHiPerfEnum} pHiPerfEnum Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemhiperfenum">IWbemHiPerfEnum</a> object that contains the high-performance enumeration.
      * @returns {Integer} Pointer to an integer returned by the provider that uniquely identifies the refreshable enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefreshableenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemhiperfprovider-createrefreshableenum
      */
     CreateRefreshableEnum(pNamespace, wszClass, pRefresher, lFlags, pContext, pHiPerfEnum) {
         wszClass := wszClass is String ? StrPtr(wszClass) : wszClass
 
-        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr", pHiPerfEnum, "int*", &plId := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pNamespace, "ptr", wszClass, "ptr", pRefresher, "int", lFlags, "ptr", pContext, "ptr", pHiPerfEnum, "int*", &plId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plId
     }
 
     /**
      * Inserts the non-key properties of the objects in the supplied array.
+     * @remarks
+     * The requested objects will have their key properties filled out.
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back into Windows Management, which can service any request made by the provider. The provider should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on this pointer if it is going to call back into Windows Management during its execution.
      * @param {Integer} lNumObjects Integer that contains the number of objects you are retrieving.
@@ -150,10 +197,14 @@ class IWbemHiPerfProvider extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/making-calls-to-wmi">Making Calls to WMI.</a>.
      * @returns {IWbemObjectAccess} Pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemobjectaccess">IWbemObjectAccess</a> objects. The <b>GetObjects</b> method inserts the key properties of each object into this array.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemhiperfprovider-getobjects
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemprov/nf-wbemprov-iwbemhiperfprovider-getobjects
      */
     GetObjects(pNamespace, lNumObjects, lFlags, pContext) {
-        result := ComCall(8, this, "ptr", pNamespace, "int", lNumObjects, "ptr*", &apObj := 0, "int", lFlags, "ptr", pContext, "HRESULT")
+        result := ComCall(8, this, "ptr", pNamespace, "int", lNumObjects, "ptr*", &apObj := 0, "int", lFlags, "ptr", pContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemObjectAccess(apObj)
     }
 }

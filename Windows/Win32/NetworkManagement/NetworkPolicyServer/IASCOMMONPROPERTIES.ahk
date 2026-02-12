@@ -14,7 +14,7 @@
  * hr = pSdo->GetProperty(PROPERTY_SDO_NAME, &vtItemName);
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/sdoias/ne-sdoias-iascommonproperties
+ * @see https://learn.microsoft.com/windows/win32/api//content/sdoias/ne-sdoias-iascommonproperties
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */

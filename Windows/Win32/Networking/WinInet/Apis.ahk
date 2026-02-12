@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Networking.WinInet
@@ -11,47 +13,47 @@ class WinInet {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_USERNAME => "UserName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_PASSWORD => "Password"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_DOMAIN => "Domain"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_SAVEPASSWORD => "SavePassword"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_REDIALCOUNT => "RedialCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_REDIALINTERVAL => "RedialInterval"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_PHONENUMBER => "PhoneNumber"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_LASTERROR => "LastError"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static DIALPROP_RESOLVEDPHONE => "ResolvedPhone"
 
@@ -1446,102 +1448,102 @@ class WinInet {
     static MIN_GOPHER_ATTRIBUTE_LENGTH => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_INFO_CATEGORY => "+INFO"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_ADMIN_CATEGORY => "+ADMIN"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_VIEWS_CATEGORY => "+VIEWS"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_ABSTRACT_CATEGORY => "+ABSTRACT"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_VERONICA_CATEGORY => "+VERONICA"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_ADMIN_ATTRIBUTE => "Admin"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_MOD_DATE_ATTRIBUTE => "Mod-Date"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_TTL_ATTRIBUTE => "TTL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_SCORE_ATTRIBUTE => "Score"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_RANGE_ATTRIBUTE => "Score-range"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_SITE_ATTRIBUTE => "Site"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_ORG_ATTRIBUTE => "Org"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_LOCATION_ATTRIBUTE => "Loc"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_GEOG_ATTRIBUTE => "Geog"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_TIMEZONE_ATTRIBUTE => "TZ"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_PROVIDER_ATTRIBUTE => "Provider"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_VERSION_ATTRIBUTE => "Version"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_ABSTRACT_ATTRIBUTE => "Abstract"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_VIEW_ATTRIBUTE => "View"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GOPHER_TREEWALK_ATTRIBUTE => "treewalk"
 
@@ -1686,12 +1688,12 @@ class WinInet {
     static HTTP_MINOR_VERSION => 0
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HTTP_VERSIONA => "HTTP/1.0"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static HTTP_VERSIONW => "HTTP/1.0"
 
@@ -4576,22 +4578,22 @@ class WinInet {
     static INTERNET_AUTOPROXY_INIT_ONLYQUERY => 8
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_DIAL_AUTOCONNECT => "AutoConnect"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_LEASH_LEGACY_COOKIES => "LeashLegacyCookies"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LOCAL_NAMESPACE_PREFIX => "Local\"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static LOCAL_NAMESPACE_PREFIX_W => "Local\"
 
@@ -4646,7 +4648,7 @@ class WinInet {
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimefromsystemtimea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internettimefromsystemtimea
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeA(pst, dwRFC, lpszTime, cbTime) {
@@ -4679,7 +4681,7 @@ class WinInet {
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimefromsystemtimew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internettimefromsystemtimew
      * @since windows5.0
      */
     static InternetTimeFromSystemTimeW(pst, dwRFC, lpszTime, cbTime) {
@@ -4706,7 +4708,7 @@ class WinInet {
      * <i>lpszTime</i> buffer, in bytes.
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimefromsystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internettimefromsystemtime
      * @since windows5.0
      */
     static InternetTimeFromSystemTime(pst, dwRFC, lpszTime, cbTime) {
@@ -4736,7 +4738,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimetosystemtimea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internettimetosystemtimea
      * @since windows5.0
      */
     static InternetTimeToSystemTimeA(lpszTime, pst) {
@@ -4770,7 +4772,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimetosystemtimew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internettimetosystemtimew
      * @since windows5.0
      */
     static InternetTimeToSystemTimeW(lpszTime, pst) {
@@ -4798,7 +4800,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-systemtime">SYSTEMTIME</a> structure that receives the converted time.
      * @returns {BOOL} Returns <b>TRUE</b> if the string was converted, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internettimetosystemtime
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internettimetosystemtime
      * @since windows5.0
      */
     static InternetTimeToSystemTime(lpszTime, pst) {
@@ -4854,7 +4856,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that receives the URL components.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcrackurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcrackurla
      * @since windows5.0
      */
     static InternetCrackUrlA(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
@@ -4908,7 +4910,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-url_componentsa">URL_COMPONENTS</a> structure that receives the URL components.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcrackurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcrackurlw
      * @since windows5.0
      */
     static InternetCrackUrlW(lpszUrl, dwUrlLength, dwFlags, lpUrlComponents) {
@@ -4946,7 +4948,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcreateurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcreateurla
      * @since windows5.0
      */
     static InternetCreateUrlA(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
@@ -4986,7 +4988,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter receives the number of bytes required to hold the created URL.
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcreateurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcreateurlw
      * @since windows5.0
      */
     static InternetCreateUrlW(lpUrlComponents, dwFlags, lpszUrl, lpdwUrlLength) {
@@ -5090,7 +5092,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcanonicalizeurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcanonicalizeurla
      * @since windows5.0
      */
     static InternetCanonicalizeUrlA(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -5195,7 +5197,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcanonicalizeurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcanonicalizeurlw
      * @since windows5.0
      */
     static InternetCanonicalizeUrlW(lpszUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -5285,7 +5287,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcombineurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcombineurla
      * @since windows5.0
      */
     static InternetCombineUrlA(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -5376,7 +5378,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcombineurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcombineurlw
      * @since windows5.0
      */
     static InternetCombineUrlW(lpszBaseUrl, lpszRelativeUrl, lpszBuffer, lpdwBufferLength, dwFlags) {
@@ -5448,7 +5450,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle that the application passes to subsequent WinINet functions. If 
      * <b>InternetOpen</b> fails, it returns <b>NULL</b>. To retrieve a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopena
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetopena
      * @since windows5.0
      */
     static InternetOpenA(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
@@ -5518,7 +5520,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle that the application passes to subsequent WinINet functions. If 
      * <b>InternetOpen</b> fails, it returns <b>NULL</b>. To retrieve a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetopenw
      * @since windows5.0
      */
     static InternetOpenW(lpszAgent, dwAccessType, lpszProxy, lpszProxyBypass, dwFlags) {
@@ -5560,7 +5562,7 @@ class WinInet {
      * @param {Pointer<Void>} hInternet Handle to be closed.
      * @returns {BOOL} Returns <b>TRUE</b> if the handle is successfully closed, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetclosehandle
      * @since windows5.0
      */
     static InternetCloseHandle(hInternet) {
@@ -5677,7 +5679,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle to the session if the connection is successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconnecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetconnecta
      * @since windows5.0
      */
     static InternetConnectA(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
@@ -5798,7 +5800,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle to the session if the connection is successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why access to the service was denied.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconnectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetconnectw
      * @since windows5.0
      */
     static InternetConnectW(hInternet, lpszServerName, nServerPort, lpszUserName, lpszPassword, dwService, dwFlags, dwContext) {
@@ -5864,7 +5866,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle to the URL if the connection is successfully established, or <b>NULL</b> if the connection fails. To retrieve a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenurla
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetopenurla
      * @since windows5.0
      */
     static InternetOpenUrlA(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
@@ -5929,7 +5931,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle to the URL if the connection is successfully established, or <b>NULL</b> if the connection fails. To retrieve a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. To determine why access to the service was denied, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetopenurlw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetopenurlw
      * @since windows5.0
      */
     static InternetOpenUrlW(hInternet, lpszUrl, lpszHeaders, dwHeadersLength, dwFlags, dwContext) {
@@ -5991,7 +5993,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetreadfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetreadfile
      * @since windows5.0
      */
     static InternetReadFile(hFile, lpBuffer, dwNumberOfBytesToRead, lpdwNumberOfBytesRead) {
@@ -6029,7 +6031,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetreadfileexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetreadfileexa
      * @since windows5.0
      */
     static InternetReadFileExA(hFile, lpBuffersOut, dwFlags, dwContext) {
@@ -6066,7 +6068,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetreadfileexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetreadfileexw
      * @since windows5.0
      */
     static InternetReadFileExW(hFile, lpBuffersOut, dwFlags, dwContext) {
@@ -6128,7 +6130,7 @@ class WinInet {
      * If a new file pointer is a negative value, the function fails, the file pointer is not moved, and the code returned by <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> is <b>ERROR_NEGATIVE_SEEK</b>.
      * 
      * If <i>lpDistanceToMoveHigh</i> is <b>NULL</b> and the new file position does not fit in a 32-bit value the function fails and returns <b>INVALID_SET_FILE_POINTER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetfilepointer
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetfilepointer
      * @since windows5.0
      */
     static InternetSetFilePointer(hFile, lDistanceToMove, lpDistanceToMoveHigh, dwMoveMethod) {
@@ -6168,7 +6170,7 @@ class WinInet {
      * @returns {BOOL} Returns TRUE if the function succeeds, or FALSE otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. An application can also use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> when necessary.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetwritefile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetwritefile
      * @since windows5.0
      */
     static InternetWriteFile(hFile, lpBuffer, dwNumberOfBytesToWrite, lpdwNumberOfBytesWritten) {
@@ -6214,7 +6216,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetquerydataavailable
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetquerydataavailable
      * @since windows5.0
      */
     static InternetQueryDataAvailable(hFile, lpdwNumberOfBytesAvailable, dwFlags, dwContext) {
@@ -6255,7 +6257,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns <b>ERROR_NO_MORE_FILES</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfindnextfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetfindnextfilea
      * @since windows5.0
      */
     static InternetFindNextFileA(hFind, lpvFindData) {
@@ -6296,7 +6298,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if the function succeeds, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns <b>ERROR_NO_MORE_FILES</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfindnextfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetfindnextfilew
      * @since windows5.0
      */
     static InternetFindNextFileW(hFind, lpvFindData) {
@@ -6345,7 +6347,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter points to the number of bytes required to hold the requested information.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetqueryoptiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetqueryoptiona
      * @since windows5.0
      */
     static InternetQueryOptionA(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
@@ -6394,7 +6396,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_INSUFFICIENT_BUFFER, this parameter points to the number of bytes required to hold the requested information.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetqueryoptionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetqueryoptionw
      * @since windows5.0
      */
     static InternetQueryOptionW(hInternet, dwOption, lpBuffer, lpdwBufferLength) {
@@ -6441,7 +6443,7 @@ class WinInet {
      * the size is in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetoptiona
      * @since windows5.0
      */
     static InternetSetOptionA(hInternet, dwOption, lpBuffer, dwBufferLength) {
@@ -6488,7 +6490,7 @@ class WinInet {
      * the size is in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetoptionw
      * @since windows5.0
      */
     static InternetSetOptionW(hInternet, dwOption, lpBuffer, dwBufferLength) {
@@ -6522,7 +6524,7 @@ class WinInet {
      * @param {Integer} dwBufferLength Unused.
      * @param {Integer} dwFlags Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptionexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetoptionexa
      * @since windows5.0
      */
     static InternetSetOptionExA(hInternet, dwOption, lpBuffer, dwBufferLength, dwFlags) {
@@ -6550,7 +6552,7 @@ class WinInet {
      * @param {Integer} dwBufferLength Unused.
      * @param {Integer} dwFlags Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetoptionexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetoptionexw
      * @since windows5.0
      */
     static InternetSetOptionExW(hInternet, dwOption, lpBuffer, dwBufferLength, dwFlags) {
@@ -6583,7 +6585,7 @@ class WinInet {
      * @param {Pointer<HANDLE>} lphLockRequestInfo Pointer to a handle that receives the lock request handle.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetlockrequestfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetlockrequestfile
      * @since windows5.0
      */
     static InternetLockRequestFile(hInternet, lphLockRequestInfo) {
@@ -6608,7 +6610,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetlockrequestfile">InternetLockRequestFile</a>.
      * @returns {BOOL} Returns TRUE if successful, or FALSE otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetunlockrequestfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetunlockrequestfile
      * @since windows5.0
      */
     static InternetUnlockRequestFile(hLockRequestInfo) {
@@ -6656,7 +6658,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
      * <b>GetLastError</b> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the 
      * <i>lpdwBufferLength</i> parameter contains the minimum buffer size required to return all the error text.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetlastresponseinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetlastresponseinfoa
      * @since windows5.0
      */
     static InternetGetLastResponseInfoA(lpdwError, lpszBuffer, lpdwBufferLength) {
@@ -6707,7 +6709,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the buffer is too small to hold all the error text, 
      * <b>GetLastError</b> returns <b>ERROR_INSUFFICIENT_BUFFER</b>, and the 
      * <i>lpdwBufferLength</i> parameter contains the minimum buffer size required to return all the error text.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetlastresponseinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetlastresponseinfow
      * @since windows5.0
      */
     static InternetGetLastResponseInfoW(lpdwError, lpszBuffer, lpdwBufferLength) {
@@ -6758,7 +6760,7 @@ class WinInet {
      * @param {Pointer<LPINTERNET_STATUS_CALLBACK>} lpfnInternetCallback A pointer to the callback function to call when progress is made, or  <b>NULL</b> to remove the existing callback function. For more information about the callback function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a>.
      * @returns {Pointer<LPINTERNET_STATUS_CALLBACK>} Returns the previously defined status callback function if successful, <b>NULL</b> if there was no previously defined status callback function, or INTERNET_INVALID_STATUS_CALLBACK if the callback function is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetstatuscallbacka
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetstatuscallbacka
      */
     static InternetSetStatusCallbackA(hInternet, lpfnInternetCallback) {
         hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
@@ -6799,7 +6801,7 @@ class WinInet {
      * @param {Pointer<LPINTERNET_STATUS_CALLBACK>} lpfnInternetCallback A pointer to the callback function to call when progress is made, or  <b>NULL</b> to remove the existing callback function. For more information about the callback function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a>.
      * @returns {Pointer<LPINTERNET_STATUS_CALLBACK>} Returns the previously defined status callback function if successful, <b>NULL</b> if there was no previously defined status callback function, or INTERNET_INVALID_STATUS_CALLBACK if the callback function is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetstatuscallbackw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetstatuscallbackw
      */
     static InternetSetStatusCallbackW(hInternet, lpfnInternetCallback) {
         hInternetMarshal := hInternet is VarRef ? "ptr" : "ptr"
@@ -6834,7 +6836,7 @@ class WinInet {
      * @param {Pointer<LPINTERNET_STATUS_CALLBACK>} lpfnInternetCallback A pointer to the callback function to call when progress is made, or  <b>NULL</b> to remove the existing callback function. For more information about the callback function, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nc-wininet-internet_status_callback">InternetStatusCallback</a>.
      * @returns {Pointer<LPINTERNET_STATUS_CALLBACK>} Returns the previously defined status callback function if successful, <b>NULL</b> if there was no previously defined status callback function, or INTERNET_INVALID_STATUS_CALLBACK if the callback function is not valid.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetstatuscallback
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetstatuscallback
      * @since windows5.0
      */
     static InternetSetStatusCallback(hInternet, lpfnInternetCallback) {
@@ -6899,7 +6901,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle for the request if the directory enumeration was started successfully, or returns <b>NULL</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpfindfirstfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpfindfirstfilea
      * @since windows5.0
      */
     static FtpFindFirstFileA(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
@@ -6972,7 +6974,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid handle for the request if the directory enumeration was started successfully, or returns <b>NULL</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If <b>GetLastError</b> returns ERROR_INTERNET_EXTENDED_ERROR, as in the case where the function finds no matching files, call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> function to retrieve the extended error text, as documented in <a href="https://docs.microsoft.com/windows/desktop/WinInet/appendix-c-handling-errors">Handling Errors</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpfindfirstfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpfindfirstfilew
      * @since windows5.0
      */
     static FtpFindFirstFileW(hConnect, lpszSearchFile, lpFindFileData, dwFlags, dwContext) {
@@ -7144,7 +7146,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpgetfilea
      * @since windows5.0
      */
     static FtpGetFileA(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
@@ -7317,7 +7319,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpgetfilew
      * @since windows5.0
      */
     static FtpGetFileW(hConnect, lpszRemoteFile, lpszNewFile, fFailIfExists, dwFlagsAndAttributes, dwFlags, dwContext) {
@@ -7368,7 +7370,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpputfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpputfilea
      * @since windows5.0
      */
     static FtpPutFileA(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
@@ -7419,7 +7421,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpputfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpputfilew
      * @since windows5.0
      */
     static FtpPutFileW(hConnect, lpszLocalFile, lpszNewRemoteFile, dwFlags, dwContext) {
@@ -7499,7 +7501,7 @@ class WinInet {
      * @param {PSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpdeletefilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpdeletefilea
      * @since windows5.0
      */
     static FtpDeleteFileA(hConnect, lpszFileName) {
@@ -7538,7 +7540,7 @@ class WinInet {
      * @param {PWSTR} lpszFileName Pointer to a null-terminated string that contains the name of the file to be deleted.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpdeletefilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpdeletefilew
      * @since windows5.0
      */
     static FtpDeleteFileW(hConnect, lpszFileName) {
@@ -7578,7 +7580,7 @@ class WinInet {
      * @param {PSTR} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftprenamefilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftprenamefilea
      * @since windows5.0
      */
     static FtpRenameFileA(hConnect, lpszExisting, lpszNew) {
@@ -7619,7 +7621,7 @@ class WinInet {
      * @param {PWSTR} lpszNew Pointer to a null-terminated string that contains the new name for the remote file.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftprenamefilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftprenamefilew
      * @since windows5.0
      */
     static FtpRenameFileW(hConnect, lpszExisting, lpszNew) {
@@ -7672,7 +7674,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> otherwise. To retrieve a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpopenfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpopenfilea
      * @since windows5.0
      */
     static FtpOpenFileA(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
@@ -7724,7 +7726,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetsetstatuscallback">InternetSetStatusCallback</a> to set up a status callback function.
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> otherwise. To retrieve a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpopenfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpopenfilew
      * @since windows5.0
      */
     static FtpOpenFileW(hConnect, lpszFileName, dwAccess, dwFlags, dwContext) {
@@ -7767,7 +7769,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcreatedirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpcreatedirectorya
      * @since windows5.0
      */
     static FtpCreateDirectoryA(hConnect, lpszDirectory) {
@@ -7810,7 +7812,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to create a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcreatedirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpcreatedirectoryw
      * @since windows5.0
      */
     static FtpCreateDirectoryW(hConnect, lpszDirectory) {
@@ -7852,7 +7854,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpremovedirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpremovedirectorya
      * @since windows5.0
      */
     static FtpRemoveDirectoryA(hConnect, lpszDirectory) {
@@ -7894,7 +7896,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to remove a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpremovedirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpremovedirectoryw
      * @since windows5.0
      */
     static FtpRemoveDirectoryW(hConnect, lpszDirectory) {
@@ -7936,7 +7938,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpsetcurrentdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpsetcurrentdirectorya
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryA(hConnect, lpszDirectory) {
@@ -7978,7 +7980,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the error message indicates that the FTP server denied the request to change a directory, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a> to determine why.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpsetcurrentdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpsetcurrentdirectoryw
      * @since windows5.0
      */
     static FtpSetCurrentDirectoryW(hConnect, lpszDirectory) {
@@ -8018,7 +8020,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetcurrentdirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpgetcurrentdirectorya
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryA(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
@@ -8059,7 +8061,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpdwCurrentDirectory Pointer to a variable that specifies the length of the buffer, in <b>TCHARs</b>. The buffer length must include room for a terminating null character. Using a length of <b>MAX_PATH</b> is sufficient for all paths. When the function returns, the variable receives the number of characters copied into the buffer.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetcurrentdirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpgetcurrentdirectoryw
      * @since windows5.0
      */
     static FtpGetCurrentDirectoryW(hConnect, lpszCurrentDirectory, lpdwCurrentDirectory) {
@@ -8106,7 +8108,7 @@ class WinInet {
      * <i>phFtpCommand</i> to be filled.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcommanda
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpcommanda
      * @since windows5.0
      */
     static FtpCommandA(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
@@ -8153,7 +8155,7 @@ class WinInet {
      * <i>phFtpCommand</i> to be filled.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpcommandw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpcommandw
      * @since windows5.0
      */
     static FtpCommandW(hConnect, fExpectResponse, dwFlags, lpszCommand, dwContext, phFtpCommand) {
@@ -8181,7 +8183,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-ftpopenfilea">FtpOpenFile</a>.
      * @param {Pointer<Integer>} lpdwFileSizeHigh Pointer to the high-order unsigned long integer of the file size of the requested FTP resource.
      * @returns {Integer} Returns the low-order unsigned long integer of the file size of the requested FTP resource.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-ftpgetfilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-ftpgetfilesize
      * @since windows5.0
      */
     static FtpGetFileSize(hFile, lpdwFileSizeHigh) {
@@ -8230,7 +8232,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophercreatelocatora
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gophercreatelocatora
      * @since windows5.0
      */
     static GopherCreateLocatorA(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
@@ -8289,7 +8291,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophercreatelocatorw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gophercreatelocatorw
      * @since windows5.0
      */
     static GopherCreateLocatorW(lpszHost, nServerPort, lpszDisplayString, lpszSelectorString, dwGopherType, lpszLocator, lpdwBufferLength) {
@@ -8330,7 +8332,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetlocatortypea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gophergetlocatortypea
      * @since windows5.0
      */
     static GopherGetLocatorTypeA(lpszLocator, lpdwGopherType) {
@@ -8368,7 +8370,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/WinInet/gopher-type-values">gopher type values</a>.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetlocatortypew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gophergetlocatortypew
      * @since windows5.0
      */
     static GopherGetLocatorTypeW(lpszLocator, lpdwGopherType) {
@@ -8430,7 +8432,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid search handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopherfindfirstfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gopherfindfirstfilea
      * @since windows5.0
      */
     static GopherFindFirstFileA(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
@@ -8493,7 +8495,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a valid search handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopherfindfirstfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gopherfindfirstfilew
      * @since windows5.0
      */
     static GopherFindFirstFileW(hConnect, lpszLocator, lpszSearchString, lpFindData, dwFlags, dwContext) {
@@ -8546,7 +8548,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> if the file cannot be opened. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopheropenfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gopheropenfilea
      * @since windows5.0
      */
     static GopherOpenFileA(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
@@ -8599,7 +8601,7 @@ class WinInet {
      * @returns {Pointer<Void>} Returns a handle if successful, or <b>NULL</b> if the file cannot be opened. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gopheropenfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gopheropenfilew
      * @since windows5.0
      */
     static GopherOpenFileW(hConnect, lpszLocator, lpszView, dwFlags, dwContext) {
@@ -8661,7 +8663,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetattributea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gophergetattributea
      * @since windows5.0
      */
     static GopherGetAttributeA(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
@@ -8725,7 +8727,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if the request is satisfied, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> or 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetlastresponseinfoa">InternetGetLastResponseInfo</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-gophergetattributew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-gophergetattributew
      * @since windows5.0
      */
     static GopherGetAttributeW(hConnect, lpszLocator, lpszAttributeName, lpBuffer, dwBufferLength, lpdwCharactersReturned, lpfnEnumerator, dwContext) {
@@ -8819,7 +8821,7 @@ class WinInet {
      * @param {Pointer} dwContext A pointer to a variable that contains the application-defined value that associates this operation with any application data.
      * @returns {Pointer<Void>} Returns an HTTP request handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpopenrequesta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpopenrequesta
      * @since windows5.0
      */
     static HttpOpenRequestA(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
@@ -8915,7 +8917,7 @@ class WinInet {
      * @param {Pointer} dwContext A pointer to a variable that contains the application-defined value that associates this operation with any application data.
      * @returns {Pointer<Void>} Returns an HTTP request handle if successful, or <b>NULL</b> otherwise. To retrieve extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpopenrequestw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpopenrequestw
      * @since windows5.0
      */
     static HttpOpenRequestW(hConnect, lpszVerb, lpszObjectName, lpszVersion, lpszReferrer, lplpszAcceptTypes, dwFlags, dwContext) {
@@ -8969,7 +8971,7 @@ class WinInet {
      * @param {Integer} dwModifiers 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpaddrequestheadersa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpaddrequestheadersa
      * @since windows5.0
      */
     static HttpAddRequestHeadersA(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
@@ -9019,7 +9021,7 @@ class WinInet {
      * @param {Integer} dwModifiers 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpaddrequestheadersw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpaddrequestheadersw
      * @since windows5.0
      */
     static HttpAddRequestHeadersW(hRequest, lpszHeaders, dwHeadersLength, dwModifiers) {
@@ -9083,7 +9085,7 @@ class WinInet {
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequesta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpsendrequesta
      * @since windows5.0
      */
     static HttpSendRequestA(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
@@ -9147,7 +9149,7 @@ class WinInet {
      * @param {Integer} dwOptionalLength The size of the optional data, in bytes. This parameter can be zero if there is no optional data to send.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequestw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpsendrequestw
      * @since windows5.0
      */
     static HttpSendRequestW(hRequest, lpszHeaders, dwHeadersLength, lpOptional, dwOptionalLength) {
@@ -9195,7 +9197,7 @@ class WinInet {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequestexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpsendrequestexa
      * @since windows5.0
      */
     static HttpSendRequestExA(hRequest, lpBuffersIn, lpBuffersOut, dwFlags, dwContext) {
@@ -9241,7 +9243,7 @@ class WinInet {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpsendrequestexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpsendrequestexw
      * @since windows5.0
      */
     static HttpSendRequestExW(hRequest, lpBuffersIn, lpBuffersOut, dwFlags, dwContext) {
@@ -9286,7 +9288,7 @@ class WinInet {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpendrequesta
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpendrequesta
      * @since windows5.0
      */
     static HttpEndRequestA(hRequest, lpBuffersOut, dwFlags, dwContext) {
@@ -9331,7 +9333,7 @@ class WinInet {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpendrequestw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpendrequestw
      * @since windows5.0
      */
     static HttpEndRequestW(hRequest, lpBuffersOut, dwFlags, dwContext) {
@@ -9395,7 +9397,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpdwIndex A pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, <b>ERROR_HTTP_HEADER_NOT_FOUND</b> is returned.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpqueryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpqueryinfoa
      * @since windows5.0
      */
     static HttpQueryInfoA(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwIndex) {
@@ -9461,7 +9463,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpdwIndex A pointer to a zero-based header index used to enumerate multiple headers with the same name. When calling the function, this parameter is the index of the specified header to return. When the function returns, this parameter is the index of the next header. If the next index cannot be found, <b>ERROR_HTTP_HEADER_NOT_FOUND</b> is returned.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-httpqueryinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-httpqueryinfow
      * @since windows5.0
      */
     static HttpQueryInfoW(hRequest, dwInfoLevel, lpBuffer, lpdwBufferLength, lpdwIndex) {
@@ -9511,7 +9513,7 @@ class WinInet {
      * @param {PSTR} lpszCookieData Pointer to the actual data to be associated with the URL.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookiea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetcookiea
      * @since windows5.0
      */
     static InternetSetCookieA(lpszUrl, lpszCookieName, lpszCookieData) {
@@ -9561,7 +9563,7 @@ class WinInet {
      * @param {PWSTR} lpszCookieData Pointer to the actual data to be associated with the URL.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get a specific error message, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookiew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetcookiew
      * @since windows5.0
      */
     static InternetSetCookieW(lpszUrl, lpszCookieName, lpszCookieData) {
@@ -9659,7 +9661,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookiea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetcookiea
      * @since windows5.0
      */
     static InternetGetCookieA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
@@ -9759,7 +9761,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookiew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetcookiew
      * @since windows5.0
      */
     static InternetGetCookieW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize) {
@@ -9857,7 +9859,7 @@ class WinInet {
      * @param {Pointer} dwReserved <b>NULL</b>, or contains a pointer to a Platform-for-Privacy-Protection (P3P) header to be associated with the cookie.
      * @returns {Integer} Returns a member of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration if successful,  or  <b>FALSE</b> if the function fails. On failure, if a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NOT_ENOUGH_MEMORY,  insufficient system memory was available.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookieexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetcookieexa
      * @since windows5.1.2600
      */
     static InternetSetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
@@ -9953,7 +9955,7 @@ class WinInet {
      * @param {Pointer} dwReserved <b>NULL</b>, or contains a pointer to a Platform-for-Privacy-Protection (P3P) header to be associated with the cookie.
      * @returns {Integer} Returns a member of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration if successful,  or  <b>FALSE</b> if the function fails. On failure, if a call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_NOT_ENOUGH_MEMORY,  insufficient system memory was available.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookieexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetcookieexw
      * @since windows5.1.2600
      */
     static InternetSetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, dwFlags, dwReserved) {
@@ -10043,7 +10045,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetcookieexa
      * @since windows5.1.2600
      */
     static InternetGetCookieExA(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
@@ -10137,7 +10139,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetcookieexw
      * @since windows5.1.2600
      */
     static InternetGetCookieExW(lpszUrl, lpszCookieName, lpszCookieData, lpdwSize, dwFlags) {
@@ -10167,7 +10169,7 @@ class WinInet {
      * @param {Pointer<INTERNET_COOKIE2>} pCookies Pointer to an array of [**INTERNET\_COOKIE2**](ns-wininet-internet_cookie2.md) structures.
      * @param {Integer} dwCookieCount The number of structures in the array.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetfreecookies
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetfreecookies
      */
     static InternetFreeCookies(pCookies, dwCookieCount) {
         DllCall("WININET.dll\InternetFreeCookies", "ptr", pCookies, "uint", dwCookieCount)
@@ -10191,7 +10193,7 @@ class WinInet {
      * @param {Pointer<Pointer<INTERNET_COOKIE2>>} ppCookies Pointer that receives an array of [INTERNET\_COOKIE2](ns-wininet-internet_cookie2.md) structures. The returned array must be freed by [InternetFreeCookies](nf-wininet-internetfreecookies.md).
      * @param {Pointer<Integer>} pdwCookieCount Pointer to a DWORD that receives the number of structures in the array.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or a [system error code](/windows/desktop/debug/system-error-codes) on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetcookieex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetcookieex2
      */
     static InternetGetCookieEx2(pcwszUrl, pcwszCookieName, dwFlags, ppCookies, pdwCookieCount) {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
@@ -10223,7 +10225,7 @@ class WinInet {
      * | INTERNET_COOKIE_APPLY_HOST_ONLY | Apply host-only policy to this cookie. If the domain attribute is not set, then this cookie will be marked host-only. |
      * @param {Pointer<Integer>} pdwCookieState Pointer to a DWORD that receives the result of setting the cookie. For a list of possible values, see [InternetCookieState](/windows/win32/api/wininet/ne-wininet-internetcookiestate).
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or a [system error code](/windows/desktop/debug/system-error-codes) on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetcookieex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetcookieex2
      */
     static InternetSetCookieEx2(pcwszUrl, pCookie, pcwszP3PPolicy, dwFlags, pdwCookieState) {
         pcwszUrl := pcwszUrl is String ? StrPtr(pcwszUrl) : pcwszUrl
@@ -10246,7 +10248,7 @@ class WinInet {
      * <div> </div>
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or a <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error code</a> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetattemptconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetattemptconnect
      * @since windows5.0
      */
     static InternetAttemptConnect(dwReserved) {
@@ -10280,7 +10282,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
      * <b>GetLastError</b> if a connection cannot be made or if the sockets database is unconditionally offline.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcheckconnectiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcheckconnectiona
      * @since windows5.0
      */
     static InternetCheckConnectionA(lpszUrl, dwFlags, dwReserved) {
@@ -10322,7 +10324,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if a connection is made successfully, or <b>FALSE</b> otherwise. Use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code. ERROR_NOT_CONNECTED is returned by 
      * <b>GetLastError</b> if a connection cannot be made or if the sockets database is unconditionally offline.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetcheckconnectionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetcheckconnectionw
      * @since windows5.0
      */
     static InternetCheckConnectionW(lpszUrl, dwFlags, dwReserved) {
@@ -10353,7 +10355,7 @@ class WinInet {
      * @param {Integer} dwResultCode The error result returned from <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-interneterrordlg">InternetErrorDlg</a>, or zero if a different dialog  is  invoked.
      * @returns {BOOL} Returns <b>TRUE</b> if successful; otherwise  <b>FALSE</b>. Call
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-resumesuspendeddownload
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-resumesuspendeddownload
      * @since windows5.0
      */
     static ResumeSuspendedDownload(hRequest, dwResultCode) {
@@ -10384,7 +10386,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {HWND} hWnd Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
+     * @param {HWND} hWnd_ Handle to the parent window for any needed dialog box. If no dialog box is needed and <b>FLAGS_ERROR_UI_FLAGS_NO_UI</b> is passed to <i>dwFlags</i>, then this parameter can be <b>NULL</b>.
      * @param {Pointer<Void>} hRequest Handle to the Internet connection used in the call to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-httpsendrequesta">HttpSendRequest</a>.
      * @param {Integer} dwError 
@@ -10444,16 +10446,16 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-interneterrordlg
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-interneterrordlg
      * @since windows5.0
      */
-    static InternetErrorDlg(hWnd, hRequest, dwError, dwFlags, lppvData) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetErrorDlg(hWnd_, hRequest, dwError, dwFlags, lppvData) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         hRequestMarshal := hRequest is VarRef ? "ptr" : "ptr"
         lppvDataMarshal := lppvData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WININET.dll\InternetErrorDlg", "ptr", hWnd, hRequestMarshal, hRequest, "uint", dwError, "uint", dwFlags, lppvDataMarshal, lppvData, "uint")
+        result := DllCall("WININET.dll\InternetErrorDlg", "ptr", hWnd_, hRequestMarshal, hRequest, "uint", dwError, "uint", dwFlags, lppvDataMarshal, lppvData, "uint")
         return result
     }
 
@@ -10472,7 +10474,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {HWND} hWnd_ Handle to the parent window for any required dialog box.
      * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {BOOL} bPost Not implemented.
@@ -10517,15 +10519,15 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossinga
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetconfirmzonecrossinga
      * @since windows5.0
      */
-    static InternetConfirmZoneCrossingA(hWnd, szUrlPrev, szUrlNew, bPost) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetConfirmZoneCrossingA(hWnd_, szUrlPrev, szUrlNew, bPost) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
 
-        result := DllCall("WININET.dll\InternetConfirmZoneCrossingA", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
+        result := DllCall("WININET.dll\InternetConfirmZoneCrossingA", "ptr", hWnd_, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
 
@@ -10544,7 +10546,7 @@ class WinInet {
      * 
      * > [!NOTE]
      * > The wininet.h header defines InternetConfirmZoneCrossing as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {HWND} hWnd_ Handle to the parent window for any required dialog box.
      * @param {PWSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PWSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {BOOL} bPost Not implemented.
@@ -10589,15 +10591,15 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossingw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetconfirmzonecrossingw
      * @since windows5.0
      */
-    static InternetConfirmZoneCrossingW(hWnd, szUrlPrev, szUrlNew, bPost) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetConfirmZoneCrossingW(hWnd_, szUrlPrev, szUrlNew, bPost) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
 
-        result := DllCall("WININET.dll\InternetConfirmZoneCrossingW", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
+        result := DllCall("WININET.dll\InternetConfirmZoneCrossingW", "ptr", hWnd_, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
 
@@ -10610,7 +10612,7 @@ class WinInet {
      * 
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
-     * @param {HWND} hWnd Handle to the parent window for any required dialog box.
+     * @param {HWND} hWnd_ Handle to the parent window for any required dialog box.
      * @param {PSTR} szUrlPrev Pointer to a null-terminated string that specifies the URL that was viewed before the current request was made.
      * @param {PSTR} szUrlNew Pointer to a null-terminated string that specifies the new URL that the user has requested to view.
      * @param {BOOL} bPost Not implemented.
@@ -10655,15 +10657,15 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetconfirmzonecrossing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetconfirmzonecrossing
      * @since windows5.0
      */
-    static InternetConfirmZoneCrossing(hWnd, szUrlPrev, szUrlNew, bPost) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static InternetConfirmZoneCrossing(hWnd_, szUrlPrev, szUrlNew, bPost) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
         szUrlPrev := szUrlPrev is String ? StrPtr(szUrlPrev) : szUrlPrev
         szUrlNew := szUrlNew is String ? StrPtr(szUrlNew) : szUrlNew
 
-        result := DllCall("WININET.dll\InternetConfirmZoneCrossing", "ptr", hWnd, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
+        result := DllCall("WININET.dll\InternetConfirmZoneCrossing", "ptr", hWnd_, "ptr", szUrlPrev, "ptr", szUrlNew, "int", bPost, "uint")
         return result
     }
 
@@ -10709,7 +10711,7 @@ class WinInet {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createurlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-createurlcacheentrya
      * @since windows5.0
      */
     static CreateUrlCacheEntryA(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
@@ -10769,7 +10771,7 @@ class WinInet {
      * 
      * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createurlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-createurlcacheentryw
      * @since windows5.0
      */
     static CreateUrlCacheEntryW(lpszUrlName, dwExpectedFileSize, lpszFileExtension, lpszFileName, dwReserved) {
@@ -10954,7 +10956,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-commiturlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-commiturlcacheentrya
      * @since windows5.0
      */
     static CommitUrlCacheEntryA(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
@@ -11144,7 +11146,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-commiturlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-commiturlcacheentryw
      * @since windows5.0
      */
     static CommitUrlCacheEntryW(lpszUrlName, lpszLocalFileName, ExpireTime, LastModifiedTime, CacheEntryType, lpszHeaderInfo, cchHeaderInfo, lpszOriginalUrl) {
@@ -11222,7 +11224,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentryfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-retrieveurlcacheentryfilea
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryFileA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -11299,7 +11301,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentryfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-retrieveurlcacheentryfilew
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryFileW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -11339,7 +11341,7 @@ class WinInet {
      * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-unlockurlcacheentryfilea
      * @since windows5.0
      */
     static UnlockUrlCacheEntryFileA(lpszUrlName) {
@@ -11377,7 +11379,7 @@ class WinInet {
      * @param {PWSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-unlockurlcacheentryfilew
      * @since windows5.0
      */
     static UnlockUrlCacheEntryFileW(lpszUrlName) {
@@ -11409,7 +11411,7 @@ class WinInet {
      * @param {PSTR} lpszUrlName Pointer to a <b>null</b>-terminated string that specifies the source name of the cache entry that is being unlocked. The name string should not contain any escape characters.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. ERROR_FILE_NOT_FOUND indicates that the cache entry specified by the source name is not found in the cache storage.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentryfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-unlockurlcacheentryfile
      * @since windows5.0
      */
     static UnlockUrlCacheEntryFile(lpszUrlName) {
@@ -11490,7 +11492,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentrystreama
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-retrieveurlcacheentrystreama
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryStreamA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
@@ -11574,7 +11576,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-retrieveurlcacheentrystreamw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-retrieveurlcacheentrystreamw
      * @since windows5.0
      */
     static RetrieveUrlCacheEntryStreamW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo, fRandomRead) {
@@ -11614,7 +11616,7 @@ class WinInet {
      * <i>lpBuffer</i> buffer, in bytes. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-readurlcacheentrystream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-readurlcacheentrystream
      * @since windows5.0
      */
     static ReadUrlCacheEntryStream(hUrlCacheStream, dwLocation, lpBuffer, lpdwLen) {
@@ -11660,7 +11662,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-retrieveurlcacheentrystreama">RetrieveUrlCacheEntryStream</a> function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-unlockurlcacheentrystream
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-unlockurlcacheentrystream
      * @since windows5.0
      */
     static UnlockUrlCacheEntryStream(hUrlCacheStream) {
@@ -11734,7 +11736,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-geturlcacheentryinfoa
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -11808,7 +11810,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-geturlcacheentryinfow
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -11842,7 +11844,7 @@ class WinInet {
      * @returns {HANDLE} Returns a valid handle to the first item in the enumeration if successful, or <b>NULL</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcachegroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findfirsturlcachegroup
      * @since windows5.0
      */
     static FindFirstUrlCacheGroup(dwFlags, dwFilter, lpGroupId) {
@@ -11875,7 +11877,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpGroupId Pointer to a variable that receives the cache group identifier.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcachegroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findnexturlcachegroup
      * @since windows5.0
      */
     static FindNextUrlCacheGroup(hFind, lpGroupId) {
@@ -11914,7 +11916,7 @@ class WinInet {
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcachegroupattributea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-geturlcachegroupattributea
      * @since windows5.0
      */
     static GetUrlCacheGroupAttributeA(gid, dwAttributes, lpGroupInfo, lpcbGroupInfo) {
@@ -11951,7 +11953,7 @@ class WinInet {
      * <i>lpGroupInfo</i> buffer. When the function returns, the variable contains the number of bytes copied to the buffer, or the required size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcachegroupattributew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-geturlcachegroupattributew
      * @since windows5.0
      */
     static GetUrlCacheGroupAttributeW(gid, dwAttributes, lpGroupInfo, lpcbGroupInfo) {
@@ -11986,7 +11988,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that specifies the attribute information to be stored.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcachegroupattributea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-seturlcachegroupattributea
      * @since windows5.0
      */
     static SetUrlCacheGroupAttributeA(gid, dwAttributes, lpGroupInfo) {
@@ -12019,7 +12021,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/ns-wininet-internet_cache_group_infoa">INTERNET_CACHE_GROUP_INFO</a> structure that specifies the attribute information to be stored.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcachegroupattributew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-seturlcachegroupattributew
      * @since windows5.0
      */
     static SetUrlCacheGroupAttributeW(gid, dwAttributes, lpGroupInfo) {
@@ -12091,7 +12093,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfoexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-geturlcacheentryinfoexa
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoExA(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
@@ -12167,7 +12169,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-geturlcacheentryinfoexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-geturlcacheentryinfoexw
      * @since windows5.0
      */
     static GetUrlCacheEntryInfoExW(lpszUrl, lpCacheEntryInfo, lpcbCacheEntryInfo, dwFlags) {
@@ -12234,7 +12236,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentryinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-seturlcacheentryinfoa
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoA(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
@@ -12297,7 +12299,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentryinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-seturlcacheentryinfow
      * @since windows5.0
      */
     static SetUrlCacheEntryInfoW(lpszUrlName, lpCacheEntryInfo, dwFieldControl) {
@@ -12323,7 +12325,7 @@ class WinInet {
      * <b>CreateUrlCacheGroup</b> to generate a unique GROUPID, but does not create a physical group.
      * @returns {Integer} Returns a valid <b>GROUPID</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createurlcachegroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-createurlcachegroup
      * @since windows5.0
      */
     static CreateUrlCacheGroup(dwFlags) {
@@ -12350,7 +12352,7 @@ class WinInet {
      * <b>DeleteUrlCacheGroup</b> to delete all of the cache entries associated with this group, unless the entry belongs to another group.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcachegroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-deleteurlcachegroup
      * @since windows5.0
      */
     static DeleteUrlCacheGroup(GroupId, dwFlags) {
@@ -12385,7 +12387,7 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentrygroupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-seturlcacheentrygroupa
      * @since windows5.0
      */
     static SetUrlCacheEntryGroupA(lpszUrlName, dwFlags, GroupId) {
@@ -12416,7 +12418,7 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentrygroupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-seturlcacheentrygroupw
      * @since windows5.0
      */
     static SetUrlCacheEntryGroupW(lpszUrlName, dwFlags, GroupId) {
@@ -12441,7 +12443,7 @@ class WinInet {
      * @param {Integer} dwFlags 
      * @param {Integer} GroupId Identifier of the cache group that the entry will be added to or removed from.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-seturlcacheentrygroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-seturlcacheentrygroup
      * @since windows5.0
      */
     static SetUrlCacheEntryGroup(lpszUrlName, dwFlags, GroupId) {
@@ -12577,7 +12579,7 @@ class WinInet {
      * @returns {HANDLE} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findfirsturlcacheentryexa
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryExA(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -12722,7 +12724,7 @@ class WinInet {
      * @returns {HANDLE} Returns a valid handle if successful, or NULL otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>. If the function finds no matching files, 
      * <b>GetLastError</b> returns ERROR_NO_MORE_FILES.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findfirsturlcacheentryexw
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryExW(lpszUrlSearchPattern, dwFlags, dwFilter, GroupId, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -12765,7 +12767,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentryexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findnexturlcacheentryexa
      * @since windows5.0
      */
     static FindNextUrlCacheEntryExA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -12807,7 +12809,7 @@ class WinInet {
      * @param {Pointer<Integer>} lpcbCacheEntryInfo Pointer to a variable that indicates the size of the buffer, in bytes.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get specific error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentryexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findnexturlcacheentryexw
      * @since windows5.0
      */
     static FindNextUrlCacheEntryExW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -12861,7 +12863,7 @@ class WinInet {
      * <i>lpFirstCacheEntryInfo</i> as specified by 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> is not sufficient to contain all the information. The value returned in 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> indicates the buffer size necessary to contain all the information.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findfirsturlcacheentrya
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryA(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -12914,7 +12916,7 @@ class WinInet {
      * <i>lpFirstCacheEntryInfo</i> as specified by 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> is not sufficient to contain all the information. The value returned in 
      * <i>lpdwFirstCacheEntryInfoBufferSize</i> indicates the buffer size necessary to contain all the information.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findfirsturlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findfirsturlcacheentryw
      * @since windows5.0
      */
     static FindFirstUrlCacheEntryW(lpszUrlSearchPattern, lpFirstCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -12988,7 +12990,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findnexturlcacheentrya
      * @since windows5.0
      */
     static FindNextUrlCacheEntryA(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -13061,7 +13063,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findnexturlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findnexturlcacheentryw
      * @since windows5.0
      */
     static FindNextUrlCacheEntryW(hEnumHandle, lpNextCacheEntryInfo, lpcbCacheEntryInfo) {
@@ -13088,7 +13090,7 @@ class WinInet {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-findfirsturlcacheentrya">FindFirstUrlCacheEntry</a> function.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-findcloseurlcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-findcloseurlcache
      * @since windows5.0
      */
     static FindCloseUrlCache(hEnumHandle) {
@@ -13147,7 +13149,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcacheentrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-deleteurlcacheentrya
      * @since windows5.0
      */
     static DeleteUrlCacheEntryA(lpszUrlName) {
@@ -13206,7 +13208,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcacheentryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-deleteurlcacheentryw
      * @since windows5.0
      */
     static DeleteUrlCacheEntryW(lpszUrlName) {
@@ -13259,7 +13261,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-deleteurlcacheentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-deleteurlcacheentry
      * @since windows5.0
      */
     static DeleteUrlCacheEntry(lpszUrlName) {
@@ -13337,7 +13339,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetdiala
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetdiala
      * @since windows5.0
      */
     static InternetDialA(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
@@ -13414,7 +13416,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetdialw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetdialw
      * @since windows5.0
      */
     static InternetDialW(hwndParent, lpszConnectoid, dwFlags, lpdwConnection) {
@@ -13486,7 +13488,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetdial
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetdial
      * @since windows5.0
      */
     static InternetDial(hwndParent, lpszConnectoid, dwFlags, lpdwConnection, dwReserved) {
@@ -13506,7 +13508,7 @@ class WinInet {
      * <div> </div>
      * @param {Pointer} dwConnection Connection number of  the connection to be disconnected.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internethangup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internethangup
      * @since windows5.0
      */
     static InternetHangUp(dwConnection) {
@@ -13573,7 +13575,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgoonlinea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgoonlinea
      * @since windows5.0
      */
     static InternetGoOnlineA(lpszURL, hwndParent, dwFlags) {
@@ -13647,7 +13649,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgoonlinew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgoonlinew
      * @since windows5.0
      */
     static InternetGoOnlineW(lpszURL, hwndParent, dwFlags) {
@@ -13715,7 +13717,7 @@ class WinInet {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgoonline
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgoonline
      * @since windows5.0
      */
     static InternetGoOnline(lpszURL, hwndParent, dwFlags) {
@@ -13751,7 +13753,7 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetautodial
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetautodial
      * @since windows5.0
      */
     static InternetAutodial(dwFlags, hwndParent) {
@@ -13780,7 +13782,7 @@ class WinInet {
      * 
      * 
      * If the function fails, it returns <b>FALSE</b>. Applications can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetautodialhangup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetautodialhangup
      * @since windows5.0
      */
     static InternetAutodialHangup() {
@@ -13811,7 +13813,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if there is an active modem or a LAN Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <b>InternetGetConnectedState</b> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>  to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetconnectedstate
      * @since windows5.0
      */
     static InternetGetConnectedState(lpdwFlags) {
@@ -13852,7 +13854,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstateexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetconnectedstateexa
      * @since windows5.0
      */
     static InternetGetConnectedStateExA(lpdwFlags, lpszConnectionName, cchNameLen) {
@@ -13895,7 +13897,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstateexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetconnectedstateexw
      * @since windows5.0
      */
     static InternetGetConnectedStateExW(lpdwFlags, lpszConnectionName, cchNameLen) {
@@ -13937,7 +13939,7 @@ class WinInet {
      * @param {Integer} dwReserved This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetinitializeautoproxydll
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetinitializeautoproxydll
      * @since windows5.0
      */
     static InternetInitializeAutoProxyDll(dwReserved) {
@@ -13962,7 +13964,7 @@ class WinInet {
      * @param {Integer} dwDetectFlags 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-detectautoproxyurl
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-detectautoproxyurl
      * @since windows5.0
      */
     static DetectAutoProxyUrl(pszAutoProxyUrl, cchAutoProxyUrl, dwDetectFlags) {
@@ -13994,7 +13996,7 @@ class WinInet {
      * @param {PWSTR} pwszTarget Pointer to a string that names an account for which to obtain the password. If <i>pwszTarget</i> is <b>NULL</b>, the realm indicated by <i>pwszRealm</i> is used.
      * @param {Pointer<Integer>} pbHexHash Pointer to an output buffer into which the MD5 hash is returned in hex string format. This buffer must be at least 33 bytes long.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-createmd5ssohash
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-createmd5ssohash
      * @since windows5.0
      */
     static CreateMD5SSOHash(pszChallengeInfo, pwszRealm, pwszTarget, pbHexHash) {
@@ -14027,7 +14029,7 @@ class WinInet {
      * @returns {BOOL} Returns <b>TRUE</b> if there is an Internet connection, or <b>FALSE</b> if there is no Internet connection, or if all possible Internet connections are not currently active. For more information, see the Remarks section.
      * 
      * When <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-internetgetconnectedstate">InternetGetConnectedState</a> returns <b>FALSE</b>, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to retrieve the error code.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetconnectedstateex
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetconnectedstateex
      * @since windows5.0
      */
     static InternetGetConnectedStateEx(lpdwFlags, lpszConnectionName, dwNameLen, dwReserved) {
@@ -14058,7 +14060,7 @@ class WinInet {
      * @param {PSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetdialstatea
      */
     static InternetSetDialStateA(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -14082,7 +14084,7 @@ class WinInet {
      * @param {PWSTR} lpszConnectoid Unused.
      * @param {Integer} dwState Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetdialstatew
      */
     static InternetSetDialStateW(lpszConnectoid, dwState) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
@@ -14102,7 +14104,7 @@ class WinInet {
      * @param {Integer} dwState Unused.
      * @param {Integer} dwReserved Unused.
      * @returns {BOOL} This function does not return a value.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetdialstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetdialstate
      */
     static InternetSetDialState(lpszConnectoid, dwState, dwReserved) {
         lpszConnectoid := lpszConnectoid is String ? StrPtr(lpszConnectoid) : lpszConnectoid
@@ -14129,7 +14131,7 @@ class WinInet {
      * @param {PSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetpersitecookiedecisiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionA(pchHostName, dwDecision) {
@@ -14157,7 +14159,7 @@ class WinInet {
      * @param {PWSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Integer} dwDecision A value of type <b>DWORD</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision is set and <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetsetpersitecookiedecisionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetsetpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetSetPerSiteCookieDecisionW(pchHostName, dwDecision) {
@@ -14189,7 +14191,7 @@ class WinInet {
      * @param {PSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<Integer>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetpersitecookiedecisiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionA(pchHostName, pResult) {
@@ -14223,7 +14225,7 @@ class WinInet {
      * @param {PWSTR} pchHostName An <b>LPCTSTR</b> that points to a string containing a domain.
      * @param {Pointer<Integer>} pResult A pointer to an <b>unsigned long</b> that contains one of the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration values.
      * @returns {BOOL} Returns <b>TRUE</b> if the decision was retrieved and <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetgetpersitecookiedecisionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetgetpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetGetPerSiteCookieDecisionW(pchHostName, pResult) {
@@ -14241,7 +14243,7 @@ class WinInet {
      * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
      * <div> </div>
      * @returns {BOOL} Returns <b>TRUE</b> if all decisions were cleared and <b>FALSE</b> otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetclearallpersitecookiedecisions
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetclearallpersitecookiedecisions
      * @since windows5.0
      */
     static InternetClearAllPerSiteCookieDecisions() {
@@ -14269,7 +14271,7 @@ class WinInet {
      * @param {Pointer<Integer>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
      * @returns {BOOL} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetenumpersitecookiedecisiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetenumpersitecookiedecisiona
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionA(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
@@ -14302,7 +14304,7 @@ class WinInet {
      * @param {Pointer<Integer>} pdwDecision Pointer to an unsigned long that receives the <a href="https://docs.microsoft.com/windows/win32/api/wininet/ne-wininet-internet_scheme">InternetCookieState</a> enumeration value corresponding to <i>pszSiteName</i>.
      * @param {Integer} dwIndex An unsigned long that specifies the index of the website and corresponding cookie setting to retrieve.
      * @returns {BOOL} <b>TRUE</b> if the function retrieved the cookie setting for the given domain; otherwise, false. <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-internetenumpersitecookiedecisionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-internetenumpersitecookiedecisionw
      * @since windows5.0
      */
     static InternetEnumPerSiteCookieDecisionW(pszSiteName, pcSiteNameSize, pdwDecision, dwIndex) {
@@ -14394,7 +14396,7 @@ class WinInet {
      * @param {Integer} dwTemplate Value of type <b>DWORD</b> that specifies which of the <a href="https://docs.microsoft.com/windows/desktop/WinInet/privacy-templates">privacy templates</a> is to be used to set the privacy settings.
      * @param {PWSTR} pszPreference If <i>dwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>, this parameter is the string representation of the custom preferences. Otherwise, it should be set to <b>NULL</b>. A description of this string representation is included in the Remarks section.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the errors defined in winerr.h is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-privacysetzonepreferencew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-privacysetzonepreferencew
      * @since windows5.0
      */
     static PrivacySetZonePreferenceW(dwZone, dwType, dwTemplate, pszPreference) {
@@ -14419,7 +14421,7 @@ class WinInet {
      * @param {PWSTR} pszBuffer An  <b>LPWSTR</b> that points to a buffer containing a <b>LPCWSTR</b> representing a string version of the <i>pdwTemplate</i> or a customized string if the <i>pdwTemplate</i> is set to <b>PRIVACY_TEMPLATE_CUSTOM</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/wininet/nf-wininet-privacysetzonepreferencew">PrivacySetZonePreferenceW</a> for a description of a customized privacy preferences string.
      * @param {Pointer<Integer>} pdwBufferLength An <b>LPDWORD</b> that contains the buffer length in characters. If the buffer length is not sufficient, <b>PrivacyGetZonePreferenceW</b> returns with this parameter set to the number of characters required and with a return value of <b>ERROR_MORE_DATA</b>.
      * @returns {Integer} Returns zero if successful. Otherwise, one of the Error Messages defined in winerr.h is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-privacygetzonepreferencew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wininet/nf-wininet-privacygetzonepreferencew
      * @since windows5.0
      */
     static PrivacyGetZonePreferenceW(dwZone, dwType, pdwTemplate, pszBuffer, pdwBufferLength) {
@@ -14671,15 +14673,15 @@ class WinInet {
     /**
      * 
      * @param {Integer} dwCommand 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @returns {BOOL} 
      */
-    static InternetFortezzaCommand(dwCommand, hwnd) {
+    static InternetFortezzaCommand(dwCommand, hwnd_) {
         static dwReserved := 0 ;Reserved parameters must always be NULL
 
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := DllCall("WININET.dll\InternetFortezzaCommand", "uint", dwCommand, "ptr", hwnd, "ptr", dwReserved, "int")
+        result := DllCall("WININET.dll\InternetFortezzaCommand", "uint", dwCommand, "ptr", hwnd_, "ptr", dwReserved, "int")
         return result
     }
 
@@ -14800,19 +14802,19 @@ class WinInet {
      * @param {PSTR} lpszUrl 
      * @param {PSTR} lpszComplianceToken 
      * @param {Pointer<BOOL>} lpfFound 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Pointer<Void>} lpvReserved 
      * @returns {BOOL} 
      */
-    static HttpCheckDavComplianceA(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
+    static HttpCheckDavComplianceA(lpszUrl, lpszComplianceToken, lpfFound, hWnd_, lpvReserved) {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         lpfFoundMarshal := lpfFound is VarRef ? "int*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceA", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd_, lpvReservedMarshal, lpvReserved, "int")
         return result
     }
 
@@ -14821,19 +14823,19 @@ class WinInet {
      * @param {PWSTR} lpszUrl 
      * @param {PWSTR} lpszComplianceToken 
      * @param {Pointer<BOOL>} lpfFound 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Pointer<Void>} lpvReserved 
      * @returns {BOOL} 
      */
-    static HttpCheckDavComplianceW(lpszUrl, lpszComplianceToken, lpfFound, hWnd, lpvReserved) {
+    static HttpCheckDavComplianceW(lpszUrl, lpszComplianceToken, lpfFound, hWnd_, lpvReserved) {
         lpszUrl := lpszUrl is String ? StrPtr(lpszUrl) : lpszUrl
         lpszComplianceToken := lpszComplianceToken is String ? StrPtr(lpszComplianceToken) : lpszComplianceToken
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
         lpfFoundMarshal := lpfFound is VarRef ? "int*" : "ptr"
         lpvReservedMarshal := lpvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd, lpvReservedMarshal, lpvReserved, "int")
+        result := DllCall("WININET.dll\HttpCheckDavComplianceW", "ptr", lpszUrl, "ptr", lpszComplianceToken, lpfFoundMarshal, lpfFound, "ptr", hWnd_, lpvReservedMarshal, lpvReserved, "int")
         return result
     }
 
@@ -14938,7 +14940,7 @@ class WinInet {
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-createurlcachecontainera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-createurlcachecontainera
      * @since windows5.0
      */
     static CreateUrlCacheContainerA(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
@@ -14971,7 +14973,7 @@ class WinInet {
      * @param {Integer} dwOptions This parameter is reserved and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-createurlcachecontainerw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-createurlcachecontainerw
      * @since windows5.0
      */
     static CreateUrlCacheContainerW(Name, lpCachePrefix, lpszCachePath, KBCacheLimit, dwContainerType, dwOptions) {
@@ -15005,7 +15007,7 @@ class WinInet {
      * @param {PSTR} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-deleteurlcachecontainera
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-deleteurlcachecontainera
      * @since windows5.0
      */
     static DeleteUrlCacheContainerA(Name, dwOptions) {
@@ -15035,7 +15037,7 @@ class WinInet {
      * @param {PWSTR} Name The name of the cache container to be deleted.
      * @param {Integer} dwOptions This parameter is reserved, and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-deleteurlcachecontainerw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-deleteurlcachecontainerw
      * @since windows5.0
      */
     static DeleteUrlCacheContainerW(Name, dwOptions) {
@@ -15132,7 +15134,7 @@ class WinInet {
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-freeurlcachespacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-freeurlcachespacea
      * @since windows5.0
      */
     static FreeUrlCacheSpaceA(lpszCachePath, dwSize, dwFilter) {
@@ -15163,7 +15165,7 @@ class WinInet {
      * @param {Integer} dwSize The percentage of the cache to free (in the range 1 to 100, inclusive).
      * @param {Integer} dwFilter This parameter is reserved, and must be 0.
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-freeurlcachespacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-freeurlcachespacew
      * @since windows5.0
      */
     static FreeUrlCacheSpaceW(lpszCachePath, dwSize, dwFilter) {
@@ -15224,7 +15226,7 @@ class WinInet {
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
      *        extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-geturlcacheconfiginfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-geturlcacheconfiginfoa
      * @since windows5.1.2600
      */
     static GetUrlCacheConfigInfoA(lpCacheConfigInfo, dwFieldControl) {
@@ -15259,7 +15261,7 @@ class WinInet {
      * @param {Integer} dwFieldControl 
      * @returns {BOOL} Returns <b>TRUE</b> if successful, or <b>FALSE</b> otherwise. To get 
      *        extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winineti/nf-winineti-geturlcacheconfiginfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/winineti/nf-winineti-geturlcacheconfiginfow
      * @since windows5.1.2600
      */
     static GetUrlCacheConfigInfoW(lpCacheConfigInfo, dwFieldControl) {
@@ -15299,35 +15301,35 @@ class WinInet {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {HINSTANCE} hinst 
      * @param {PSTR} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
-    static RunOnceUrlCache(hwnd, hinst, lpszCmd, nCmdShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static RunOnceUrlCache(hwnd_, hinst, lpszCmd, nCmdShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
-        result := DllCall("WININET.dll\RunOnceUrlCache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
+        result := DllCall("WININET.dll\RunOnceUrlCache", "ptr", hwnd_, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {HINSTANCE} hinst 
      * @param {PSTR} lpszCmd 
      * @param {Integer} nCmdShow 
      * @returns {Integer} 
      */
-    static DeleteIE3Cache(hwnd, hinst, lpszCmd, nCmdShow) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static DeleteIE3Cache(hwnd_, hinst, lpszCmd, nCmdShow) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         lpszCmd := lpszCmd is String ? StrPtr(lpszCmd) : lpszCmd
 
-        result := DllCall("WININET.dll\DeleteIE3Cache", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
+        result := DllCall("WININET.dll\DeleteIE3Cache", "ptr", hwnd_, "ptr", hinst, "ptr", lpszCmd, "int", nCmdShow, "uint")
         return result
     }
 
@@ -15345,17 +15347,17 @@ class WinInet {
 
     /**
      * 
-     * @param {HWND} hWnd 
+     * @param {HWND} hWnd_ 
      * @param {Integer} uMsg 
      * @param {Integer} gid 
      * @param {Integer} dwOpsFilter 
      * @param {Integer} dwReserved 
      * @returns {BOOL} 
      */
-    static RegisterUrlCacheNotification(hWnd, uMsg, gid, dwOpsFilter, dwReserved) {
-        hWnd := hWnd is Win32Handle ? NumGet(hWnd, "ptr") : hWnd
+    static RegisterUrlCacheNotification(hWnd_, uMsg, gid, dwOpsFilter, dwReserved) {
+        hWnd_ := hWnd_ is Win32Handle ? NumGet(hWnd_, "ptr") : hWnd_
 
-        result := DllCall("WININET.dll\RegisterUrlCacheNotification", "ptr", hWnd, "uint", uMsg, "int64", gid, "uint", dwOpsFilter, "uint", dwReserved, "int")
+        result := DllCall("WININET.dll\RegisterUrlCacheNotification", "ptr", hWnd_, "uint", uMsg, "int64", gid, "uint", dwOpsFilter, "uint", dwReserved, "int")
         return result
     }
 

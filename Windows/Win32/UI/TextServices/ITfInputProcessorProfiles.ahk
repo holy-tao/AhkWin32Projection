@@ -9,12 +9,8 @@
 /**
  * The ITfInputProcessorProfiles interface is implemented by the TSF manager and used by an application or text service to manipulate the language profile of one or more text services.
  * @remarks
- * 
  * To obtain a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> with CLSID_TF_InputProcessorProfiles.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofiles
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itfinputprocessorprofiles
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -72,10 +68,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-register
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-register
      */
     Register(rclsid) {
-        result := ComCall(3, this, "ptr", rclsid, "HRESULT")
+        result := ComCall(3, this, "ptr", rclsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,10 +112,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-unregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-unregister
      */
     Unregister(rclsid) {
-        result := ComCall(4, this, "ptr", rclsid, "HRESULT")
+        result := ComCall(4, this, "ptr", rclsid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -172,13 +176,17 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-addlanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-addlanguageprofile
      */
     AddLanguageProfile(rclsid, langid, guidProfile, pchDesc, cchDesc, pchIconFile, cchFile, uIconIndex) {
         pchDesc := pchDesc is String ? StrPtr(pchDesc) : pchDesc
         pchIconFile := pchIconFile is String ? StrPtr(pchIconFile) : pchIconFile
 
-        result := ComCall(5, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "HRESULT")
+        result := ComCall(5, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pchDesc, "uint", cchDesc, "ptr", pchIconFile, "uint", cchFile, "uint", uIconIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -217,20 +225,28 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-removelanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-removelanguageprofile
      */
     RemoveLanguageProfile(rclsid, langid, guidProfile) {
-        result := ComCall(6, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "HRESULT")
+        result := ComCall(6, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfInputProcessorProfiles::EnumInputProcessorInfo method
      * @returns {IEnumGUID} Pointer to an <b>IEnumGUID</b> interface pointer that receives the enumerator object. The enumerator contains the CLSID for each registered text service. The caller must release this object when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-enuminputprocessorinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-enuminputprocessorinfo
      */
     EnumInputProcessorInfo() {
-        result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumGUID(ppEnum)
     }
 
@@ -292,10 +308,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-getdefaultlanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-getdefaultlanguageprofile
      */
     GetDefaultLanguageProfile(langid, catid, pclsid, pguidProfile) {
-        result := ComCall(8, this, "ushort", langid, "ptr", catid, "ptr", pclsid, "ptr", pguidProfile, "HRESULT")
+        result := ComCall(8, this, "ushort", langid, "ptr", catid, "ptr", pclsid, "ptr", pguidProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -345,16 +365,23 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-setdefaultlanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-setdefaultlanguageprofile
      */
     SetDefaultLanguageProfile(langid, rclsid, guidProfiles) {
-        result := ComCall(9, this, "ushort", langid, "ptr", rclsid, "ptr", guidProfiles, "HRESULT")
+        result := ComCall(9, this, "ushort", langid, "ptr", rclsid, "ptr", guidProfiles, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfInputProcessorProfiles::ActivateLanguageProfile method
-     * @param {Pointer<Guid>} rclsid Contains the CLSID of the text service to make active.
+     * @param {Pointer<Guid>} rclsid Sets the active text service for a specific language.
+     * 
+     * 
+     * Contains the CLSID of the text service to make active.
      * @param {Integer} langid Contains a <b>LANGID</b> value that specifies which language to set the default profile for. This method fails if this is not the currently active language.
      * @param {Pointer<Guid>} guidProfiles Contains a GUID value that identifies the language profile to make active.
      * @returns {HRESULT} This method can return one of these values.
@@ -420,10 +447,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-activatelanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-activatelanguageprofile
      */
     ActivateLanguageProfile(rclsid, langid, guidProfiles) {
-        result := ComCall(10, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfiles, "HRESULT")
+        result := ComCall(10, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfiles, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -495,12 +526,16 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-getactivelanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-getactivelanguageprofile
      */
     GetActiveLanguageProfile(rclsid, plangid, pguidProfile) {
         plangidMarshal := plangid is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(11, this, "ptr", rclsid, plangidMarshal, plangid, "ptr", pguidProfile, "HRESULT")
+        result := ComCall(11, this, "ptr", rclsid, plangidMarshal, plangid, "ptr", pguidProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -510,21 +545,29 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @param {Integer} langid Contains a <b>LANGID</b> value that specifies which language to obtain the profile description for.
      * @param {Pointer<Guid>} guidProfile Contains a GUID value that identifies the language to obtain the profile description for.
      * @returns {BSTR} Pointer to a <b>BSTR</b> value that receives the description string. The caller is responsible for freeing this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-getlanguageprofiledescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-getlanguageprofiledescription
      */
     GetLanguageProfileDescription(rclsid, langid, guidProfile) {
         pbstrProfile := BSTR()
-        result := ComCall(12, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pbstrProfile, "HRESULT")
+        result := ComCall(12, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", pbstrProfile, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrProfile
     }
 
     /**
      * ITfInputProcessorProfiles::GetCurrentLanguage method
      * @returns {Integer} Pointer to a <b>LANGID</b> value that receives the language identifier of the currently active language.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-getcurrentlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-getcurrentlanguage
      */
     GetCurrentLanguage() {
-        result := ComCall(13, this, "ushort*", &plangid := 0, "HRESULT")
+        result := ComCall(13, this, "ushort*", &plangid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plangid
     }
 
@@ -594,10 +637,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-changecurrentlanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-changecurrentlanguage
      */
     ChangeCurrentLanguage(langid) {
-        result := ComCall(14, this, "ushort", langid, "HRESULT")
+        result := ComCall(14, this, "ushort", langid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -657,13 +704,17 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-getlanguagelist
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-getlanguagelist
      */
     GetLanguageList(ppLangId, pulCount) {
         ppLangIdMarshal := ppLangId is VarRef ? "ptr*" : "ptr"
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, ppLangIdMarshal, ppLangId, pulCountMarshal, pulCount, "HRESULT")
+        result := ComCall(15, this, ppLangIdMarshal, ppLangId, pulCountMarshal, pulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -671,10 +722,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * ITfInputProcessorProfiles::EnumLanguageProfiles method
      * @param {Integer} langid Contains a <b>LANGID</b> value that specifies the language to obtain an enumerator for.
      * @returns {IEnumTfLanguageProfiles} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtflanguageprofiles">IEnumTfLanguageProfiles</a> interface pointer that receives the enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-enumlanguageprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-enumlanguageprofiles
      */
     EnumLanguageProfiles(langid) {
-        result := ComCall(16, this, "ushort", langid, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(16, this, "ushort", langid, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumTfLanguageProfiles(ppEnum)
     }
 
@@ -714,10 +769,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofile
      */
     EnableLanguageProfile(rclsid, langid, guidProfile, fEnable) {
-        result := ComCall(17, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int", fEnable, "HRESULT")
+        result := ComCall(17, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -727,10 +786,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @param {Integer} langid Contains a <b>LANGID</b> value that specifies the language of the profile in question.
      * @param {Pointer<Guid>} guidProfile Contains a GUID value that identifies the profile in question.
      * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives a value that specifies if the profile is enabled or disabled. If this receives a nonzero value, the profile is enabled. If this receives zero, the profile is disabled.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-isenabledlanguageprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-isenabledlanguageprofile
      */
     IsEnabledLanguageProfile(rclsid, langid, guidProfile) {
-        result := ComCall(18, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int*", &pfEnable := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int*", &pfEnable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnable
     }
 
@@ -770,10 +833,14 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofilebydefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-enablelanguageprofilebydefault
      */
     EnableLanguageProfileByDefault(rclsid, langid, guidProfile, fEnable) {
-        result := ComCall(19, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int", fEnable, "HRESULT")
+        result := ComCall(19, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "int", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -782,7 +849,7 @@ class ITfInputProcessorProfiles extends IUnknown{
      * @param {Pointer<Guid>} rclsid Contains the CLSID of the text service of the profile in question.
      * @param {Integer} langid Contains a <b>LANGID</b> value that specifies the language of the profile in question.
      * @param {Pointer<Guid>} guidProfile Contains a GUID value that identifies the profile in question.
-     * @param {HKL} hKL Contains an <b>HKL</b> value that specifies the input locale identifier for the substitute keyboard. Obtain this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a>.
+     * @param {HKL} hKL_ Contains an <b>HKL</b> value that specifies the input locale identifier for the substitute keyboard. Obtain this value by calling <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-loadkeyboardlayouta">LoadKeyboardLayout</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -813,12 +880,16 @@ class ITfInputProcessorProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofiles-substitutekeyboardlayout
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itfinputprocessorprofiles-substitutekeyboardlayout
      */
-    SubstituteKeyboardLayout(rclsid, langid, guidProfile, hKL) {
-        hKL := hKL is Win32Handle ? NumGet(hKL, "ptr") : hKL
+    SubstituteKeyboardLayout(rclsid, langid, guidProfile, hKL_) {
+        hKL_ := hKL_ is Win32Handle ? NumGet(hKL_, "ptr") : hKL_
 
-        result := ComCall(20, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", hKL, "HRESULT")
+        result := ComCall(20, this, "ptr", rclsid, "ushort", langid, "ptr", guidProfile, "ptr", hKL_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

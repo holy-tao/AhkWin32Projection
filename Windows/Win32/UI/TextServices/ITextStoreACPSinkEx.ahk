@@ -33,7 +33,11 @@ class ITextStoreACPSinkEx extends ITextStoreACPSink{
      * @returns {HRESULT} 
      */
     OnDisconnect() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

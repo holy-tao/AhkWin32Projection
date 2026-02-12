@@ -22,7 +22,7 @@
  * <li>SKF_RCTLLOCKED</li>
  * <li>SKF_RSHIFTLOCKED</li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-stickykeys
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-stickykeys
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

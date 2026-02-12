@@ -34,8 +34,12 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberSymbols() {
-        result := ComCall(3, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(3, this, "uint*", &Number_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Number_
     }
 
     /**
@@ -49,7 +53,11 @@ class IDebugSymbolGroup extends IUnknown{
 
         IndexMarshal := Index is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", Name, IndexMarshal, Index, "HRESULT")
+        result := ComCall(4, this, "ptr", Name, IndexMarshal, Index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -61,7 +69,11 @@ class IDebugSymbolGroup extends IUnknown{
     RemoveSymbolByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
 
-        result := ComCall(5, this, "ptr", Name, "HRESULT")
+        result := ComCall(5, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -71,21 +83,29 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveSymbolByIndex(Index) {
-        result := ComCall(6, this, "uint", Index, "HRESULT")
+        result := ComCall(6, this, "uint", Index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_ 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolName(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolName(Index, Buffer_, BufferSize) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(7, this, "uint", Index, "ptr", Buffer_, "uint", BufferSize, "uint*", &NameSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NameSize
     }
 
@@ -97,7 +117,11 @@ class IDebugSymbolGroup extends IUnknown{
      */
     GetSymbolParameters(Start, Count) {
         Params := DEBUG_SYMBOL_PARAMETERS()
-        result := ComCall(8, this, "uint", Start, "uint", Count, "ptr", Params, "HRESULT")
+        result := ComCall(8, this, "uint", Start, "uint", Count, "ptr", Params, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Params
     }
 
@@ -108,7 +132,11 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     ExpandSymbol(Index, Expand) {
-        result := ComCall(9, this, "uint", Index, "int", Expand, "HRESULT")
+        result := ComCall(9, this, "uint", Index, "int", Expand, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +149,11 @@ class IDebugSymbolGroup extends IUnknown{
      * @returns {HRESULT} 
      */
     OutputSymbols(OutputControl, Flags, Start, Count) {
-        result := ComCall(10, this, "uint", OutputControl, "uint", Flags, "uint", Start, "uint", Count, "HRESULT")
+        result := ComCall(10, this, "uint", OutputControl, "uint", Flags, "uint", Start, "uint", Count, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +166,11 @@ class IDebugSymbolGroup extends IUnknown{
     WriteSymbol(Index, Value) {
         Value := Value is String ? StrPtr(Value) : Value
 
-        result := ComCall(11, this, "uint", Index, "ptr", Value, "HRESULT")
+        result := ComCall(11, this, "uint", Index, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -147,7 +183,11 @@ class IDebugSymbolGroup extends IUnknown{
     OutputAsType(Index, Type) {
         Type := Type is String ? StrPtr(Type) : Type
 
-        result := ComCall(12, this, "uint", Index, "ptr", Type, "HRESULT")
+        result := ComCall(12, this, "uint", Index, "ptr", Type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

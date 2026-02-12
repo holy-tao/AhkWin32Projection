@@ -7,16 +7,8 @@
 /**
  * Implements a generic event interface that can deliver and encapsulate events that are raised by devices that work with the Protected Broadcast Driver Interface (PBDA).
  * @remarks
- * 
- * 
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEvent)</c>.
- * 
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-iesevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nn-tuner-iesevent
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -44,32 +36,44 @@ class IESEvent extends IUnknown{
     /**
      * Gets the unique identifier from an event that is derived from the IESEvent interface. The event identifier is contained in an IESEvent object, which ispassed in a call to IESEventService::FireESEvent.
      * @returns {Integer} Receives the event identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesevent-geteventid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iesevent-geteventid
      */
     GetEventId() {
-        result := ComCall(3, this, "uint*", &pdwEventId := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &pdwEventId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwEventId
     }
 
     /**
      * Gets the GUID that identifies an event that is derived from the IESEvent interface. The GUID is contained in an IESEvent object, which ispassed in a call to IESEventService::FireESEvent.
      * @returns {Guid} Pointer to the GUID that uniquely identifies the event type.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesevent-geteventtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iesevent-geteventtype
      */
     GetEventType() {
         pguidEventType := Guid()
-        result := ComCall(4, this, "ptr", pguidEventType, "HRESULT")
+        result := ComCall(4, this, "ptr", pguidEventType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidEventType
     }
 
     /**
      * Sets the completion status for an event that is derived from the IESEvent interface.
      * @param {Integer} dwResult Completion status for the event.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesevent-setcompletionstatus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iesevent-setcompletionstatus
      */
     SetCompletionStatus(dwResult) {
-        result := ComCall(5, this, "uint", dwResult, "HRESULT")
+        result := ComCall(5, this, "uint", dwResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,21 +81,29 @@ class IESEvent extends IUnknown{
      * Gets data from an event that is derived from the IESEvent interface. This method gets a byte array that contains the data in an IESEvent object, which is passed in a call to IESEventService::FireESEvent.
      * @returns {Pointer<SAFEARRAY>} Pointer to <b>SAFEARRAY</b> that receives the event data.
      *           The caller is responsible for freeing the <b>SAFEARRAY</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesevent-getdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iesevent-getdata
      */
     GetData() {
-        result := ComCall(6, this, "ptr*", &pbData := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &pbData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbData
     }
 
     /**
      * Gets the data from an event that is derived from the IESEvent interface, in Unicode string format. The data is contained in an IESEvent object, which ispassed in a call to IESEventService::FireESEvent.
      * @returns {BSTR} Pointer to a buffer that receives the data that is passed with the <b>IESEvent</b> object, in Unicode string format. The caller must release this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-iesevent-getstringdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/tuner/nf-tuner-iesevent-getstringdata
      */
     GetStringData() {
         pbstrData := BSTR()
-        result := ComCall(7, this, "ptr", pbstrData, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrData
     }
 }

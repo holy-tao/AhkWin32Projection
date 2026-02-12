@@ -3,7 +3,7 @@
 
 /**
  * The DVD_KaraokeAttributes structure contains information about a karaoke audio stream. The IDvdInfo2::GetKaraokeAttributes method fills in a DVD_KaraokeAttributes structure for a specified stream.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_karaokeattributes
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-dvd_karaokeattributes
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

@@ -10,7 +10,7 @@
  * <b>MEMORYSTATUS</b> structure can return incorrect information, reporting a value of –1 to indicate an overflow. If your application is at risk for this behavior, use the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-globalmemorystatusex">GlobalMemoryStatusEx</a> function instead of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-globalmemorystatus">GlobalMemoryStatus</a> function.
- * @see https://learn.microsoft.com/windows/win32/api/winbase/ns-winbase-memorystatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/winbase/ns-winbase-memorystatus
  * @namespace Windows.Win32.System.SystemInformation
  * @version v4.0.30319
  */

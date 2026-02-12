@@ -30,13 +30,18 @@ class ITransactionVoterFactory2 extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * Create Extended Stored Procedures
      * @param {ITransaction} pTransaction 
      * @param {ITransactionVoterNotifyAsync2} pVoterNotify 
      * @returns {ITransactionVoterBallotAsync2} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/extended-stored-procedures-programming/creating-extended-stored-procedures
      */
     Create(pTransaction, pVoterNotify) {
-        result := ComCall(3, this, "ptr", pTransaction, "ptr", pVoterNotify, "ptr*", &ppVoterBallot := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pTransaction, "ptr", pVoterNotify, "ptr*", &ppVoterBallot := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionVoterBallotAsync2(ppVoterBallot)
     }
 }

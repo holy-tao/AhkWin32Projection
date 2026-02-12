@@ -36,7 +36,11 @@ class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer{
      * @returns {Pointer<Void>} 
      */
     GetObjectInPath(rguidObject, dwIndex, rguidInterface) {
-        result := ComCall(12, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(12, this, "ptr", rguidObject, "uint", dwIndex, "ptr", rguidInterface, "ptr*", &ppObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppObject
     }
 
@@ -46,7 +50,11 @@ class IDirectSoundCaptureBuffer8 extends IDirectSoundCaptureBuffer{
      * @returns {Integer} 
      */
     GetFXStatus(dwEffectsCount) {
-        result := ComCall(13, this, "uint", dwEffectsCount, "uint*", &pdwFXStatus := 0, "HRESULT")
+        result := ComCall(13, this, "uint", dwEffectsCount, "uint*", &pdwFXStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFXStatus
     }
 }

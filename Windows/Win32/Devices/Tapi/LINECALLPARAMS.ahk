@@ -16,7 +16,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineopen">lineOpen</a> function.</div>
  * <div> </div>
  * The members <b>dwPredictiveAutoTransferStates</b> through <b>dwCallingPartyIDOffset</b> are available only to applications that open the line device with an API version of 2.0 or later.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linecallparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linecallparams
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

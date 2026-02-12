@@ -35,7 +35,11 @@ class INetCfgComponentBindings extends IUnknown{
      * @returns {HRESULT} 
      */
     BindTo(pnccItem) {
-        result := ComCall(3, this, "ptr", pnccItem, "HRESULT")
+        result := ComCall(3, this, "ptr", pnccItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class INetCfgComponentBindings extends IUnknown{
      * @returns {HRESULT} 
      */
     UnbindFrom(pnccItem) {
-        result := ComCall(4, this, "ptr", pnccItem, "HRESULT")
+        result := ComCall(4, this, "ptr", pnccItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,7 +66,11 @@ class INetCfgComponentBindings extends IUnknown{
     SupportsBindingInterface(dwFlags, pszwInterfaceName) {
         pszwInterfaceName := pszwInterfaceName is String ? StrPtr(pszwInterfaceName) : pszwInterfaceName
 
-        result := ComCall(5, this, "uint", dwFlags, "ptr", pszwInterfaceName, "HRESULT")
+        result := ComCall(5, this, "uint", dwFlags, "ptr", pszwInterfaceName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class INetCfgComponentBindings extends IUnknown{
      * @returns {HRESULT} 
      */
     IsBoundTo(pnccItem) {
-        result := ComCall(6, this, "ptr", pnccItem, "HRESULT")
+        result := ComCall(6, this, "ptr", pnccItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +94,11 @@ class INetCfgComponentBindings extends IUnknown{
      * @returns {HRESULT} 
      */
     IsBindableTo(pnccItem) {
-        result := ComCall(7, this, "ptr", pnccItem, "HRESULT")
+        result := ComCall(7, this, "ptr", pnccItem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -88,7 +108,11 @@ class INetCfgComponentBindings extends IUnknown{
      * @returns {IEnumNetCfgBindingPath} 
      */
     EnumBindingPaths(dwFlags) {
-        result := ComCall(8, this, "uint", dwFlags, "ptr*", &ppIEnum := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwFlags, "ptr*", &ppIEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumNetCfgBindingPath(ppIEnum)
     }
 
@@ -99,7 +123,11 @@ class INetCfgComponentBindings extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveBefore(pncbItemSrc, pncbItemDest) {
-        result := ComCall(9, this, "ptr", pncbItemSrc, "ptr", pncbItemDest, "HRESULT")
+        result := ComCall(9, this, "ptr", pncbItemSrc, "ptr", pncbItemDest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +138,11 @@ class INetCfgComponentBindings extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveAfter(pncbItemSrc, pncbItemDest) {
-        result := ComCall(10, this, "ptr", pncbItemSrc, "ptr", pncbItemDest, "HRESULT")
+        result := ComCall(10, this, "ptr", pncbItemSrc, "ptr", pncbItemDest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -7,7 +7,7 @@
  * The DISPLAYCONFIG_SDR_WHITE_LEVEL structure (wingdi.h) contains information about a display's current SDR white level.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_sdr_white_level
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-displayconfig_sdr_white_level
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

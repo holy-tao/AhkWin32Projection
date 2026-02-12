@@ -6,7 +6,7 @@
 
 /**
  * The IPAT interface enables the client to get information from a Program Association Table (PAT). The IAtscPsipParser::GetPAT method returns a pointer to this interface.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nn-mpeg2psiparser-ipat
+ * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nn-mpeg2psiparser-ipat
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -76,40 +76,56 @@ class IPAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-initialize
      */
     Initialize(pSectionList, pMPEGData) {
-        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
+        result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetTransportStreamId method returns the transport stream identifier (TSID) for the PAT.
      * @returns {Integer} Receives the transport_stream_id field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-gettransportstreamid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-gettransportstreamid
      */
     GetTransportStreamId() {
-        result := ComCall(4, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(4, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
     /**
      * The GetVersionNumber method returns the version number for the PAT.
      * @returns {Integer} Receives the version_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-getversionnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-getversionnumber
      */
     GetVersionNumber() {
-        result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(5, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * The GetCountOfRecords method returns the number of records in the PAT. Each record corresponds to one program.
      * @returns {Integer} Receives the number of records.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-getcountofrecords
      */
     GetCountOfRecords() {
-        result := ComCall(6, this, "uint*", &pdwVal := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwVal
     }
 
@@ -117,10 +133,14 @@ class IPAT extends IUnknown{
      * The GetRecordProgramNumber method retrieves a program number from the PAT.
      * @param {Integer} dwIndex Specifies the record to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getcountofrecords">IPAT::GetCountOfRecords</a> method to get the number of records in the PAT.
      * @returns {Integer} Receives the program number.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogramnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogramnumber
      */
     GetRecordProgramNumber(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(7, this, "uint", dwIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -128,10 +148,14 @@ class IPAT extends IUnknown{
      * The GetRecordProgramMapPid method returns the packet identifier (PID) for a given record in the PAT.
      * @param {Integer} dwIndex Specifies the record to retrieve, indexed from zero. Call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getcountofrecords">IPAT::GetCountOfRecords</a> method to get the number of records in the PAT.
      * @returns {Integer} Receives the PID. This value identifies the PID for the packets that contain the program map table (PMT) of the associated program.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogrammappid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-getrecordprogrammappid
      */
     GetRecordProgramMapPid(dwIndex) {
-        result := ComCall(8, this, "uint", dwIndex, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(8, this, "uint", dwIndex, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -139,15 +163,21 @@ class IPAT extends IUnknown{
      * The FindRecordProgramMapPid method returns the packet identifier (PID) for the program map table (PMT) associated with a given program number.
      * @param {Integer} wProgramNumber Specifies the program number.
      * @returns {Integer} Receives the PID.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-findrecordprogrammappid
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-findrecordprogrammappid
      */
     FindRecordProgramMapPid(wProgramNumber) {
-        result := ComCall(9, this, "ushort", wProgramNumber, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(9, this, "ushort", wProgramNumber, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
     /**
      * The RegisterForNextTable method registers the client to be notified when a next table arrives that will replace the current table.
+     * @remarks
+     * This method applies only to <i>current</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @param {HANDLE} hNextTableAvailable Handle to an event created by the caller. The object signals the event when the <i>next</i> table arrives. When the event is signaled, call the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-getnexttable">IPAT::GetNextTable</a> method to retrieve the table.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -201,27 +231,39 @@ class IPAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-registerfornexttable
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-registerfornexttable
      */
     RegisterForNextTable(hNextTableAvailable) {
         hNextTableAvailable := hNextTableAvailable is Win32Handle ? NumGet(hNextTableAvailable, "ptr") : hNextTableAvailable
 
-        result := ComCall(10, this, "ptr", hNextTableAvailable, "HRESULT")
+        result := ComCall(10, this, "ptr", hNextTableAvailable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetNextTable method retrieves the next table that follows the current table.
+     * @remarks
+     * This method applies only to <i>current</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @returns {IPAT} Address of a variable that receives an <b>IPAT</b> interface pointer. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-getnexttable
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-getnexttable
      */
     GetNextTable() {
-        result := ComCall(11, this, "ptr*", &ppPAT := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppPAT := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPAT(ppPAT)
     }
 
     /**
      * The RegisterForWhenCurrent method registers the client to be notified when the table becomes current.
+     * @remarks
+     * This method applies only to <i>next</i> tables. Otherwise, the method returns E_ACCESSDENIED.
      * @param {HANDLE} hNextTableIsCurrent Handle to an event created by the caller. The object signals the event when the table becomes current.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -275,17 +317,23 @@ class IPAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-registerforwhencurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-registerforwhencurrent
      */
     RegisterForWhenCurrent(hNextTableIsCurrent) {
         hNextTableIsCurrent := hNextTableIsCurrent is Win32Handle ? NumGet(hNextTableIsCurrent, "ptr") : hNextTableIsCurrent
 
-        result := ComCall(12, this, "ptr", hNextTableIsCurrent, "HRESULT")
+        result := ComCall(12, this, "ptr", hNextTableIsCurrent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ConvertNextToCurrent method converts a next table to a current table.
+     * @remarks
+     * This method applies only to <i>next</i> tables that have become current. Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nf-mpeg2psiparser-ipat-registerforwhencurrent">IPAT::RegisterForWhenCurrent</a> and wait for the event to be signaled.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -338,10 +386,14 @@ class IPAT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipat-convertnexttocurrent
+     * @see https://learn.microsoft.com/windows/win32/api//content/mpeg2psiparser/nf-mpeg2psiparser-ipat-convertnexttocurrent
      */
     ConvertNextToCurrent() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

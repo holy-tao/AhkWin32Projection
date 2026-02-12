@@ -29,17 +29,26 @@ class IActiveScriptStats extends IUnknown{
     static VTableNames => ["GetStat", "GetStatEx", "ResetStats"]
 
     /**
-     * 
+     * Gets current Interaction Context state and the time when the context will return to idle state.
+     * @remarks
+     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
      * @param {Integer} stid 
      * @param {Pointer<Integer>} pluHi 
      * @param {Pointer<Integer>} pluLo 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      */
     GetStat(stid, pluHi, pluLo) {
         pluHiMarshal := pluHi is VarRef ? "uint*" : "ptr"
         pluLoMarshal := pluLo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "uint", stid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "HRESULT")
+        result := ComCall(3, this, "uint", stid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +63,11 @@ class IActiveScriptStats extends IUnknown{
         pluHiMarshal := pluHi is VarRef ? "uint*" : "ptr"
         pluLoMarshal := pluLo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", guid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "HRESULT")
+        result := ComCall(4, this, "ptr", guid, pluHiMarshal, pluHi, pluLoMarshal, pluLo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +76,11 @@ class IActiveScriptStats extends IUnknown{
      * @returns {HRESULT} 
      */
     ResetStats() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

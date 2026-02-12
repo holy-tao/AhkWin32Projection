@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\Foundation\WPARAM.ahk
 #Include .\RAWINPUTHEADER.ahk
 #Include .\RAWMOUSE.ahk
 #Include .\RAWKEYBOARD.ahk
@@ -18,7 +19,7 @@
  * To get device specific information, call <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getrawinputdeviceinfoa">GetRawInputDeviceInfo</a> with the <i>hDevice</i> from <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-rawinputheader">RAWINPUTHEADER</a>.
  * 
  * Raw input is available only when the application calls <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerrawinputdevices">RegisterRawInputDevices</a> with valid device specifications.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-rawinput
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-rawinput
  * @namespace Windows.Win32.UI.Input
  * @version v4.0.30319
  */

@@ -6,8 +6,7 @@
 /**
  * Exposes methods that allow the caller to retrieve information entered into a search box.
  * @remarks
- * 
- * The search box is shown here in an Windows Explorer window frame.
+ * The search box is shown here in a Windows Explorer window frame.
  * 
  * 
  * 
@@ -18,8 +17,7 @@
  * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * An implementation of this interface is provided with Windows. Third parties do not need to implement their own version.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-isearchboxinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-isearchboxinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -46,16 +44,24 @@ class ISearchBoxInfo extends IUnknown{
 
     /**
      * Retrieves the contents of the search box as an ICondition object.
+     * @remarks
+     * As opposed to the text string retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-isearchboxinfo-gettext">ISearchBoxInfo::GetText</a>, <b>GetCondition</b> retrieves the same information as a structured object, the methods of which can be used to parse and manipulate the search string.
+     * 
+     * We recommend that you use the <b>IID_PPV_ARGS</b> macro, defined in Objbase.h, to package the <i>riid</i> and <i>ppv</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppv</i>, which eliminates the possibility of a coding error in <i>riid</i> that could lead to unexpected results.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * 
      * A reference to the IID of the interface to retrieve through <i>ppv</i>, typically IID_ICondition.
-     * @returns {Pointer<Void>} Type: <b>void**</b>
+     * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns successfully, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/structuredquerycondition/nn-structuredquerycondition-icondition">ICondition</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-isearchboxinfo-getcondition
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-isearchboxinfo-getcondition
      */
     GetCondition(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
@@ -64,10 +70,14 @@ class ISearchBoxInfo extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Pointer to a buffer that, when this method returns successfully, receives the full text entered in the search box.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-isearchboxinfo-gettext
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-isearchboxinfo-gettext
      */
     GetText() {
-        result := ComCall(4, this, "ptr*", &ppsz := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppsz := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppsz
     }
 }

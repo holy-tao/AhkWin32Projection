@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include .\HTREEITEM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include .\TVITEMEXA.ahk
 #Include .\TVITEMA.ahk
@@ -16,7 +18,7 @@
  * 
  * > [!NOTE]
  * > The commctrl.h header defines TVINSERTSTRUCT as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tvinsertstructa
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-tvinsertstructa
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  * @charset ANSI
@@ -33,18 +35,24 @@ class TVINSERTSTRUCTA extends Win32Struct
      * Handle to the parent item. If this member is the TVI_ROOT value or <b>NULL</b>, the item is inserted at the root of the tree-view control.
      * @type {HTREEITEM}
      */
-    hParent {
-        get => NumGet(this, 0, "ptr")
-        set => NumPut("ptr", value, this, 0)
+    hParent{
+        get {
+            if(!this.HasProp("__hParent"))
+                this.__hParent := HTREEITEM(0, this)
+            return this.__hParent
+        }
     }
 
     /**
      * Type: <b>HTREEITEM</b>
      * @type {HTREEITEM}
      */
-    hInsertAfter {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    hInsertAfter{
+        get {
+            if(!this.HasProp("__hInsertAfter"))
+                this.__hInsertAfter := HTREEITEM(8, this)
+            return this.__hInsertAfter
+        }
     }
 
     /**

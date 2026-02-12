@@ -10,7 +10,7 @@
  * 
  * For both setting and reading filter values, the snap-in owns the 
  * MMC_FILTERDATA structure and any text buffer.
- * @see https://learn.microsoft.com/windows/win32/api/mmc/ns-mmc-mmc_filterdata
+ * @see https://learn.microsoft.com/windows/win32/api//content/mmc/ns-mmc-mmc_filterdata
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */

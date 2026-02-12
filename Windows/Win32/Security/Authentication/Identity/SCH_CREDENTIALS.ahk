@@ -6,7 +6,7 @@
  * Contains the data for an Schannel credential. (SCH_CREDENTIALS)
  * @remarks
  * To use the SCH_CREDENTIALS structure, define SCHANNEL_USE_BLACKLISTS along with UNICODE_STRING and PUNICODE_STRING. Alternatively, include Ntdef.h, SubAuth.h or Winternl.h.
- * @see https://learn.microsoft.com/windows/win32/api/schannel/ns-schannel-sch_credentials
+ * @see https://learn.microsoft.com/windows/win32/api//content/schannel/ns-schannel-sch_credentials
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

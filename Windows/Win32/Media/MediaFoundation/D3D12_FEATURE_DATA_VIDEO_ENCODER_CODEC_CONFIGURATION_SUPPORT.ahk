@@ -7,7 +7,7 @@
  * Retrieves a value indicating if the specified codec configuration support parameters are supported for the provided HEVC encoding configuration or retrieves the supported configuration for H.264 encoding.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_codec_configuration_support
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_feature_data_video_encoder_codec_configuration_support
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

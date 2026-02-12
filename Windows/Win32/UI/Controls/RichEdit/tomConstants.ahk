@@ -3,7 +3,7 @@
 
 /**
  * Defines values that are used with the Text Object Model (TOM) API.
- * @see https://learn.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants
+ * @see https://learn.microsoft.com/windows/win32/api//content/tom/ne-tom-tomconstants
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */

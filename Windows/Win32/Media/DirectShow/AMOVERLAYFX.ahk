@@ -3,7 +3,7 @@
 
 /**
  * Specifies effects on a DirectDraw hardware overlay surface.
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-amoverlayfx
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-amoverlayfx
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

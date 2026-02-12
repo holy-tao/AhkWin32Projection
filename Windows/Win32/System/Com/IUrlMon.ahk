@@ -47,7 +47,11 @@ class IUrlMon extends IUnknown{
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
         pszCodeBase := pszCodeBase is String ? StrPtr(pszCodeBase) : pszCodeBase
 
-        result := ComCall(3, this, "ptr", rclsid, "ptr", pszTYPE, "ptr", pszExt, "uint", dwFileVersionMS, "uint", dwFileVersionLS, "ptr", pszCodeBase, "ptr", pbc, "uint", dwClassContext, "ptr", riid, "uint", flags, "HRESULT")
+        result := ComCall(3, this, "ptr", rclsid, "ptr", pszTYPE, "ptr", pszExt, "uint", dwFileVersionMS, "uint", dwFileVersionLS, "ptr", pszCodeBase, "ptr", pbc, "uint", dwClassContext, "ptr", riid, "uint", flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

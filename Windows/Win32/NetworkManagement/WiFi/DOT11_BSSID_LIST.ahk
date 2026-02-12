@@ -4,7 +4,7 @@
 
 /**
  * Contains a list of basic service set (BSS) identifiers.
- * @see https://learn.microsoft.com/windows/win32/NativeWiFi/dot11-bssid-list
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/NativeWiFi/dot11-bssid-list
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

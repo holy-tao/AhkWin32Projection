@@ -19,7 +19,7 @@
  *       the texture could be a subsection of a larger texture.  For example, the <b>D3D11_SUBRESOURCE_DATA</b> structure could represent a 32 by 32 subsection of a 128 by 128 texture.  
  *       The value for <b>SysMemSlicePitch</b> will reflect any padding included in <b>SysMemPitch</b>.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ns-d3d11-d3d11_subresource_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ns-d3d11-d3d11_subresource_data
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

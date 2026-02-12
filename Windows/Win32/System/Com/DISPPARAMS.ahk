@@ -3,7 +3,7 @@
 
 /**
  * Contains the arguments passed to a method or property.
- * @see https://learn.microsoft.com/windows/win32/api/oaidl/ns-oaidl-dispparams
+ * @see https://learn.microsoft.com/windows/win32/api//content/oaidl/ns-oaidl-dispparams
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

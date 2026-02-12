@@ -5,7 +5,7 @@
 
 /**
  * Gets access to the IVBFormat interface.
- * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nn-vbinterf-igetvbaobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/vbinterf/nn-vbinterf-igetvbaobject
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -39,12 +39,16 @@ class IGetVBAObject extends IUnknown{
      * @returns {HRESULT} This method supports the standard return values <b>E_INVALIDARG</b>, 
      *       <b>E_OUTOFMEMORY</b>, and <b>E_UNEXPECTED</b>, as well as the 
      *       following:
-     * @see https://docs.microsoft.com/windows/win32/api//vbinterf/nf-vbinterf-igetvbaobject-getobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/vbinterf/nf-vbinterf-igetvbaobject-getobject
      */
     GetObject(riid, ppvObj, dwReserved) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "ptr", riid, ppvObjMarshal, ppvObj, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, ppvObjMarshal, ppvObj, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,7 +6,7 @@
 
 /**
  * Defines methods to manage metadata for a VSS express writer.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivssexpresswriter
+ * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nl-vswriter-ivssexpresswriter
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -33,6 +33,15 @@ class IVssExpressWriter extends IUnknown{
 
     /**
      * Creates an express writer metadata object and returns an IVssCreateExpressWriterMetadata interface pointer to it.
+     * @remarks
+     * The <i>versionMajor</i> and <i>versionMajor</i> parameters are used to specify the writer's major and minor version numbers according to the following VSS conventions:
+     * 
+     * <ul>
+     * <li>A writer's minor version number should be incremented by one whenever a released version of the writer contains minor changes that affect the writer's interaction with requesters. For example, a correction to a file specification in a writer QFE or service pack would justify incrementing the minor version number. However, a change between beta or release candidate versions of a writer would not justify the changing of the minor version number.</li>
+     * <li>A writer's major version number should be incremented by one whenever a released version of the writer contains a significant change. For example, if data that is backed up with a new version of a writer cannot be restored using the previous version of the writer, the new writer's major version number should be incremented.</li>
+     * <li>Whenever the major version number is incremented, the minor version number should be reset to zero.</li>
+     * </ul>
+     * If a writer does not specify a version number, VSS will assign a default version number of 0.0.
      * @param {Guid} writerId The globally unique identifier (GUID) of the writer class.
      * @param {PWSTR} writerName A null-terminated wide character string that contains the name of the writer class. This string is not localized.
      * @param {Integer} usageType A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_usage_type">VSS_USAGE_TYPE</a> enumeration value that indicates how the data that is managed by the writer is used on the host system. The only valid values for this parameter are VSS_UT_BOOTABLESYSTEMSTATE, VSS_UT_SYSTEMSERVICE, and VSS_UT_USERDATA.
@@ -40,12 +49,16 @@ class IVssExpressWriter extends IUnknown{
      * @param {Integer} versionMinor The minor version of the writer application. For more information, see the Remarks section.
      * @param {Integer} reserved This parameter is reserved for system use.
      * @returns {IVssCreateExpressWriterMetadata} A pointer to a variable that receives an <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscreateexpresswritermetadata">IVssCreateExpressWriterMetadata</a> interface pointer to the newly created express writer metadata.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivssexpresswriter-createmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivssexpresswriter-createmetadata
      */
     CreateMetadata(writerId, writerName, usageType, versionMajor, versionMinor, reserved) {
         writerName := writerName is String ? StrPtr(writerName) : writerName
 
-        result := ComCall(3, this, "ptr", writerId, "ptr", writerName, "int", usageType, "uint", versionMajor, "uint", versionMinor, "uint", reserved, "ptr*", &ppMetadata := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", writerId, "ptr", writerName, "int", usageType, "uint", versionMajor, "uint", versionMinor, "uint", reserved, "ptr*", &ppMetadata := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVssCreateExpressWriterMetadata(ppMetadata)
     }
 
@@ -81,22 +94,28 @@ class IVssExpressWriter extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivssexpresswriter-loadmetadata
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivssexpresswriter-loadmetadata
      */
     LoadMetadata(metadata, reserved) {
         metadata := metadata is String ? StrPtr(metadata) : metadata
 
-        result := ComCall(4, this, "ptr", metadata, "uint", reserved, "HRESULT")
+        result := ComCall(4, this, "ptr", metadata, "uint", reserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Causes VSS to store the writer's metadata in the express writer metadata store.
+     * @remarks
+     * Before using this method, the caller must have either used the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivssexpresswriter-loadmetadata">LoadMetadata</a> method to load the writer's metadata directly or used the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivssexpresswriter-createmetadata">CreateMetadata</a> method to create a writer metadata object.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
      * <table>
@@ -129,15 +148,21 @@ class IVssExpressWriter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivssexpresswriter-register
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivssexpresswriter-register
      */
     Register() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Causes VSS to delete the writer's metadata from the express writer metadata store.
+     * @remarks
+     * Before using this method, the caller must have used the <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivssexpresswriter-createmetadata">CreateMetadata</a> method to create a writer metadata object.
      * @param {Guid} writerId The globally unique identifier (GUID) of the writer class.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -171,10 +196,14 @@ class IVssExpressWriter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivssexpresswriter-unregister
+     * @see https://learn.microsoft.com/windows/win32/api//content/vswriter/nf-vswriter-ivssexpresswriter-unregister
      */
     Unregister(writerId) {
-        result := ComCall(6, this, "ptr", writerId, "HRESULT")
+        result := ComCall(6, this, "ptr", writerId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

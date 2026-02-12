@@ -6,7 +6,7 @@
 
 /**
  * The IAMTimecodeGenerator interface controls how an external SMPTE/MIDI timecode generator supplies data to the filter graph.DirectShow currently does not provide any filters that implement this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtimecodegenerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nn-strmif-iamtimecodegenerator
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -41,6 +41,8 @@ class IAMTimecodeGenerator extends IUnknown{
 
     /**
      * The GetTCGMode method retrieves the SMPTE timecode generator properties.
+     * @remarks
+     * This method returns various settings of the timecode generator. For more information on ED_TCG_TIMECODE_TYPE, see <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamtimecodereader-settcrmode">IAMTimecodeReader::SetTCRMode</a>.
      * @param {Integer} Param Timecode generator mode. Specify one of the following modes you want to get settings for.
      * 
      * <table>
@@ -167,15 +169,21 @@ class IAMTimecodeGenerator extends IUnknown{
      * <td>Vertical interval timecode</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodegenerator-gettcgmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamtimecodegenerator-gettcgmode
      */
     GetTCGMode(Param) {
-        result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * The SetTCGMode method sets the SMPTE timecode generator properties.
+     * @remarks
+     * For more information on ED_TCG_TIMECODE_TYPE, see the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamtimecodereader-settcrmode">IAMTimecodeReader::SetTCRMode</a> method.
      * @param {Integer} Param Timecode generator mode. Specify one of the following modes.
      * 
      * <table>
@@ -303,53 +311,83 @@ class IAMTimecodeGenerator extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodegenerator-settcgmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamtimecodegenerator-settcgmode
      */
     SetTCGMode(Param, Value) {
-        result := ComCall(4, this, "int", Param, "int", Value, "HRESULT")
+        result := ComCall(4, this, "int", Param, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The put_VITCLine method specifies which line to insert the vertical interval timecode information into.
+     * @remarks
+     * To generate VITC on specific multiple lines, make successive calls to this method, once for each line desired.
+     * 
+     * Set the high bit to add to this line to any previously set lines.
      * @param {Integer} Line Vertical line to contain the timecode information (valid lines are 11-20; 0 means autoselect).
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodegenerator-put_vitcline
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamtimecodegenerator-put_vitcline
      */
     put_VITCLine(Line) {
-        result := ComCall(5, this, "int", Line, "HRESULT")
+        result := ComCall(5, this, "int", Line, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_VITCLine method retrieves which line(s) the vertical interval timecode information has been inserted into.
+     * @remarks
+     * To get VITC information from multiple lines, make successive calls to this method, once for each line desired, with the hi bit set for each line.
      * @returns {Integer} Pointer to the vertical line(s) containing the timecode information (valid lines are 11-20).
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodegenerator-get_vitcline
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamtimecodegenerator-get_vitcline
      */
     get_VITCLine() {
-        result := ComCall(6, this, "int*", &pLine := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pLine := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLine
     }
 
     /**
      * The SetTimecode method sets the timecode, userbit value, or both.
+     * @remarks
+     * To set only timecode, set userbit value to <b>NULL</b>, and vice versa. If generator is running, these values will take effect immediately.
      * @param {Pointer<TIMECODE_SAMPLE>} pTimecodeSample Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample">TIMECODE_SAMPLE</a> structure.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodegenerator-settimecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamtimecodegenerator-settimecode
      */
     SetTimecode(pTimecodeSample) {
-        result := ComCall(7, this, "ptr", pTimecodeSample, "HRESULT")
+        result := ComCall(7, this, "ptr", pTimecodeSample, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetTimecode method retrieves the most recent timecode and/or userbit value available in the stream.
+     * @remarks
+     * Use this method to obtain the most recent timecode value available in the stream. The application can use this to monitor the timecode and verify the generator is working properly.
      * @returns {TIMECODE_SAMPLE} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample">TIMECODE_SAMPLE</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodegenerator-gettimecode
+     * @see https://learn.microsoft.com/windows/win32/api//content/strmif/nf-strmif-iamtimecodegenerator-gettimecode
      */
     GetTimecode() {
         pTimecodeSample := TIMECODE_SAMPLE()
-        result := ComCall(8, this, "ptr", pTimecodeSample, "HRESULT")
+        result := ComCall(8, this, "ptr", pTimecodeSample, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTimecodeSample
     }
 }

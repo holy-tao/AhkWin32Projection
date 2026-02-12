@@ -4,7 +4,7 @@
 
 /**
  * Specifies a Software Publisher Certificate (SPC) and certificate chain used to sign a document.
- * @see https://learn.microsoft.com/windows/win32/SecCrypto/signer-spc-chain-info
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/signer-spc-chain-info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

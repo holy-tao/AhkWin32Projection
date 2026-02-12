@@ -5,7 +5,7 @@
 
 /**
  * Retrieves transaction, activity, and context information on the current context object.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjectcontextinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iobjectcontextinfo
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -31,9 +31,9 @@ class IObjectContextInfo extends IUnknown{
     static VTableNames => ["IsInTransaction", "GetTransaction", "GetTransactionId", "GetActivityId", "GetContextId"]
 
     /**
-     * Indicates whether the current object is executing in a transaction.
+     * Indicates whether the current object is executing in a transaction. (IObjectContextInfo.IsInTransaction)
      * @returns {BOOL} If the current object is executing within a transaction, the return value is <b>TRUE</b>. Otherwise, it is <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo-isintransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iobjectcontextinfo-isintransaction
      */
     IsInTransaction() {
         result := ComCall(3, this, "int")
@@ -43,15 +43,21 @@ class IObjectContextInfo extends IUnknown{
     /**
      * Retrieves a reference to the current transaction.
      * @returns {IUnknown} A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface of the transaction that is currently executing. You can then <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to get the <b>ITransaction</b> interface for the current transaction.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo-gettransaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iobjectcontextinfo-gettransaction
      */
     GetTransaction() {
-        result := ComCall(4, this, "ptr*", &pptrans := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &pptrans := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pptrans)
     }
 
     /**
      * Retrieves the identifier of the current transaction.
+     * @remarks
+     * Objects in the same transaction share the same transaction identifier.
      * @param {Pointer<Guid>} pGuid A GUID that identifies the current transaction.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
      * 
@@ -67,7 +73,7 @@ class IObjectContextInfo extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The method completed succesfully.
+     * The method completed successfully.
      * 
      * </td>
      * </tr>
@@ -83,21 +89,31 @@ class IObjectContextInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo-gettransactionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iobjectcontextinfo-gettransactionid
      */
     GetTransactionId(pGuid) {
-        result := ComCall(5, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(5, this, "ptr", pGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the identifier of the current activity.
+     * @remarks
+     * If the object is not running within a synchronization domain, COM+ returns a GUID_NULL, which consists of all zeros.
      * @param {Pointer<Guid>} pGUID A GUID that identifies the current activity.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo-getactivityid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iobjectcontextinfo-getactivityid
      */
     GetActivityId(pGUID) {
-        result := ComCall(6, this, "ptr", pGUID, "HRESULT")
+        result := ComCall(6, this, "ptr", pGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,10 +121,14 @@ class IObjectContextInfo extends IUnknown{
      * Retrieves the identifier of the current context.
      * @param {Pointer<Guid>} pGuid A GUID that identifies the current context.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo-getcontextid
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iobjectcontextinfo-getcontextid
      */
     GetContextId(pGuid) {
-        result := ComCall(7, this, "ptr", pGuid, "HRESULT")
+        result := ComCall(7, this, "ptr", pGuid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

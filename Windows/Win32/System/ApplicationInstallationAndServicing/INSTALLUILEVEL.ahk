@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Simple progress and error handling.
+ * @see https://learn.microsoft.com/windows/win32/api//content/msi/nf-msi-msisetinternalui
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */

@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 #Include ..\..\Foundation\PROPERTYKEY.ahk
 
 /**
@@ -37,7 +39,7 @@ class WindowsConnectNow {
     static WCN_E_PROTOCOL_ERROR => -2147206139
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static WCN_QUERY_CONSTRAINT_USE_SOFTAP => "WCN.Discovery.SoftAP"
 

@@ -11,7 +11,7 @@
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/perflib/nf-perflib-perfquerycountersetregistrationinfo">PerfQueryCounterSetRegistrationInfo</a> function called with the <i>requestCode</i> parameter set to 
  * <b>PERF_REG_COUNTER_STRUCT</b> gets a <b>PERF_COUNTER_REG_INFO</b> structure.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_counter_reg_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/perflib/ns-perflib-perf_counter_reg_info
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

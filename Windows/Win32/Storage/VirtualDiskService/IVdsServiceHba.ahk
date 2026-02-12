@@ -6,7 +6,7 @@
 
 /**
  * Provides a method to query HBA ports on the local system.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsservicehba
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdsservicehba
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class IVdsServiceHba extends IUnknown{
     /**
      * Returns an IEnumVdsObject enumeration object containing a list of the HBA ports known to VDS on the local system.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the HBA ports  as <a href="https://docs.microsoft.com/windows/desktop/VDS/startup-and-service-objects">HBA port objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the HBA port objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsservicehba-queryhbaports
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsservicehba-queryhbaports
      */
     QueryHbaPorts() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVdsObject(ppEnum)
     }
 }

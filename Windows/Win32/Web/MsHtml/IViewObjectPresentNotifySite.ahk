@@ -33,7 +33,11 @@ class IViewObjectPresentNotifySite extends IViewObjectPresentSite{
      * @returns {HRESULT} 
      */
     RequestFrame() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

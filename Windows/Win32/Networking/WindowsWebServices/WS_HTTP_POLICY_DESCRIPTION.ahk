@@ -4,7 +4,7 @@
 
 /**
  * Describes the policy specifying http channel binding. (WS_HTTP_POLICY_DESCRIPTION)
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_http_policy_description
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_http_policy_description
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

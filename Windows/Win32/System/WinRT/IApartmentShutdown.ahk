@@ -6,11 +6,8 @@
 /**
  * Enables registration of an apartment shutdown notification handler.
  * @remarks
- * 
  * Implement the <b>IApartmentShutdown</b> interface to use the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/nf-roapi-roregisterforapartmentshutdown">RoRegisterForApartmentShutdown</a> function.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iapartmentshutdown
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nn-objidl-iapartmentshutdown
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -39,7 +36,7 @@ class IApartmentShutdown extends IUnknown{
      * Called when a registered apartment is shut down.
      * @param {Integer} ui64ApartmentIdentifier The apartment Identifier of the apartment that is shutting down
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iapartmentshutdown-onuninitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-iapartmentshutdown-onuninitialize
      */
     OnUninitialize(ui64ApartmentIdentifier) {
         ComCall(3, this, "uint", ui64ApartmentIdentifier)

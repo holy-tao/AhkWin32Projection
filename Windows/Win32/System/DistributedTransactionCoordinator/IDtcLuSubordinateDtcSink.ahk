@@ -33,7 +33,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     AckUnplug() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -42,7 +46,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     TmDown() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +59,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     SessionLost() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +72,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     BackedOut() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +85,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     BackOut() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +98,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     Committed() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -87,7 +111,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     Forget() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +124,11 @@ class IDtcLuSubordinateDtcSink extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestCommit() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

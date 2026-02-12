@@ -6,7 +6,7 @@
 
 /**
  * The IADsNetAddress interface provides methods for an ADSI client to access the Net Address attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsnetaddress
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsnetaddress
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -52,7 +52,11 @@ class IADsNetAddress extends IDispatch{
      * @returns {Integer} 
      */
     get_AddressType() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -62,7 +66,11 @@ class IADsNetAddress extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AddressType(lnAddressType) {
-        result := ComCall(8, this, "int", lnAddressType, "HRESULT")
+        result := ComCall(8, this, "int", lnAddressType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +80,11 @@ class IADsNetAddress extends IDispatch{
      */
     get_Address() {
         retval := VARIANT()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -82,7 +94,11 @@ class IADsNetAddress extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Address(vAddress) {
-        result := ComCall(10, this, "ptr", vAddress, "HRESULT")
+        result := ComCall(10, this, "ptr", vAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

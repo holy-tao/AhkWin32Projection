@@ -36,16 +36,25 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
      * @returns {HRESULT} 
      */
     InitializeFromBuffer(pbBuffer, dwBufferSize) {
-        result := ComCall(3, this, "ptr", pbBuffer, "uint", dwBufferSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pbBuffer, "uint", dwBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetBufferSizeBits
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecleakybucket-getbuffersizebits
      */
     GetBufferSize() {
-        result := ComCall(4, this, "uint*", &pdwBufferSize := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &pdwBufferSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwBufferSize
     }
 
@@ -58,7 +67,11 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
     SerializeToBuffer(pbBuffer, pdwBufferSize) {
         pdwBufferSizeMarshal := pdwBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "ptr", pbBuffer, pdwBufferSizeMarshal, pdwBufferSize, "HRESULT")
+        result := ComCall(5, this, "ptr", pbBuffer, pdwBufferSizeMarshal, pdwBufferSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,18 +80,26 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
      * @returns {Integer} 
      */
     GetIntrinsicModelCount() {
-        result := ComCall(6, this, "uint*", &pdwCount := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pdwCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCount
     }
 
     /**
      * 
      * @param {Integer} dwIndex 
-     * @returns {IMFExtendedCameraIntrinsicModel} 
+     * @returns {Pointer<IMFExtendedCameraIntrinsicModel>} 
      */
     GetIntrinsicModelByIndex(dwIndex) {
-        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppIntrinsicModel := 0, "HRESULT")
-        return IMFExtendedCameraIntrinsicModel(ppIntrinsicModel)
+        result := ComCall(7, this, "uint", dwIndex, "ptr*", &ppIntrinsicModel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppIntrinsicModel
     }
 
     /**
@@ -87,7 +108,11 @@ class IMFExtendedCameraIntrinsics extends IUnknown{
      * @returns {HRESULT} 
      */
     AddIntrinsicModel(pIntrinsicModel) {
-        result := ComCall(8, this, "ptr", pIntrinsicModel, "HRESULT")
+        result := ComCall(8, this, "ptr", pIntrinsicModel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

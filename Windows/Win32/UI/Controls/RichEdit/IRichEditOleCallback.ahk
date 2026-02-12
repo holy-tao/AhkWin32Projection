@@ -7,7 +7,7 @@
 
 /**
  * The IRichEditOleCallback interface is used by a rich text edit control to retrieve OLE-related information from its client.
- * @see https://docs.microsoft.com/windows/win32/api//richole/nn-richole-iricheditolecallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/richole/nn-richole-iricheditolecallback
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -34,13 +34,19 @@ class IRichEditOleCallback extends IUnknown{
 
     /**
      * Provides storage for a new object pasted from the clipboard or read in from an Rich Text Format (RTF) stream.
+     * @remarks
+     * This method must be implemented to allow cut, copy, paste, drag, and drop operations of Component Object Model (COM) objects.
      * @returns {IStorage} Type: <b>LPSTORAGE*</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface created for the new object.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-getnewstorage
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-getnewstorage
      */
     GetNewStorage() {
-        result := ComCall(3, this, "ptr*", &lplpstg := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &lplpstg := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IStorage(lplpstg)
     }
 
@@ -51,11 +57,11 @@ class IRichEditOleCallback extends IUnknown{
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceframe">IOleInPlaceFrame</a> interface that represents the frame window of a rich edit control client. Use the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method to increment the reference count. The rich edit control releases the interface when it is no longer needed.
      * @param {Pointer<IOleInPlaceUIWindow>} lplpDoc Type: <b>LPOLEINPLACEUIWINDOW*</b>
      * 
-     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceuiwindow">IOleInPlaceUIWindow</a> interface that represents the document window of the rich edit control client. An interface need not be returned if the frame and document windows are the same. Use the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a>method to increment the reference count. The rich edit control releases the interface when it is no longer needed.
+     * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplaceuiwindow">IOleInPlaceUIWindow</a> interface that represents the document window of the rich edit control client. An interface need not be returned if the frame and document windows are the same. Use the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method to increment the reference count. The rich edit control releases the interface when it is no longer needed.
      * @param {Pointer<OLEINPLACEFRAMEINFO>} lpFrameInfo Type: <b>LPOLEINPLACEFRAMEINFO</b>
      * 
      * The accelerator information.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> on success. If the method fails, it can return the following value.
      * 
@@ -76,19 +82,26 @@ class IRichEditOleCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-getinplacecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-getinplacecontext
      */
     GetInPlaceContext(lplpFrame, lplpDoc, lpFrameInfo) {
-        result := ComCall(4, this, "ptr*", lplpFrame, "ptr*", lplpDoc, "ptr", lpFrameInfo, "HRESULT")
+        result := ComCall(4, this, "ptr*", lplpFrame, "ptr*", lplpDoc, "ptr", lpFrameInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Indicates whether or not the application is to display its container UI.
+     * @remarks
+     * The 
+     * 				<b>IRichEditOleCallback::ShowContainerUI</b> method is called by the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplacesite-onuiactivate">IOleInPlaceSite::OnUIActivate</a> and <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nf-oleidl-ioleinplacesite-onuideactivate">IOleInPlaceSite::OnUIDeactivate</a> methods of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-ioleinplacesite">IOleInPlaceSite</a> interface.
      * @param {BOOL} fShow Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * Show container UI flag. The value is <b>TRUE</b> if the container UI is displayed, and <b>FALSE</b> if it is not.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> on success. If the method fails, it can return the following value.
      * 
@@ -109,10 +122,14 @@ class IRichEditOleCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-showcontainerui
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-showcontainerui
      */
     ShowContainerUI(fShow) {
-        result := ComCall(5, this, "int", fShow, "HRESULT")
+        result := ComCall(5, this, "int", fShow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -127,7 +144,7 @@ class IRichEditOleCallback extends IUnknown{
      * @param {Integer} cp Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a></b>
      * 
      * Character position, at which the object will be inserted.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns S_OK on success. If the return value is not S_OK, the object was not inserted. If the method fails, it can return the following value.
      * 
@@ -148,10 +165,14 @@ class IRichEditOleCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-queryinsertobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-queryinsertobject
      */
     QueryInsertObject(lpclsid, lpstg, cp) {
-        result := ComCall(6, this, "ptr", lpclsid, "ptr", lpstg, "int", cp, "HRESULT")
+        result := ComCall(6, this, "ptr", lpclsid, "ptr", lpstg, "int", cp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,18 +181,24 @@ class IRichEditOleCallback extends IUnknown{
      * @param {IOleObject} lpoleobj Type: <b>LPOLEOBJECT</b>
      * 
      * The object that is being deleted.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-deleteobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-deleteobject
      */
     DeleteObject(lpoleobj) {
-        result := ComCall(7, this, "ptr", lpoleobj, "HRESULT")
+        result := ComCall(7, this, "ptr", lpoleobj, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * During a paste operation or a drag event, determines if the data that is pasted or dragged should be accepted.
+     * @remarks
+     * On failure, the rich edit control refuses the data and terminates the operation. Otherwise, the control checks the data itself for acceptable formats. A success code other than <b>S_OK</b> means that the callback either checked the data itself (if <i>fReally</i> is <b>FALSE</b>) or imported the data itself (if <i>fReally</i> is <b>TRUE</b>). If the application returns a success code other than <b>S_OK</b>, the control does not check the read-only state of the edit control.
      * @param {IDataObject} lpdataobj Type: <b>LPDATAOBJECT</b>
      * 
      * The data object being pasted or dragged.
@@ -217,17 +244,21 @@ class IRichEditOleCallback extends IUnknown{
      * @param {HGLOBAL} hMetaPict Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HGLOBAL</a></b>
      * 
      * Handle to a metafile containing the icon view of an object if <b>DVASPECT_ICON</b> is being imposed on an object by a paste special operation.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> on success. See Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-queryacceptdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-queryacceptdata
      */
     QueryAcceptData(lpdataobj, lpcfFormat, reco, fReally, hMetaPict) {
         hMetaPict := hMetaPict is Win32Handle ? NumGet(hMetaPict, "ptr") : hMetaPict
 
         lpcfFormatMarshal := lpcfFormat is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(8, this, "ptr", lpdataobj, lpcfFormatMarshal, lpcfFormat, "uint", reco, "int", fReally, "ptr", hMetaPict, "HRESULT")
+        result := ComCall(8, this, "ptr", lpdataobj, lpcfFormatMarshal, lpcfFormat, "uint", reco, "int", fReally, "ptr", hMetaPict, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -236,7 +267,7 @@ class IRichEditOleCallback extends IUnknown{
      * @param {BOOL} fEnterMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * If <b>TRUE</b>, the application should enter context-sensitive help mode. If <b>FALSE</b>, the application should leave context-sensitive help mode.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> on success. If the method fails, it can be the following value.
      * 
@@ -257,10 +288,14 @@ class IRichEditOleCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-contextsensitivehelp
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-contextsensitivehelp
      */
     ContextSensitiveHelp(fEnterMode) {
-        result := ComCall(9, this, "int", fEnterMode, "HRESULT")
+        result := ComCall(9, this, "int", fEnterMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -305,10 +340,14 @@ class IRichEditOleCallback extends IUnknown{
      * Pointer to the pointer variable that receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> implementation representing the range specified in the 
      * 					<i>lpchrg</i> parameter. The value of 
      * 					<i>lplpdataobj</i> is ignored if an error is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-getclipboarddata
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-getclipboarddata
      */
     GetClipboardData(lpchrg, reco) {
-        result := ComCall(10, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", lpchrg, "uint", reco, "ptr*", &lplpdataobj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDataObject(lplpdataobj)
     }
 
@@ -325,20 +364,26 @@ class IRichEditOleCallback extends IUnknown{
      * The effect used by a rich edit control. When 
      * 					<i>fDrag</i> is <b>TRUE</b>, on return, its content is set to the effect allowable by the rich edit control. When 
      * 					<i>fDrag</i> is <b>FALSE</b>, on return, the variable is set to the effect to use.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * This method returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-getdragdropeffect
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-getdragdropeffect
      */
     GetDragDropEffect(fDrag, grfKeyState, pdwEffect) {
         pdwEffectMarshal := pdwEffect is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, "int", fDrag, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "HRESULT")
+        result := ComCall(11, this, "int", fDrag, "uint", grfKeyState, pdwEffectMarshal, pdwEffect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Queries the application for a context menu to use on a right-click event.
+     * @remarks
+     * When the user selects an item from the context window, a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message is sent to the parent window of the rich edit control.
      * @param {Integer} seltype Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">WORD</a></b>
      * @param {IOleObject} lpoleobj Type: <b>LPOLEOBJECT</b>
      * 
@@ -356,7 +401,7 @@ class IRichEditOleCallback extends IUnknown{
      * @param {Pointer<HMENU>} lphmenu Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HMENU</a>*</b>
      * 
      * The handle of a context menu to use. This parameter is ignored if an error is returned. A rich edit control destroys the menu when it is finished with it so the client should not.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * Returns <b>S_OK</b> on success. If the method fails, it can be the following value.
      * 
@@ -377,10 +422,14 @@ class IRichEditOleCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//richole/nf-richole-iricheditolecallback-getcontextmenu
+     * @see https://learn.microsoft.com/windows/win32/api//content/richole/nf-richole-iricheditolecallback-getcontextmenu
      */
     GetContextMenu(seltype, lpoleobj, lpchrg, lphmenu) {
-        result := ComCall(12, this, "ushort", seltype, "ptr", lpoleobj, "ptr", lpchrg, "ptr", lphmenu, "HRESULT")
+        result := ComCall(12, this, "ushort", seltype, "ptr", lpoleobj, "ptr", lpchrg, "ptr", lphmenu, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

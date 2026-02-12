@@ -3,7 +3,7 @@
 
 /**
  * Specifies the category or group to which an object identifier (OID) belongs.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-objectidgroupid
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/ne-certenroll-objectidgroupid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

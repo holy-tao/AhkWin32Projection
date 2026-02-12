@@ -55,7 +55,11 @@ class IBlockFormats extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(p)
     }
 
@@ -64,18 +68,32 @@ class IBlockFormats extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Pointer<VARIANT>} pvarIndex 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(pvarIndex) {
         pbstrBlockFormat := BSTR()
-        result := ComCall(9, this, "ptr", pvarIndex, "ptr", pbstrBlockFormat, "HRESULT")
+        result := ComCall(9, this, "ptr", pvarIndex, "ptr", pbstrBlockFormat, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrBlockFormat
     }
 }

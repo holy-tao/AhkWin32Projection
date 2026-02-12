@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Locality four.
+ * @see https://learn.microsoft.com/windows/win32/api//content/tbs/nf-tbs-tbsip_submit_command
  * @namespace Windows.Win32.System.TpmBaseServices
  * @version v4.0.30319
  */

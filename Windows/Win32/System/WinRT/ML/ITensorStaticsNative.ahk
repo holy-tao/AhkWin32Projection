@@ -38,7 +38,11 @@ class ITensorStaticsNative extends IUnknown{
     CreateFromD3D12Resource(value, shape, shapeCount) {
         shapeMarshal := shape is VarRef ? "int64*" : "ptr"
 
-        result := ComCall(3, this, "ptr", value, shapeMarshal, shape, "int", shapeCount, "ptr*", &result := 0, "HRESULT")
-        return IUnknown(result)
+        result := ComCall(3, this, "ptr", value, shapeMarshal, shape, "int", shapeCount, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IUnknown(result_)
     }
 }

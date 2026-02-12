@@ -31,28 +31,40 @@ class IModelObject2 extends IModelObject{
 
     /**
      * 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateOwnKeyValues() {
-        result := ComCall(36, this, "ptr*", &ppEnumerator := 0, "HRESULT")
-        return IKeyEnumerator(ppEnumerator)
+        result := ComCall(36, this, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppEnumerator
     }
 
     /**
      * 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateOwnKeys() {
-        result := ComCall(37, this, "ptr*", &ppEnumerator := 0, "HRESULT")
-        return IKeyEnumerator(ppEnumerator)
+        result := ComCall(37, this, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppEnumerator
     }
 
     /**
      * 
-     * @returns {IKeyEnumerator} 
+     * @returns {Pointer<IKeyEnumerator>} 
      */
     EnumerateOwnKeyReferences() {
-        result := ComCall(38, this, "ptr*", &ppEnumerator := 0, "HRESULT")
-        return IKeyEnumerator(ppEnumerator)
+        result := ComCall(38, this, "ptr*", &ppEnumerator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppEnumerator
     }
 }

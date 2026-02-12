@@ -34,7 +34,11 @@ class ICLRControl extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     GetCLRManager(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppObject := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppObject
     }
 
@@ -48,7 +52,11 @@ class ICLRControl extends IUnknown{
         pwzAppDomainManagerAssembly := pwzAppDomainManagerAssembly is String ? StrPtr(pwzAppDomainManagerAssembly) : pwzAppDomainManagerAssembly
         pwzAppDomainManagerType := pwzAppDomainManagerType is String ? StrPtr(pwzAppDomainManagerType) : pwzAppDomainManagerType
 
-        result := ComCall(4, this, "ptr", pwzAppDomainManagerAssembly, "ptr", pwzAppDomainManagerType, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzAppDomainManagerAssembly, "ptr", pwzAppDomainManagerType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

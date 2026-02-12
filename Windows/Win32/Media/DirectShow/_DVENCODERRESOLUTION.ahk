@@ -33,7 +33,7 @@
  * <td>88 x 72</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ne-strmif-_dvencoderresolution
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ne-strmif-_dvencoderresolution
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

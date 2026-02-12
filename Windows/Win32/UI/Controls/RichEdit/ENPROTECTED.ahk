@@ -2,11 +2,13 @@
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
 #Include ..\NMHDR.ahk
+#Include ..\..\..\Foundation\WPARAM.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 #Include .\CHARRANGE.ahk
 
 /**
  * Contains information associated with an EN_PROTECTED notification code. A rich edit control sends this notification when the user attempts to edit protected text.
- * @see https://learn.microsoft.com/windows/win32/api/richedit/ns-richedit-enprotected
+ * @see https://learn.microsoft.com/windows/win32/api//content/richedit/ns-richedit-enprotected
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -48,9 +50,12 @@ class ENPROTECTED extends Win32Struct
      * The <b>wParam</b> parameter of the message.
      * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(32, this)
+            return this.__wParam
+        }
     }
 
     /**
@@ -59,9 +64,12 @@ class ENPROTECTED extends Win32Struct
      * The <b>lParam</b> parameter of the message.
      * @type {LPARAM}
      */
-    lParam {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam{
+        get {
+            if(!this.HasProp("__lParam"))
+                this.__lParam := LPARAM(40, this)
+            return this.__lParam
+        }
     }
 
     /**

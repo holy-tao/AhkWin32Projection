@@ -5,14 +5,11 @@
 #Include .\IAppxManifestReader.ahk
 
 /**
- * Represents an object model of the package manifest that provides methods to access manifest elements and attributes.
+ * Represents an object model of the package manifest that provides methods to access manifest elements and attributes. (IAppxManifestReader2)
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  Starting with Windows 8.1, we recommend not to use <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getresources">IAppxManifestReader::GetResources</a> anymore to only iterate over the <b>Language</b> values in the manifest. Instead, use <b>IAppxManifestReader2::GetResources</b> because it iterates over other resource qualifiers as well, such as, <b>Scale</b> and <b>DXFeatureLevel</b>. </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestreader2
+ * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nn-appxpackaging-iappxmanifestreader2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -39,13 +36,21 @@ class IAppxManifestReader2 extends IAppxManifestReader{
 
     /**
      * Gets an enumerator that iterates through the qualified resources that are defined in the manifest.
+     * @remarks
+     * Resources are specified using the <a href="https://docs.microsoft.com/uwp/schemas/appxpackage/appxmanifestschema/element-resources">Resources</a> element in the manifest.
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method when you have finished using the <i>resources</i> object.
      * @returns {IAppxManifestQualifiedResourcesEnumerator} Type: <b><a href="https://docs.microsoft.com/previous-versions/dn280306(v=vs.85)">IAppxManifestQualifiedResourcesEnumerator</a>**</b>
      * 
      * The enumerator that iterates through the qualified resources.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestreader2-getqualifiedresources
+     * @see https://learn.microsoft.com/windows/win32/api//content/appxpackaging/nf-appxpackaging-iappxmanifestreader2-getqualifiedresources
      */
     GetQualifiedResources() {
-        result := ComCall(12, this, "ptr*", &resources := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &resources := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IAppxManifestQualifiedResourcesEnumerator(resources)
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Enables a client application to access the items (cells) in a spreadsheet.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationspreadsheetpattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationspreadsheetpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -40,12 +40,19 @@ class IUIAutomationSpreadsheetPattern extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives the element that represents the target cell.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetpattern-getitembyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationspreadsheetpattern-getitembyname
      */
     GetItemByName(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", name, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", name, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(element)
     }
 }

@@ -7,7 +7,7 @@
 
 /**
  * Provides methods to perform operations specific to the software provider.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsswprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdsswprovider
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -35,20 +35,30 @@ class IVdsSwProvider extends IUnknown{
     /**
      * Returns an enumeration object that contains all packs managed by the software provider.
      * @returns {IEnumVdsObject} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the packs  as <a href="https://docs.microsoft.com/windows/desktop/VDS/pack-object">pack objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the   pack objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsswprovider-querypacks
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsswprovider-querypacks
      */
     QueryPacks() {
-        result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumVdsObject(ppEnum)
     }
 
     /**
      * Creates a pack object.
+     * @remarks
+     * Use this method to create a pack before calling the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-migratedisks">IVdsPack::MigrateDisks</a> method to convert disk formatting. When converting a basic disk to dynamic format,  pass either a new or existing pack as an argument to <b>MigrateDisks</b>. When converting a dynamic disk to basic format, use <b>CreatePack</b> to create a new, individual pack to hold the basic disk.
      * @returns {IVdsPack} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vds/nn-vds-ivdspack">IVdsPack</a> interface. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsswprovider-createpack
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdsswprovider-createpack
      */
     CreatePack() {
-        result := ComCall(4, this, "ptr*", &ppPack := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppPack := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IVdsPack(ppPack)
     }
 }

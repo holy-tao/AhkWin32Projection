@@ -16,7 +16,7 @@
  * The coordinate system in the font/notional space is such that the y coordinate increases in an upward direction and the x coordinate increases to the right.
  * 
  * The IFIMETRICS structure's <b>Align</b> member causes it to be larger for x64 machines than for x32 machines, which has ramifications for binary font format files formatted according to this structure. Starting with Windows Server 2003 SP1, an additional, fixed-size structure has been added to Prntfont.h: <a href="https://docs.microsoft.com/windows-hardware/drivers/ddi/content/prntfont/ns-prntfont-_printifi32">PRINTIFI32</a>. The PRINTIFI32 structure is identical to the IFIMETRICS structure, except that it does not contain an <b>Align</b> member.
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-ifimetrics
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-ifimetrics
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

@@ -32,16 +32,20 @@ class IScriptEventHandlerSourceInfo extends IUnknown{
      * 
      * @param {Pointer<BSTR>} pbstrFunctionName 
      * @param {Pointer<Integer>} line 
-     * @param {Pointer<Integer>} column 
+     * @param {Pointer<Integer>} column_ 
      * @param {Pointer<Integer>} cchLength 
      * @returns {HRESULT} 
      */
-    GetSourceInfo(pbstrFunctionName, line, column, cchLength) {
+    GetSourceInfo(pbstrFunctionName, line, column_, cchLength) {
         lineMarshal := line is VarRef ? "uint*" : "ptr"
-        columnMarshal := column is VarRef ? "uint*" : "ptr"
+        column_Marshal := column_ is VarRef ? "uint*" : "ptr"
         cchLengthMarshal := cchLength is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pbstrFunctionName, lineMarshal, line, columnMarshal, column, cchLengthMarshal, cchLength, "HRESULT")
+        result := ComCall(3, this, "ptr", pbstrFunctionName, lineMarshal, line, column_Marshal, column_, cchLengthMarshal, cchLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

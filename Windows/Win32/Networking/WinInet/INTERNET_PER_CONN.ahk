@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Read only option. Returns the time the last known good autoconfig URL was found using autodiscovery.
+ * @see https://learn.microsoft.com/windows/win32/api//content/wininet/ns-wininet-internet_per_conn_optiona
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

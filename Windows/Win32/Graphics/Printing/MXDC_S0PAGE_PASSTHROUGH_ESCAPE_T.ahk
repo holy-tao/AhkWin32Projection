@@ -33,7 +33,7 @@
  * The calling application is responsible for validating the XML of the XPS document page.
  * 
  * Streaming consumption is more efficient if you call [**ExtEscape**](/windows/desktop/api/Wingdi/nf-wingdi-extescape) with **MXDCOP\_SET\_S0PAGE\_RESOURCE** as **opCode** for each resource on the page before you call it with **MXDCOP\_SET\_S0PAGE**.
- * @see https://learn.microsoft.com/windows/win32/printdocs/mxdcs0pagepassthroughescape
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/printdocs/mxdcs0pagepassthroughescape
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

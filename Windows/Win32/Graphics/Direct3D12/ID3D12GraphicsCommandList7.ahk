@@ -4,8 +4,10 @@
 #Include .\ID3D12GraphicsCommandList6.ahk
 
 /**
+ * TBD
+ * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist7
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nn-d3d12-id3d12graphicscommandlist7
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -31,11 +33,11 @@ class ID3D12GraphicsCommandList7 extends ID3D12GraphicsCommandList6{
     static VTableNames => ["Barrier"]
 
     /**
-     * 
-     * @param {Integer} NumBarrierGroups 
-     * @param {Pointer<D3D12_BARRIER_GROUP>} pBarrierGroups 
+     * Adds a collection of barriers into a graphics command list recording.
+     * @param {Integer} NumBarrierGroups Number of barrier groups pointed to by *pBarrierGroups*.
+     * @param {Pointer<D3D12_BARRIER_GROUP>} pBarrierGroups Pointer to an array of [D3D12_BARRIER_GROUP](/windows/win32/api/d3d12/ns-d3d12-d3d12_barrier_group) objects.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist7-barrier
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d12/nf-d3d12-id3d12graphicscommandlist7-barrier
      */
     Barrier(NumBarrierGroups, pBarrierGroups) {
         ComCall(80, this, "uint", NumBarrierGroups, "ptr", pBarrierGroups)

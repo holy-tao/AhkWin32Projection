@@ -95,7 +95,11 @@ class ISWbemQualifier extends IDispatch{
      */
     get_Value() {
         varValue := VARIANT()
-        result := ComCall(7, this, "ptr", varValue, "HRESULT")
+        result := ComCall(7, this, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return varValue
     }
 
@@ -105,7 +109,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Value(varValue) {
-        result := ComCall(8, this, "ptr", varValue, "HRESULT")
+        result := ComCall(8, this, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +123,11 @@ class ISWbemQualifier extends IDispatch{
      */
     get_Name() {
         strName := BSTR()
-        result := ComCall(9, this, "ptr", strName, "HRESULT")
+        result := ComCall(9, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strName
     }
 
@@ -124,7 +136,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsLocal() {
-        result := ComCall(10, this, "short*", &bIsLocal := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &bIsLocal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsLocal
     }
 
@@ -133,7 +149,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_PropagatesToSubclass() {
-        result := ComCall(11, this, "short*", &bPropagatesToSubclass := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &bPropagatesToSubclass := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bPropagatesToSubclass
     }
 
@@ -143,7 +163,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PropagatesToSubclass(bPropagatesToSubclass) {
-        result := ComCall(12, this, "short", bPropagatesToSubclass, "HRESULT")
+        result := ComCall(12, this, "short", bPropagatesToSubclass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -152,7 +176,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_PropagatesToInstance() {
-        result := ComCall(13, this, "short*", &bPropagatesToInstance := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &bPropagatesToInstance := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bPropagatesToInstance
     }
 
@@ -162,7 +190,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {HRESULT} 
      */
     put_PropagatesToInstance(bPropagatesToInstance) {
-        result := ComCall(14, this, "short", bPropagatesToInstance, "HRESULT")
+        result := ComCall(14, this, "short", bPropagatesToInstance, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -171,7 +203,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsOverridable() {
-        result := ComCall(15, this, "short*", &bIsOverridable := 0, "HRESULT")
+        result := ComCall(15, this, "short*", &bIsOverridable := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsOverridable
     }
 
@@ -181,7 +217,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {HRESULT} 
      */
     put_IsOverridable(bIsOverridable) {
-        result := ComCall(16, this, "short", bIsOverridable, "HRESULT")
+        result := ComCall(16, this, "short", bIsOverridable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -190,7 +230,11 @@ class ISWbemQualifier extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_IsAmended() {
-        result := ComCall(17, this, "short*", &bIsAmended := 0, "HRESULT")
+        result := ComCall(17, this, "short*", &bIsAmended := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return bIsAmended
     }
 }

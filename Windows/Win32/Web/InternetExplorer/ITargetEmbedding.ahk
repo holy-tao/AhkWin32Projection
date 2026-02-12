@@ -34,7 +34,11 @@ class ITargetEmbedding extends IUnknown{
      * @returns {ITargetFrame} 
      */
     GetTargetFrame() {
-        result := ComCall(3, this, "ptr*", &ppTargetFrame := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppTargetFrame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITargetFrame(ppTargetFrame)
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Learn more about: JET_RETINFO Structure
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-retinfo-structure
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-retinfo-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

@@ -20,7 +20,7 @@
  * The application level of a writer is set by 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-initialize">CVssWriter::Initialize</a> and retrieved by 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-getcurrentlevel">CVssWriter::GetCurrentLevel</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ne-vss-vss_application_level
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ne-vss-vss_application_level
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 
 /**
  * Deprecated. Represents information about the recognition guide. Use the WritingBox Property, DrawnBox Property, Rows Property, Columns Property, and Midline Property [InkRecognizerGuide Class] properties instead.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ns-msinkaut-inkrecoguide
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ns-msinkaut-inkrecoguide
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

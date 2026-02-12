@@ -3,7 +3,7 @@
 
 /**
  * The VMR9AlphaBitmapFlags enumeration type defines the possible values for the dwFlags member of the VMR9AlphaBitmap structure.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ne-vmr9-vmr9alphabitmapflags
+ * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/ne-vmr9-vmr9alphabitmapflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

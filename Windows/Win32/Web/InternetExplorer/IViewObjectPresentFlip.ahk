@@ -34,7 +34,11 @@ class IViewObjectPresentFlip extends IUnknown{
      * @returns {HRESULT} 
      */
     NotifyRender(fRecreatePresenter) {
-        result := ComCall(3, this, "int", fRecreatePresenter, "HRESULT")
+        result := ComCall(3, this, "int", fRecreatePresenter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IViewObjectPresentFlip extends IUnknown{
      * @returns {HRESULT} 
      */
     RenderObjectToBitmap(pBitmap) {
-        result := ComCall(4, this, "ptr", pBitmap, "HRESULT")
+        result := ComCall(4, this, "ptr", pBitmap, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +62,11 @@ class IViewObjectPresentFlip extends IUnknown{
      * @returns {HRESULT} 
      */
     RenderObjectToSharedBuffer(pBuffer) {
-        result := ComCall(5, this, "ptr", pBuffer, "HRESULT")
+        result := ComCall(5, this, "ptr", pBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

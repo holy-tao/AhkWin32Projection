@@ -56,20 +56,37 @@ class ISWbemQualifierSet extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pUnk)
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {BSTR} name 
      * @param {Integer} iFlags 
      * @returns {ISWbemQualifier} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(name, iFlags) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", name, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", name, "int", iFlags, "ptr*", &objWbemQualifier := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemQualifier(objWbemQualifier)
     }
 
@@ -78,12 +95,16 @@ class ISWbemQualifierSet extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &iCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iCount
     }
 
     /**
-     * 
+     * You can add, show, hide, and delete sections in the ShapeSheet.
      * @param {BSTR} strName 
      * @param {Pointer<VARIANT>} varVal 
      * @param {VARIANT_BOOL} bPropagatesToSubclass 
@@ -91,24 +112,40 @@ class ISWbemQualifierSet extends IDispatch{
      * @param {VARIANT_BOOL} bIsOverridable 
      * @param {Integer} iFlags 
      * @returns {ISWbemQualifier} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/visio/add-show-hide-or-delete-a-section
      */
     Add(strName, varVal, bPropagatesToSubclass, bPropagatesToInstance, bIsOverridable, iFlags) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", strName, "ptr", varVal, "short", bPropagatesToSubclass, "short", bPropagatesToInstance, "short", bIsOverridable, "int", iFlags, "ptr*", &objWbemQualifier := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", strName, "ptr", varVal, "short", bPropagatesToSubclass, "short", bPropagatesToInstance, "short", bIsOverridable, "int", iFlags, "ptr*", &objWbemQualifier := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemQualifier(objWbemQualifier)
     }
 
     /**
-     * 
+     * Creating, Altering, and Removing Views
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/server-management-objects-smo/tasks/creating-altering-and-removing-views
      */
     Remove(strName, iFlags) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", strName, "int", iFlags, "HRESULT")
+        result := ComCall(11, this, "ptr", strName, "int", iFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

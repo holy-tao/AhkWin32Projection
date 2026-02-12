@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include .\ITnef.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices.Tapi
@@ -5571,17 +5573,17 @@ class Tapi {
     static TAPI_E_SERVICE_NOT_RUNNING => -2147221414
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OPENTNEFSTREAM => "OpenTnefStream"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static OPENTNEFSTREAMEX => "OpenTnefStreamEx"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static GETTNEFSTREAMCODEPAGE => "GetTnefStreamCodePage"
 
@@ -5677,7 +5679,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds, or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCALLSTATE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOTOWNER, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED, LINEERR_USERUSERINFOTOOBIG.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineaccept
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineaccept
      */
     static lineAccept(hCall, lpsUserUserInfo, dwSize) {
         lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
@@ -5708,7 +5710,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineaddprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineaddprovider
      */
     static lineAddProvider(lpszProviderFilename, hwndOwner, lpdwPermanentProviderID) {
         lpszProviderFilename := lpszProviderFilename is String ? StrPtr(lpszProviderFilename) : lpszProviderFilename
@@ -5749,7 +5751,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineaddprovidera
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineaddprovidera
      */
     static lineAddProviderA(lpszProviderFilename, hwndOwner, lpdwPermanentProviderID) {
         lpszProviderFilename := lpszProviderFilename is String ? StrPtr(lpszProviderFilename) : lpszProviderFilename
@@ -5790,7 +5792,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineaddproviderw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineaddproviderw
      */
     static lineAddProviderW(lpszProviderFilename, hwndOwner, lpdwPermanentProviderID) {
         lpszProviderFilename := lpszProviderFilename is String ? StrPtr(lpszProviderFilename) : lpszProviderFilename
@@ -5839,7 +5841,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds, or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_CONFERENCEFULL, LINEERR_NOTOWNER, LINEERR_INVALCONFCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSTATE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineaddtoconference
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineaddtoconference
      */
     static lineAddToConference(hConfCall, hConsultCall) {
         result := DllCall("TAPI32.dll\lineAddToConference", "uint", hConfCall, "uint", hConsultCall, "int")
@@ -5872,7 +5874,7 @@ class Tapi {
      * LINEERR_INVALADDRESSID, LINEERR_INVALAGENTID, LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_UNINITIALIZED.
      * 
      * Additional return values are specific to the agent handler.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineagentspecific
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineagentspecific
      */
     static lineAgentSpecific(hLine, dwAddressID, dwAgentExtensionIDIndex, lpParams, dwSize) {
         lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
@@ -5905,7 +5907,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INUSE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSTATE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_USERUSERINFOTOOBIG, LINEERR_NOTOWNER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineanswer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineanswer
      */
     static lineAnswer(hCall, lpsUserUserInfo, dwSize) {
         lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
@@ -5930,7 +5932,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCOUNTRYCODE, LINEERR_INVALCALLSTATE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_NOTOWNER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESS, LINEERR_UNINITIALIZED, LINEERR_ADDRESSBLOCKED, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineblindtransfer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineblindtransfer
      */
     static lineBlindTransfer(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -5962,7 +5964,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCOUNTRYCODE, LINEERR_INVALCALLSTATE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_NOTOWNER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESS, LINEERR_UNINITIALIZED, LINEERR_ADDRESSBLOCKED, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineblindtransfera
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineblindtransfera
      */
     static lineBlindTransferA(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -5994,7 +5996,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCOUNTRYCODE, LINEERR_INVALCALLSTATE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_NOTOWNER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESS, LINEERR_UNINITIALIZED, LINEERR_ADDRESSBLOCKED, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineblindtransferw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineblindtransferw
      */
     static lineBlindTransferW(hCall, lpszDestAddressW, dwCountryCode) {
         lpszDestAddressW := lpszDestAddressW is String ? StrPtr(lpszDestAddressW) : lpszDestAddressW
@@ -6020,7 +6022,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineclose
      */
     static lineClose(hLine) {
         result := DllCall("TAPI32.dll\lineClose", "uint", hLine, "int")
@@ -6043,7 +6045,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_COMPLETIONOVERRUN, LINEERR_NOMEM, LINEERR_INVALCALLCOMPLMODE, LINEERR_NOTOWNER, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALMESSAGEID, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecompletecall
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linecompletecall
      */
     static lineCompleteCall(hCall, lpdwCompletionID, dwCompletionMode, dwMessageID) {
         lpdwCompletionIDMarshal := lpdwCompletionID is VarRef ? "uint*" : "ptr"
@@ -6084,7 +6086,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOTOWNER, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCONSULTCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALTRANSFERMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecompletetransfer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linecompletetransfer
      */
     static lineCompleteTransfer(hCall, hConsultCall, lphConfCall, dwTransferMode) {
         lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
@@ -6107,7 +6109,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineconfigdialog
      */
     static lineConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -6138,7 +6140,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigdialoga
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineconfigdialoga
      */
     static lineConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -6169,7 +6171,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigdialogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineconfigdialogw
      */
     static lineConfigDialogW(dwDeviceID, hwndOwner, lpszDeviceClass) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -6222,7 +6224,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODRIVER, LINEERR_OPERATIONUNAVAIL, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigdialogedit
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineconfigdialogedit
      */
     static lineConfigDialogEdit(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceConfigIn, dwSize, lpDeviceConfigOut) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -6284,7 +6286,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODRIVER, LINEERR_OPERATIONUNAVAIL, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigdialogedita
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineconfigdialogedita
      */
     static lineConfigDialogEditA(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceConfigIn, dwSize, lpDeviceConfigOut) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -6346,7 +6348,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPARAM, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODRIVER, LINEERR_OPERATIONUNAVAIL, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigdialogeditw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineconfigdialogeditw
      */
     static lineConfigDialogEditW(dwDeviceID, hwndOwner, lpszDeviceClass, lpDeviceConfigIn, dwSize, lpDeviceConfigOut) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -6369,7 +6371,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_NOMEM, LINEERR_INVALPARAM, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineconfigprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineconfigprovider
      */
     static lineConfigProvider(hwndOwner, dwPermanentProviderID) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -6390,7 +6392,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecreateagentw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linecreateagentw
      */
     static lineCreateAgentW(hLine, lpszAgentID, lpszAgentPIN, lphAgent) {
         lpszAgentID := lpszAgentID is String ? StrPtr(lpszAgentID) : lpszAgentID
@@ -6414,7 +6416,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecreateagenta
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linecreateagenta
      */
     static lineCreateAgentA(hLine, lpszAgentID, lpszAgentPIN, lphAgent) {
         lpszAgentID := lpszAgentID is String ? StrPtr(lpszAgentID) : lpszAgentID
@@ -6440,7 +6442,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecreateagentsessionw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linecreateagentsessionw
      */
     static lineCreateAgentSessionW(hLine, hAgent, lpszAgentPIN, dwWorkingAddressID, lpGroupID, lphAgentSession) {
         lpszAgentPIN := lpszAgentPIN is String ? StrPtr(lpszAgentPIN) : lpszAgentPIN
@@ -6465,7 +6467,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linecreateagentsessiona
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linecreateagentsessiona
      */
     static lineCreateAgentSessionA(hLine, hAgent, lpszAgentPIN, dwWorkingAddressID, lpGroupID, lphAgentSession) {
         lpszAgentPIN := lpszAgentPIN is String ? StrPtr(lpszAgentPIN) : lpszAgentPIN
@@ -6500,7 +6502,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values include:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSTATE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linedeallocatecall
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linedeallocatecall
      */
     static lineDeallocateCall(hCall) {
         result := DllCall("TAPI32.dll\lineDeallocateCall", "uint", hCall, "int")
@@ -6530,7 +6532,7 @@ class Tapi {
      * LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
      * 
      * Additional return values are device specific.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linedevspecific
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linedevspecific
      */
     static lineDevSpecific(hLine, dwAddressID, hCall, lpParams, dwSize) {
         lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
@@ -6558,7 +6560,7 @@ class Tapi {
      * LINEERR_INVALFEATURE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
      * 
      * Additional return values are device specific.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linedevspecificfeature
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linedevspecificfeature
      */
     static lineDevSpecificFeature(hLine, dwFeature, lpParams, dwSize) {
         lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
@@ -6602,7 +6604,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ADDRESSBLOCKED, LINEERR_INVALPOINTER, LINEERR_DIALBILLING, LINEERR_NOMEM, LINEERR_DIALDIALTONE, LINEERR_NOTOWNER, LINEERR_DIALPROMPT, LINEERR_OPERATIONFAILED, LINEERR_DIALQUIET, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_UNINITIALIZED, LINEERR_INVALCOUNTRYCODE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linedial
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linedial
      */
     static lineDial(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -6652,7 +6654,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ADDRESSBLOCKED, LINEERR_INVALPOINTER, LINEERR_DIALBILLING, LINEERR_NOMEM, LINEERR_DIALDIALTONE, LINEERR_NOTOWNER, LINEERR_DIALPROMPT, LINEERR_OPERATIONFAILED, LINEERR_DIALQUIET, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_UNINITIALIZED, LINEERR_INVALCOUNTRYCODE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linediala
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linediala
      */
     static lineDialA(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -6702,7 +6704,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ADDRESSBLOCKED, LINEERR_INVALPOINTER, LINEERR_DIALBILLING, LINEERR_NOMEM, LINEERR_DIALDIALTONE, LINEERR_NOTOWNER, LINEERR_DIALPROMPT, LINEERR_OPERATIONFAILED, LINEERR_DIALQUIET, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_UNINITIALIZED, LINEERR_INVALCOUNTRYCODE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linedialw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linedialw
      */
     static lineDialW(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -6734,7 +6736,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_NOTOWNER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_USERUSERINFOTOOBIG, LINEERR_INVALCALLSTATE, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linedrop
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linedrop
      */
     static lineDrop(hCall, lpsUserUserInfo, dwSize) {
         lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
@@ -6780,7 +6782,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineforward
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineforward
      */
     static lineForward(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -6833,7 +6835,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineforwarda
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineforwarda
      */
     static lineForwardA(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -6886,7 +6888,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPARAM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineforwardw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineforwardw
      */
     static lineForwardW(hLine, bAllAddresses, dwAddressID, lpForwardList, dwNumRingsNoAnswer, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -6947,7 +6949,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOMEM, LINEERR_INVALCALLSTATE, LINEERR_NOTOWNER, LINEERR_INVALDIGITMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALDIGITS, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegatherdigits
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegatherdigits
      */
     static lineGatherDigits(hCall, dwDigitModes, lpsDigits, dwNumDigits, lpszTerminationDigits, dwFirstDigitTimeout, dwInterDigitTimeout) {
         lpsDigits := lpsDigits is String ? StrPtr(lpsDigits) : lpsDigits
@@ -7016,7 +7018,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOMEM, LINEERR_INVALCALLSTATE, LINEERR_NOTOWNER, LINEERR_INVALDIGITMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALDIGITS, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegatherdigitsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegatherdigitsa
      */
     static lineGatherDigitsA(hCall, dwDigitModes, lpsDigits, dwNumDigits, lpszTerminationDigits, dwFirstDigitTimeout, dwInterDigitTimeout) {
         lpsDigits := lpsDigits is String ? StrPtr(lpsDigits) : lpsDigits
@@ -7085,7 +7087,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOMEM, LINEERR_INVALCALLSTATE, LINEERR_NOTOWNER, LINEERR_INVALDIGITMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALDIGITS, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegatherdigitsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegatherdigitsw
      */
     static lineGatherDigitsW(hCall, dwDigitModes, lpsDigits, dwNumDigits, lpszTerminationDigits, dwFirstDigitTimeout, dwInterDigitTimeout) {
         lpsDigits := lpsDigits is String ? StrPtr(lpsDigits) : lpsDigits
@@ -7128,7 +7130,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOTOWNER, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALDIGITMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeneratedigits
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegeneratedigits
      */
     static lineGenerateDigits(hCall, dwDigitMode, lpszDigits, dwDuration) {
         lpszDigits := lpszDigits is String ? StrPtr(lpszDigits) : lpszDigits
@@ -7177,7 +7179,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOTOWNER, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALDIGITMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeneratedigitsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegeneratedigitsa
      */
     static lineGenerateDigitsA(hCall, dwDigitMode, lpszDigits, dwDuration) {
         lpszDigits := lpszDigits is String ? StrPtr(lpszDigits) : lpszDigits
@@ -7226,7 +7228,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOTOWNER, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALDIGITMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeneratedigitsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegeneratedigitsw
      */
     static lineGenerateDigitsW(hCall, dwDigitMode, lpszDigits, dwDuration) {
         lpszDigits := lpszDigits is String ? StrPtr(lpszDigits) : lpszDigits
@@ -7269,7 +7271,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_NOTOWNER, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALPOINTER, LINEERR_OPERATIONFAILED, LINEERR_INVALTONEMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALTONE, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeneratetone
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegeneratetone
      */
     static lineGenerateTone(hCall, dwToneMode, dwDuration, dwNumTones, lpTones) {
         result := DllCall("TAPI32.dll\lineGenerateTone", "uint", hCall, "uint", dwToneMode, "uint", dwDuration, "uint", dwNumTones, "ptr", lpTones, "int")
@@ -7301,7 +7303,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_OPERATIONFAILED, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALAPPHANDLE, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODRIVER, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddresscaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddresscaps
      */
     static lineGetAddressCaps(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwExtVersion, lpAddressCaps) {
         result := DllCall("TAPI32.dll\lineGetAddressCaps", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpAddressCaps, "int")
@@ -7340,7 +7342,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_OPERATIONFAILED, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALAPPHANDLE, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODRIVER, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddresscapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddresscapsa
      */
     static lineGetAddressCapsA(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwExtVersion, lpAddressCaps) {
         result := DllCall("TAPI32.dll\lineGetAddressCapsA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpAddressCaps, "int")
@@ -7379,7 +7381,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_OPERATIONFAILED, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALAPPHANDLE, LINEERR_UNINITIALIZED, LINEERR_INVALPOINTER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODRIVER, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddresscapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddresscapsw
      */
     static lineGetAddressCapsW(hLineApp, dwDeviceID, dwAddressID, dwAPIVersion, dwExtVersion, lpAddressCaps) {
         result := DllCall("TAPI32.dll\lineGetAddressCapsW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpAddressCaps, "int")
@@ -7405,7 +7407,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESS, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddressid
      */
     static lineGetAddressID(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize) {
         lpsAddress := lpsAddress is String ? StrPtr(lpsAddress) : lpsAddress
@@ -7441,7 +7443,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESS, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressida
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddressida
      */
     static lineGetAddressIDA(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize) {
         lpsAddress := lpsAddress is String ? StrPtr(lpsAddress) : lpsAddress
@@ -7477,7 +7479,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALADDRESS, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddressidw
      */
     static lineGetAddressIDW(hLine, lpdwAddressID, dwAddressMode, lpsAddress, dwSize) {
         lpsAddress := lpsAddress is String ? StrPtr(lpsAddress) : lpsAddress
@@ -7505,7 +7507,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddressstatus
      */
     static lineGetAddressStatus(hLine, dwAddressID, lpAddressStatus) {
         result := DllCall("TAPI32.dll\lineGetAddressStatus", "uint", hLine, "uint", dwAddressID, "ptr", lpAddressStatus, "int")
@@ -7532,7 +7534,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddressstatusa
      */
     static lineGetAddressStatusA(hLine, dwAddressID, lpAddressStatus) {
         result := DllCall("TAPI32.dll\lineGetAddressStatusA", "uint", hLine, "uint", dwAddressID, "ptr", lpAddressStatus, "int")
@@ -7559,7 +7561,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetaddressstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetaddressstatusw
      */
     static lineGetAddressStatusW(hLine, dwAddressID, lpAddressStatus) {
         result := DllCall("TAPI32.dll\lineGetAddressStatusW", "uint", hLine, "uint", dwAddressID, "ptr", lpAddressStatus, "int")
@@ -7580,7 +7582,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, this function returns one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_OPERATIONFAILED, LINEERR_INVALAGENTID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentactivitylista
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentactivitylista
      */
     static lineGetAgentActivityListA(hLine, dwAddressID, lpAgentActivityList) {
         result := DllCall("TAPI32.dll\lineGetAgentActivityListA", "uint", hLine, "uint", dwAddressID, "ptr", lpAgentActivityList, "int")
@@ -7601,7 +7603,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, this function returns one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_OPERATIONFAILED, LINEERR_INVALAGENTID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentactivitylistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentactivitylistw
      */
     static lineGetAgentActivityListW(hLine, dwAddressID, lpAgentActivityList) {
         result := DllCall("TAPI32.dll\lineGetAgentActivityListW", "uint", hLine, "uint", dwAddressID, "ptr", lpAgentActivityList, "int")
@@ -7624,7 +7626,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, this function returns one of these negative error values:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALADDRESSID, LINEERR_INVALAPPHANDLE, LINEERR_INVALPOINTER, LINEERR_NODEVICE, LINEERR_NODRIVER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentcapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentcapsa
      */
     static lineGetAgentCapsA(hLineApp, dwDeviceID, dwAddressID, dwAppAPIVersion, lpAgentCaps) {
         result := DllCall("TAPI32.dll\lineGetAgentCapsA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAppAPIVersion, "ptr", lpAgentCaps, "int")
@@ -7647,7 +7649,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, this function returns one of these negative error values:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALADDRESSID, LINEERR_INVALAPPHANDLE, LINEERR_INVALPOINTER, LINEERR_NODEVICE, LINEERR_NODRIVER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentcapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentcapsw
      */
     static lineGetAgentCapsW(hLineApp, dwDeviceID, dwAddressID, dwAppAPIVersion, lpAgentCaps) {
         result := DllCall("TAPI32.dll\lineGetAgentCapsW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAddressID, "uint", dwAppAPIVersion, "ptr", lpAgentCaps, "int")
@@ -7666,7 +7668,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, this function returns one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_INVALAGENTID, LINEERR_INVALLINEHANDLE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentgrouplista
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentgrouplista
      */
     static lineGetAgentGroupListA(hLine, dwAddressID, lpAgentGroupList) {
         result := DllCall("TAPI32.dll\lineGetAgentGroupListA", "uint", hLine, "uint", dwAddressID, "ptr", lpAgentGroupList, "int")
@@ -7685,7 +7687,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, this function returns one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_INVALAGENTID, LINEERR_INVALLINEHANDLE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentgrouplistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentgrouplistw
      */
     static lineGetAgentGroupListW(hLine, dwAddressID, lpAgentGroupList) {
         result := DllCall("TAPI32.dll\lineGetAgentGroupListW", "uint", hLine, "uint", dwAddressID, "ptr", lpAgentGroupList, "int")
@@ -7705,7 +7707,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentinfo
      */
     static lineGetAgentInfo(hLine, hAgent, lpAgentInfo) {
         result := DllCall("TAPI32.dll\lineGetAgentInfo", "uint", hLine, "uint", hAgent, "ptr", lpAgentInfo, "int")
@@ -7729,7 +7731,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentsessioninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentsessioninfo
      */
     static lineGetAgentSessionInfo(hLine, hAgentSession, lpAgentSessionInfo) {
         result := DllCall("TAPI32.dll\lineGetAgentSessionInfo", "uint", hLine, "uint", hAgentSession, "ptr", lpAgentSessionInfo, "int")
@@ -7753,7 +7755,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentsessionlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentsessionlist
      */
     static lineGetAgentSessionList(hLine, hAgent, lpAgentSessionList) {
         result := DllCall("TAPI32.dll\lineGetAgentSessionList", "uint", hLine, "uint", hAgent, "ptr", lpAgentSessionList, "int")
@@ -7780,7 +7782,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_INVALLINEHANDLE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentstatusa
      */
     static lineGetAgentStatusA(hLine, dwAddressID, lpAgentStatus) {
         result := DllCall("TAPI32.dll\lineGetAgentStatusA", "uint", hLine, "uint", dwAddressID, "ptr", lpAgentStatus, "int")
@@ -7807,7 +7809,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_INVALLINEHANDLE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetagentstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetagentstatusw
      */
     static lineGetAgentStatusW(hLine, dwAddressID, lpAgentStatus) {
         result := DllCall("TAPI32.dll\lineGetAgentStatusW", "uint", hLine, "uint", dwAddressID, "ptr", lpAgentStatus, "int")
@@ -7838,7 +7840,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INIFILECORRUPT</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_INVALAPPNAME</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_INVALMEDIAMODE</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALPOINTER</b>, <b>LINEERR_STRUCTURETOOSMALL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetapppriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetapppriority
      */
     static lineGetAppPriority(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpExtensionName, lpdwPriority) {
         lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
@@ -7880,7 +7882,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INIFILECORRUPT</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_INVALAPPNAME</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_INVALMEDIAMODE</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALPOINTER</b>, <b>LINEERR_STRUCTURETOOSMALL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetappprioritya
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetappprioritya
      */
     static lineGetAppPriorityA(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpExtensionName, lpdwPriority) {
         lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
@@ -7922,7 +7924,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INIFILECORRUPT</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_INVALAPPNAME</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_INVALMEDIAMODE</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALPOINTER</b>, <b>LINEERR_STRUCTURETOOSMALL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetapppriorityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetapppriorityw
      */
     static lineGetAppPriorityW(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpExtensionName, lpdwPriority) {
         lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
@@ -7947,7 +7949,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetcallinfo
      */
     static lineGetCallInfo(hCall, lpCallInfo) {
         result := DllCall("TAPI32.dll\lineGetCallInfo", "uint", hCall, "ptr", lpCallInfo, "int")
@@ -7975,7 +7977,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetcallinfoa
      */
     static lineGetCallInfoA(hCall, lpCallInfo) {
         result := DllCall("TAPI32.dll\lineGetCallInfoA", "uint", hCall, "ptr", lpCallInfo, "int")
@@ -8003,7 +8005,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetcallinfow
      */
     static lineGetCallInfoW(hCall, lpCallInfo) {
         result := DllCall("TAPI32.dll\lineGetCallInfoW", "uint", hCall, "ptr", lpCallInfo, "int")
@@ -8030,7 +8032,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcallstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetcallstatus
      */
     static lineGetCallStatus(hCall, lpCallStatus) {
         result := DllCall("TAPI32.dll\lineGetCallStatus", "uint", hCall, "ptr", lpCallStatus, "int")
@@ -8067,7 +8069,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_NOCONFERENCE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetconfrelatedcalls
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetconfrelatedcalls
      */
     static lineGetConfRelatedCalls(hCall, lpCallList) {
         result := DllCall("TAPI32.dll\lineGetConfRelatedCalls", "uint", hCall, "ptr", lpCallList, "int")
@@ -8091,7 +8093,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcountry
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetcountry
      */
     static lineGetCountry(dwCountryID, dwAPIVersion, lpLineCountryList) {
         result := DllCall("TAPI32.dll\lineGetCountry", "uint", dwCountryID, "uint", dwAPIVersion, "ptr", lpLineCountryList, "int")
@@ -8118,7 +8120,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcountrya
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetcountrya
      */
     static lineGetCountryA(dwCountryID, dwAPIVersion, lpLineCountryList) {
         result := DllCall("TAPI32.dll\lineGetCountryA", "uint", dwCountryID, "uint", dwAPIVersion, "ptr", lpLineCountryList, "int")
@@ -8145,7 +8147,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetcountryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetcountryw
      */
     static lineGetCountryW(dwCountryID, dwAPIVersion, lpLineCountryList) {
         result := DllCall("TAPI32.dll\lineGetCountryW", "uint", dwCountryID, "uint", dwAPIVersion, "ptr", lpLineCountryList, "int")
@@ -8182,7 +8184,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_OPERATIONFAILED, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALAPPHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODRIVER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetdevcaps
      */
     static lineGetDevCaps(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineDevCaps) {
         result := DllCall("TAPI32.dll\lineGetDevCaps", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpLineDevCaps, "int")
@@ -8226,7 +8228,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_OPERATIONFAILED, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALAPPHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODRIVER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetdevcapsa
      */
     static lineGetDevCapsA(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineDevCaps) {
         result := DllCall("TAPI32.dll\lineGetDevCapsA", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpLineDevCaps, "int")
@@ -8270,7 +8272,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_OPERATIONFAILED, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALAPPHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODRIVER, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetdevcapsw
      */
     static lineGetDevCapsW(hLineApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpLineDevCaps) {
         result := DllCall("TAPI32.dll\lineGetDevCapsW", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpLineDevCaps, "int")
@@ -8313,7 +8315,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALDEVICECLASS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetdevconfig
      */
     static lineGetDevConfig(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8365,7 +8367,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALDEVICECLASS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetdevconfiga
      */
     static lineGetDevConfigA(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8417,7 +8419,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALDEVICECLASS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_STRUCTURETOOSMALL, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetdevconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetdevconfigw
      */
     static lineGetDevConfigW(dwDeviceID, lpDeviceConfig, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8445,7 +8447,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetgrouplista
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetgrouplista
      */
     static lineGetGroupListA(hLine, lpGroupList) {
         result := DllCall("TAPI32.dll\lineGetGroupListA", "uint", hLine, "ptr", lpGroupList, "int")
@@ -8471,7 +8473,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetgrouplistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetgrouplistw
      */
     static lineGetGroupListW(hLine, lpGroupList) {
         result := DllCall("TAPI32.dll\lineGetGroupListW", "uint", hLine, "ptr", lpGroupList, "int")
@@ -8497,7 +8499,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALDEVICECLASS, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeticon
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegeticon
      */
     static lineGetIcon(dwDeviceID, lpszDeviceClass, lphIcon) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8532,7 +8534,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALDEVICECLASS, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeticona
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegeticona
      */
     static lineGetIconA(dwDeviceID, lpszDeviceClass, lphIcon) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8567,7 +8569,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALDEVICECLASS, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegeticonw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegeticonw
      */
     static lineGetIconW(dwDeviceID, lpszDeviceClass, lphIcon) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8606,7 +8608,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSELECT, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODEVICE, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetid
      */
     static lineGetID(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8652,7 +8654,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSELECT, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODEVICE, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetida
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetida
      */
     static lineGetIDA(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8698,7 +8700,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSELECT, LINEERR_INVALDEVICECLASS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODEVICE, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetidw
      */
     static lineGetIDW(hLine, dwAddressID, hCall, dwSelect, lpDeviceID, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -8720,7 +8722,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetlinedevstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetlinedevstatus
      */
     static lineGetLineDevStatus(hLine, lpLineDevStatus) {
         result := DllCall("TAPI32.dll\lineGetLineDevStatus", "uint", hLine, "ptr", lpLineDevStatus, "int")
@@ -8740,7 +8742,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetlinedevstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetlinedevstatusa
      */
     static lineGetLineDevStatusA(hLine, lpLineDevStatus) {
         result := DllCall("TAPI32.dll\lineGetLineDevStatusA", "uint", hLine, "ptr", lpLineDevStatus, "int")
@@ -8760,7 +8762,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetlinedevstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetlinedevstatusw
      */
     static lineGetLineDevStatusW(hLine, lpLineDevStatus) {
         result := DllCall("TAPI32.dll\lineGetLineDevStatusW", "uint", hLine, "ptr", lpLineDevStatus, "int")
@@ -8784,7 +8786,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetmessage
      */
     static lineGetMessage(hLineApp, lpMessage, dwTimeout) {
         result := DllCall("TAPI32.dll\lineGetMessage", "uint", hLineApp, "ptr", lpMessage, "uint", dwTimeout, "int")
@@ -8818,7 +8820,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSELECT, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetnewcalls
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetnewcalls
      */
     static lineGetNewCalls(hLine, dwAddressID, dwSelect, lpCallList) {
         result := DllCall("TAPI32.dll\lineGetNewCalls", "uint", hLine, "uint", dwAddressID, "uint", dwSelect, "ptr", lpCallList, "int")
@@ -8851,7 +8853,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetnumrings
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetnumrings
      */
     static lineGetNumRings(hLine, dwAddressID, lpdwNumRings) {
         lpdwNumRingsMarshal := lpdwNumRings is VarRef ? "uint*" : "ptr"
@@ -8877,7 +8879,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproviderlist
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetproviderlist
      */
     static lineGetProviderList(dwAPIVersion, lpProviderList) {
         result := DllCall("TAPI32.dll\lineGetProviderList", "uint", dwAPIVersion, "ptr", lpProviderList, "int")
@@ -8904,7 +8906,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproviderlista
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetproviderlista
      */
     static lineGetProviderListA(dwAPIVersion, lpProviderList) {
         result := DllCall("TAPI32.dll\lineGetProviderListA", "uint", dwAPIVersion, "ptr", lpProviderList, "int")
@@ -8931,7 +8933,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproviderlistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetproviderlistw
      */
     static lineGetProviderListW(dwAPIVersion, lpProviderList) {
         result := DllCall("TAPI32.dll\lineGetProviderListW", "uint", dwAPIVersion, "ptr", lpProviderList, "int")
@@ -8956,7 +8958,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds; otherwise, the function returns one of the following negative error values:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetproxystatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetproxystatus
      */
     static lineGetProxyStatus(hLineApp, dwDeviceID, dwAppAPIVersion, lpLineProxyReqestList) {
         result := DllCall("TAPI32.dll\lineGetProxyStatus", "uint", hLineApp, "uint", dwDeviceID, "uint", dwAppAPIVersion, "ptr", lpLineProxyReqestList, "int")
@@ -8980,7 +8982,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetqueueinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetqueueinfo
      */
     static lineGetQueueInfo(hLine, dwQueueID, lpLineQueueInfo) {
         result := DllCall("TAPI32.dll\lineGetQueueInfo", "uint", hLine, "uint", dwQueueID, "ptr", lpLineQueueInfo, "int")
@@ -9007,7 +9009,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetqueuelista
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetqueuelista
      */
     static lineGetQueueListA(hLine, lpGroupID, lpQueueList) {
         result := DllCall("TAPI32.dll\lineGetQueueListA", "uint", hLine, "ptr", lpGroupID, "ptr", lpQueueList, "int")
@@ -9034,7 +9036,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetqueuelistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetqueuelistw
      */
     static lineGetQueueListW(hLine, lpGroupID, lpQueueList) {
         result := DllCall("TAPI32.dll\lineGetQueueListW", "uint", hLine, "ptr", lpGroupID, "ptr", lpQueueList, "int")
@@ -9071,7 +9073,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INVALAPPHANDLE</b>, <b>LINEERR_NOTREGISTERED</b>, <b>LINEERR_INVALPOINTER</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_RESOURCEUNAVAIL</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_UNINITIALIZED</b>, <b>LINEERR_NOREQUEST</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetrequest
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetrequest
      */
     static lineGetRequest(hLineApp, dwRequestMode, lpRequestBuffer) {
         lpRequestBufferMarshal := lpRequestBuffer is VarRef ? "ptr" : "ptr"
@@ -9117,7 +9119,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INVALAPPHANDLE</b>, <b>LINEERR_NOTREGISTERED</b>, <b>LINEERR_INVALPOINTER</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_RESOURCEUNAVAIL</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_UNINITIALIZED</b>, <b>LINEERR_NOREQUEST</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetrequesta
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetrequesta
      */
     static lineGetRequestA(hLineApp, dwRequestMode, lpRequestBuffer) {
         lpRequestBufferMarshal := lpRequestBuffer is VarRef ? "ptr" : "ptr"
@@ -9163,7 +9165,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INVALAPPHANDLE</b>, <b>LINEERR_NOTREGISTERED</b>, <b>LINEERR_INVALPOINTER</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_RESOURCEUNAVAIL</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_UNINITIALIZED</b>, <b>LINEERR_NOREQUEST</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetrequestw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetrequestw
      */
     static lineGetRequestW(hLineApp, dwRequestMode, lpRequestBuffer) {
         lpRequestBufferMarshal := lpRequestBuffer is VarRef ? "ptr" : "ptr"
@@ -9185,7 +9187,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegetstatusmessages
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegetstatusmessages
      */
     static lineGetStatusMessages(hLine, lpdwLineStates, lpdwAddressStates) {
         lpdwLineStatesMarshal := lpdwLineStates is VarRef ? "uint*" : "ptr"
@@ -9220,7 +9222,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODRIVER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegettranslatecaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegettranslatecaps
      */
     static lineGetTranslateCaps(hLineApp, dwAPIVersion, lpTranslateCaps) {
         result := DllCall("TAPI32.dll\lineGetTranslateCaps", "uint", hLineApp, "uint", dwAPIVersion, "ptr", lpTranslateCaps, "int")
@@ -9255,7 +9257,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODRIVER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegettranslatecapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegettranslatecapsa
      */
     static lineGetTranslateCapsA(hLineApp, dwAPIVersion, lpTranslateCaps) {
         result := DllCall("TAPI32.dll\lineGetTranslateCapsA", "uint", hLineApp, "uint", dwAPIVersion, "ptr", lpTranslateCaps, "int")
@@ -9290,7 +9292,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INIFILECORRUPT, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NODRIVER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linegettranslatecapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linegettranslatecapsw
      */
     static lineGetTranslateCapsW(hLineApp, dwAPIVersion, lpTranslateCaps) {
         result := DllCall("TAPI32.dll\lineGetTranslateCapsW", "uint", hLineApp, "uint", dwAPIVersion, "ptr", lpTranslateCaps, "int")
@@ -9343,7 +9345,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALMEDIAMODE, LINEERR_TARGETNOTFOUND, LINEERR_INVALPOINTER, LINEERR_TARGETSELF, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_NOTOWNER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linehandoff
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linehandoff
      */
     static lineHandoff(hCall, lpszFileName, dwMediaMode) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
@@ -9405,7 +9407,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALMEDIAMODE, LINEERR_TARGETNOTFOUND, LINEERR_INVALPOINTER, LINEERR_TARGETSELF, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_NOTOWNER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linehandoffa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linehandoffa
      */
     static lineHandoffA(hCall, lpszFileName, dwMediaMode) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
@@ -9467,7 +9469,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALMEDIAMODE, LINEERR_TARGETNOTFOUND, LINEERR_INVALPOINTER, LINEERR_TARGETSELF, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_NOTOWNER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linehandoffw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linehandoffw
      */
     static lineHandoffW(hCall, lpszFileName, dwMediaMode) {
         lpszFileName := lpszFileName is String ? StrPtr(lpszFileName) : lpszFileName
@@ -9496,7 +9498,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_RESOURCEUNAVAIL, LINEERR_NOTOWNER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linehold
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linehold
      */
     static lineHold(hCall) {
         result := DllCall("TAPI32.dll\lineHold", "uint", hCall, "int")
@@ -9527,7 +9529,7 @@ class Tapi {
      * <b>lineInitialize</b> is equivalent to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineinitializeexa">lineInitializeEx</a> using the LINEINITIALIZEEXOPTION_USEHIDDENWINDOW option.
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL.
+     * @param {HINSTANCE} hInstance_ Instance handle of the client application or DLL.
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls. For more information, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9536,16 +9538,16 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALAPPNAME, LINEERR_OPERATIONFAILED, LINEERR_INIFILECORRUPT, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_REINIT, LINEERR_NODRIVER, LINEERR_NODEVICE, LINEERR_NOMEM, LINEERR_NOMULTIPLEINSTANCE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineinitialize
      */
-    static lineInitialize(lphLineApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static lineInitialize(lphLineApp, hInstance_, lpfnCallback, lpszAppName, lpdwNumDevs) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
 
         lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
+        result := DllCall("TAPI32.dll\lineInitialize", lphLineAppMarshal, lphLineApp, "ptr", hInstance_, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
         return result
     }
 
@@ -9607,7 +9609,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
+     * @param {HINSTANCE} hInstance_ Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9621,17 +9623,17 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALAPPNAME, LINEERR_OPERATIONFAILED, LINEERR_INIFILECORRUPT, LINEERR_INVALPOINTER, LINEERR_REINIT, LINEERR_NOMEM, LINEERR_INVALPARAM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineinitializeexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineinitializeexa
      */
-    static lineInitializeExA(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static lineInitializeExA(lphLineApp, hInstance_, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\lineInitializeExA", lphLineAppMarshal, lphLineApp, "ptr", hInstance_, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
     }
 
@@ -9693,7 +9695,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines lineInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphLineApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
+     * @param {HINSTANCE} hInstance_ Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process (for purposes of identifying call handoff targets and media mode priorities).
      * @param {Pointer<LINECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-linecallback">lineCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated text string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -9707,17 +9709,17 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALAPPNAME, LINEERR_OPERATIONFAILED, LINEERR_INIFILECORRUPT, LINEERR_INVALPOINTER, LINEERR_REINIT, LINEERR_NOMEM, LINEERR_INVALPARAM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineinitializeexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineinitializeexw
      */
-    static lineInitializeExW(lphLineApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static lineInitializeExW(lphLineApp, hInstance_, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpLineInitializeExParams) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphLineAppMarshal := lphLineApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\lineInitializeExW", lphLineAppMarshal, lphLineApp, "ptr", hInstance_, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpLineInitializeExParams, "int")
         return result
     }
 
@@ -9765,7 +9767,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ADDRESSBLOCKED, LINEERR_INVALLINEHANDLE, LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_CALLUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_DIALBILLING, LINEERR_INVALPARAM, LINEERR_DIALDIALTONE, LINEERR_INVALPOINTER, LINEERR_DIALPROMPT, LINEERR_INVALRATE, LINEERR_DIALQUIET, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALADDRESS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_RATEUNAVAIL, LINEERR_INVALADDRESSMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALBEARERMODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALCALLPARAMS, LINEERR_UNINITIALIZED, LINEERR_INVALCOUNTRYCODE, LINEERR_USERUSERINFOTOOBIG.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemakecall
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linemakecall
      */
     static lineMakeCall(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParams) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -9826,7 +9828,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ADDRESSBLOCKED, LINEERR_INVALLINEHANDLE, LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_CALLUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_DIALBILLING, LINEERR_INVALPARAM, LINEERR_DIALDIALTONE, LINEERR_INVALPOINTER, LINEERR_DIALPROMPT, LINEERR_INVALRATE, LINEERR_DIALQUIET, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALADDRESS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_RATEUNAVAIL, LINEERR_INVALADDRESSMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALBEARERMODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALCALLPARAMS, LINEERR_UNINITIALIZED, LINEERR_INVALCOUNTRYCODE, LINEERR_USERUSERINFOTOOBIG.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemakecalla
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linemakecalla
      */
     static lineMakeCallA(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParams) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -9887,7 +9889,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ADDRESSBLOCKED, LINEERR_INVALLINEHANDLE, LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_CALLUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_DIALBILLING, LINEERR_INVALPARAM, LINEERR_DIALDIALTONE, LINEERR_INVALPOINTER, LINEERR_DIALPROMPT, LINEERR_INVALRATE, LINEERR_DIALQUIET, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_OPERATIONFAILED, LINEERR_INVALADDRESS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_RATEUNAVAIL, LINEERR_INVALADDRESSMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALBEARERMODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALCALLPARAMS, LINEERR_UNINITIALIZED, LINEERR_INVALCOUNTRYCODE, LINEERR_USERUSERINFOTOOBIG.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemakecallw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linemakecallw
      */
     static lineMakeCallW(hLine, lphCall, lpszDestAddress, dwCountryCode, lpCallParams) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -9918,7 +9920,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALDIGITMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemonitordigits
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linemonitordigits
      */
     static lineMonitorDigits(hCall, dwDigitModes) {
         result := DllCall("TAPI32.dll\lineMonitorDigits", "uint", hCall, "uint", dwDigitModes, "int")
@@ -9954,7 +9956,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALMEDIAMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemonitormedia
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linemonitormedia
      */
     static lineMonitorMedia(hCall, dwMediaModes) {
         result := DllCall("TAPI32.dll\lineMonitorMedia", "uint", hCall, "uint", dwMediaModes, "int")
@@ -9982,7 +9984,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCALLSTATE, LINEERR_INVALPOINTER, LINEERR_INVALTONE, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linemonitortones
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linemonitortones
      */
     static lineMonitorTones(hCall, lpToneList, dwNumEntries) {
         result := DllCall("TAPI32.dll\lineMonitorTones", "uint", hCall, "ptr", lpToneList, "uint", dwNumEntries, "int")
@@ -10010,7 +10012,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linenegotiateapiversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linenegotiateapiversion
      */
     static lineNegotiateAPIVersion(hLineApp, dwDeviceID, dwAPILowVersion, dwAPIHighVersion, lpdwAPIVersion, lpExtensionID) {
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
@@ -10044,7 +10046,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NOMEM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NODRIVER, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NODEVICE, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linenegotiateextversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linenegotiateextversion
      */
     static lineNegotiateExtVersion(hLineApp, dwDeviceID, dwAPIVersion, dwExtLowVersion, dwExtHighVersion, lpdwExtVersion) {
         lpdwExtVersionMarshal := lpdwExtVersion is VarRef ? "uint*" : "ptr"
@@ -10158,7 +10160,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ALLOCATED, LINEERR_LINEMAPPERFAILED, LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_INVALPRIVSELECT, LINEERR_REINIT, LINEERR_NODEVICE, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineopen
      */
     static lineOpen(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
         lphLineMarshal := lphLine is VarRef ? "uint*" : "ptr"
@@ -10279,7 +10281,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ALLOCATED, LINEERR_LINEMAPPERFAILED, LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_INVALPRIVSELECT, LINEERR_REINIT, LINEERR_NODEVICE, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineopena
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineopena
      */
     static lineOpenA(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
         lphLineMarshal := lphLine is VarRef ? "uint*" : "ptr"
@@ -10400,7 +10402,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_ALLOCATED, LINEERR_LINEMAPPERFAILED, LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NOMEM, LINEERR_INCOMPATIBLEEXTVERSION, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_INVALPRIVSELECT, LINEERR_REINIT, LINEERR_NODEVICE, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineopenw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineopenw
      */
     static lineOpenW(hLineApp, dwDeviceID, lphLine, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivileges, dwMediaModes, lpCallParams) {
         lphLineMarshal := lphLine is VarRef ? "uint*" : "ptr"
@@ -10435,7 +10437,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALPARKMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linepark
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linepark
      */
     static linePark(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
         lpszDirAddress := lpszDirAddress is String ? StrPtr(lpszDirAddress) : lpszDirAddress
@@ -10477,7 +10479,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALPARKMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineparka
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineparka
      */
     static lineParkA(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
         lpszDirAddress := lpszDirAddress is String ? StrPtr(lpszDirAddress) : lpszDirAddress
@@ -10519,7 +10521,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALPARKMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_STRUCTURETOOSMALL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineparkw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineparkw
      */
     static lineParkW(hCall, dwParkMode, lpszDirAddress, lpNonDirAddress) {
         lpszDirAddress := lpszDirAddress is String ? StrPtr(lpszDirAddress) : lpszDirAddress
@@ -10561,7 +10563,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALGROUPID, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linepickup
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linepickup
      */
     static linePickup(hLine, dwAddressID, lphCall, lpszDestAddress, lpszGroupID) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -10613,7 +10615,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALGROUPID, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linepickupa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linepickupa
      */
     static linePickupA(hLine, dwAddressID, lphCall, lpszDestAddress, lpszGroupID) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -10665,7 +10667,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOMEM, LINEERR_INVALADDRESSID, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALGROUPID, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linepickupw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linepickupw
      */
     static linePickupW(hLine, dwAddressID, lphCall, lpszDestAddress, lpszGroupID) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -10703,7 +10705,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_CALLUNAVAIL, LINEERR_INVALRATE, LINEERR_CONFERENCEFULL, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_NOTOWNER, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALBEARERMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLPARAMS, LINEERR_RATEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCONFCALLHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALLINESTATE, LINEERR_USERUSERINFOTOOBIG, LINEERR_INVALMEDIAMODE, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineprepareaddtoconference
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineprepareaddtoconference
      */
     static linePrepareAddToConference(hConfCall, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -10745,7 +10747,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_CALLUNAVAIL, LINEERR_INVALRATE, LINEERR_CONFERENCEFULL, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_NOTOWNER, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALBEARERMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLPARAMS, LINEERR_RATEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCONFCALLHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALLINESTATE, LINEERR_USERUSERINFOTOOBIG, LINEERR_INVALMEDIAMODE, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineprepareaddtoconferencea
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineprepareaddtoconferencea
      */
     static linePrepareAddToConferenceA(hConfCall, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -10787,7 +10789,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_CALLUNAVAIL, LINEERR_INVALRATE, LINEERR_CONFERENCEFULL, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_NOTOWNER, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALBEARERMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLPARAMS, LINEERR_RATEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCONFCALLHANDLE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALLINESTATE, LINEERR_USERUSERINFOTOOBIG, LINEERR_INVALMEDIAMODE, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineprepareaddtoconferencew
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineprepareaddtoconferencew
      */
     static linePrepareAddToConferenceW(hConfCall, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -10807,7 +10809,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or one of these negative error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALCALLHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_NOTREGISTERED, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineproxymessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineproxymessage
      */
     static lineProxyMessage(hLine, hCall, dwMsg, dwParam1, dwParam2, dwParam3) {
         result := DllCall("TAPI32.dll\lineProxyMessage", "uint", hLine, "uint", hCall, "uint", dwMsg, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "int")
@@ -10831,7 +10833,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or one of these negative error values:
      * 
      * <b>LINEERR_INVALLINEHANDLE</b>, <b>LINEERR_INVALPARAM</b>, <b>LINEERR_INVALPOINTER</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_NOTREGISTERED</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINE ERR_OPERATIONUNAVAIL</b>, <b>LINEERR_RESOURCEUNAVAIL</b>, <b>LINEERR_UNINITIALIZED</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineproxyresponse
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineproxyresponse
      */
     static lineProxyResponse(hLine, lpProxyRequest, dwResult) {
         result := DllCall("TAPI32.dll\lineProxyResponse", "uint", hLine, "ptr", lpProxyRequest, "uint", dwResult, "int")
@@ -10856,7 +10858,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineredirect
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineredirect
      */
     static lineRedirect(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -10890,7 +10892,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineredirecta
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineredirecta
      */
     static lineRedirectA(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -10924,7 +10926,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALCOUNTRYCODE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineredirectw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineredirectw
      */
     static lineRedirectW(hCall, lpszDestAddress, dwCountryCode) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -10955,7 +10957,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALREQUESTMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineregisterrequestrecipient
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineregisterrequestrecipient
      */
     static lineRegisterRequestRecipient(hLineApp, dwRegistrationInstance, dwRequestMode, bEnable) {
         result := DllCall("TAPI32.dll\lineRegisterRequestRecipient", "uint", hLineApp, "uint", dwRegistrationInstance, "uint", dwRequestMode, "uint", bEnable, "int")
@@ -10976,7 +10978,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_RESOURCEUNAVAIL, LINEERR_NOTOWNER, LINEERR_UNINITIALIZED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linereleaseuseruserinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linereleaseuseruserinfo
      */
     static lineReleaseUserUserInfo(hCall) {
         result := DllCall("TAPI32.dll\lineReleaseUserUserInfo", "uint", hCall, "int")
@@ -10995,7 +10997,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_RESOURCEUNAVAIL, LINEERR_NOTOWNER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineremovefromconference
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineremovefromconference
      */
     static lineRemoveFromConference(hCall) {
         result := DllCall("TAPI32.dll\lineRemoveFromConference", "uint", hCall, "int")
@@ -11018,7 +11020,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_NOMEM, LINEERR_INVALPARAM, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineremoveprovider
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineremoveprovider
      */
     static lineRemoveProvider(dwPermanentProviderID, hwndOwner) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -11038,7 +11040,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_RESOURCEUNAVAIL, LINEERR_NOTOWNER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesecurecall
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesecurecall
      */
     static lineSecureCall(hCall) {
         result := DllCall("TAPI32.dll\lineSecureCall", "uint", hCall, "int")
@@ -11062,7 +11064,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_USERUSERINFOTOOBIG, LINEERR_NOTOWNER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesenduseruserinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesenduseruserinfo
      */
     static lineSendUserUserInfo(hCall, lpsUserUserInfo, dwSize) {
         lpsUserUserInfo := lpsUserUserInfo is String ? StrPtr(lpsUserUserInfo) : lpsUserUserInfo
@@ -11079,7 +11081,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, the function returns one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_INVALADDRESSSTATE, LINEERR_INVALAGENTACTIVITY, LINEERR_INVALLINEHANDLE, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentactivity
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetagentactivity
      */
     static lineSetAgentActivity(hLine, dwAddressID, dwActivityID) {
         result := DllCall("TAPI32.dll\lineSetAgentActivity", "uint", hLine, "uint", dwAddressID, "uint", dwActivityID, "int")
@@ -11098,7 +11100,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, the function returns one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_INVALADDRESSSTATE, LINEERR_INVALAGENTGROUP, LINEERR_INVALAGENTID, LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_INVALPASSWORD, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentgroup
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetagentgroup
      */
     static lineSetAgentGroup(hLine, dwAddressID, lpAgentGroupList) {
         result := DllCall("TAPI32.dll\lineSetAgentGroup", "uint", hLine, "uint", dwAddressID, "ptr", lpAgentGroupList, "int")
@@ -11113,7 +11115,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentmeasurementperiod
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetagentmeasurementperiod
      */
     static lineSetAgentMeasurementPeriod(hLine, hAgent, dwMeasurementPeriod) {
         result := DllCall("TAPI32.dll\lineSetAgentMeasurementPeriod", "uint", hLine, "uint", hAgent, "uint", dwMeasurementPeriod, "int")
@@ -11131,7 +11133,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALAGENTSTATE, LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentsessionstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetagentsessionstate
      */
     static lineSetAgentSessionState(hLine, hAgentSession, dwAgentSessionState, dwNextAgentSessionState) {
         result := DllCall("TAPI32.dll\lineSetAgentSessionState", "uint", hLine, "uint", hAgentSession, "uint", dwAgentSessionState, "uint", dwNextAgentSessionState, "int")
@@ -11149,7 +11151,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALAGENTSTATE, LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentstateex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetagentstateex
      */
     static lineSetAgentStateEx(hLine, hAgent, dwAgentState, dwNextAgentState) {
         result := DllCall("TAPI32.dll\lineSetAgentStateEx", "uint", hLine, "uint", hAgent, "uint", dwAgentState, "uint", dwNextAgentState, "int")
@@ -11167,7 +11169,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, the function returns one of these negative error values:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_INVALADDRESSSTATE, LINEERR_INVALAGENTSTATE, LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetagentstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetagentstate
      */
     static lineSetAgentState(hLine, dwAddressID, dwAgentState, dwNextAgentState) {
         result := DllCall("TAPI32.dll\lineSetAgentState", "uint", hLine, "uint", dwAddressID, "uint", dwAgentState, "uint", dwNextAgentState, "int")
@@ -11195,7 +11197,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INIFILECORRUPT</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_INVALAPPNAME</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_INVALMEDIAMODE</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALPARAM</b>, <b>LINEERR_RESOURCEUNAVAIL</b>, <b>LINEERR_INVALPOINTER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetapppriority
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetapppriority
      */
     static lineSetAppPriority(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpszExtensionName, dwPriority) {
         lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
@@ -11233,7 +11235,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INIFILECORRUPT</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_INVALAPPNAME</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_INVALMEDIAMODE</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALPARAM</b>, <b>LINEERR_RESOURCEUNAVAIL</b>, <b>LINEERR_INVALPOINTER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetappprioritya
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetappprioritya
      */
     static lineSetAppPriorityA(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpszExtensionName, dwPriority) {
         lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
@@ -11271,7 +11273,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * <b>LINEERR_INIFILECORRUPT</b>, <b>LINEERR_INVALREQUESTMODE</b>, <b>LINEERR_INVALAPPNAME</b>, <b>LINEERR_NOMEM</b>, <b>LINEERR_INVALMEDIAMODE</b>, <b>LINEERR_OPERATIONFAILED</b>, <b>LINEERR_INVALPARAM</b>, <b>LINEERR_RESOURCEUNAVAIL</b>, <b>LINEERR_INVALPOINTER</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetapppriorityw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetapppriorityw
      */
     static lineSetAppPriorityW(lpszAppFilename, dwMediaMode, lpExtensionID, dwRequestMode, lpszExtensionName, dwPriority) {
         lpszAppFilename := lpszAppFilename is String ? StrPtr(lpszAppFilename) : lpszAppFilename
@@ -11295,7 +11297,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_NOTOWNER, LINEERR_OPERATIONUNAVAIL, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetappspecific
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetappspecific
      */
     static lineSetAppSpecific(hCall, dwAppSpecific) {
         result := DllCall("TAPI32.dll\lineSetAppSpecific", "uint", hCall, "uint", dwAppSpecific, "int")
@@ -11318,7 +11320,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, the function returns one of these negative error values:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCALLSTATE, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_NOMEM, LINEERR_NOTOWNER, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcalldata
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetcalldata
      */
     static lineSetCallData(hCall, lpCallData, dwSize) {
         lpCallDataMarshal := lpCallData is VarRef ? "ptr" : "ptr"
@@ -11342,7 +11344,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_NOTOWNER, LINEERR_INVALBEARERMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSTATE, LINEERR_RATEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALRATE, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcallparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetcallparams
      */
     static lineSetCallParams(hCall, dwBearerMode, dwMinRate, dwMaxRate, lpDialParams) {
         result := DllCall("TAPI32.dll\lineSetCallParams", "uint", hCall, "uint", dwBearerMode, "uint", dwMinRate, "uint", dwMaxRate, "ptr", lpDialParams, "int")
@@ -11360,7 +11362,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLSTATE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCALLPRIVILEGE, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcallprivilege
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetcallprivilege
      */
     static lineSetCallPrivilege(hCall, dwCallPrivilege) {
         result := DllCall("TAPI32.dll\lineSetCallPrivilege", "uint", hCall, "uint", dwCallPrivilege, "int")
@@ -11379,7 +11381,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, the function returns one of these negative error values:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCALLSTATE, LINEERR_INVALPARAM, LINEERR_INVALPOINTER, LINEERR_INVALRATE, LINEERR_NOMEM, LINEERR_NOTOWNER, LINEERR_OPERATIONUNAVAIL, LINEERR_OPERATIONFAILED, LINEERR_RATEUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcallqualityofservice
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetcallqualityofservice
      */
     static lineSetCallQualityOfService(hCall, lpSendingFlowspec, dwSendingFlowspecSize, lpReceivingFlowspec, dwReceivingFlowspecSize) {
         lpSendingFlowspecMarshal := lpSendingFlowspec is VarRef ? "ptr" : "ptr"
@@ -11399,7 +11401,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, the function returns one of these negative error values:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_INVALCALLSTATE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_NOTOWNER, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcalltreatment
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetcalltreatment
      */
     static lineSetCallTreatment(hCall, dwTreatment) {
         result := DllCall("TAPI32.dll\lineSetCallTreatment", "uint", hCall, "uint", dwTreatment, "int")
@@ -11416,7 +11418,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INIFILECORRUPT, LINEERR_NOMEM, LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALLOCATION, LINEERR_RESOURCEUNAVAIL, LINEERR_NODRIVER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetcurrentlocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetcurrentlocation
      */
     static lineSetCurrentLocation(hLineApp, dwLocation) {
         result := DllCall("TAPI32.dll\lineSetCurrentLocation", "uint", hLineApp, "uint", dwLocation, "int")
@@ -11452,7 +11454,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALDEVICECLASS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALPOINTER, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetdevconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetdevconfig
      */
     static lineSetDevConfig(dwDeviceID, lpDeviceConfig, dwSize, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -11499,7 +11501,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALDEVICECLASS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALPOINTER, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetdevconfiga
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetdevconfiga
      */
     static lineSetDevConfigA(dwDeviceID, lpDeviceConfig, dwSize, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -11546,7 +11548,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the function succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALDEVICECLASS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALPOINTER, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetdevconfigw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetdevconfigw
      */
     static lineSetDevConfigW(dwDeviceID, lpDeviceConfig, dwSize, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -11566,7 +11568,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the asynchronous operation starts; otherwise, the function returns one of these negative error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALLINESTATE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL, LINEERR_OPERATIONFAILED, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetlinedevstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetlinedevstatus
      */
     static lineSetLineDevStatus(hLine, dwStatusToChange, fStatus) {
         result := DllCall("TAPI32.dll\lineSetLineDevStatus", "uint", hLine, "uint", dwStatusToChange, "uint", fStatus, "int")
@@ -11613,7 +11615,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_NOMEM, LINEERR_INVALCALLHANDLE, LINEERR_NOTOWNER, LINEERR_INVALCALLSELECT, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATELIST, LINEERR_OPERATIONFAILED, LINEERR_INVALDIGITLIST, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_UNINITIALIZED, LINEERR_INVALMEDIALIST, LINEERR_INVALPOINTER, LINEERR_INVALTONELIST.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetmediacontrol
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetmediacontrol
      */
     static lineSetMediaControl(hLine, dwAddressID, hCall, dwSelect, lpDigitList, dwDigitNumEntries, lpMediaList, dwMediaNumEntries, lpToneList, dwToneNumEntries, lpCallStateList, dwCallStateNumEntries) {
         result := DllCall("TAPI32.dll\lineSetMediaControl", "uint", hLine, "uint", dwAddressID, "uint", hCall, "uint", dwSelect, "ptr", lpDigitList, "uint", dwDigitNumEntries, "ptr", lpMediaList, "uint", dwMediaNumEntries, "ptr", lpToneList, "uint", dwToneNumEntries, "ptr", lpCallStateList, "uint", dwCallStateNumEntries, "int")
@@ -11632,7 +11634,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALMEDIAMODE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetmediamode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetmediamode
      */
     static lineSetMediaMode(hCall, dwMediaModes) {
         result := DllCall("TAPI32.dll\lineSetMediaMode", "uint", hCall, "uint", dwMediaModes, "int")
@@ -11647,7 +11649,7 @@ class Tapi {
      * @returns {Integer} Returns a request identifier if the asynchronous operation starts; otherwise, the function returns one of the following error values:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_INVALPARAM, LINEERR_NOMEM, LINEERR_OPERATIONFAILED, LINEERR_OPERATIONUNAVAIL, LINEERR_RESOURCEUNAVAIL, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetqueuemeasurementperiod
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetqueuemeasurementperiod
      */
     static lineSetQueueMeasurementPeriod(hLine, dwQueueID, dwMeasurementPeriod) {
         result := DllCall("TAPI32.dll\lineSetQueueMeasurementPeriod", "uint", hLine, "uint", dwQueueID, "uint", dwMeasurementPeriod, "int")
@@ -11678,7 +11680,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALADDRESSID, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetnumrings
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetnumrings
      */
     static lineSetNumRings(hLine, dwAddressID, dwNumRings) {
         result := DllCall("TAPI32.dll\lineSetNumRings", "uint", hLine, "uint", dwAddressID, "uint", dwNumRings, "int")
@@ -11698,7 +11700,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_UNINITIALIZED, LINEERR_NOMEM, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetstatusmessages
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetstatusmessages
      */
     static lineSetStatusMessages(hLine, dwLineStates, dwAddressStates) {
         result := DllCall("TAPI32.dll\lineSetStatusMessages", "uint", hLine, "uint", dwLineStates, "uint", dwAddressStates, "int")
@@ -11741,7 +11743,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESSID, LINEERR_NOMEM, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSELECT, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALTERMINALID, LINEERR_UNINITIALIZED, LINEERR_INVALTERMINALMODE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetterminal
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetterminal
      */
     static lineSetTerminal(hLine, dwAddressID, hCall, dwSelect, dwTerminalModes, dwTerminalID, bEnable) {
         result := DllCall("TAPI32.dll\lineSetTerminal", "uint", hLine, "uint", dwAddressID, "uint", hCall, "uint", dwSelect, "uint", dwTerminalModes, "uint", dwTerminalID, "uint", bEnable, "int")
@@ -11760,7 +11762,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALAPPHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INIFILECORRUPT, LINEERR_UNINITIALIZED, LINEERR_INVALLOCATION.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesettolllist
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesettolllist
      */
     static lineSetTollList(hLineApp, dwDeviceID, lpszAddressIn, dwTollListOption) {
         lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
@@ -11784,7 +11786,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALAPPHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INIFILECORRUPT, LINEERR_UNINITIALIZED, LINEERR_INVALLOCATION.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesettolllista
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesettolllista
      */
     static lineSetTollListA(hLineApp, dwDeviceID, lpszAddressIn, dwTollListOption) {
         lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
@@ -11808,7 +11810,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_NODRIVER, LINEERR_INVALAPPHANDLE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALPARAM, LINEERR_RESOURCEUNAVAIL, LINEERR_INIFILECORRUPT, LINEERR_UNINITIALIZED, LINEERR_INVALLOCATION.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesettolllistw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesettolllistw
      */
     static lineSetTollListW(hLineApp, dwDeviceID, lpszAddressInW, dwTollListOption) {
         lpszAddressInW := lpszAddressInW is String ? StrPtr(lpszAddressInW) : lpszAddressInW
@@ -11853,7 +11855,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding LINE_REPLY message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_UNINITIALIZED, LINEERR_CALLUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_CONFERENCEFULL, LINEERR_INVALPOINTER, LINEERR_INUSE, LINEERR_INVALRATE, LINEERR_INVALADDRESSMODE, LINEERR_NOMEM, LINEERR_INVALBEARERMODE, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLPARAMS, LINEERR_RATEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_STRUCTURETOOSMALL, LINEERR_USERUSERINFOTOOBIG.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetupconference
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetupconference
      */
     static lineSetupConference(hCall, hLine, lphConfCall, lphConsultCall, dwNumParties, lpCallParams) {
         lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
@@ -11906,7 +11908,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding LINE_REPLY message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_UNINITIALIZED, LINEERR_CALLUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_CONFERENCEFULL, LINEERR_INVALPOINTER, LINEERR_INUSE, LINEERR_INVALRATE, LINEERR_INVALADDRESSMODE, LINEERR_NOMEM, LINEERR_INVALBEARERMODE, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLPARAMS, LINEERR_RATEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_STRUCTURETOOSMALL, LINEERR_USERUSERINFOTOOBIG.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetupconferencea
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetupconferencea
      */
     static lineSetupConferenceA(hCall, hLine, lphConfCall, lphConsultCall, dwNumParties, lpCallParams) {
         lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
@@ -11959,7 +11961,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding LINE_REPLY message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_UNINITIALIZED, LINEERR_CALLUNAVAIL, LINEERR_INVALMEDIAMODE, LINEERR_CONFERENCEFULL, LINEERR_INVALPOINTER, LINEERR_INUSE, LINEERR_INVALRATE, LINEERR_INVALADDRESSMODE, LINEERR_NOMEM, LINEERR_INVALBEARERMODE, LINEERR_NOTOWNER, LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_INVALCALLPARAMS, LINEERR_RATEUNAVAIL, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALLINESTATE, LINEERR_STRUCTURETOOSMALL, LINEERR_USERUSERINFOTOOBIG.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetupconferencew
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetupconferencew
      */
     static lineSetupConferenceW(hCall, hLine, lphConfCall, lphConsultCall, dwNumParties, lpCallParams) {
         lphConfCallMarshal := lphConfCall is VarRef ? "uint*" : "ptr"
@@ -12001,7 +12003,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALRATE, LINEERR_CALLUNAVAIL, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_NOTOWNER, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALBEARERMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_RATEUNAVAIL, LINEERR_INVALCALLPARAMS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALLINESTATE, LINEERR_UNINITIALIZED, LINEERR_INVALMEDIAMODE, LINEERR_USERUSERINFOTOOBIG, LINEERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetuptransfer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetuptransfer
      */
     static lineSetupTransfer(hCall, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -12049,7 +12051,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALRATE, LINEERR_CALLUNAVAIL, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_NOTOWNER, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALBEARERMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_RATEUNAVAIL, LINEERR_INVALCALLPARAMS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALLINESTATE, LINEERR_UNINITIALIZED, LINEERR_INVALMEDIAMODE, LINEERR_USERUSERINFOTOOBIG, LINEERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetuptransfera
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetuptransfera
      */
     static lineSetupTransferA(hCall, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -12097,7 +12099,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BEARERMODEUNAVAIL, LINEERR_INVALRATE, LINEERR_CALLUNAVAIL, LINEERR_NOMEM, LINEERR_INUSE, LINEERR_NOTOWNER, LINEERR_INVALADDRESSMODE, LINEERR_OPERATIONFAILED, LINEERR_INVALBEARERMODE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLHANDLE, LINEERR_RATEUNAVAIL, LINEERR_INVALCALLPARAMS, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALLINESTATE, LINEERR_UNINITIALIZED, LINEERR_INVALMEDIAMODE, LINEERR_USERUSERINFOTOOBIG, LINEERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linesetuptransferw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linesetuptransferw
      */
     static lineSetupTransferW(hCall, lphConsultCall, lpCallParams) {
         lphConsultCallMarshal := lphConsultCall is VarRef ? "uint*" : "ptr"
@@ -12116,7 +12118,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineshutdown
      */
     static lineShutdown(hLineApp) {
         result := DllCall("TAPI32.dll\lineShutdown", "uint", hLineApp, "int")
@@ -12133,7 +12135,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_RESOURCEUNAVAIL, LINEERR_NOTOWNER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineswaphold
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineswaphold
      */
     static lineSwapHold(hActiveCall, hHeldCall) {
         result := DllCall("TAPI32.dll\lineSwapHold", "uint", hActiveCall, "uint", hHeldCall, "int")
@@ -12167,7 +12169,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPOINTER, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NODRIVER, LINEERR_INIFILECORRUPT, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCARD, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPARAM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linetranslateaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linetranslateaddress
      */
     static lineTranslateAddress(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, dwCard, dwTranslateOptions, lpTranslateOutput) {
         lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
@@ -12206,7 +12208,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPOINTER, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NODRIVER, LINEERR_INIFILECORRUPT, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCARD, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPARAM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linetranslateaddressa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linetranslateaddressa
      */
     static lineTranslateAddressA(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, dwCard, dwTranslateOptions, lpTranslateOutput) {
         lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
@@ -12245,7 +12247,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPOINTER, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_NODRIVER, LINEERR_INIFILECORRUPT, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_OPERATIONFAILED, LINEERR_INVALAPPHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALCARD, LINEERR_STRUCTURETOOSMALL, LINEERR_INVALPARAM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linetranslateaddressw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linetranslateaddressw
      */
     static lineTranslateAddressW(hLineApp, dwDeviceID, dwAPIVersion, lpszAddressIn, dwCard, dwTranslateOptions, lpTranslateOutput) {
         lpszAddressIn := lpszAddressIn is String ? StrPtr(lpszAddressIn) : lpszAddressIn
@@ -12279,7 +12281,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPARAM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALPOINTER, LINEERR_INIFILECORRUPT, LINEERR_NODRIVER, LINEERR_INUSE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linetranslatedialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linetranslatedialog
      */
     static lineTranslateDialog(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -12321,7 +12323,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPARAM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALPOINTER, LINEERR_INIFILECORRUPT, LINEERR_NODRIVER, LINEERR_INUSE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linetranslatedialoga
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linetranslatedialoga
      */
     static lineTranslateDialogA(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -12363,7 +12365,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_BADDEVICEID, LINEERR_INVALPARAM, LINEERR_INCOMPATIBLEAPIVERSION, LINEERR_INVALPOINTER, LINEERR_INIFILECORRUPT, LINEERR_NODRIVER, LINEERR_INUSE, LINEERR_NOMEM, LINEERR_INVALADDRESS, LINEERR_INVALAPPHANDLE, LINEERR_OPERATIONFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-linetranslatedialogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-linetranslatedialogw
      */
     static lineTranslateDialogW(hLineApp, dwDeviceID, dwAPIVersion, hwndOwner, lpszAddressIn) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -12381,7 +12383,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALLINEHANDLE, LINEERR_OPERATIONFAILED, LINEERR_INVALCOMPLETIONID, LINEERR_RESOURCEUNAVAIL, LINEERR_NOMEM, LINEERR_UNINITIALIZED, LINEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineuncompletecall
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineuncompletecall
      */
     static lineUncompleteCall(hLine, dwCompletionID) {
         result := DllCall("TAPI32.dll\lineUncompleteCall", "uint", hLine, "uint", dwCompletionID, "int")
@@ -12394,7 +12396,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously, or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALCALLHANDLE, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALCALLSTATE, LINEERR_OPERATIONFAILED, LINEERR_NOMEM, LINEERR_RESOURCEUNAVAIL, LINEERR_NOTOWNER, LINEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineunhold
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineunhold
      */
     static lineUnhold(hCall) {
         result := DllCall("TAPI32.dll\lineUnhold", "uint", hCall, "int")
@@ -12411,7 +12413,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineunpark
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineunpark
      */
     static lineUnpark(hLine, dwAddressID, lphCall, lpszDestAddress) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -12435,7 +12437,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineunparka
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineunparka
      */
     static lineUnparkA(hLine, dwAddressID, lphCall, lpszDestAddress) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -12459,7 +12461,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/line-reply">LINE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * LINEERR_INVALADDRESS, LINEERR_OPERATIONUNAVAIL, LINEERR_INVALADDRESSID, LINEERR_OPERATIONFAILED, LINEERR_INVALLINEHANDLE, LINEERR_RESOURCEUNAVAIL, LINEERR_INVALPOINTER, LINEERR_UNINITIALIZED, LINEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-lineunparkw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-lineunparkw
      */
     static lineUnparkW(hLine, dwAddressID, lphCall, lpszDestAddress) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -12479,7 +12481,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_OPERATIONFAILED, PHONEERR_RESOURCEUNAVAIL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneclose
      */
     static phoneClose(hPhone) {
         result := DllCall("TAPI32.dll\phoneClose", "uint", hPhone, "int")
@@ -12499,7 +12501,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_NOMEM, PHONEERR_INUSE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPARAM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneconfigdialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneconfigdialog
      */
     static phoneConfigDialog(dwDeviceID, hwndOwner, lpszDeviceClass) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -12529,7 +12531,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_NOMEM, PHONEERR_INUSE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPARAM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneconfigdialoga
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneconfigdialoga
      */
     static phoneConfigDialogA(dwDeviceID, hwndOwner, lpszDeviceClass) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -12559,7 +12561,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_NOMEM, PHONEERR_INUSE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPARAM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneconfigdialogw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneconfigdialogw
      */
     static phoneConfigDialogW(dwDeviceID, hwndOwner, lpszDeviceClass) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -12585,7 +12587,7 @@ class Tapi {
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONFAILED.
      * 
      * Additional return values are device specific.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonedevspecific
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonedevspecific
      */
     static phoneDevSpecific(hPhone, lpParams, dwSize) {
         lpParamsMarshal := lpParams is VarRef ? "ptr" : "ptr"
@@ -12603,7 +12605,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALBUTTONLAMPID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONESTATE, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetbuttoninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetbuttoninfo
      */
     static phoneGetButtonInfo(hPhone, dwButtonLampID, lpButtonInfo) {
         result := DllCall("TAPI32.dll\phoneGetButtonInfo", "uint", hPhone, "uint", dwButtonLampID, "ptr", lpButtonInfo, "int")
@@ -12622,7 +12624,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALBUTTONLAMPID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONESTATE, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetbuttoninfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetbuttoninfoa
      */
     static phoneGetButtonInfoA(hPhone, dwButtonLampID, lpButtonInfo) {
         result := DllCall("TAPI32.dll\phoneGetButtonInfoA", "uint", hPhone, "uint", dwButtonLampID, "ptr", lpButtonInfo, "int")
@@ -12641,7 +12643,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALBUTTONLAMPID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONESTATE, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetbuttoninfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetbuttoninfow
      */
     static phoneGetButtonInfoW(hPhone, dwButtonLampID, lpButtonInfo) {
         result := DllCall("TAPI32.dll\phoneGetButtonInfoW", "uint", hPhone, "uint", dwButtonLampID, "ptr", lpButtonInfo, "int")
@@ -12659,7 +12661,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALDATAID, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetdata
      */
     static phoneGetData(hPhone, dwDataID, lpData, dwSize) {
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
@@ -12688,7 +12690,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_INVALPOINTER, PHONEERR_BADDEVICEID, PHONEERR_OPERATIONFAILED, PHONEERR_INCOMPATIBLEAPIVERSION, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INCOMPATIBLEEXTVERSION, PHONEERR_NOMEM, PHONEERR_STRUCTURETOOSMALL, PHONEERR_RESOURCEUNAVAIL, PHONEERR_NODRIVER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdevcaps
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetdevcaps
      */
     static phoneGetDevCaps(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPhoneCaps) {
         result := DllCall("TAPI32.dll\phoneGetDevCaps", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpPhoneCaps, "int")
@@ -12722,7 +12724,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_INVALPOINTER, PHONEERR_BADDEVICEID, PHONEERR_OPERATIONFAILED, PHONEERR_INCOMPATIBLEAPIVERSION, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INCOMPATIBLEEXTVERSION, PHONEERR_NOMEM, PHONEERR_STRUCTURETOOSMALL, PHONEERR_RESOURCEUNAVAIL, PHONEERR_NODRIVER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdevcapsa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetdevcapsa
      */
     static phoneGetDevCapsA(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPhoneCaps) {
         result := DllCall("TAPI32.dll\phoneGetDevCapsA", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpPhoneCaps, "int")
@@ -12756,7 +12758,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_INVALPOINTER, PHONEERR_BADDEVICEID, PHONEERR_OPERATIONFAILED, PHONEERR_INCOMPATIBLEAPIVERSION, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INCOMPATIBLEEXTVERSION, PHONEERR_NOMEM, PHONEERR_STRUCTURETOOSMALL, PHONEERR_RESOURCEUNAVAIL, PHONEERR_NODRIVER, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdevcapsw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetdevcapsw
      */
     static phoneGetDevCapsW(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtVersion, lpPhoneCaps) {
         result := DllCall("TAPI32.dll\phoneGetDevCapsW", "uint", hPhoneApp, "uint", dwDeviceID, "uint", dwAPIVersion, "uint", dwExtVersion, "ptr", lpPhoneCaps, "int")
@@ -12775,7 +12777,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONESTATE, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED, PHONEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetdisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetdisplay
      */
     static phoneGetDisplay(hPhone, lpDisplay) {
         result := DllCall("TAPI32.dll\phoneGetDisplay", "uint", hPhone, "ptr", lpDisplay, "int")
@@ -12791,7 +12793,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALHOOKSWITCHDEV, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetgain
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetgain
      */
     static phoneGetGain(hPhone, dwHookSwitchDev, lpdwGain) {
         lpdwGainMarshal := lpdwGain is VarRef ? "uint*" : "ptr"
@@ -12812,7 +12814,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegethookswitch
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegethookswitch
      */
     static phoneGetHookSwitch(hPhone, lpdwHookSwitchDevs) {
         lpdwHookSwitchDevsMarshal := lpdwHookSwitchDevs is VarRef ? "uint*" : "ptr"
@@ -12840,7 +12842,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_NOMEM, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegeticon
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegeticon
      */
     static phoneGetIcon(dwDeviceID, lpszDeviceClass, lphIcon) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -12875,7 +12877,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_NOMEM, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegeticona
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegeticona
      */
     static phoneGetIconA(dwDeviceID, lpszDeviceClass, lphIcon) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -12910,7 +12912,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_BADDEVICEID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_NOMEM, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegeticonw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegeticonw
      */
     static phoneGetIconW(dwDeviceID, lpszDeviceClass, lphIcon) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -12936,7 +12938,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetid
      */
     static phoneGetID(hPhone, lpDeviceID, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -12969,7 +12971,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetida
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetida
      */
     static phoneGetIDA(hPhone, lpDeviceID, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -13002,7 +13004,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALDEVICECLASS, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetidw
      */
     static phoneGetIDW(hPhone, lpDeviceID, lpszDeviceClass) {
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
@@ -13022,7 +13024,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALBUTTONLAMPID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONESTATE, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetlamp
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetlamp
      */
     static phoneGetLamp(hPhone, dwButtonLampID, lpdwLampMode) {
         lpdwLampModeMarshal := lpdwLampMode is VarRef ? "uint*" : "ptr"
@@ -13047,7 +13049,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPOINTER, PHONEERR_NOMEM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetmessage
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetmessage
      */
     static phoneGetMessage(hPhoneApp, lpMessage, dwTimeout) {
         result := DllCall("TAPI32.dll\phoneGetMessage", "uint", hPhoneApp, "ptr", lpMessage, "uint", dwTimeout, "int")
@@ -13064,7 +13066,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPHONESTATE, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetring
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetring
      */
     static phoneGetRing(hPhone, lpdwRingMode, lpdwVolume) {
         lpdwRingModeMarshal := lpdwRingMode is VarRef ? "uint*" : "ptr"
@@ -13084,7 +13086,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetstatus
      */
     static phoneGetStatus(hPhone, lpPhoneStatus) {
         result := DllCall("TAPI32.dll\phoneGetStatus", "uint", hPhone, "ptr", lpPhoneStatus, "int")
@@ -13108,7 +13110,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatusa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetstatusa
      */
     static phoneGetStatusA(hPhone, lpPhoneStatus) {
         result := DllCall("TAPI32.dll\phoneGetStatusA", "uint", hPhone, "ptr", lpPhoneStatus, "int")
@@ -13132,7 +13134,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_OPERATIONFAILED, PHONEERR_STRUCTURETOOSMALL, PHONEERR_OPERATIONUNAVAIL, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatusw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetstatusw
      */
     static phoneGetStatusW(hPhone, lpPhoneStatus) {
         result := DllCall("TAPI32.dll\phoneGetStatusW", "uint", hPhone, "ptr", lpPhoneStatus, "int")
@@ -13155,7 +13157,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_OPERATIONFAILED, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetstatusmessages
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetstatusmessages
      */
     static phoneGetStatusMessages(hPhone, lpdwPhoneStates, lpdwButtonModes, lpdwButtonStates) {
         lpdwPhoneStatesMarshal := lpdwPhoneStates is VarRef ? "uint*" : "ptr"
@@ -13175,7 +13177,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPHONESTATE, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALHOOKSWITCHDEV, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonegetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonegetvolume
      */
     static phoneGetVolume(hPhone, dwHookSwitchDev, lpdwVolume) {
         lpdwVolumeMarshal := lpdwVolume is VarRef ? "uint*" : "ptr"
@@ -13201,7 +13203,7 @@ class Tapi {
      * If any service provider fails to initialize properly, the 
      * <b>phoneInitialize</b> function fails and returns the error indicated by the service provider. If the PHONEERR_INVALPARAM error value is returned, the specified <i>hInstance</i> parameter is invalid.
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL.
+     * @param {HINSTANCE} hInstance_ Instance handle of the client application or DLL.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the phone device.
      * @param {PSTR} lpszAppName Pointer to a <b>null</b>-terminated string that contains displayable characters. If this parameter is non-<b>NULL</b>, it contains an application-supplied name of the application. This name is provided in the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-phonestatus">PHONESTATUS</a> structure to indicate, in a user-friendly way, which application is the current owner of the phone device. This information can be useful for logging and status reporting purposes. If <i>lpszAppName</i> is <b>NULL</b>, the application's filename is used instead.
@@ -13209,16 +13211,16 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPNAME, PHONEERR_INIFILECORRUPT, PHONEERR_INVALPOINTER, PHONEERR_NOMEM, PHONEERR_OPERATIONFAILED, PHONEERR_REINIT, PHONEERR_RESOURCEUNAVAIL, PHONEERR_NODEVICE, PHONEERR_NODRIVER, PHONEERR_INVALPARAM
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneinitialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneinitialize
      */
-    static phoneInitialize(lphPhoneApp, hInstance, lpfnCallback, lpszAppName, lpdwNumDevs) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static phoneInitialize(lphPhoneApp, hInstance_, lpfnCallback, lpszAppName, lpdwNumDevs) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpszAppName := lpszAppName is String ? StrPtr(lpszAppName) : lpszAppName
 
         lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
+        result := DllCall("TAPI32.dll\phoneInitialize", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance_, "ptr", lpfnCallback, "ptr", lpszAppName, lpdwNumDevsMarshal, lpdwNumDevs, "int")
         return result
     }
 
@@ -13278,7 +13280,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
+     * @param {HINSTANCE} hInstance_ Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -13292,17 +13294,17 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPNAME, PHONEERR_OPERATIONFAILED, PHONEERR_INIFILECORRUPT, PHONEERR_INVALPOINTER, PHONEERR_REINIT, PHONEERR_NOMEM, PHONEERR_INVALPARAM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneinitializeexa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneinitializeexa
      */
-    static phoneInitializeExA(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static phoneInitializeExA(lphPhoneApp, hInstance_, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\phoneInitializeExA", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance_, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
     }
 
@@ -13362,7 +13364,7 @@ class Tapi {
      * > [!NOTE]
      * > The tapi.h header defines phoneInitializeEx as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} lphPhoneApp Pointer to a location that is filled with the application's usage handle for TAPI.
-     * @param {HINSTANCE} hInstance Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
+     * @param {HINSTANCE} hInstance_ Instance handle of the client application or DLL. The application or DLL can pass <b>NULL</b> for this parameter, in which case TAPI uses the module handle of the root executable of the process.
      * @param {Pointer<PHONECALLBACK>} lpfnCallback Address of a callback function that is invoked to determine status and events on the line device, addresses, or calls, when the application is using the "hidden window" method of event notification (for more information see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nc-tapi-phonecallback">phoneCallbackFunc</a>). This parameter is ignored and should be set to <b>NULL</b> when the application chooses to use the "event handle" or "completion port" event notification mechanisms.
      * @param {PWSTR} lpszFriendlyAppName Pointer to a <b>null</b>-terminated string that contains only displayable characters. If this parameter is not <b>NULL</b>, it contains an application-supplied name for the application. This name is provided in the 
@@ -13376,17 +13378,17 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPNAME, PHONEERR_OPERATIONFAILED, PHONEERR_INIFILECORRUPT, PHONEERR_INVALPOINTER, PHONEERR_REINIT, PHONEERR_NOMEM, PHONEERR_INVALPARAM.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneinitializeexw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneinitializeexw
      */
-    static phoneInitializeExW(lphPhoneApp, hInstance, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
-        hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
+    static phoneInitializeExW(lphPhoneApp, hInstance_, lpfnCallback, lpszFriendlyAppName, lpdwNumDevs, lpdwAPIVersion, lpPhoneInitializeExParams) {
+        hInstance_ := hInstance_ is Win32Handle ? NumGet(hInstance_, "ptr") : hInstance_
         lpszFriendlyAppName := lpszFriendlyAppName is String ? StrPtr(lpszFriendlyAppName) : lpszFriendlyAppName
 
         lphPhoneAppMarshal := lphPhoneApp is VarRef ? "uint*" : "ptr"
         lpdwNumDevsMarshal := lpdwNumDevs is VarRef ? "uint*" : "ptr"
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
+        result := DllCall("TAPI32.dll\phoneInitializeExW", lphPhoneAppMarshal, lphPhoneApp, "ptr", hInstance_, "ptr", lpfnCallback, "ptr", lpszFriendlyAppName, lpdwNumDevsMarshal, lpdwNumDevs, lpdwAPIVersionMarshal, lpdwAPIVersion, "ptr", lpPhoneInitializeExParams, "int")
         return result
     }
 
@@ -13413,7 +13415,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_OPERATIONFAILED, PHONEERR_BADDEVICEID, PHONEERR_OPERATIONUNAVAIL, PHONEERR_NODRIVER, PHONEERR_NOMEM, PHONEERR_INVALPOINTER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INCOMPATIBLEAPIVERSION, PHONEERR_UNINITIALIZED, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonenegotiateapiversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonenegotiateapiversion
      */
     static phoneNegotiateAPIVersion(hPhoneApp, dwDeviceID, dwAPILowVersion, dwAPIHighVersion, lpdwAPIVersion, lpExtensionID) {
         lpdwAPIVersionMarshal := lpdwAPIVersion is VarRef ? "uint*" : "ptr"
@@ -13447,7 +13449,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_OPERATIONFAILED, PHONEERR_BADDEVICEID, PHONEERR_OPERATIONUNAVAIL, PHONEERR_NODRIVER, PHONEERR_NOMEM, PHONEERR_INCOMPATIBLEAPIVERSION, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INCOMPATIBLEEXTVERSION, PHONEERR_UNINITIALIZED, PHONEERR_INVALPOINTER, PHONEERR_NODEVICE.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonenegotiateextversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonenegotiateextversion
      */
     static phoneNegotiateExtVersion(hPhoneApp, dwDeviceID, dwAPIVersion, dwExtLowVersion, dwExtHighVersion, lpdwExtVersion) {
         lpdwExtVersionMarshal := lpdwExtVersion is VarRef ? "uint*" : "ptr"
@@ -13481,7 +13483,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_ALLOCATED, PHONEERR_NODRIVER, PHONEERR_BADDEVICEID, PHONEERR_NOMEM, PHONEERR_INCOMPATIBLEAPIVERSION, PHONEERR_OPERATIONFAILED, PHONEERR_INCOMPATIBLEEXTVERSION, PHONEERR_OPERATIONUNAVAIL, PHONEERR_INVALAPPHANDLE, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_INVALPRIVILEGE, PHONEERR_REINIT, PHONEERR_INUSE, PHONEERR_NODEVICE, PHONEERR_INIFILECORRUPT.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneopen
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneopen
      */
     static phoneOpen(hPhoneApp, dwDeviceID, lphPhone, dwAPIVersion, dwExtVersion, dwCallbackInstance, dwPrivilege) {
         lphPhoneMarshal := lphPhone is VarRef ? "uint*" : "ptr"
@@ -13500,7 +13502,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALBUTTONLAMPID, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONEHANDLE, PHONEERR_STRUCTURETOOSMALL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NOTOWNER, PHONEERR_NOMEM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_RESOURCEUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetbuttoninfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetbuttoninfo
      */
     static phoneSetButtonInfo(hPhone, dwButtonLampID, lpButtonInfo) {
         result := DllCall("TAPI32.dll\phoneSetButtonInfo", "uint", hPhone, "uint", dwButtonLampID, "ptr", lpButtonInfo, "int")
@@ -13520,7 +13522,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALBUTTONLAMPID, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONEHANDLE, PHONEERR_STRUCTURETOOSMALL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NOTOWNER, PHONEERR_NOMEM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_RESOURCEUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetbuttoninfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetbuttoninfoa
      */
     static phoneSetButtonInfoA(hPhone, dwButtonLampID, lpButtonInfo) {
         result := DllCall("TAPI32.dll\phoneSetButtonInfoA", "uint", hPhone, "uint", dwButtonLampID, "ptr", lpButtonInfo, "int")
@@ -13540,7 +13542,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALBUTTONLAMPID, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONEHANDLE, PHONEERR_STRUCTURETOOSMALL, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED, PHONEERR_NOTOWNER, PHONEERR_NOMEM, PHONEERR_OPERATIONUNAVAIL, PHONEERR_RESOURCEUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetbuttoninfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetbuttoninfow
      */
     static phoneSetButtonInfoW(hPhone, dwButtonLampID, lpButtonInfo) {
         result := DllCall("TAPI32.dll\phoneSetButtonInfoW", "uint", hPhone, "uint", dwButtonLampID, "ptr", lpButtonInfo, "int")
@@ -13560,7 +13562,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_OPERATIONUNAVAIL, PHONEERR_NOTOWNER, PHONEERR_NOMEM, PHONEERR_INVALDATAID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPOINTER, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetdata
      */
     static phoneSetData(hPhone, dwDataID, lpData, dwSize) {
         lpDataMarshal := lpData is VarRef ? "ptr" : "ptr"
@@ -13585,7 +13587,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_OPERATIONUNAVAIL, PHONEERR_NOTOWNER, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONESTATE, PHONEERR_UNINITIALIZED, PHONEERR_INVALPOINTER, PHONEERR_NOMEM, PHONEERR_INVALPARAM, PHONEERR_RESOURCEUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetdisplay
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetdisplay
      */
     static phoneSetDisplay(hPhone, dwRow, dwColumn, lpsDisplay, dwSize) {
         lpsDisplay := lpsDisplay is String ? StrPtr(lpsDisplay) : lpsDisplay
@@ -13603,7 +13605,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_NOTOWNER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALHOOKSWITCHDEV, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetgain
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetgain
      */
     static phoneSetGain(hPhone, dwHookSwitchDev, dwGain) {
         result := DllCall("TAPI32.dll\phoneSetGain", "uint", hPhone, "uint", dwHookSwitchDev, "uint", dwGain, "int")
@@ -13624,7 +13626,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_OPERATIONUNAVAIL, PHONEERR_NOTOWNER, PHONEERR_NOMEM, PHONEERR_INVALHOOKSWITCHDEV, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALHOOKSWITCHMODE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALPHONESTATE, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesethookswitch
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesethookswitch
      */
     static phoneSetHookSwitch(hPhone, dwHookSwitchDevs, dwHookSwitchMode) {
         result := DllCall("TAPI32.dll\phoneSetHookSwitch", "uint", hPhone, "uint", dwHookSwitchDevs, "uint", dwHookSwitchMode, "int")
@@ -13640,7 +13642,7 @@ class Tapi {
      * @returns {Integer} Returns a positive request identifier if the function is completed asynchronously or a negative error number if an error occurs. The <i>dwParam2</i> parameter of the corresponding <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_OPERATIONUNAVAIL, PHONEERR_NOTOWNER, PHONEERR_NOMEM, PHONEERR_INVALBUTTONLAMPID, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALLAMPMODE, PHONEERR_UNINITIALIZED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetlamp
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetlamp
      */
     static phoneSetLamp(hPhone, dwButtonLampID, dwLampMode) {
         result := DllCall("TAPI32.dll\phoneSetLamp", "uint", hPhone, "uint", dwButtonLampID, "uint", dwLampMode, "int")
@@ -13659,7 +13661,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_NOTOWNER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALRINGMODE, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetring
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetring
      */
     static phoneSetRing(hPhone, dwRingMode, dwVolume) {
         result := DllCall("TAPI32.dll\phoneSetRing", "uint", hPhone, "uint", dwRingMode, "uint", dwVolume, "int")
@@ -13681,7 +13683,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_INVALPHONESTATE, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALBUTTONMODE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALBUTTONSTATE, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetstatusmessages
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetstatusmessages
      */
     static phoneSetStatusMessages(hPhone, dwPhoneStates, dwButtonModes, dwButtonStates) {
         result := DllCall("TAPI32.dll\phoneSetStatusMessages", "uint", hPhone, "uint", dwPhoneStates, "uint", dwButtonModes, "uint", dwButtonStates, "int")
@@ -13698,7 +13700,7 @@ class Tapi {
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/phone-reply">PHONE_REPLY</a> message is zero if the function succeeds or it is a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALPHONEHANDLE, PHONEERR_NOMEM, PHONEERR_NOTOWNER, PHONEERR_RESOURCEUNAVAIL, PHONEERR_INVALPHONESTATE, PHONEERR_OPERATIONFAILED, PHONEERR_INVALHOOKSWITCHDEV, PHONEERR_UNINITIALIZED, PHONEERR_OPERATIONUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phonesetvolume
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phonesetvolume
      */
     static phoneSetVolume(hPhone, dwHookSwitchDev, dwVolume) {
         result := DllCall("TAPI32.dll\phoneSetVolume", "uint", hPhone, "uint", dwHookSwitchDev, "uint", dwVolume, "int")
@@ -13713,7 +13715,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are:
      * 
      * PHONEERR_INVALAPPHANDLE, PHONEERR_NOMEM, PHONEERR_UNINITIALIZED, PHONEERR_RESOURCEUNAVAIL.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-phoneshutdown
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-phoneshutdown
      */
     static phoneShutdown(hPhoneApp) {
         result := DllCall("TAPI32.dll\phoneShutdown", "uint", hPhoneApp, "int")
@@ -13725,7 +13727,7 @@ class Tapi {
      * @param {PSTR} lpszCountryCode TBD
      * @param {PSTR} lpszCityCode TBD
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are TAPIERR_REQUESTFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapigetlocationinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-tapigetlocationinfo
      */
     static tapiGetLocationInfo(lpszCountryCode, lpszCityCode) {
         lpszCountryCode := lpszCountryCode is String ? StrPtr(lpszCountryCode) : lpszCountryCode
@@ -13743,7 +13745,7 @@ class Tapi {
      * @param {PSTR} lpszCountryCode TBD
      * @param {PSTR} lpszCityCode TBD
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are TAPIERR_REQUESTFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapigetlocationinfoa
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-tapigetlocationinfoa
      */
     static tapiGetLocationInfoA(lpszCountryCode, lpszCityCode) {
         lpszCountryCode := lpszCountryCode is String ? StrPtr(lpszCountryCode) : lpszCountryCode
@@ -13761,7 +13763,7 @@ class Tapi {
      * @param {PWSTR} lpszCountryCodeW Pointer to a memory location where a <b>null</b>-terminated string specifying the country or region code for the current location is to be returned. The application should allocate at least 8 bytes of storage at this location to hold the string (TAPI does not return more than 8 bytes, including the terminating <b>NULL</b>). An empty string (\0) is returned if the country or region code has not been set for the current location.
      * @param {PWSTR} lpszCityCodeW Pointer to a memory location where a <b>null</b>-terminated string specifying the city (area) code for the current location is to be returned. The application should allocate at least 8 bytes of storage at this location to hold the string (TAPI does not return more than 8 bytes, including the terminating <b>NULL</b>). An empty string (\0) is returned if the city code has not been set for the current location.
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible return values are TAPIERR_REQUESTFAILED.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapigetlocationinfow
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-tapigetlocationinfow
      */
     static tapiGetLocationInfoW(lpszCountryCodeW, lpszCityCodeW) {
         lpszCountryCodeW := lpszCountryCodeW is String ? StrPtr(lpszCountryCodeW) : lpszCountryCodeW
@@ -13773,15 +13775,16 @@ class Tapi {
 
     /**
      * Closes a call request made by a previous call to tapiRequestMediaCall.
-     * @param {HWND} hwnd Handle to the Windows process that issued this request.
+     * @param {HWND} hwnd_ Handle to the Windows process that issued this request.
      * @param {WPARAM} wRequestID Pointer to a 32-bit integer value that contains the ID of the call request.
      * @returns {Integer} The function is obsolete and will always return an error code.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapirequestdrop
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-tapirequestdrop
      */
-    static tapiRequestDrop(hwnd, wRequestID) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestDrop(hwnd_, wRequestID) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        wRequestID := wRequestID is Win32Handle ? NumGet(wRequestID, "ptr") : wRequestID
 
-        result := DllCall("TAPI32.dll\tapiRequestDrop", "ptr", hwnd, "ptr", wRequestID, "int")
+        result := DllCall("TAPI32.dll\tapiRequestDrop", "ptr", hwnd_, "ptr", wRequestID, "int")
         return result
     }
 
@@ -13801,7 +13804,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible error return value are:
      * 
      * TAPIERR_NOREQUESTRECIPIENT, TAPIERR_INVALDESTADDRESS, TAPIERR_REQUESTQUEUEFULL, TAPIERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapirequestmakecall
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-tapirequestmakecall
      */
     static tapiRequestMakeCall(lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13835,7 +13838,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible error return value are:
      * 
      * TAPIERR_NOREQUESTRECIPIENT, TAPIERR_INVALDESTADDRESS, TAPIERR_REQUESTQUEUEFULL, TAPIERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapirequestmakecalla
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-tapirequestmakecalla
      */
     static tapiRequestMakeCallA(lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13870,7 +13873,7 @@ class Tapi {
      * @returns {Integer} Returns zero if the request succeeds or a negative error number if an error occurs. Possible error return value are:
      * 
      * TAPIERR_NOREQUESTRECIPIENT, TAPIERR_INVALDESTADDRESS, TAPIERR_REQUESTQUEUEFULL, TAPIERR_INVALPOINTER.
-     * @see https://learn.microsoft.com/windows/win32/api/tapi/nf-tapi-tapirequestmakecallw
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi/nf-tapi-tapirequestmakecallw
      */
     static tapiRequestMakeCallW(lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13884,7 +13887,7 @@ class Tapi {
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {WPARAM} wRequestID 
      * @param {PSTR} lpszDeviceClass 
      * @param {PSTR} lpDeviceID 
@@ -13896,8 +13899,9 @@ class Tapi {
      * @param {PSTR} lpszComment 
      * @returns {Integer} 
      */
-    static tapiRequestMediaCall(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestMediaCall(hwnd_, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        wRequestID := wRequestID is Win32Handle ? NumGet(wRequestID, "ptr") : wRequestID
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13905,13 +13909,13 @@ class Tapi {
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-        result := DllCall("TAPI32.dll\tapiRequestMediaCall", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
+        result := DllCall("TAPI32.dll\tapiRequestMediaCall", "ptr", hwnd_, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {WPARAM} wRequestID 
      * @param {PSTR} lpszDeviceClass 
      * @param {PSTR} lpDeviceID 
@@ -13923,8 +13927,9 @@ class Tapi {
      * @param {PSTR} lpszComment 
      * @returns {Integer} 
      */
-    static tapiRequestMediaCallA(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestMediaCallA(hwnd_, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        wRequestID := wRequestID is Win32Handle ? NumGet(wRequestID, "ptr") : wRequestID
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13932,13 +13937,13 @@ class Tapi {
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-        result := DllCall("TAPI32.dll\tapiRequestMediaCallA", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
+        result := DllCall("TAPI32.dll\tapiRequestMediaCallA", "ptr", hwnd_, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
     }
 
     /**
      * 
-     * @param {HWND} hwnd 
+     * @param {HWND} hwnd_ 
      * @param {WPARAM} wRequestID 
      * @param {PWSTR} lpszDeviceClass 
      * @param {PWSTR} lpDeviceID 
@@ -13950,8 +13955,9 @@ class Tapi {
      * @param {PWSTR} lpszComment 
      * @returns {Integer} 
      */
-    static tapiRequestMediaCallW(hwnd, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    static tapiRequestMediaCallW(hwnd_, wRequestID, lpszDeviceClass, lpDeviceID, dwSize, dwSecure, lpszDestAddress, lpszAppName, lpszCalledParty, lpszComment) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
+        wRequestID := wRequestID is Win32Handle ? NumGet(wRequestID, "ptr") : wRequestID
         lpszDeviceClass := lpszDeviceClass is String ? StrPtr(lpszDeviceClass) : lpszDeviceClass
         lpDeviceID := lpDeviceID is String ? StrPtr(lpDeviceID) : lpDeviceID
         lpszDestAddress := lpszDestAddress is String ? StrPtr(lpszDestAddress) : lpszDestAddress
@@ -13959,7 +13965,7 @@ class Tapi {
         lpszCalledParty := lpszCalledParty is String ? StrPtr(lpszCalledParty) : lpszCalledParty
         lpszComment := lpszComment is String ? StrPtr(lpszComment) : lpszComment
 
-        result := DllCall("TAPI32.dll\tapiRequestMediaCallW", "ptr", hwnd, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
+        result := DllCall("TAPI32.dll\tapiRequestMediaCallW", "ptr", hwnd_, "ptr", wRequestID, "ptr", lpszDeviceClass, "ptr", lpDeviceID, "uint", dwSize, "uint", dwSecure, "ptr", lpszDestAddress, "ptr", lpszAppName, "ptr", lpszCalledParty, "ptr", lpszComment, "int")
         return result
     }
 
@@ -14001,7 +14007,7 @@ class Tapi {
      * @param {IMessage} lpMessage > [in] Pointer to a message object as a destination for a decoded message with attachments or a source for an encoded message with attachments. Any properties of a destination message might be overwritten by the properties of an encoded message.
      * @param {Integer} wKeyVal 
      * @returns {ITnef} > [out] Pointer to the new TNEF object.
-     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstream
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/opentnefstream
      */
     static OpenTnefStream(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal) {
         lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
@@ -14056,7 +14062,7 @@ class Tapi {
      * @param {Integer} wKeyVal > [in] A search key that the TNEF object uses to match attachments to the text tags inserted in the message text. This value should be relatively unique across messages.
      * @param {IAddrBook} lpAdressBook 
      * @returns {ITnef} > [out] Pointer to the new TNEF object.
-     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/opentnefstreamex
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/opentnefstreamex
      */
     static OpenTnefStreamEx(lpvSupport, lpStream, lpszStreamName, ulFlags, lpMessage, wKeyVal, lpAdressBook) {
         lpvSupportMarshal := lpvSupport is VarRef ? "ptr" : "ptr"
@@ -14088,7 +14094,7 @@ class Tapi {
      *  **MAPI_E_CORRUPT_DATA**
      *   
      * > Either the stream was not a TNEF stream or there was an error reading the attOemCodepage attribute.
-     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/gettnefstreamcodepage
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/gettnefstreamcodepage
      */
     static GetTnefStreamCodepage(lpStream, lpulCodepage, lpulSubCodepage) {
         lpulCodepageMarshal := lpulCodepage is VarRef ? "uint*" : "ptr"

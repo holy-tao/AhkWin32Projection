@@ -36,7 +36,11 @@ class IDebugThreadCall64 extends IUnknown{
      * @returns {HRESULT} 
      */
     ThreadCallHandler(dwParam1, dwParam2, dwParam3) {
-        result := ComCall(3, this, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "HRESULT")
+        result := ComCall(3, this, "uint", dwParam1, "uint", dwParam2, "uint", dwParam3, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

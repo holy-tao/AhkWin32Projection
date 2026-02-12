@@ -9,7 +9,7 @@
  *       be loaded from the same DLL provided by the cloud backup provider during its registration with Windows Server 
  *       Backup. For example, an entry name resource ID could point to the string "Total Backups:" or an 
  *       entry value resource ID could point to the string "%0 copies".
- * @see https://learn.microsoft.com/windows/win32/api/wsbonline/ns-wsbonline-wsb_ob_status_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/wsbonline/ns-wsbonline-wsb_ob_status_entry
  * @namespace Windows.Win32.System.ServerBackup
  * @version v4.0.30319
  */

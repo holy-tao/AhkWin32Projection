@@ -6,7 +6,7 @@
 
 /**
  * Retrieves the properties of a tracking information object.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomtrackinginfoobject
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-icomtrackinginfoobject
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -35,13 +35,17 @@ class IComTrackingInfoObject extends IUnknown{
      * Retrieves the value of the specified property.
      * @param {PWSTR} szPropertyName The name of the property.
      * @returns {VARIANT} The value of the property.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomtrackinginfoobject-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-icomtrackinginfoobject-getvalue
      */
     GetValue(szPropertyName) {
         szPropertyName := szPropertyName is String ? StrPtr(szPropertyName) : szPropertyName
 
         pvarOut := VARIANT()
-        result := ComCall(3, this, "ptr", szPropertyName, "ptr", pvarOut, "HRESULT")
+        result := ComCall(3, this, "ptr", szPropertyName, "ptr", pvarOut, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarOut
     }
 }

@@ -35,7 +35,11 @@ class IDirectSoundFXParamEq extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxParamEq) {
-        result := ComCall(3, this, "ptr", pcDsFxParamEq, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxParamEq, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXParamEq extends IUnknown{
      */
     GetAllParameters() {
         pDsFxParamEq := DSFXParamEq()
-        result := ComCall(4, this, "ptr", pDsFxParamEq, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxParamEq, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxParamEq
     }
 }

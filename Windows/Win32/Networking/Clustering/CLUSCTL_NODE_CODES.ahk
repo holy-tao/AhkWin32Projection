@@ -2,8 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
- * The CLUSCTL_NODE_CODES enumeration (msclus.h) enumerates node control codes.
- * @see https://learn.microsoft.com/windows/win32/api/msclus/ne-msclus-clusctl_node_codes
+ * CLUSCTL_NODE_CODES (clusapi.h) enumerates node control codes.
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ne-clusapi-clusctl_node_codes
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

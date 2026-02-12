@@ -35,7 +35,11 @@ class IDirectMusicCollection extends IUnknown{
      * @returns {IDirectMusicInstrument} 
      */
     GetInstrument(dwPatch) {
-        result := ComCall(3, this, "uint", dwPatch, "ptr*", &ppInstrument := 0, "HRESULT")
+        result := ComCall(3, this, "uint", dwPatch, "ptr*", &ppInstrument := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirectMusicInstrument(ppInstrument)
     }
 
@@ -52,7 +56,11 @@ class IDirectMusicCollection extends IUnknown{
 
         pdwPatchMarshal := pdwPatch is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwIndex, pdwPatchMarshal, pdwPatch, "ptr", pwszName, "uint", dwNameLen, "HRESULT")
+        result := ComCall(4, this, "uint", dwIndex, pdwPatchMarshal, pdwPatch, "ptr", pwszName, "uint", dwNameLen, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

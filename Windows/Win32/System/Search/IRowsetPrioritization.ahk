@@ -6,7 +6,6 @@
 /**
  * Sets or retrieves the current indexer prioritization level for the scope specified by this query.
  * @remarks
- * 
  * This interface is acquired with <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface Method</a> on an indexer rowset. <b>DBPROP_ENABLEROWSETEVENTS</b> must be set to <b>TRUE</b> with the OLE DB <a href="https://docs.microsoft.com/previous-versions/windows/desktop/ms711497(v=vs.85)">ICommandProperties::SetProperties</a> method prior to executing the query in order to use rowset prioritization.
  * 
  * 
@@ -16,9 +15,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/nf-searchapi-irowsetprioritization-getscopestatistics">IRowsetPrioritization::GetScopeStatistics</a> can be used to get the number of indexed items in the scope, the number of outstanding documents to be added in the scope, and the number of documents that need to be re-indexed within this scope.
  * 
  * For a sample that demonstrates how to prioritize indexing events, see the [SearchEvents](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/Win7Samples/winui/WindowsSearch/SearchEvents) sample.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-irowsetprioritization
+ * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nn-searchapi-irowsetprioritization
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -45,7 +42,9 @@ class IRowsetPrioritization extends IUnknown{
 
     /**
      * Sets the current indexer prioritization level for the scope specified by this query.
-     * @param {Integer} priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a></b>
+     * @remarks
+     * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
+     * @param {Integer} priority_ Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a></b>
      * 
      * Specifies the new indexer prioritization level to be set as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
      * @param {Integer} scopeStatisticsEventFrequency Type: <b>DWORD</b>
@@ -53,17 +52,23 @@ class IRowsetPrioritization extends IUnknown{
      * Specifies the occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetprioritization-setscopepriority
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-irowsetprioritization-setscopepriority
      */
-    SetScopePriority(priority, scopeStatisticsEventFrequency) {
-        result := ComCall(3, this, "int", priority, "uint", scopeStatisticsEventFrequency, "HRESULT")
+    SetScopePriority(priority_, scopeStatisticsEventFrequency) {
+        result := ComCall(3, this, "int", priority_, "uint", scopeStatisticsEventFrequency, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the current indexer prioritization level for the scope specified by this query.
-     * @param {Pointer<Integer>} priority Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a>*</b>
+     * @remarks
+     * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
+     * @param {Pointer<Integer>} priority_ Type: <b><a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a>*</b>
      * 
      * The current indexer prioritization level as the <a href="https://docs.microsoft.com/windows/win32/api/searchapi/ne-searchapi-priority_level">PRIORITY_LEVEL</a> enumeration.
      * @param {Pointer<Integer>} scopeStatisticsEventFrequency Type: <b>DWORD*</b>
@@ -71,19 +76,29 @@ class IRowsetPrioritization extends IUnknown{
      * The occurrence interval of the scope statistics event when there are outstanding documents to be indexed within the query scopes.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetprioritization-getscopepriority
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-irowsetprioritization-getscopepriority
      */
-    GetScopePriority(priority, scopeStatisticsEventFrequency) {
-        priorityMarshal := priority is VarRef ? "int*" : "ptr"
+    GetScopePriority(priority_, scopeStatisticsEventFrequency) {
+        priority_Marshal := priority_ is VarRef ? "int*" : "ptr"
         scopeStatisticsEventFrequencyMarshal := scopeStatisticsEventFrequency is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, priorityMarshal, priority, scopeStatisticsEventFrequencyMarshal, scopeStatisticsEventFrequency, "HRESULT")
+        result := ComCall(4, this, priority_Marshal, priority_, scopeStatisticsEventFrequencyMarshal, scopeStatisticsEventFrequency, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets information describing the scope specified by this query.
+     * @remarks
+     * Returns S_OK if successful, <b>HRESULT_FROM_WIN32(ERROR_PATH_NOT_FOUND)</b> if there are no indexed documents in the scope, or an error value otherwise.
+     * 
+     * The <b>GetScopeStatistics</b> event can be used to get the number of indexed items in the scope, the number of outstanding docs to be added in the scope, and the number of docs that need to be re-indexed within this scope.
+     * 
+     * Check out the <a href="https://docs.microsoft.com/windows/win32/search/-search-sample-searchevents">SearchEvents code sample</a>.
      * @param {Pointer<Integer>} indexedDocumentCount Type: <b>DWORD*</b>
      * 
      * The total number of documents currently indexed in the scope.
@@ -95,15 +110,19 @@ class IRowsetPrioritization extends IUnknown{
      * The total number of documents indexed in the scope that need to be re-indexed. These documents are included in <i>indexedDocumentCount</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-irowsetprioritization-getscopestatistics
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/searchapi/nf-searchapi-irowsetprioritization-getscopestatistics
      */
     GetScopeStatistics(indexedDocumentCount, oustandingAddCount, oustandingModifyCount) {
         indexedDocumentCountMarshal := indexedDocumentCount is VarRef ? "uint*" : "ptr"
         oustandingAddCountMarshal := oustandingAddCount is VarRef ? "uint*" : "ptr"
         oustandingModifyCountMarshal := oustandingModifyCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, indexedDocumentCountMarshal, indexedDocumentCount, oustandingAddCountMarshal, oustandingAddCount, oustandingModifyCountMarshal, oustandingModifyCount, "HRESULT")
+        result := ComCall(5, this, indexedDocumentCountMarshal, indexedDocumentCount, oustandingAddCountMarshal, oustandingAddCount, oustandingModifyCountMarshal, oustandingModifyCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

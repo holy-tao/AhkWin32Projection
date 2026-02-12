@@ -16,7 +16,7 @@
 
 /**
  * Exposes methods that create default implementations of objects that are used in Remote Desktop Virtualization.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nn-sbtsv-itssbprovider
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -43,29 +43,51 @@ class ITsSbProvider extends IUnknown{
 
     /**
      * Creates an ITsSbTarget target object.
+     * @remarks
+     * Plug-ins can use this method to create a target object.
      * @param {BSTR} TargetName A <b>BSTR</b> variable that contains the target name.
      * @param {BSTR} EnvironmentName A <b>BSTR</b> variable that contains the environment name.
      * @returns {ITsSbTarget} A pointer to a pointer to the specified target object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-createtargetobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-createtargetobject
      */
     CreateTargetObject(TargetName, EnvironmentName) {
-        TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
-        EnvironmentName := EnvironmentName is String ? BSTR.Alloc(EnvironmentName).Value : EnvironmentName
+        if(TargetName is String) {
+            pin := BSTR.Alloc(TargetName)
+            TargetName := pin.Value
+        }
+        if(EnvironmentName is String) {
+            pin := BSTR.Alloc(EnvironmentName)
+            EnvironmentName := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", TargetName, "ptr", EnvironmentName, "ptr*", &ppTarget := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", TargetName, "ptr", EnvironmentName, "ptr*", &ppTarget := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbTarget(ppTarget)
     }
 
     /**
      * Creates an ITsSbLoadBalanceResult load-balancing result object.
+     * @remarks
+     * Plug-ins can use this method to create a load-balancing result 
+     * object.
      * @param {BSTR} TargetName A <b>BSTR</b> variable that contains the target name.
      * @returns {ITsSbLoadBalanceResult} A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbloadbalanceresult">ITsSbLoadBalanceResult</a> object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-createloadbalanceresultobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-createloadbalanceresultobject
      */
     CreateLoadBalanceResultObject(TargetName) {
-        TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
+        if(TargetName is String) {
+            pin := BSTR.Alloc(TargetName)
+            TargetName := pin.Value
+        }
 
-        result := ComCall(4, this, "ptr", TargetName, "ptr*", &ppLBResult := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", TargetName, "ptr*", &ppLBResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbLoadBalanceResult(ppLBResult)
     }
 
@@ -76,72 +98,114 @@ class ITsSbProvider extends IUnknown{
      * @param {BSTR} Domain A <b>BSTR</b> variable that contains the domain.
      * @param {Integer} SessionId A <b>DWORD</b> variable that contains the session ID.
      * @returns {ITsSbSession} A pointer to a pointer to the new session object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-createsessionobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-createsessionobject
      */
     CreateSessionObject(TargetName, UserName, Domain, SessionId) {
-        TargetName := TargetName is String ? BSTR.Alloc(TargetName).Value : TargetName
-        UserName := UserName is String ? BSTR.Alloc(UserName).Value : UserName
-        Domain := Domain is String ? BSTR.Alloc(Domain).Value : Domain
+        if(TargetName is String) {
+            pin := BSTR.Alloc(TargetName)
+            TargetName := pin.Value
+        }
+        if(UserName is String) {
+            pin := BSTR.Alloc(UserName)
+            UserName := pin.Value
+        }
+        if(Domain is String) {
+            pin := BSTR.Alloc(Domain)
+            Domain := pin.Value
+        }
 
-        result := ComCall(5, this, "ptr", TargetName, "ptr", UserName, "ptr", Domain, "uint", SessionId, "ptr*", &ppSession := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", TargetName, "ptr", UserName, "ptr", Domain, "uint", SessionId, "ptr*", &ppSession := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbSession(ppSession)
     }
 
     /**
      * Creates an ITsSbPluginPropertySet plug-in property set object.
+     * @remarks
+     * Plug-ins can use this method to create a plug-in property set object.
      * @returns {ITsSbPluginPropertySet} A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbpluginpropertyset">ITsSbPluginPropertySet</a> property set object. When you have finished 
      * using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method. 
      * Because RD Connection Broker is unaware of the contents of the property set object, you should clean the object before calling 
      * its <b>Release</b> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-createpluginpropertyset
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-createpluginpropertyset
      */
     CreatePluginPropertySet() {
-        result := ComCall(6, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppPropertySet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbPluginPropertySet(ppPropertySet)
     }
 
     /**
      * Creates an ITsSbTargetPropertySet target property set object.
+     * @remarks
+     * Plug-ins can use this method to create a target property set object.
      * @returns {ITsSbTargetPropertySet} A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbtargetpropertyset">ITsSbTargetPropertySet</a> property set object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method. Because RD Connection Broker is unaware of the contents of the property set object, you should clean the object before calling its <b>Release</b> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-createtargetpropertysetobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-createtargetpropertysetobject
      */
     CreateTargetPropertySetObject() {
-        result := ComCall(7, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppPropertySet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbTargetPropertySet(ppPropertySet)
     }
 
     /**
      * Creates an ITsSbEnvironment environment object.
+     * @remarks
+     * Plug-ins can use this method to create an environment object.
      * @param {BSTR} Name A <b>BSTR</b> variable that contains the name of the object to create.
      * @param {Integer} ServerWeight A <b>DWORD</b> variable that contains the server weight of the object to create.
      * @returns {ITsSbEnvironment} A pointer to a pointer to the newly created environment object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-createenvironmentobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-createenvironmentobject
      */
     CreateEnvironmentObject(Name, ServerWeight) {
-        Name := Name is String ? BSTR.Alloc(Name).Value : Name
+        if(Name is String) {
+            pin := BSTR.Alloc(Name)
+            Name := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", Name, "uint", ServerWeight, "ptr*", &ppEnvironment := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", Name, "uint", ServerWeight, "ptr*", &ppEnvironment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbEnvironment(ppEnvironment)
     }
 
     /**
      * Retrieves an ITsSbResourcePluginStore instance of the resource plug-in store.
      * @returns {ITsSbResourcePluginStore} A pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbresourcepluginstore">ITsSbResourcePluginStore</a> resource plug-in store object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-getresourcepluginstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-getresourcepluginstore
      */
     GetResourcePluginStore() {
-        result := ComCall(9, this, "ptr*", &ppStore := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbResourcePluginStore(ppStore)
     }
 
     /**
      * Retrieves a FilterPluginStore instance of the filter plugin store.
      * @returns {ITsSbFilterPluginStore} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbfilterpluginstore">ITsSbFilterPluginStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-getfilterpluginstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-getfilterpluginstore
      */
     GetFilterPluginStore() {
-        result := ComCall(10, this, "ptr*", &ppStore := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbFilterPluginStore(ppStore)
     }
 
@@ -150,47 +214,73 @@ class ITsSbProvider extends IUnknown{
      * @param {Integer} notificationType The type of notification to receive. To receive notifications for more than one type, specify the enumerations by using a logical <b>OR</b>.
      * @param {BSTR} ResourceToMonitor This parameter is reserved.
      * @param {ITsSbResourceNotification} pPluginNotification A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbresourcenotification">ITsSbResourceNotification</a> plug-in notification object that  RD Connection Broker should use for notifications.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-registerfornotification
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-registerfornotification
      */
     RegisterForNotification(notificationType, ResourceToMonitor, pPluginNotification) {
-        ResourceToMonitor := ResourceToMonitor is String ? BSTR.Alloc(ResourceToMonitor).Value : ResourceToMonitor
+        if(ResourceToMonitor is String) {
+            pin := BSTR.Alloc(ResourceToMonitor)
+            ResourceToMonitor := pin.Value
+        }
 
-        result := ComCall(11, this, "uint", notificationType, "ptr", ResourceToMonitor, "ptr", pPluginNotification, "HRESULT")
+        result := ComCall(11, this, "uint", notificationType, "ptr", ResourceToMonitor, "ptr", pPluginNotification, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Requests that Remote Desktop Connection Broker (RD Connection Broker) not send notifications about specified events.
+     * @remarks
+     * Plug-ins can use the <b>UnRegisterForNotification</b> method to cancel previous requests for notifications.
      * @param {Integer} notificationType Specifies the type of notification. To specify more than one type, use a logical <b>OR</b>.
      * @param {BSTR} ResourceToMonitor This parameter is reserved.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-unregisterfornotification
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-unregisterfornotification
      */
     UnRegisterForNotification(notificationType, ResourceToMonitor) {
-        ResourceToMonitor := ResourceToMonitor is String ? BSTR.Alloc(ResourceToMonitor).Value : ResourceToMonitor
+        if(ResourceToMonitor is String) {
+            pin := BSTR.Alloc(ResourceToMonitor)
+            ResourceToMonitor := pin.Value
+        }
 
-        result := ComCall(12, this, "uint", notificationType, "ptr", ResourceToMonitor, "HRESULT")
+        result := ComCall(12, this, "uint", notificationType, "ptr", ResourceToMonitor, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves an ITsSbGlobalStore instance of the global store object.
      * @returns {ITsSbGlobalStore} A pointer to a pointer to a global store object. When you have finished using the object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-getinstanceofglobalstore
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-getinstanceofglobalstore
      */
     GetInstanceOfGlobalStore() {
-        result := ComCall(13, this, "ptr*", &ppGlobalStore := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppGlobalStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbGlobalStore(ppGlobalStore)
     }
 
     /**
      * Creates an ITsSbEnvironmentPropertySet environment property set object.
+     * @remarks
+     * Plug-ins can use this method to create an environment property set object.
      * @returns {ITsSbEnvironmentPropertySet} A pointer to the created <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbenvironmentpropertyset">ITsSbEnvironmentPropertySet</a> environment property set object.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbprovider-createenvironmentpropertysetobject
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbtsv/nf-sbtsv-itssbprovider-createenvironmentpropertysetobject
      */
     CreateEnvironmentPropertySetObject() {
-        result := ComCall(14, this, "ptr*", &ppPropertySet := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppPropertySet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITsSbEnvironmentPropertySet(ppPropertySet)
     }
 }

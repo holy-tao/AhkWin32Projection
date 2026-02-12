@@ -45,7 +45,11 @@ class AsyncIIdentityStoreEx extends IUnknown{
         LocalName := LocalName is String ? StrPtr(LocalName) : LocalName
         ConnectedName := ConnectedName is String ? StrPtr(ConnectedName) : ConnectedName
 
-        result := ComCall(3, this, "ptr", LocalName, "ptr", ConnectedName, "ptr", ProviderGUID, "HRESULT")
+        result := ComCall(3, this, "ptr", LocalName, "ptr", ConnectedName, "ptr", ProviderGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -54,7 +58,11 @@ class AsyncIIdentityStoreEx extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_CreateConnectedIdentity() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +75,11 @@ class AsyncIIdentityStoreEx extends IUnknown{
     Begin_DeleteConnectedIdentity(ConnectedName, ProviderGUID) {
         ConnectedName := ConnectedName is String ? StrPtr(ConnectedName) : ConnectedName
 
-        result := ComCall(5, this, "ptr", ConnectedName, "ptr", ProviderGUID, "HRESULT")
+        result := ComCall(5, this, "ptr", ConnectedName, "ptr", ProviderGUID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +88,11 @@ class AsyncIIdentityStoreEx extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_DeleteConnectedIdentity() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

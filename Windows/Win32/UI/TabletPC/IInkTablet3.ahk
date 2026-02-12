@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinktablet3
+ * Enables multitouch querying for input.
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinktablet3
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -47,20 +47,28 @@ class IInkTablet3 extends IDispatch{
     /**
      * Gets a value that indicates whether an input device supports multitouch.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinktablet3-get_ismultitouch
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinktablet3-get_ismultitouch
      */
     get_IsMultiTouch() {
-        result := ComCall(7, this, "short*", &pIsMultiTouch := 0, "HRESULT")
+        result := ComCall(7, this, "short*", &pIsMultiTouch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsMultiTouch
     }
 
     /**
      * Gets the maximum number of cursors that a tablet device supports.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinktablet3-get_maximumcursors
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinktablet3-get_maximumcursors
      */
     get_MaximumCursors() {
-        result := ComCall(8, this, "uint*", &pMaximumCursors := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &pMaximumCursors := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMaximumCursors
     }
 }

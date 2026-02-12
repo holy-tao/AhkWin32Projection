@@ -3,7 +3,7 @@
 
 /**
  * Contains predefined object identifiers for external properties that can be associated with a certificate in the certificate store.
- * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-certenroll_propertyid
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/ne-certenroll-certenroll_propertyid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

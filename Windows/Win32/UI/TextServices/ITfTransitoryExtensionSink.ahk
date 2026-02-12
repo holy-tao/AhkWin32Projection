@@ -5,7 +5,7 @@
 
 /**
  * The ITfTransitoryExtensionSink interface is implemented by the application that uses Transitory Extension dim. The application can track the changes that happened in the transitory extension by using this sink interface.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itftransitoryextensionsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nn-msctf-itftransitoryextensionsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,10 +37,14 @@ class ITfTransitoryExtensionSink extends IUnknown{
      * @param {ITfRange} pResultRange [in] A pointer of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface. This is the range of the result string (determined string).
      * @param {ITfRange} pCompositionRange [in] A pointer of the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface. This is the range of the current composition string.
      * @returns {BOOL} [out] A pointer to return the bool value. If it is true, TSF manager deletes the result range so only the current composition range remains in the transitory extension.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftransitoryextensionsink-ontransitoryextensionupdated
+     * @see https://learn.microsoft.com/windows/win32/api//content/msctf/nf-msctf-itftransitoryextensionsink-ontransitoryextensionupdated
      */
     OnTransitoryExtensionUpdated(pic, ecReadOnly, pResultRange, pCompositionRange) {
-        result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pResultRange, "ptr", pCompositionRange, "int*", &pfDeleteResultRange := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pic, "uint", ecReadOnly, "ptr", pResultRange, "ptr", pCompositionRange, "int*", &pfDeleteResultRange := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfDeleteResultRange
     }
 }

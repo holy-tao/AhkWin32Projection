@@ -5,7 +5,7 @@
  * Contains values that specify whether or what type of a secure erase operation should be performed as part of a Format NVM command.
  * @remarks
  * Use this enumeration to specify values in the **SES** field of the [NVME_CDW10_FORMAT_NVM](ns-nvme-nvme_cdw10_format_nvm.md) structure that is used in the [FORMAT NVM (FORMATNVM)](ns-nvme-nvme_command.md) Admin command.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_secure_erase_settings
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_secure_erase_settings
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

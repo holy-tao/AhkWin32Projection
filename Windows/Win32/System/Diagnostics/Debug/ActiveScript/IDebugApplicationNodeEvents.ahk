@@ -34,7 +34,11 @@ class IDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onAddChild(prddpChild) {
-        result := ComCall(3, this, "ptr", prddpChild, "HRESULT")
+        result := ComCall(3, this, "ptr", prddpChild, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onRemoveChild(prddpChild) {
-        result := ComCall(4, this, "ptr", prddpChild, "HRESULT")
+        result := ComCall(4, this, "ptr", prddpChild, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +61,11 @@ class IDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onDetach() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +75,11 @@ class IDebugApplicationNodeEvents extends IUnknown{
      * @returns {HRESULT} 
      */
     onAttach(prddpParent) {
-        result := ComCall(6, this, "ptr", prddpParent, "HRESULT")
+        result := ComCall(6, this, "ptr", prddpParent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

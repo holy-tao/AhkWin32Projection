@@ -5,7 +5,7 @@
  * 
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/ns-proofofpossessioncookieinfo-proofofpossessioncookieinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/proofofpossessioncookieinfo/ns-proofofpossessioncookieinfo-proofofpossessioncookieinfo
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

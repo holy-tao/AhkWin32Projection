@@ -87,7 +87,7 @@
  *  
  * 
  * Information provided by <b>idChunkSource</b>, <b>cwcStartSource</b>, and <b>cwcLenSource</b> is useful for a search engine that highlights hits. If the query is done for an internal value-type property, the search engine will highlight the original text from which the text of the internal value-type property has been derived. For instance, in a C++ code filter, the browser, when searching for MyFunction in internal value-type property "function definitions," will highlight the function header in the file.
- * @see https://learn.microsoft.com/windows/win32/api/filter/ns-filter-stat_chunk
+ * @see https://learn.microsoft.com/windows/win32/api//content/filter/ns-filter-stat_chunk
  * @namespace Windows.Win32.Storage.IndexServer
  * @version v4.0.30319
  */

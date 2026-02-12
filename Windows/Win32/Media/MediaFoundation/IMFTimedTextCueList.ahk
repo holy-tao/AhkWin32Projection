@@ -30,8 +30,12 @@ class IMFTimedTextCueList extends IUnknown{
     static VTableNames => ["GetLength", "GetCueByIndex", "GetCueById", "GetCueByOriginalId", "AddTextCue", "AddDataCue", "RemoveCue"]
 
     /**
+     * Returns the length, in bytes, of a valid security identifier (SID).
+     * @returns {Integer} If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is valid, the return value is the length, in bytes, of the <b>SID</b> structure.
      * 
-     * @returns {Integer} 
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-sid">SID</a> structure is not valid, the return value is undefined. Before calling <b>GetLengthSid</b>, pass the SID to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-isvalidsid">IsValidSid</a> function to verify that the SID is valid.
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-getlengthsid
      */
     GetLength() {
         result := ComCall(3, this, "uint")
@@ -41,33 +45,45 @@ class IMFTimedTextCueList extends IUnknown{
     /**
      * 
      * @param {Integer} index 
-     * @returns {IMFTimedTextCue} 
+     * @returns {Pointer<IMFTimedTextCue>} 
      */
     GetCueByIndex(index) {
-        result := ComCall(4, this, "uint", index, "ptr*", &cue := 0, "HRESULT")
-        return IMFTimedTextCue(cue)
+        result := ComCall(4, this, "uint", index, "ptr*", &cue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cue
     }
 
     /**
      * 
      * @param {Integer} id 
-     * @returns {IMFTimedTextCue} 
+     * @returns {Pointer<IMFTimedTextCue>} 
      */
     GetCueById(id) {
-        result := ComCall(5, this, "uint", id, "ptr*", &cue := 0, "HRESULT")
-        return IMFTimedTextCue(cue)
+        result := ComCall(5, this, "uint", id, "ptr*", &cue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cue
     }
 
     /**
      * 
      * @param {PWSTR} originalId 
-     * @returns {IMFTimedTextCue} 
+     * @returns {Pointer<IMFTimedTextCue>} 
      */
     GetCueByOriginalId(originalId) {
         originalId := originalId is String ? StrPtr(originalId) : originalId
 
-        result := ComCall(6, this, "ptr", originalId, "ptr*", &cue := 0, "HRESULT")
-        return IMFTimedTextCue(cue)
+        result := ComCall(6, this, "ptr", originalId, "ptr*", &cue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cue
     }
 
     /**
@@ -75,13 +91,17 @@ class IMFTimedTextCueList extends IUnknown{
      * @param {Float} start 
      * @param {Float} duration 
      * @param {PWSTR} text 
-     * @returns {IMFTimedTextCue} 
+     * @returns {Pointer<IMFTimedTextCue>} 
      */
     AddTextCue(start, duration, text) {
         text := text is String ? StrPtr(text) : text
 
-        result := ComCall(7, this, "double", start, "double", duration, "ptr", text, "ptr*", &cue := 0, "HRESULT")
-        return IMFTimedTextCue(cue)
+        result := ComCall(7, this, "double", start, "double", duration, "ptr", text, "ptr*", &cue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cue
     }
 
     /**
@@ -90,11 +110,15 @@ class IMFTimedTextCueList extends IUnknown{
      * @param {Float} duration 
      * @param {Pointer} data 
      * @param {Integer} dataSize 
-     * @returns {IMFTimedTextCue} 
+     * @returns {Pointer<IMFTimedTextCue>} 
      */
     AddDataCue(start, duration, data, dataSize) {
-        result := ComCall(8, this, "double", start, "double", duration, "ptr", data, "uint", dataSize, "ptr*", &cue := 0, "HRESULT")
-        return IMFTimedTextCue(cue)
+        result := ComCall(8, this, "double", start, "double", duration, "ptr", data, "uint", dataSize, "ptr*", &cue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return cue
     }
 
     /**
@@ -103,7 +127,11 @@ class IMFTimedTextCueList extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveCue(cue) {
-        result := ComCall(9, this, "ptr", cue, "HRESULT")
+        result := ComCall(9, this, "ptr", cue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -21,7 +21,7 @@
  * In the case of <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a>, this can be done 
  *     manually, or the utility function 
  *     <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-vssfreesnapshotproperties">VssFreeSnapshotProperties</a> can be used.
- * @see https://learn.microsoft.com/windows/win32/api/vss/ns-vss-vss_object_prop
+ * @see https://learn.microsoft.com/windows/win32/api//content/vss/ns-vss-vss_object_prop
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */

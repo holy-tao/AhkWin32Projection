@@ -8,7 +8,7 @@
  *     system files that contain information, which the file system uses for its internal organization.
  * 
  * The number of read and write operations measured is the number of paging operations.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-filesystem_statistics_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-filesystem_statistics_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

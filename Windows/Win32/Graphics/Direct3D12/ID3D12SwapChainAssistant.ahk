@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\Foundation\LUID.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
@@ -40,26 +41,34 @@ class ID3D12SwapChainAssistant extends IUnknown{
     /**
      * 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetSwapChainObject(riid) {
-        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 
     /**
      * 
      * @param {Pointer<Guid>} riidResource 
-     * @param {Pointer<Pointer<Void>>} ppvResource 
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppvResource 
      * @param {Pointer<Guid>} riidQueue 
-     * @param {Pointer<Pointer<Void>>} ppvQueue 
+     * @param {Pointer<Pointer<Pointer<Void>>>} ppvQueue 
      * @returns {HRESULT} 
      */
     GetCurrentResourceAndCommandQueue(riidResource, ppvResource, riidQueue, ppvQueue) {
         ppvResourceMarshal := ppvResource is VarRef ? "ptr*" : "ptr"
         ppvQueueMarshal := ppvQueue is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, "ptr", riidResource, ppvResourceMarshal, ppvResource, "ptr", riidQueue, ppvQueueMarshal, ppvQueue, "HRESULT")
+        result := ComCall(5, this, "ptr", riidResource, ppvResourceMarshal, ppvResource, "ptr", riidQueue, ppvQueueMarshal, ppvQueue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +77,11 @@ class ID3D12SwapChainAssistant extends IUnknown{
      * @returns {HRESULT} 
      */
     InsertImplicitSync() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

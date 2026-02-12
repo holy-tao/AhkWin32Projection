@@ -42,16 +42,25 @@ class IRegFilterInfo extends IDispatch{
      */
     get_Name() {
         strName := BSTR()
-        result := ComCall(7, this, "ptr", strName, "HRESULT")
+        result := ComCall(7, this, "ptr", strName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strName
     }
 
     /**
-     * 
+     * Filter weight identifiers used by the Base Filtering Engine (BFE) to compute auto-generated filter weights.
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/FWP/filter-weight-identifiers
      */
     Filter() {
-        result := ComCall(8, this, "ptr*", &ppUnk := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppUnk)
     }
 }

@@ -15,7 +15,7 @@
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-selectobject">SelectObject</a> to select the bitmap into the device context obtained in the previous step.</li>
  * </ol>
  * When you are done, release the device context by calling <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-deletedc">DeleteDC</a>.
- * @see https://learn.microsoft.com/windows/win32/api/vmr9/ns-vmr9-vmr9alphabitmap
+ * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/ns-vmr9-vmr9alphabitmap
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

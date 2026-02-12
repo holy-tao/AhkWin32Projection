@@ -36,16 +36,25 @@ class IMarkupPointer extends IUnknown{
      * @returns {IHTMLDocument2} 
      */
     OwningDoc() {
-        result := ComCall(3, this, "ptr*", &ppDoc := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppDoc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLDocument2(ppDoc)
     }
 
     /**
-     * 
+     * Initializes a new instance of the GravityConnectedAnimationConfiguration class.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/uwp/api/windows.ui.xaml.media.animation.gravityconnectedanimationconfiguration.#ctor
      */
     Gravity() {
-        result := ComCall(4, this, "int*", &pGravity := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pGravity := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pGravity
     }
 
@@ -55,7 +64,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetGravity(Gravity) {
-        result := ComCall(5, this, "int", Gravity, "HRESULT")
+        result := ComCall(5, this, "int", Gravity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,7 +77,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {BOOL} 
      */
     Cling() {
-        result := ComCall(6, this, "int*", &pfCling := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pfCling := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCling
     }
 
@@ -74,7 +91,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     SetCling(fCLing) {
-        result := ComCall(7, this, "int", fCLing, "HRESULT")
+        result := ComCall(7, this, "int", fCLing, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +104,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     Unposition() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -92,7 +117,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsPositioned() {
-        result := ComCall(9, this, "int*", &pfPositioned := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pfPositioned := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfPositioned
     }
 
@@ -101,7 +130,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {IMarkupContainer} 
      */
     GetContainer() {
-        result := ComCall(10, this, "ptr*", &ppContainer := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppContainer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMarkupContainer(ppContainer)
     }
 
@@ -112,7 +145,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveAdjacentToElement(pElement, eAdj) {
-        result := ComCall(11, this, "ptr", pElement, "int", eAdj, "HRESULT")
+        result := ComCall(11, this, "ptr", pElement, "int", eAdj, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -122,7 +159,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToPointer(pPointer) {
-        result := ComCall(12, this, "ptr", pPointer, "HRESULT")
+        result := ComCall(12, this, "ptr", pPointer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -133,18 +174,23 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToContainer(pContainer, fAtStart) {
-        result := ComCall(13, this, "ptr", pContainer, "int", fAtStart, "HRESULT")
+        result := ComCall(13, this, "ptr", pContainer, "int", fAtStart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Returns the left part of a character string with the specified number of characters.
      * @param {BOOL} fMove 
      * @param {Pointer<Integer>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @param {Pointer<Integer>} pcch 
      * @param {PWSTR} pchText 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/access/left-function-access-custom-web-app
      */
     Left(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
@@ -152,18 +198,23 @@ class IMarkupPointer extends IUnknown{
         pContextMarshal := pContext is VarRef ? "int*" : "ptr"
         pcchMarshal := pcch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(14, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
+        result := ComCall(14, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Returns the right part of a character string with the specified number of characters.
      * @param {BOOL} fMove 
      * @param {Pointer<Integer>} pContext 
      * @param {Pointer<IHTMLElement>} ppElement 
      * @param {Pointer<Integer>} pcch 
      * @param {PWSTR} pchText 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/office/client-developer/ocs/docs/access/right-function-access-custom-web-app
      */
     Right(fMove, pContext, ppElement, pcch, pchText) {
         pchText := pchText is String ? StrPtr(pchText) : pchText
@@ -171,7 +222,11 @@ class IMarkupPointer extends IUnknown{
         pContextMarshal := pContext is VarRef ? "int*" : "ptr"
         pcchMarshal := pcch is VarRef ? "int*" : "ptr"
 
-        result := ComCall(15, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "HRESULT")
+        result := ComCall(15, this, "int", fMove, pContextMarshal, pContext, "ptr*", ppElement, pcchMarshal, pcch, "ptr", pchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +235,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {IHTMLElement} 
      */
     CurrentScope() {
-        result := ComCall(16, this, "ptr*", &ppElemCurrent := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppElemCurrent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLElement(ppElemCurrent)
     }
 
@@ -190,7 +249,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsLeftOf(pPointerThat) {
-        result := ComCall(17, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(17, this, "ptr", pPointerThat, "int*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -200,7 +263,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsLeftOfOrEqualTo(pPointerThat) {
-        result := ComCall(18, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", pPointerThat, "int*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -210,7 +277,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsRightOf(pPointerThat) {
-        result := ComCall(19, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", pPointerThat, "int*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -220,7 +291,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsRightOfOrEqualTo(pPointerThat) {
-        result := ComCall(20, this, "ptr", pPointerThat, "int*", &pfResult := 0, "HRESULT")
+        result := ComCall(20, this, "ptr", pPointerThat, "int*", &pfResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfResult
     }
 
@@ -230,7 +305,11 @@ class IMarkupPointer extends IUnknown{
      * @returns {BOOL} 
      */
     IsEqualTo(pPointerThat) {
-        result := ComCall(21, this, "ptr", pPointerThat, "int*", &pfAreEqual := 0, "HRESULT")
+        result := ComCall(21, this, "ptr", pPointerThat, "int*", &pfAreEqual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfAreEqual
     }
 
@@ -240,22 +319,43 @@ class IMarkupPointer extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveUnit(muAction) {
-        result := ComCall(22, this, "int", muAction, "HRESULT")
+        result := ComCall(22, this, "int", muAction, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Creates a system-defined modeless Find dialog box that lets the user specify a string to search for and options to use when searching for text in a document. (Unicode)
+     * @remarks
+     * The <b>FindText</b> function does not perform a search operation. Instead, the dialog box sends <a href="https://docs.microsoft.com/windows/desktop/dlgbox/findmsgstring">FINDMSGSTRING</a> registered messages to the window procedure of the owner window of the dialog box. When you create the dialog box, the  <b>hwndOwner</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure is a handle to the owner window.
      * 
+     * Before calling <b>FindText</b>, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerwindowmessagea">RegisterWindowMessage</a> function to get the identifier for the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/findmsgstring">FINDMSGSTRING</a> message. The dialog box procedure uses this identifier to send messages when the user clicks the <b>Find Next</b> button, or when the dialog box is closing. The  <i>lParam</i> parameter of the <b>FINDMSGSTRING</b> message contains a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure. The  <b>Flags</b> member of this structure indicates the event that caused the message. Other members of the structure indicate the user's input.
+     * 
+     * If you create a <b>Find</b> dialog box, you must also use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-isdialogmessagea">IsDialogMessage</a> function in the main message loop of your application to ensure that the dialog box correctly processes keyboard input, such as the TAB and ESC keys. <b>IsDialogMessage</b> returns a value that indicates whether the <b>Find</b> dialog box processed the message.
+     * 
+     * You can provide an <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nc-commdlg-lpfrhookproc">FRHookProc</a> hook procedure for a <b>Find</b> dialog box. The hook procedure can process messages sent to the dialog box. To enable a hook procedure, set the <b>FR_ENABLEHOOK</b> flag in the  <b>Flags</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/ns-commdlg-findreplacea">FINDREPLACE</a> structure and specify the address of the hook procedure in the  <b>lpfnHook</b> member.
      * @param {PWSTR} pchFindText 
      * @param {Integer} dwFlags 
      * @param {IMarkupPointer} pIEndMatch 
      * @param {IMarkupPointer} pIEndSearch 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>HWND</b>
+     * 
+     * If the function succeeds, the return value is the window handle to the dialog box. You can use the window handle to communicate with or to close the dialog box.
+     * 
+     * If the function fails, the return value is <b>NULL</b>. To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/commdlg/nf-commdlg-commdlgextendederror">CommDlgExtendedError</a> function. <b>CommDlgExtendedError</b> may return one of the following error codes:
+     * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/nf-commdlg-findtextw
      */
     FindText(pchFindText, dwFlags, pIEndMatch, pIEndSearch) {
         pchFindText := pchFindText is String ? StrPtr(pchFindText) : pchFindText
 
-        result := ComCall(23, this, "ptr", pchFindText, "uint", dwFlags, "ptr", pIEndMatch, "ptr", pIEndSearch, "HRESULT")
+        result := ComCall(23, this, "ptr", pchFindText, "uint", dwFlags, "ptr", pIEndMatch, "ptr", pIEndSearch, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

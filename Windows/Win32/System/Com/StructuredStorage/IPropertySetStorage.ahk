@@ -8,8 +8,7 @@
 /**
  * The IPropertySetStorage interface creates, opens, deletes, and enumerates property set storages that support instances of the IPropertyStorage interface.
  * @remarks
- * 
- * <div class="alert"><b>Note</b>  There is an exception to the above in The DocumentSummaryInformation and UserDefined property set. This property set is unique in that it may have two property set sections in a single underlying stream. This property set is described in <a href="https://docs.microsoft.com/windows/desktop/Stg/the-documentsummaryinformation-and-userdefined-property-sets">The DocumentSummaryInformation and UserDefined Property Sets</a>. The first section is the DocumentSummaryInformation property set. The second section is the UserDefined property set. Each section is identified by a unique format identifier (FMTID).  For example, FMTID_DocSummaryInformation and FMTID_UserDefined property set. The fact that these two property sets can exist in a single stream affects the behavior of the <b>IPropertySetStorage</b> interface.<p class="note">When <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertysetstorage-create">IPropertySetStorage::Create</a> is called to create the UserDefined property set, the first section is created automatically. Once the FMTID_UserDefinedProperties is created, FMTID_DocSummaryInformation need not be created, but can be operend with a call to <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertysetstorage-open">IPropertySetStorage::Open</a>. Creating the first section does not automatically create the second section and it is not possible to open both sections simultaneously.
+ * <div class="alert"><b>Note</b>  There is an exception to the above in The DocumentSummaryInformation and UserDefined property set. This property set is unique in that it may have two property set sections in a single underlying stream. This property set is described in <a href="https://docs.microsoft.com/windows/desktop/Stg/the-documentsummaryinformation-and-userdefined-property-sets">The DocumentSummaryInformation and UserDefined Property Sets</a>. The first section is the DocumentSummaryInformation property set. The second section is the UserDefined property set. Each section is identified by a unique format identifier (FMTID).  For example, FMTID_DocSummaryInformation and FMTID_UserDefined property set. The fact that these two property sets can exist in a single stream affects the behavior of the <b>IPropertySetStorage</b> interface.<p class="note">When <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertysetstorage-create">IPropertySetStorage::Create</a> is called to create the UserDefined property set, the first section is created automatically. Once the FMTID_UserDefinedProperties is created, FMTID_DocSummaryInformation need not be created, but can be opened with a call to <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertysetstorage-open">IPropertySetStorage::Open</a>. Creating the first section does not automatically create the second section and it is not possible to open both sections simultaneously.
  * 
  * <p class="note">Calling <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertysetstorage-delete">IPropertySetStorage::Delete</a>, to delete the first section, causes both sections to be deleted.  In other words, calling <b>IPropertySetStorage::Delete</b> with FMTID_DocSummaryInformation causes both that section and the FMTID_UserDefinedProperties section to be deleted. However, deleting the second section does not automatically delete the first section.
  * 
@@ -17,9 +16,7 @@
  * 
  * </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propidl/nn-propidl-ipropertysetstorage
+ * @see https://learn.microsoft.com/windows/win32/api//content/propidl/nn-propidl-ipropertysetstorage
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
@@ -46,52 +43,160 @@ class IPropertySetStorage extends IUnknown{
 
     /**
      * Creates and opens a new property set in the property set storage object.
+     * @remarks
+     * <b>IPropertySetStorage::Create</b> creates and opens a new property set subobject (supporting the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface) contained in this property set storage object. The property set automatically contains code page and locale ID properties. These are set to the Unicode and the current user default, respectively.
+     * 
+     * The <i>grfFlags</i> parameter is a combination of values taken from <a href="https://docs.microsoft.com/windows/desktop/Stg/propsetflag-constants">PROPSETFLAG Constants</a>. If the PROPSETFLAG_ANSI value from this enumeration is used, the code page is set to the current system default, rather than Unicode.
+     * 
+     * The <i>grfMode</i> parameter specifies the access mode in which the newly created set is to be opened. Values for this parameter are as in the <i>grfMode</i> parameter to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertysetstorage-open">IPropertySetStorage::Open</a>, with the addition of the values listed in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>STGM_FAILIFTHERE</td>
+     * <td>If another property set with the specified <i>fmtid</i> parameter exists, the call fails. This is the default action; that is, unless STGM_CREATE is specified, STGM_FAILIFTHERE is implied.</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_CREATE</td>
+     * <td>If another property set with the specified <i>fmtid</i> parameter already exists, it is removed and replaced with this new one.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The created property set is simple by default, but the caller may request a nonsimple property set by specifying the PROPSETFLAG_NONSIMPLE value in the <i>grfFlags</i> parameter. For more information about simple and nonsimple property sets, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/storage-vs--stream-for-a-property-set">Storage and Stream Objects for a Property Set</a>.
+     * 
+     * This method is subject to the constraints of the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-createstream">IStorage::CreateStream</a> (for simple property sets) or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-createstorage">IStorage::CreateStorage</a> (for nonsimple property sets). For example, when using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/ipropertysetstorage-compound-file-implementation">IPropertySetStorage-Compound File Implementation</a>, specify STGM_SHARE_EXCLUSIVE in the <i>grfMode</i> parameter to <b>IPropertySetStorage::Create</b>. Conversely, if  using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/ipropertysetstorage-stand-alone-implementation">IPropertySetStorage-Stand-alone Implementation</a>, <b>IPropertySetStorage::Create</b> is subject to constraints that apply to the caller-specified 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>.
      * @param {Pointer<Guid>} rfmtid The FMTID of the property set to be created. For information about FMTIDs that are well-known and predefined in the Platform SDK, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Stg/predefined-property-set-format-identifiers">Predefined Property Set Format Identifiers</a>.
      * @param {Pointer<Guid>} pclsid A pointer to the initial class identifier CLSID for this property set. May be <b>NULL</b>, in which case it is set to all zeroes. The CLSID is the CLSID of a class that displays and/or provides programmatic access to the property values. If there is no such class, it is recommended that the FMTID be used.
      * @param {Integer} grfFlags The values from <a href="https://docs.microsoft.com/windows/desktop/Stg/propsetflag-constants">PROPSETFLAG Constants</a>.
      * @param {Integer} grfMode An access mode in which the newly created property set is to be opened, taken from certain values of <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM_Constants</a>, as described in the following Remarks section.
      * @returns {IPropertyStorage} A pointer to the output variable that receives the <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-create
+     * @see https://learn.microsoft.com/windows/win32/api//content/propidl/nf-propidl-ipropertysetstorage-create
      */
     Create(rfmtid, pclsid, grfFlags, grfMode) {
-        result := ComCall(3, this, "ptr", rfmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", rfmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "ptr*", &ppprstg := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStorage(ppprstg)
     }
 
     /**
      * Opens a property set contained in the property set storage object.
+     * @remarks
+     * The mode in which the property set is to be opened is specified in the parameter <i>grfMode</i>. These flags are taken from <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>, but, for this method, legal values and their meanings are as follows (only certain combinations of these flag values are legal).
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>STGM_DIRECT</td>
+     * <td>Opens the property set without an additional level of transaction nesting. This is the default (the behavior if neither STGM_DIRECT nor STGM_TRANSACTED is specified).</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_TRANSACTED</td>
+     * <td>Opens the property set with an additional level of transaction nesting (beyond the transaction, if any, on this property set storage object). Transacted mode is available only for nonsimple property sets. Changes in the property set must be committed with a call to <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nf-propidl-ipropertystorage-commit">IPropertyStorage::Commit</a> before they are visible to the transaction on this property set storage.</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_READ</td>
+     * <td>Opens the property set with read access. Read permission is required on the property set storage.</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_WRITE</td>
+     * <td>Opens the property set with write access. Not all implementations of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> support this mode.</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_READWRITE</td>
+     * <td>Opens the property set with read and write access. Be aware that this flag is not the binary OR of the values STGM_READ and STGM_WRITE.</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_SHARE_DENY_NONE</td>
+     * <td>Subsequent openings of the property set from this property set storage are not denied read or write access. (Not available in all implementations.)</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_SHARE_DENY_READ</td>
+     * <td>Subsequent openings of the property set from this property set storage are denied read access. Not available in all implementations.</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_SHARE_DENY_WRITE</td>
+     * <td>Subsequent openings of the property set from this property set storage are denied write access. This value is typically used in the transacted mode to prevent making unnecessary copies of an object opened by multiple users. That is, if STGM_TRANSACTED is specified, but this value is not specified, a snapshot is made, whether there are subsequent openings or not. Thus, you can improve performance by specifying this value. Not available in all implementations.</td>
+     * </tr>
+     * <tr>
+     * <td>STGM_SHARE_EXCLUSIVE</td>
+     * <td>Subsequent openings of the property set from this property set storage are not possible. Be aware that this value is not a simple binary OR of the STGM_SHARE_DENY_READ and STGM_SHARE_DENY_WRITE elements.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * This method is subject to the constraints of the underlying <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-openstream">IStorage::OpenStream</a> (for simple property sets) or <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istorage-openstorage">IStorage::OpenStorage</a> (for nonsimple property sets). For more information about simple and nonsimple property sets, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/storage-vs--stream-for-a-property-set">Storage and Stream Objects for a Property Set</a>. For example, when using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/ipropertysetstorage-compound-file-implementation">IPropertySetStorage-Compound File Implementation</a>, you must specify STGM_SHARE_EXCLUSIVE in the <i>grfMode</i> parameter to <b>IPropertySetStorage::Open</b>. Conversely, if using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Stg/ipropertysetstorage-stand-alone-implementation">IPropertySetStorage-Stand-alone Implementation</a>, <b>IPropertySetStorage::Open</b> is subject to constraints that apply to the caller-specified 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a>.
      * @param {Pointer<Guid>} rfmtid The format identifier (FMTID) of the property set to be opened. For more information about well-known and predefined FMTIDs in the Platform SDK, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Stg/predefined-property-set-format-identifiers">Predefined Property Set Format Identifiers</a>.
      * @param {Integer} grfMode The access mode in which the newly created property set is to be opened. These flags are taken from <a href="https://docs.microsoft.com/windows/desktop/Stg/stgm-constants">STGM Constants</a>. Flags that may be used and their meanings in the context of this method are described in the following Remarks section.
      * @returns {IPropertyStorage} A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertystorage">IPropertyStorage</a> pointer variable that receives the interface pointer to the requested property storage subobject.
-     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-open
+     * @see https://learn.microsoft.com/windows/win32/api//content/propidl/nf-propidl-ipropertysetstorage-open
      */
     Open(rfmtid, grfMode) {
-        result := ComCall(4, this, "ptr", rfmtid, "uint", grfMode, "ptr*", &ppprstg := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", rfmtid, "uint", grfMode, "ptr*", &ppprstg := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStorage(ppprstg)
     }
 
     /**
      * The Delete method deletes one of the property sets contained in the property set storage object.
+     * @remarks
+     * <b>IPropertySetStorage::Delete</b> deletes the property set specified by its FMTID. Specifying a property set that does not exist returns an error. Open substorages and streams(opened through one of the storage- or stream-valued properties) are put into the reverted state.
      * @param {Pointer<Guid>} rfmtid FMTID of the property set to be deleted.
      * @returns {HRESULT} This method supports the standard return value E_UNEXPECTED, in addition to the following:
-     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-delete
+     * @see https://learn.microsoft.com/windows/win32/api//content/propidl/nf-propidl-ipropertysetstorage-delete
      */
     Delete(rfmtid) {
-        result := ComCall(5, this, "ptr", rfmtid, "HRESULT")
+        result := ComCall(5, this, "ptr", rfmtid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Enum method creates an enumerator object which contains information on the property sets stored in this property set storage. On return, this method supplies a pointer to the IEnumSTATPROPSETSTG pointer on the enumerator object.
+     * @remarks
+     * <b>IPropertySetStorage::Enum</b> creates an enumerator object that can be used to iterate through 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-statpropsetstg">STATPROPSETSTG</a> structures. These sometimes provide information on the property sets managed by 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ipropertysetstorage">IPropertySetStorage</a>. This method, on return, supplies a pointer to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ienumstatpropsetstg">IEnumSTATPROPSETSTG</a> interface on this enumerator object on return.
      * @returns {IEnumSTATPROPSETSTG} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/propidl/nn-propidl-ienumstatpropsetstg">IEnumSTATPROPSETSTG</a> pointer variable that receives the interface pointer to the newly created enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//propidl/nf-propidl-ipropertysetstorage-enum
+     * @see https://learn.microsoft.com/windows/win32/api//content/propidl/nf-propidl-ipropertysetstorage-enum
      */
     Enum() {
-        result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSTATPROPSETSTG(ppenum)
     }
 }

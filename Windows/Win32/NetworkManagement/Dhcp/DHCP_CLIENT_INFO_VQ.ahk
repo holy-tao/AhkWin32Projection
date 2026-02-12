@@ -8,7 +8,7 @@
  * Defines information about the DHCPv4 client.
  * @remarks
  * <b>DHCP_CLIENT_INFO_VQ</b> augments the DHCP_CLIENT_INFO_V5  structure by including information relating to the NAP settings of the DHCPv4 client.
- * @see https://learn.microsoft.com/windows/win32/api/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq
+ * @see https://learn.microsoft.com/windows/win32/api//content/dhcpsapi/ns-dhcpsapi-dhcp_client_info_vq
  * @namespace Windows.Win32.NetworkManagement.Dhcp
  * @version v4.0.30319
  */

@@ -5,8 +5,8 @@
 #Include .\Folder.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/folder2-object
+ * Extends the Folder object to support offline folders.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folder2-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -63,7 +63,11 @@ class Folder2 extends Folder{
      * @returns {FolderItem} 
      */
     get_Self() {
-        result := ComCall(17, this, "ptr*", &ppfi := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppfi := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FolderItem(ppfi)
     }
 
@@ -72,17 +76,30 @@ class Folder2 extends Folder{
      * @returns {Integer} 
      */
     get_OfflineStatus() {
-        result := ComCall(18, this, "int*", &pul := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pul := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pul
     }
 
     /**
+     * Synchronizes all offline files in the folder.
+     * @remarks
+     * This method has no parameters.
      * 
+     * 
+     * To use this method, the Offline Files feature must be enabled.
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folder2-synchronize
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folder2-synchronize
      */
     Synchronize() {
-        result := ComCall(19, this, "HRESULT")
+        result := ComCall(19, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,17 +108,30 @@ class Folder2 extends Folder{
      * @returns {VARIANT_BOOL} 
      */
     get_HaveToShowWebViewBarricade() {
-        result := ComCall(20, this, "short*", &pbHaveToShowWebViewBarricade := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &pbHaveToShowWebViewBarricade := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbHaveToShowWebViewBarricade
     }
 
     /**
+     * Called in response to the web view barricade being dismissed by the user.
+     * @remarks
+     * An application calls this method after the user dismisses the web view barricade.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/shell/folder2-dismissedwebviewbarricade
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/folder2-dismissedwebviewbarricade
      */
     DismissedWebViewBarricade() {
-        result := ComCall(21, this, "HRESULT")
+        result := ComCall(21, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

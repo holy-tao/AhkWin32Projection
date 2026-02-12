@@ -29,12 +29,20 @@ class ITransactionExport extends IUnknown{
     static VTableNames => ["Export", "GetTransactionCookie"]
 
     /**
-     * 
+     * An application-defined callback function used with ReadEncryptedFileRaw.
+     * @remarks
+     * You can use the application-defined context block for internal tracking of information such as the file handle 
+     *      and the current offset in the file.
      * @param {IUnknown} punkTransaction 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nc-winbase-pfe_export_func
      */
     Export(punkTransaction) {
-        result := ComCall(3, this, "ptr", punkTransaction, "uint*", &pcbTransactionCookie := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", punkTransaction, "uint*", &pcbTransactionCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcbTransactionCookie
     }
 
@@ -50,7 +58,11 @@ class ITransactionExport extends IUnknown{
         rgbTransactionCookieMarshal := rgbTransactionCookie is VarRef ? "char*" : "ptr"
         pcbUsedMarshal := pcbUsed is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "ptr", punkTransaction, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, pcbUsedMarshal, pcbUsed, "HRESULT")
+        result := ComCall(4, this, "ptr", punkTransaction, "uint", cbTransactionCookie, rgbTransactionCookieMarshal, rgbTransactionCookie, pcbUsedMarshal, pcbUsed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

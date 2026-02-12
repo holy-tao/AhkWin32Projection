@@ -4,8 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nn-peninputpanel-ihandwrittentextinsertion
+ * Used by the application's custom text entry code to insert the text into both the text field and the Text Services backing-store.
+ * @remarks
+ * This element is declared in Peninputpanel.h.
+ * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nn-peninputpanel-ihandwrittentextinsertion
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -37,28 +39,38 @@ class IHandwrittenTextInsertion extends IUnknown{
     static VTableNames => ["InsertRecognitionResultsArray", "InsertInkRecognitionResult"]
 
     /**
-     * 
-     * @param {Pointer<SAFEARRAY>} psaAlternates 
-     * @param {Integer} locale 
-     * @param {BOOL} fAlternateContainsAutoSpacingInformation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertrecognitionresultsarray
+     * Insert recognition results array.
+     * @remarks
+     * This element is declared in Peninputpanel.h.
+     * @param {Pointer<SAFEARRAY>} psaAlternates A two-dimensional array of strings, where each entry in the first array is a list of alternates for a single word. The first entry in the sub arrays of alternates is the text to insert (the top alternate).
+     * @param {Integer} locale A specific culture for the input language of the recognizer used to produce alternates.
+     * @param {BOOL} fAlternateContainsAutoSpacingInformation Specifies whether the recognized text is generated with auto-spacing enabled. When <b>FALSE</b>, a space at the start/end of the lattice will always be inserted. When <b>TRUE</b>, a space exists, and is added where necessary. If no space exists, a space is consumed.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertrecognitionresultsarray
      */
     InsertRecognitionResultsArray(psaAlternates, locale, fAlternateContainsAutoSpacingInformation) {
-        result := ComCall(3, this, "ptr", psaAlternates, "uint", locale, "int", fAlternateContainsAutoSpacingInformation, "HRESULT")
+        result := ComCall(3, this, "ptr", psaAlternates, "uint", locale, "int", fAlternateContainsAutoSpacingInformation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
-     * @param {IInkRecognitionResult} pIInkRecoResult 
-     * @param {Integer} locale 
-     * @param {BOOL} fAlternateContainsAutoSpacingInformation 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertinkrecognitionresult
+     * Inserts recognition results.
+     * @param {IInkRecognitionResult} pIInkRecoResult The <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkrecognitionresult">IInkRecognitionResult</a> for the insertion which contains the recognition results and the collection of ink strokes for the insertion.
+     * @param {Integer} locale The locale identifier of a specific culture for the input language of the recognizer used to produce alternates.
+     * @param {BOOL} fAlternateContainsAutoSpacingInformation Specifies whether the recognized text was generated with auto-spacing enabled on the recognized. <b>TRUE</b> if auto-spacing was enabled; otherwise, <b>FALSE</b>.
+     * @returns {HRESULT} This method can return one of these values.
+     * @see https://learn.microsoft.com/windows/win32/api//content/peninputpanel/nf-peninputpanel-ihandwrittentextinsertion-insertinkrecognitionresult
      */
     InsertInkRecognitionResult(pIInkRecoResult, locale, fAlternateContainsAutoSpacingInformation) {
-        result := ComCall(4, this, "ptr", pIInkRecoResult, "uint", locale, "int", fAlternateContainsAutoSpacingInformation, "HRESULT")
+        result := ComCall(4, this, "ptr", pIInkRecoResult, "uint", locale, "int", fAlternateContainsAutoSpacingInformation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

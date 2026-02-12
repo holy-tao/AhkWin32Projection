@@ -10,7 +10,7 @@
  * 
  * <div class="alert"><b>Note</b>  If the <a href="https://docs.microsoft.com/windows/desktop/Controls/lm-hittest">LM_HITTEST</a> message succeeds, the system fills in <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/ns-commctrl-litem">LITEM.iLink</a> and <b>LITEM.szID</b>. If the <b>LM_HITTEST</b> message fails, do not assume that any information in <b>LITEM</b> is valid.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-lhittestinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-lhittestinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

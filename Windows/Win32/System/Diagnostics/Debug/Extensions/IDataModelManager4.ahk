@@ -31,12 +31,16 @@ class IDataModelManager4 extends IDataModelManager3{
 
     /**
      * 
-     * @param {IDebugHostContext} context 
+     * @param {IDebugHostContext} context_ 
      * @param {IKeyStore} parentStore 
-     * @returns {IModelObject} 
+     * @returns {Pointer<IModelObject>} 
      */
-    CreateSyntheticObjectFromKeyStore(context, parentStore) {
-        result := ComCall(27, this, "ptr", context, "ptr", parentStore, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+    CreateSyntheticObjectFromKeyStore(context_, parentStore) {
+        result := ComCall(27, this, "ptr", context_, "ptr", parentStore, "ptr*", &object_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return object_
     }
 }

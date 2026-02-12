@@ -33,7 +33,11 @@ class IDxcVersionInfo3 extends IUnknown{
      * @returns {Pointer<Integer>} 
      */
     GetCustomVersionString() {
-        result := ComCall(3, this, "ptr*", &pVersionString := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &pVersionString := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVersionString
     }
 }

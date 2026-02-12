@@ -18,7 +18,7 @@
  * a 64-bit computer. This is because the **LoggerName** and **LogFileName**
  * members are pointers and can vary in size depending on the **PointerSize**
  * member.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-trace_logfile_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-trace_logfile_header
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Contains an array of LARGE_INTEGER structures that are used to describe a property of type PT_MV_I8.
  * @remarks
  * For more information about PT_MV_18, see [List of Property Types](property-types.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/slargeintegerarray
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/slargeintegerarray
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

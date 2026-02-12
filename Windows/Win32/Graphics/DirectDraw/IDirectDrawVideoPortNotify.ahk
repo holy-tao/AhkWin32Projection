@@ -35,7 +35,11 @@ class IDirectDrawVideoPortNotify extends IUnknown{
      * @returns {HRESULT} 
      */
     AcquireNotification(param0, param1) {
-        result := ComCall(3, this, "ptr", param0, "ptr", param1, "HRESULT")
+        result := ComCall(3, this, "ptr", param0, "ptr", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class IDirectDrawVideoPortNotify extends IUnknown{
     ReleaseNotification(param0) {
         param0 := param0 is Win32Handle ? NumGet(param0, "ptr") : param0
 
-        result := ComCall(4, this, "ptr", param0, "HRESULT")
+        result := ComCall(4, this, "ptr", param0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

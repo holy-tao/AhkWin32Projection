@@ -7,7 +7,6 @@
 /**
  * Monitors performance counters and performs actions each time a counter value crosses the specified threshold.To create the alert data collector, call the IDataCollectorCollection::CreateDataCollector or IDataCollectorCollection::CreateDataCollectorFromXml method. For details on the XML that you pass to CreateDataCollectorFromXml, see Remarks.
  * @remarks
- * 
  * The following example shows the XML that you can use to initialize this object if you call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">CreateDataCollectorFromXml</a> to create it. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">IDataCollector::Xml</a> property also returns this XML.
  * 
  * 
@@ -22,7 +21,7 @@
  *     <TaskArguments/>
  *     <TaskRunAsSelf/>
  *     <TaskUserTextArguments/>
- *     <TriggerDataCollectorSet/>
+ *     <tr>
  * </AlertDataCollector>
  * ```
  * 
@@ -30,9 +29,7 @@
  * Note that the example does not show the property elements inherited from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> that you also need to specify.
  * 
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-ialertdatacollector
+ * @see https://learn.microsoft.com/windows/win32/api//content/pla/nn-pla-ialertdatacollector
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -122,9 +119,8 @@ class IAlertDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets a list of performance counters and thresholds to monitor.
+     * Retrieves or sets a list of performance counters and thresholds to monitor. (Get)
      * @remarks
-     * 
      * You must specify at least one alert threshold. If the counter value crosses the specified threshold value, PLA performs one or more of the following actions:
      * 
      * <ul>
@@ -133,20 +129,21 @@ class IAlertDataCollector extends IDataCollector{
      * <li>Triggers the data collector set specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_triggerdatacollectorset">IAlertDataCollector::TriggerDataCollectorSet</a>  property to run, if specified.</li>
      * </ul>
      * If you use XML to define the alert, you must use "&amp;gt;" for the greater than sign (&gt;) and "&amp;lt;" for the less than sign (&lt;).
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_alertthresholds
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_alertthresholds
      */
     get_AlertThresholds() {
-        result := ComCall(32, this, "ptr*", &alerts := 0, "HRESULT")
+        result := ComCall(32, this, "ptr*", &alerts := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return alerts
     }
 
     /**
-     * Retrieves or sets a list of performance counters and thresholds to monitor.
+     * Retrieves or sets a list of performance counters and thresholds to monitor. (Put)
      * @remarks
-     * 
      * You must specify at least one alert threshold. If the counter value crosses the specified threshold value, PLA performs one or more of the following actions:
      * 
      * <ul>
@@ -155,122 +152,152 @@ class IAlertDataCollector extends IDataCollector{
      * <li>Triggers the data collector set specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_triggerdatacollectorset">IAlertDataCollector::TriggerDataCollectorSet</a>  property to run, if specified.</li>
      * </ul>
      * If you use XML to define the alert, you must use "&amp;gt;" for the greater than sign (&gt;) and "&amp;lt;" for the less than sign (&lt;).
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} alerts 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_alertthresholds
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_alertthresholds
      */
     put_AlertThresholds(alerts) {
-        result := ComCall(33, this, "ptr", alerts, "HRESULT")
+        result := ComCall(33, this, "ptr", alerts, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should log an event each time the counter value crosses the threshold.
+     * Retrieves or sets a value that indicates if PLA should log an event each time the counter value crosses the threshold. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_eventlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_eventlog
      */
     get_EventLog() {
-        result := ComCall(34, this, "short*", &log := 0, "HRESULT")
+        result := ComCall(34, this, "short*", &log := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return log
     }
 
     /**
-     * Retrieves or sets a value that indicates if PLA should log an event each time the counter value crosses the threshold.
+     * Retrieves or sets a value that indicates if PLA should log an event each time the counter value crosses the threshold. (Put)
      * @param {VARIANT_BOOL} log 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_eventlog
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_eventlog
      */
     put_EventLog(log) {
-        result := ComCall(35, this, "short", log, "HRESULT")
+        result := ComCall(35, this, "short", log, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the time interval to wait between sampling counter data.
+     * Retrieves or sets the time interval to wait between sampling counter data. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_sampleinterval
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_sampleinterval
      */
     get_SampleInterval() {
-        result := ComCall(36, this, "uint*", &interval := 0, "HRESULT")
-        return interval
+        result := ComCall(36, this, "uint*", &interval_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return interval_
     }
 
     /**
-     * Retrieves or sets the time interval to wait between sampling counter data.
-     * @param {Integer} interval 
+     * Retrieves or sets the time interval to wait between sampling counter data. (Put)
+     * @param {Integer} interval_ 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_sampleinterval
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_sampleinterval
      */
-    put_SampleInterval(interval) {
-        result := ComCall(37, this, "uint", interval, "HRESULT")
+    put_SampleInterval(interval_) {
+        result := ComCall(37, this, "uint", interval_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the name of a Task Scheduler job to start each time the counter value crosses the threshold.
+     * Retrieves or sets the name of a Task Scheduler job to start each time the counter value crosses the threshold. (Get)
      * @remarks
-     * 
      * To specify command-line arguments for the task, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskarguments">IAlertDataCollector::TaskArguments</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskusertextarguments">IAlertDataCollector::TaskUserTextArguments</a> properties. 
      * 
      * To start the task in the directory where PLA is collecting the data, set the task's <b>Start in</b> field to $(Arg1).
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_task
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_task
      */
     get_Task() {
         task := BSTR()
-        result := ComCall(38, this, "ptr", task, "HRESULT")
+        result := ComCall(38, this, "ptr", task, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return task
     }
 
     /**
-     * Retrieves or sets the name of a Task Scheduler job to start each time the counter value crosses the threshold.
+     * Retrieves or sets the name of a Task Scheduler job to start each time the counter value crosses the threshold. (Put)
      * @remarks
-     * 
      * To specify command-line arguments for the task, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskarguments">IAlertDataCollector::TaskArguments</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskusertextarguments">IAlertDataCollector::TaskUserTextArguments</a> properties. 
      * 
      * To start the task in the directory where PLA is collecting the data, set the task's <b>Start in</b> field to $(Arg1).
-     * 
-     * 
      * @param {BSTR} task 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_task
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_task
      */
     put_Task(task) {
-        task := task is String ? BSTR.Alloc(task).Value : task
+        if(task is String) {
+            pin := BSTR.Alloc(task)
+            task := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", task, "HRESULT")
+        result := ComCall(39, this, "ptr", task, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets a value that determines whether the task runs as the data collector set user or as the user specified in the task.
+     * Retrieves or sets a value that determines whether the task runs as the data collector set user or as the user specified in the task. (IAlertDataCollector.get_TaskRunAsSelf)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_taskrunasself
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_taskrunasself
      */
     get_TaskRunAsSelf() {
-        result := ComCall(40, this, "short*", &RunAsSelf := 0, "HRESULT")
+        result := ComCall(40, this, "short*", &RunAsSelf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return RunAsSelf
     }
 
     /**
-     * Retrieves or sets a value that determines whether the task runs as the data collector set user or as the user specified in the task.
+     * Retrieves or sets a value that determines whether the task runs as the data collector set user or as the user specified in the task. (IAlertDataCollector.put_TaskRunAsSelf)
      * @param {VARIANT_BOOL} RunAsSelf 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_taskrunasself
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_taskrunasself
      */
     put_TaskRunAsSelf(RunAsSelf) {
-        result := ComCall(41, this, "short", RunAsSelf, "HRESULT")
+        result := ComCall(41, this, "short", RunAsSelf, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property.
+     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property. (IAlertDataCollector.get_TaskArguments)
      * @remarks
-     * 
      * If the task to run is a script, you must set the task arguments in the Task Scheduler to $(Arg0); otherwise, the arguments that you specify with this property will not be passed to the script.
      * 
      * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the alert is triggered. You must escape the braces, for example, \{name\}.
@@ -308,21 +335,22 @@ class IAlertDataCollector extends IDataCollector{
      *  
      * 
      * Typically, if you use the substitution variables, you specify them in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskusertextarguments">TaskUserTextArguments</a>, where you do not have to escape the braces, and then specify {usertext} in this property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_taskarguments
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_taskarguments
      */
     get_TaskArguments() {
         task := BSTR()
-        result := ComCall(42, this, "ptr", task, "HRESULT")
+        result := ComCall(42, this, "ptr", task, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return task
     }
 
     /**
-     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property.
+     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property. (IAlertDataCollector.put_TaskArguments)
      * @remarks
-     * 
      * If the task to run is a script, you must set the task arguments in the Task Scheduler to $(Arg0); otherwise, the arguments that you specify with this property will not be passed to the script.
      * 
      * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the alert is triggered. You must escape the braces, for example, \{name\}.
@@ -360,23 +388,27 @@ class IAlertDataCollector extends IDataCollector{
      *  
      * 
      * Typically, if you use the substitution variables, you specify them in <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskusertextarguments">TaskUserTextArguments</a>, where you do not have to escape the braces, and then specify {usertext} in this property.
-     * 
-     * 
      * @param {BSTR} task 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_taskarguments
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_taskarguments
      */
     put_TaskArguments(task) {
-        task := task is String ? BSTR.Alloc(task).Value : task
+        if(task is String) {
+            pin := BSTR.Alloc(task)
+            task := pin.Value
+        }
 
-        result := ComCall(43, this, "ptr", task, "HRESULT")
+        result := ComCall(43, this, "ptr", task, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property.
+     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property. (IAlertDataCollector.get_TaskUserTextArguments)
      * @remarks
-     * 
      * These arguments are included in the command-line arguments passed to the Task Scheduler job only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskarguments">IAlertDataCollector::TaskArguments</a> property includes the  {usertext} substitution variable. 
      * 
      * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the alert is triggered. You do not escape the braces.
@@ -407,21 +439,22 @@ class IAlertDataCollector extends IDataCollector{
      * <td>Value of the performance counter.</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_taskusertextarguments
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_taskusertextarguments
      */
     get_TaskUserTextArguments() {
         task := BSTR()
-        result := ComCall(44, this, "ptr", task, "HRESULT")
+        result := ComCall(44, this, "ptr", task, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return task
     }
 
     /**
-     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property.
+     * Retrieves or sets the command-line arguments to pass to the Task Scheduler job specified in the IAlertDataCollector::Task property. (IAlertDataCollector.put_TaskUserTextArguments)
      * @remarks
-     * 
      * These arguments are included in the command-line arguments passed to the Task Scheduler job only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ialertdatacollector-get_taskarguments">IAlertDataCollector::TaskArguments</a> property includes the  {usertext} substitution variable. 
      * 
      * PLA provides the following substitution variables that you can include in your arguments string. PLA provides the values for the substitution variables when the alert is triggered. You do not escape the braces.
@@ -452,40 +485,56 @@ class IAlertDataCollector extends IDataCollector{
      * <td>Value of the performance counter.</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {BSTR} task 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_taskusertextarguments
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_taskusertextarguments
      */
     put_TaskUserTextArguments(task) {
-        task := task is String ? BSTR.Alloc(task).Value : task
+        if(task is String) {
+            pin := BSTR.Alloc(task)
+            task := pin.Value
+        }
 
-        result := ComCall(45, this, "ptr", task, "HRESULT")
+        result := ComCall(45, this, "ptr", task, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves or sets the name of a data collector set to start each time the counter value crosses the threshold.
+     * Retrieves or sets the name of a data collector set to start each time the counter value crosses the threshold. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-get_triggerdatacollectorset
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-get_triggerdatacollectorset
      */
     get_TriggerDataCollectorSet() {
         name := BSTR()
-        result := ComCall(46, this, "ptr", name, "HRESULT")
+        result := ComCall(46, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return name
     }
 
     /**
-     * Retrieves or sets the name of a data collector set to start each time the counter value crosses the threshold.
+     * Retrieves or sets the name of a data collector set to start each time the counter value crosses the threshold. (Put)
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ialertdatacollector-put_triggerdatacollectorset
+     * @see https://learn.microsoft.com/windows/win32/api//content/pla/nf-pla-ialertdatacollector-put_triggerdatacollectorset
      */
     put_TriggerDataCollectorSet(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", name, "HRESULT")
+        result := ComCall(47, this, "ptr", name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -26,7 +26,7 @@
  * 
  * For more information, see 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/implementing-resource-dlls">Implementing Resource DLLs</a>.
- * @see https://learn.microsoft.com/windows/win32/api/resapi/ns-resapi-resource_status
+ * @see https://learn.microsoft.com/windows/win32/api//content/resapi/ns-resapi-resource_status
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

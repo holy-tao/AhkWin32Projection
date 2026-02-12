@@ -1,5 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32Handle.ahk
+#Include ..\System\WinRT\Apis.ahk
+#Include ..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Devices
@@ -10,12 +12,12 @@ class Devices {
 ;@region Constants
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BUS1394_VIRTUAL_DEVICE_LIST_KEY => "Virtual Device List"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static BUS1394_LOCAL_HOST_INSTANCE_KEY => "LOCAL HOST EUI64"
 

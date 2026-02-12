@@ -3,7 +3,7 @@
 
 /**
  * Represents an ordered pair of floating-point numbers that specify a height and width.
- * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-size
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.foundation/ns-windows-foundation-size
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

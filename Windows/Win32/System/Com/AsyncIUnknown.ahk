@@ -40,7 +40,11 @@ class AsyncIUnknown extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_QueryInterface(riid) {
-        result := ComCall(3, this, "ptr", riid, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class AsyncIUnknown extends IUnknown{
      * @returns {Pointer<Void>} 
      */
     Finish_QueryInterface() {
-        result := ComCall(4, this, "ptr*", &ppvObject := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppvObject := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvObject
     }
 
@@ -58,7 +66,11 @@ class AsyncIUnknown extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_AddRef() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +88,11 @@ class AsyncIUnknown extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_Release() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 

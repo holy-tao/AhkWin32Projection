@@ -5,7 +5,7 @@
  * The DISK_SPACE_INFORMATION structure contains information about the disk space for a particular volume.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/fileapi/ns-fileapi-disk_space_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/fileapi/ns-fileapi-disk_space_information
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

@@ -7,7 +7,6 @@
 /**
  * The ITfInputScope interface is used by the text input processors to get the InputScope value that represents a document context associated with a window.
  * @remarks
- * 
  * To use this interface with window-less controls, an application has two options.
  * 
  * <ol>
@@ -15,8 +14,7 @@
  * <li>
  * <a href="https://docs.microsoft.com/windows/desktop/api/inputscope/nf-inputscope-setinputscopes">SetInputScopes</a>  This is not recommended, but if the application is not TSF-aware, there is no other way to maintain the association between the input scope and the application. In this case, the application must call SetInputScopes whenever focus changes among window-less controls.</li>
  * </ol>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//inputscope/nn-inputscope-itfinputscope
+ * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nn-inputscope-itfinputscope
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -64,13 +62,17 @@ class ITfInputScope extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getinputscopes
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-itfinputscope-getinputscopes
      */
     GetInputScopes(pprgInputScopes, pcCount) {
         pprgInputScopesMarshal := pprgInputScopes is VarRef ? "ptr*" : "ptr"
         pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pprgInputScopesMarshal, pprgInputScopes, pcCountMarshal, pcCount, "HRESULT")
+        result := ComCall(3, this, pprgInputScopesMarshal, pprgInputScopes, pcCountMarshal, pcCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,46 +99,64 @@ class ITfInputScope extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getphrase
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-itfinputscope-getphrase
      */
     GetPhrase(ppbstrPhrases, pcCount) {
         ppbstrPhrasesMarshal := ppbstrPhrases is VarRef ? "ptr*" : "ptr"
         pcCountMarshal := pcCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, ppbstrPhrasesMarshal, ppbstrPhrases, pcCountMarshal, pcCount, "HRESULT")
+        result := ComCall(4, this, ppbstrPhrasesMarshal, ppbstrPhrases, pcCountMarshal, pcCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * ITfInputScope::GetRegularExpression method
      * @returns {BSTR} Pointer to a string containing the regular expression. The calling function must call <b>SystFreeString()</b> to free the memory allocated to the strings.
-     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getregularexpression
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-itfinputscope-getregularexpression
      */
     GetRegularExpression() {
         pbstrRegExp := BSTR()
-        result := ComCall(5, this, "ptr", pbstrRegExp, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrRegExp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrRegExp
     }
 
     /**
      * ITfInputScope::GetSRGS method
+     * @remarks
+     * <a href="https://www.w3.org/tr/speech-grammar">http://www.w3.org/TR/speech-grammar</a>
      * @returns {BSTR} The xml string. The calling function must call <b>SysFreeString()</b> to free the buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getsrgs
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-itfinputscope-getsrgs
      */
     GetSRGS() {
         pbstrSRGS := BSTR()
-        result := ComCall(6, this, "ptr", pbstrSRGS, "HRESULT")
+        result := ComCall(6, this, "ptr", pbstrSRGS, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrSRGS
     }
 
     /**
      * ITfInputScope::GetXML method
      * @returns {BSTR} Pointer to a string containing the xml string. The calling function must call <b>SysFreeString()</b> to free the buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//inputscope/nf-inputscope-itfinputscope-getxml
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-itfinputscope-getxml
      */
     GetXML() {
         pbstrXML := BSTR()
-        result := ComCall(7, this, "ptr", pbstrXML, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrXML, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrXML
     }
 }

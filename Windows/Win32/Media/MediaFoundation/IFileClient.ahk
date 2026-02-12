@@ -36,27 +36,41 @@ class IFileClient extends IUnknown{
     GetObjectDiskSize(pqwSize) {
         pqwSizeMarshal := pqwSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pqwSizeMarshal, pqwSize, "HRESULT")
+        result := ComCall(3, this, pqwSizeMarshal, pqwSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * This article helps you to configure the Script Task.
      * @param {IFileIo} pFio 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/integration-services/extending-packages-scripting-task-examples/write-event-log-script-task
      */
     Write(pFio) {
-        result := ComCall(4, this, "ptr", pFio, "HRESULT")
+        result := ComCall(4, this, "ptr", pFio, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn how to read a FILESTREAM column to a file using the IBCPSession interface in OLE DB Driver for SQL Server and write a format file with this example.
      * @param {IFileIo} pFio 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/filestream/read-a-filestream-column-to-file-using-ibcpsession-ole-db
      */
     Read(pFio) {
-        result := ComCall(5, this, "ptr", pFio, "HRESULT")
+        result := ComCall(5, this, "ptr", pFio, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

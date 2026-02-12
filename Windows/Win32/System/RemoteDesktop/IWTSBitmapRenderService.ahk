@@ -6,7 +6,7 @@
 
 /**
  * This service is used to create a visual mapping on the client corresponding to a mapped window on the server.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderservice
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderservice
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -36,10 +36,14 @@ class IWTSBitmapRenderService extends IUnknown{
      * @param {Integer} mappingId A 64-bit number that uniquely identifies the render mapping.
      * @param {IWTSBitmapRendererCallback} pMappedRendererCallback The address of the caller's <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderercallback">IWTSBitmapRendererCallback</a> interface.
      * @returns {IWTSBitmapRenderer} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsbitmaprenderer">IWTSBitmapRenderer</a> interface pointer that receives the bitmap renderer. When you have finished using pointer, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release()</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderservice-getmappedrenderer
+     * @see https://learn.microsoft.com/windows/win32/api//content/tsvirtualchannels/nf-tsvirtualchannels-iwtsbitmaprenderservice-getmappedrenderer
      */
     GetMappedRenderer(mappingId, pMappedRendererCallback) {
-        result := ComCall(3, this, "uint", mappingId, "ptr", pMappedRendererCallback, "ptr*", &ppMappedRenderer := 0, "HRESULT")
+        result := ComCall(3, this, "uint", mappingId, "ptr", pMappedRendererCallback, "ptr*", &ppMappedRenderer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWTSBitmapRenderer(ppMappedRenderer)
     }
 }

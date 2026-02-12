@@ -2398,7 +2398,7 @@ class IpHelper {
      * @returns {HANDLE} The 
      * <b>IcmpCreateFile</b> function returns an open handle on success. On failure, the function returns <b>INVALID_HANDLE_VALUE</b>. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmpcreatefile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmpcreatefile
      * @since windows5.0
      */
     static IcmpCreateFile() {
@@ -2428,7 +2428,7 @@ class IpHelper {
      * @returns {HANDLE} The 
      * <b>Icmp6CreateFile</b> function returns an open handle on success. On failure, the function returns <b>INVALID_HANDLE_VALUE</b>. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmp6createfile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmp6createfile
      * @since windows5.1.2600
      */
     static Icmp6CreateFile() {
@@ -2453,7 +2453,7 @@ class IpHelper {
      * @param {HANDLE} IcmpHandle The handle to close. This handle must have been returned by a call to <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmpcreatefile">IcmpCreateFile</a> or <a href="https://docs.microsoft.com/windows/desktop/api/icmpapi/nf-icmpapi-icmp6createfile">Icmp6CreateFile</a>.
      * @returns {BOOL} If the handle is closed successfully the return value is <b>TRUE</b>, otherwise <b>FALSE</b>. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function for extended error information.
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmpclosehandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmpclosehandle
      * @since windows5.0
      */
     static IcmpCloseHandle(IcmpHandle) {
@@ -2578,7 +2578,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmpsendecho
      * @since windows5.0
      */
     static IcmpSendEcho(IcmpHandle, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
@@ -2674,7 +2674,7 @@ class IpHelper {
      * |**ERROR_NOT_SUPPORTED**|The request is not supported. This error is returned if no IPv4 stack is on the local computer.|
      * |**IP_BUF_TOO_SMALL**|The size of the *ReplyBuffer* specified in the *ReplySize* parameter was too small.|
      * |**Other**|Use [FormatMessage](/windows/win32/api/winbase/nf-winbase-formatmessage) to obtain the message string for the returned error.|
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho2
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmpsendecho2
      * @since windows5.0
      */
     static IcmpSendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
@@ -2889,7 +2889,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmpsendecho2ex
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmpsendecho2ex
      * @since windows6.0.6000
      */
     static IcmpSendEcho2Ex(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
@@ -3161,7 +3161,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmp6sendecho2
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmp6sendecho2
      * @since windows5.1.2600
      */
     static Icmp6SendEcho2(IcmpHandle, Event, ApcRoutine, ApcContext, SourceAddress, DestinationAddress, RequestData, RequestSize, RequestOptions, ReplyBuffer, ReplySize, Timeout) {
@@ -3200,7 +3200,7 @@ class IpHelper {
      * @returns {Integer} The 
      * <b>IcmpParseReplies</b> function returns the number of ICMP responses found on success. The function returns zero on error. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> for additional error information.
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmpparsereplies
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmpparsereplies
      * @since windows5.0
      */
     static IcmpParseReplies(ReplyBuffer, ReplySize) {
@@ -3265,7 +3265,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/icmpapi/nf-icmpapi-icmp6parsereplies
+     * @see https://learn.microsoft.com/windows/win32/api//content/icmpapi/nf-icmpapi-icmp6parsereplies
      * @since windows5.1.2600
      */
     static Icmp6ParseReplies(ReplyBuffer, ReplySize) {
@@ -3291,7 +3291,7 @@ class IpHelper {
      * 
      * If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getnumberofinterfaces
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getnumberofinterfaces
      * @since windows5.0
      */
     static GetNumberOfInterfaces(pdwNumIf) {
@@ -3388,7 +3388,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getifentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getifentry
      * @since windows5.0
      */
     static GetIfEntry(pIfRow) {
@@ -3469,7 +3469,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getiftable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getiftable
      * @since windows5.0
      */
     static GetIfTable(pIfTable, pdwSize, bOrder) {
@@ -3566,7 +3566,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getipaddrtable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getipaddrtable
      * @since windows5.0
      */
     static GetIpAddrTable(pIpAddrTable, pdwSize, bOrder) {
@@ -3662,7 +3662,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getipnettable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getipnettable
      * @since windows5.0
      */
     static GetIpNetTable(IpNetTable, SizePointer, Order) {
@@ -3782,7 +3782,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getipforwardtable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getipforwardtable
      * @since windows5.0
      */
     static GetIpForwardTable(pIpForwardTable, pdwSize, bOrder) {
@@ -3881,7 +3881,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-gettcptable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-gettcptable
      * @since windows5.0
      */
     static GetTcpTable(TcpTable, SizePointer, Order) {
@@ -4095,7 +4095,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getextendedtcptable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getextendedtcptable
      * @since windows6.0.6000
      */
     static GetExtendedTcpTable(pTcpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
@@ -4116,7 +4116,9 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_TCPROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcprow_owner_module">MIB_TCPROW_OWNER_MODULE</a> structure that contains the IPv4 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} Class_ A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module. The <b>TCPIP_OWNER_MODULE_INFO_CLASS</b> enumeration is defined in the <i>Iprtrmib.h</i> header file.
+     * 
+     *  This parameter must be set to <b>TCPIP_OWNER_MODULE_INFO_BASIC</b>.
      * @param {Pointer} pBuffer A pointer a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter. 
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -4201,13 +4203,13 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getownermodulefromtcpentry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromTcpEntry(pTcpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromTcpEntry(pTcpEntry, Class_, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcpEntry", "ptr", pTcpEntry, "int", Class_, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -4290,7 +4292,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getudptable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getudptable
      * @since windows5.0
      */
     static GetUdpTable(UdpTable, SizePointer, Order) {
@@ -4449,7 +4451,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getextendedudptable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getextendedudptable
      * @since windows6.0.6000
      */
     static GetExtendedUdpTable(pUdpTable, pdwSize, bOrder, ulAf, TableClass, Reserved) {
@@ -4468,7 +4470,7 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_UDPROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udprow_owner_module">MIB_UDPROW_OWNER_MODULE</a> structure that contains the IPv4 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} Class_ A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module.
      * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -4505,13 +4507,13 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromudpentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getownermodulefromudpentry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromUdpEntry(pUdpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromUdpEntry(pUdpEntry, Class_, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdpEntry", "ptr", pUdpEntry, "int", Class_, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -4598,7 +4600,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-gettcptable2
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-gettcptable2
      * @since windows6.0.6000
      */
     static GetTcpTable2(TcpTable, SizePointer, Order) {
@@ -4686,7 +4688,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-gettcp6table
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-gettcp6table
      * @since windows6.0.6000
      */
     static GetTcp6Table(TcpTable, SizePointer, Order) {
@@ -4778,7 +4780,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-gettcp6table2
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-gettcp6table2
      * @since windows6.0.6000
      */
     static GetTcp6Table2(TcpTable, SizePointer, Order) {
@@ -5067,7 +5069,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getpertcpconnectionestats
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getpertcpconnectionestats
      * @since windows6.0.6000
      */
     static GetPerTcpConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Ros, RosVersion, RosSize, Rod, RodVersion, RodSize) {
@@ -5251,7 +5253,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setpertcpconnectionestats
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setpertcpconnectionestats
      * @since windows6.0.6000
      */
     static SetPerTcpConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Offset) {
@@ -5538,7 +5540,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getpertcp6connectionestats
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getpertcp6connectionestats
      * @since windows6.0.6000
      */
     static GetPerTcp6ConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Ros, RosVersion, RosSize, Rod, RodVersion, RodSize) {
@@ -5825,7 +5827,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setpertcp6connectionestats
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setpertcp6connectionestats
      * @since windows6.0.6000
      */
     static SetPerTcp6ConnectionEStats(Row, EstatsType, Rw, RwVersion, RwSize, Offset) {
@@ -5844,7 +5846,9 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_TCP6ROW_OWNER_MODULE>} pTcpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tcpmib/ns-tcpmib-mib_tcp6row_owner_module">MIB_TCP6ROW_OWNER_MODULE</a> structure that contains the IPv6 TCP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} Class_ A <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module. The <b>TCPIP_OWNER_MODULE_INFO_CLASS</b> enumeration is defined in the <i>Iprtrmib.h</i> header file.
+     * 
+     *  This parameter must be set to <b>TCPIP_OWNER_MODULE_INFO_BASIC</b>.
      * @param {Pointer} pBuffer A pointer to a buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -5929,13 +5933,13 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getownermodulefromtcp6entry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromTcp6Entry(pTcpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromTcp6Entry(pTcpEntry, Class_, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromTcp6Entry", "ptr", pTcpEntry, "int", Class_, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -6015,7 +6019,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getudp6table
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getudp6table
      * @since windows6.0.6000
      */
     static GetUdp6Table(Udp6Table, SizePointer, Order) {
@@ -6034,7 +6038,7 @@ class IpHelper {
      * 
      * For computers running on Windows Vista or later, accessing the <b>pModuleName</b> and <b>pModulePath</b> members of the <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure is limited  by user account control (UAC). If an application that calls this function is executed by a user logged on as a member of the Administrators group other than the built-in Administrator, this call will succeed but access to these members returns an empty string unless the application has been marked in the manifest file with a <b>requestedExecutionLevel</b> set to requireAdministrator. If the application on Windows Vista or later lacks this manifest file, a user logged on as a member of the Administrators group other than the built-in Administrator must then be executing the application in an enhanced shell as the built-in Administrator (RunAs administrator) for access to the protected <b>pModuleName</b> and <b>pModulePath</b> members to be allowed.
      * @param {Pointer<MIB_UDP6ROW_OWNER_MODULE>} pUdpEntry A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/udpmib/ns-udpmib-mib_udp6row_owner_module">MIB_UDP6ROW_OWNER_MODULE</a> structure that contains the IPv6 UDP endpoint entry used to obtain the owner module.
-     * @param {Integer} Class_R 
+     * @param {Integer} Class_ <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ne-iprtrmib-tcpip_owner_module_info_class">TCPIP_OWNER_MODULE_INFO_CLASS</a> enumeration value that indicates the type of data to obtain regarding the owner module.
      * @param {Pointer} pBuffer The buffer that contains a <a href="https://docs.microsoft.com/windows/desktop/api/iprtrmib/ns-iprtrmib-tcpip_owner_module_basic_info">TCPIP_OWNER_MODULE_BASIC_INFO</a> structure with the owner module data. The type of data returned in this buffer is indicated by the value of the <i>Class</i> parameter.
      * 
      * The following structures are used for the data in <i>Buffer</i> when  <i>Class</i> is set to the corresponding value.
@@ -6071,13 +6075,13 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getownermodulefromudp6entry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getownermodulefromudp6entry
      * @since windows6.0.6000
      */
-    static GetOwnerModuleFromUdp6Entry(pUdpEntry, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromUdp6Entry(pUdpEntry, Class_, pBuffer, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromUdp6Entry", "ptr", pUdpEntry, "int", Class_, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -6085,16 +6089,16 @@ class IpHelper {
      * 
      * @param {Integer} ulPid 
      * @param {Pointer<Integer>} pInfo 
-     * @param {Integer} Class_R 
+     * @param {Integer} Class_ 
      * @param {Pointer} pBuffer 
      * @param {Pointer<Integer>} pdwSize 
      * @returns {Integer} 
      */
-    static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, Class_R, pBuffer, pdwSize) {
+    static GetOwnerModuleFromPidAndInfo(ulPid, pInfo, Class_, pBuffer, pdwSize) {
         pInfoMarshal := pInfo is VarRef ? "uint*" : "ptr"
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, "int", Class_R, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
+        result := DllCall("IPHLPAPI.dll\GetOwnerModuleFromPidAndInfo", "uint", ulPid, pInfoMarshal, pInfo, "int", Class_, "ptr", pBuffer, pdwSizeMarshal, pdwSize, "uint")
         return result
     }
 
@@ -6139,7 +6143,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getipstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getipstatistics
      * @since windows5.0
      */
     static GetIpStatistics(Statistics) {
@@ -6188,7 +6192,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-geticmpstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-geticmpstatistics
      * @since windows5.0
      */
     static GetIcmpStatistics(Statistics) {
@@ -6237,7 +6241,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-gettcpstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-gettcpstatistics
      * @since windows5.0
      */
     static GetTcpStatistics(Statistics) {
@@ -6256,7 +6260,7 @@ class IpHelper {
      * 
      * If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getudpstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getudpstatistics
      * @since windows5.0
      */
     static GetUdpStatistics(Stats) {
@@ -6366,7 +6370,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setipstatisticsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setipstatisticsex
      * @since windows6.0.6000
      */
     static SetIpStatisticsEx(Statistics, Family) {
@@ -6428,7 +6432,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getipstatisticsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getipstatisticsex
      * @since windows5.1.2600
      */
     static GetIpStatisticsEx(Statistics, Family) {
@@ -6519,7 +6523,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-geticmpstatisticsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-geticmpstatisticsex
      * @since windows5.1.2600
      */
     static GetIcmpStatisticsEx(Statistics, Family) {
@@ -6576,7 +6580,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-gettcpstatisticsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-gettcpstatisticsex
      * @since windows5.1.2600
      */
     static GetTcpStatisticsEx(Statistics, Family) {
@@ -6633,7 +6637,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getudpstatisticsex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getudpstatisticsex
      * @since windows5.1.2600
      */
     static GetUdpStatisticsEx(Statistics, Family) {
@@ -6690,7 +6694,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-gettcpstatisticsex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-gettcpstatisticsex2
      * @since windows10.0.16299
      */
     static GetTcpStatisticsEx2(Statistics, Family) {
@@ -6747,7 +6751,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getudpstatisticsex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getudpstatisticsex2
      * @since windows10.0.16299
      */
     static GetUdpStatisticsEx2(Statistics, Family) {
@@ -6840,7 +6844,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setifentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setifentry
      * @since windows5.0
      */
     static SetIfEntry(pIfRow) {
@@ -6933,7 +6937,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-createipforwardentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-createipforwardentry
      * @since windows5.0
      */
     static CreateIpForwardEntry(pRoute) {
@@ -7050,7 +7054,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setipforwardentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setipforwardentry
      * @since windows5.0
      */
     static SetIpForwardEntry(pRoute) {
@@ -7152,7 +7156,7 @@ class IpHelper {
      * 
      * If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-deleteipforwardentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-deleteipforwardentry
      * @since windows5.0
      */
     static DeleteIpForwardEntry(pRoute) {
@@ -7220,7 +7224,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setipstatistics
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setipstatistics
      * @since windows5.0
      */
     static SetIpStatistics(pIpStats) {
@@ -7287,7 +7291,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setipttl
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setipttl
      * @since windows5.0
      */
     static SetIpTTL(nTTL) {
@@ -7368,7 +7372,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-createipnetentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-createipnetentry
      * @since windows5.0
      */
     static CreateIpNetEntry(pArpEntry) {
@@ -7445,7 +7449,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-setipnetentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-setipnetentry
      * @since windows5.0
      */
     static SetIpNetEntry(pArpEntry) {
@@ -7523,7 +7527,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-deleteipnetentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-deleteipnetentry
      * @since windows5.0
      */
     static DeleteIpNetEntry(pArpEntry) {
@@ -7598,7 +7602,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-flushipnettable
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-flushipnettable
      * @since windows5.0
      */
     static FlushIpNetTable(dwIfIndex) {
@@ -7675,7 +7679,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-createproxyarpentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-createproxyarpentry
      * @since windows5.0
      */
     static CreateProxyArpEntry(dwAddress, dwMask, dwIfIndex) {
@@ -7752,7 +7756,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-deleteproxyarpentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-deleteproxyarpentry
      * @since windows5.0
      */
     static DeleteProxyArpEntry(dwAddress, dwMask, dwIfIndex) {
@@ -7836,7 +7840,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-settcpentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-settcpentry
      * @since windows5.0
      */
     static SetTcpEntry(pTcpRow) {
@@ -7930,7 +7934,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getinterfaceinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getinterfaceinfo
      * @since windows5.0
      */
     static GetInterfaceInfo(pIfTable, dwOutBufLen) {
@@ -7949,7 +7953,7 @@ class IpHelper {
      * 
      * If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getunidirectionaladapterinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getunidirectionaladapterinfo
      */
     static GetUniDirectionalAdapterInfo(pIPIfInfo, dwOutBufLen) {
         dwOutBufLenMarshal := dwOutBufLen is VarRef ? "uint*" : "ptr"
@@ -7968,7 +7972,7 @@ class IpHelper {
      * @param {HANDLE} hHeap A handle that specifies the heap from which <i>ppTable</i> should be allocated. This parameter can be the process heap returned by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-getprocessheap">GetProcessHeap</a> function, or a private heap created by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapcreate">HeapCreate</a> function.
      * @param {Integer} dwFlags A set of flags to be passed to the <a href="https://docs.microsoft.com/windows/desktop/api/heapapi/nf-heapapi-heapalloc">HeapAlloc</a> function when allocating memory for <i>ppTable</i>. See the <b>HeapAlloc</b> function for more information.
      * @returns {Integer} Returns ERROR_SUCCESS upon successful completion.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-nhpallocateandgetinterfaceinfofromstack
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-nhpallocateandgetinterfaceinfofromstack
      * @since windows5.1.2600
      */
     static NhpAllocateAndGetInterfaceInfoFromStack(ppTable, pdwCount, bOrder, hHeap, dwFlags) {
@@ -8049,7 +8053,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getbestinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getbestinterface
      * @since windows5.0
      */
     static GetBestInterface(dwDestAddr, pdwBestIfIndex) {
@@ -8124,7 +8128,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getbestinterfaceex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getbestinterfaceex
      * @since windows5.1.2600
      */
     static GetBestInterfaceEx(pDestAddr, pdwBestIfIndex) {
@@ -8149,7 +8153,7 @@ class IpHelper {
      * 
      * If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getbestroute
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getbestroute
      * @since windows5.0
      */
     static GetBestRoute(dwDestAddr, dwSourceAddr, pBestRoute) {
@@ -8194,11 +8198,11 @@ class IpHelper {
      * 
      * On Windows Vista and later, the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyipinterfacechange">NotifyIpInterfaceChange</a> function  can be used to  register to be notified for changes to IPv4 and IPv6 interfaces on  the local computer.
-     * @param {Pointer<HANDLE>} Handle A pointer to a <b>HANDLE</b> variable that receives a file handle for use in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. 
+     * @param {Pointer<HANDLE>} Handle_ A pointer to a <b>HANDLE</b> variable that receives a file handle for use in a subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. 
      * 
      * <div class="alert"><b>Warning</b>  Do not close this handle, and do not associate it with a completion port.</div>
      * <div> </div>
-     * @param {Pointer<OVERLAPPED>} overlapped A pointer to an 
+     * @param {Pointer<OVERLAPPED>} overlapped_ A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  notifies the caller of any changes in the table that maps IP addresses to interfaces.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING.
      * 
@@ -8256,11 +8260,11 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-notifyaddrchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-notifyaddrchange
      * @since windows5.0
      */
-    static NotifyAddrChange(Handle, overlapped) {
-        result := DllCall("IPHLPAPI.dll\NotifyAddrChange", "ptr", Handle, "ptr", overlapped, "uint")
+    static NotifyAddrChange(Handle_, overlapped_) {
+        result := DllCall("IPHLPAPI.dll\NotifyAddrChange", "ptr", Handle_, "ptr", overlapped_, "uint")
         return result
     }
 
@@ -8306,8 +8310,8 @@ class IpHelper {
      * 
      * On Windows Vista and later, the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyroutechange2">NotifyRouteChange2</a> function  can be used to  register to be notified for changes to the IPv6 routing table  on the local computer.
-     * @param {Pointer<HANDLE>} Handle A pointer to a <b>HANDLE</b> variable that receives a handle to use in asynchronous notification.
-     * @param {Pointer<OVERLAPPED>} overlapped A pointer to an 
+     * @param {Pointer<HANDLE>} Handle_ A pointer to a <b>HANDLE</b> variable that receives a handle to use in asynchronous notification.
+     * @param {Pointer<OVERLAPPED>} overlapped_ A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure that  notifies the caller of any changes in the routing table.
      * @returns {Integer} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING. If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
@@ -8363,11 +8367,11 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-notifyroutechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-notifyroutechange
      * @since windows5.0
      */
-    static NotifyRouteChange(Handle, overlapped) {
-        result := DllCall("IPHLPAPI.dll\NotifyRouteChange", "ptr", Handle, "ptr", overlapped, "uint")
+    static NotifyRouteChange(Handle_, overlapped_) {
+        result := DllCall("IPHLPAPI.dll\NotifyRouteChange", "ptr", Handle_, "ptr", overlapped_, "uint")
         return result
     }
 
@@ -8382,7 +8386,7 @@ class IpHelper {
      * The <b>CancelIPChangeNotify</b> can return <b>FALSE</b> if no notification request was found or an invalid <i>notifyOverlapped</i> parameter was passed.
      * @param {Pointer<OVERLAPPED>} notifyOverlapped A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure used in the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-notifyaddrchange">NotifyAddrChange</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-notifyroutechange">NotifyRouteChange</a>.
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-cancelipchangenotify
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-cancelipchangenotify
      * @since windows5.1.2600
      */
     static CancelIPChangeNotify(notifyOverlapped) {
@@ -8404,7 +8408,7 @@ class IpHelper {
      * 
      * If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getadapterindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getadapterindex
      * @since windows5.0
      */
     static GetAdapterIndex(AdapterName, IfIndex) {
@@ -8438,7 +8442,7 @@ class IpHelper {
      * <a href="https://docs.microsoft.com/windows/desktop/api/wsipv6ok/nf-wsipv6ok-inet_ntoa">inet_ntoa</a> functions.
      * 
      * On Windows Vista and later, the <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-createunicastipaddressentry">CreateUnicastIpAddressEntry</a> function can be used to add a new unicast IPv4 or IPv6 address entry on a local computer.
-     * @param {Integer} Address The IPv4 address to add to the adapter, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
+     * @param {Integer} Address_ The IPv4 address to add to the adapter, in the form of an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} IpMask The subnet mask for the IPv4 address specified in the <i>Address</i> parameter.   The <b>IPMask</b> parameter uses the same format as an <a href="https://docs.microsoft.com/windows/desktop/api/inaddr/ns-inaddr-in_addr">IPAddr</a> structure.
      * @param {Integer} IfIndex The index of the adapter on which to add the IPv4 address.
      * @param {Pointer<Integer>} NTEContext A pointer to a <b>ULONG</b> variable. On successful return, this parameter points to the Net Table Entry (NTE) context for the IPv4 address that was added. The caller can later use this context in a call to 
@@ -8532,14 +8536,14 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-addipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-addipaddress
      * @since windows5.0
      */
-    static AddIPAddress(Address, IpMask, IfIndex, NTEContext, NTEInstance) {
+    static AddIPAddress(Address_, IpMask, IfIndex, NTEContext, NTEInstance) {
         NTEContextMarshal := NTEContext is VarRef ? "uint*" : "ptr"
         NTEInstanceMarshal := NTEInstance is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\AddIPAddress", "uint", Address, "uint", IpMask, "uint", IfIndex, NTEContextMarshal, NTEContext, NTEInstanceMarshal, NTEInstance, "uint")
+        result := DllCall("IPHLPAPI.dll\AddIPAddress", "uint", Address_, "uint", IpMask, "uint", IfIndex, NTEContextMarshal, NTEContext, NTEInstanceMarshal, NTEInstance, "uint")
         return result
     }
 
@@ -8609,7 +8613,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-deleteipaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-deleteipaddress
      * @since windows5.0
      */
     static DeleteIPAddress(NTEContext) {
@@ -8702,7 +8706,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getnetworkparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getnetworkparams
      * @since windows5.0
      */
     static GetNetworkParams(pFixedInfo, pOutBufLen) {
@@ -8808,7 +8812,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getadaptersinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getadaptersinfo
      * @since windows5.0
      */
     static GetAdaptersInfo(AdapterInfo, SizePointer) {
@@ -8828,7 +8832,7 @@ class IpHelper {
      * <div class="alert"><b>Note</b>  The caller is responsible for calling the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-localfree">LocalFree</a> function to free the array returned by <b>GetAdapterOrderMap</b>.</div>
      * <div> </div>
      * @returns {Pointer<IP_ADAPTER_ORDER_MAP>} Returns an <a href="https://docs.microsoft.com/windows/desktop/api/ipexport/ns-ipexport-ip_adapter_order_map">IP_ADAPTER_ORDER_MAP</a> structure filled with adapter priority information.  See the <b>IP_ADAPTER_ORDER_MAP</b> structure for more information.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getadapterordermap
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getadapterordermap
      * @since windows5.1.2600
      */
     static GetAdapterOrderMap() {
@@ -8944,7 +8948,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getadaptersaddresses
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getadaptersaddresses
      * @since windows5.1.2600
      */
     static GetAdaptersAddresses(Family, Flags, AdapterAddresses, SizePointer) {
@@ -9027,7 +9031,7 @@ class IpHelper {
      * 
      * 
      * <div> </div>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getperadapterinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getperadapterinfo
      * @since windows5.0
      */
     static GetPerAdapterInfo(IfIndex, pPerAdapterInfo, pOutBufLen) {
@@ -9048,7 +9052,7 @@ class IpHelper {
      * @returns {Integer} Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
      * If the function succeeds, then it returns **NO_ERROR**. If the network card corresponding to *InterfaceLuid* isn't timestamp-aware, then the function returns **ERROR_NOT_SUPPORTED**. If the network card driver advertises an unsupported timestamp configuration, then the function returns **ERROR_BAD_DRIVER**.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getinterfaceactivetimestampcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getinterfaceactivetimestampcapabilities
      */
     static GetInterfaceActiveTimestampCapabilities(InterfaceLuid, TimestampCapabilites) {
         result := DllCall("IPHLPAPI.dll\GetInterfaceActiveTimestampCapabilities", "ptr", InterfaceLuid, "ptr", TimestampCapabilites, "uint")
@@ -9066,7 +9070,7 @@ class IpHelper {
      * @returns {Integer} Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
      * If the function succeeds, then it returns **NO_ERROR**. If the network card corresponding to *InterfaceLuid* isn't timestamp-aware, then the function returns **ERROR_NOT_SUPPORTED**.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getinterfacesupportedtimestampcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getinterfacesupportedtimestampcapabilities
      */
     static GetInterfaceSupportedTimestampCapabilities(InterfaceLuid, TimestampCapabilites) {
         result := DllCall("IPHLPAPI.dll\GetInterfaceSupportedTimestampCapabilities", "ptr", InterfaceLuid, "ptr", TimestampCapabilites, "uint")
@@ -9084,7 +9088,7 @@ class IpHelper {
      * @returns {Integer} Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
      * A **DWORD** return code indicating success or failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-captureinterfacehardwarecrosstimestamp
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-captureinterfacehardwarecrosstimestamp
      */
     static CaptureInterfaceHardwareCrossTimestamp(InterfaceLuid, CrossTimestamp) {
         result := DllCall("IPHLPAPI.dll\CaptureInterfaceHardwareCrossTimestamp", "ptr", InterfaceLuid, "ptr", CrossTimestamp, "uint")
@@ -9105,7 +9109,7 @@ class IpHelper {
      * @returns {Integer} Type: **[DWORD](/windows/win32/winprog/windows-data-types)**
      * 
      * A **DWORD** return code indicating success or failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-registerinterfacetimestampconfigchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-registerinterfacetimestampconfigchange
      */
     static RegisterInterfaceTimestampConfigChange(Callback, CallerContext, NotificationHandle) {
         CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
@@ -9120,7 +9124,7 @@ class IpHelper {
      * 
      * The handle that was returned by [**RegisterInterfaceTimestampConfigChange**](/windows/win32/api/iphlpapi/nf-iphlpapi-registerinterfacetimestampconfigchange). This identifies the registration to be canceled.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-unregisterinterfacetimestampconfigchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-unregisterinterfacetimestampconfigchange
      */
     static UnregisterInterfaceTimestampConfigChange(NotificationHandle) {
         NotificationHandle := NotificationHandle is Win32Handle ? NumGet(NotificationHandle, "ptr") : NotificationHandle
@@ -9133,7 +9137,7 @@ class IpHelper {
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid Reserved.
      * @param {Pointer<INTERFACE_TIMESTAMP_CAPABILITIES>} TimestampCapabilites Reserved.
      * @returns {Integer} Reserved.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getinterfacecurrenttimestampcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getinterfacecurrenttimestampcapabilities
      */
     static GetInterfaceCurrentTimestampCapabilities(InterfaceLuid, TimestampCapabilites) {
         result := DllCall("IPHLPAPI.DLL\GetInterfaceCurrentTimestampCapabilities", "ptr", InterfaceLuid, "ptr", TimestampCapabilites, "uint")
@@ -9145,7 +9149,7 @@ class IpHelper {
      * @param {Pointer<NET_LUID_LH>} InterfaceLuid Reserved.
      * @param {Pointer<INTERFACE_TIMESTAMP_CAPABILITIES>} TimestampCapabilites Reserved.
      * @returns {Integer} Reserved.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getinterfacehardwaretimestampcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getinterfacehardwaretimestampcapabilities
      */
     static GetInterfaceHardwareTimestampCapabilities(InterfaceLuid, TimestampCapabilites) {
         result := DllCall("IPHLPAPI.DLL\GetInterfaceHardwareTimestampCapabilities", "ptr", InterfaceLuid, "ptr", TimestampCapabilites, "uint")
@@ -9158,7 +9162,7 @@ class IpHelper {
      * @param {Pointer<PINTERFACE_TIMESTAMP_CONFIG_CHANGE_CALLBACK>} Callback Reserved.
      * @param {Pointer<HIFTIMESTAMPCHANGE>} NotificationHandle Reserved.
      * @returns {Integer} Reserved.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-notifyiftimestampconfigchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-notifyiftimestampconfigchange
      */
     static NotifyIfTimestampConfigChange(CallerContext, Callback, NotificationHandle) {
         CallerContextMarshal := CallerContext is VarRef ? "ptr" : "ptr"
@@ -9171,7 +9175,7 @@ class IpHelper {
      * This function is reserved for system use, and you should not call it from your code. (CancelIfTimestampConfigChange)
      * @param {HIFTIMESTAMPCHANGE} NotificationHandle Reserved.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-canceliftimestampconfigchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-canceliftimestampconfigchange
      */
     static CancelIfTimestampConfigChange(NotificationHandle) {
         NotificationHandle := NotificationHandle is Win32Handle ? NumGet(NotificationHandle, "ptr") : NotificationHandle
@@ -9244,7 +9248,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-ipreleaseaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-ipreleaseaddress
      * @since windows5.0
      */
     static IpReleaseAddress(AdapterInfo) {
@@ -9317,7 +9321,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-iprenewaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-iprenewaddress
      * @since windows5.0
      */
     static IpRenewAddress(AdapterInfo) {
@@ -9467,7 +9471,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-sendarp
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-sendarp
      * @since windows5.0
      */
     static SendARP(DestIP, SrcIP, pMacAddr, PhyAddrLen) {
@@ -9492,7 +9496,7 @@ class IpHelper {
      * 
      * If the function fails, the return value is <b>FALSE</b>. Call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to obtain the error code for the failure.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getrttandhopcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getrttandhopcount
      * @since windows5.0
      */
     static GetRTTAndHopCount(DestIpAddress, HopCount, MaxHops, RTT) {
@@ -9513,7 +9517,7 @@ class IpHelper {
      * Takes an interface index and returns a backward-compatible interface index, that is, an index that uses only the lower 24 bits.
      * @param {Integer} IfIndex The interface index from which the backward-compatible or "friendly" interface index is derived.
      * @returns {Integer} A backward-compatible interface index that uses only the lower 24 bits.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getfriendlyifindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getfriendlyifindex
      * @since windows5.0
      */
     static GetFriendlyIfIndex(IfIndex) {
@@ -9565,7 +9569,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-enablerouter
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-enablerouter
      * @since windows5.0
      */
     static EnableRouter(pHandle, pOverlapped) {
@@ -9601,7 +9605,7 @@ class IpHelper {
      * 
      * If the function fails, use 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-unenablerouter
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-unenablerouter
      * @since windows5.0
      */
     static UnenableRouter(pOverlapped, lpdwEnableCount) {
@@ -9713,7 +9717,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-disablemediasense
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-disablemediasense
      * @since windows5.1.2600
      */
     static DisableMediaSense(pHandle, pOverLapped) {
@@ -9823,7 +9827,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-restoremediasense
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-restoremediasense
      * @since windows5.1.2600
      */
     static RestoreMediaSense(pOverlapped, lpdwEnableCount) {
@@ -9841,20 +9845,20 @@ class IpHelper {
      * 
      * The syntax for the <b>GetIpErrorString</b> function was slightly changed on the Microsoft Windows Software Development Kit (SDK) released for Windows Vista and later. The data type for the <i>Buffer</i> parameter was changed from <b>PWCHAR</b> to <b>PWSTR</b>.
      * @param {Integer} ErrorCode The error code to be retrieved. The possible values for this parameter are defined in the <i>Ipexport.h</i> header file.
-     * @param {PWSTR} Buffer_R 
-     * @param {Pointer<Integer>} Size A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
+     * @param {PWSTR} Buffer_ A pointer to the buffer that contains the error code string if the function returns with NO_ERROR.
+     * @param {Pointer<Integer>} Size_ A pointer to a <b>DWORD</b> that specifies the length, in characters, of the buffer pointed to by <i>Buffer</i> parameter, excluding the terminating null (i.e. the size of Buffer in characters, minus one).
      * @returns {Integer} Returns NO_ERROR upon success.
      * 
      * If the function fails, use <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-getiperrorstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-getiperrorstring
      * @since windows5.1.2600
      */
-    static GetIpErrorString(ErrorCode, Buffer_R, Size) {
-        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
+    static GetIpErrorString(ErrorCode, Buffer_, Size_) {
+        Buffer_ := Buffer_ is String ? StrPtr(Buffer_) : Buffer_
 
-        SizeMarshal := Size is VarRef ? "uint*" : "ptr"
+        Size_Marshal := Size_ is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer_R, SizeMarshal, Size, "uint")
+        result := DllCall("IPHLPAPI.dll\GetIpErrorString", "uint", ErrorCode, "ptr", Buffer_, Size_Marshal, Size_, "uint")
         return result
     }
 
@@ -9883,7 +9887,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-resolveneighbor
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-resolveneighbor
      * @since windows5.1.2600
      */
     static ResolveNeighbor(NetworkAddress, PhysicalAddress, PhysicalAddressLength) {
@@ -9981,7 +9985,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-createpersistenttcpportreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-createpersistenttcpportreservation
      * @since windows6.0.6000
      */
     static CreatePersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
@@ -10079,7 +10083,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-createpersistentudpportreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-createpersistentudpportreservation
      * @since windows6.0.6000
      */
     static CreatePersistentUdpPortReservation(StartPort, NumberOfPorts, Token) {
@@ -10154,7 +10158,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-deletepersistenttcpportreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-deletepersistenttcpportreservation
      * @since windows6.0.6000
      */
     static DeletePersistentTcpPortReservation(StartPort, NumberOfPorts) {
@@ -10227,7 +10231,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-deletepersistentudpportreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-deletepersistentudpportreservation
      * @since windows6.0.6000
      */
     static DeletePersistentUdpPortReservation(StartPort, NumberOfPorts) {
@@ -10296,7 +10300,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-lookuppersistenttcpportreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-lookuppersistenttcpportreservation
      * @since windows6.0.6000
      */
     static LookupPersistentTcpPortReservation(StartPort, NumberOfPorts, Token) {
@@ -10367,7 +10371,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-lookuppersistentudpportreservation
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-lookuppersistentudpportreservation
      * @since windows6.0.6000
      */
     static LookupPersistentUdpPortReservation(StartPort, NumberOfPorts, Token) {
@@ -10723,7 +10727,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-parsenetworkstring
+     * @see https://learn.microsoft.com/windows/win32/api//content/iphlpapi/nf-iphlpapi-parsenetworkstring
      * @since windows6.0.6000
      */
     static ParseNetworkString(NetworkString, Types, AddressInfo, PortNumber, PrefixLength) {
@@ -10794,7 +10798,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getifentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getifentry2
      * @since windows6.0.6000
      */
     static GetIfEntry2(Row) {
@@ -10892,7 +10896,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getifentry2ex
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getifentry2ex
      * @since windows10.0.15063
      */
     static GetIfEntry2Ex(Level, Row) {
@@ -10945,7 +10949,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getiftable2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getiftable2
      * @since windows6.0.6000
      */
     static GetIfTable2(Table) {
@@ -11043,7 +11047,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getiftable2ex
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getiftable2ex
      * @since windows6.0.6000
      */
     static GetIfTable2Ex(Level, Table) {
@@ -11124,7 +11128,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getifstacktable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getifstacktable
      * @since windows6.0.6000
      */
     static GetIfStackTable(Table) {
@@ -11205,7 +11209,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getinvertedifstacktable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getinvertedifstacktable
      * @since windows6.0.6000
      */
     static GetInvertedIfStackTable(Table) {
@@ -11290,7 +11294,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getipinterfaceentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getipinterfaceentry
      * @since windows6.0.6000
      */
     static GetIpInterfaceEntry(Row) {
@@ -11425,7 +11429,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getipinterfacetable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getipinterfacetable
      * @since windows6.0.6000
      */
     static GetIpInterfaceTable(Family, Table) {
@@ -11448,7 +11452,7 @@ class IpHelper {
      * @param {Pointer<MIB_IPINTERFACE_ROW>} Row A pointer to a 
      * <b>MIB_IPINTERFACE_ROW</b> structure to initialize. On successful return, the fields in this parameter are initialized with default information for an interface on the local computer.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-initializeipinterfaceentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-initializeipinterfaceentry
      * @since windows6.0.6000
      */
     static InitializeIpInterfaceEntry(Row) {
@@ -11626,7 +11630,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-notifyipinterfacechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-notifyipinterfacechange
      * @since windows6.0.6000
      */
     static NotifyIpInterfaceChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
@@ -11732,7 +11736,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setipinterfaceentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setipinterfaceentry
      * @since windows6.0.6000
      */
     static SetIpInterfaceEntry(Row) {
@@ -11852,7 +11856,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getipnetworkconnectionbandwidthestimates
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getipnetworkconnectionbandwidthestimates
      * @since windows8.0
      */
     static GetIpNetworkConnectionBandwidthEstimates(InterfaceIndex, AddressFamily, BandwidthEstimates) {
@@ -11980,7 +11984,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-createunicastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-createunicastipaddressentry
      * @since windows6.0.6000
      */
     static CreateUnicastIpAddressEntry(Row) {
@@ -12072,7 +12076,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-deleteunicastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-deleteunicastipaddressentry
      * @since windows6.0.6000
      */
     static DeleteUnicastIpAddressEntry(Row) {
@@ -12162,7 +12166,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getunicastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getunicastipaddressentry
      * @since windows6.0.6000
      */
     static GetUnicastIpAddressEntry(Row) {
@@ -12298,7 +12302,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getunicastipaddresstable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getunicastipaddresstable
      * @since windows6.0.6000
      */
     static GetUnicastIpAddressTable(Family, Table) {
@@ -12325,7 +12329,7 @@ class IpHelper {
      * @param {Pointer<MIB_UNICASTIPADDRESS_ROW>} Row On entry, a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_unicastipaddress_row">MIB_UNICASTIPADDRESS_ROW</a> structure entry for a unicast IP address entry. On return, the  <b>MIB_UNICASTIPADDRESS_ROW</b> structure pointed to by this parameter is initialized with default values for a unicast IP address.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-initializeunicastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-initializeunicastipaddressentry
      * @since windows6.0.6000
      */
     static InitializeUnicastIpAddressEntry(Row) {
@@ -12500,7 +12504,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-notifyunicastipaddresschange
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-notifyunicastipaddresschange
      * @since windows6.0.6000
      */
     static NotifyUnicastIpAddressChange(Family, Callback, CallerContext, InitialNotification, NotificationHandle) {
@@ -12687,7 +12691,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-notifystableunicastipaddresstable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-notifystableunicastipaddresstable
      * @since windows6.0.6000
      */
     static NotifyStableUnicastIpAddressTable(Family, Table, CallerCallback, CallerContext, NotificationHandle) {
@@ -12790,7 +12794,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setunicastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setunicastipaddressentry
      * @since windows6.0.6000
      */
     static SetUnicastIpAddressEntry(Row) {
@@ -12893,7 +12897,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-createanycastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-createanycastipaddressentry
      * @since windows6.0.6000
      */
     static CreateAnycastIpAddressEntry(Row) {
@@ -12985,7 +12989,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-deleteanycastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-deleteanycastipaddressentry
      * @since windows6.0.6000
      */
     static DeleteAnycastIpAddressEntry(Row) {
@@ -13075,7 +13079,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getanycastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getanycastipaddressentry
      * @since windows6.0.6000
      */
     static GetAnycastIpAddressEntry(Row) {
@@ -13211,7 +13215,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getanycastipaddresstable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getanycastipaddresstable
      * @since windows6.0.6000
      */
     static GetAnycastIpAddressTable(Family, Table) {
@@ -13303,7 +13307,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getmulticastipaddressentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getmulticastipaddressentry
      * @since windows6.0.6000
      */
     static GetMulticastIpAddressEntry(Row) {
@@ -13439,7 +13443,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getmulticastipaddresstable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getmulticastipaddresstable
      * @since windows6.0.6000
      */
     static GetMulticastIpAddressTable(Family, Table) {
@@ -13548,7 +13552,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-createipforwardentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-createipforwardentry2
      * @since windows6.0.6000
      */
     static CreateIpForwardEntry2(Row) {
@@ -13642,7 +13646,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-deleteipforwardentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-deleteipforwardentry2
      * @since windows6.0.6000
      */
     static DeleteIpForwardEntry2(Row) {
@@ -13724,7 +13728,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getbestroute2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getbestroute2
      * @since windows6.0.6000
      */
     static GetBestRoute2(InterfaceLuid, InterfaceIndex, SourceAddress, DestinationAddress, AddressSortOptions, BestRoute, BestSourceAddress) {
@@ -13805,7 +13809,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getipforwardentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getipforwardentry2
      * @since windows6.0.6000
      */
     static GetIpForwardEntry2(Row) {
@@ -13941,7 +13945,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getipforwardtable2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getipforwardtable2
      * @since windows6.0.6000
      */
     static GetIpForwardTable2(Family, Table) {
@@ -13968,7 +13972,7 @@ class IpHelper {
      * @param {Pointer<MIB_IPFORWARD_ROW2>} Row On entry, a pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/ns-netioapi-mib_ipforward_row2">MIB_IPFORWARD_ROW2</a> structure entry for an IP route entry. On return, the  <b>MIB_IPFORWARD_ROW2</b> structure pointed to by this parameter is initialized with default values for an IP route entry.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-initializeipforwardentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-initializeipforwardentry
      * @since windows6.0.6000
      */
     static InitializeIpForwardEntry(Row) {
@@ -14143,7 +14147,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-notifyroutechange2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-notifyroutechange2
      * @since windows6.0.6000
      */
     static NotifyRouteChange2(AddressFamily, Callback, CallerContext, InitialNotification, NotificationHandle) {
@@ -14230,7 +14234,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setipforwardentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setipforwardentry2
      * @since windows6.0.6000
      */
     static SetIpForwardEntry2(Route) {
@@ -14351,7 +14355,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-flushippathtable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-flushippathtable
      * @since windows6.0.6000
      */
     static FlushIpPathTable(Family) {
@@ -14441,7 +14445,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getippathentry
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getippathentry
      * @since windows6.0.6000
      */
     static GetIpPathEntry(Row) {
@@ -14577,7 +14581,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getippathtable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getippathtable
      * @since windows6.0.6000
      */
     static GetIpPathTable(Family, Table) {
@@ -14680,7 +14684,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-createipnetentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-createipnetentry2
      * @since windows6.0.6000
      */
     static CreateIpNetEntry2(Row) {
@@ -14772,7 +14776,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-deleteipnetentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-deleteipnetentry2
      * @since windows6.0.6000
      */
     static DeleteIpNetEntry2(Row) {
@@ -14896,7 +14900,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-flushipnettable2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-flushipnettable2
      * @since windows6.0.6000
      */
     static FlushIpNetTable2(Family, InterfaceIndex) {
@@ -14987,7 +14991,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getipnetentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getipnetentry2
      * @since windows6.0.6000
      */
     static GetIpNetEntry2(Row) {
@@ -15127,7 +15131,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getipnettable2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getipnettable2
      * @since windows6.0.6000
      */
     static GetIpNetTable2(Family, Table) {
@@ -15227,7 +15231,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-resolveipnetentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-resolveipnetentry2
      * @since windows6.0.6000
      */
     static ResolveIpNetEntry2(Row, SourceAddress) {
@@ -15319,7 +15323,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setipnetentry2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setipnetentry2
      * @since windows6.0.6000
      */
     static SetIpNetEntry2(Row) {
@@ -15455,7 +15459,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-notifyteredoportchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-notifyteredoportchange
      * @since windows6.0.6000
      */
     static NotifyTeredoPortChange(Callback, CallerContext, InitialNotification, NotificationHandle) {
@@ -15531,7 +15535,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getteredoport
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getteredoport
      * @since windows6.0.6000
      */
     static GetTeredoPort(Port) {
@@ -15588,7 +15592,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-cancelmibchangenotify2
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-cancelmibchangenotify2
      * @since windows6.0.6000
      */
     static CancelMibChangeNotify2(NotificationHandle) {
@@ -15606,7 +15610,7 @@ class IpHelper {
      * The <b>FreeMibTable</b> function is used to free the internal buffers used by various functions to retrieve tables of interfaces, addresses, and routes. When these tables are no longer needed, then <b>FreeMibTable</b> should be called to release the memory used by these tables.
      * @param {Pointer<Void>} Memory A pointer to the buffer to free.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-freemibtable
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-freemibtable
      * @since windows6.0.6000
      */
     static FreeMibTable(Memory) {
@@ -15694,7 +15698,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-createsortedaddresspairs
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-createsortedaddresspairs
      * @since windows6.0.6000
      */
     static CreateSortedAddressPairs(SourceAddressList, SourceAddressCount, DestinationAddressList, DestinationAddressCount, AddressSortOptions, SortedAddressPairList, SortedAddressPairCount) {
@@ -15783,7 +15787,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfacenametoluida
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfacenametoluida
      * @since windows6.0.6000
      */
     static ConvertInterfaceNameToLuidA(InterfaceName, InterfaceLuid) {
@@ -15836,7 +15840,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfacenametoluidw
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfacenametoluidw
      * @since windows6.0.6000
      */
     static ConvertInterfaceNameToLuidW(InterfaceName, InterfaceLuid) {
@@ -15892,7 +15896,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfaceluidtonamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfaceluidtonamea
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToNameA(InterfaceLuid, InterfaceName, Length) {
@@ -15948,7 +15952,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfaceluidtonamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfaceluidtonamew
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToNameW(InterfaceLuid, InterfaceName, Length) {
@@ -15986,7 +15990,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfaceluidtoindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfaceluidtoindex
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToIndex(InterfaceLuid, InterfaceIndex) {
@@ -16035,7 +16039,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfaceindextoluid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfaceindextoluid
      * @since windows6.0.6000
      */
     static ConvertInterfaceIndexToLuid(InterfaceIndex, InterfaceLuid) {
@@ -16086,7 +16090,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfaceluidtoalias
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfaceluidtoalias
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToAlias(InterfaceLuid, InterfaceAlias, Length) {
@@ -16124,7 +16128,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfacealiastoluid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfacealiastoluid
      * @since windows6.0.6000
      */
     static ConvertInterfaceAliasToLuid(InterfaceAlias, InterfaceLuid) {
@@ -16162,7 +16166,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfaceluidtoguid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfaceluidtoguid
      * @since windows6.0.6000
      */
     static ConvertInterfaceLuidToGuid(InterfaceLuid, InterfaceGuid) {
@@ -16198,7 +16202,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertinterfaceguidtoluid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertinterfaceguidtoluid
      * @since windows6.0.6000
      */
     static ConvertInterfaceGuidToLuid(InterfaceGuid, InterfaceLuid) {
@@ -16220,7 +16224,7 @@ class IpHelper {
      * @param {PSTR} InterfaceName A pointer to a <b>NULL</b>-terminated ANSI string containing the interface name.
      * @returns {Integer} On success, 
      * <b>if_nametoindex</b> returns the local interface index. On failure, zero is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-if_nametoindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-if_nametoindex
      * @since windows6.0.6000
      */
     static if_nametoindex(InterfaceName) {
@@ -16248,7 +16252,7 @@ class IpHelper {
      *         <b>IF_NAMESIZE</b>.
      * @returns {PSTR} On success, 
      * <b>if_indextoname</b> returns a pointer to <b>NULL</b>-terminated ANSI string containing the interface name. On failure, a <b>NULL</b> pointer is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-if_indextoname
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-if_indextoname
      * @since windows6.0.6000
      */
     static if_indextoname(InterfaceIndex, InterfaceName) {
@@ -16261,7 +16265,7 @@ class IpHelper {
     /**
      * Reserved for future use. Do not use this function. (GetCurrentThreadCompartmentId)
      * @returns {NET_IF_COMPARTMENT_ID} 
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getcurrentthreadcompartmentid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getcurrentthreadcompartmentid
      */
     static GetCurrentThreadCompartmentId() {
         result := DllCall("IPHLPAPI.dll\GetCurrentThreadCompartmentId", "uint")
@@ -16272,7 +16276,7 @@ class IpHelper {
      * Reserved for future use. Do not use this function. (SetCurrentThreadCompartmentId)
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setcurrentthreadcompartmentid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setcurrentthreadcompartmentid
      */
     static SetCurrentThreadCompartmentId(CompartmentId) {
         result := DllCall("IPHLPAPI.dll\SetCurrentThreadCompartmentId", "uint", CompartmentId, "uint")
@@ -16331,7 +16335,7 @@ class IpHelper {
      * Reserved for future use. Do not use this function. (GetSessionCompartmentId)
      * @param {Integer} SessionId Reserved.
      * @returns {NET_IF_COMPARTMENT_ID} 
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getsessioncompartmentid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getsessioncompartmentid
      */
     static GetSessionCompartmentId(SessionId) {
         result := DllCall("IPHLPAPI.dll\GetSessionCompartmentId", "uint", SessionId, "uint")
@@ -16343,7 +16347,7 @@ class IpHelper {
      * @param {Integer} SessionId Reserved.
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setsessioncompartmentid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setsessioncompartmentid
      */
     static SetSessionCompartmentId(SessionId, CompartmentId) {
         result := DllCall("IPHLPAPI.dll\SetSessionCompartmentId", "uint", SessionId, "uint", CompartmentId, "uint")
@@ -16373,7 +16377,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getdefaultcompartmentid
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getdefaultcompartmentid
      * @since windows10.0.10240
      */
     static GetDefaultCompartmentId() {
@@ -16389,7 +16393,7 @@ class IpHelper {
      * @param {PWSTR} NetworkName Reserved.
      * @param {Integer} Length Reserved.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getnetworkinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getnetworkinformation
      */
     static GetNetworkInformation(NetworkGuid, CompartmentId, SiteId, NetworkName, Length) {
         NetworkName := NetworkName is String ? StrPtr(NetworkName) : NetworkName
@@ -16407,7 +16411,7 @@ class IpHelper {
      * @param {NET_IF_COMPARTMENT_ID} CompartmentId Reserved.
      * @param {PWSTR} NetworkName Reserved.
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setnetworkinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setnetworkinformation
      */
     static SetNetworkInformation(NetworkGuid, CompartmentId, NetworkName) {
         NetworkName := NetworkName is String ? StrPtr(NetworkName) : NetworkName
@@ -16442,7 +16446,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertlengthtoipv4mask
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertlengthtoipv4mask
      * @since windows6.0.6000
      */
     static ConvertLengthToIpv4Mask(MaskLength, Mask) {
@@ -16478,7 +16482,7 @@ class IpHelper {
      * </td>
      * </tr>
      * </table>
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-convertipv4masktolength
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-convertipv4masktolength
      * @since windows6.0.6000
      */
     static ConvertIpv4MaskToLength(Mask, MaskLength) {
@@ -16519,7 +16523,7 @@ class IpHelper {
 
     /**
      * Retrieves the DNS settings from the interface specified in the *Interface* parameter.
-     * @param {Guid} Interface Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
+     * @param {Guid} Interface_ Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * The **GUID** of the COM interface that the settings refer to.
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings Type: \_Inout\_ const **[DNS_INTERFACE_SETTINGS](ns-netioapi-dns_interface_settings.md)\***
@@ -16532,10 +16536,10 @@ class IpHelper {
      * 
      * If you set the *Version* member to **DNS_INTERFACE_SETTINGS_VERSION3**, then the *Settings* parameter must point to a valid [**DNS_INTERFACE_SETTINGS3**](/windows/win32/api/netioapi/ns-netioapi-dns_interface_settings3) structure.
      * @returns {Integer} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getinterfacednssettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getinterfacednssettings
      */
-    static GetInterfaceDnsSettings(Interface, Settings) {
-        result := DllCall("IPHLPAPI.dll\GetInterfaceDnsSettings", "ptr", Interface, "ptr", Settings, "uint")
+    static GetInterfaceDnsSettings(Interface_, Settings) {
+        result := DllCall("IPHLPAPI.dll\GetInterfaceDnsSettings", "ptr", Interface_, "ptr", Settings, "uint")
         return result
     }
 
@@ -16543,7 +16547,7 @@ class IpHelper {
      * Frees the settings object returned by [GetInterfaceDnsSettings](/windows/win32/api/netioapi/nf-netioapi-getinterfacednssettings).
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-freeinterfacednssettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-freeinterfacednssettings
      */
     static FreeInterfaceDnsSettings(Settings) {
         DllCall("IPHLPAPI.dll\FreeInterfaceDnsSettings", "ptr", Settings)
@@ -16551,7 +16555,7 @@ class IpHelper {
 
     /**
      * Sets the per-interface DNS settings specified in the *Settings* parameter.
-     * @param {Guid} Interface Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
+     * @param {Guid} Interface_ Type: \_In\_ **[GUID](/windows/win32/api/guiddef/ns-guiddef-guid)**
      * 
      * The **GUID** of the COM interface that the settings refer to.
      * @param {Pointer<DNS_INTERFACE_SETTINGS>} Settings Type: \_In\_ const **[DNS_INTERFACE_SETTINGS](ns-netioapi-dns_interface_settings.md)\***
@@ -16564,10 +16568,10 @@ class IpHelper {
      * 
      * You must set appropriately all the desired options in the **DNS_INTERFACE_SETTINGS::Flags** field, and populate only the fields for which an option was set. You must zero out all other fields that don't have a corresponding option.
      * @returns {Integer} Returns **NO_ERROR** if successful. A non-zero return value indicates failure.
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-setinterfacednssettings
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-setinterfacednssettings
      */
-    static SetInterfaceDnsSettings(Interface, Settings) {
-        result := DllCall("IPHLPAPI.dll\SetInterfaceDnsSettings", "ptr", Interface, "ptr", Settings, "uint")
+    static SetInterfaceDnsSettings(Interface_, Settings) {
+        result := DllCall("IPHLPAPI.dll\SetInterfaceDnsSettings", "ptr", Interface_, "ptr", Settings, "uint")
         return result
     }
 
@@ -16575,7 +16579,7 @@ class IpHelper {
      * Retrieves the aggregate level and cost of network connectivity that an application or service is likely to experience.
      * @param {Pointer<NL_NETWORK_CONNECTIVITY_HINT>} ConnectivityHint A pointer to a value of type [NL_NETWORK_CONNECTIVITY_HINT](../nldef/ns-nldef-nl_network_connectivity_hint.md). The function sets this value to the aggregate connectivity level and cost hints.
      * @returns {Integer} In user mode, returns **NO_ERROR** on success, and a Win32 error code on failure. In kernel mode, returns **STATUS_SUCCESS** on success, and an NTSTATUS error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getnetworkconnectivityhint
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getnetworkconnectivityhint
      * @since windows10.0.19041
      */
     static GetNetworkConnectivityHint(ConnectivityHint) {
@@ -16588,7 +16592,7 @@ class IpHelper {
      * @param {Integer} InterfaceIndex A value of type **NET_IFINDEX** representing the index of the interface for which to retrieve connectivity information.
      * @param {Pointer<NL_NETWORK_CONNECTIVITY_HINT>} ConnectivityHint A pointer to a value of type [NL_NETWORK_CONNECTIVITY_HINT](../nldef/ns-nldef-nl_network_connectivity_hint.md). The function sets this value to the connectivity level and cost hints for the specified interface.
      * @returns {Integer} In user mode, returns **NO_ERROR** on success, and a Win32 error code on failure. In kernel mode, returns **STATUS_SUCCESS** on success, and an NTSTATUS error code on failure.
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-getnetworkconnectivityhintforinterface
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-getnetworkconnectivityhintforinterface
      * @since windows10.0.19041
      */
     static GetNetworkConnectivityHintForInterface(InterfaceIndex, ConnectivityHint) {
@@ -16605,7 +16609,7 @@ class IpHelper {
      * @param {BOOLEAN} InitialNotification `True` if an initialization notification should be provided, otherwise `false`.
      * @param {Pointer<HANDLE>} NotificationHandle A pointer to a **HANDLE**. The function sets the value to a handle to the notification registration.
      * @returns {Integer} If the function succeeds, the return value is **NO_ERROR**. Otherwise, an error code is returned.
-     * @see https://learn.microsoft.com/windows/win32/api/netioapi/nf-netioapi-notifynetworkconnectivityhintchange
+     * @see https://learn.microsoft.com/windows/win32/api//content/netioapi/nf-netioapi-notifynetworkconnectivityhintchange
      * @since windows10.0.19041
      */
     static NotifyNetworkConnectivityHintChange(Callback, CallerContext, InitialNotification, NotificationHandle) {

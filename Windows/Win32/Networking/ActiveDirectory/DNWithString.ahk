@@ -3,7 +3,7 @@
 
 /**
  * The IADsDNWithString interface provides methods for an ADSI client to associate a distinguished name (DN) to a string value.
- * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsdnwithstring
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsdnwithstring
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

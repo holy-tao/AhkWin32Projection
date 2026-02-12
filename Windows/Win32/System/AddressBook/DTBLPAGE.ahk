@@ -9,7 +9,7 @@
  * The component string and context identifier provide information about whether extended Help is available for the tabbed page. If extended Help is available, the component string and context identifier will provide information about how to access it. The component string maps to the Help file; the context identifier maps to the initial Help topic. If the context identifier is zero and the component string is NULL, extended Help is not available.
  *   
  * For an overview of display tables, see [Display Tables](display-tables.md). For information about how to implement a display table, see [Implementing a Display Table](display-table-implementation.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/dtblpage
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/dtblpage
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

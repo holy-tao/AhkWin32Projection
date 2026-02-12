@@ -10,7 +10,7 @@
  * The PEER_GROUP_EVENT_DATA structure (p2p.h) contains information about a specific peer group event that has occurred.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/p2p/ns-p2p-peer_group_event_data~r1
+ * @see https://learn.microsoft.com/windows/win32/api//content/p2p/ns-p2p-peer_group_event_data~r1
  * @namespace Windows.Win32.NetworkManagement.P2P
  * @version v4.0.30319
  */

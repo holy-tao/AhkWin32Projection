@@ -5,7 +5,7 @@
 
 /**
  * Provides a method that enables VDS to determine whether the hardware provider manages a specified LUN.
- * @see https://docs.microsoft.com/windows/win32/api//vdshwprv/nn-vdshwprv-ivdshwproviderprivate
+ * @see https://learn.microsoft.com/windows/win32/api//content/vdshwprv/nn-vdshwprv-ivdshwproviderprivate
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,16 +32,22 @@ class IVdsHwProviderPrivate extends IUnknown{
 
     /**
      * Enables VDS to determine whether the hardware provider manages the specified LUN.
+     * @remarks
+     * Only VDS calls this method.
      * @param {PWSTR} pwszDevicePath A pointer to the path to the LUN on the local computer; a zero-terminated, human-readable string.
-     * @param {Pointer<VDS_LUN_INFORMATION>} pVdsLunInformation A pointer to the identification data of the specified LUN. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a>structure.
+     * @param {Pointer<VDS_LUN_INFORMATION>} pVdsLunInformation A pointer to the identification data of the specified LUN. See the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure.
      * @returns {Guid} A pointer to the returned LUN GUID. If the provider does not manage the LUN, set this parameter to GUID_NULL.
-     * @see https://docs.microsoft.com/windows/win32/api//vdshwprv/nf-vdshwprv-ivdshwproviderprivate-queryifcreatedlun
+     * @see https://learn.microsoft.com/windows/win32/api//content/vdshwprv/nf-vdshwprv-ivdshwproviderprivate-queryifcreatedlun
      */
     QueryIfCreatedLun(pwszDevicePath, pVdsLunInformation) {
         pwszDevicePath := pwszDevicePath is String ? StrPtr(pwszDevicePath) : pwszDevicePath
 
         pLunId := Guid()
-        result := ComCall(3, this, "ptr", pwszDevicePath, "ptr", pVdsLunInformation, "ptr", pLunId, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszDevicePath, "ptr", pVdsLunInformation, "ptr", pLunId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLunId
     }
 }

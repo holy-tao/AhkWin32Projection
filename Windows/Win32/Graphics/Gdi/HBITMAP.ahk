@@ -4,6 +4,10 @@
 #Include ..\..\..\..\Win32Handle.ahk
 
 /**
+ * Frees resources on the server side when called by RPC stub files.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/nf-objidl-hbitmap_userfree
  * @namespace Windows.Win32.Graphics.Gdi
  * @version v4.0.30319
  */

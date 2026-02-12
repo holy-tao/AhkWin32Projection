@@ -5,7 +5,7 @@
  * Contains data about an element in a domain tree obtained with the IDsBrowseDomainTree::GetDomains method.
  * @remarks
  * For more information about how to access and use the information in this structure, see <a href="https://docs.microsoft.com/windows/desktop/AD/domain-browser">Domain Browser</a>.
- * @see https://learn.microsoft.com/windows/win32/api/dsclient/ns-dsclient-domaindesc
+ * @see https://learn.microsoft.com/windows/win32/api//content/dsclient/ns-dsclient-domaindesc
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

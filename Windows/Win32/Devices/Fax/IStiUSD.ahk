@@ -33,6 +33,19 @@ class IStiUSD extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {IStiDeviceControl} pHelDcb 
      * @param {Integer} dwStiVersion 
      * @param {HKEY} hParametersKey 
@@ -47,22 +60,33 @@ class IStiUSD extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize(pHelDcb, dwStiVersion, hParametersKey) {
         hParametersKey := hParametersKey is Win32Handle ? NumGet(hParametersKey, "ptr") : hParametersKey
 
-        result := ComCall(3, this, "ptr", pHelDcb, "uint", dwStiVersion, "ptr", hParametersKey, "HRESULT")
+        result := ComCall(3, this, "ptr", pHelDcb, "uint", dwStiVersion, "ptr", hParametersKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Retrieves the length of a monitor's capabilities string.
+     * @remarks
+     * This function usually returns quickly, but sometimes it can take several seconds to complete.
      * @returns {STI_USD_CAPS} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      */
     GetCapabilities() {
         pDevCaps := STI_USD_CAPS()
-        result := ComCall(4, this, "ptr", pDevCaps, "HRESULT")
+        result := ComCall(4, this, "ptr", pDevCaps, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDevCaps
     }
 
@@ -72,7 +96,11 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     GetStatus(pDevStatus) {
-        result := ComCall(5, this, "ptr", pDevStatus, "HRESULT")
+        result := ComCall(5, this, "ptr", pDevStatus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -81,42 +109,113 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     DeviceReset() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Diagnostic Records and Fields
      * @param {Pointer<STI_DIAG>} pBuffer 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/native-client-odbc-error-messages/diagnostic-records-and-fields
      */
     Diagnostic(pBuffer) {
-        result := ComCall(7, this, "ptr", pBuffer, "HRESULT")
+        result := ComCall(7, this, "ptr", pBuffer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enables an application to access the system-defined device capabilities that are not available through GDI.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This is a blocking or synchronous function and might not return immediately. How quickly this function returns depends on run-time factors such as network status, print server configuration, and printer driver implementation—factors that are difficult to predict when writing an application. Calling this function from a thread that manages interaction with the user interface could make the application appear to be unresponsive.</div>
+     * <div> </div>
+     * The effect of passing 0 for <i>cbInput</i> will depend on the value of <i>nEscape</i> and on the driver that is handling the escape.
+     * 
+     * Of the original printer escapes, only the following can be used.
+     * 
+     * <table>
+     * <tr>
+     * <th>Escape</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * QUERYESCSUPPORT
+     * 
+     * </td>
+     * <td>
+     * Determines whether a particular escape is implemented by the device driver.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * PASSTHROUGH
+     * 
+     * </td>
+     * <td>
+     * Allows the application to send data directly to a printer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * For information about printer escapes, see <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-extescape">ExtEscape</a>.
+     * 
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-startpage">StartPage</a> function to prepare the printer driver to receive data.
      * @param {Integer} EscapeFunction 
      * @param {Pointer} lpInData 
      * @param {Integer} cbInDataSize 
      * @param {Pointer} pOutData 
      * @param {Integer} cbOutDataSize 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-escape
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-escape
      */
     Escape(EscapeFunction, lpInData, cbInDataSize, pOutData, cbOutDataSize) {
-        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", cbOutDataSize, "uint*", &pdwActualData := 0, "HRESULT")
+        result := ComCall(8, this, "uint", EscapeFunction, "ptr", lpInData, "uint", cbInDataSize, "ptr", pOutData, "uint", cbOutDataSize, "uint*", &pdwActualData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwActualData
     }
 
     /**
      * Retrieves the calling thread's last-error code value.
+     * @remarks
+     * Functions executed by the calling thread set this value by calling the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-setlasterror">SetLastError</a> function. You should call the 
+     * <b>GetLastError</b> function immediately when a function's return value indicates that such a call will return useful data. That is because some functions call 
+     * <b>SetLastError</b> with a zero when they succeed, wiping out the error code set by the most recently failed function.
+     * 
+     * To obtain an error string for system error codes, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> function. For a complete list of error codes provided by the operating system, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
+     * 
+     * The error codes returned by a function are not part of the Windows API specification and can vary by operating system or device driver. For this reason, we cannot provide the complete list of error codes that can be returned by each function. There are also many functions whose documentation does not include even a partial list of error codes that can be returned.
+     * 
+     * Error codes are 32-bit values (bit 31 is the most significant bit). Bit 29 is reserved for application-defined error codes; no system error code has this bit set. If you are defining an error code for your application, set this bit to one. That indicates that the error code has been defined by an application, and ensures that your error code does not conflict with any error codes defined by the system.
+     * 
+     * To convert a system error into an <b>HRESULT</b> value, use the 
+     * <a href="https://docs.microsoft.com/windows/win32/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//errhandlingapi/nf-errhandlingapi-getlasterror
+     * @see https://learn.microsoft.com/windows/win32/api//content/errhandlingapi/nf-errhandlingapi-getlasterror
      */
     GetLastError() {
-        result := ComCall(9, this, "uint*", &pdwLastDeviceError := 0, "HRESULT")
+        result := ComCall(9, this, "uint*", &pdwLastDeviceError := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwLastDeviceError
     }
 
@@ -125,7 +224,11 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     LockDevice() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,7 +237,11 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     UnLockDevice() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -148,7 +255,11 @@ class IStiUSD extends IUnknown{
     RawReadData(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(12, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +271,11 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     RawWriteData(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(13, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -174,7 +289,11 @@ class IStiUSD extends IUnknown{
     RawReadCommand(lpBuffer, lpdwNumberOfBytes, lpOverlapped) {
         lpdwNumberOfBytesMarshal := lpdwNumberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(14, this, "ptr", lpBuffer, lpdwNumberOfBytesMarshal, lpdwNumberOfBytes, "ptr", lpOverlapped, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -186,7 +305,11 @@ class IStiUSD extends IUnknown{
      * @returns {HRESULT} 
      */
     RawWriteCommand(lpBuffer, nNumberOfBytes, lpOverlapped) {
-        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "HRESULT")
+        result := ComCall(15, this, "ptr", lpBuffer, "uint", nNumberOfBytes, "ptr", lpOverlapped, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -198,7 +321,11 @@ class IStiUSD extends IUnknown{
     SetNotificationHandle(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
 
-        result := ComCall(16, this, "ptr", hEvent, "HRESULT")
+        result := ComCall(16, this, "ptr", hEvent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -208,7 +335,11 @@ class IStiUSD extends IUnknown{
      */
     GetNotificationData() {
         lpNotify := STINOTIFY()
-        result := ComCall(17, this, "ptr", lpNotify, "HRESULT")
+        result := ComCall(17, this, "ptr", lpNotify, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpNotify
     }
 
@@ -218,7 +349,11 @@ class IStiUSD extends IUnknown{
      */
     GetLastErrorInfo() {
         pLastErrorInfo := _ERROR_INFOW()
-        result := ComCall(18, this, "ptr", pLastErrorInfo, "HRESULT")
+        result := ComCall(18, this, "ptr", pLastErrorInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLastErrorInfo
     }
 }

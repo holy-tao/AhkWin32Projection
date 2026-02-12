@@ -7,11 +7,8 @@
 /**
  * Exposes a method that retrieves an item from a container, such as a virtual list.
  * @remarks
- * 
  * This interface is not limited to use by virtualized containers. Any container that can implement efficient name lookup can support this <i>control pattern</i>, enabling clients to look up names more quickly than by using methods such as <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-findfirst">FindFirst</a>, which must traverse the Microsoft UI Automation tree.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationitemcontainerpattern
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationitemcontainerpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -37,7 +34,18 @@ class IUIAutomationItemContainerPattern extends IUnknown{
     static VTableNames => ["FindItemByProperty"]
 
     /**
-     * Retrieves an element within a containing element, based on a specified property value.
+     * Retrieves an element within a containing element, based on a specified property value. (IUIAutomationItemContainerPattern.FindItemByProperty)
+     * @remarks
+     * The provider may return an actual <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a> interface or a placeholder if the matching element is virtualized.
+     *         
+     * 
+     * This method returns E_INVALIDARG if the property requested is not one that the container supports searching over. It is expected that most containers will support Name property, and if appropriate for the container, AutomationId and IsSelected.
+     *         
+     * 
+     * This method can be slow, because it may need to traverse multiple objects to find a matching one. When used in a loop to return multiple items, no specific order is defined so long as each item is returned only once (that is, the loop should terminate). This method is also item-centric, not UI-centric, so items with multiple UI representations need to be hit only once.
+     *         
+     * 
+     * When the <i>propertyId</i> parameter is specified as 0 (zero), the provider is expected to return the next item after <i>pStartAfter</i>. If <i>pStartAfter</i> is specified as <b>NULL</b> with a <i>propertyId</i> of 0, the provider should return the first item in the container. When <i>propertyId</i> is specified as 0, the <i>value</i> parameter should be VT_EMPTY.
      * @param {IUIAutomationElement} pStartAfter Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>*</b>
      * 
      * A pointer to the element after which the search begins, or <b>NULL</b> to search all elements.
@@ -50,10 +58,14 @@ class IUIAutomationItemContainerPattern extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the matching element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationitemcontainerpattern-finditembyproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationitemcontainerpattern-finditembyproperty
      */
     FindItemByProperty(pStartAfter, propertyId, value) {
-        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", &pFound := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pStartAfter, "int", propertyId, "ptr", value, "ptr*", &pFound := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUIAutomationElement(pFound)
     }
 }

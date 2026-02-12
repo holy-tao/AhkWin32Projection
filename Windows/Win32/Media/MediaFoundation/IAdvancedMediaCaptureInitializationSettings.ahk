@@ -5,7 +5,7 @@
 
 /**
  * Provides initialization settings for advanced media capture.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nn-mfmediacapture-iadvancedmediacaptureinitializationsettings
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediacapture/nn-mfmediacapture-iadvancedmediacaptureinitializationsettings
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,11 +33,15 @@ class IAdvancedMediaCaptureInitializationSettings extends IUnknown{
     /**
      * Sets the DirectX Device Manager.
      * @param {IMFDXGIDeviceManager} value 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nf-mfmediacapture-iadvancedmediacaptureinitializationsettings-setdirectxdevicemanager
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediacapture/nf-mfmediacapture-iadvancedmediacaptureinitializationsettings-setdirectxdevicemanager
      */
     SetDirectxDeviceManager(value) {
-        result := ComCall(3, this, "ptr", value, "HRESULT")
+        result := ComCall(3, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

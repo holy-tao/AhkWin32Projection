@@ -34,7 +34,11 @@ class ICLRHostProtectionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetProtectedCategories(categories) {
-        result := ComCall(3, this, "int", categories, "HRESULT")
+        result := ComCall(3, this, "int", categories, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class ICLRHostProtectionManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetEagerSerializeGrantSets() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

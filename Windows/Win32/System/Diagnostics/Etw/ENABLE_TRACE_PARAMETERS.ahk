@@ -31,7 +31,7 @@
  * `HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management`.
  * This should only be done for temporary diagnosis purposes because it increases
  * memory usage of the system.
- * @see https://learn.microsoft.com/windows/win32/api/evntrace/ns-evntrace-enable_trace_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntrace/ns-evntrace-enable_trace_parameters
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

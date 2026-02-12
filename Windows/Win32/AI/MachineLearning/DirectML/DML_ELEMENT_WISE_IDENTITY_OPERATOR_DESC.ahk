@@ -7,7 +7,7 @@
  * The identity operation is often used to copy a tensor.
  * 
  * It can also be used to transform the layout of tensors by manipulating strides (see [Using strides to express padding and memory layout](/windows/ai/directml/dml-strides)).
- * @see https://learn.microsoft.com/windows/win32/api/directml/ns-directml-dml_element_wise_identity_operator_desc
+ * @see https://learn.microsoft.com/windows/win32/api//content/directml/ns-directml-dml_element_wise_identity_operator_desc
  * @namespace Windows.Win32.AI.MachineLearning.DirectML
  * @version v4.0.30319
  */

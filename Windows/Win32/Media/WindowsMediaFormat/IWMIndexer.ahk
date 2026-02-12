@@ -5,7 +5,7 @@
 
 /**
  * The IWMIndexer interface is used to create an index for ASF files to enable seeking.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmindexer
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmindexer
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,41 @@ class IWMIndexer extends IUnknown{
 
     /**
      * The StartIndexing method initiates indexing.
+     * @remarks
+     * <b>StartIndexing</b> is an asynchronous call; it returns almost immediately and the application must wait for appropriate <b>OnStatus</b> calls to be sent to the callback function.
+     * 
+     * If you call <b>StartIndexing</b> for a file that is already indexed, the old index is discarded.
+     * 
+     * When the indexer successfully indexes a file, it will set some of the reserved attribute values as described in the following table.
+     * 
+     * <table>
+     * <tr>
+     * <th>Index type
+     *             </th>
+     * <th>Attributes set
+     *             </th>
+     * </tr>
+     * <tr>
+     * <td>WMT_IT_PRESENTATION_TIME</td>
+     * <td>
+     * g_wszWMSeekable
+     * 
+     * g_wszWMStridable, if a video stream is present.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>WMT_IT_FRAME_NUMBERS</td>
+     * <td>
+     * g_wszWMNumberOfFrames
+     * 
+     * g_wszWMSeekable
+     * 
+     * g_wszWMStridable
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} pwszURL Pointer to a wide-character <b>null</b>-terminated string containing the URL or file name.
      * @param {IWMStatusCallback} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application.
@@ -76,24 +111,32 @@ class IWMIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmindexer-startindexing
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmindexer-startindexing
      */
     StartIndexing(pwszURL, pCallback, pvContext) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszURL, "ptr", pCallback, pvContextMarshal, pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The Cancel method cancels the current indexing operation.
      * @returns {HRESULT} This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmindexer-cancel
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmindexer-cancel
      */
     Cancel() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

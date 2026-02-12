@@ -35,7 +35,11 @@ class IEquatableConcept extends IUnknown{
      * @returns {Boolean} 
      */
     AreObjectsEqual(contextObject, otherObject) {
-        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", &isEqual := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", contextObject, "ptr", otherObject, "int*", &isEqual := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isEqual
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Allows an identity provider to notify a calling application when an identity is updated.
- * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nn-identityprovider-iidentityadvise
+ * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nn-identityprovider-iidentityadvise
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  * @version v4.0.30319
  */
@@ -36,13 +36,17 @@ class IIdentityAdvise extends IUnknown{
      * @param {PWSTR} lpszUniqueID The identity associated with the events that occurred.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iidentityadvise-identityupdated
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/identityprovider/nf-identityprovider-iidentityadvise-identityupdated
      */
     IdentityUpdated(dwIdentityUpdateEvents, lpszUniqueID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(3, this, "uint", dwIdentityUpdateEvents, "ptr", lpszUniqueID, "HRESULT")
+        result := ComCall(3, this, "uint", dwIdentityUpdateEvents, "ptr", lpszUniqueID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

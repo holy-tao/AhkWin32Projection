@@ -15,7 +15,7 @@
  *     method to determine whether a given provider owns a specified LUN.
  * 
  * To get the LUN object, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsservice-getobject">IVdsService::GetObject</a> method. You can then use the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-getproperties">IVdsLun::GetProperties</a> method to get the LUN properties.
- * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_lun_information
+ * @see https://learn.microsoft.com/windows/win32/api//content/vdslun/ns-vdslun-vds_lun_information
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

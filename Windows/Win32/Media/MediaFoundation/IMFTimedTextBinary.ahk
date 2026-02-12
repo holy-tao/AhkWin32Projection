@@ -5,7 +5,7 @@
 
 /**
  * Represents the data content of a timed-text object.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imftimedtextbinary
+ * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nn-mfmediaengine-imftimedtextbinary
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -40,14 +40,18 @@ class IMFTimedTextBinary extends IUnknown{
      * A pointer to a variable that receives the length in bytes of the data content.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextbinary-getdata
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/mfmediaengine/nf-mfmediaengine-imftimedtextbinary-getdata
      */
     GetData(data, length) {
         dataMarshal := data is VarRef ? "ptr*" : "ptr"
         lengthMarshal := length is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, dataMarshal, data, lengthMarshal, length, "HRESULT")
+        result := ComCall(3, this, dataMarshal, data, lengthMarshal, length, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

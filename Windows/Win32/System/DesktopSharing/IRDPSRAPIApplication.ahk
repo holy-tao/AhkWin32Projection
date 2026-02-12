@@ -7,7 +7,7 @@
 
 /**
  * Groups the sharable windows within a process. Each application object contains a list of window objects. If an application object is shared, all its windows are shared.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiapplication
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapiapplication
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -77,62 +77,86 @@ class IRDPSRAPIApplication extends IDispatch{
     /**
      * The list of windows.
      * @returns {IRDPSRAPIWindowList} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_windows
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_windows
      */
     get_Windows() {
-        result := ComCall(7, this, "ptr*", &pWindowList := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pWindowList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRDPSRAPIWindowList(pWindowList)
     }
 
     /**
      * The application identifier.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_id
      */
     get_Id() {
-        result := ComCall(8, this, "int*", &pRetVal := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * The sharing state.
+     * The sharing state. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_shared
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_shared
      */
     get_Shared() {
-        result := ComCall(9, this, "short*", &pRetVal := 0, "HRESULT")
+        result := ComCall(9, this, "short*", &pRetVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
-     * The sharing state.
+     * The sharing state. (Put)
      * @param {VARIANT_BOOL} NewVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-put_shared
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-put_shared
      */
     put_Shared(NewVal) {
-        result := ComCall(10, this, "short", NewVal, "HRESULT")
+        result := ComCall(10, this, "short", NewVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The name of the application.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_name
      */
     get_Name() {
         pRetVal := BSTR()
-        result := ComCall(11, this, "ptr", pRetVal, "HRESULT")
+        result := ComCall(11, this, "ptr", pRetVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRetVal
     }
 
     /**
      * The sharing flags.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_flags
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapiapplication-get_flags
      */
     get_Flags() {
-        result := ComCall(12, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(12, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 }

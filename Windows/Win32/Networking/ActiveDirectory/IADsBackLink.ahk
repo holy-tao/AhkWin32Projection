@@ -6,7 +6,7 @@
 
 /**
  * The IADsBackLink interface provides methods for an ADSI client to access the Back Link attribute. You can call the property methods of this interface to obtain and modify the attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsbacklink
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsbacklink
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -52,7 +52,11 @@ class IADsBackLink extends IDispatch{
      * @returns {Integer} 
      */
     get_RemoteID() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -62,7 +66,11 @@ class IADsBackLink extends IDispatch{
      * @returns {HRESULT} 
      */
     put_RemoteID(lnRemoteID) {
-        result := ComCall(8, this, "int", lnRemoteID, "HRESULT")
+        result := ComCall(8, this, "int", lnRemoteID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +80,11 @@ class IADsBackLink extends IDispatch{
      */
     get_ObjectName() {
         retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -82,9 +94,16 @@ class IADsBackLink extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ObjectName(bstrObjectName) {
-        bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
+        if(bstrObjectName is String) {
+            pin := BSTR.Alloc(bstrObjectName)
+            bstrObjectName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrObjectName, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrObjectName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

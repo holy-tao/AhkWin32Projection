@@ -40,7 +40,11 @@ class IFeedItem2 extends IFeedItem{
      * @returns {Integer} 
      */
     get_EffectiveId() {
-        result := ComCall(24, this, "int*", &effectiveId := 0, "HRESULT")
+        result := ComCall(24, this, "int*", &effectiveId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return effectiveId
     }
 }

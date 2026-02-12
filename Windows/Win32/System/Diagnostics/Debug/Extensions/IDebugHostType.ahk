@@ -35,7 +35,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetTypeKind() {
-        result := ComCall(10, this, "int*", &kind := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &kind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return kind
     }
 
@@ -44,8 +48,12 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetSize() {
-        result := ComCall(11, this, "uint*", &size := 0, "HRESULT")
-        return size
+        result := ComCall(11, this, "uint*", &size_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return size_
     }
 
     /**
@@ -53,7 +61,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {IDebugHostType} 
      */
     GetBaseType() {
-        result := ComCall(12, this, "ptr*", &baseType := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &baseType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(baseType)
     }
 
@@ -62,21 +74,29 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetHashCode() {
-        result := ComCall(13, this, "uint*", &hashCode := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &hashCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return hashCode
     }
 
     /**
      * 
-     * @param {Pointer<Integer>} intrinsicKind 
+     * @param {Pointer<Integer>} intrinsicKind_ 
      * @param {Pointer<Integer>} carrierType 
      * @returns {HRESULT} 
      */
-    GetIntrinsicType(intrinsicKind, carrierType) {
-        intrinsicKindMarshal := intrinsicKind is VarRef ? "int*" : "ptr"
+    GetIntrinsicType(intrinsicKind_, carrierType) {
+        intrinsicKind_Marshal := intrinsicKind_ is VarRef ? "int*" : "ptr"
         carrierTypeMarshal := carrierType is VarRef ? "ushort*" : "ptr"
 
-        result := ComCall(14, this, intrinsicKindMarshal, intrinsicKind, carrierTypeMarshal, carrierType, "HRESULT")
+        result := ComCall(14, this, intrinsicKind_Marshal, intrinsicKind_, carrierTypeMarshal, carrierType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -90,7 +110,11 @@ class IDebugHostType extends IDebugHostSymbol{
         lsbOfFieldMarshal := lsbOfField is VarRef ? "uint*" : "ptr"
         lengthOfFieldMarshal := lengthOfField is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, lsbOfFieldMarshal, lsbOfField, lengthOfFieldMarshal, lengthOfField, "HRESULT")
+        result := ComCall(15, this, lsbOfFieldMarshal, lsbOfField, lengthOfFieldMarshal, lengthOfField, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -99,8 +123,12 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetPointerKind() {
-        result := ComCall(16, this, "int*", &pointerKind := 0, "HRESULT")
-        return pointerKind
+        result := ComCall(16, this, "int*", &pointerKind_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return pointerKind_
     }
 
     /**
@@ -108,18 +136,26 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {IDebugHostType} 
      */
     GetMemberType() {
-        result := ComCall(17, this, "ptr*", &memberType := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &memberType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(memberType)
     }
 
     /**
      * 
      * @param {Integer} kind 
-     * @returns {IDebugHostType} 
+     * @returns {Pointer<IDebugHostType>} 
      */
     CreatePointerTo(kind) {
-        result := ComCall(18, this, "int", kind, "ptr*", &newType := 0, "HRESULT")
-        return IDebugHostType(newType)
+        result := ComCall(18, this, "int", kind, "ptr*", &newType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return newType
     }
 
     /**
@@ -127,7 +163,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetArrayDimensionality() {
-        result := ComCall(19, this, "uint*", &arrayDimensionality := 0, "HRESULT")
+        result := ComCall(19, this, "uint*", &arrayDimensionality := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return arrayDimensionality
     }
 
@@ -138,7 +178,11 @@ class IDebugHostType extends IDebugHostSymbol{
      */
     GetArrayDimensions(dimensions) {
         pDimensions := ArrayDimension()
-        result := ComCall(20, this, "uint", dimensions, "ptr", pDimensions, "HRESULT")
+        result := ComCall(20, this, "uint", dimensions, "ptr", pDimensions, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDimensions
     }
 
@@ -146,11 +190,15 @@ class IDebugHostType extends IDebugHostSymbol{
      * 
      * @param {Integer} dimensions 
      * @param {Pointer<ArrayDimension>} pDimensions 
-     * @returns {IDebugHostType} 
+     * @returns {Pointer<IDebugHostType>} 
      */
     CreateArrayOf(dimensions, pDimensions) {
-        result := ComCall(21, this, "uint", dimensions, "ptr", pDimensions, "ptr*", &newType := 0, "HRESULT")
-        return IDebugHostType(newType)
+        result := ComCall(21, this, "uint", dimensions, "ptr", pDimensions, "ptr*", &newType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return newType
     }
 
     /**
@@ -158,17 +206,25 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetFunctionCallingConvention() {
-        result := ComCall(22, this, "int*", &conventionKind := 0, "HRESULT")
+        result := ComCall(22, this, "int*", &conventionKind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return conventionKind
     }
 
     /**
      * 
-     * @returns {IDebugHostType} 
+     * @returns {Pointer<IDebugHostType>} 
      */
     GetFunctionReturnType() {
-        result := ComCall(23, this, "ptr*", &returnType := 0, "HRESULT")
-        return IDebugHostType(returnType)
+        result := ComCall(23, this, "ptr*", &returnType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return returnType
     }
 
     /**
@@ -176,7 +232,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetFunctionParameterTypeCount() {
-        result := ComCall(24, this, "uint*", &count := 0, "HRESULT")
+        result := ComCall(24, this, "uint*", &count := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return count
     }
 
@@ -186,7 +246,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {IDebugHostType} 
      */
     GetFunctionParameterTypeAt(i) {
-        result := ComCall(25, this, "uint", i, "ptr*", &parameterType := 0, "HRESULT")
+        result := ComCall(25, this, "uint", i, "ptr*", &parameterType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostType(parameterType)
     }
 
@@ -195,7 +259,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Boolean} 
      */
     IsGeneric() {
-        result := ComCall(26, this, "int*", &isGeneric := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &isGeneric := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isGeneric
     }
 
@@ -204,7 +272,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {Integer} 
      */
     GetGenericArgumentCount() {
-        result := ComCall(27, this, "uint*", &argCount := 0, "HRESULT")
+        result := ComCall(27, this, "uint*", &argCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return argCount
     }
 
@@ -214,7 +286,11 @@ class IDebugHostType extends IDebugHostSymbol{
      * @returns {IDebugHostSymbol} 
      */
     GetGenericArgumentAt(i) {
-        result := ComCall(28, this, "uint", i, "ptr*", &argument := 0, "HRESULT")
+        result := ComCall(28, this, "uint", i, "ptr*", &argument := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDebugHostSymbol(argument)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that allows conversion to JPEG or bitmap (BMP) image formats from any image type supported by Windows.
- * @see https://docs.microsoft.com/windows/win32/api//imagetranscode/nn-imagetranscode-itranscodeimage
+ * @see https://learn.microsoft.com/windows/win32/api//content/imagetranscode/nn-imagetranscode-itranscodeimage
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,6 +32,14 @@ class ITranscodeImage extends IUnknown{
 
     /**
      * Converts an image to JPEG or bitmap (BMP) image format.
+     * @remarks
+     * The aspect ratio of the original image is preserved. 
+     * 		The new image is resized so that it will fit into a box of width <i>uiMaxWidth</i> and height <i>uiMaxHeight</i>.
+     * 		
+     * 
+     * The image size will not be changed if the original image already fits in this bounding box.
+     * 
+     * If both uiMaxWidth and uiMaxHeight are zero, the returned image will be the same size as the original.
      * @param {IShellItem} pShellItem Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * The Shell Item for the image to convert.
@@ -55,14 +63,18 @@ class ITranscodeImage extends IUnknown{
      * The actual height of the converted image.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//imagetranscode/nf-imagetranscode-itranscodeimage-transcodeimage
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/imagetranscode/nf-imagetranscode-itranscodeimage-transcodeimage
      */
     TranscodeImage(pShellItem, uiMaxWidth, uiMaxHeight, flags, pvImage, puiWidth, puiHeight) {
         puiWidthMarshal := puiWidth is VarRef ? "uint*" : "ptr"
         puiHeightMarshal := puiHeight is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pShellItem, "uint", uiMaxWidth, "uint", uiMaxHeight, "uint", flags, "ptr", pvImage, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "HRESULT")
+        result := ComCall(3, this, "ptr", pShellItem, "uint", uiMaxWidth, "uint", uiMaxHeight, "uint", flags, "ptr", pvImage, puiWidthMarshal, puiWidth, puiHeightMarshal, puiHeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

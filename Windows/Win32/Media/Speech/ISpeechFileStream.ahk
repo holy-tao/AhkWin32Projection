@@ -30,25 +30,40 @@ class ISpeechFileStream extends ISpeechBaseStream{
     static VTableNames => ["Open", "Close"]
 
     /**
-     * 
+     * Open Method (ADO MD)
+     * @remarks
+     * The **Open** method generates an error if either of its parameters is omitted and its corresponding property value has not been set prior to attempting to open the **Cellset**.
      * @param {BSTR} FileName 
      * @param {Integer} FileMode 
      * @param {VARIANT_BOOL} DoEvents 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/ado-md-api/open-method-ado-md
      */
     Open(FileName, FileMode, DoEvents) {
-        FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
+        if(FileName is String) {
+            pin := BSTR.Alloc(FileName)
+            FileName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", FileName, "int", FileMode, "short", DoEvents, "HRESULT")
+        result := ComCall(12, this, "ptr", FileName, "int", FileMode, "short", DoEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * MSSQLSERVER_4064
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/errors-events/mssqlserver-4064-database-engine-error
      */
     Close() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -39,7 +39,11 @@ class ISchemaLock extends IUnknown{
     GetSchemaLock(pTableID, lmMode, phLockHandle, pTableVersion) {
         pTableVersionMarshal := pTableVersion is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pTableID, "uint", lmMode, "ptr", phLockHandle, pTableVersionMarshal, pTableVersion, "HRESULT")
+        result := ComCall(3, this, "ptr", pTableID, "uint", lmMode, "ptr", phLockHandle, pTableVersionMarshal, pTableVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -51,7 +55,11 @@ class ISchemaLock extends IUnknown{
     ReleaseSchemaLock(hLockHandle) {
         hLockHandle := hLockHandle is Win32Handle ? NumGet(hLockHandle, "ptr") : hLockHandle
 
-        result := ComCall(4, this, "ptr", hLockHandle, "HRESULT")
+        result := ComCall(4, this, "ptr", hLockHandle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

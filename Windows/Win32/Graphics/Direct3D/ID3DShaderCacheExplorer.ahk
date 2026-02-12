@@ -32,12 +32,16 @@ class ID3DShaderCacheExplorer extends IUnknown{
      * 
      * @param {PWSTR} pFullExePath 
      * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * @returns {Pointer<Pointer<Void>>} 
      */
     GetApplicationFromExePath(pFullExePath, riid) {
         pFullExePath := pFullExePath is String ? StrPtr(pFullExePath) : pFullExePath
 
-        result := ComCall(3, this, "ptr", pFullExePath, "ptr", riid, "ptr*", &ppvApp := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pFullExePath, "ptr", riid, "ptr*", &ppvApp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppvApp
     }
 }

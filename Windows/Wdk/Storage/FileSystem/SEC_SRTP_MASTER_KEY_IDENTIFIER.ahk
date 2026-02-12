@@ -5,7 +5,7 @@
  * Stores the SRTP master key identifier.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_srtp_master_key_identifier
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sec_srtp_master_key_identifier
  * @namespace Windows.Wdk.Storage.FileSystem
  * @version v4.0.30319
  */

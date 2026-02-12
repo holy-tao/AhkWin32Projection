@@ -5,13 +5,11 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events.
+ * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events. (IExpDispSupport)
  * @remarks
- * 
  * <div class="alert"><b>Note</b>  <b>IExpDispSupport</b> might not be supported in versions of Windows later than Windows XP.</div>
  * <div> </div>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-iexpdispsupport
+ * @see https://learn.microsoft.com/windows/win32/api//content/shdeprecated/nn-shdeprecated-iexpdispsupport
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,14 +36,20 @@ class IExpDispSupport extends IUnknown{
 
     /**
      * Deprecated. Gets connection points for browser events.
+     * @remarks
+     * <b>IExpDispSupport::FindCIE4ConnectionPoint</b> was created specifically for use with Windows Internet Explorer 4.0.
      * @param {Pointer<Guid>} riid Type: <b>REFIID</b>
      * @returns {IConnectionPoint} Type: <b>CIE4ConnectionPoint**</b>
      * 
      * The address of a pointer to the browser connection point.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupport-findconnectionpoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/shdeprecated/nf-shdeprecated-iexpdispsupport-findconnectionpoint
      */
     FindConnectionPoint(riid) {
-        result := ComCall(3, this, "ptr", riid, "ptr*", &ppccp := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", riid, "ptr*", &ppccp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IConnectionPoint(ppccp)
     }
 
@@ -60,15 +64,21 @@ class IExpDispSupport extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if the container processed the message, <b>S_FALSE</b> if the container did not process the message, or <b>E_NOTIMPL</b> if the container does not implement accelerator support.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupport-ontranslateaccelerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/shdeprecated/nf-shdeprecated-iexpdispsupport-ontranslateaccelerator
      */
     OnTranslateAccelerator(pMsg, grfModifiers) {
-        result := ComCall(4, this, "ptr", pMsg, "uint", grfModifiers, "HRESULT")
+        result := ComCall(4, this, "ptr", pMsg, "uint", grfModifiers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Deprecated. Gets ambient properties.
+     * @remarks
+     * For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nf-oaidl-idispatch-invoke">IDispatch::Invoke</a>.
      * @param {Integer} dispidMember Type: <b>DISPID</b>
      * 
      * A dispatch ID that identifies the member being invoked.
@@ -95,13 +105,17 @@ class IExpDispSupport extends IUnknown{
      * The index within the <b>rgvarg</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-dispparams">DISPPARAMS</a> structure of the first argument that has an error. Arguments are stored in <b>rgvarg</b> in reverse order, so the first argument is the one with the highest index in the array. This parameter is returned only when the resulting return value is DISP_E_TYPEMISMATCH or DISP_E_PARAMNOTFOUND. This argument can be set to <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupport-oninvoke
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shdeprecated/nf-shdeprecated-iexpdispsupport-oninvoke
      */
     OnInvoke(dispidMember, iid, lcid, wFlags, pdispparams, pVarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, "int", dispidMember, "ptr", iid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pVarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "HRESULT")
+        result := ComCall(5, this, "int", dispidMember, "ptr", iid, "uint", lcid, "ushort", wFlags, "ptr", pdispparams, "ptr", pVarResult, "ptr", pexcepinfo, puArgErrMarshal, puArgErr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

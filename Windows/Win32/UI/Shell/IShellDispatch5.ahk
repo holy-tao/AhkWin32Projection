@@ -4,8 +4,8 @@
 #Include .\IShellDispatch4.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch5
+ * Extends the IShellDispatch4 object.
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/ishelldispatch5
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -31,12 +31,16 @@ class IShellDispatch5 extends IShellDispatch4{
     static VTableNames => ["WindowSwitcher"]
 
     /**
-     * 
-     * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/shell/ishelldispatch5-windowswitcher
+     * IShellDispatch5.WindowSwitcher method - Displays your open windows in a 3D stack that you can flip through.
+     * @returns {HRESULT} This method has no parameters.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/shell/ishelldispatch5-windowswitcher
      */
     WindowSwitcher() {
-        result := ComCall(44, this, "HRESULT")
+        result := ComCall(44, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

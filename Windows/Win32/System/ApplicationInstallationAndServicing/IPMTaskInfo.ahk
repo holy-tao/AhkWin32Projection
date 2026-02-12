@@ -160,7 +160,11 @@ class IPMTaskInfo extends IUnknown{
      */
     get_ProductID() {
         pProductID := Guid()
-        result := ComCall(3, this, "ptr", pProductID, "HRESULT")
+        result := ComCall(3, this, "ptr", pProductID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pProductID
     }
 
@@ -170,7 +174,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_TaskID(pTaskID) {
-        result := ComCall(4, this, "ptr", pTaskID, "HRESULT")
+        result := ComCall(4, this, "ptr", pTaskID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -180,7 +188,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_NavigationPage(pNavigationPage) {
-        result := ComCall(5, this, "ptr", pNavigationPage, "HRESULT")
+        result := ComCall(5, this, "ptr", pNavigationPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -189,7 +201,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_TaskTransition() {
-        result := ComCall(6, this, "int*", &pTaskTransition := 0, "HRESULT")
+        result := ComCall(6, this, "int*", &pTaskTransition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTaskTransition
     }
 
@@ -198,7 +214,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_RuntimeType() {
-        result := ComCall(7, this, "int*", &pRuntimetype := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pRuntimetype := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pRuntimetype
     }
 
@@ -207,7 +227,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_ActivationPolicy() {
-        result := ComCall(8, this, "int*", &pActivationPolicy := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pActivationPolicy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pActivationPolicy
     }
 
@@ -216,7 +240,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_TaskType() {
-        result := ComCall(9, this, "int*", &pTaskType := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pTaskType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTaskType
     }
 
@@ -227,7 +255,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InvocationInfo(pImageUrn, pParameters) {
-        result := ComCall(10, this, "ptr", pImageUrn, "ptr", pParameters, "HRESULT")
+        result := ComCall(10, this, "ptr", pImageUrn, "ptr", pParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -237,7 +269,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ImagePath(pImagePath) {
-        result := ComCall(11, this, "ptr", pImagePath, "HRESULT")
+        result := ComCall(11, this, "ptr", pImagePath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -247,7 +283,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_ImageParams(pImageParams) {
-        result := ComCall(12, this, "ptr", pImageParams, "HRESULT")
+        result := ComCall(12, this, "ptr", pImageParams, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -257,7 +297,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_InstallRootFolder(pInstallRootFolder) {
-        result := ComCall(13, this, "ptr", pInstallRootFolder, "HRESULT")
+        result := ComCall(13, this, "ptr", pInstallRootFolder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -267,7 +311,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_DataRootFolder(pDataRootFolder) {
-        result := ComCall(14, this, "ptr", pDataRootFolder, "HRESULT")
+        result := ComCall(14, this, "ptr", pDataRootFolder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -276,7 +324,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsSingleInstanceHost() {
-        result := ComCall(15, this, "int*", &pIsSingleInstanceHost := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pIsSingleInstanceHost := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsSingleInstanceHost
     }
 
@@ -285,7 +337,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsInteropEnabled() {
-        result := ComCall(16, this, "int*", &pIsInteropEnabled := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &pIsInteropEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsInteropEnabled
     }
 
@@ -294,7 +350,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_ApplicationState() {
-        result := ComCall(17, this, "int*", &pApplicationState := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pApplicationState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pApplicationState
     }
 
@@ -303,7 +363,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_InstallType() {
-        result := ComCall(18, this, "int*", &pInstallType := 0, "HRESULT")
+        result := ComCall(18, this, "int*", &pInstallType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pInstallType
     }
 
@@ -317,7 +381,11 @@ class IPMTaskInfo extends IUnknown{
         pTargetMajorVersionMarshal := pTargetMajorVersion is VarRef ? "char*" : "ptr"
         pTargetMinorVersionMarshal := pTargetMinorVersion is VarRef ? "char*" : "ptr"
 
-        result := ComCall(19, this, pTargetMajorVersionMarshal, pTargetMajorVersion, pTargetMinorVersionMarshal, pTargetMinorVersion, "HRESULT")
+        result := ComCall(19, this, pTargetMajorVersionMarshal, pTargetMajorVersion, pTargetMinorVersionMarshal, pTargetMinorVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -326,7 +394,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {Integer} 
      */
     get_BitsPerPixel() {
-        result := ComCall(20, this, "ushort*", &pBitsPerPixel := 0, "HRESULT")
+        result := ComCall(20, this, "ushort*", &pBitsPerPixel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBitsPerPixel
     }
 
@@ -335,7 +407,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_SuppressesDehydration() {
-        result := ComCall(21, this, "int*", &pSuppressesDehydration := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &pSuppressesDehydration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pSuppressesDehydration
     }
 
@@ -345,7 +421,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {HRESULT} 
      */
     get_BackgroundExecutionAbilities(pBackgroundExecutionAbilities) {
-        result := ComCall(22, this, "ptr", pBackgroundExecutionAbilities, "HRESULT")
+        result := ComCall(22, this, "ptr", pBackgroundExecutionAbilities, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -354,7 +434,11 @@ class IPMTaskInfo extends IUnknown{
      * @returns {BOOL} 
      */
     get_IsOptedForExtendedMem() {
-        result := ComCall(23, this, "int*", &pIsOptedIn := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &pIsOptedIn := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsOptedIn
     }
 }

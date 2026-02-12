@@ -33,7 +33,11 @@ class IAppxBlockMapFile2 extends IAppxBlockMapFile{
      * @returns {Integer} 
      */
     GetBlockSize() {
-        result := ComCall(8, this, "uint*", &blockSize := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &blockSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return blockSize
     }
 }

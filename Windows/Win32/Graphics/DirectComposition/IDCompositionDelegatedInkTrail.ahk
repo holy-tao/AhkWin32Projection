@@ -35,7 +35,11 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
      * @returns {Integer} 
      */
     AddTrailPoints(inkPoints, inkPointsCount) {
-        result := ComCall(3, this, "ptr", inkPoints, "uint", inkPointsCount, "uint*", &generationId := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", inkPoints, "uint", inkPointsCount, "uint*", &generationId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return generationId
     }
 
@@ -48,7 +52,11 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
      * @returns {Integer} 
      */
     AddTrailPointsWithPrediction(inkPoints, inkPointsCount, predictedInkPoints, predictedInkPointsCount) {
-        result := ComCall(4, this, "ptr", inkPoints, "uint", inkPointsCount, "ptr", predictedInkPoints, "uint", predictedInkPointsCount, "uint*", &generationId := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", inkPoints, "uint", inkPointsCount, "ptr", predictedInkPoints, "uint", predictedInkPointsCount, "uint*", &generationId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return generationId
     }
 
@@ -58,17 +66,25 @@ class IDCompositionDelegatedInkTrail extends IUnknown{
      * @returns {HRESULT} 
      */
     RemoveTrailPoints(generationId) {
-        result := ComCall(5, this, "uint", generationId, "HRESULT")
+        result := ComCall(5, this, "uint", generationId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * 
-     * @param {Pointer<D2D1_COLOR_F>} color 
+     * @param {Pointer<D2D1_COLOR_F>} color_ 
      * @returns {HRESULT} 
      */
-    StartNewTrail(color) {
-        result := ComCall(6, this, "ptr", color, "HRESULT")
+    StartNewTrail(color_) {
+        result := ComCall(6, this, "ptr", color_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

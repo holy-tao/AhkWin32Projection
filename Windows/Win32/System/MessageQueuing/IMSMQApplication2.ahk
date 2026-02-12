@@ -72,7 +72,11 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {HRESULT} 
      */
     RegisterCertificate(Flags, ExternalCertificate) {
-        result := ComCall(8, this, "ptr", Flags, "ptr", ExternalCertificate, "HRESULT")
+        result := ComCall(8, this, "ptr", Flags, "ptr", ExternalCertificate, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -82,10 +86,17 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {BSTR} 
      */
     MachineNameOfMachineId(bstrGuid) {
-        bstrGuid := bstrGuid is String ? BSTR.Alloc(bstrGuid).Value : bstrGuid
+        if(bstrGuid is String) {
+            pin := BSTR.Alloc(bstrGuid)
+            bstrGuid := pin.Value
+        }
 
         pbstrMachineName := BSTR()
-        result := ComCall(9, this, "ptr", bstrGuid, "ptr", pbstrMachineName, "HRESULT")
+        result := ComCall(9, this, "ptr", bstrGuid, "ptr", pbstrMachineName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrMachineName
     }
 
@@ -94,7 +105,11 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {Integer} 
      */
     get_MSMQVersionMajor() {
-        result := ComCall(10, this, "short*", &psMSMQVersionMajor := 0, "HRESULT")
+        result := ComCall(10, this, "short*", &psMSMQVersionMajor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psMSMQVersionMajor
     }
 
@@ -103,7 +118,11 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {Integer} 
      */
     get_MSMQVersionMinor() {
-        result := ComCall(11, this, "short*", &psMSMQVersionMinor := 0, "HRESULT")
+        result := ComCall(11, this, "short*", &psMSMQVersionMinor := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psMSMQVersionMinor
     }
 
@@ -112,7 +131,11 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {Integer} 
      */
     get_MSMQVersionBuild() {
-        result := ComCall(12, this, "short*", &psMSMQVersionBuild := 0, "HRESULT")
+        result := ComCall(12, this, "short*", &psMSMQVersionBuild := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return psMSMQVersionBuild
     }
 
@@ -121,7 +144,11 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {VARIANT_BOOL} 
      */
     get_IsDsEnabled() {
-        result := ComCall(13, this, "short*", &pfIsDsEnabled := 0, "HRESULT")
+        result := ComCall(13, this, "short*", &pfIsDsEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsDsEnabled
     }
 
@@ -130,7 +157,11 @@ class IMSMQApplication2 extends IMSMQApplication{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(14, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 }

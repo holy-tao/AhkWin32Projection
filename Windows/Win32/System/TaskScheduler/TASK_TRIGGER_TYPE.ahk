@@ -6,7 +6,7 @@
  * @remarks
  * The constants defined here are used in the <b>TriggerType</b> member of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure.
- * @see https://learn.microsoft.com/windows/win32/api/mstask/ne-mstask-task_trigger_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstask/ne-mstask-task_trigger_type
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */

@@ -38,7 +38,11 @@ class IRegisterProvider extends IUnknown{
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
         pclsidProvider := Guid()
-        result := ComCall(3, this, "ptr", pwszURL, "ptr", dwReserved, "ptr", pclsidProvider, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszURL, "ptr", dwReserved, "ptr", pclsidProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pclsidProvider
     }
 
@@ -52,7 +56,11 @@ class IRegisterProvider extends IUnknown{
     SetURLMapping(pwszURL, dwReserved, rclsidProvider) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(4, this, "ptr", pwszURL, "ptr", dwReserved, "ptr", rclsidProvider, "HRESULT")
+        result := ComCall(4, this, "ptr", pwszURL, "ptr", dwReserved, "ptr", rclsidProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,7 +74,11 @@ class IRegisterProvider extends IUnknown{
     UnregisterProvider(pwszURL, dwReserved, rclsidProvider) {
         pwszURL := pwszURL is String ? StrPtr(pwszURL) : pwszURL
 
-        result := ComCall(5, this, "ptr", pwszURL, "ptr", dwReserved, "ptr", rclsidProvider, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszURL, "ptr", dwReserved, "ptr", rclsidProvider, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

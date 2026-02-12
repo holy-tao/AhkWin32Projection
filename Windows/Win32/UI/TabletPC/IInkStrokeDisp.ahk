@@ -13,11 +13,8 @@
 /**
  * Represents a single ink stroke.A stroke is a set of properties and point data that the digitizer captures that represent the coordinates and properties of a known ink mark.
  * @remarks
- * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkstrokedisp
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkstrokedisp
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -127,43 +124,44 @@ class IInkStrokeDisp extends IDispatch{
     }
 
     /**
-     * Gets the identifier of an object.
+     * Gets the identifier of an object. (IInkStrokeDisp.get_Id)
      * @remarks
-     * 
      * An object's identifier never changes.
      * 
      * <div class="alert"><b>Note</b>  Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to <b>SC_HOTKEY</b> or <b>SC_TASKLIST</b>; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_id
      */
     get_ID() {
-        result := ComCall(7, this, "int*", &ID := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &ID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ID
     }
 
     /**
      * Gets the array of control points that represent the Bezier approximation of the stroke.
      * @remarks
-     * 
      * The control points that the <b>BezierPoints</b> property returns provide a smooth approximation of the original stroke and do not necessarily lie on the stroke.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_bezierpoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_bezierpoints
      */
     get_BezierPoints() {
-        Points := VARIANT()
-        result := ComCall(8, this, "ptr", Points, "HRESULT")
-        return Points
+        Points_ := VARIANT()
+        result := ComCall(8, this, "ptr", Points_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Points_
     }
 
     /**
-     * Gets or sets the drawing attributes to apply to ink as it is drawn.
+     * Gets or sets the drawing attributes to apply to ink as it is drawn. (IInkStrokeDisp.get_DrawingAttributes)
      * @remarks
-     * 
      * The drawing attributes specify the appearance of the stroke. For example, you can specify the style and color of a pen.
      * 
      * A cursor can have different drawing attributes for each <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> with which it comes in contact. If you do not specify drawing attributes for a cursor, it uses the default drawing attributes of the <b>InkCollector</b> object. These default attributes are set with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property of the <b>InkCollector</b> object.
@@ -172,13 +170,15 @@ class IInkStrokeDisp extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  This property behaves differently than the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property. Although the <b>DefaultDrawingAttributes</b> property specifies the drawing attributes that are applied to a new cursor, the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes">DrawingAttributes</a> property specifies the drawing attributes for ink that is yet to be collected.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {IInkDrawingAttributes} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_drawingattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_drawingattributes
      */
     get_DrawingAttributes() {
-        result := ComCall(9, this, "ptr*", &DrawAttrs := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &DrawAttrs := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkDrawingAttributes(DrawAttrs)
     }
 
@@ -188,149 +188,178 @@ class IInkStrokeDisp extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_DrawingAttributes(DrawAttrs) {
-        result := ComCall(10, this, "ptr", DrawAttrs, "HRESULT")
+        result := ComCall(10, this, "ptr", DrawAttrs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the parent InkDisp object of a stroke.
      * @remarks
-     * 
      * The stroke must be contained in one and only one <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.
-     * 
-     * 
      * @returns {IInkDisp} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_ink
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_ink
      */
     get_Ink() {
-        result := ComCall(11, this, "ptr*", &Ink := 0, "HRESULT")
-        return IInkDisp(Ink)
+        result := ComCall(11, this, "ptr*", &Ink_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IInkDisp(Ink_)
     }
 
     /**
-     * Gets the collection of application-defined data that are stored in an object.
+     * Gets the collection of application-defined data that are stored in an object. (IInkStrokeDisp.get_ExtendedProperties)
      * @remarks
-     * 
      * Applications can use the ExtendedProperties property to access the custom data that is stored on an object. This custom data is automatically serialized with the object.
-     * 
-     * 
      * @returns {IInkExtendedProperties} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_extendedproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_extendedproperties
      */
     get_ExtendedProperties() {
-        result := ComCall(12, this, "ptr*", &Properties := 0, "HRESULT")
-        return IInkExtendedProperties(Properties)
+        result := ComCall(12, this, "ptr*", &Properties_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IInkExtendedProperties(Properties_)
     }
 
     /**
      * Gets an array that contains the indices of the cusps of the IInkStrokeDisp object.
      * @remarks
-     * 
      * The array returned by the <b>PolylineCusps</b> property is an index into the array returned by the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkstrokedisp-getpoints">GetPoints</a> method. Each index in the <b>PolylineCusps</b> property corresponds to a point in the array returned by the <b>GetPoints</b> method that is a cusp of the points of the stroke.
      * 
      * A cusp is a point on the stroke where the direction of writing changes in a discontinuous fashion. For example, if the stroke represents the capital letter "L", this property returns three cusps: two corresponding to the first and last control points on the stroke and the third representing the corner of the "L".
      * 
      * The location of a cusp can be determined by using the cusp as an index into the array returned by the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkstrokedisp-getpoints">GetPoints</a> method.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_polylinecusps
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_polylinecusps
      */
     get_PolylineCusps() {
         Cusps := VARIANT()
-        result := ComCall(13, this, "ptr", Cusps, "HRESULT")
+        result := ComCall(13, this, "ptr", Cusps, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Cusps
     }
 
     /**
      * Gets an array that contains the indices of the cusps of the Bezier approximation of the stroke.
      * @remarks
-     * 
      * <div class="alert"><b>Note</b>  The array of Bezier control points that the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_bezierpoints">BezierPoints</a> property returns are made up of x and y values. The <b>BezierCusps</b> property refers only to the x values in this array. The y values can be retrieved by an action similar to the following below.</div>
      * <div> </div>
      * A cusp is a point on the stroke where the direction of writing changes in a discontinuous fashion. For example, if the stroke represents the capital letter "L", this property returns three cusps: two corresponding to the first and last control points on the stroke and the third representing the corner of the "L".
      * 
      * The following code extracts the x and y values of the Bezier cusps of an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a>, <c>theStroke</code>, and stores them in a two-dimensional array called <code>BezierCuspValues</c>.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_beziercusps
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_beziercusps
      */
     get_BezierCusps() {
         Cusps := VARIANT()
-        result := ComCall(14, this, "ptr", Cusps, "HRESULT")
+        result := ComCall(14, this, "ptr", Cusps, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Cusps
     }
 
     /**
      * Gets the self-intersections of the stroke.
      * @remarks
-     * 
      * A self-intersection is the point of a stroke where the stroke crosses over itself.
      * 
      * A floating point index is a float value that represents a location somewhere between two points in the stroke. As examples, if 0.0 is the first point in the stroke and 1.0 is the second point in the stroke, 0.5 is halfway between the first and second points. Similarly, a floating point index value of 37.25 represents a location that is 25 percent along the line between points 37 and 38 of the stroke.
      * 
      * <div class="alert"><b>Note</b>  A floating point index is returned for each intersection and line segment combination. If a stroke has one intersection, this property returns two self intersections, one for each line segment that is part of the intersection.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_selfintersections
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_selfintersections
      */
     get_SelfIntersections() {
         Intersections := VARIANT()
-        result := ComCall(15, this, "ptr", Intersections, "HRESULT")
+        result := ComCall(15, this, "ptr", Intersections, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Intersections
     }
 
     /**
      * Gets the number of packets received for an IInkStrokeDisp object.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_packetcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetcount
      */
     get_PacketCount() {
-        result := ComCall(16, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
     /**
      * Gets the size, in bytes, of a packet.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_packetsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetsize
      */
     get_PacketSize() {
-        result := ComCall(17, this, "int*", &plSize := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &plSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plSize
     }
 
     /**
      * Gets an array of globally unique identifiers (GUIDs) that describes the types of packet data stored in the IInkStrokeDisp object.
      * @remarks
-     * 
      * For a complete list of available packet properties, see the <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">PacketProperty</a> constants.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_packetdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetdescription
      */
     get_PacketDescription() {
         PacketDescription := VARIANT()
-        result := ComCall(18, this, "ptr", PacketDescription, "HRESULT")
+        result := ComCall(18, this, "ptr", PacketDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PacketDescription
     }
 
     /**
      * Gets a value that specifies whether a known stroke is deleted from the ink.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-get_deleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-get_deleted
      */
     get_Deleted() {
-        result := ComCall(19, this, "short*", &Deleted := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &Deleted := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Deleted
     }
 
     /**
-     * Retrieves the bounding box in ink space coordinates for either all of the strokes in an InkDisp object, an individual stroke, or an InkStrokes collection.
+     * Retrieves the bounding box in ink space coordinates for either all of the strokes in an InkDisp object, an individual stroke, or an InkStrokes collection. (IInkStrokeDisp.GetBoundingBox)
+     * @remarks
+     * When the bounding box is affected by the pen width, then this width is scaled appropriately for the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrenderer-class">InkRenderer</a>'s view transform. To do this, the pen width is multiplied by the square root of the determinant of the view transform.
+     * 
+     * <div class="alert"><b>Note</b>  In Windows Vista and later versions, <b>GetBoundingBox Method</b> does not take the width of the stroke into account.</div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  If you have not set the pen width explicitly, it is 53 by default. You must multiply the pen width by the square root of the determinant to yield the correct bounding box. The height and width of the bounding box are expanded by half this amount in each direction. For example, consider that the pen width is 53, the square root of the determinant is 50, and the bounding box is (0, 0, 1000, 1000). The pen width adjustment to the bounding box in each direction is calculated as (53 * 50) / 2, and the right and bottom sides are incremented by one. This results in a rendered bounding box of (-1325, -1325, 2326, 2326).</div>
+     * <div> </div>
      * @param {Integer} BoundingBoxMode Optional. Specifies the stroke characteristics to use to calculate the bounding box. The default value is -1, indicating that all characteristics of a stroke are used to specify the bounding box. 
      * 
      * For more details about the use of stroke characteristics to calculate a bounding box, see the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/ne-msinkaut-inkboundingboxmode">BoundingBoxMode</a> enumeration type.
@@ -338,15 +367,21 @@ class IInkStrokeDisp extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  For an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object, the returned bounding box is a copy of the strokes bounding box, so altering the returned bounding box does not affect the strokes location.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-getboundingbox
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-getboundingbox
      */
     GetBoundingBox(BoundingBoxMode) {
-        result := ComCall(20, this, "int", BoundingBoxMode, "ptr*", &Rectangle := 0, "HRESULT")
+        result := ComCall(20, this, "int", BoundingBoxMode, "ptr*", &Rectangle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkRectangle(Rectangle)
     }
 
     /**
      * Retrieves the points where this IInkStrokeDisp object intersects other IInkStrokeDisp objects within a known InkStrokes collection.
+     * @remarks
+     * This method can determine only the points of intersection.
      * @param {IInkStrokes} Strokes The known collection of strokes that are used to calculate the points where this stroke intersects strokes in the collection. If <b>NULL</b>, use all strokes in the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object.
      * 
      * <div class="alert"><b>Note</b>  The known collection of strokes must come from the same <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object as the stroke being tested for intersection. If it is not from the same <b>InkDisp</b> object, <b>E_INK_MISMATCHED_INK_OBJECT</b> is returned (see "HRESULT value" below). The <b>FindIntersections</b> method is the only Tablet PC application programming interface (API) that requires that the known collection of strokes come from the same <b>InkDisp</b> object.</div>
@@ -356,30 +391,50 @@ class IInkStrokeDisp extends IDispatch{
      * A floating point index is a float value that represents a location somewhere between two points in the stroke. As examples, if 0.0 is the first point in the stroke and 1.0 is the second point in the stroke, 0.5 is halfway between the first and second points. Similarly, a floating point index value of 37.25 represents a location that is 25 percent along the line between points 37 and 38 of the stroke.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-findintersections
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-findintersections
      */
     FindIntersections(Strokes) {
         Intersections := VARIANT()
-        result := ComCall(21, this, "ptr", Strokes, "ptr", Intersections, "HRESULT")
+        result := ComCall(21, this, "ptr", Strokes, "ptr", Intersections, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Intersections
     }
 
     /**
      * Finds the points where a IInkStrokeDisp object intersects a given rectangle.
+     * @remarks
+     * This method returns an array that indicates where the stroke intersects the specified rectangle. Each segment of the stroke that intersects the rectangle is one pair of indices, alternating with a beginning index followed by an ending index.
+     * 
+     * If the stroke begins within the test rectangle, the first index is set to -1. If the stroke ends within the test rectangle, the last index is set to -1. If the stroke is wholly outside the test rectangle, an empty array is returned. For example, if a stroke begins inside the test rectangle, leaves the boundaries of the rectangle, returns inside, and leaves again, then the <b>GetRectangleIntersections</b> method might return {-1, 1.4, 5.5, 10.1} to describe the two segments of the stroke falling within the rectangle.
      * @param {IInkRectangle} Rectangle The rectangle in <b>ink space</b> coordinates, that describes the hit test area.
      * @returns {VARIANT} When this method returns, contains a VARIANT array that indicates where the stroke intersects the <i>rectangle</i>. The beginning floating point indices are stored in the even indices. The ending floating point indices are stored in the odd indices. The first pair of indices represents the first intersection.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-getrectangleintersections
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-getrectangleintersections
      */
     GetRectangleIntersections(Rectangle) {
         Intersections := VARIANT()
-        result := ComCall(22, this, "ptr", Rectangle, "ptr", Intersections, "HRESULT")
+        result := ComCall(22, this, "ptr", Rectangle, "ptr", Intersections, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Intersections
     }
 
     /**
-     * Removes portions of an IInkStrokeDisp object or InkStrokes collection that are outside a rectangle.
+     * Removes portions of an IInkStrokeDisp object or InkStrokes collection that are outside a rectangle. (IInkStrokeDisp.Clip)
+     * @remarks
+     * For an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object, all strokes intersected by the rectangle are split at the intersection points. All portions of strokes outside the rectangle are removed from the <b>InkDisp</b> object. The method may add new points to a stroke at the point where the stroke intersects the rectangle. After you call the <b>Clip</b> method on an <b>InkDisp</b> object, the IDs of the strokes in the <b>InkDisp</b> object's strokes collection are guaranteed to be unique, but not guaranteed to preserve other information.
+     * 
+     * This method does not take the pen width into account when clipping. It clips only the actual <b>ink</b> or stroke data.
+     * 
+     * For an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collection, the <b>Clip</b> method updates the parent <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object. Whenever ink is removed from an <b>InkDisp</b> object, any <b>IInkStrokeDisp</b> objects or InkStrokes collections defined for that <b>InkDisp</b> object may be invalidated.
+     * 
+     * For more information on ink data, see <a href="https://docs.microsoft.com/windows/desktop/tablet/ink-data">Ink Data</a>.
      * @param {IInkRectangle} Rectangle Specifies the rectangle outside of which the stroke or strokes are clipped. The rectangle is specified in ink space coordinates.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -417,7 +472,7 @@ class IInkStrokeDisp extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/tablet/inkdisp-class">InkDisp</a> object is not registered.
+     * The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object is not registered.
      * 
      * </td>
      * </tr>
@@ -455,10 +510,14 @@ class IInkStrokeDisp extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-clip
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-clip
      */
     Clip(Rectangle) {
-        result := ComCall(23, this, "ptr", Rectangle, "HRESULT")
+        result := ComCall(23, this, "ptr", Rectangle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -468,41 +527,57 @@ class IInkStrokeDisp extends IDispatch{
      * @param {Integer} Y The y-position of the center of the hit-test circle in ink space coordinates.
      * @param {Float} Radius The radius of the circle to use in the hit test.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if the stroke intersects or is inside the circle; otherwise, <b>VARIANT_FALSE</b>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-hittestcircle
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-hittestcircle
      */
     HitTestCircle(X, Y, Radius) {
-        result := ComCall(24, this, "int", X, "int", Y, "float", Radius, "short*", &Intersects := 0, "HRESULT")
+        result := ComCall(24, this, "int", X, "int", Y, "float", Radius, "short*", &Intersects := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Intersects
     }
 
     /**
      * Finds the location on the stroke nearest to a known point and returns the distance that point is from the stroke. Everything is in ink space coordinates.
+     * @remarks
+     * The <i>distance</i> parameter describes the distance from the point to the envelope of the stroke. This is the distance between the two points minus half the width of the stroke.
      * @param {Integer} X The x-position in ink space of the point to test.
      * @param {Integer} Y The y-position in ink space of the point to test.
      * @param {Pointer<Float>} Distance Optional. The distance from the point to the stroke. This parameter can be <b>NULL</b>. The default value is 0.
-     * @returns {Float} When this method returns, contains the floating point index value that represents the closest location on the stroke.
-     * 
-     * A floating point index is a float value that represents a location somewhere between two points in the stroke. As examples, if 0.0 is the first point in the stroke and 1.0 is the second point in the stroke, 0.5 is halfway between the first and second points. Similarly, a floating point index value of 37.25 represents a location that is 25 percent along the line between points 37 and 38 of the stroke.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-nearestpoint
+     * @returns {Float} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-nearestpoint
      */
     NearestPoint(X, Y, Distance) {
         DistanceMarshal := Distance is VarRef ? "float*" : "ptr"
 
-        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, "float*", &Point := 0, "HRESULT")
-        return Point
+        result := ComCall(25, this, "int", X, "int", Y, DistanceMarshal, Distance, "float*", &Point_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Point_
     }
 
     /**
      * Splits the stroke at the specified location on the stroke.
+     * @remarks
+     * This method inserts the new stroke immediately after the original stroke in the stroke set and renumbers the remaining stroke indices.
+     * 
+     * When an <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> is split, the beginning portion of the stroke remains the ID of the original <b>IInkStrokeDisp</b>. The end portion of the <b>IInkStrokeDisp</b> becomes a new <b>IInkStrokeDisp</b> with an ID that is one greater than the highest <b>IInkStrokeDisp</b> ID. If the original <b>IInkStrokeDisp</b> was in an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> collection (other than the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut15/nf-msinkaut15-iinkdivisionresult-get_strokes">Ink.Strokes</a>), only the beginning portion remains in that collection.
      * @param {Float} SplitAt The floating point index value that represents where to split the stroke.
      * 
      * <div class="alert"><b>Note</b>  A floating point index is a float value that represents a location somewhere between two points in the stroke. As examples, if 0.0 is the first point in the stroke and 1.0 is the second point in the stroke, 0.5 is halfway between the first and second points. Similarly, a floating point index value of 37.25 represents a location that is 25 percent along the line between points 37 and 38 of the stroke.</div>
      * <div> </div>
      * @returns {IInkStrokeDisp} When this method returns, contains a pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object that is created from the split operation.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-split
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-split
      */
     Split(SplitAt) {
-        result := ComCall(26, this, "float", SplitAt, "ptr*", &NewStroke := 0, "HRESULT")
+        result := ComCall(26, this, "float", SplitAt, "ptr*", &NewStroke := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkStrokeDisp(NewStroke)
     }
 
@@ -589,17 +664,24 @@ class IInkStrokeDisp extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-getpacketdescriptionpropertymetrics
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-getpacketdescriptionpropertymetrics
      */
     GetPacketDescriptionPropertyMetrics(PropertyName, Minimum, Maximum, Units, Resolution) {
-        PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
+        if(PropertyName is String) {
+            pin := BSTR.Alloc(PropertyName)
+            PropertyName := pin.Value
+        }
 
         MinimumMarshal := Minimum is VarRef ? "int*" : "ptr"
         MaximumMarshal := Maximum is VarRef ? "int*" : "ptr"
         UnitsMarshal := Units is VarRef ? "int*" : "ptr"
         ResolutionMarshal := Resolution is VarRef ? "float*" : "ptr"
 
-        result := ComCall(27, this, "ptr", PropertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "HRESULT")
+        result := ComCall(27, this, "ptr", PropertyName, MinimumMarshal, Minimum, MaximumMarshal, Maximum, UnitsMarshal, Units, ResolutionMarshal, Resolution, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -607,49 +689,73 @@ class IInkStrokeDisp extends IDispatch{
      * Retrieves the points that make up a stroke.
      * @param {Integer} Index Optional. The starting index within the array of points that make up the stroke. The default value ISC_FirstElement, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies the first point.
      * @param {Integer} Count Optional. The number of points to return. The default value ISC_AllElements, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies all of the points that make up the stroke data.
-     * @returns {VARIANT} Whent this method returns, contains the array of points from the stroke.
-     * 
-     * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-getpoints
+     * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-getpoints
      */
     GetPoints(Index, Count) {
-        Points := VARIANT()
-        result := ComCall(28, this, "int", Index, "int", Count, "ptr", Points, "HRESULT")
-        return Points
+        Points_ := VARIANT()
+        result := ComCall(28, this, "int", Index, "int", Count, "ptr", Points_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Points_
     }
 
     /**
      * Sets the points of the IInkStrokeDisp using an array of X, Y values.
-     * @param {VARIANT} Points The array of new points to replace the points in the stroke beginning at <i>index</i>. This is a VARIANT containing an array of Long with the points represented by alternating values of the form x0, y0, x1, y1, x2, y2, and so on.
+     * @remarks
+     * This method does not change the number of points in the stroke. To change the number of points in the stroke, a new stroke must be created, or the stroke must be split.
+     * 
+     * This method does not provide for truncating the stroke. If the points array contains fewer points than the stroke, the remainder of the points in the stroke are not be modified.
+     * 
+     * This method does not provide for extending the stroke. If the points array contains more points than the stroke, the extra points are not used. If the count exceeds the number of points in the array, only the number of points in the array are modified.
+     * 
+     * In order to draw the stroke after calling <b>SetPoints</b>, call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-invalidaterect">InvalidateRect</a> function.
+     * @param {VARIANT} Points_ The array of new points to replace the points in the stroke beginning at <i>index</i>. This is a VARIANT containing an array of Long with the points represented by alternating values of the form x0, y0, x1, y1, x2, y2, and so on.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @param {Integer} Index Optional. The zero-based index of the first point in the stroke to be modified. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_FirstElement</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies that the first point in the stroke is modified.
      * @param {Integer} Count Optional. The count of points in the stroke to be modified. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_AllElements</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies that all points in the stroke are modified.
      * @returns {Integer} When this method returns, contains the actual number of packets set.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-setpoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-setpoints
      */
-    SetPoints(Points, Index, Count) {
-        result := ComCall(29, this, "ptr", Points, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "HRESULT")
+    SetPoints(Points_, Index, Count) {
+        result := ComCall(29, this, "ptr", Points_, "int", Index, "int", Count, "int*", &NumberOfPointsSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumberOfPointsSet
     }
 
     /**
      * Retrieves the packet data for a range of packets within the IInkStrokeDisp object.
+     * @remarks
+     * If the number of packets in the stroke is less than the sum of the <i>startingIndex</i> and <i>pointCount</i> parameters, then the returned array of data contains packet information for fewer points than the count requested.
+     * 
+     * To retrieve the description of the packet data, use the stroke's <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkstrokedisp-get_packetdescription">PacketDescription</a> property. This property returns an array of globally unique identifier (GUID) that indicates which property values are returned by the <b>GetPacketData</b> method for each point. The <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">PacketProperty</a> constants contain the available packet property GUIDs.
      * @param {Integer} Index Optional. The starting point of the zero-based index to a packet within the stroke. The default value ISC_FirstElement, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies the first packet.
      * @param {Integer} Count Optional. The number of point packet data sets that should be returned, starting with the packet specified in the <i>startingIndex</i> parameter. The default value ISC_AllElements, defined in the <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">InkSelectionConstants</a> enumeration type, specifies all of the points that make up the stroke data.
      * @returns {VARIANT} When this method returns, contains a signed 32-bit integer array containing the packet data for the requested points in the stroke. The array contains the data for the first point, then the data for the second point, and so on.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-getpacketdata
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-getpacketdata
      */
     GetPacketData(Index, Count) {
         PacketData := VARIANT()
-        result := ComCall(30, this, "int", Index, "int", Count, "ptr", PacketData, "HRESULT")
+        result := ComCall(30, this, "int", Index, "int", Count, "ptr", PacketData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PacketData
     }
 
     /**
      * Retrieves the data for a known packet property from one or more packets in the stroke.
+     * @remarks
+     * A specific packet property may not be available on a particular <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object. A Tablet PC may have more than one tablet for user input. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms704832(v=vs.85)">InkTablets</a> collection contains a list of all the tablets attached to the Tablet PC. Use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinktablet-ispacketpropertysupported">IsPacketPropertySupported</a> method to determine if a particular packet property is supported by a specific <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinktablet">IInkTablet</a> object or by all the available tablets. Also, use the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_desiredpacketdescription">DesiredPacketDescription</a> property of the <b>ink collector</b> to control which packet properties are collected on new strokes.
      * @param {BSTR} PropertyName The identifier from the <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">PacketProperty</a> constants that was used to select which packet data is retrieved.
      * 
      * For more information about the BSTR data type, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
@@ -658,13 +764,20 @@ class IInkStrokeDisp extends IDispatch{
      * @returns {VARIANT} When this method returns, contains an array of signed 32-bit integers that specifies the value of the requested <a href="https://docs.microsoft.com/windows/desktop/tablet/packetpropertyguids-constants">PacketProperty</a> for each point requested from the stroke.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-getpacketvaluesbyproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-getpacketvaluesbyproperty
      */
     GetPacketValuesByProperty(PropertyName, Index, Count) {
-        PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
+        if(PropertyName is String) {
+            pin := BSTR.Alloc(PropertyName)
+            PropertyName := pin.Value
+        }
 
         PacketValues := VARIANT()
-        result := ComCall(31, this, "ptr", PropertyName, "int", Index, "int", Count, "ptr", PacketValues, "HRESULT")
+        result := ComCall(31, this, "ptr", PropertyName, "int", Index, "int", Count, "ptr", PacketValues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return PacketValues
     }
 
@@ -675,31 +788,44 @@ class IInkStrokeDisp extends IDispatch{
      * @param {Integer} Index Optional. The starting index of the packet to be modified. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_FirstElement</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies the first packet.
      * @param {Integer} Count Optional. Specifies the number of packets in the stroke to modify and the number of values in <i>PacketValues</i>. The default value <a href="https://docs.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkselectionconstants">ISC_AllElements</a>, defined in the <b>ItemSelectionConstants</b> enumeration type, specifies that all packets are modified.
      * @returns {Integer} When this method returns, contains the actual number of packets set.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-setpacketvaluesbyproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-setpacketvaluesbyproperty
      */
     SetPacketValuesByProperty(bstrPropertyName, PacketValues, Index, Count) {
-        bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
+        if(bstrPropertyName is String) {
+            pin := BSTR.Alloc(bstrPropertyName)
+            bstrPropertyName := pin.Value
+        }
 
-        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", PacketValues, "int", Index, "int", Count, "int*", &NumberOfPacketsSet := 0, "HRESULT")
+        result := ComCall(32, this, "ptr", bstrPropertyName, "ptr", PacketValues, "int", Index, "int", Count, "int*", &NumberOfPacketsSet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumberOfPacketsSet
     }
 
     /**
      * Retrieves the bounding box in ink space coordinates for either all of the strokes in an InkDisp object, an individual stroke, or a InkStrokes collection.
+     * @remarks
+     * You should ideally set the <i>fittingError</i> parameter between 0 and 500. If the value is greater than 500, a stroke may appear distorted or coarse when drawn. Strokes appear smoothest when the fitting error level is set to 0, but the drawing performance is slowest at this level.
      * @param {Integer} FittingError Optional. The maximum distance (accuracy), using ink space units, between the Bezier control points and the points of the stroke. This is also known as the curve fitting error level. The default value is 0.
      * @returns {VARIANT} When this method returns, contains a point array that indicates the points that were used to draw the Bezier curve representation of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> object. The Variant result contains an array in the form x1, y1, x2, y2, and so on, of the Bezier points.
      * 
      * For more information about the VARIANT structure, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-getflattenedbezierpoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-getflattenedbezierpoints
      */
     GetFlattenedBezierPoints(FittingError) {
         FlattenedBezierPoints := VARIANT()
-        result := ComCall(33, this, "int", FittingError, "ptr", FlattenedBezierPoints, "HRESULT")
+        result := ComCall(33, this, "int", FittingError, "ptr", FlattenedBezierPoints, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return FlattenedBezierPoints
     }
 
     /**
-     * Applies a linear transformation to an IInkStrokeDisp object or an InkStrokes collection, which can represent scaling, rotation, translation, and combinations of transformations.
+     * Applies a linear transformation to an IInkStrokeDisp object or an InkStrokes collection, which can represent scaling, rotation, translation, and combinations of transformations. (IInkStrokeDisp.Transform)
      * @param {IInkTransform} Transform The transform to use on the stroke or strokes. (This is an <a href="https://docs.microsoft.com/windows/desktop/tablet/inktransform-class">InkTransform</a> object, which correlates to the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-xform">XFORM</a> structure). The transformation applies to both the points and pen width (if <i>ApplyOnPenWidth</i> is <b>VARIANT_TRUE</b>).
      * @param {VARIANT_BOOL} ApplyOnPenWidth Optional. <b>VARIANT_TRUE</b> to apply the transform to the width of the ink in the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdrawingattributes-class">InkDrawingAttributes</a> of the strokes; otherwise, <b>VARIANT_FALSE</b>. The default is <b>VARIANT_FALSE</b>.
      * @returns {HRESULT} This method can return one of these values.
@@ -765,15 +891,19 @@ class IInkStrokeDisp extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-transform
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-transform
      */
     Transform(Transform, ApplyOnPenWidth) {
-        result := ComCall(34, this, "ptr", Transform, "short", ApplyOnPenWidth, "HRESULT")
+        result := ComCall(34, this, "ptr", Transform, "short", ApplyOnPenWidth, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Scales the IInkStrokeDisp object or InkStrokes collection to fit in the specified InkRectangle object.
+     * Scales the IInkStrokeDisp object or InkStrokes collection to fit in the specified InkRectangle object. (IInkStrokeDisp.ScaleToRectangle)
      * @param {IInkRectangle} Rectangle The <a href="https://docs.microsoft.com/windows/desktop/tablet/inkrectangle-class">InkRectangle</a> in ink space to which the stroke or collection of strokes is scaled. The strokes are scaled and translated to match the strokes' bounding box to the rectangle.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -816,27 +946,35 @@ class IInkStrokeDisp extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-scaletorectangle
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-scaletorectangle
      */
     ScaleToRectangle(Rectangle) {
-        result := ComCall(35, this, "ptr", Rectangle, "HRESULT")
+        result := ComCall(35, this, "ptr", Rectangle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Applies a translation to the ink of an IInkStrokeDisp object or InkStrokes collection.
+     * Applies a translation to the ink of an IInkStrokeDisp object or InkStrokes collection. (IInkStrokeDisp.Move)
      * @param {Float} HorizontalComponent The distance in ink space coordinates to translate the view transform in the X dimension.
      * @param {Float} VerticalComponent The distance in ink space coordinates to translate the view transform in the Y dimension.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-move
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-move
      */
     Move(HorizontalComponent, VerticalComponent) {
-        result := ComCall(36, this, "float", HorizontalComponent, "float", VerticalComponent, "HRESULT")
+        result := ComCall(36, this, "float", HorizontalComponent, "float", VerticalComponent, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Rotates the ink using an angle in degrees around a center point of the rotation.
+     * Rotates the ink using an angle in degrees around a center point of the rotation. (IInkStrokeDisp.Rotate)
      * @param {Float} Degrees The degrees by which to rotate clockwise.
      * @param {Float} x Optional. The x-coordinate of the point in ink space coordinates around which to rotate. Default is the origin. The default value is the origin (0).
      * @param {Float} y Optional. The y-coordinate of the point in ink space coordinates around which to rotate. The default value is the origin (0).
@@ -870,15 +1008,25 @@ class IInkStrokeDisp extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-rotate
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-rotate
      */
     Rotate(Degrees, x, y) {
-        result := ComCall(37, this, "float", Degrees, "float", x, "float", y, "HRESULT")
+        result := ComCall(37, this, "float", Degrees, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Shears the ink in the stroke or strokes by the specified horizontal and vertical factors.
+     * Shears the ink in the stroke or strokes by the specified horizontal and vertical factors. (IInkStrokeDisp.Shear)
+     * @remarks
+     * The transformation applied in this method is a pure shear only if one of the parameters is 0. Applied to a rectangle at the origin, when the <i>shearY</i> factor is 0, the transformation moves the bottom edge horizontally by <i>shearX</i> times the height of the rectangle. When the <i>shearX</i> factor is 0, it moves the right edge vertically by <i>shearY</i> times the width of the rectangle.
+     * 
+     * <div class="alert"><b>Note</b>  When both parameters are nonzero, the results may not be intuitive.</div>
+     * <div> </div>
+     * This method throws an exception if the shear is non-invertible. The shear is non-invertible if the product of the <i>shearX</i> and <i>shearY</i> parameters equals 1.
      * @param {Float} HorizontalMultiplier The horizontal factor of the shear.
      * @param {Float} VerticalMultiplier The vertical factor of the shear.
      * @returns {HRESULT} This method can return one of these values.
@@ -911,15 +1059,21 @@ class IInkStrokeDisp extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-shear
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-shear
      */
     Shear(HorizontalMultiplier, VerticalMultiplier) {
-        result := ComCall(38, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
+        result := ComCall(38, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Applies the specified horizontal and vertical factors to the transform or ink.
+     * Applies the specified horizontal and vertical factors to the transform or ink. (IInkStrokeDisp.ScaleTransform)
+     * @remarks
+     * For the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkstrokedisp">IInkStrokeDisp</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ms703293(v=vs.85)">InkStrokes</a> classes, this method scales the points in the stroke or strokes relative to the origin. Thus, if the <i>HorizontalMultiplier</i> parameter is 2.0, the stroke or strokes will be twice as wide, and will also be twice as far, horizontally, from the origin. To control the relative position of the strokes, use this method in conjunction with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkstrokedisp-move">Move</a> method.
      * @param {Float} HorizontalMultiplier The factor to scale the horizontal dimension in the transform.
      * @param {Float} VerticalMultiplier The factor to scale the vertical dimension in the transform.
      * @returns {HRESULT} This method can return one of these values.
@@ -952,10 +1106,14 @@ class IInkStrokeDisp extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkstrokedisp-scaletransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkstrokedisp-scaletransform
      */
     ScaleTransform(HorizontalMultiplier, VerticalMultiplier) {
-        result := ComCall(39, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "HRESULT")
+        result := ComCall(39, this, "float", HorizontalMultiplier, "float", VerticalMultiplier, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -36,7 +36,11 @@ class ID3D12GBVDiagnostics extends IUnknown{
      * @returns {HRESULT} 
      */
     GetGBVEntireSubresourceStatesData(pResource, pData, DataSize) {
-        result := ComCall(3, this, "ptr", pResource, "ptr", pData, "uint", DataSize, "HRESULT")
+        result := ComCall(3, this, "ptr", pResource, "ptr", pData, "uint", DataSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -47,7 +51,11 @@ class ID3D12GBVDiagnostics extends IUnknown{
      * @returns {Integer} 
      */
     GetGBVSubresourceState(pResource, Subresource) {
-        result := ComCall(4, this, "ptr", pResource, "uint", Subresource, "int*", &pData := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pResource, "uint", Subresource, "int*", &pData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
@@ -57,7 +65,11 @@ class ID3D12GBVDiagnostics extends IUnknown{
      * @returns {Integer} 
      */
     GetGBVResourceUniformState(pResource) {
-        result := ComCall(5, this, "ptr", pResource, "int*", &pData := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pResource, "int*", &pData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pData
     }
 
@@ -73,7 +85,11 @@ class ID3D12GBVDiagnostics extends IUnknown{
         pResourceHashMarshal := pResourceHash is VarRef ? "uint*" : "ptr"
         pSubresourceStatesByteOffsetMarshal := pSubresourceStatesByteOffset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pResource, "ptr", pResourceDesc, pResourceHashMarshal, pResourceHash, pSubresourceStatesByteOffsetMarshal, pSubresourceStatesByteOffset, "HRESULT")
+        result := ComCall(6, this, "ptr", pResource, "ptr", pResourceDesc, pResourceHashMarshal, pResourceHash, pSubresourceStatesByteOffsetMarshal, pSubresourceStatesByteOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 

@@ -29,21 +29,31 @@ class ICommandPrepare extends IUnknown{
     static VTableNames => ["Prepare", "Unprepare"]
 
     /**
-     * 
+     * Prepare SQL Event Class
      * @param {Integer} cExpectedRuns 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/event-classes/prepare-sql-event-class
      */
     Prepare(cExpectedRuns) {
-        result := ComCall(3, this, "uint", cExpectedRuns, "HRESULT")
+        result := ComCall(3, this, "uint", cExpectedRuns, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Unprepare SQL Event Class
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/event-classes/unprepare-sql-event-class
      */
     Unprepare() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

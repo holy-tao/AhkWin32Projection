@@ -4,7 +4,7 @@
 
 /**
  * Represents the status of the specified element. (CHANGER_ELEMENT_STATUS_EX)
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-changer_element_status_ex
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-changer_element_status_ex
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * Represents the different process mitigation policies.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ne-winnt-process_mitigation_policy
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ne-winnt-process_mitigation_policy
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */

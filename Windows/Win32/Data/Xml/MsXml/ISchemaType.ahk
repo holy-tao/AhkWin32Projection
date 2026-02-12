@@ -149,7 +149,11 @@ class ISchemaType extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_baseTypes() {
-        result := ComCall(14, this, "ptr*", &baseTypes := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &baseTypes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(baseTypes)
     }
 
@@ -158,7 +162,11 @@ class ISchemaType extends ISchemaItem{
      * @returns {Integer} 
      */
     get_final() {
-        result := ComCall(15, this, "int*", &final := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &final := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return final
     }
 
@@ -167,7 +175,11 @@ class ISchemaType extends ISchemaItem{
      * @returns {Integer} 
      */
     get_variety() {
-        result := ComCall(16, this, "int*", &variety := 0, "HRESULT")
+        result := ComCall(16, this, "int*", &variety := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return variety
     }
 
@@ -176,19 +188,33 @@ class ISchemaType extends ISchemaItem{
      * @returns {Integer} 
      */
     get_derivedBy() {
-        result := ComCall(17, this, "int*", &derivedBy := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &derivedBy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return derivedBy
     }
 
     /**
-     * 
+     * isValid Method (SQLServerConnection)
+     * @remarks
+     * This isValid method is specified by the isValid method in the java.sql.Connection interface.
      * @param {BSTR} data 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/isvalid-method-sqlserverconnection
      */
     isValid(data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", data, "short*", &valid := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", data, "short*", &valid := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return valid
     }
 
@@ -198,7 +224,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_minExclusive() {
         minExclusive := BSTR()
-        result := ComCall(19, this, "ptr", minExclusive, "HRESULT")
+        result := ComCall(19, this, "ptr", minExclusive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minExclusive
     }
 
@@ -208,7 +238,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_minInclusive() {
         minInclusive := BSTR()
-        result := ComCall(20, this, "ptr", minInclusive, "HRESULT")
+        result := ComCall(20, this, "ptr", minInclusive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minInclusive
     }
 
@@ -218,7 +252,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_maxExclusive() {
         maxExclusive := BSTR()
-        result := ComCall(21, this, "ptr", maxExclusive, "HRESULT")
+        result := ComCall(21, this, "ptr", maxExclusive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return maxExclusive
     }
 
@@ -228,7 +266,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_maxInclusive() {
         maxInclusive := BSTR()
-        result := ComCall(22, this, "ptr", maxInclusive, "HRESULT")
+        result := ComCall(22, this, "ptr", maxInclusive, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return maxInclusive
     }
 
@@ -238,7 +280,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_totalDigits() {
         totalDigits := VARIANT()
-        result := ComCall(23, this, "ptr", totalDigits, "HRESULT")
+        result := ComCall(23, this, "ptr", totalDigits, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return totalDigits
     }
 
@@ -248,7 +294,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_fractionDigits() {
         fractionDigits := VARIANT()
-        result := ComCall(24, this, "ptr", fractionDigits, "HRESULT")
+        result := ComCall(24, this, "ptr", fractionDigits, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return fractionDigits
     }
 
@@ -258,7 +308,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_length() {
         length := VARIANT()
-        result := ComCall(25, this, "ptr", length, "HRESULT")
+        result := ComCall(25, this, "ptr", length, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return length
     }
 
@@ -268,7 +322,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_minLength() {
         minLength := VARIANT()
-        result := ComCall(26, this, "ptr", minLength, "HRESULT")
+        result := ComCall(26, this, "ptr", minLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return minLength
     }
 
@@ -278,7 +336,11 @@ class ISchemaType extends ISchemaItem{
      */
     get_maxLength() {
         maxLength := VARIANT()
-        result := ComCall(27, this, "ptr", maxLength, "HRESULT")
+        result := ComCall(27, this, "ptr", maxLength, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return maxLength
     }
 
@@ -287,7 +349,11 @@ class ISchemaType extends ISchemaItem{
      * @returns {ISchemaStringCollection} 
      */
     get_enumeration() {
-        result := ComCall(28, this, "ptr*", &enumeration := 0, "HRESULT")
+        result := ComCall(28, this, "ptr*", &enumeration := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaStringCollection(enumeration)
     }
 
@@ -296,7 +362,11 @@ class ISchemaType extends ISchemaItem{
      * @returns {Integer} 
      */
     get_whitespace() {
-        result := ComCall(29, this, "int*", &whitespace := 0, "HRESULT")
+        result := ComCall(29, this, "int*", &whitespace := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return whitespace
     }
 
@@ -305,7 +375,11 @@ class ISchemaType extends ISchemaItem{
      * @returns {ISchemaStringCollection} 
      */
     get_patterns() {
-        result := ComCall(30, this, "ptr*", &patterns := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &patterns := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaStringCollection(patterns)
     }
 }

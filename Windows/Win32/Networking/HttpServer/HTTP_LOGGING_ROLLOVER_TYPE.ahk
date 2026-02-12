@@ -124,7 +124,7 @@
  * <td>The two digit representation of the numerical sequence.</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/http/ne-http-http_logging_rollover_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ne-http-http_logging_rollover_type
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

@@ -6,12 +6,9 @@
 /**
  * Used for resetting the current audio endpoint device format.
  * @remarks
- * 
  * This setting is exposed to the user through the "Sounds" control panel  and can be read from the endpoint property store using
  * <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/pkey-audioengine-deviceformat">PKEY_AudioEngine_DeviceFormat</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioendpoints/nn-audioendpoints-iaudioendpointformatcontrol
+ * @see https://learn.microsoft.com/windows/win32/api//content/audioendpoints/nn-audioendpoints-iaudioendpointformatcontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319
  */
@@ -44,11 +41,15 @@ class IAudioEndpointFormatControl extends IUnknown{
      * 
      * ENDPOINT_FORMAT_RESET_MIX_ONLY: Only reset the mix format.  The endpoint's device
      *     format will not be reset if this flag is set.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//audioendpoints/nf-audioendpoints-iaudioendpointformatcontrol-resettodefault
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/audioendpoints/nf-audioendpoints-iaudioendpointformatcontrol-resettodefault
      */
     ResetToDefault(ResetFlags) {
-        result := ComCall(3, this, "uint", ResetFlags, "HRESULT")
+        result := ComCall(3, this, "uint", ResetFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

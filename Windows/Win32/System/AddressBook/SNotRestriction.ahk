@@ -5,7 +5,7 @@
  * Describes a NOT restriction, which is used to apply a logical NOT operation to a restriction.
  * @remarks
  * For more information about the **SNotRestriction** structure, see [About Restrictions](about-restrictions.md).
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/snotrestriction
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/snotrestriction
  * @namespace Windows.Win32.System.AddressBook
  * @version v4.0.30319
  */

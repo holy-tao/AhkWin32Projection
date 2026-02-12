@@ -38,7 +38,11 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface{
 
         pNameLengthMarshal := pNameLength is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(0, this, pNameLengthMarshal, pNameLength, "ptr", pName, "HRESULT")
+        result := ComCall(0, this, pNameLengthMarshal, pNameLength, "ptr", pName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class ID3DShaderCacheInstallerClient extends Win32ComInterface{
      * @returns {HRESULT} 
      */
     HandleDriverUpdate(pInstaller) {
-        result := ComCall(2, this, "ptr", pInstaller, "HRESULT")
+        result := ComCall(2, this, "ptr", pInstaller, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

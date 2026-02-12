@@ -141,7 +141,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMDocumentType} 
      */
     get_doctype() {
-        result := ComCall(43, this, "ptr*", &documentType := 0, "HRESULT")
+        result := ComCall(43, this, "ptr*", &documentType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocumentType(documentType)
     }
 
@@ -150,7 +154,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMImplementation} 
      */
     get_implementation() {
-        result := ComCall(44, this, "ptr*", &impl := 0, "HRESULT")
+        result := ComCall(44, this, "ptr*", &impl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMImplementation(impl)
     }
 
@@ -159,7 +167,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMElement} 
      */
     get_documentElement() {
-        result := ComCall(45, this, "ptr*", &DOMElement := 0, "HRESULT")
+        result := ComCall(45, this, "ptr*", &DOMElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMElement(DOMElement)
     }
 
@@ -169,7 +181,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     putref_documentElement(DOMElement) {
-        result := ComCall(46, this, "ptr", DOMElement, "HRESULT")
+        result := ComCall(46, this, "ptr", DOMElement, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -179,9 +195,16 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMElement} 
      */
     createElement(tagName) {
-        tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
+        if(tagName is String) {
+            pin := BSTR.Alloc(tagName)
+            tagName := pin.Value
+        }
 
-        result := ComCall(47, this, "ptr", tagName, "ptr*", &element := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", tagName, "ptr*", &element := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMElement(element)
     }
 
@@ -190,7 +213,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMDocumentFragment} 
      */
     createDocumentFragment() {
-        result := ComCall(48, this, "ptr*", &docFrag := 0, "HRESULT")
+        result := ComCall(48, this, "ptr*", &docFrag := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMDocumentFragment(docFrag)
     }
 
@@ -200,9 +227,16 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMText} 
      */
     createTextNode(data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(49, this, "ptr", data, "ptr*", &text := 0, "HRESULT")
+        result := ComCall(49, this, "ptr", data, "ptr*", &text := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMText(text)
     }
 
@@ -212,9 +246,16 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMComment} 
      */
     createComment(data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(50, this, "ptr", data, "ptr*", &comment := 0, "HRESULT")
+        result := ComCall(50, this, "ptr", data, "ptr*", &comment := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMComment(comment)
     }
 
@@ -224,9 +265,16 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMCDATASection} 
      */
     createCDATASection(data) {
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(51, this, "ptr", data, "ptr*", &cdata := 0, "HRESULT")
+        result := ComCall(51, this, "ptr", data, "ptr*", &cdata := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMCDATASection(cdata)
     }
 
@@ -237,10 +285,20 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMProcessingInstruction} 
      */
     createProcessingInstruction(target, data) {
-        target := target is String ? BSTR.Alloc(target).Value : target
-        data := data is String ? BSTR.Alloc(data).Value : data
+        if(target is String) {
+            pin := BSTR.Alloc(target)
+            target := pin.Value
+        }
+        if(data is String) {
+            pin := BSTR.Alloc(data)
+            data := pin.Value
+        }
 
-        result := ComCall(52, this, "ptr", target, "ptr", data, "ptr*", &pi := 0, "HRESULT")
+        result := ComCall(52, this, "ptr", target, "ptr", data, "ptr*", &pi := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMProcessingInstruction(pi)
     }
 
@@ -250,9 +308,16 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMAttribute} 
      */
     createAttribute(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(53, this, "ptr", name, "ptr*", &attribute := 0, "HRESULT")
+        result := ComCall(53, this, "ptr", name, "ptr*", &attribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMAttribute(attribute)
     }
 
@@ -262,9 +327,16 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMEntityReference} 
      */
     createEntityReference(name) {
-        name := name is String ? BSTR.Alloc(name).Value : name
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
 
-        result := ComCall(54, this, "ptr", name, "ptr*", &entityRef := 0, "HRESULT")
+        result := ComCall(54, this, "ptr", name, "ptr*", &entityRef := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMEntityReference(entityRef)
     }
 
@@ -274,9 +346,16 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMNodeList} 
      */
     getElementsByTagName(tagName) {
-        tagName := tagName is String ? BSTR.Alloc(tagName).Value : tagName
+        if(tagName is String) {
+            pin := BSTR.Alloc(tagName)
+            tagName := pin.Value
+        }
 
-        result := ComCall(55, this, "ptr", tagName, "ptr*", &resultList := 0, "HRESULT")
+        result := ComCall(55, this, "ptr", tagName, "ptr*", &resultList := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMNodeList(resultList)
     }
 
@@ -288,11 +367,21 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMNode} 
      */
     createNode(Type, name, namespaceURI) {
-        name := name is String ? BSTR.Alloc(name).Value : name
-        namespaceURI := namespaceURI is String ? BSTR.Alloc(namespaceURI).Value : namespaceURI
+        if(name is String) {
+            pin := BSTR.Alloc(name)
+            name := pin.Value
+        }
+        if(namespaceURI is String) {
+            pin := BSTR.Alloc(namespaceURI)
+            namespaceURI := pin.Value
+        }
 
-        result := ComCall(56, this, "ptr", Type, "ptr", name, "ptr", namespaceURI, "ptr*", &node := 0, "HRESULT")
-        return IXMLDOMNode(node)
+        result := ComCall(56, this, "ptr", Type, "ptr", name, "ptr", namespaceURI, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IXMLDOMNode(node_)
     }
 
     /**
@@ -301,19 +390,33 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMNode} 
      */
     nodeFromID(idString) {
-        idString := idString is String ? BSTR.Alloc(idString).Value : idString
+        if(idString is String) {
+            pin := BSTR.Alloc(idString)
+            idString := pin.Value
+        }
 
-        result := ComCall(57, this, "ptr", idString, "ptr*", &node := 0, "HRESULT")
-        return IXMLDOMNode(node)
+        result := ComCall(57, this, "ptr", idString, "ptr*", &node_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return IXMLDOMNode(node_)
     }
 
     /**
-     * 
+     * The load command loads a file in a device-specific format. Digital-video and video-overlay devices recognize this command.
+     * @remarks
+     * The "vidboard" device sends a notification message when the loading is completed.
      * @param {VARIANT} xmlSource 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/load
      */
     load(xmlSource) {
-        result := ComCall(58, this, "ptr", xmlSource, "short*", &isSuccessful := 0, "HRESULT")
+        result := ComCall(58, this, "ptr", xmlSource, "short*", &isSuccessful := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isSuccessful
     }
 
@@ -322,7 +425,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {Integer} 
      */
     get_readyState() {
-        result := ComCall(59, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(59, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -331,7 +438,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {IXMLDOMParseError} 
      */
     get_parseError() {
-        result := ComCall(60, this, "ptr*", &errorObj := 0, "HRESULT")
+        result := ComCall(60, this, "ptr*", &errorObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IXMLDOMParseError(errorObj)
     }
 
@@ -341,7 +452,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      */
     get_url() {
         urlString := BSTR()
-        result := ComCall(61, this, "ptr", urlString, "HRESULT")
+        result := ComCall(61, this, "ptr", urlString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return urlString
     }
 
@@ -350,7 +465,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {VARIANT_BOOL} 
      */
     get_async() {
-        result := ComCall(62, this, "short*", &isAsync := 0, "HRESULT")
+        result := ComCall(62, this, "short*", &isAsync := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isAsync
     }
 
@@ -360,16 +479,31 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_async(isAsync) {
-        result := ComCall(63, this, "short", isAsync, "HRESULT")
+        result := ComCall(63, this, "short", isAsync, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Submits an error message to the information queue and terminates the current draw or dispatch call being executed.
+     * @remarks
+     * This operation does nothing on rasterizers that do not support it.
+     * @returns {HRESULT} None
      * 
-     * @returns {HRESULT} 
+     * 
+     * 
+     * This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3dhlsl/abort
      */
     abort() {
-        result := ComCall(64, this, "HRESULT")
+        result := ComCall(64, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -379,19 +513,77 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {VARIANT_BOOL} 
      */
     loadXML(bstrXML) {
-        bstrXML := bstrXML is String ? BSTR.Alloc(bstrXML).Value : bstrXML
+        if(bstrXML is String) {
+            pin := BSTR.Alloc(bstrXML)
+            bstrXML := pin.Value
+        }
 
-        result := ComCall(65, this, "ptr", bstrXML, "short*", &isSuccessful := 0, "HRESULT")
+        result := ComCall(65, this, "ptr", bstrXML, "short*", &isSuccessful := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isSuccessful
     }
 
     /**
-     * 
+     * The save command saves an MCI file. Video-overlay and waveform-audio devices recognize this command. Although digital-video devices and MIDI sequencers also recognize this command, the MCIAVI and MCISEQ drivers do not support it.
+     * @remarks
+     * The *filename* variable is required if the device was opened using the "new" device identifier.
      * @param {VARIANT} destination 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
+     * 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFilename"></span><span id="lpszfilename"></span><span id="LPSZFILENAME"></span>*lpszFilename*
+     * 
+     * Flag specifying the name of the file being saved and, optionally, additional flags modifying the save operation. The following table lists device types that recognize the **save** command and the flags used by each type.
+     * 
+     * 
+     * 
+     * | Value        | Meaning              | Meaning               |
+     * |--------------|----------------------|-----------------------|
+     * | digitalvideo | abort at *rectangle* | *filename*keepreserve |
+     * | overlay      | at *rectangle*       | *filename*            |
+     * | sequencer    | *filename*           |                       |
+     * | waveaudio    | *filename*           |                       |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * The following table lists the flags that can be specified in the **lpszFilename** parameter and their meanings.
+     * 
+     * 
+     * 
+     * | Value          | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+     * |----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | abort          | Stops a **save** operation in progress. If used, this must be the only item present.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * | at *rectangle* | Specifies a rectangle relative to the frame buffer origin. The *rectangle* is specified as *X1 Y1 X2 Y2*. The coordinates *X1 Y1* specify the upper left corner and the coordinates *X2 Y2* specify the width and height.For digital-video devices, the [capture](capture.md) command is used to capture the contents of the frame buffer.<br/>                                                                                                                                               |
+     * | *filename*     | Specifies the filename to assign to the data file. If a path is not specified, the file will be placed on the disk and in the directory previously specified on the explicit or implicit [reserve](reserve.md) command. If **reserve** has not been issued, the default drive and directory are those associated with the application's task. If a path is specified, the device might require it to be on the disk drive specified by the explicit or implicit **reserve**. This flag is required. |
+     * | keepreserve    | Specifies that unused disk space left over from the original **reserve** command is not deallocated.                                                                                                                                                                                                                                                                                                                                                                                                 |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/Multimedia/save
      */
     save(destination) {
-        result := ComCall(66, this, "ptr", destination, "HRESULT")
+        result := ComCall(66, this, "ptr", destination, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -400,7 +592,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {VARIANT_BOOL} 
      */
     get_validateOnParse() {
-        result := ComCall(67, this, "short*", &isValidating := 0, "HRESULT")
+        result := ComCall(67, this, "short*", &isValidating := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isValidating
     }
 
@@ -410,7 +606,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_validateOnParse(isValidating) {
-        result := ComCall(68, this, "short", isValidating, "HRESULT")
+        result := ComCall(68, this, "short", isValidating, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -419,7 +619,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {VARIANT_BOOL} 
      */
     get_resolveExternals() {
-        result := ComCall(69, this, "short*", &isResolving := 0, "HRESULT")
+        result := ComCall(69, this, "short*", &isResolving := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isResolving
     }
 
@@ -429,7 +633,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_resolveExternals(isResolving) {
-        result := ComCall(70, this, "short", isResolving, "HRESULT")
+        result := ComCall(70, this, "short", isResolving, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -438,7 +646,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {VARIANT_BOOL} 
      */
     get_preserveWhiteSpace() {
-        result := ComCall(71, this, "short*", &isPreserving := 0, "HRESULT")
+        result := ComCall(71, this, "short*", &isPreserving := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return isPreserving
     }
 
@@ -448,7 +660,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_preserveWhiteSpace(isPreserving) {
-        result := ComCall(72, this, "short", isPreserving, "HRESULT")
+        result := ComCall(72, this, "short", isPreserving, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -458,7 +674,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_onreadystatechange(readystatechangeSink) {
-        result := ComCall(73, this, "ptr", readystatechangeSink, "HRESULT")
+        result := ComCall(73, this, "ptr", readystatechangeSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -468,7 +688,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_ondataavailable(ondataavailableSink) {
-        result := ComCall(74, this, "ptr", ondataavailableSink, "HRESULT")
+        result := ComCall(74, this, "ptr", ondataavailableSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -478,7 +702,11 @@ class IXMLDOMDocument extends IXMLDOMNode{
      * @returns {HRESULT} 
      */
     put_ontransformnode(ontransformnodeSink) {
-        result := ComCall(75, this, "ptr", ontransformnodeSink, "HRESULT")
+        result := ComCall(75, this, "ptr", ontransformnodeSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

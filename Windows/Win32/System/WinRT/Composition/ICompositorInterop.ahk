@@ -1,11 +1,15 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\..\UI\Composition\ICompositionSurface.ahk
+#Include ..\..\..\..\UI\Composition\CompositionGraphicsDevice.ahk
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
- * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositorinterop
+ * Native interoperation interface that allows creating swapchain surfaces and graphics devices. This is interface is available in C++ only.
+ * @remarks
+ * See <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiondrawingsurfaceinterop">ICompositionDrawingSurfaceInterop</a> for usage examples.
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositorinterop
  * @namespace Windows.Win32.System.WinRT.Composition
  * @version v4.0.30319
  */
@@ -31,37 +35,55 @@ class ICompositorInterop extends IUnknown{
     static VTableNames => ["CreateCompositionSurfaceForHandle", "CreateCompositionSurfaceForSwapChain", "CreateGraphicsDevice"]
 
     /**
+     * Creates an instance of CompositionSurface for use with the handle of a swapchain. In order to host media swapchain on a CompositionSurface, use the IMFMediaEngineEx::GetVideoSwapchainHandle method.
+     * @param {HANDLE} swapChain Type: <b>HANDLE*</b>
      * 
-     * @param {HANDLE} swapChain 
+     * The handle of the swap chain to create the CompositionSurface for.
      * @returns {Pointer<ICompositionSurface>} 
-     * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforhandle
      */
     CreateCompositionSurfaceForHandle(swapChain) {
         swapChain := swapChain is Win32Handle ? NumGet(swapChain, "ptr") : swapChain
 
-        result := ComCall(3, this, "ptr", swapChain, "ptr*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(3, this, "ptr", swapChain, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
+     * Creates an instance of CompositionSurface for use with a swap chain.
+     * @param {IUnknown} swapChain Type: <b>IUnknown*</b>
      * 
-     * @param {IUnknown} swapChain 
+     * The swap chain to create the CompositionSurface for.
      * @returns {Pointer<ICompositionSurface>} 
-     * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforswapchain
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforswapchain
      */
     CreateCompositionSurfaceForSwapChain(swapChain) {
-        result := ComCall(4, this, "ptr", swapChain, "ptr*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(4, this, "ptr", swapChain, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return result_
     }
 
     /**
+     * Creates a CompositionGraphicsDevice backed by the specified rendering device.
+     * @param {IUnknown} renderingDevice Type: <b>IUnknown*</b>
      * 
-     * @param {IUnknown} renderingDevice 
+     * The rendering device to back the CompositionGraphicsDevice.
      * @returns {Pointer<CompositionGraphicsDevice>} 
-     * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-creategraphicsdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-creategraphicsdevice
      */
     CreateGraphicsDevice(renderingDevice) {
-        result := ComCall(5, this, "ptr", renderingDevice, "ptr*", &result := 0, "HRESULT")
-        return result
+        result := ComCall(5, this, "ptr", renderingDevice, "ptr*", &result_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return CompositionGraphicsDevice(result_)
     }
 }

@@ -4,7 +4,7 @@
 
 /**
  * Contains a WTSINFOEX_LEVEL1 structure that contains extended information about a Remote Desktop Services session. (Unicode)
- * @see https://learn.microsoft.com/windows/win32/api/wtsapi32/ns-wtsapi32-wtsinfoex_level_w
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtsapi32/ns-wtsapi32-wtsinfoex_level_w
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  * @charset Unicode

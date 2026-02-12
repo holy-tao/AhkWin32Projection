@@ -7,11 +7,8 @@
 /**
  * The IVMRSurface9 interface is implemented on the media samples used by the Video Mixing Renderer Filter 9.
  * @remarks
- * 
  * Include DShow.h and D3d9.h before Vmr9.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrsurface9
+ * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nn-vmr9-ivmrsurface9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -38,6 +35,8 @@ class IVMRSurface9 extends IUnknown{
 
     /**
      * The IsSurfaceLocked method indicates whether the Direct3D surface attached to this media sample is locked.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -57,25 +56,37 @@ class IVMRSurface9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurface9-issurfacelocked
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurface9-issurfacelocked
      */
     IsSurfaceLocked() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The LockSurface method locks the attached Direct3D surface.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {Pointer<Integer>} Address of a variable that receives a pointer to the locked bits.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurface9-locksurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurface9-locksurface
      */
     LockSurface() {
-        result := ComCall(4, this, "ptr*", &lpSurface := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &lpSurface := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return lpSurface
     }
 
     /**
      * The UnlockSurface method unlocks the attached Direct3D surface.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
      * <table>
@@ -106,20 +117,32 @@ class IVMRSurface9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurface9-unlocksurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurface9-unlocksurface
      */
     UnlockSurface() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The GetSurface method retrieves the attached Direct3D surface.
+     * @remarks
+     * The media sample object increments the reference count on the returned interface. The caller must call Release on the interface.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {IDirect3DSurface9} Address of a variable that receives an <b>IDirect3DSurface9</b> interface pointer. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurface9-getsurface
+     * @see https://learn.microsoft.com/windows/win32/api//content/vmr9/nf-vmr9-ivmrsurface9-getsurface
      */
     GetSurface() {
-        result := ComCall(6, this, "ptr*", &lplpSurface := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &lplpSurface := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDirect3DSurface9(lplpSurface)
     }
 }

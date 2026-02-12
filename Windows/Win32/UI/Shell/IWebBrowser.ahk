@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
+ * Exposes methods that are implemented by the WebBrowser control (Microsoft ActiveX control) or implemented by an instance of the InternetExplorer application (OLE Automation).
+ * @see https://learn.microsoft.com/windows/win32/api//content/exdisp/nn-exdisp-iwebbrowser2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -135,7 +137,11 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     GoBack() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -144,7 +150,11 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     GoForward() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +163,11 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     GoHome() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,32 +176,53 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     GoSearch() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Navigate element specifies a URL used by calls to External.NavigateTaskPaneURL.
      * @param {BSTR} URL 
      * @param {Pointer<VARIANT>} Flags 
      * @param {Pointer<VARIANT>} TargetFrameName 
      * @param {Pointer<VARIANT>} PostData 
      * @param {Pointer<VARIANT>} Headers 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/WMP/navigate-element
      */
     Navigate(URL, Flags, TargetFrameName, PostData, Headers) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", URL, "ptr", Flags, "ptr", TargetFrameName, "ptr", PostData, "ptr", Headers, "HRESULT")
+        result := ComCall(11, this, "ptr", URL, "ptr", Flags, "ptr", TargetFrameName, "ptr", PostData, "ptr", Headers, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Refresh Method (RDS)
+     * @remarks
+     * You must set the [Connect](./connect-property-rds.md), [Server](./server-property-rds.md), and [SQL](./sql-property.md) properties before you use the **Refresh** method. All data-bound controls on the form associated with an **RDS.DataControl** object will reflect the new set of records. Any pre-existing [Recordset](../ado-api/recordset-object-ado.md) object is released, and any unsaved changes are discarded. The **Refresh** method automatically makes the first record the current record.  
+     *   
+     *  It is a good idea to call the **Refresh** method periodically when you work with data. If you retrieve data, and then leave it on a client computer for a while, it is likely to become out of date. It is possible that any changes that you make will fail, because someone else might have changed the record and submitted changes before you.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/refresh-method-rds
      */
     Refresh() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -197,16 +232,29 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     Refresh2(Level) {
-        result := ComCall(13, this, "ptr", Level, "HRESULT")
+        result := ComCall(13, this, "ptr", Level, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
+     * @remarks
+     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
+     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -215,7 +263,11 @@ class IWebBrowser extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Application() {
-        result := ComCall(15, this, "ptr*", &ppDisp := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppDisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDisp)
     }
 
@@ -224,7 +276,11 @@ class IWebBrowser extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Parent() {
-        result := ComCall(16, this, "ptr*", &ppDisp := 0, "HRESULT")
+        result := ComCall(16, this, "ptr*", &ppDisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDisp)
     }
 
@@ -233,7 +289,11 @@ class IWebBrowser extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Container() {
-        result := ComCall(17, this, "ptr*", &ppDisp := 0, "HRESULT")
+        result := ComCall(17, this, "ptr*", &ppDisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDisp)
     }
 
@@ -242,7 +302,11 @@ class IWebBrowser extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Document() {
-        result := ComCall(18, this, "ptr*", &ppDisp := 0, "HRESULT")
+        result := ComCall(18, this, "ptr*", &ppDisp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppDisp)
     }
 
@@ -251,7 +315,11 @@ class IWebBrowser extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_TopLevelContainer() {
-        result := ComCall(19, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(19, this, "short*", &pBool := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBool
     }
 
@@ -261,7 +329,11 @@ class IWebBrowser extends IDispatch{
      */
     get_Type() {
         Type := BSTR()
-        result := ComCall(20, this, "ptr", Type, "HRESULT")
+        result := ComCall(20, this, "ptr", Type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Type
     }
 
@@ -270,7 +342,11 @@ class IWebBrowser extends IDispatch{
      * @returns {Integer} 
      */
     get_Left() {
-        result := ComCall(21, this, "int*", &pl := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &pl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pl
     }
 
@@ -280,7 +356,11 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Left(Left) {
-        result := ComCall(22, this, "int", Left, "HRESULT")
+        result := ComCall(22, this, "int", Left, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -289,7 +369,11 @@ class IWebBrowser extends IDispatch{
      * @returns {Integer} 
      */
     get_Top() {
-        result := ComCall(23, this, "int*", &pl := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &pl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pl
     }
 
@@ -299,7 +383,11 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Top(Top) {
-        result := ComCall(24, this, "int", Top, "HRESULT")
+        result := ComCall(24, this, "int", Top, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -308,7 +396,11 @@ class IWebBrowser extends IDispatch{
      * @returns {Integer} 
      */
     get_Width() {
-        result := ComCall(25, this, "int*", &pl := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &pl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pl
     }
 
@@ -318,7 +410,11 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Width(Width) {
-        result := ComCall(26, this, "int", Width, "HRESULT")
+        result := ComCall(26, this, "int", Width, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -327,7 +423,11 @@ class IWebBrowser extends IDispatch{
      * @returns {Integer} 
      */
     get_Height() {
-        result := ComCall(27, this, "int*", &pl := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &pl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pl
     }
 
@@ -337,7 +437,11 @@ class IWebBrowser extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Height(Height) {
-        result := ComCall(28, this, "int", Height, "HRESULT")
+        result := ComCall(28, this, "int", Height, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -347,7 +451,11 @@ class IWebBrowser extends IDispatch{
      */
     get_LocationName() {
         LocationName := BSTR()
-        result := ComCall(29, this, "ptr", LocationName, "HRESULT")
+        result := ComCall(29, this, "ptr", LocationName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LocationName
     }
 
@@ -357,7 +465,11 @@ class IWebBrowser extends IDispatch{
      */
     get_LocationURL() {
         LocationURL := BSTR()
-        result := ComCall(30, this, "ptr", LocationURL, "HRESULT")
+        result := ComCall(30, this, "ptr", LocationURL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return LocationURL
     }
 
@@ -366,7 +478,11 @@ class IWebBrowser extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_Busy() {
-        result := ComCall(31, this, "short*", &pBool := 0, "HRESULT")
+        result := ComCall(31, this, "short*", &pBool := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pBool
     }
 }

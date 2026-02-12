@@ -35,7 +35,11 @@ class IMFMediaSourceExtensionLiveSeekableRange extends IUnknown{
      * @returns {HRESULT} 
      */
     SetLiveSeekableRange(start, end) {
-        result := ComCall(3, this, "double", start, "double", end, "HRESULT")
+        result := ComCall(3, this, "double", start, "double", end, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IMFMediaSourceExtensionLiveSeekableRange extends IUnknown{
      * @returns {HRESULT} 
      */
     ClearLiveSeekableRange() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

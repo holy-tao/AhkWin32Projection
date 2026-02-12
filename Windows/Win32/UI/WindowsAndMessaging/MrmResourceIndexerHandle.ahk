@@ -3,7 +3,7 @@
 
 /**
  * Represents an opaque handle to a resource indexer object. The handle is managed by the operating system. For more info, and scenario-based walkthroughs of how to use these APIs, see Package resource indexing (PRI) APIs and custom build systems.
- * @see https://learn.microsoft.com/windows/win32/menurc/mrmresourceindexerhandle
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/menurc/mrmresourceindexerhandle
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

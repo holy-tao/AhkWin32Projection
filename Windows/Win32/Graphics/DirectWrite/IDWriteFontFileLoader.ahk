@@ -7,11 +7,8 @@
 /**
  * Handles loading font file resources of a particular type from a font file reference key into a font file stream object.
  * @remarks
- * 
- * The font file loader interface is recommended to be implemented by a singleton object. Note that font file loader implementations must not register themselves with DirectWrite factory inside their constructors and must not unregister themselves in their destructors, because registration and unregistraton operations increment and decrement the object reference count respectively. Instead, registration and unregistration of font file loaders with DirectWrite factory should be performed outside of the font file loader implementation as a separate step.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontfileloader
+ * The font file loader interface is recommended to be implemented by a singleton object. Note that font file loader implementations must not register themselves with DirectWrite factory inside their constructors and must not unregister themselves in their destructors, because registration and unregistration operations increment and decrement the object reference count respectively. Instead, registration and unregistration of font file loaders with DirectWrite factory should be performed outside of the font file loader implementation as a separate step.
+ * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nn-dwrite-idwritefontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -38,6 +35,8 @@ class IDWriteFontFileLoader extends IUnknown{
 
     /**
      * Creates a font file stream object that encapsulates an open file resource.
+     * @remarks
+     * The resource is closed when the last reference to <i>fontFileStream</i> is released.
      * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
      * 
      * A pointer to a font file reference key that uniquely identifies the font file resource
@@ -45,13 +44,17 @@ class IDWriteFontFileLoader extends IUnknown{
      * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
      * 
      * The size of font file reference key, in bytes.
-     * @returns {IDWriteFontFileStream} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a>**</b>
+     * @returns {Pointer<IDWriteFontFileStream>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfilestream">IDWriteFontFileStream</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey
+     * @see https://learn.microsoft.com/windows/win32/api//content/dwrite/nf-dwrite-idwritefontfileloader-createstreamfromkey
      */
     CreateStreamFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
-        result := ComCall(3, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "HRESULT")
-        return IDWriteFontFileStream(fontFileStream)
+        result := ComCall(3, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr*", &fontFileStream := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return fontFileStream
     }
 }

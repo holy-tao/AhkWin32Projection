@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) conditional access (CA) descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-iisdbcadescriptor
+ * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nn-dvbsiparser-iisdbcadescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,50 +33,70 @@ class IIsdbCADescriptor extends IUnknown{
     /**
      * Gets the tag that identifies a conditional access (CA) descriptor.
      * @returns {Integer} Receives the tag value. For conditional access descriptors, this value is 0x09.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-gettag
      */
     GetTag() {
-        result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(3, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the body length of a conditional access (CA) descriptor, in bytes.
      * @returns {Integer} Receives the descriptor length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getlength
      */
     GetLength() {
-        result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(4, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the conditional access (CA) system identifier from a conditional access descriptor.
      * @returns {Integer} Receives the conditional access system identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getcasystemid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getcasystemid
      */
     GetCASystemId() {
-        result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(5, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
     /**
      * Gets the reserved bits from a conditional access (CA) descriptor.
      * @returns {Integer} Receives the reserved bits.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getreservedbits
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getreservedbits
      */
     GetReservedBits() {
-        result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
+        result := ComCall(6, this, "char*", &pbVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbVal
     }
 
     /**
      * Gets the conditional access (CA) program identifier (PID) from a conditional access descriptor.
      * @returns {Integer} Receives the conditional access PID value.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getcapid
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getcapid
      */
     GetCAPID() {
-        result := ComCall(7, this, "ushort*", &pwVal := 0, "HRESULT")
+        result := ComCall(7, this, "ushort*", &pwVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pwVal
     }
 
@@ -84,12 +104,16 @@ class IIsdbCADescriptor extends IUnknown{
      * Gets the private data bytes from a conditional access (CA) descriptor.
      * @param {Pointer<Integer>} pbBufferLength On input, specifies the length of the private data being retrieved, in bytes. On output, returns the actual data length.
      * @returns {Integer} Receives the conditional access private data.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getprivatedatabytes
+     * @see https://learn.microsoft.com/windows/win32/api//content/dvbsiparser/nf-dvbsiparser-iisdbcadescriptor-getprivatedatabytes
      */
     GetPrivateDataBytes(pbBufferLength) {
         pbBufferLengthMarshal := pbBufferLength is VarRef ? "char*" : "ptr"
 
-        result := ComCall(8, this, pbBufferLengthMarshal, pbBufferLength, "char*", &pbBuffer := 0, "HRESULT")
+        result := ComCall(8, this, pbBufferLengthMarshal, pbBufferLength, "char*", &pbBuffer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbBuffer
     }
 }

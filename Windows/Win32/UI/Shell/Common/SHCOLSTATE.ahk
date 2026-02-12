@@ -3,7 +3,7 @@
 
 /**
  * Describes how a property should be treated. These values are defined in Shtypes.h.
- * @see https://learn.microsoft.com/windows/win32/api/shtypes/ne-shtypes-shcolstate
+ * @see https://learn.microsoft.com/windows/win32/api//content/shtypes/ne-shtypes-shcolstate
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */

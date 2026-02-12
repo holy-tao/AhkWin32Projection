@@ -5,7 +5,7 @@
 
 /**
  * The IRQ_RESOURCE structure is used for specifying either a resource list or a resource requirements list that describes IRQ line usage for a device instance. (32 bit)
- * @see https://learn.microsoft.com/windows/win32/api/cfgmgr32/ns-cfgmgr32-irq_resource_32
+ * @see https://learn.microsoft.com/windows/win32/api//content/cfgmgr32/ns-cfgmgr32-irq_resource_32
  * @namespace Windows.Win32.Devices.DeviceAndDriverInstallation
  * @version v4.0.30319
  */

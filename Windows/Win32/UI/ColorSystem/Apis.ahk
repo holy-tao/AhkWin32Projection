@@ -440,8 +440,8 @@ class ColorSystem {
      * When a compatible DC is created from a printer's DC (see <b>CreateCompatibleDC</b> ), the default is for color matching to always be performed if it is enabled for the printer's DC. The default color profile for the printer is used when a blit is performed into the printer's DC using <b>SetDIBitsToDevice</b> or <b>StretchDIBits</b>. If this is not what you want, turn WCS off for the printer's DC by calling <b>SetICMMode</b> before calling <b>SetDIBitsToDevice</b> or <b>StretchDIBits</b>.
      * 
      * Also, when printing to a printer's DC with WCS turned on, the <b>SetICMMode</b> function needs to be called after every call to the <b>StartPage</b> function to turn back on WCS. The <b>StartPage</b> function calls the <b>RestoreDC</b> and <b>SaveDC</b> functions, which result in WCS being turned off for the printer's DC.
-     * @param {HDC} hdc Identifies handle to the device context.
-     * @param {Integer} mode Turns on and off image color management. This parameter can take one of the following constant values.<div> </div>
+     * @param {HDC} hdc_ Identifies handle to the device context.
+     * @param {Integer} mode_ Turns on and off image color management. This parameter can take one of the following constant values.<div> </div>
      * 
      * 
      * <table>
@@ -495,13 +495,13 @@ class ColorSystem {
      * If this function fails, the return value is zero.
      * 
      * If ICM_QUERY is specified and the function succeeds, the nonzero value returned is ICM_ON or ICM_OFF to indicate the current mode.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-seticmmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-seticmmode
      * @since windows5.0
      */
-    static SetICMMode(hdc, mode) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetICMMode(hdc_, mode_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\SetICMMode", "ptr", hdc, "int", mode, "int")
+        result := DllCall("GDI32.dll\SetICMMode", "ptr", hdc_, "int", mode_, "int")
         return result
     }
 
@@ -512,20 +512,20 @@ class ColorSystem {
      * .
      * 
      * Note that for this function to succeed, WCS must be enabled for the device context handle that is passed in through the <i>hDC</i> parameter. WCS can be enabled for a device context handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-seticmmode">SetICMMode</a> function.
-     * @param {HDC} hdc Handle to the device context whose output gamut to be checked.
+     * @param {HDC} hdc_ Handle to the device context whose output gamut to be checked.
      * @param {Pointer<RGBTRIPLE>} lpRGBTriple Pointer to an array of RGB triples to check.
      * @param {Pointer} dlpBuffer Pointer to the buffer in which the results are to be placed. This buffer must be at least as large as <i>nCount</i> bytes.
      * @param {Integer} nCount The number of elements in the array of triples.
      * @returns {BOOL} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-checkcolorsingamut
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-checkcolorsingamut
      * @since windows5.0
      */
-    static CheckColorsInGamut(hdc, lpRGBTriple, dlpBuffer, nCount) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static CheckColorsInGamut(hdc_, lpRGBTriple, dlpBuffer, nCount) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\CheckColorsInGamut", "ptr", hdc, "ptr", lpRGBTriple, "ptr", dlpBuffer, "uint", nCount, "int")
+        result := DllCall("GDI32.dll\CheckColorsInGamut", "ptr", hdc_, "ptr", lpRGBTriple, "ptr", dlpBuffer, "uint", nCount, "int")
         return result
     }
 
@@ -533,17 +533,17 @@ class ColorSystem {
      * The GetColorSpace function retrieves the handle to the input color space from a specified device context.
      * @remarks
      * <b>GetColorSpace</b> obtains the handle to the input color space regardless of whether color management is enabled for the device context.
-     * @param {HDC} hdc Specifies a device context that is to have its input color space handle retrieved.
+     * @param {HDC} hdc_ Specifies a device context that is to have its input color space handle retrieved.
      * @returns {HCOLORSPACE} If the function succeeds, the return value is the current input color space handle.
      * 
      * If this function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcolorspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getcolorspace
      * @since windows5.0
      */
-    static GetColorSpace(hdc) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetColorSpace(hdc_) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
-        result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc, "ptr")
+        result := DllCall("GDI32.dll\GetColorSpace", "ptr", hdc_, "ptr")
         resultHandle := HCOLORSPACE({Value: result}, True)
         return resultHandle
     }
@@ -559,19 +559,19 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetLogColorSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HCOLORSPACE} hColorSpace Specifies the handle to a color space.
+     * @param {HCOLORSPACE} hColorSpace_ Specifies the handle to a color space.
      * @param {Pointer} lpBuffer Points to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> structure.
      * @param {Integer} nSize Specifies the maximum size of the buffer.
      * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getlogcolorspacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getlogcolorspacea
      * @since windows5.0
      */
-    static GetLogColorSpaceA(hColorSpace, lpBuffer, nSize) {
-        hColorSpace := hColorSpace is Win32Handle ? NumGet(hColorSpace, "ptr") : hColorSpace
+    static GetLogColorSpaceA(hColorSpace_, lpBuffer, nSize) {
+        hColorSpace_ := hColorSpace_ is Win32Handle ? NumGet(hColorSpace_, "ptr") : hColorSpace_
 
-        result := DllCall("GDI32.dll\GetLogColorSpaceA", "ptr", hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
+        result := DllCall("GDI32.dll\GetLogColorSpaceA", "ptr", hColorSpace_, "ptr", lpBuffer, "uint", nSize, "int")
         return result
     }
 
@@ -586,19 +586,19 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetLogColorSpace as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HCOLORSPACE} hColorSpace Specifies the handle to a color space.
+     * @param {HCOLORSPACE} hColorSpace_ Specifies the handle to a color space.
      * @param {Pointer} lpBuffer Points to a buffer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/ns-wingdi-logcolorspacea">LOGCOLORSPACE</a> structure.
      * @param {Integer} nSize Specifies the maximum size of the buffer.
      * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getlogcolorspacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getlogcolorspacew
      * @since windows5.0
      */
-    static GetLogColorSpaceW(hColorSpace, lpBuffer, nSize) {
-        hColorSpace := hColorSpace is Win32Handle ? NumGet(hColorSpace, "ptr") : hColorSpace
+    static GetLogColorSpaceW(hColorSpace_, lpBuffer, nSize) {
+        hColorSpace_ := hColorSpace_ is Win32Handle ? NumGet(hColorSpace_, "ptr") : hColorSpace_
 
-        result := DllCall("GDI32.dll\GetLogColorSpaceW", "ptr", hColorSpace, "ptr", lpBuffer, "uint", nSize, "int")
+        result := DllCall("GDI32.dll\GetLogColorSpaceW", "ptr", hColorSpace_, "ptr", lpBuffer, "uint", nSize, "int")
         return result
     }
 
@@ -615,7 +615,7 @@ class ColorSystem {
      * @returns {HCOLORSPACE} If this function succeeds, the return value is a handle that identifies a color space.
      * 
      * If this function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createcolorspacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createcolorspacea
      * @since windows5.0
      */
     static CreateColorSpaceA(lplcs) {
@@ -641,7 +641,7 @@ class ColorSystem {
      * @returns {HCOLORSPACE} If this function succeeds, the return value is a handle that identifies a color space.
      * 
      * If this function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-createcolorspacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-createcolorspacew
      * @since windows5.0
      */
     static CreateColorSpaceW(lplcs) {
@@ -652,19 +652,19 @@ class ColorSystem {
 
     /**
      * The SetColorSpace function defines the input color space for a given device context.
-     * @param {HDC} hdc Specifies the handle to a device context.
+     * @param {HDC} hdc_ Specifies the handle to a device context.
      * @param {HCOLORSPACE} hcs Identifies handle to the color space to set.
      * @returns {HCOLORSPACE} If this function succeeds, the return value is a handle to the <i>hColorSpace</i> being replaced.
      * 
      * If this function fails, the return value is <b>NULL</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setcolorspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setcolorspace
      * @since windows5.0
      */
-    static SetColorSpace(hdc, hcs) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetColorSpace(hdc_, hcs) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hcs := hcs is Win32Handle ? NumGet(hcs, "ptr") : hcs
 
-        result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc, "ptr", hcs, "ptr")
+        result := DllCall("GDI32.dll\SetColorSpace", "ptr", hdc_, "ptr", hcs, "ptr")
         resultHandle := HCOLORSPACE({Value: result}, True)
         return resultHandle
     }
@@ -675,7 +675,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-deletecolorspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-deletecolorspace
      * @since windows5.0
      */
     static DeleteColorSpace(hcs) {
@@ -704,22 +704,22 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context from which to retrieve the color profile.
+     * @param {HDC} hdc_ Specifies a device context from which to retrieve the color profile.
      * @param {Pointer<Integer>} pBufSize Pointer to a <b>DWORD</b> that contains the size of the buffer pointed to by <i>lpszFilename</i>. For the ANSI version of this function, the size is in bytes. For the Unicode version, the size is in WCHARs. If this function is successful, on return this parameter contains the size of the buffer actually used. However, if the buffer is not large enough, this function returns <b>FALSE</b>. In this case, the <b>GetLastError()</b> function returns ERROR_INSUFFICIENT_BUFFER and the <b>DWORD</b> pointed to by this parameter contains the size needed for the <i>lpszFilename</i> buffer.
      * @param {PSTR} pszFilename Points to the buffer that receives the path name of the profile.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-geticmprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-geticmprofilea
      * @since windows5.0
      */
-    static GetICMProfileA(hdc, pBufSize, pszFilename) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetICMProfileA(hdc_, pBufSize, pszFilename) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
         pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
+        result := DllCall("GDI32.dll\GetICMProfileA", "ptr", hdc_, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
         return result
     }
 
@@ -742,22 +742,22 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines GetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context from which to retrieve the color profile.
+     * @param {HDC} hdc_ Specifies a device context from which to retrieve the color profile.
      * @param {Pointer<Integer>} pBufSize Pointer to a <b>DWORD</b> that contains the size of the buffer pointed to by <i>lpszFilename</i>. For the ANSI version of this function, the size is in bytes. For the Unicode version, the size is in WCHARs. If this function is successful, on return this parameter contains the size of the buffer actually used. However, if the buffer is not large enough, this function returns <b>FALSE</b>. In this case, the <b>GetLastError()</b> function returns ERROR_INSUFFICIENT_BUFFER and the <b>DWORD</b> pointed to by this parameter contains the size needed for the <i>lpszFilename</i> buffer.
      * @param {PWSTR} pszFilename Points to the buffer that receives the path name of the profile.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>. It also returns <b>TRUE</b> if the <i>lpszFilename</i> parameter is <b>NULL</b> and the size required for the buffer is copied into <i>lpcbName.</i>
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-geticmprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-geticmprofilew
      * @since windows5.0
      */
-    static GetICMProfileW(hdc, pBufSize, pszFilename) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetICMProfileW(hdc_, pBufSize, pszFilename) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         pszFilename := pszFilename is String ? StrPtr(pszFilename) : pszFilename
 
         pBufSizeMarshal := pBufSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
+        result := DllCall("GDI32.dll\GetICMProfileW", "ptr", hdc_, pBufSizeMarshal, pBufSize, "ptr", pszFilename, "int")
         return result
     }
 
@@ -778,19 +778,19 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines SetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context in which to set the color profile.
+     * @param {HDC} hdc_ Specifies a device context in which to set the color profile.
      * @param {PSTR} lpFileName Specifies the path name of the color profile to be set.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-seticmprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-seticmprofilea
      * @since windows5.0
      */
-    static SetICMProfileA(hdc, lpFileName) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetICMProfileA(hdc_, lpFileName) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("GDI32.dll\SetICMProfileA", "ptr", hdc, "ptr", lpFileName, "int")
+        result := DllCall("GDI32.dll\SetICMProfileA", "ptr", hdc_, "ptr", lpFileName, "int")
         return result
     }
 
@@ -811,19 +811,19 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines SetICMProfile as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies a device context in which to set the color profile.
+     * @param {HDC} hdc_ Specifies a device context in which to set the color profile.
      * @param {PWSTR} lpFileName Specifies the path name of the color profile to be set.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-seticmprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-seticmprofilew
      * @since windows5.0
      */
-    static SetICMProfileW(hdc, lpFileName) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetICMProfileW(hdc_, lpFileName) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         lpFileName := lpFileName is String ? StrPtr(lpFileName) : lpFileName
 
-        result := DllCall("GDI32.dll\SetICMProfileW", "ptr", hdc, "ptr", lpFileName, "int")
+        result := DllCall("GDI32.dll\SetICMProfileW", "ptr", hdc_, "ptr", lpFileName, "int")
         return result
     }
 
@@ -831,20 +831,20 @@ class ColorSystem {
      * The GetDeviceGammaRamp function gets the gamma ramp on direct color display boards having drivers that support downloadable gamma ramps in hardware.
      * @remarks
      * Direct color display modes do not use color lookup tables and are usually 16, 24, or 32 bit. Not all direct color video boards support loadable gamma ramps. <b>GetDeviceGammaRamp</b> succeeds only for devices with drivers that support downloadable gamma ramps in hardware.
-     * @param {HDC} hdc Specifies the device context of the direct color display board in question.
+     * @param {HDC} hdc_ Specifies the device context of the direct color display board in question.
      * @param {Pointer<Void>} lpRamp Points to a buffer where the function can place the current gamma ramp of the color display board. The gamma ramp is specified in three arrays of 256 <b>WORD</b> elements each, which contain the mapping between RGB values in the frame buffer and digital-analog-converter (DAC) values. The sequence of the arrays is red, green, blue.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getdevicegammaramp
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-getdevicegammaramp
      * @since windows5.0
      */
-    static GetDeviceGammaRamp(hdc, lpRamp) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static GetDeviceGammaRamp(hdc_, lpRamp) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpRampMarshal := lpRamp is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\GetDeviceGammaRamp", "ptr", hdc, lpRampMarshal, lpRamp, "int")
+        result := DllCall("GDI32.dll\GetDeviceGammaRamp", "ptr", hdc_, lpRampMarshal, lpRamp, "int")
         return result
     }
 
@@ -855,20 +855,20 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > This API can take a non-trivial amount of time to execute. It may take as long as 200ms to return on some hardware.
-     * @param {HDC} hdc Specifies the device context of the direct color display board in question.
+     * @param {HDC} hdc_ Specifies the device context of the direct color display board in question.
      * @param {Pointer<Void>} lpRamp Pointer to a buffer containing the gamma ramp to be set. The gamma ramp is specified in three arrays of 256 <b>WORD</b> elements each, which contain the mapping between RGB values in the frame buffer and digital-analog-converter (<i>DAC</i> ) values. The sequence of the arrays is red, green, blue. The RGB values must be stored in the most significant bits of each WORD to increase DAC independence.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setdevicegammaramp
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-setdevicegammaramp
      * @since windows5.0
      */
-    static SetDeviceGammaRamp(hdc, lpRamp) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static SetDeviceGammaRamp(hdc_, lpRamp) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
 
         lpRampMarshal := lpRamp is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("GDI32.dll\SetDeviceGammaRamp", "ptr", hdc, lpRampMarshal, lpRamp, "int")
+        result := DllCall("GDI32.dll\SetDeviceGammaRamp", "ptr", hdc_, lpRampMarshal, lpRamp, "int")
         return result
     }
 
@@ -884,20 +884,20 @@ class ColorSystem {
      * <div class="alert"><b>Note</b>  A memory leak will not occur if an application does not delete a transform using CS_DELETE_TRANSFORM. The transform will be deleted when either the device context (DC) is closed, or when the application color space is deleted. However if the transform is not going to be used again, or if the application will not be performing any more color matching on the DC, it should explicitly delete the transform to free the memory it occupies.</div>
      * <div> </div>
      * The <i>uiAction</i> parameter should only be set to CS_DELETE_TRANSFORM if color management is enabled before the <b>ColorMatchToTarget</b> function is called.
-     * @param {HDC} hdc Specifies the device context for previewing, generally the screen.
+     * @param {HDC} hdc_ Specifies the device context for previewing, generally the screen.
      * @param {HDC} hdcTarget Specifies the target device context, generally a printer.
      * @param {Integer} action 
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-colormatchtotarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-colormatchtotarget
      * @since windows5.0
      */
-    static ColorMatchToTarget(hdc, hdcTarget, action) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ColorMatchToTarget(hdc_, hdcTarget, action) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hdcTarget := hdcTarget is Win32Handle ? NumGet(hdcTarget, "ptr") : hdcTarget
 
-        result := DllCall("GDI32.dll\ColorMatchToTarget", "ptr", hdc, "ptr", hdcTarget, "uint", action, "int")
+        result := DllCall("GDI32.dll\ColorMatchToTarget", "ptr", hdc_, "ptr", hdcTarget, "uint", action, "int")
         return result
     }
 
@@ -914,17 +914,18 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumICMProfiles as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies the device context.
-     * @param {Pointer<ICMENUMPROCA>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
+     * @param {HDC} hdc_ Specifies the device context.
+     * @param {Pointer<ICMENUMPROCA>} proc_ Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
      * @param {LPARAM} param2 
      * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumicmprofilesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumicmprofilesa
      * @since windows5.0
      */
-    static EnumICMProfilesA(hdc, proc, param2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumICMProfilesA(hdc_, proc_, param2) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        param2 := param2 is Win32Handle ? NumGet(param2, "ptr") : param2
 
-        result := DllCall("GDI32.dll\EnumICMProfilesA", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
+        result := DllCall("GDI32.dll\EnumICMProfilesA", "ptr", hdc_, "ptr", proc_, "ptr", param2, "int")
         return result
     }
 
@@ -941,17 +942,18 @@ class ColorSystem {
      * 
      * > [!NOTE]
      * > The wingdi.h header defines EnumICMProfiles as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
-     * @param {HDC} hdc Specifies the device context.
-     * @param {Pointer<ICMENUMPROCW>} proc Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
+     * @param {HDC} hdc_ Specifies the device context.
+     * @param {Pointer<ICMENUMPROCW>} proc_ Specifies the procedure instance address of a callback function defined by the application. (See <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nc-wingdi-icmenumproca">EnumICMProfilesProcCallback</a>.)
      * @param {LPARAM} param2 
      * @returns {Integer} This function returns zero if the application interrupted the enumeration. The return value is -1 if there are no color profiles to enumerate. Otherwise, the return value is the last value returned by the callback function.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-enumicmprofilesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-enumicmprofilesw
      * @since windows5.0
      */
-    static EnumICMProfilesW(hdc, proc, param2) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static EnumICMProfilesW(hdc_, proc_, param2) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
+        param2 := param2 is Win32Handle ? NumGet(param2, "ptr") : param2
 
-        result := DllCall("GDI32.dll\EnumICMProfilesW", "ptr", hdc, "ptr", proc, "ptr", param2, "int")
+        result := DllCall("GDI32.dll\EnumICMProfilesW", "ptr", hdc_, "ptr", proc_, "ptr", param2, "int")
         return result
     }
 
@@ -976,7 +978,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-updateicmregkeya
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-updateicmregkeya
      * @since windows5.0
      */
     static UpdateICMRegKeyA(lpszCMID, lpszFileName, command) {
@@ -1010,7 +1012,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-updateicmregkeyw
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-updateicmregkeyw
      * @since windows5.0
      */
     static UpdateICMRegKeyW(lpszCMID, lpszFileName, command) {
@@ -1025,21 +1027,21 @@ class ColorSystem {
 
     /**
      * The ColorCorrectPalette function corrects the entries of a palette using the WCS 1.0 parameters in the specified device context.
-     * @param {HDC} hdc Specifies a device context whose WCS parameters to use.
+     * @param {HDC} hdc_ Specifies a device context whose WCS parameters to use.
      * @param {HPALETTE} hPal Specifies the handle to the palette to be color corrected.
      * @param {Integer} deFirst Specifies the first entry in the palette to be color corrected.
      * @param {Integer} num Specifies the number of entries to color correct.
      * @returns {BOOL} If this function succeeds, the return value is <b>TRUE</b>.
      * 
      * If this function fails, the return value is <b>FALSE</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-colorcorrectpalette
+     * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/nf-wingdi-colorcorrectpalette
      * @since windows5.0
      */
-    static ColorCorrectPalette(hdc, hPal, deFirst, num) {
-        hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
+    static ColorCorrectPalette(hdc_, hPal, deFirst, num) {
+        hdc_ := hdc_ is Win32Handle ? NumGet(hdc_, "ptr") : hdc_
         hPal := hPal is Win32Handle ? NumGet(hPal, "ptr") : hPal
 
-        result := DllCall("GDI32.dll\ColorCorrectPalette", "ptr", hdc, "ptr", hPal, "uint", deFirst, "uint", num, "int")
+        result := DllCall("GDI32.dll\ColorCorrectPalette", "ptr", hdc_, "ptr", hPal, "uint", deFirst, "uint", num, "int")
         return result
     }
 
@@ -1088,7 +1090,7 @@ class ColorSystem {
      * When OpenColorProfile encounters an ICC profile with an embedded WCS profile, and if the dwType member within the Profile structure does not take the value DONT\_USE\_EMBEDDED\_WCS\_PROFILES, it should extract and use the WCS profile(s) contained in this WcsProfilesTag. The HPROFILE returned would be a WCS HPROFILE.
      * 
      * If this function fails, the return value is **NULL**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-opencolorprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-opencolorprofilea
      */
     static OpenColorProfileA(pProfile, dwDesiredAccess, dwShareMode, dwCreationMode) {
         result := DllCall("mscms.dll\OpenColorProfileA", "ptr", pProfile, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationMode, "ptr")
@@ -1140,7 +1142,7 @@ class ColorSystem {
      * When OpenColorProfile encounters an ICC profile with an embedded WCS profile, and if the dwType member within the Profile structure does not take the value DONT\_USE\_EMBEDDED\_WCS\_PROFILES, it should extract and use the WCS profile(s) contained in this WcsProfilesTag. The HPROFILE returned would be a WCS HPROFILE.
      * 
      * If this function fails, the return value is **NULL**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-opencolorprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-opencolorprofilew
      */
     static OpenColorProfileW(pProfile, dwDesiredAccess, dwShareMode, dwCreationMode) {
         result := DllCall("mscms.dll\OpenColorProfileW", "ptr", pProfile, "uint", dwDesiredAccess, "uint", dwShareMode, "uint", dwCreationMode, "ptr")
@@ -1153,7 +1155,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-closecolorprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-closecolorprofile
      */
     static CloseColorProfile(hProfile) {
         result := DllCall("mscms.dll\CloseColorProfile", "ptr", hProfile, "int")
@@ -1168,7 +1170,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**. It returns **FALSE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolorprofilefromhandle
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcolorprofilefromhandle
      */
     static GetColorProfileFromHandle(hProfile, pProfile, pcbProfile) {
         pcbProfileMarshal := pcbProfile is VarRef ? "uint*" : "ptr"
@@ -1184,7 +1186,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds and the profile is valid, the return value is **TRUE**.
      * 
      * If this function fails (or succeeds and the profile is not valid), the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-iscolorprofilevalid
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-iscolorprofilevalid
      */
     static IsColorProfileValid(hProfile, pbValid) {
         pbValidMarshal := pbValid is VarRef ? "int*" : "ptr"
@@ -1206,7 +1208,7 @@ class ColorSystem {
      * If this function fails, the return value is **FALSE**.
      * 
      * If the **lcsFilename** \[0\] member if the [**LOGCOLORSPACEA**](/windows/desktop/api/Wingdi/ns-wingdi-logcolorspacea) structure pointed to by *pLogColorSpace* is not '\\0', this function returns INVALID\_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-createprofilefromlogcolorspacea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-createprofilefromlogcolorspacea
      */
     static CreateProfileFromLogColorSpaceA(pLogColorSpace, pProfile) {
         pProfileMarshal := pProfile is VarRef ? "ptr*" : "ptr"
@@ -1228,7 +1230,7 @@ class ColorSystem {
      * If this function fails, the return value is **FALSE**.
      * 
      * If the **lcsFilename** \[0\] member if the [**LOGCOLORSPACEA**](/windows/desktop/api/Wingdi/ns-wingdi-logcolorspacea) structure pointed to by *pLogColorSpace* is not '\\0', this function returns INVALID\_PARAMETER.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-createprofilefromlogcolorspacew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-createprofilefromlogcolorspacew
      */
     static CreateProfileFromLogColorSpaceW(pLogColorSpace, pProfile) {
         pProfileMarshal := pProfile is VarRef ? "ptr*" : "ptr"
@@ -1248,7 +1250,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcountcolorprofileelements
      */
     static GetCountColorProfileElements(hProfile, pnElementCount) {
         pnElementCountMarshal := pnElementCount is VarRef ? "uint*" : "ptr"
@@ -1272,7 +1274,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. This function will fail is an invalid ICC or WCS XML profile is referenced in the hProfile parameter. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolorprofileheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcolorprofileheader
      */
     static GetColorProfileHeader(hProfile, pHeader) {
         result := DllCall("mscms.dll\GetColorProfileHeader", "ptr", hProfile, "ptr", pHeader, "int")
@@ -1293,7 +1295,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolorprofileelementtag
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcolorprofileelementtag
      */
     static GetColorProfileElementTag(hProfile, dwIndex, pTag) {
         pTagMarshal := pTag is VarRef ? "uint*" : "ptr"
@@ -1314,7 +1316,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-iscolorprofiletagpresent
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-iscolorprofiletagpresent
      */
     static IsColorProfileTagPresent(hProfile, tag, pbPresent) {
         pbPresentMarshal := pbPresent is VarRef ? "int*" : "ptr"
@@ -1340,7 +1342,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is nonzero.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolorprofileelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcolorprofileelement
      */
     static GetColorProfileElement(hProfile, tag, dwOffset, pcbElement, pElement, pbReference) {
         pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
@@ -1365,7 +1367,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setcolorprofileheader
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setcolorprofileheader
      */
     static SetColorProfileHeader(hProfile, pHeader) {
         result := DllCall("mscms.dll\SetColorProfileHeader", "ptr", hProfile, "ptr", pHeader, "int")
@@ -1390,7 +1392,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setcolorprofileelementsize
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setcolorprofileelementsize
      */
     static SetColorProfileElementSize(hProfile, tagType, pcbElement) {
         result := DllCall("mscms.dll\SetColorProfileElementSize", "ptr", hProfile, "uint", tagType, "uint", pcbElement, "int")
@@ -1419,7 +1421,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setcolorprofileelement
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setcolorprofileelement
      */
     static SetColorProfileElement(hProfile, tag, dwOffset, pcbElement, pElement) {
         pcbElementMarshal := pcbElement is VarRef ? "uint*" : "ptr"
@@ -1445,7 +1447,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setcolorprofileelementreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setcolorprofileelementreference
      */
     static SetColorProfileElementReference(hProfile, newTag, refTag) {
         result := DllCall("mscms.dll\SetColorProfileElementReference", "ptr", hProfile, "uint", newTag, "uint", refTag, "int")
@@ -1467,7 +1469,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getps2colorspacearray
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getps2colorspacearray
      */
     static GetPS2ColorSpaceArray(hProfile, dwIntent, dwCSAType, pPS2ColorSpaceArray, pcbPS2ColorSpaceArray, pbBinary) {
         pcbPS2ColorSpaceArrayMarshal := pcbPS2ColorSpaceArray is VarRef ? "uint*" : "ptr"
@@ -1500,7 +1502,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**. If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getps2colorrenderingintent
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getps2colorrenderingintent
      */
     static GetPS2ColorRenderingIntent(hProfile, dwIntent, pBuffer, pcbPS2ColorRenderingIntent) {
         pcbPS2ColorRenderingIntentMarshal := pcbPS2ColorRenderingIntent is VarRef ? "uint*" : "ptr"
@@ -1530,7 +1532,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**. It also returns **TRUE** if the *pBuffer* parameter is **NULL** and the size required for the buffer is copied into *pcbSize.*
      * 
      * If this function fails, the return value is **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getps2colorrenderingdictionary
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getps2colorrenderingdictionary
      */
     static GetPS2ColorRenderingDictionary(hProfile, dwIntent, pPS2ColorRenderingDictionary, pcbPS2ColorRenderingDictionary, pbBinary) {
         pcbPS2ColorRenderingDictionaryMarshal := pcbPS2ColorRenderingDictionary is VarRef ? "uint*" : "ptr"
@@ -1551,7 +1553,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getnamedprofileinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getnamedprofileinfo
      */
     static GetNamedProfileInfo(hProfile, pNamedProfileInfo) {
         result := DllCall("mscms.dll\GetNamedProfileInfo", "ptr", hProfile, "ptr", pNamedProfileInfo, "int")
@@ -1571,7 +1573,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds with the conversion, the return value is **TRUE**.
      * 
      * If the conversion function fails, the return value is **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-convertcolornametoindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-convertcolornametoindex
      */
     static ConvertColorNameToIndex(hProfile, paColorName, paIndex, dwCount) {
         paColorNameMarshal := paColorName is VarRef ? "ptr*" : "ptr"
@@ -1594,7 +1596,7 @@ class ColorSystem {
      * @returns {BOOL} If this conversion function succeeds, the return value is **TRUE**.
      * 
      * If this conversion function fails, the return value is **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-convertindextocolorname
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-convertindextocolorname
      */
     static ConvertIndexToColorName(hProfile, paIndex, paColorName, dwCount) {
         paIndexMarshal := paIndex is VarRef ? "uint*" : "ptr"
@@ -1624,7 +1626,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero. For extended error information, call GetLastError.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-createdevicelinkprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-createdevicelinkprofile
      */
     static CreateDeviceLinkProfile(hProfile, nProfiles, padwIntent, nIntents, dwFlags, pProfileData, indexPreferredCMM) {
         hProfileMarshal := hProfile is VarRef ? "ptr*" : "ptr"
@@ -1673,7 +1675,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is a handle to the color transform.
      * 
      * If this function fails, the return value is **NULL**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-createcolortransforma
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-createcolortransforma
      */
     static CreateColorTransformA(pLogColorSpace, hDestProfile, hTargetProfile, dwFlags) {
         result := DllCall("mscms.dll\CreateColorTransformA", "ptr", pLogColorSpace, "ptr", hDestProfile, "ptr", hTargetProfile, "uint", dwFlags, "ptr")
@@ -1718,7 +1720,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is a handle to the color transform.
      * 
      * If this function fails, the return value is **NULL**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-createcolortransformw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-createcolortransformw
      */
     static CreateColorTransformW(pLogColorSpace, hDestProfile, hTargetProfile, dwFlags) {
         result := DllCall("mscms.dll\CreateColorTransformW", "ptr", pLogColorSpace, "ptr", hDestProfile, "ptr", hTargetProfile, "uint", dwFlags, "ptr")
@@ -1784,7 +1786,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is a handle to the color transform.
      * 
      * If this function fails, the return value is **NULL**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-createmultiprofiletransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-createmultiprofiletransform
      */
     static CreateMultiProfileTransform(pahProfiles, nProfiles, padwIntent, nIntents, dwFlags, indexPreferredCMM) {
         pahProfilesMarshal := pahProfiles is VarRef ? "ptr*" : "ptr"
@@ -1800,7 +1802,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-deletecolortransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-deletecolortransform
      */
     static DeleteColorTransform(hxform) {
         result := DllCall("mscms.dll\DeleteColorTransform", "ptr", hxform, "int")
@@ -1825,18 +1827,20 @@ class ColorSystem {
      * @param {Pointer<Void>} pDestBits Pointer to the buffer in which to place the translated bitmap.
      * @param {Integer} bmOutput Specifies the format of the output bitmap. Must be set to one of the values of the [**BMFORMAT**](/windows/win32/api/icm/ne-icm-bmformat) enumerated type.
      * @param {Integer} dwOutputStride Specifies the number of bytes from the beginning of one scan line to the beginning of the next in the output bitmap; if set to zero, the function assumes that scan lines should be padded to be **DWORD**-aligned.
-     * @param {Pointer<LPBMCALLBACKFN>} pfnCallBack Pointer to a callback function called periodically by **TranslateBitmapBits** to report progress and allow the calling process to cancel the translation. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback) )
+     * @param {Pointer<LPBMCALLBACKFN>} pfnCallBack_ Pointer to a callback function called periodically by **TranslateBitmapBits** to report progress and allow the calling process to cancel the translation. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback) )
      * @param {LPARAM} ulCallbackData Data passed back to the callback function, for example, to identify the translation that is reporting progress.
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-translatebitmapbits
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-translatebitmapbits
      */
-    static TranslateBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwInputStride, pDestBits, bmOutput, dwOutputStride, pfnCallBack, ulCallbackData) {
+    static TranslateBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwInputStride, pDestBits, bmOutput, dwOutputStride, pfnCallBack_, ulCallbackData) {
+        ulCallbackData := ulCallbackData is Win32Handle ? NumGet(ulCallbackData, "ptr") : ulCallbackData
+
         pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
         pDestBitsMarshal := pDestBits is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("mscms.dll\TranslateBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, pDestBitsMarshal, pDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", pfnCallBack, "ptr", ulCallbackData, "int")
+        result := DllCall("mscms.dll\TranslateBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwInputStride, pDestBitsMarshal, pDestBits, "int", bmOutput, "uint", dwOutputStride, "ptr", pfnCallBack_, "ptr", ulCallbackData, "int")
         return result
     }
 
@@ -1857,18 +1861,20 @@ class ColorSystem {
      * @param {Integer} dwHeight Specifies the number of scan lines of the bitmap.
      * @param {Integer} dwStride Specifies the number of bytes from the beginning one scan line to the beginning of the next one. If set to zero, the bitmap scan lines are assumed to be padded so as to be **DWORD**-aligned.
      * @param {Pointer<Integer>} paResult Pointer to an array of bytes where the test results are to be placed. This results buffer must contain at least as many bytes as there are pixels in the bitmap.
-     * @param {Pointer<LPBMCALLBACKFN>} pfnCallback Pointer to a callback function called periodically by **CheckBitmapBits** to report progress and allow the calling process to cancel the bitmap test. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback)).
+     * @param {Pointer<LPBMCALLBACKFN>} pfnCallback_ Pointer to a callback function called periodically by **CheckBitmapBits** to report progress and allow the calling process to cancel the bitmap test. (See [**ICMProgressProcCallback**](/windows/win32/wcs/icmprogressproccallback)).
      * @param {LPARAM} lpCallbackData Data passed back to the callback function, for example, to identify the bitmap test about which progress is being reported.
      * @returns {BOOL} If this function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-checkbitmapbits
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-checkbitmapbits
      */
-    static CheckBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwStride, paResult, pfnCallback, lpCallbackData) {
+    static CheckBitmapBits(hColorTransform, pSrcBits, bmInput, dwWidth, dwHeight, dwStride, paResult, pfnCallback_, lpCallbackData) {
+        lpCallbackData := lpCallbackData is Win32Handle ? NumGet(lpCallbackData, "ptr") : lpCallbackData
+
         pSrcBitsMarshal := pSrcBits is VarRef ? "ptr" : "ptr"
         paResultMarshal := paResult is VarRef ? "char*" : "ptr"
 
-        result := DllCall("mscms.dll\CheckBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, paResultMarshal, paResult, "ptr", pfnCallback, "ptr", lpCallbackData, "int")
+        result := DllCall("mscms.dll\CheckBitmapBits", "ptr", hColorTransform, pSrcBitsMarshal, pSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, paResultMarshal, paResult, "ptr", pfnCallback_, "ptr", lpCallbackData, "int")
         return result
     }
 
@@ -1885,7 +1891,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-translatecolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-translatecolors
      */
     static TranslateColors(hColorTransform, paInputColors, nColors, ctInput, paOutputColors, ctOutput) {
         result := DllCall("mscms.dll\TranslateColors", "ptr", hColorTransform, "ptr", paInputColors, "uint", nColors, "int", ctInput, "ptr", paOutputColors, "int", ctOutput, "int")
@@ -1908,7 +1914,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-checkcolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-checkcolors
      */
     static CheckColors(hColorTransform, paInputColors, nColors, ctInput, paResult) {
         paResultMarshal := paResult is VarRef ? "char*" : "ptr"
@@ -1924,7 +1930,7 @@ class ColorSystem {
      * @returns {Integer} If this function succeeds, the return value is the information specified in *dwInfo.*
      * 
      * If this function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcmminfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcmminfo
      */
     static GetCMMInfo(hColorTransform, param1) {
         result := DllCall("mscms.dll\GetCMMInfo", "ptr", hColorTransform, "uint", param1, "uint")
@@ -1939,7 +1945,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-registercmma
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-registercmma
      */
     static RegisterCMMA(pMachineName, cmmID, pCMMdll) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -1957,7 +1963,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-registercmmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-registercmmw
      */
     static RegisterCMMW(pMachineName, cmmID, pCMMdll) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -1976,7 +1982,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-unregistercmma
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-unregistercmma
      */
     static UnregisterCMMA(pMachineName, cmmID) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -1994,7 +2000,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-unregistercmmw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-unregistercmmw
      */
     static UnregisterCMMW(pMachineName, cmmID) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2013,7 +2019,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-selectcmm
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-selectcmm
      */
     static SelectCMM(dwCMMType) {
         result := DllCall("mscms.dll\SelectCMM", "uint", dwCMMType, "int")
@@ -2032,7 +2038,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolordirectorya
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcolordirectorya
      * @deprecated GetColorDirectoryW is deprecated and might not work on all platforms. For more info, see MSDN.
      */
     static GetColorDirectoryA(pMachineName, pBuffer, pdwSize) {
@@ -2056,7 +2062,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcolordirectoryw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcolordirectoryw
      * @deprecated GetColorDirectoryA is deprecated and might not work on all platforms. For more info, see MSDN.
      */
     static GetColorDirectoryW(pMachineName, pBuffer, pdwSize) {
@@ -2075,7 +2081,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-installcolorprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-installcolorprofilea
      */
     static InstallColorProfileA(pMachineName, pProfileName) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2092,7 +2098,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-installcolorprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-installcolorprofilew
      */
     static InstallColorProfileW(pMachineName, pProfileName) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2110,7 +2116,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-uninstallcolorprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-uninstallcolorprofilea
      */
     static UninstallColorProfileA(pMachineName, pProfileName, bDelete) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2128,7 +2134,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-uninstallcolorprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-uninstallcolorprofilew
      */
     static UninstallColorProfileW(pMachineName, pProfileName, bDelete) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2160,7 +2166,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-enumcolorprofilesa
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-enumcolorprofilesa
      */
     static EnumColorProfilesA(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2194,7 +2200,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-enumcolorprofilesw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-enumcolorprofilesw
      */
     static EnumColorProfilesW(pMachineName, pEnumRecord, pEnumerationBuffer, pdwSizeOfEnumerationBuffer, pnProfiles) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2226,7 +2232,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setstandardcolorspaceprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setstandardcolorspaceprofilea
      */
     static SetStandardColorSpaceProfileA(pMachineName, dwProfileID, pProfilename) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2256,7 +2262,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setstandardcolorspaceprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setstandardcolorspaceprofilew
      */
     static SetStandardColorSpaceProfileW(pMachineName, dwProfileID, pProfileName) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2291,7 +2297,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getstandardcolorspaceprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getstandardcolorspaceprofilea
      */
     static GetStandardColorSpaceProfileA(pMachineName, dwSCS, pBuffer, pcbSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2327,7 +2333,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getstandardcolorspaceprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getstandardcolorspaceprofilew
      */
     static GetStandardColorSpaceProfileW(pMachineName, dwSCS, pBuffer, pcbSize) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2358,7 +2364,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-associatecolorprofilewithdevicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-associatecolorprofilewithdevicea
      */
     static AssociateColorProfileWithDeviceA(pMachineName, pProfileName, pDeviceName) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2389,7 +2395,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-associatecolorprofilewithdevicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-associatecolorprofilewithdevicew
      */
     static AssociateColorProfileWithDeviceW(pMachineName, pProfileName, pDeviceName) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2414,7 +2420,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-disassociatecolorprofilefromdevicea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-disassociatecolorprofilefromdevicea
      */
     static DisassociateColorProfileFromDeviceA(pMachineName, pProfileName, pDeviceName) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2439,7 +2445,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-disassociatecolorprofilefromdevicew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-disassociatecolorprofilefromdevicew
      */
     static DisassociateColorProfileFromDeviceW(pMachineName, pProfileName, pDeviceName) {
         pMachineName := pMachineName is String ? StrPtr(pMachineName) : pMachineName
@@ -2458,7 +2464,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE** indicating that no errors occurred and the user clicked the OK button.
      * 
      * If this function fails, the return value is **FALSE** indicating that an error occurred or the dialog was canceled. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setupcolormatchingw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setupcolormatchingw
      */
     static SetupColorMatchingW(pcms) {
         result := DllCall("ICMUI.dll\SetupColorMatchingW", "ptr", pcms, "int")
@@ -2473,7 +2479,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE** indicating that no errors occurred and the user clicked the OK button.
      * 
      * If this function fails, the return value is **FALSE** indicating that an error occurred or the dialog was canceled. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-setupcolormatchinga
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-setupcolormatchinga
      */
     static SetupColorMatchingA(pcms) {
         result := DllCall("ICMUI.dll\SetupColorMatchingA", "ptr", pcms, "int")
@@ -2494,7 +2500,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsassociatecolorprofilewithdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsassociatecolorprofilewithdevice
      */
     static WcsAssociateColorProfileWithDevice(scope, pProfileName, pDeviceName) {
         pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
@@ -2522,7 +2528,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsdisassociatecolorprofilefromdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsdisassociatecolorprofilefromdevice
      */
     static WcsDisassociateColorProfileFromDevice(scope, pProfileName, pDeviceName) {
         pProfileName := pProfileName is String ? StrPtr(pProfileName) : pProfileName
@@ -2542,7 +2548,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsenumcolorprofilessize
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsenumcolorprofilessize
      */
     static WcsEnumColorProfilesSize(scope, pEnumRecord, pdwSize) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
@@ -2569,7 +2575,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsenumcolorprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsenumcolorprofiles
      */
     static WcsEnumColorProfiles(scope, pEnumRecord, pBuffer, dwSize, pnProfiles) {
         pnProfilesMarshal := pnProfiles is VarRef ? "uint*" : "ptr"
@@ -2593,7 +2599,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetdefaultcolorprofilesize
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsgetdefaultcolorprofilesize
      */
     static WcsGetDefaultColorProfileSize(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, pcbProfileName) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -2622,7 +2628,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetdefaultcolorprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsgetdefaultcolorprofile
      */
     static WcsGetDefaultColorProfile(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, cbProfileName, pProfileName) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -2654,7 +2660,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcssetdefaultcolorprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcssetdefaultcolorprofile
      */
     static WcsSetDefaultColorProfile(scope, pDeviceName, cptColorProfileType, cpstColorProfileSubType, dwProfileID, pProfileName) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -2671,7 +2677,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcssetdefaultrenderingintent
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcssetdefaultrenderingintent
      */
     static WcsSetDefaultRenderingIntent(scope, dwRenderingIntent) {
         result := DllCall("mscms.dll\WcsSetDefaultRenderingIntent", "int", scope, "uint", dwRenderingIntent, "int")
@@ -2689,7 +2695,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetdefaultrenderingintent
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsgetdefaultrenderingintent
      */
     static WcsGetDefaultRenderingIntent(scope, pdwRenderingIntent) {
         pdwRenderingIntentMarshal := pdwRenderingIntent is VarRef ? "uint*" : "ptr"
@@ -2710,7 +2716,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetuseperuserprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsgetuseperuserprofiles
      */
     static WcsGetUsePerUserProfiles(pDeviceName, dwDeviceClass, pUsePerUserProfiles) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -2733,7 +2739,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcssetuseperuserprofiles
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcssetuseperuserprofiles
      */
     static WcsSetUsePerUserProfiles(pDeviceName, dwDeviceClass, usePerUserProfiles) {
         pDeviceName := pDeviceName is String ? StrPtr(pDeviceName) : pDeviceName
@@ -2759,7 +2765,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcstranslatecolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcstranslatecolors
      */
     static WcsTranslateColors(hColorTransform, nColors, nInputChannels, cdtInput, cbInput, pInputData, nOutputChannels, cdtOutput, cbOutput, pOutputData) {
         result := DllCall("mscms.dll\WcsTranslateColors", "ptr", hColorTransform, "uint", nColors, "uint", nInputChannels, "int", cdtInput, "uint", cbInput, "ptr", pInputData, "uint", nOutputChannels, "int", cdtOutput, "uint", cbOutput, "ptr", pOutputData, "int")
@@ -2782,7 +2788,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcscheckcolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcscheckcolors
      */
     static WcsCheckColors(hColorTransform, nColors, nInputChannels, cdtInput, cbInput, pInputData, paResult) {
         paResultMarshal := paResult is VarRef ? "char*" : "ptr"
@@ -2805,7 +2811,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. If the function is not successful, the CMM should call [SetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror) to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcheckcolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcheckcolors
      */
     static CMCheckColors(hcmTransform, lpaInputColors, nColors, ctInput, lpaResult) {
         lpaResultMarshal := lpaResult is VarRef ? "char*" : "ptr"
@@ -2823,16 +2829,18 @@ class ColorSystem {
      * @param {Integer} dwHeight 
      * @param {Integer} dwStride 
      * @param {Pointer<Integer>} lpaResult 
-     * @param {Pointer<LPBMCALLBACKFN>} pfnCallback 
+     * @param {Pointer<LPBMCALLBACKFN>} pfnCallback_ 
      * @param {LPARAM} ulCallbackData 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcheckrgbs
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcheckrgbs
      */
-    static CMCheckRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpaResult, pfnCallback, ulCallbackData) {
+    static CMCheckRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpaResult, pfnCallback_, ulCallbackData) {
+        ulCallbackData := ulCallbackData is Win32Handle ? NumGet(ulCallbackData, "ptr") : ulCallbackData
+
         lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
         lpaResultMarshal := lpaResult is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ICM32.dll\CMCheckRGBs", "ptr", hcmTransform, lpSrcBitsMarshal, lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, lpaResultMarshal, lpaResult, "ptr", pfnCallback, "ptr", ulCallbackData, "int")
+        result := DllCall("ICM32.dll\CMCheckRGBs", "ptr", hcmTransform, lpSrcBitsMarshal, lpSrcBits, "int", bmInput, "uint", dwWidth, "uint", dwHeight, "uint", dwStride, lpaResultMarshal, lpaResult, "ptr", pfnCallback_, "ptr", ulCallbackData, "int")
         return result
     }
 
@@ -2847,7 +2855,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds with the conversion, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. When this occurs, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmconvertcolornametoindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmconvertcolornametoindex
      */
     static CMConvertColorNameToIndex(hProfile, paColorName, paIndex, dwCount) {
         paColorNameMarshal := paColorName is VarRef ? "ptr*" : "ptr"
@@ -2868,7 +2876,7 @@ class ColorSystem {
      * @returns {BOOL} If this conversion function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. When this occurs, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmconvertindextocolorname
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmconvertindextocolorname
      */
     static CMConvertIndexToColorName(hProfile, paIndex, paColorName, dwCount) {
         paIndexMarshal := paIndex is VarRef ? "uint*" : "ptr"
@@ -2897,7 +2905,7 @@ class ColorSystem {
      * @returns {BOOL} If the function succeeds, the return value is a nonzero value.
      * 
      * If this function fails, the return value is zero. If the function is not successful, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreatedevicelinkprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreatedevicelinkprofile
      */
     static CMCreateDeviceLinkProfile(pahProfiles, nProfiles, padwIntents, nIntents, dwFlags, lpProfileData) {
         pahProfilesMarshal := pahProfiles is VarRef ? "ptr*" : "ptr"
@@ -2924,7 +2932,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is a color transform in the range 256 to 65,535. Since only the low **WORD** of the transform is retained, valid transforms cannot exceed this range.
      * 
      * If this function fails, the return value is an error code having a value less than 256. When the return value is less than 256, signaling an error, the CMM should use **SetLastError** to set the last error to a valid error value as defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreatemultiprofiletransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreatemultiprofiletransform
      */
     static CMCreateMultiProfileTransform(pahProfiles, nProfiles, padwIntents, nIntents, dwFlags) {
         pahProfilesMarshal := pahProfiles is VarRef ? "ptr*" : "ptr"
@@ -2959,7 +2967,7 @@ class ColorSystem {
      * If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. Call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to retrieve the error.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreateprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreateprofilew
      */
     static CMCreateProfileW(lpColorSpace, lpProfileData) {
         lpProfileDataMarshal := lpProfileData is VarRef ? "ptr*" : "ptr"
@@ -2974,7 +2982,7 @@ class ColorSystem {
      * @param {Pointer<Void>} lpDevCharacter 
      * @param {Pointer<Void>} lpTargetDevCharacter 
      * @returns {Pointer} 
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreatetransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreatetransform
      */
     static CMCreateTransform(lpColorSpace, lpDevCharacter, lpTargetDevCharacter) {
         lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
@@ -2990,7 +2998,7 @@ class ColorSystem {
      * @param {Pointer<Void>} lpDevCharacter 
      * @param {Pointer<Void>} lpTargetDevCharacter 
      * @returns {Pointer} 
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreatetransformw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreatetransformw
      */
     static CMCreateTransformW(lpColorSpace, lpDevCharacter, lpTargetDevCharacter) {
         lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
@@ -3013,7 +3021,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is a color transform in the range 256 to 65,535. Since only the low **WORD** of the transform is retained, valid transforms cannot exceed this range.
      * 
      * If this function fails, the return value is an error code having a value less than 256. When the return value is less than 256, signaling an error, the CMM should use **SetLastError** to set the last error to a valid error value as defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreatetransformext
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreatetransformext
      */
     static CMCreateTransformExt(lpColorSpace, lpDevCharacter, lpTargetDevCharacter, dwFlags) {
         lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
@@ -3048,7 +3056,7 @@ class ColorSystem {
      * If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. Call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to retrieve the error.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcheckcolorsingamut
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcheckcolorsingamut
      */
     static CMCheckColorsInGamut(hcmTransform, lpaRGBTriple, lpaResult, nCount) {
         result := DllCall("ICM32.dll\CMCheckColorsInGamut", "ptr", hcmTransform, "ptr", lpaRGBTriple, "ptr", lpaResult, "uint", nCount, "int")
@@ -3080,7 +3088,7 @@ class ColorSystem {
      * If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. Call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror) to retrieve the error.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreateprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreateprofile
      */
     static CMCreateProfile(lpColorSpace, lpProfileData) {
         lpProfileDataMarshal := lpProfileData is VarRef ? "ptr*" : "ptr"
@@ -3094,7 +3102,7 @@ class ColorSystem {
      * @remarks
      * Every CMM is required to export this function.
      * @param {Pointer} hcmTransform Specifies the transform to be used.
-     * @param {COLORREF} ColorRef The RGBQuad to translate.
+     * @param {COLORREF} ColorRef_ The RGBQuad to translate.
      * @param {Pointer<Integer>} lpColorRef Points to a buffer in which to place the translation.
      * @param {Integer} dwFlags Specifies how the transform should be used to make the translation. This parameter can take one of the following meanings.
      * 
@@ -3125,12 +3133,12 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. The CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmtranslatergb
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmtranslatergb
      */
-    static CMTranslateRGB(hcmTransform, ColorRef, lpColorRef, dwFlags) {
+    static CMTranslateRGB(hcmTransform, ColorRef_, lpColorRef, dwFlags) {
         lpColorRefMarshal := lpColorRef is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ICM32.dll\CMTranslateRGB", "ptr", hcmTransform, "uint", ColorRef, lpColorRefMarshal, lpColorRef, "uint", dwFlags, "int")
+        result := DllCall("ICM32.dll\CMTranslateRGB", "ptr", hcmTransform, "uint", ColorRef_, lpColorRefMarshal, lpColorRef, "uint", dwFlags, "int")
         return result
     }
 
@@ -3166,7 +3174,7 @@ class ColorSystem {
      * If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**. If the function is not successful, the CMM should call [SetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-setlasterror) to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmtranslatergbs
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmtranslatergbs
      */
     static CMTranslateRGBs(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwStride, lpDestBits, bmOutput, dwTranslateDirection) {
         lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
@@ -3187,7 +3195,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is a color transform in the range 256 to 65,535. Since only the low **WORD** of the transform is retained, valid transforms cannot exceed this range.
      * 
      * If this function fails, the return value is an error code having a value less than 256. When the return value is less than 256, signaling an error, the CMM should use **SetLastError** to set the last error to a valid error value as defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmcreatetransformextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmcreatetransformextw
      */
     static CMCreateTransformExtW(lpColorSpace, lpDevCharacter, lpTargetDevCharacter, dwFlags) {
         lpDevCharacterMarshal := lpDevCharacter is VarRef ? "ptr" : "ptr"
@@ -3205,7 +3213,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If the function fails, the return value is **FALSE**. If the **CMDeleteTransform** function is not successful, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmdeletetransform
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmdeletetransform
      */
     static CMDeleteTransform(hcmTransform) {
         result := DllCall("ICM32.dll\CMDeleteTransform", "ptr", hcmTransform, "int")
@@ -3270,7 +3278,7 @@ class ColorSystem {
      * </tbody>
      * </table>
      * @returns {Integer} If this function succeeds, the return value is the same nonzero value that was passed in through the *dwInfo* parameter. If the function fails, the return value is zero.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmgetinfo
      */
     static CMGetInfo(dwInfo) {
         result := DllCall("ICM32.dll\CMGetInfo", "uint", dwInfo, "uint")
@@ -3286,7 +3294,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. When this occurs, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmgetnamedprofileinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmgetnamedprofileinfo
      */
     static CMGetNamedProfileInfo(hProfile, pNamedProfileInfo) {
         result := DllCall("ICM32.dll\CMGetNamedProfileInfo", "ptr", hProfile, "ptr", pNamedProfileInfo, "int")
@@ -3304,7 +3312,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. If the function fails, the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmisprofilevalid
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmisprofilevalid
      */
     static CMIsProfileValid(hProfile, lpbValid) {
         lpbValidMarshal := lpbValid is VarRef ? "int*" : "ptr"
@@ -3330,7 +3338,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is TRUE.
      * 
      * If this function fails, the return value is FALSE. The CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmtranslatecolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmtranslatecolors
      */
     static CMTranslateColors(hcmTransform, lpaInputColors, nColors, ctInput, lpaOutputColors, ctOutput) {
         result := DllCall("ICM32.dll\CMTranslateColors", "ptr", hcmTransform, "ptr", lpaInputColors, "uint", nColors, "int", ctInput, "ptr", lpaOutputColors, "int", ctOutput, "int")
@@ -3365,9 +3373,11 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE** and the CMM should call **SetLastError** to set the last error to a valid error value defined in Winerror.h.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-cmtranslatergbsext
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-cmtranslatergbsext
      */
     static CMTranslateRGBsExt(hcmTransform, lpSrcBits, bmInput, dwWidth, dwHeight, dwInputStride, lpDestBits, bmOutput, dwOutputStride, lpfnCallback, ulCallbackData) {
+        ulCallbackData := ulCallbackData is Win32Handle ? NumGet(ulCallbackData, "ptr") : ulCallbackData
+
         lpSrcBitsMarshal := lpSrcBits is VarRef ? "ptr" : "ptr"
         lpDestBitsMarshal := lpDestBits is VarRef ? "ptr" : "ptr"
 
@@ -3403,7 +3413,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is the handle of the color profile that is opened.
      * 
      * If this function fails, the return value is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsopencolorprofilea
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsopencolorprofilea
      */
     static WcsOpenColorProfileA(pCDMPProfile, pCAMPProfile, pGMMPProfile, dwDesireAccess, dwShareMode, dwCreationMode, dwFlags) {
         result := DllCall("mscms.dll\WcsOpenColorProfileA", "ptr", pCDMPProfile, "ptr", pCAMPProfile, "ptr", pGMMPProfile, "uint", dwDesireAccess, "uint", dwShareMode, "uint", dwCreationMode, "uint", dwFlags, "ptr")
@@ -3438,7 +3448,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is the handle of the color profile that is opened.
      * 
      * If this function fails, the return value is **NULL**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsopencolorprofilew
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsopencolorprofilew
      */
     static WcsOpenColorProfileW(pCDMPProfile, pCAMPProfile, pGMMPProfile, dwDesireAccess, dwShareMode, dwCreationMode, dwFlags) {
         result := DllCall("mscms.dll\WcsOpenColorProfileW", "ptr", pCDMPProfile, "ptr", pCAMPProfile, "ptr", pGMMPProfile, "uint", dwDesireAccess, "uint", dwShareMode, "uint", dwCreationMode, "uint", dwFlags, "ptr")
@@ -3495,7 +3505,7 @@ class ColorSystem {
      * @returns {Pointer} If this function succeeds, the return value is the handle of the new color profile.
      * 
      * If this function fails, the return value is **NULL**. For extended error information, call [GetLastError](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcscreateiccprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcscreateiccprofile
      */
     static WcsCreateIccProfile(hWcsProfile, dwOptions) {
         result := DllCall("mscms.dll\WcsCreateIccProfile", "ptr", hWcsProfile, "uint", dwOptions, "ptr")
@@ -3508,7 +3518,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcsgetcalibrationmanagementstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcsgetcalibrationmanagementstate
      */
     static WcsGetCalibrationManagementState(pbIsEnabled) {
         pbIsEnabledMarshal := pbIsEnabled is VarRef ? "int*" : "ptr"
@@ -3525,7 +3535,7 @@ class ColorSystem {
      * @returns {BOOL} If this function succeeds, the return value is **TRUE**.
      * 
      * If this function fails, the return value is **FALSE**.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-wcssetcalibrationmanagementstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-wcssetcalibrationmanagementstate
      */
     static WcsSetCalibrationManagementState(bIsEnabled) {
         result := DllCall("mscms.dll\WcsSetCalibrationManagementState", "int", bIsEnabled, "int")
@@ -3543,7 +3553,7 @@ class ColorSystem {
      * @param {BOOL} setAsDefault Whether or not to set the newly associated profile as the default.
      * @param {BOOL} associateAsAdvancedColor Specifies to which association list the new profile is added.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofileadddisplayassociation
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-colorprofileadddisplayassociation
      */
     static ColorProfileAddDisplayAssociation(scope, profileName, targetAdapterID, sourceID, setAsDefault, associateAsAdvancedColor) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
@@ -3566,7 +3576,7 @@ class ColorSystem {
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @param {BOOL} dissociateAdvancedColor Specifies to which association list the new profile is added.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofileremovedisplayassociation
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-colorprofileremovedisplayassociation
      */
     static ColorProfileRemoveDisplayAssociation(scope, profileName, targetAdapterID, sourceID, dissociateAdvancedColor) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
@@ -3590,7 +3600,7 @@ class ColorSystem {
      * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilesetdisplaydefaultassociation
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-colorprofilesetdisplaydefaultassociation
      */
     static ColorProfileSetDisplayDefaultAssociation(scope, profileName, profileType, profileSubType, targetAdapterID, sourceID) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
@@ -3613,7 +3623,7 @@ class ColorSystem {
      * @param {Pointer<Pointer<PWSTR>>} profileList Pointer to a buffer where the profile names are placed, must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
      * @param {Pointer<Integer>} profileCount Receives the number of profiles names copied into profileList.
      * @returns {HRESULT} **S_OK** for success, or a failure **HRESULT** value
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplaylist
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-colorprofilegetdisplaylist
      */
     static ColorProfileGetDisplayList(scope, targetAdapterID, sourceID, profileList, profileCount) {
         profileListMarshal := profileList is VarRef ? "ptr*" : "ptr"
@@ -3637,7 +3647,7 @@ class ColorSystem {
      * @param {Integer} profileType The type of color profile to return (currently only CPT_ICC is supported).
      * @param {Integer} profileSubType The subtype of the color profile to return.
      * @returns {PWSTR} Receives a pointer to the default color profile name, which must be freed with [LocalFree](../winbase/nf-winbase-localfree.md).
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplaydefault
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-colorprofilegetdisplaydefault
      */
     static ColorProfileGetDisplayDefault(scope, targetAdapterID, sourceID, profileType, profileSubType) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr*", &profileName := 0, "int")
@@ -3655,7 +3665,7 @@ class ColorSystem {
      * @param {LUID} targetAdapterID An identifier assigned to the adapter (e.g. GPU) of the target display. See [Remarks](#remarks) for more details.
      * @param {Integer} sourceID An identifier assigned to the source of the display. See [Remarks](#remarks) for more details.
      * @returns {Integer} Returns the scope of the currently selected color profile - either the current user or system.
-     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplayuserscope
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-colorprofilegetdisplayuserscope
      */
     static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID) {
         result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", &scope := 0, "int")

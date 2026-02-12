@@ -5,7 +5,7 @@
 
 /**
  * Contains additional information about the status of an enrollment that is in progress.
- * @see https://learn.microsoft.com/windows/win32/SecBioMet/winbio-extended-enrollment-status
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SecBioMet/winbio-extended-enrollment-status
  * @namespace Windows.Win32.Devices.BiometricFramework
  * @version v4.0.30319
  */

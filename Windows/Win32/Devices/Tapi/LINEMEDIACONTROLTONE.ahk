@@ -11,7 +11,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetmediacontrol">lineSetMediaControl</a> function to set media control actions triggered by media type changes for a given call. When a change to a listed media type is detected, the corresponding action on the media stream is invoked.
  * 
  * A tone with all frequencies set to zero corresponds to silence. An application can thus monitor the call's information stream for silence.
- * @see https://learn.microsoft.com/windows/win32/api/tapi/ns-tapi-linemediacontroltone
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi/ns-tapi-linemediacontroltone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */

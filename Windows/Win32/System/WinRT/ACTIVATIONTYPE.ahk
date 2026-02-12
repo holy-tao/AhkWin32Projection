@@ -3,7 +3,7 @@
 
 /**
  * The ACTIVATIONTYPE enumeration (objidl.h) specifies the kind of activation for an activatable class.
- * @see https://learn.microsoft.com/windows/win32/api/objidl/ne-objidl-activationtype
+ * @see https://learn.microsoft.com/windows/win32/api//content/objidl/ne-objidl-activationtype
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */

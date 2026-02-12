@@ -6,7 +6,6 @@
 /**
  * Exposes methods to enable and query translucency effects in a deskband object.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolewindow">IOleWindow</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ideskband">IDeskBand</a> interfaces, from which it inherits.
  * 
  * If implemented in all active deskbands, this interface allows the taskbar to be displayed using translucent effects. If an active deskband does not implement <b>IDeskBand2</b>, then translucency is disabled for the entire taskbar.
@@ -21,8 +20,7 @@
  * <li>
  * <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ideskband2-getcompositionstate">IDeskBand2::GetCompositionState</a> is the counterpart of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/nf-shobjidl-ideskband2-setcompositionstate">IDeskBand2::SetCompositionState</a>.</li>
  * </ul>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ideskband2
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nn-shobjidl-ideskband2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -52,10 +50,14 @@ class IDeskBand2 extends IDeskBand{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this method returns, contains a <b>BOOL</b> indicating ability.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ideskband2-canrendercomposited
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ideskband2-canrendercomposited
      */
     CanRenderComposited() {
-        result := ComCall(9, this, "int*", &pfCanRenderComposited := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pfCanRenderComposited := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCanRenderComposited
     }
 
@@ -66,11 +68,15 @@ class IDeskBand2 extends IDeskBand{
      * <b>TRUE</b> to enable the composition state; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ideskband2-setcompositionstate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ideskband2-setcompositionstate
      */
     SetCompositionState(fCompositionEnabled) {
-        result := ComCall(10, this, "int", fCompositionEnabled, "HRESULT")
+        result := ComCall(10, this, "int", fCompositionEnabled, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,10 +85,14 @@ class IDeskBand2 extends IDeskBand{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * When this method returns, contains a <b>BOOL</b> that indicates state.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ideskband2-getcompositionstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl/nf-shobjidl-ideskband2-getcompositionstate
      */
     GetCompositionState() {
-        result := ComCall(11, this, "int*", &pfCompositionEnabled := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pfCompositionEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfCompositionEnabled
     }
 }

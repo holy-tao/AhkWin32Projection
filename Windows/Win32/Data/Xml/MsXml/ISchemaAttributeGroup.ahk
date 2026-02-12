@@ -49,7 +49,11 @@ class ISchemaAttributeGroup extends ISchemaItem{
      * @returns {ISchemaAny} 
      */
     get_anyAttribute() {
-        result := ComCall(14, this, "ptr*", &anyAttribute := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &anyAttribute := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaAny(anyAttribute)
     }
 
@@ -58,7 +62,11 @@ class ISchemaAttributeGroup extends ISchemaItem{
      * @returns {ISchemaItemCollection} 
      */
     get_attributes() {
-        result := ComCall(15, this, "ptr*", &attributes := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &attributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISchemaItemCollection(attributes)
     }
 }

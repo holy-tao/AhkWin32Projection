@@ -6,7 +6,7 @@
 
 /**
  * Contains the response to a D3DAUTHENTICATEDQUERY\_ENCRYPTIONWHENACCESSIBLEGUIDCOUNT query.
- * @see https://learn.microsoft.com/windows/win32/medfound/d3dauthenticatedchannel-queryevictionencryptionguidcount-output
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/medfound/d3dauthenticatedchannel-queryevictionencryptionguidcount-output
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

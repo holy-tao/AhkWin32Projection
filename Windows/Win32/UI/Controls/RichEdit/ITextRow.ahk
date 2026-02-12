@@ -6,7 +6,6 @@
 /**
  * The ITextRow interface provides methods to insert one or more identical table rows, and to retrieve and change table row properties. To insert nonidentical rows, call ITextRow::Insert for each different row configuration.
  * @remarks
- * 
  * To select a table, a row, or a cell, use <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-expand">ITextRange::Expand</a>, with the <i>Unit</i> parameter set to <b>tomTable</b>, <b>tomRow</b>, or <b>tomCell</b>, respectively. These units can also be used with the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a> methods to navigate and select multiple rows or cells.
  * 
  * Some of the <b>ITextRow</b> properties apply to the whole row, such as the row alignment. In addition, there are a number of properties, such as cell alignment, that apply to a cell with the index set via the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrow-setcellindex">ITextRow::SetCellIndex</a> method. This cell is referred to as the active cell.
@@ -23,8 +22,7 @@
  * 
  * On the other hand, no formal table description is stored anywhere. Information such as the number of rows must be figured out by navigating through the table.
  * For example, the count of rows in a table can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-startof">ITextRange::StartOf</a> (<b>tomTable</b>, <b>tomFalse</b>, <b>NULL</b>) to move to the start of the current table and then calling <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-move">ITextRange::Move</a> (<b>tomRow</b>, <b>tomForward</b>, <i>&amp;dcRow</i>). The quantity <i>&amp;dcRow</i> + 1 then contains the count of rows in the table, because moving by <b>tomRow</b> increments doesn't move beyond the last table row.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextrow
+ * @see https://learn.microsoft.com/windows/win32/api//content/tom/nn-tom-itextrow
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -52,23 +50,31 @@ class ITextRow extends IDispatch{
     /**
      * Gets the horizontal alignment of a row.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getalignment
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getalignment
      */
     GetAlignment() {
-        result := ComCall(7, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the horizontal alignment of a row.
      * @param {Integer} Value Type: <b>long</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setalignment
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setalignment
      */
     SetAlignment(Value) {
-        result := ComCall(8, this, "int", Value, "HRESULT")
+        result := ComCall(8, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,10 +83,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The cell count for this row.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellcount
      */
     GetCellCount() {
-        result := ComCall(9, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -89,40 +99,56 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The row cell count.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellcount
      */
     SetCellCount(Value) {
-        result := ComCall(10, this, "int", Value, "HRESULT")
+        result := ComCall(10, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the count of cells cached for this row.
+     * @remarks
+     * If all cells are identical, properties need to be cached only for the cell with index 0. If the cached count is less than the cell count, the cell parameters for index CellCountCache – 1 are used for cells with larger indices.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The cached cell count.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellcountcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellcountcache
      */
     GetCellCountCache() {
-        result := ComCall(11, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the count of cells cached for a row.
+     * @remarks
+     * If all cells are identical, properties need to be cached only for the cell with index 0. If the cached count is less than the cell count, the cell parameters for index CellCountCache – 1 are used for cells with larger indices.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The cell count.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellcountcache
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellcountcache
      */
     SetCellCountCache(Value) {
-        result := ComCall(12, this, "int", Value, "HRESULT")
+        result := ComCall(12, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -131,25 +157,37 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The cell index.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellindex
      */
     GetCellIndex() {
-        result := ComCall(13, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the index of the active cell.
+     * @remarks
+     * You can get or set parameters for an active cell.
+     * 
+     *  If the cell index is greater than the cell count, and the cell index is less that 63 (the maximum cell count), then the cell count is increased to cell index + 1.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The cell index.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellindex
      */
     SetCellIndex(Value) {
-        result := ComCall(14, this, "int", Value, "HRESULT")
+        result := ComCall(14, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,10 +196,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The cell margin.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellmargin
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellmargin
      */
     GetCellMargin() {
-        result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -170,13 +212,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The cell margin. The cell margin is used for all cells in the row and is typically about 108 twips or 0.075 inches.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellmargin
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellmargin
      */
     SetCellMargin(Value) {
-        result := ComCall(16, this, "int", Value, "HRESULT")
+        result := ComCall(16, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,10 +231,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The row height. A value of 0 indicates autoheight.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getheight
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getheight
      */
     GetHeight() {
-        result := ComCall(17, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(17, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -197,13 +247,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The row height. A value of 0 indicates autoheight.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setheight
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setheight
      */
     SetHeight(Value) {
-        result := ComCall(18, this, "int", Value, "HRESULT")
+        result := ComCall(18, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -212,10 +266,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The indent of the row.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getindent
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getindent
      */
     GetIndent() {
-        result := ComCall(19, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(19, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -224,13 +282,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The row indent.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setindent
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setindent
      */
     SetIndent(Value) {
-        result := ComCall(20, this, "int", Value, "HRESULT")
+        result := ComCall(20, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -239,10 +301,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that indicates whether this row can be broken across pages.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getkeeptogether
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getkeeptogether
      */
     GetKeepTogether() {
-        result := ComCall(21, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(21, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -251,13 +317,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that indicates whether this row can be broken across pages.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setkeeptogether
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setkeeptogether
      */
     SetKeepTogether(Value) {
-        result := ComCall(22, this, "int", Value, "HRESULT")
+        result := ComCall(22, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,10 +336,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that indicates whether this row should be kept on the same page as the following row.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getkeepwithnext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getkeepwithnext
      */
     GetKeepWithNext() {
-        result := ComCall(23, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(23, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -278,25 +352,35 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that indicates whether a row should appear on the same page as the row that follows it.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setkeepwithnext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setkeepwithnext
      */
     SetKeepWithNext(Value) {
-        result := ComCall(24, this, "int", Value, "HRESULT")
+        result := ComCall(24, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the nest level of a table.
+     * @remarks
+     * The nest level of the table is identified by the associated <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a> object. If there is only a single table, the nest level is 1. If there is no table, the nest level is 0.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The nest level.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getnestlevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getnestlevel
      */
     GetNestLevel() {
-        result := ComCall(25, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(25, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -305,10 +389,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      *  A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that indicates whether this row has right-to-left orientation.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getrtl
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getrtl
      */
     GetRTL() {
-        result := ComCall(26, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -357,13 +445,17 @@ class ITextRow extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setrtl
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setrtl
      */
     SetRTL(Value) {
-        result := ComCall(27, this, "int", Value, "HRESULT")
+        result := ComCall(27, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -372,10 +464,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The vertical alignment.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellalignment
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellalignment
      */
     GetCellAlignment() {
-        result := ComCall(28, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(28, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -384,13 +480,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The vertical alignment.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellalignment
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellalignment
      */
     SetCellAlignment(Value) {
-        result := ComCall(29, this, "int", Value, "HRESULT")
+        result := ComCall(29, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -399,25 +499,35 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The background color.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellcolorback
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellcolorback
      */
     GetCellColorBack() {
-        result := ComCall(30, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(30, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the background color of the active cell.
+     * @remarks
+     * See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrow-getcellshading">ITextRow::GetCellShading</a> to see how the background color is used together with the foreground color.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The background color.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellcolorback
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellcolorback
      */
     SetCellColorBack(Value) {
-        result := ComCall(31, this, "int", Value, "HRESULT")
+        result := ComCall(31, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -426,25 +536,35 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The foreground color.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellcolorfore
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellcolorfore
      */
     GetCellColorFore() {
-        result := ComCall(32, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(32, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the foreground color of the active cell.
+     * @remarks
+     * See <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrow-getcellshading">ITextRow::GetCellShading</a> to see how the foreground color is used together with the background color.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The foreground color.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellcolorfore
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellcolorfore
      */
     SetCellColorFore(Value) {
-        result := ComCall(33, this, "int", Value, "HRESULT")
+        result := ComCall(33, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -457,10 +577,14 @@ class ITextRow extends IDispatch{
      * <a id="tomHContCell"></a>
      * <a id="tomhcontcell"></a>
      * <a id="TOMHCONTCELL"></a>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellmergeflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellmergeflags
      */
     GetCellMergeFlags() {
-        result := ComCall(34, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(34, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -474,40 +598,56 @@ class ITextRow extends IDispatch{
      * <a id="tomHContCell"></a>
      * <a id="tomhcontcell"></a>
      * <a id="TOMHCONTCELL"></a>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellmergeflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellmergeflags
      */
     SetCellMergeFlags(Value) {
-        result := ComCall(35, this, "int", Value, "HRESULT")
+        result := ComCall(35, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the shading of the active cell.
+     * @remarks
+     * The shading is given in hundredths of a percent, so full shading is given by the value 10000. The shading percentage determines the mix of the cell foreground and background colors to be used for the cell background. A shading of 0 uses the cell background color alone. A shading of 10000 (100%) uses the foreground color alone. Values in between mix the foreground and background colors, weighting the background with (10000 – CellShading)/1000 and the foreground with CellShading/1000. These ratios are applied to the red, green, and blue channels independently of one another.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The shading of the active cell. See Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellshading
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellshading
      */
     GetCellShading() {
-        result := ComCall(36, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(36, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the shading of the active cell.
+     * @remarks
+     * The shading is given in hundredths of a percent, so full shading is given by the value 10000. The shading percentage determines the mix of the cell foreground and background colors to be used for the cell background. A shading of 0 uses the cell background color alone. A shading of 10000 (100%) uses the foreground color alone. Values in between mix the foreground and background colors, weighting the background with (10000 – CellShading)/1000 and the foreground with CellShading/1000. These ratios are applied to the red, green, and blue channels independently of one another.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The shading of the active cell.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellshading
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellshading
      */
     SetCellShading(Value) {
-        result := ComCall(37, this, "int", Value, "HRESULT")
+        result := ComCall(37, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -516,52 +656,74 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The vertical-text setting
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellverticaltext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellverticaltext
      */
     GetCellVerticalText() {
-        result := ComCall(38, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(38, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the vertical-text setting of the active cell.
+     * @remarks
+     * This property is not currently implemented.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The vertical setting.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellverticaltext
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellverticaltext
      */
     SetCellVerticalText(Value) {
-        result := ComCall(39, this, "int", Value, "HRESULT")
+        result := ComCall(39, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the width of the active cell.
+     * @remarks
+     * The width of the cell, and/or the entire row, must be less than 22 inches (1440 x 22).
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The width of the active cell, in twips.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellwidth
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellwidth
      */
     GetCellWidth() {
-        result := ComCall(40, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(40, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
      * Sets the active cell width in twips.
+     * @remarks
+     * The total width of the entire row must be less than 22 inches, or 1440×22.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The width of the active cell.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellwidth
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellwidth
      */
     SetCellWidth(Value) {
-        result := ComCall(41, this, "int", Value, "HRESULT")
+        result := ComCall(41, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -579,10 +741,10 @@ class ITextRow extends IDispatch{
      * @param {Pointer<Integer>} pcrBottom Type: <b>long*</b>
      * 
      * The active-cell bottom border color.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellbordercolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellbordercolors
      */
     GetCellBorderColors(pcrLeft, pcrTop, pcrRight, pcrBottom) {
         pcrLeftMarshal := pcrLeft is VarRef ? "int*" : "ptr"
@@ -590,7 +752,11 @@ class ITextRow extends IDispatch{
         pcrRightMarshal := pcrRight is VarRef ? "int*" : "ptr"
         pcrBottomMarshal := pcrBottom is VarRef ? "int*" : "ptr"
 
-        result := ComCall(42, this, pcrLeftMarshal, pcrLeft, pcrTopMarshal, pcrTop, pcrRightMarshal, pcrRight, pcrBottomMarshal, pcrBottom, "HRESULT")
+        result := ComCall(42, this, pcrLeftMarshal, pcrLeft, pcrTopMarshal, pcrTop, pcrRightMarshal, pcrRight, pcrBottomMarshal, pcrBottom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -608,10 +774,10 @@ class ITextRow extends IDispatch{
      * @param {Pointer<Integer>} pduBottom Type: <b>long*</b>
      * 
      * The active-cell bottom border width.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getcellborderwidths
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getcellborderwidths
      */
     GetCellBorderWidths(pduLeft, pduTop, pduRight, pduBottom) {
         pduLeftMarshal := pduLeft is VarRef ? "int*" : "ptr"
@@ -619,7 +785,11 @@ class ITextRow extends IDispatch{
         pduRightMarshal := pduRight is VarRef ? "int*" : "ptr"
         pduBottomMarshal := pduBottom is VarRef ? "int*" : "ptr"
 
-        result := ComCall(43, this, pduLeftMarshal, pduLeft, pduTopMarshal, pduTop, pduRightMarshal, pduRight, pduBottomMarshal, pduBottom, "HRESULT")
+        result := ComCall(43, this, pduLeftMarshal, pduLeft, pduTopMarshal, pduTop, pduRightMarshal, pduRight, pduBottomMarshal, pduBottom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -637,13 +807,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} crBottom Type: <b>long</b>
      * 
      * The bottom border color.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellbordercolors
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellbordercolors
      */
     SetCellBorderColors(crLeft, crTop, crRight, crBottom) {
-        result := ComCall(44, this, "int", crLeft, "int", crTop, "int", crRight, "int", crBottom, "HRESULT")
+        result := ComCall(44, this, "int", crLeft, "int", crTop, "int", crRight, "int", crBottom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -661,13 +835,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} duBottom Type: <b>long</b>
      * 
      * The bottom border width.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setcellborderwidths
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setcellborderwidths
      */
     SetCellBorderWidths(duLeft, duTop, duRight, duBottom) {
-        result := ComCall(45, this, "int", duLeft, "int", duTop, "int", duRight, "int", duBottom, "HRESULT")
+        result := ComCall(45, this, "int", duLeft, "int", duTop, "int", duRight, "int", duBottom, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -677,40 +855,56 @@ class ITextRow extends IDispatch{
      * 
      * The number of rows to apply this text row object to.
      * @param {Integer} Flags Type: <b>long</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-apply
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-apply
      */
     Apply(cRow, Flags) {
-        result := ComCall(46, this, "int", cRow, "int", Flags, "HRESULT")
+        result := ComCall(46, this, "int", cRow, "int", Flags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Determines whether changes can be made to this row.
+     * @remarks
+     * The row can be changed only if no part of an associated range is protected and the associated document isn't read only.
      * @returns {Integer} Type: <b>long*</b>
      * 
-     * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> indicating whether the row can be edited. It is <b>tomTrue</b> only if the row can be edited. The <i>pB</i> paraemeter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-canchange
+     * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> indicating whether the row can be edited. It is <b>tomTrue</b> only if the row can be edited. The <i>pB</i> parameter can be <b>NULL</b>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-canchange
      */
     CanChange() {
-        result := ComCall(47, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(47, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
     /**
-     * Gets the value of the specified property.
+     * Gets the value of the specified property. (ITextRow.GetProperty)
+     * @remarks
+     * Currently, no extra properties are defined.
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The ID of the property to retrieve.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The value for the property.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-getproperty
      */
     GetProperty(Type) {
-        result := ComCall(48, this, "int", Type, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(48, this, "int", Type, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -719,13 +913,17 @@ class ITextRow extends IDispatch{
      * @param {Integer} cRow Type: <b>long</b>
      * 
      * The number of rows to insert.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-insert
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-insert
      */
     Insert(cRow) {
-        result := ComCall(49, this, "int", cRow, "HRESULT")
+        result := ComCall(49, this, "int", cRow, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -737,10 +935,14 @@ class ITextRow extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      *  The comparison result. The value is set to  <b>tomTrue</b> if equal, and <b>tomFalse</b> if not. The value can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-isequal
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-isequal
      */
     IsEqual(pRow) {
-        result := ComCall(50, this, "ptr", pRow, "int*", &pB := 0, "HRESULT")
+        result := ComCall(50, this, "ptr", pRow, "int*", &pB := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pB
     }
 
@@ -749,9 +951,9 @@ class ITextRow extends IDispatch{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomRowUpdate</a> reset value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If the method succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -781,28 +983,36 @@ class ITextRow extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-reset
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-reset
      */
     Reset(Value) {
-        result := ComCall(51, this, "int", Value, "HRESULT")
+        result := ComCall(51, this, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Sets the value of the specified property.
+     * Sets the value of the specified property. (ITextRow.SetProperty)
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The ID of the  property to set.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextrow-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api//content/tom/nf-tom-itextrow-setproperty
      */
     SetProperty(Type, Value) {
-        result := ComCall(52, this, "int", Type, "int", Value, "HRESULT")
+        result := ComCall(52, this, "int", Type, "int", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

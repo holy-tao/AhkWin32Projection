@@ -61,7 +61,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-createpipe
      * @since windows5.0
      */
     static CreatePipe(hReadPipe, hWritePipe, lpPipeAttributes, nSize) {
@@ -125,7 +125,7 @@ class Pipes {
      * If a client connects before the function is called, the function returns zero and <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_PIPE_CONNECTED. This can happen if a client connects in the interval between the call to 
      * <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea">CreateNamedPipe</a> and the call to 
      * <b>ConnectNamedPipe</b>. In this situation, there is a good connection between client and server, even though the function returns zero.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-connectnamedpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-connectnamedpipe
      * @since windows5.0
      */
     static ConnectNamedPipe(hNamedPipe, lpOverlapped) {
@@ -163,7 +163,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-disconnectnamedpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-disconnectnamedpipe
      * @since windows5.0
      */
     static DisconnectNamedPipe(hNamedPipe) {
@@ -267,7 +267,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-setnamedpipehandlestate
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-setnamedpipehandlestate
      * @since windows5.0
      */
     static SetNamedPipeHandleState(hNamedPipe, lpMode, lpMaxCollectionCount, lpCollectDataTimeout) {
@@ -321,7 +321,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-peeknamedpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-peeknamedpipe
      * @since windows5.0
      */
     static PeekNamedPipe(hNamedPipe, lpBuffer, nBufferSize, lpBytesRead, lpTotalBytesAvail, lpBytesLeftThisMessage) {
@@ -400,7 +400,7 @@ class Pipes {
      * If the message to be read is longer than the buffer specified by the <i>nOutBufferSize</i> parameter, 
      * <b>TransactNamedPipe</b> returns <b>FALSE</b> and the <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function returns ERROR_MORE_DATA. The remainder of the message can be read by a subsequent call to <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-readfile">ReadFile</a>, <a href="https://docs.microsoft.com/windows/win32/api/fileapi/nf-fileapi-readfileex">ReadFileEx</a>, or 
      * <a href="https://docs.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-peeknamedpipe">PeekNamedPipe</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-transactnamedpipe
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-transactnamedpipe
      * @since windows5.0
      */
     static TransactNamedPipe(hNamedPipe, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, lpOverlapped) {
@@ -727,7 +727,7 @@ class Pipes {
      * @returns {HANDLE} If the function succeeds, the return value is a handle to the server end of a named pipe instance.
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-createnamedpipew
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-createnamedpipew
      */
     static CreateNamedPipeW(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
         lpName := lpName is String ? StrPtr(lpName) : lpName
@@ -756,7 +756,7 @@ class Pipes {
      * 
      * If an instance of the pipe is not available before the time-out interval elapses, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-waitnamedpipew
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-waitnamedpipew
      */
     static WaitNamedPipeW(lpNamedPipeName, nTimeOut) {
         lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
@@ -777,7 +777,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipeclientcomputernamew
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-getnamedpipeclientcomputernamew
      */
     static GetNamedPipeClientComputerNameW(Pipe, ClientComputerName, ClientComputerNameLength) {
         Pipe := Pipe is Win32Handle ? NumGet(Pipe, "ptr") : Pipe
@@ -812,7 +812,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-impersonatenamedpipeclient
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-impersonatenamedpipeclient
      * @since windows5.1.2600
      */
     static ImpersonateNamedPipeClient(hNamedPipe) {
@@ -847,7 +847,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipeinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-getnamedpipeinfo
      * @since windows5.0
      */
     static GetNamedPipeInfo(hNamedPipe, lpFlags, lpOutBufferSize, lpInBufferSize, lpMaxInstances) {
@@ -893,7 +893,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-getnamedpipehandlestatew
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-getnamedpipehandlestatew
      */
     static GetNamedPipeHandleStateW(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
         hNamedPipe := hNamedPipe is Win32Handle ? NumGet(hNamedPipe, "ptr") : hNamedPipe
@@ -970,7 +970,7 @@ class Pipes {
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
      * If the message written to the pipe by the server process is longer than <i>nOutBufferSize</i>, <b>CallNamedPipe</b> returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA. The remainder of the message is discarded, because <b>CallNamedPipe</b> closes the handle to the pipe before returning.
-     * @see https://learn.microsoft.com/windows/win32/api/namedpipeapi/nf-namedpipeapi-callnamedpipew
+     * @see https://learn.microsoft.com/windows/win32/api//content/namedpipeapi/nf-namedpipeapi-callnamedpipew
      */
     static CallNamedPipeW(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
         lpNamedPipeName := lpNamedPipeName is String ? StrPtr(lpNamedPipeName) : lpNamedPipeName
@@ -1301,7 +1301,7 @@ class Pipes {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createnamedpipea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createnamedpipea
      * @since windows5.0
      */
     static CreateNamedPipeA(lpName, dwOpenMode, dwPipeMode, nMaxInstances, nOutBufferSize, nInBufferSize, nDefaultTimeOut, lpSecurityAttributes) {
@@ -1350,7 +1350,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnamedpipehandlestatea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getnamedpipehandlestatea
      * @since windows5.0
      */
     static GetNamedPipeHandleStateA(hNamedPipe, lpState, lpCurInstances, lpMaxCollectionCount, lpCollectDataTimeout, lpUserName, nMaxUserNameSize) {
@@ -1436,7 +1436,7 @@ class Pipes {
      * If the message written to the pipe by the server process is longer than <i>nOutBufferSize</i>, 
      * <b>CallNamedPipe</b> returns <b>FALSE</b>, and <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> returns ERROR_MORE_DATA. The remainder of the message is discarded, because 
      * <b>CallNamedPipe</b> closes the handle to the pipe before returning.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-callnamedpipea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-callnamedpipea
      * @since windows5.0
      */
     static CallNamedPipeA(lpNamedPipeName, lpInBuffer, nInBufferSize, lpOutBuffer, nOutBufferSize, lpBytesRead, nTimeOut) {
@@ -1476,7 +1476,7 @@ class Pipes {
      * 
      * If an instance of the pipe is not available before the time-out interval elapses, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-waitnamedpipea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-waitnamedpipea
      * @since windows5.0
      */
     static WaitNamedPipeA(lpNamedPipeName, nTimeOut) {
@@ -1504,7 +1504,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnamedpipeclientcomputernamea
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getnamedpipeclientcomputernamea
      * @since windows6.0.6000
      */
     static GetNamedPipeClientComputerNameA(Pipe, ClientComputerName, ClientComputerNameLength) {
@@ -1531,7 +1531,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnamedpipeclientprocessid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getnamedpipeclientprocessid
      * @since windows6.0.6000
      */
     static GetNamedPipeClientProcessId(Pipe, ClientProcessId) {
@@ -1560,7 +1560,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnamedpipeclientsessionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getnamedpipeclientsessionid
      * @since windows6.0.6000
      */
     static GetNamedPipeClientSessionId(Pipe, ClientSessionId) {
@@ -1589,7 +1589,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnamedpipeserverprocessid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getnamedpipeserverprocessid
      * @since windows6.0.6000
      */
     static GetNamedPipeServerProcessId(Pipe, ServerProcessId) {
@@ -1618,7 +1618,7 @@ class Pipes {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getnamedpipeserversessionid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getnamedpipeserversessionid
      * @since windows6.0.6000
      */
     static GetNamedPipeServerSessionId(Pipe, ServerSessionId) {

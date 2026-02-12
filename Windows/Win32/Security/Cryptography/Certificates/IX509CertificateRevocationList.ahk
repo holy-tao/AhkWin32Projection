@@ -136,6 +136,19 @@ class IX509CertificateRevocationList extends IDispatch{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @returns {HRESULT} <ul>
      * <li><b>S_OK</b> - Successfully initialized for the first time on the current thread</li>
      * <li><b>S_FALSE</b> - Successful nested initialization (current thread was already 
@@ -147,10 +160,14 @@ class IX509CertificateRevocationList extends IDispatch{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/roapi/nf-roapi-initialize
      */
     Initialize() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -161,18 +178,47 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     InitializeDecode(strEncodedData, Encoding) {
-        strEncodedData := strEncodedData is String ? BSTR.Alloc(strEncodedData).Value : strEncodedData
+        if(strEncodedData is String) {
+            pin := BSTR.Alloc(strEncodedData)
+            strEncodedData := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", strEncodedData, "int", Encoding, "HRESULT")
+        result := ComCall(8, this, "ptr", strEncodedData, "int", Encoding, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Represents a block of ASN.1 encoded data.
+     * @remarks
+     * The **EncodedData** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
+     * 
+     * 
+     * The only supported type of encoded data is [**CertificatePolicies**](certificatepolicies.md).
+     * 
+     * The **EncodedData** object cannot be created.
+     * 
+     * The following CAPICOM object properties return an **EncodedData** object:
+     * 
+     * -   **PublicKey.EncodedKey**
+     * -   **PublicKey.EncodedParameters**
+     * -   **Extension.EncodedData**
+     * -   **Policy.EncodedData**
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/SecCrypto/encodeddata
      */
     Encode() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,7 +227,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     ResetForEncode() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +241,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     CheckPublicKeySignature(pPublicKey) {
-        result := ComCall(11, this, "ptr", pPublicKey, "HRESULT")
+        result := ComCall(11, this, "ptr", pPublicKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -200,7 +254,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     CheckSignature() {
-        result := ComCall(12, this, "HRESULT")
+        result := ComCall(12, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -209,7 +267,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {IX500DistinguishedName} 
      */
     get_Issuer() {
-        result := ComCall(13, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX500DistinguishedName(ppValue)
     }
 
@@ -219,7 +281,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Issuer(pValue) {
-        result := ComCall(14, this, "ptr", pValue, "HRESULT")
+        result := ComCall(14, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -228,7 +294,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {Float} 
      */
     get_ThisUpdate() {
-        result := ComCall(15, this, "double*", &pValue := 0, "HRESULT")
+        result := ComCall(15, this, "double*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -238,7 +308,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ThisUpdate(Value) {
-        result := ComCall(16, this, "double", Value, "HRESULT")
+        result := ComCall(16, this, "double", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -247,7 +321,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {Float} 
      */
     get_NextUpdate() {
-        result := ComCall(17, this, "double*", &pValue := 0, "HRESULT")
+        result := ComCall(17, this, "double*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -257,7 +335,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_NextUpdate(Value) {
-        result := ComCall(18, this, "double", Value, "HRESULT")
+        result := ComCall(18, this, "double", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +348,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {IX509CertificateRevocationListEntries} 
      */
     get_X509CRLEntries() {
-        result := ComCall(19, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(19, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509CertificateRevocationListEntries(ppValue)
     }
 
@@ -275,7 +361,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {IX509Extensions} 
      */
     get_X509Extensions() {
-        result := ComCall(20, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(20, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509Extensions(ppValue)
     }
 
@@ -284,7 +374,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {IObjectIds} 
      */
     get_CriticalExtensions() {
-        result := ComCall(21, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(21, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IObjectIds(ppValue)
     }
 
@@ -293,7 +387,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {ISignerCertificate} 
      */
     get_SignerCertificate() {
-        result := ComCall(22, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(22, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISignerCertificate(ppValue)
     }
 
@@ -303,7 +401,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SignerCertificate(pValue) {
-        result := ComCall(23, this, "ptr", pValue, "HRESULT")
+        result := ComCall(23, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -314,7 +416,11 @@ class IX509CertificateRevocationList extends IDispatch{
      */
     get_CRLNumber(Encoding) {
         pValue := BSTR()
-        result := ComCall(24, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(24, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -325,9 +431,16 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_CRLNumber(Encoding, Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(25, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(25, this, "int", Encoding, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -336,7 +449,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {Integer} 
      */
     get_CAVersion() {
-        result := ComCall(26, this, "int*", &pValue := 0, "HRESULT")
+        result := ComCall(26, this, "int*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -346,7 +463,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_CAVersion(pValue) {
-        result := ComCall(27, this, "int", pValue, "HRESULT")
+        result := ComCall(27, this, "int", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -355,7 +476,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_BaseCRL() {
-        result := ComCall(28, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(28, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -364,7 +489,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_NullSigned() {
-        result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(29, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -373,7 +502,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {IObjectId} 
      */
     get_HashAlgorithm() {
-        result := ComCall(30, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(30, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IObjectId(ppValue)
     }
 
@@ -383,7 +516,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_HashAlgorithm(pValue) {
-        result := ComCall(31, this, "ptr", pValue, "HRESULT")
+        result := ComCall(31, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -392,7 +529,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_AlternateSignatureAlgorithm() {
-        result := ComCall(32, this, "short*", &pValue := 0, "HRESULT")
+        result := ComCall(32, this, "short*", &pValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -402,7 +543,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_AlternateSignatureAlgorithm(Value) {
-        result := ComCall(33, this, "short", Value, "HRESULT")
+        result := ComCall(33, this, "short", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -411,7 +556,11 @@ class IX509CertificateRevocationList extends IDispatch{
      * @returns {IX509SignatureInformation} 
      */
     get_SignatureInformation() {
-        result := ComCall(34, this, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(34, this, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IX509SignatureInformation(ppValue)
     }
 
@@ -422,7 +571,11 @@ class IX509CertificateRevocationList extends IDispatch{
      */
     get_RawData(Encoding) {
         pValue := BSTR()
-        result := ComCall(35, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(35, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -433,7 +586,11 @@ class IX509CertificateRevocationList extends IDispatch{
      */
     get_RawDataToBeSigned(Encoding) {
         pValue := BSTR()
-        result := ComCall(36, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(36, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 
@@ -444,7 +601,11 @@ class IX509CertificateRevocationList extends IDispatch{
      */
     get_Signature(Encoding) {
         pValue := BSTR()
-        result := ComCall(37, this, "int", Encoding, "ptr", pValue, "HRESULT")
+        result := ComCall(37, this, "int", Encoding, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

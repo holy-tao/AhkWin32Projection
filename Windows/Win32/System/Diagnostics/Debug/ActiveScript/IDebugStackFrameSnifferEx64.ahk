@@ -35,7 +35,11 @@ class IDebugStackFrameSnifferEx64 extends IDebugStackFrameSniffer{
      * @returns {IEnumDebugStackFrames64} 
      */
     EnumStackFramesEx64(dwSpMin) {
-        result := ComCall(4, this, "uint", dwSpMin, "ptr*", &ppedsf := 0, "HRESULT")
+        result := ComCall(4, this, "uint", dwSpMin, "ptr*", &ppedsf := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDebugStackFrames64(ppedsf)
     }
 }

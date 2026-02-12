@@ -12,7 +12,7 @@
  * 
  * Providing a deny list with non-zero values causes the specified combination of categories, severities and message IDs to be rejected.
  *       Messages that do not match the specified combination will be allowed.
- * @see https://learn.microsoft.com/windows/win32/api/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10sdklayers/ns-d3d10sdklayers-d3d10_info_queue_filter
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

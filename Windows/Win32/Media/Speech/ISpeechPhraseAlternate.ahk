@@ -63,7 +63,11 @@ class ISpeechPhraseAlternate extends IDispatch{
      * @returns {ISpeechRecoResult} 
      */
     get_RecoResult() {
-        result := ComCall(7, this, "ptr*", &RecoResult := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &RecoResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechRecoResult(RecoResult)
     }
 
@@ -72,7 +76,11 @@ class ISpeechPhraseAlternate extends IDispatch{
      * @returns {Integer} 
      */
     get_StartElementInResult() {
-        result := ComCall(8, this, "int*", &StartElement := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &StartElement := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return StartElement
     }
 
@@ -81,7 +89,11 @@ class ISpeechPhraseAlternate extends IDispatch{
      * @returns {Integer} 
      */
     get_NumberOfElementsInResult() {
-        result := ComCall(9, this, "int*", &NumberOfElements := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &NumberOfElements := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return NumberOfElements
     }
 
@@ -90,16 +102,32 @@ class ISpeechPhraseAlternate extends IDispatch{
      * @returns {ISpeechPhraseInfo} 
      */
     get_PhraseInfo() {
-        result := ComCall(10, this, "ptr*", &PhraseInfo := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &PhraseInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISpeechPhraseInfo(PhraseInfo)
     }
 
     /**
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * @returns {HRESULT} 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

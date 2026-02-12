@@ -42,9 +42,13 @@ class IXAudio2Extension extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves the cycle time each processor in the specified processor group spent executing deferred procedure calls (DPCs) and interrupt service routines (ISRs) since the processor became active.
+     * @remarks
+     * To compile an application that uses this function, define _WIN32_WINNT as 0x0601 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Pointer<Integer>} processor 
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api//content/sysinfoapi/nf-sysinfoapi-getprocessorsystemcycletime
      */
     GetProcessor(processor) {
         processorMarshal := processor is VarRef ? "uint*" : "ptr"

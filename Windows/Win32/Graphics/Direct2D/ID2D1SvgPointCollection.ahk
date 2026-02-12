@@ -6,7 +6,7 @@
 
 /**
  * Interface describing an SVG points value in a polyline or polygon element.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nn-d2d1svg-id2d1svgpointcollection
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nn-d2d1svg-id2d1svgpointcollection
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,19 +36,23 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
      * @param {Integer} pointsCount Type: <b>UINT32</b>
      * 
      * Specifies how many points to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpointcollection-removepointsatend
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-removepointsatend
      */
     RemovePointsAtEnd(pointsCount) {
-        result := ComCall(6, this, "uint", pointsCount, "HRESULT")
+        result := ComCall(6, this, "uint", pointsCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Updates the points array. Existing points not updated by this method are preserved. The array is resized larger if necessary to accomodate the new points.
-     * @param {Pointer<D2D_POINT_2F>} points Type: <b>const D2D1_POINT_2F*</b>
+     * Updates the points array. Existing points not updated by this method are preserved. The array is resized larger if necessary to accommodate the new points.
+     * @param {Pointer<D2D_POINT_2F>} points_ Type: <b>const D2D1_POINT_2F*</b>
      * 
      * The points array.
      * @param {Integer} pointsCount Type: <b>UINT32</b>
@@ -57,13 +61,17 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
      * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
      * The index at which to begin updating points. Must be less than or equal to the size of the array.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpointcollection-updatepoints
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-updatepoints
      */
-    UpdatePoints(points, pointsCount, startIndex) {
-        result := ComCall(7, this, "ptr", points, "uint", pointsCount, "uint", startIndex, "HRESULT")
+    UpdatePoints(points_, pointsCount, startIndex) {
+        result := ComCall(7, this, "ptr", points_, "uint", pointsCount, "uint", startIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,15 +83,17 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
      * @param {Integer} startIndex Type: <b>UINT32</b>
      * 
      * The index of the first point to retrieve.
-     * @returns {D2D_POINT_2F} Type: <b>D2D1_POINT_2F*</b>
-     * 
-     * Buffer to contain the points.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpoints
+     * @returns {D2D_POINT_2F} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpoints
      */
     GetPoints(pointsCount, startIndex) {
-        points := D2D_POINT_2F()
-        result := ComCall(8, this, "ptr", points, "uint", pointsCount, "uint", startIndex, "HRESULT")
-        return points
+        points_ := D2D_POINT_2F()
+        result := ComCall(8, this, "ptr", points_, "uint", pointsCount, "uint", startIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return points_
     }
 
     /**
@@ -91,7 +101,7 @@ class ID2D1SvgPointCollection extends ID2D1SvgAttribute{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of points in the array.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpointscount
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1svg/nf-d2d1svg-id2d1svgpointcollection-getpointscount
      */
     GetPointsCount() {
         result := ComCall(9, this, "uint")

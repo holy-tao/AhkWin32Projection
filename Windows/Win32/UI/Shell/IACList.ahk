@@ -6,7 +6,6 @@
 /**
  * Exposes a method that improves the efficiency of autocompletion when the candidate strings are organized in a hierarchy.
  * @remarks
- * 
  * Autocompletion typically requires the following three components:
  * 		
  *         		
@@ -31,8 +30,7 @@
  * <li>The autocomplete object calls the list object's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> interface again to request a new list of strings. If the partial string matches one of the top-level items in the namespace, the list object returns the names of the items that fall immediately under the selected item. For instance, if the user has entered "C:\Program Files\", the list object returns the names of the files and folders contained in that directory. If the name passed to <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-iaclist-expand">IACList::Expand</a> does not match any top-level item, the list object can simply stop returning strings until the autocomplete object calls <b>IACList::Expand</b> with a string that is in the list object's namespace.</li>
  * <li>The process continues until the user selects a string, typically by pressing the <b>ENTER</b> key.</li>
  * </ol>
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-iaclist
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nn-shlobj_core-iaclist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -59,18 +57,26 @@ class IACList extends IUnknown{
 
     /**
      * Requests that the autocompletion client generate candidate strings associated with a specified item in its namespace.
+     * @remarks
+     * The autocomplete object calls this method when a delimiter is entered in the edit control. If the string pointed to by <i>pszExpand</i> matches an item in the autocompletion client's namespace, the client generates strings for those items that fall immediately under <i>pszExpand</i> in its namespace hierarchy. The client returns those strings next time the autocompletion object calls the client's <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> interface.
+     * 
+     * For example, assuming that the client's namespace consists of all the files and folders on the C: drive, and <i>pszExpand</i> is set to "C:\Program Files\", the client should generate a list of strings corresponding to the fully qualified paths of the files and subfolders of "C:\Program Files\".
      * @param {PWSTR} pszExpand Type: <b>PCWSTR</b>
      * 
      * A pointer to a null-terminated, Unicode string to be expanded by the autocomplete object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-iaclist-expand
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj_core/nf-shlobj_core-iaclist-expand
      */
     Expand(pszExpand) {
         pszExpand := pszExpand is String ? StrPtr(pszExpand) : pszExpand
 
-        result := ComCall(3, this, "ptr", pszExpand, "HRESULT")
+        result := ComCall(3, this, "ptr", pszExpand, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

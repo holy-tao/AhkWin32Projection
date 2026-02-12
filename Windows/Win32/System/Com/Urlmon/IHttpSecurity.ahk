@@ -34,7 +34,11 @@ class IHttpSecurity extends IWindowForBindingUI{
      * @returns {HRESULT} 
      */
     OnSecurityProblem(dwProblem) {
-        result := ComCall(4, this, "uint", dwProblem, "HRESULT")
+        result := ComCall(4, this, "uint", dwProblem, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

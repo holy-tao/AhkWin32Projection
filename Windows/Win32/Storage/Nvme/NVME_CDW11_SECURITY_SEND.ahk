@@ -5,7 +5,7 @@
  * Contains parameters that are used in the Security Send command.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_cdw11_security_send
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_cdw11_security_send
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

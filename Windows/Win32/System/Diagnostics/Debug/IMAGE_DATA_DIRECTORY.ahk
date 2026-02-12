@@ -76,7 +76,7 @@
  * <td>Reserved</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-image_data_directory
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-image_data_directory
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

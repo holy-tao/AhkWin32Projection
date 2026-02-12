@@ -6,12 +6,10 @@
 /**
  * The IAMNetworkStatus interface reports the quality of the network connection for the legacy Windows Media Player 6.4 source filter.
  * @remarks
- * 
  * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
  * 
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nn-qnetwork-iamnetworkstatus
+ * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nn-qnetwork-iamnetworkstatus
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -82,12 +80,16 @@ class IAMNetworkStatus extends IDispatch{
      * The get_ReceivedPackets method retrieves the number of packets that have been received.
      * @param {Pointer<Integer>} pReceivedPackets Pointer to a variable that receives the number of received packets.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_receivedpackets
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamnetworkstatus-get_receivedpackets
      */
     get_ReceivedPackets(pReceivedPackets) {
         pReceivedPacketsMarshal := pReceivedPackets is VarRef ? "int*" : "ptr"
 
-        result := ComCall(7, this, pReceivedPacketsMarshal, pReceivedPackets, "HRESULT")
+        result := ComCall(7, this, pReceivedPacketsMarshal, pReceivedPackets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -95,25 +97,37 @@ class IAMNetworkStatus extends IDispatch{
      * The get_RecoveredPackets method retrieves the number of recovered packets.
      * @param {Pointer<Integer>} pRecoveredPackets Pointer to a variable that receives the number of recovered packets.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_recoveredpackets
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamnetworkstatus-get_recoveredpackets
      */
     get_RecoveredPackets(pRecoveredPackets) {
         pRecoveredPacketsMarshal := pRecoveredPackets is VarRef ? "int*" : "ptr"
 
-        result := ComCall(8, this, pRecoveredPacketsMarshal, pRecoveredPackets, "HRESULT")
+        result := ComCall(8, this, pRecoveredPacketsMarshal, pRecoveredPackets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_LostPackets method retrieves the number of packets that have been lost.
+     * @remarks
+     * This property is only valid for streaming media, and will equal zero when using the HTTP protocol, which is lossless. Packets may be lost for a number of reasons, such as the type and quality of the network connection.
+     * 
+     * Whenever playback is stopped and restarted, this property is set to zero. It is not reset if playback is paused and restarted.
      * @param {Pointer<Integer>} pLostPackets Pointer to a variable that receives the number of lost packets.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_lostpackets
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamnetworkstatus-get_lostpackets
      */
     get_LostPackets(pLostPackets) {
         pLostPacketsMarshal := pLostPackets is VarRef ? "int*" : "ptr"
 
-        result := ComCall(9, this, pLostPacketsMarshal, pLostPackets, "HRESULT")
+        result := ComCall(9, this, pLostPacketsMarshal, pLostPackets, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,12 +135,16 @@ class IAMNetworkStatus extends IDispatch{
      * The get_ReceptionQuality method retrieves a value indicating the reception quality.
      * @param {Pointer<Integer>} pReceptionQuality Pointer to a variable that receives a value from 0 to 100, indicating the reception quality. This value is percentage of packets that the filter received without requiring resending or error correction.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_receptionquality
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamnetworkstatus-get_receptionquality
      */
     get_ReceptionQuality(pReceptionQuality) {
         pReceptionQualityMarshal := pReceptionQuality is VarRef ? "int*" : "ptr"
 
-        result := ComCall(10, this, pReceptionQualityMarshal, pReceptionQuality, "HRESULT")
+        result := ComCall(10, this, pReceptionQualityMarshal, pReceptionQuality, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,25 +152,35 @@ class IAMNetworkStatus extends IDispatch{
      * The get_BufferingCount method retrieves the number of times the network source has buffered the data.
      * @param {Pointer<Integer>} pBufferingCount Pointer to a variable that receives the buffering count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingcount
      */
     get_BufferingCount(pBufferingCount) {
         pBufferingCountMarshal := pBufferingCount is VarRef ? "int*" : "ptr"
 
-        result := ComCall(11, this, pBufferingCountMarshal, pBufferingCount, "HRESULT")
+        result := ComCall(11, this, pBufferingCountMarshal, pBufferingCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_IsBroadcast method retrieves a value indicating whether the current stream is a broadcast stream.
+     * @remarks
+     * A broadcast stream can be unicast or multicast. In a broadcast connection, the client is passive and does not control when the stream starts or stops. In an on-demand connection, the client is active and controls when the stream is started and stopped.
      * @param {Pointer<VARIANT_BOOL>} pIsBroadcast Pointer to a variable that receives a Boolean value.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_isbroadcast
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamnetworkstatus-get_isbroadcast
      */
     get_IsBroadcast(pIsBroadcast) {
         pIsBroadcastMarshal := pIsBroadcast is VarRef ? "short*" : "ptr"
 
-        result := ComCall(12, this, pIsBroadcastMarshal, pIsBroadcast, "HRESULT")
+        result := ComCall(12, this, pIsBroadcastMarshal, pIsBroadcast, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,12 +188,16 @@ class IAMNetworkStatus extends IDispatch{
      * The get_BufferingProgress method retrieves a value indicating the buffering progress.
      * @param {Pointer<Integer>} pBufferingProgress Pointer to a variable that receives a value from 0 to 100, indicating what percentage has completed.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingprogress
+     * @see https://learn.microsoft.com/windows/win32/api//content/qnetwork/nf-qnetwork-iamnetworkstatus-get_bufferingprogress
      */
     get_BufferingProgress(pBufferingProgress) {
         pBufferingProgressMarshal := pBufferingProgress is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, pBufferingProgressMarshal, pBufferingProgress, "HRESULT")
+        result := ComCall(13, this, pBufferingProgressMarshal, pBufferingProgress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -29,7 +29,7 @@
  *  
  * 
  * If the audio stream is any other format, the value is eAVDDSurroundMode_No.
- * @see https://learn.microsoft.com/windows/win32/api/codecapi/ne-codecapi-eavddsurroundmode
+ * @see https://learn.microsoft.com/windows/win32/api//content/codecapi/ne-codecapi-eavddsurroundmode
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

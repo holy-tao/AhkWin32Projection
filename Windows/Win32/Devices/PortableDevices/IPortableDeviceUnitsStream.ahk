@@ -5,7 +5,7 @@
 
 /**
  * The IPortableDeviceUnitsStream interface provides a way to operate, or seek, on a stream by using alternate units, such as frames or milliseconds.
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledeviceunitsstream
+ * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nn-portabledeviceapi-iportabledeviceunitsstream
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -37,19 +37,30 @@ class IPortableDeviceUnitsStream extends IUnknown{
      * @param {Integer} dwOrigin The origin for the displacement specified in <i>dlibMove</i>. The origin can be the beginning of the file (STREAM_SEEK_SET), the current seek pointer (STREAM_SEEK_CUR), or the end of the file (STREAM_SEEK_END). For more information about values, see the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-istream-seek">STREAM_SEEK</a> enumeration.
      * @returns {Integer} A pointer to the location where this method writes the value of the new seek pointer from the beginning of the stream. The units are given by units.
      * You can set this pointer to NULL. In this case, this method does not provide the new seek pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceunitsstream-seekinunits
+     * @see https://learn.microsoft.com/windows/win32/api//content/portabledeviceapi/nf-portabledeviceapi-iportabledeviceunitsstream-seekinunits
      */
     SeekInUnits(dlibMove, units, dwOrigin) {
-        result := ComCall(3, this, "int64", dlibMove, "int", units, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")
+        result := ComCall(3, this, "int64", dlibMove, "int", units, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plibNewPosition
     }
 
     /**
-     * 
+     * Cancel Method (RDS)
+     * @remarks
+     * When you call **Cancel**, [ReadyState](./readystate-property-rds.md) is automatically set to **adcReadyStateLoaded**, and the [Recordset](../ado-api/recordset-object-ado.md) will be empty.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/cancel-method-rds
      */
     Cancel() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

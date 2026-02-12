@@ -37,11 +37,16 @@ class IMSMQTransactionDispenser3 extends IDispatch{
     }
 
     /**
-     * 
+     * Learn more about: BeginTransactionGrbit enumeration
      * @returns {IMSMQTransaction3} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/begintransactiongrbit-enumeration
      */
     BeginTransaction() {
-        result := ComCall(7, this, "ptr*", &ptransaction := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ptransaction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMSMQTransaction3(ptransaction)
     }
 
@@ -50,7 +55,11 @@ class IMSMQTransactionDispenser3 extends IDispatch{
      * @returns {IDispatch} 
      */
     get_Properties() {
-        result := ComCall(8, this, "ptr*", &ppcolProperties := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppcolProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppcolProperties)
     }
 }

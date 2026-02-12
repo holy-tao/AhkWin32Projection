@@ -36,7 +36,7 @@ class WindowsFirewall {
      * The NcFreeNetconProperties function frees memory associated with NETCON_PROPERTIES structures.
      * @param {Pointer<NETCON_PROPERTIES>} pProps Pointer to a  <a href="https://docs.microsoft.com/windows/desktop/api/netcon/ns-netcon-netcon_properties">NETCON_PROPERTIES</a> structure to be freed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ncfreenetconproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ncfreenetconproperties
      * @since windows5.1.2600
      */
     static NcFreeNetconProperties(pProps) {
@@ -47,7 +47,7 @@ class WindowsFirewall {
      * The NcIsValidConnectionName function verifies if the passed in connection name is valid.
      * @param {PWSTR} pszwName Connection name to check.
      * @returns {BOOL} <b>TRUE</b> if connection name is valid.
-     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ncisvalidconnectionname
+     * @see https://learn.microsoft.com/windows/win32/api//content/netcon/nf-netcon-ncisvalidconnectionname
      * @since windows5.1.2600
      */
     static NcIsValidConnectionName(pszwName) {
@@ -87,7 +87,7 @@ class WindowsFirewall {
      * If the function succeeds, it returns S_OK.
      * 
      * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationsetupappcontainerbinaries
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationsetupappcontainerbinaries
      * @since windows8.0
      */
     static NetworkIsolationSetupAppContainerBinaries(applicationContainerSid, packageFullName, packageFolder, displayName, bBinariesFullyComputed, binaries, binariesCount) {
@@ -164,7 +164,7 @@ class WindowsFirewall {
      * @param {Pointer<PAC_CHANGES_CALLBACK_FN>} callback Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/networkisolation/nc-networkisolation-pac_changes_callback_fn">PAC_CHANGES_CALLBACK_FN</a></b>
      * 
      * Function pointer that will be invoked when a notification is ready for delivery.
-     * @param {Pointer<Void>} context Type: <b>PVOID</b>
+     * @param {Pointer<Void>} context_ Type: <b>PVOID</b>
      * 
      * Optional context pointer. This pointer is passed to the <i>callback</i> function along with details of the change.
      * @param {Pointer<HANDLE>} registrationObject Type: <b>HANDLE*</b>
@@ -173,13 +173,13 @@ class WindowsFirewall {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationregisterforappcontainerchanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationregisterforappcontainerchanges
      * @since windows8.0
      */
-    static NetworkIsolationRegisterForAppContainerChanges(flags, callback, context, registrationObject) {
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+    static NetworkIsolationRegisterForAppContainerChanges(flags, callback, context_, registrationObject) {
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", "uint", flags, "ptr", callback, contextMarshal, context, "ptr", registrationObject, "uint")
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationRegisterForAppContainerChanges", "uint", flags, "ptr", callback, context_Marshal, context_, "ptr", registrationObject, "uint")
         return result
     }
 
@@ -191,7 +191,7 @@ class WindowsFirewall {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationunregisterforappcontainerchanges
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationunregisterforappcontainerchanges
      * @since windows8.0
      */
     static NetworkIsolationUnregisterForAppContainerChanges(registrationObject) {
@@ -206,7 +206,7 @@ class WindowsFirewall {
      * @returns {IEnumVARIANT} Type: <b>IEnumVARIANT**</b>
      * 
      * Enumerator interface of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwrule3">INetFwRule3</a> object that represents the rules enforcing app containers.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationenumerateappcontainerrules
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationenumerateappcontainerrules
      * @since windows8.0
      */
     static NetworkIsolationEnumerateAppContainerRules() {
@@ -226,7 +226,7 @@ class WindowsFirewall {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns **ERROR_SUCCESS**.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationfreeappcontainers
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationfreeappcontainers
      * @since windows8.0
      */
     static NetworkIsolationFreeAppContainers(pPublicAppCs) {
@@ -255,7 +255,7 @@ class WindowsFirewall {
      * Returns ERROR_SUCCESS if successful, or an error value otherwise. 
      * 
      * ERROR_OUTOFMEMORY will be returned if memory is unavailable.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationenumappcontainers
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationenumappcontainers
      * @since windows8.0
      */
     static NetworkIsolationEnumAppContainers(Flags, pdwNumPublicAppCs, ppPublicAppCs) {
@@ -282,7 +282,7 @@ class WindowsFirewall {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationgetappcontainerconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationgetappcontainerconfig
      * @since windows8.0
      */
     static NetworkIsolationGetAppContainerConfig(pdwNumPublicAppCs, appContainerSids) {
@@ -306,7 +306,7 @@ class WindowsFirewall {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationsetappcontainerconfig
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationsetappcontainerconfig
      * @since windows8.0
      */
     static NetworkIsolationSetAppContainerConfig(dwNumPublicAppCs, appContainerSids) {
@@ -325,7 +325,7 @@ class WindowsFirewall {
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationdiagnoseconnectfailureandgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationdiagnoseconnectfailureandgetinfo
      * @since windows8.0
      */
     static NetworkIsolationDiagnoseConnectFailureAndGetInfo(wszServerName, netIsoError) {
@@ -399,19 +399,19 @@ class WindowsFirewall {
      * </td>
      * </tr>
      * </table>
-     * @param {Pointer<Void>} context Optional context pointer.
+     * @param {Pointer<Void>} context_ Optional context pointer.
      * @param {Pointer<PNETISO_EDP_ID_CALLBACK_FN>} callback Function pointer that will be invoked when a notification is ready for delivery.
      * @param {Pointer<HANDLE>} hOperation The handle for the Enterprise Data Protection Server endpoints.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationgetenterpriseidasync
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationgetenterpriseidasync
      * @since windows10.0.10240
      */
-    static NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, context, callback, hOperation) {
+    static NetworkIsolationGetEnterpriseIdAsync(wszServerName, dwFlags, context_, callback, hOperation) {
         wszServerName := wszServerName is String ? StrPtr(wszServerName) : wszServerName
 
-        contextMarshal := context is VarRef ? "ptr" : "ptr"
+        context_Marshal := context_ is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, contextMarshal, context, "ptr", callback, "ptr", hOperation, "uint")
+        result := DllCall("Firewallapi.dll\NetworkIsolationGetEnterpriseIdAsync", "ptr", wszServerName, "uint", dwFlags, context_Marshal, context_, "ptr", callback, "ptr", hOperation, "uint")
         return result
     }
 
@@ -420,7 +420,7 @@ class WindowsFirewall {
      * @param {HANDLE} hOperation The handle to release.
      * @param {BOOL} bWaitForOperation Indicates whether to wait for synchronization.
      * @returns {Integer} Returns ERROR_SUCCESS if successful, or an error value otherwise.
-     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-networkisolationgetenterpriseidclose
+     * @see https://learn.microsoft.com/windows/win32/api//content/netfw/nf-netfw-networkisolationgetenterpriseidclose
      * @since windows10.0.10240
      */
     static NetworkIsolationGetEnterpriseIdClose(hOperation, bWaitForOperation) {

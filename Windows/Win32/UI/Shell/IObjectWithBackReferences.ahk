@@ -6,7 +6,6 @@
 /**
  * Provides a method for interacting with back references held by an object.
  * @remarks
- * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * When an object contains forward references to child objects that have back references to the parent object, circular references can occur. To break this circle, the parent object needs to keep track of back references from child objects.
  * 
@@ -46,8 +45,7 @@
  * };
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iobjectwithbackreferences
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iobjectwithbackreferences
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -74,13 +72,20 @@ class IObjectWithBackReferences extends IUnknown{
 
     /**
      * Removes all back references held by an object.
+     * @remarks
+     * This method is used for all tasks associated with freeing/releasing back references held
+     *     by an object, and may prepare an object for reuse.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectwithbackreferences-removebackreferences
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iobjectwithbackreferences-removebackreferences
      */
     RemoveBackReferences() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

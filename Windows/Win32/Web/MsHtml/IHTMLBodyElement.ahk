@@ -173,9 +173,16 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_background(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -185,7 +192,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_background() {
         p := BSTR()
-        result := ComCall(8, this, "ptr", p, "HRESULT")
+        result := ComCall(8, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -195,9 +206,16 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bgProperties(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -207,7 +225,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_bgProperties() {
         p := BSTR()
-        result := ComCall(10, this, "ptr", p, "HRESULT")
+        result := ComCall(10, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -217,7 +239,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_leftMargin(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -227,7 +253,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_leftMargin() {
         p := VARIANT()
-        result := ComCall(12, this, "ptr", p, "HRESULT")
+        result := ComCall(12, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -237,7 +267,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_topMargin(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -247,7 +281,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_topMargin() {
         p := VARIANT()
-        result := ComCall(14, this, "ptr", p, "HRESULT")
+        result := ComCall(14, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -257,7 +295,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_rightMargin(v) {
-        result := ComCall(15, this, "ptr", v, "HRESULT")
+        result := ComCall(15, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -267,7 +309,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_rightMargin() {
         p := VARIANT()
-        result := ComCall(16, this, "ptr", p, "HRESULT")
+        result := ComCall(16, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -277,7 +323,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bottomMargin(v) {
-        result := ComCall(17, this, "ptr", v, "HRESULT")
+        result := ComCall(17, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -287,7 +337,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_bottomMargin() {
         p := VARIANT()
-        result := ComCall(18, this, "ptr", p, "HRESULT")
+        result := ComCall(18, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -297,7 +351,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_noWrap(v) {
-        result := ComCall(19, this, "short", v, "HRESULT")
+        result := ComCall(19, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -306,7 +364,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_noWrap() {
-        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -316,7 +378,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_bgColor(v) {
-        result := ComCall(21, this, "ptr", v, "HRESULT")
+        result := ComCall(21, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -326,7 +392,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_bgColor() {
         p := VARIANT()
-        result := ComCall(22, this, "ptr", p, "HRESULT")
+        result := ComCall(22, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -336,7 +406,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_text(v) {
-        result := ComCall(23, this, "ptr", v, "HRESULT")
+        result := ComCall(23, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -346,7 +420,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_text() {
         p := VARIANT()
-        result := ComCall(24, this, "ptr", p, "HRESULT")
+        result := ComCall(24, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -356,7 +434,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_link(v) {
-        result := ComCall(25, this, "ptr", v, "HRESULT")
+        result := ComCall(25, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -366,7 +448,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_link() {
         p := VARIANT()
-        result := ComCall(26, this, "ptr", p, "HRESULT")
+        result := ComCall(26, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -376,7 +462,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_vLink(v) {
-        result := ComCall(27, this, "ptr", v, "HRESULT")
+        result := ComCall(27, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -386,7 +476,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_vLink() {
         p := VARIANT()
-        result := ComCall(28, this, "ptr", p, "HRESULT")
+        result := ComCall(28, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -396,7 +490,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_aLink(v) {
-        result := ComCall(29, this, "ptr", v, "HRESULT")
+        result := ComCall(29, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -406,7 +504,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_aLink() {
         p := VARIANT()
-        result := ComCall(30, this, "ptr", p, "HRESULT")
+        result := ComCall(30, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -416,7 +518,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onload(v) {
-        result := ComCall(31, this, "ptr", v, "HRESULT")
+        result := ComCall(31, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -426,7 +532,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_onload() {
         p := VARIANT()
-        result := ComCall(32, this, "ptr", p, "HRESULT")
+        result := ComCall(32, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -436,7 +546,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onunload(v) {
-        result := ComCall(33, this, "ptr", v, "HRESULT")
+        result := ComCall(33, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -446,7 +560,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_onunload() {
         p := VARIANT()
-        result := ComCall(34, this, "ptr", p, "HRESULT")
+        result := ComCall(34, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -456,9 +574,16 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_scroll(v) {
-        v := v is String ? BSTR.Alloc(v).Value : v
+        if(v is String) {
+            pin := BSTR.Alloc(v)
+            v := pin.Value
+        }
 
-        result := ComCall(35, this, "ptr", v, "HRESULT")
+        result := ComCall(35, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -468,7 +593,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_scroll() {
         p := BSTR()
-        result := ComCall(36, this, "ptr", p, "HRESULT")
+        result := ComCall(36, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -478,7 +607,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onselect(v) {
-        result := ComCall(37, this, "ptr", v, "HRESULT")
+        result := ComCall(37, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -488,7 +621,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_onselect() {
         p := VARIANT()
-        result := ComCall(38, this, "ptr", p, "HRESULT")
+        result := ComCall(38, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -498,7 +635,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_onbeforeunload(v) {
-        result := ComCall(39, this, "ptr", v, "HRESULT")
+        result := ComCall(39, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -508,7 +649,11 @@ class IHTMLBodyElement extends IDispatch{
      */
     get_onbeforeunload() {
         p := VARIANT()
-        result := ComCall(40, this, "ptr", p, "HRESULT")
+        result := ComCall(40, this, "ptr", p, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -517,7 +662,11 @@ class IHTMLBodyElement extends IDispatch{
      * @returns {IHTMLTxtRange} 
      */
     createTextRange() {
-        result := ComCall(41, this, "ptr*", &range := 0, "HRESULT")
+        result := ComCall(41, this, "ptr*", &range := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IHTMLTxtRange(range)
     }
 }

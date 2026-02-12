@@ -10,7 +10,7 @@
  * 
  * </div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_channel_bind_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_channel_bind_info
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

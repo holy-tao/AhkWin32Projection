@@ -5,7 +5,7 @@
 
 /**
  * Provides methods for importing and manipulating existing metadata from a portable executable (PE) file or other source, such as a type library or a stand-alone, run-time metadata binary.
- * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nn-rometadataapi-imetadataimport
+ * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nn-rometadataapi-imetadataimport
  * @namespace Windows.Win32.System.WinRT.Metadata
  * @version v4.0.30319
  */
@@ -33,13 +33,10 @@ class IMetaDataImport extends IUnknown{
     /**
      * Closes the enumerator that is identified by the specified handle.
      * @remarks
-     * 
      * The handle specified by <i>hEnum</i> is obtained from a previous <b>Enum</b><i>Name</i> call (for example, <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs">IMetaDataImport::EnumTypeDefs</a>).
-     * 
-     * 
      * @param {Pointer<Void>} hEnum The handle of the enumerator to close.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-closeenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-closeenum
      */
     CloseEnum(hEnum) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
@@ -49,16 +46,22 @@ class IMetaDataImport extends IUnknown{
 
     /**
      * Gets the number of elements in the enumeration that was retrieved by the specified enumerator.
+     * @remarks
+     * The handle specified by <i>hEnum</i> is obtained from a previous <b>Enum</b><i>Name</i> call (for example, <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs">IMetaDataImport::EnumTypeDefs</a>).
      * @param {Pointer<Void>} hEnum The handle for the enumerator.
      * @param {Pointer<Integer>} pulCount The number of elements enumerated.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-countenum
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-countenum
      */
     CountEnum(hEnum, pulCount) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, hEnumMarshal, hEnum, pulCountMarshal, pulCount, "HRESULT")
+        result := ComCall(4, this, hEnumMarshal, hEnum, pulCountMarshal, pulCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -66,18 +69,24 @@ class IMetaDataImport extends IUnknown{
      * Resets the specified enumerator to the specified position.
      * @param {Pointer<Void>} hEnum The enumerator to reset.
      * @param {Integer} ulPos The new position at which to place the enumerator.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-resetenum
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-resetenum
      */
     ResetEnum(hEnum, ulPos) {
         hEnumMarshal := hEnum is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(5, this, hEnumMarshal, hEnum, "uint", ulPos, "HRESULT")
+        result := ComCall(5, this, hEnumMarshal, hEnum, "uint", ulPos, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enumerates TypeDef tokens representing all types within the current scope.
+     * @remarks
+     * The TypeDef token represents a type such as a class or an interface, as well as any type added via an extensibility mechanism.
      * @param {Pointer<Pointer<Void>>} phEnum A pointer to the new enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rTypeDefs 
      * @param {Integer} cMax The maximum size of the <i>rgTypeDefs</i> array.
@@ -99,14 +108,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumtypedefs
      */
     EnumTypeDefs(phEnum, rTypeDefs, cMax, pcTypeDefs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rTypeDefsMarshal := rTypeDefs is VarRef ? "uint*" : "ptr"
         pcTypeDefsMarshal := pcTypeDefs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, phEnumMarshal, phEnum, rTypeDefsMarshal, rTypeDefs, "uint", cMax, pcTypeDefsMarshal, pcTypeDefs, "HRESULT")
+        result := ComCall(6, this, phEnumMarshal, phEnum, rTypeDefsMarshal, rTypeDefs, "uint", cMax, pcTypeDefsMarshal, pcTypeDefs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -134,14 +147,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enuminterfaceimpls
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enuminterfaceimpls
      */
     EnumInterfaceImpls(phEnum, td, rImpls, cMax, pcImpls) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rImplsMarshal := rImpls is VarRef ? "uint*" : "ptr"
         pcImplsMarshal := pcImpls is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, phEnumMarshal, phEnum, "uint", td, rImplsMarshal, rImpls, "uint", cMax, pcImplsMarshal, pcImpls, "HRESULT")
+        result := ComCall(7, this, phEnumMarshal, phEnum, "uint", td, rImplsMarshal, rImpls, "uint", cMax, pcImplsMarshal, pcImpls, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +175,7 @@ class IMetaDataImport extends IUnknown{
      * </tr>
      * <tr>
      * <td><b>S_OK</b></td>
-     * <td><b>EnumTypeRefs </b>returned successfully.</td>
+     * <td><b>EnumTypeRefs </b> returned successfully.</td>
      * </tr>
      * <tr>
      * <td><b>S_FALSE</b></td>
@@ -168,14 +185,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumtyperefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumtyperefs
      */
     EnumTypeRefs(phEnum, rTypeRefs, cMax, pcTypeRefs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rTypeRefsMarshal := rTypeRefs is VarRef ? "uint*" : "ptr"
         pcTypeRefsMarshal := pcTypeRefs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, phEnumMarshal, phEnum, rTypeRefsMarshal, rTypeRefs, "uint", cMax, pcTypeRefsMarshal, pcTypeRefs, "HRESULT")
+        result := ComCall(8, this, phEnumMarshal, phEnum, rTypeRefsMarshal, rTypeRefs, "uint", cMax, pcTypeRefsMarshal, pcTypeRefs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -184,15 +205,19 @@ class IMetaDataImport extends IUnknown{
      * @param {PWSTR} szTypeDef The name of the type for which to get the TypeDef token.
      * @param {Integer} tkEnclosingClass A TypeDef or TypeRef token representing the enclosing class. If the type to find is not a nested class, set this value to NULL.
      * @param {Pointer<Integer>} ptd 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-findtypedefbyname
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-findtypedefbyname
      */
     FindTypeDefByName(szTypeDef, tkEnclosingClass, ptd) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
 
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(9, this, "ptr", szTypeDef, "uint", tkEnclosingClass, ptdMarshal, ptd, "HRESULT")
+        result := ComCall(9, this, "ptr", szTypeDef, "uint", tkEnclosingClass, ptdMarshal, ptd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -202,28 +227,36 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} cchName The size in wide characters of <i>szName</i>.
      * @param {Pointer<Integer>} pchName The number of wide characters returned in <i>szName</i>.
      * @param {Pointer<Guid>} pmvid A pointer to a GUID that uniquely identifies the version of the assembly or module.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getscopeprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getscopeprops
      */
     GetScopeProps(szName, cchName, pchName, pmvid) {
         szName := szName is String ? StrPtr(szName) : szName
 
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(10, this, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pmvid, "HRESULT")
+        result := ComCall(10, this, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "ptr", pmvid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a metadata token for the module referenced in the current metadata scope.
      * @param {Pointer<Integer>} pmd 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmodulefromscope
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getmodulefromscope
      */
     GetModuleFromScope(pmd) {
         pmdMarshal := pmd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, pmdMarshal, pmd, "HRESULT")
+        result := ComCall(11, this, pmdMarshal, pmd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -235,8 +268,8 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Integer>} pchTypeDef The number of wide characters returned in <i>szTypeDef</i>.
      * @param {Pointer<Integer>} pdwTypeDefFlags A pointer to any flags that modify the type definition. This value is a bitmask from the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/cortypeattr-enumeration">CorTypeAttr</a> enumeration.
      * @param {Pointer<Integer>} ptkExtends A TypeDef or TypeRef metadata token that represents the base type of the requested type.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-gettypedefprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-gettypedefprops
      */
     GetTypeDefProps(td, szTypeDef, cchTypeDef, pchTypeDef, pdwTypeDefFlags, ptkExtends) {
         szTypeDef := szTypeDef is String ? StrPtr(szTypeDef) : szTypeDef
@@ -245,7 +278,11 @@ class IMetaDataImport extends IUnknown{
         pdwTypeDefFlagsMarshal := pdwTypeDefFlags is VarRef ? "uint*" : "ptr"
         ptkExtendsMarshal := ptkExtends is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, "uint", td, "ptr", szTypeDef, "uint", cchTypeDef, pchTypeDefMarshal, pchTypeDef, pdwTypeDefFlagsMarshal, pdwTypeDefFlags, ptkExtendsMarshal, ptkExtends, "HRESULT")
+        result := ComCall(12, this, "uint", td, "ptr", szTypeDef, "uint", cchTypeDef, pchTypeDefMarshal, pchTypeDef, pdwTypeDefFlagsMarshal, pdwTypeDefFlags, ptkExtendsMarshal, ptkExtends, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -254,14 +291,18 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} iiImpl 
      * @param {Pointer<Integer>} pClass 
      * @param {Pointer<Integer>} ptkIface The metadata token representing the interface that defines the implemented method.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getinterfaceimplprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getinterfaceimplprops
      */
     GetInterfaceImplProps(iiImpl, pClass, ptkIface) {
         pClassMarshal := pClass is VarRef ? "uint*" : "ptr"
         ptkIfaceMarshal := ptkIface is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, "uint", iiImpl, pClassMarshal, pClass, ptkIfaceMarshal, ptkIface, "HRESULT")
+        result := ComCall(13, this, "uint", iiImpl, pClassMarshal, pClass, ptkIfaceMarshal, ptkIface, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -272,8 +313,8 @@ class IMetaDataImport extends IUnknown{
      * @param {PWSTR} szName A buffer containing the type name.
      * @param {Integer} cchName The requested size in wide characters of <i>szName</i>.
      * @param {Pointer<Integer>} pchName The returned size in wide characters of <i>szName</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-gettyperefprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-gettyperefprops
      */
     GetTypeRefProps(tr, ptkResolutionScope, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -281,27 +322,46 @@ class IMetaDataImport extends IUnknown{
         ptkResolutionScopeMarshal := ptkResolutionScope is VarRef ? "uint*" : "ptr"
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "uint", tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
+        result := ComCall(14, this, "uint", tr, ptkResolutionScopeMarshal, ptkResolutionScope, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Resolves a Type reference represented by the specified TypeRef token.
+     * @remarks
+     * <div class="alert"><b>Important</b>  Do not use this method if multiple application domains are loaded. The method does not respect application domain boundaries. If multiple versions of an assembly are loaded, and they contain the same type with the same namespace, the method returns the module scope of the first type it finds.
+     *  
+     * 
+     * </div>
+     * <div> </div>
+     * The <b>ResolveTypeRef</b> method searches for the type definition in other modules. If the type definition is found, <b>ResolveTypeRef</b> returns an interface to that module scope as well as the TypeDef token for the type.
+     * 
+     * If the type reference to be resolved has a resolution scope of AssemblyRef, the <b>ResolveTypeRef</b> method searches for a match only in the metadata scopes that have already been opened with calls to either the <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadatadispenser-openscope">IMetaDataDispenser::OpenScope</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadatadispenser-openscopeonmemory">IMetaDataDispenser::OpenScopeOnMemory</a> method. This is because <b>ResolveTypeRef</b> cannot determine from only the AssemblyRef scope where on disk or in the global assembly cache the assembly is stored.
      * @param {Integer} tr 
      * @param {Pointer<Guid>} riid The IID of the interface to return in ppIScope. Typically, this would be IID_IMetaDataImport.
      * @param {Pointer<Integer>} ptd 
      * @returns {IUnknown} An interface to the module scope in which the referenced type is defined.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-resolvetyperef
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-resolvetyperef
      */
     ResolveTypeRef(tr, riid, ptd) {
         ptdMarshal := ptd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, "uint", tr, "ptr", riid, "ptr*", &ppIScope := 0, ptdMarshal, ptd, "HRESULT")
+        result := ComCall(15, this, "uint", tr, "ptr", riid, "ptr*", &ppIScope := 0, ptdMarshal, ptd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppIScope)
     }
 
     /**
      * Enumerates MemberDef tokens representing members of the specified type.
+     * @remarks
+     * When enumerating collections of members for a class, <b>EnumMembers</b> returns only members defined directly on the class. It does not return any members that the class inherits, even if the class provides an implementation for those inherited members. To enumerate inherited members, the caller must explicitly walk the inheritance chain. Note that the rules for the inheritance chain may vary depending on the language or compiler that emitted the original metadata.
      * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} cl 
      * @param {Pointer<Integer>} rMembers 
@@ -324,19 +384,25 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummembers
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummembers
      */
     EnumMembers(phEnum, cl, rMembers, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rMembersMarshal := rMembers is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, phEnumMarshal, phEnum, "uint", cl, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(16, this, phEnumMarshal, phEnum, "uint", cl, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enumerates MemberDef tokens representing members of the specified type with the specified name.
+     * @remarks
+     * This method enumerates fields and methods, but not properties or events. Unlike <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-enummembers">EnumMembers</a>, <b>EnumMembersWithName</b> discards all field and member tokens that do not have the specified name.
      * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} cl 
      * @param {PWSTR} szName The member name that limits the scope of the enumerator.
@@ -360,7 +426,7 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummemberswithname
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummemberswithname
      */
     EnumMembersWithName(phEnum, cl, szName, rMembers, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -369,7 +435,11 @@ class IMetaDataImport extends IUnknown{
         rMembersMarshal := rMembers is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(17, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(17, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rMembersMarshal, rMembers, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -397,19 +467,25 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethods
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummethods
      */
     EnumMethods(phEnum, cl, rMethods, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, phEnumMarshal, phEnum, "uint", cl, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(18, this, phEnumMarshal, phEnum, "uint", cl, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enumerates methods that have the specified name and that are defined by the type referenced by the specified TypeDef token.
+     * @remarks
+     * This method enumerates fields and methods, but not properties or events. Unlike <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-enummethods">EnumMethods</a>, <b>EnumMethodsWithName</b> discards all method tokens that do not have the specified name.
      * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Integer} cl 
      * @param {PWSTR} szName The name that limits the scope of the enumeration.
@@ -433,7 +509,7 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethodswithname
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummethodswithname
      */
     EnumMethodsWithName(phEnum, cl, szName, rMethods, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -442,7 +518,11 @@ class IMetaDataImport extends IUnknown{
         rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(19, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(19, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -470,19 +550,25 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumfields
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumfields
      */
     EnumFields(phEnum, cl, rFields, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rFieldsMarshal := rFields is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(20, this, phEnumMarshal, phEnum, "uint", cl, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(20, this, phEnumMarshal, phEnum, "uint", cl, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enumerates FieldDef tokens of the specified type with the specified name.
+     * @remarks
+     * Unlike <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-enumfields">EnumFields</a>, <b>EnumFieldsWithName</b> discards all field tokens that do not have the specified name.
      * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator.
      * @param {Integer} cl 
      * @param {PWSTR} szName The field name that limits the scope of the enumeration.
@@ -506,7 +592,7 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumfieldswithname
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumfieldswithname
      */
     EnumFieldsWithName(phEnum, cl, szName, rFields, cMax, pcTokens) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -515,7 +601,11 @@ class IMetaDataImport extends IUnknown{
         rFieldsMarshal := rFields is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(21, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(21, this, phEnumMarshal, phEnum, "uint", cl, "ptr", szName, rFieldsMarshal, rFields, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -543,14 +633,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumparams
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumparams
      */
     EnumParams(phEnum, mb, rParams, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rParamsMarshal := rParams is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(22, this, phEnumMarshal, phEnum, "uint", mb, rParamsMarshal, rParams, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(22, this, phEnumMarshal, phEnum, "uint", mb, rParamsMarshal, rParams, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -578,14 +672,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummemberrefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummemberrefs
      */
     EnumMemberRefs(phEnum, tkParent, rMemberRefs, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rMemberRefsMarshal := rMemberRefs is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(23, this, phEnumMarshal, phEnum, "uint", tkParent, rMemberRefsMarshal, rMemberRefs, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(23, this, phEnumMarshal, phEnum, "uint", tkParent, rMemberRefsMarshal, rMemberRefs, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -614,7 +712,7 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethodimpls
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummethodimpls
      */
     EnumMethodImpls(phEnum, td, rMethodBody, rMethodDecl, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
@@ -622,7 +720,11 @@ class IMetaDataImport extends IUnknown{
         rMethodDeclMarshal := rMethodDecl is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(24, this, phEnumMarshal, phEnum, "uint", td, rMethodBodyMarshal, rMethodBody, rMethodDeclMarshal, rMethodDecl, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(24, this, phEnumMarshal, phEnum, "uint", td, rMethodBodyMarshal, rMethodBody, rMethodDeclMarshal, rMethodDecl, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -651,25 +753,36 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumpermissionsets
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumpermissionsets
      */
     EnumPermissionSets(phEnum, tk, dwActions, rPermission, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rPermissionMarshal := rPermission is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, phEnumMarshal, phEnum, "uint", tk, "uint", dwActions, rPermissionMarshal, rPermission, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(25, this, phEnumMarshal, phEnum, "uint", tk, "uint", dwActions, rPermissionMarshal, rPermission, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Gets a pointer to the MemberRef token for the member reference that is enclosed by the specified Type and that has the specified name and metadata signature.
+     * @remarks
+     * You specify the member using its enclosing class or interface (<i>tkTypeRef</i>), its name (<i>szName</i>), and optionally its signature (<i>pvSigBlob</i>).
      * 
+     * The signature passed to <b>FindMemberRef</b> must have been generated in the current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time signature outside the context of the current scope and use that signature as input to <b>FindMemberRef</b>.
+     * 
+     * <b>FindMemberRef</b> finds only member references that were defined directly in the class or interface; it does not find inherited member references.
      * @param {Integer} td 
-     * @param {PWSTR} szName 
-     * @param {Pointer<Integer>} pvSigBlob 
-     * @param {Integer} cbSigBlob 
+     * @param {PWSTR} szName The name of the member reference to search for.
+     * @param {Pointer<Integer>} pvSigBlob A pointer to the binary metadata signature of the member reference.
+     * @param {Integer} cbSigBlob The size in bytes of <i>pvSigBlob</i>.
      * @param {Pointer<Integer>} pmb 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-findmemberref
      */
     FindMember(td, szName, pvSigBlob, cbSigBlob, pmb) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -677,7 +790,11 @@ class IMetaDataImport extends IUnknown{
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(26, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
+        result := ComCall(26, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -696,7 +813,11 @@ class IMetaDataImport extends IUnknown{
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(27, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
+        result := ComCall(27, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -715,19 +836,29 @@ class IMetaDataImport extends IUnknown{
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmbMarshal := pmb is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(28, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "HRESULT")
+        result := ComCall(28, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmbMarshal, pmb, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets a pointer to the MemberRef token for the member reference that is enclosed by the specified Type and that has the specified name and metadata signature.
+     * @remarks
+     * You specify the member using its enclosing class or interface (<i>tkTypeRef</i>), its name (<i>szName</i>), and optionally its signature (<i>pvSigBlob</i>).
+     * 
+     * The signature passed to <b>FindMemberRef</b> must have been generated in the current scope, because signatures are bound to a particular scope. A signature can embed a token that identifies the enclosing class or value type. The token is an index into the local TypeDef table. You cannot build a run-time signature outside the context of the current scope and use that signature as input to <b>FindMemberRef</b>.
+     * 
+     * <b>FindMemberRef</b> finds only member references that were defined directly in the class or interface; it does not find inherited member references.
      * @param {Integer} td 
      * @param {PWSTR} szName The name of the member reference to search for.
      * @param {Pointer<Integer>} pvSigBlob A pointer to the binary metadata signature of the member reference.
      * @param {Integer} cbSigBlob The size in bytes of <i>pvSigBlob</i>.
      * @param {Pointer<Integer>} pmr 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-findmemberref
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-findmemberref
      */
     FindMemberRef(td, szName, pvSigBlob, cbSigBlob, pmr) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -735,7 +866,11 @@ class IMetaDataImport extends IUnknown{
         pvSigBlobMarshal := pvSigBlob is VarRef ? "char*" : "ptr"
         pmrMarshal := pmr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(29, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmrMarshal, pmr, "HRESULT")
+        result := ComCall(29, this, "uint", td, "ptr", szName, pvSigBlobMarshal, pvSigBlob, "uint", cbSigBlob, pmrMarshal, pmr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -751,8 +886,8 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Integer>} pcbSigBlob A pointer to the size in bytes of <i>ppvSigBlob</i>.
      * @param {Pointer<Integer>} pulCodeRVA A pointer to the relative virtual address of the method.
      * @param {Pointer<Integer>} pdwImplFlags A pointer to any implementation flags for the method.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmethodprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getmethodprops
      */
     GetMethodProps(mb, pClass, szMethod, cchMethod, pchMethod, pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags) {
         szMethod := szMethod is String ? StrPtr(szMethod) : szMethod
@@ -765,7 +900,11 @@ class IMetaDataImport extends IUnknown{
         pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
         pdwImplFlagsMarshal := pdwImplFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(30, this, "uint", mb, pClassMarshal, pClass, "ptr", szMethod, "uint", cchMethod, pchMethodMarshal, pchMethod, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
+        result := ComCall(30, this, "uint", mb, pClassMarshal, pClass, "ptr", szMethod, "uint", cchMethod, pchMethodMarshal, pchMethod, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -778,8 +917,8 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Integer>} pchMember The returned size in wide characters of <i>szMember</i>.
      * @param {Pointer<Pointer<Integer>>} ppvSigBlob A pointer to the binary metadata signature for the member.
      * @param {Pointer<Integer>} pbSig 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmemberrefprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getmemberrefprops
      */
     GetMemberRefProps(mr, ptk, szMember, cchMember, pchMember, ppvSigBlob, pbSig) {
         szMember := szMember is String ? StrPtr(szMember) : szMember
@@ -789,7 +928,11 @@ class IMetaDataImport extends IUnknown{
         ppvSigBlobMarshal := ppvSigBlob is VarRef ? "ptr*" : "ptr"
         pbSigMarshal := pbSig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(31, this, "uint", mr, ptkMarshal, ptk, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, ppvSigBlobMarshal, ppvSigBlob, pbSigMarshal, pbSig, "HRESULT")
+        result := ComCall(31, this, "uint", mr, ptkMarshal, ptk, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, ppvSigBlobMarshal, ppvSigBlob, pbSigMarshal, pbSig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -817,14 +960,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumproperties
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumproperties
      */
     EnumProperties(phEnum, td, rProperties, cMax, pcProperties) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rPropertiesMarshal := rProperties is VarRef ? "uint*" : "ptr"
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(32, this, phEnumMarshal, phEnum, "uint", td, rPropertiesMarshal, rProperties, "uint", cMax, pcPropertiesMarshal, pcProperties, "HRESULT")
+        result := ComCall(32, this, phEnumMarshal, phEnum, "uint", td, rPropertiesMarshal, rProperties, "uint", cMax, pcPropertiesMarshal, pcProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -852,14 +999,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumevents
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumevents
      */
     EnumEvents(phEnum, td, rEvents, cMax, pcEvents) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rEventsMarshal := rEvents is VarRef ? "uint*" : "ptr"
         pcEventsMarshal := pcEvents is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(33, this, phEnumMarshal, phEnum, "uint", td, rEventsMarshal, rEvents, "uint", cMax, pcEventsMarshal, pcEvents, "HRESULT")
+        result := ComCall(33, this, phEnumMarshal, phEnum, "uint", td, rEventsMarshal, rEvents, "uint", cMax, pcEventsMarshal, pcEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -893,7 +1044,11 @@ class IMetaDataImport extends IUnknown{
         rmdOtherMethodMarshal := rmdOtherMethod is VarRef ? "uint*" : "ptr"
         pcOtherMethodMarshal := pcOtherMethod is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(34, this, "uint", ev, pClassMarshal, pClass, "ptr", szEvent, "uint", cchEvent, pchEventMarshal, pchEvent, pdwEventFlagsMarshal, pdwEventFlags, ptkEventTypeMarshal, ptkEventType, pmdAddOnMarshal, pmdAddOn, pmdRemoveOnMarshal, pmdRemoveOn, pmdFireMarshal, pmdFire, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
+        result := ComCall(34, this, "uint", ev, pClassMarshal, pClass, "ptr", szEvent, "uint", cchEvent, pchEventMarshal, pchEvent, pdwEventFlagsMarshal, pdwEventFlags, ptkEventTypeMarshal, ptkEventType, pmdAddOnMarshal, pmdAddOn, pmdRemoveOnMarshal, pmdRemoveOn, pmdFireMarshal, pmdFire, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -921,14 +1076,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummethodsemantics
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummethodsemantics
      */
     EnumMethodSemantics(phEnum, mb, rEventProp, cMax, pcEventProp) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rEventPropMarshal := rEventProp is VarRef ? "uint*" : "ptr"
         pcEventPropMarshal := pcEventProp is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(35, this, phEnumMarshal, phEnum, "uint", mb, rEventPropMarshal, rEventProp, "uint", cMax, pcEventPropMarshal, pcEventProp, "HRESULT")
+        result := ComCall(35, this, phEnumMarshal, phEnum, "uint", mb, rEventPropMarshal, rEventProp, "uint", cMax, pcEventPropMarshal, pcEventProp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -937,13 +1096,17 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} mb 
      * @param {Integer} tkEventProp A token representing the paired property and event for which to get the method's role.
      * @param {Pointer<Integer>} pdwSemanticsFlags A pointer to the associated semantics flags. This value is a bitmask from the CorMethodSemanticsAttr enumeration.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmethodsemantics
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getmethodsemantics
      */
     GetMethodSemantics(mb, tkEventProp, pdwSemanticsFlags) {
         pdwSemanticsFlagsMarshal := pdwSemanticsFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(36, this, "uint", mb, "uint", tkEventProp, pdwSemanticsFlagsMarshal, pdwSemanticsFlags, "HRESULT")
+        result := ComCall(36, this, "uint", mb, "uint", tkEventProp, pdwSemanticsFlagsMarshal, pdwSemanticsFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -962,7 +1125,11 @@ class IMetaDataImport extends IUnknown{
         pcFieldOffsetMarshal := pcFieldOffset is VarRef ? "uint*" : "ptr"
         pulClassSizeMarshal := pulClassSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", td, pdwPackSizeMarshal, pdwPackSize, "ptr", rFieldOffset, "uint", cMax, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "HRESULT")
+        result := ComCall(37, this, "uint", td, pdwPackSizeMarshal, pdwPackSize, "ptr", rFieldOffset, "uint", cMax, pcFieldOffsetMarshal, pcFieldOffset, pulClassSizeMarshal, pulClassSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -971,14 +1138,18 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} tk The metadata token that represents the field to get interop marshaling information for.
      * @param {Pointer<Pointer<Integer>>} ppvNativeType A pointer to the metadata signature of the field's native type.
      * @param {Pointer<Integer>} pcbNativeType The size in bytes of <i>ppvNativeType</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getfieldmarshal
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getfieldmarshal
      */
     GetFieldMarshal(tk, ppvNativeType, pcbNativeType) {
         ppvNativeTypeMarshal := ppvNativeType is VarRef ? "ptr*" : "ptr"
         pcbNativeTypeMarshal := pcbNativeType is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(38, this, "uint", tk, ppvNativeTypeMarshal, ppvNativeType, pcbNativeTypeMarshal, pcbNativeType, "HRESULT")
+        result := ComCall(38, this, "uint", tk, ppvNativeTypeMarshal, ppvNativeType, pcbNativeTypeMarshal, pcbNativeType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -987,14 +1158,18 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} tk A MethodDef or FieldDef metadata token that represents the code object to return the RVA for. If the token is a FieldDef, the field must be a global variable.
      * @param {Pointer<Integer>} pulCodeRVA A pointer to the relative virtual address of the code object represented by the token.
      * @param {Pointer<Integer>} pdwImplFlags A pointer to the implementation flags for the method. This value is a bitmask from the <a href="https://docs.microsoft.com/dotnet/framework/unmanaged-api/metadata/cormethodimpl-enumeration">CorMethodImpl</a> enumeration. The value of <i>pdwImplFlags</i> is valid only if <i>tk</i> is a MethodDef token.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getrva
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getrva
      */
     GetRVA(tk, pulCodeRVA, pdwImplFlags) {
         pulCodeRVAMarshal := pulCodeRVA is VarRef ? "uint*" : "ptr"
         pdwImplFlagsMarshal := pdwImplFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "uint", tk, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "HRESULT")
+        result := ComCall(39, this, "uint", tk, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1004,15 +1179,19 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Integer>} pdwAction A pointer to the permission set.
      * @param {Pointer<Pointer<Void>>} ppvPermission A pointer to the binary metadata signature of the permission set.
      * @param {Pointer<Integer>} pcbPermission The size in bytes of <i>const</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getpermissionsetprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getpermissionsetprops
      */
     GetPermissionSetProps(pm, pdwAction, ppvPermission, pcbPermission) {
         pdwActionMarshal := pdwAction is VarRef ? "uint*" : "ptr"
         ppvPermissionMarshal := ppvPermission is VarRef ? "ptr*" : "ptr"
         pcbPermissionMarshal := pcbPermission is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(40, this, "uint", pm, pdwActionMarshal, pdwAction, ppvPermissionMarshal, ppvPermission, pcbPermissionMarshal, pcbPermission, "HRESULT")
+        result := ComCall(40, this, "uint", pm, pdwActionMarshal, pdwAction, ppvPermissionMarshal, ppvPermission, pcbPermissionMarshal, pcbPermission, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1021,14 +1200,18 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} mdSig 
      * @param {Pointer<Pointer<Integer>>} ppvSig A pointer to the returned metadata signature.
      * @param {Pointer<Integer>} pcbSig The size in bytes of the binary metadata signature.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getsigfromtoken
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getsigfromtoken
      */
     GetSigFromToken(mdSig, ppvSig, pcbSig) {
         ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
         pcbSigMarshal := pcbSig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(41, this, "uint", mdSig, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
+        result := ComCall(41, this, "uint", mdSig, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1038,15 +1221,19 @@ class IMetaDataImport extends IUnknown{
      * @param {PWSTR} szName A buffer to hold the module name.
      * @param {Integer} cchName The requested size of <i>szName</i> in wide characters.
      * @param {Pointer<Integer>} pchName The returned size of <i>szName</i> in wide characters.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmodulerefprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getmodulerefprops
      */
     GetModuleRefProps(mur, szName, cchName, pchName) {
         szName := szName is String ? StrPtr(szName) : szName
 
         pchNameMarshal := pchName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(42, this, "uint", mur, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "HRESULT")
+        result := ComCall(42, this, "uint", mur, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1073,14 +1260,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enummodulerefs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enummodulerefs
      */
     EnumModuleRefs(phEnum, rModuleRefs, cmax, pcModuleRefs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rModuleRefsMarshal := rModuleRefs is VarRef ? "uint*" : "ptr"
         pcModuleRefsMarshal := pcModuleRefs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(43, this, phEnumMarshal, phEnum, rModuleRefsMarshal, rModuleRefs, "uint", cmax, pcModuleRefsMarshal, pcModuleRefs, "HRESULT")
+        result := ComCall(43, this, phEnumMarshal, phEnum, rModuleRefsMarshal, rModuleRefs, "uint", cmax, pcModuleRefsMarshal, pcModuleRefs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1089,33 +1280,49 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} typespec 
      * @param {Pointer<Pointer<Integer>>} ppvSig A pointer to the binary metadata signature.
      * @param {Pointer<Integer>} pcbSig The size, in bytes, of the metadata signature.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-gettypespecfromtoken
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-gettypespecfromtoken
      */
     GetTypeSpecFromToken(typespec, ppvSig, pcbSig) {
         ppvSigMarshal := ppvSig is VarRef ? "ptr*" : "ptr"
         pcbSigMarshal := pcbSig is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(44, this, "uint", typespec, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "HRESULT")
+        result := ComCall(44, this, "uint", typespec, ppvSigMarshal, ppvSig, pcbSigMarshal, pcbSig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the UTF-8 name of the object referenced by the specified metadata token. This method is obsolete.
+     * @remarks
+     * <b>GetNameFromToken</b> is obsolete. As an alternative, call a method to get the properties of the particular type of token required, such as <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-getfieldprops">GetFieldProps</a> for a field or <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-getmethodprops">GetMethodProps</a> for a method.
      * @param {Integer} tk The token representing the object to return the name for.
      * @param {Pointer<Pointer<Integer>>} pszUtf8NamePtr A pointer to the UTF-8 object name in the heap.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getnamefromtoken
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getnamefromtoken
      */
     GetNameFromToken(tk, pszUtf8NamePtr) {
         pszUtf8NamePtrMarshal := pszUtf8NamePtr is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(45, this, "uint", tk, pszUtf8NamePtrMarshal, pszUtf8NamePtr, "HRESULT")
+        result := ComCall(45, this, "uint", tk, pszUtf8NamePtrMarshal, pszUtf8NamePtr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Enumerates MemberDef tokens representing the unresolved methods in the current metadata scope.
+     * @remarks
+     * An unresolved method is one that has been declared but not implemented. A method is included in the enumeration if the method is marked <b>miForwardRef</b> and either <b>mdPinvokeImpl</b> or <b>miRuntime</b> is set to zero. In other words, an unresolved method is a class method that is marked <b>miForwardRef</b> but which is not implemented in unmanaged code (reached via PInvoke) nor implemented internally by the runtime itself. 
+     * 
+     * 
+     * 
+     * The enumeration excludes all methods that are defined either at module scope (globals) or in interfaces or abstract classes.
      * @param {Pointer<Pointer<Void>>} phEnum A pointer to the enumerator. This must be NULL for the first call of this method.
      * @param {Pointer<Integer>} rMethods 
      * @param {Integer} cMax The maximum size of the <i>rgMethods</i> array.
@@ -1137,14 +1344,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumunresolvedmethods
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumunresolvedmethods
      */
     EnumUnresolvedMethods(phEnum, rMethods, cMax, pcTokens) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rMethodsMarshal := rMethods is VarRef ? "uint*" : "ptr"
         pcTokensMarshal := pcTokens is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(46, this, phEnumMarshal, phEnum, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "HRESULT")
+        result := ComCall(46, this, phEnumMarshal, phEnum, rMethodsMarshal, rMethods, "uint", cMax, pcTokensMarshal, pcTokens, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1154,15 +1365,19 @@ class IMetaDataImport extends IUnknown{
      * @param {PWSTR} szString A copy of the requested string.
      * @param {Integer} cchString The maximum size in wide characters of the requested <i>szString</i>.
      * @param {Pointer<Integer>} pchString The size in wide characters of the returned <i>szString</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getuserstring
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getuserstring
      */
     GetUserString(stk, szString, cchString, pchString) {
         szString := szString is String ? StrPtr(szString) : szString
 
         pchStringMarshal := pchString is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(47, this, "uint", stk, "ptr", szString, "uint", cchString, pchStringMarshal, pchString, "HRESULT")
+        result := ComCall(47, this, "uint", stk, "ptr", szString, "uint", cchString, pchStringMarshal, pchString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1174,8 +1389,8 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} cchImportName The size in wide characters of <i>szImportName</i>.
      * @param {Pointer<Integer>} pchImportName The number of wide characters returned in <i>szImportName</i>.
      * @param {Pointer<Integer>} pmrImportDLL 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getpinvokemap
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getpinvokemap
      */
     GetPinvokeMap(tk, pdwMappingFlags, szImportName, cchImportName, pchImportName, pmrImportDLL) {
         szImportName := szImportName is String ? StrPtr(szImportName) : szImportName
@@ -1184,7 +1399,11 @@ class IMetaDataImport extends IUnknown{
         pchImportNameMarshal := pchImportName is VarRef ? "uint*" : "ptr"
         pmrImportDLLMarshal := pmrImportDLL is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(48, this, "uint", tk, pdwMappingFlagsMarshal, pdwMappingFlags, "ptr", szImportName, "uint", cchImportName, pchImportNameMarshal, pchImportName, pmrImportDLLMarshal, pmrImportDLL, "HRESULT")
+        result := ComCall(48, this, "uint", tk, pdwMappingFlagsMarshal, pdwMappingFlags, "ptr", szImportName, "uint", cchImportName, pchImportNameMarshal, pchImportName, pmrImportDLLMarshal, pmrImportDLL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1211,14 +1430,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumsignatures
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumsignatures
      */
     EnumSignatures(phEnum, rSignatures, cmax, pcSignatures) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rSignaturesMarshal := rSignatures is VarRef ? "uint*" : "ptr"
         pcSignaturesMarshal := pcSignatures is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(49, this, phEnumMarshal, phEnum, rSignaturesMarshal, rSignatures, "uint", cmax, pcSignaturesMarshal, pcSignatures, "HRESULT")
+        result := ComCall(49, this, phEnumMarshal, phEnum, rSignaturesMarshal, rSignatures, "uint", cmax, pcSignaturesMarshal, pcSignatures, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1245,14 +1468,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumtypespecs
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumtypespecs
      */
     EnumTypeSpecs(phEnum, rTypeSpecs, cmax, pcTypeSpecs) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rTypeSpecsMarshal := rTypeSpecs is VarRef ? "uint*" : "ptr"
         pcTypeSpecsMarshal := pcTypeSpecs is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(50, this, phEnumMarshal, phEnum, rTypeSpecsMarshal, rTypeSpecs, "uint", cmax, pcTypeSpecsMarshal, pcTypeSpecs, "HRESULT")
+        result := ComCall(50, this, phEnumMarshal, phEnum, rTypeSpecsMarshal, rTypeSpecs, "uint", cmax, pcTypeSpecsMarshal, pcTypeSpecs, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1279,14 +1506,18 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumuserstrings
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumuserstrings
      */
     EnumUserStrings(phEnum, rStrings, cmax, pcStrings) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rStringsMarshal := rStrings is VarRef ? "uint*" : "ptr"
         pcStringsMarshal := pcStrings is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(51, this, phEnumMarshal, phEnum, rStringsMarshal, rStrings, "uint", cmax, pcStringsMarshal, pcStrings, "HRESULT")
+        result := ComCall(51, this, phEnumMarshal, phEnum, rStringsMarshal, rStrings, "uint", cmax, pcStringsMarshal, pcStrings, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1295,13 +1526,17 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} md 
      * @param {Integer} ulParamSeq The ordinal position in the parameter list where the requested parameter occurs. Parameters are numbered starting from one, with the method's return value in position zero.
      * @param {Pointer<Integer>} ppd 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getparamformethodindex
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getparamformethodindex
      */
     GetParamForMethodIndex(md, ulParamSeq, ppd) {
         ppdMarshal := ppd is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(52, this, "uint", md, "uint", ulParamSeq, ppdMarshal, ppd, "HRESULT")
+        result := ComCall(52, this, "uint", md, "uint", ulParamSeq, ppdMarshal, ppd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1330,26 +1565,32 @@ class IMetaDataImport extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-enumcustomattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-enumcustomattributes
      */
     EnumCustomAttributes(phEnum, tk, tkType, rCustomAttributes, cMax, pcCustomAttributes) {
         phEnumMarshal := phEnum is VarRef ? "ptr*" : "ptr"
         rCustomAttributesMarshal := rCustomAttributes is VarRef ? "uint*" : "ptr"
         pcCustomAttributesMarshal := pcCustomAttributes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(53, this, phEnumMarshal, phEnum, "uint", tk, "uint", tkType, rCustomAttributesMarshal, rCustomAttributes, "uint", cMax, pcCustomAttributesMarshal, pcCustomAttributes, "HRESULT")
+        result := ComCall(53, this, phEnumMarshal, phEnum, "uint", tk, "uint", tkType, rCustomAttributesMarshal, rCustomAttributes, "uint", cMax, pcCustomAttributesMarshal, pcCustomAttributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the value of the custom attribute, given its metadata token.
+     * @remarks
+     * A custom attribute is stored as an array of data, the format of which is understood by the metadata engine.
      * @param {Integer} cv A metadata token that represents the custom attribute to be retrieved.
      * @param {Pointer<Integer>} ptkObj A metadata token representing the object that the custom attribute modifies. This value can be any type of metadata token except <b>mdCustomAttribute</b>. See <a href="https://docs.microsoft.com/previous-versions/dotnet/netframework-4.0/ms404456(v=vs.100)">Metadata Tokens</a> for more information about the token types.
      * @param {Pointer<Integer>} ptkType An <b>mdMethodDef</b> or <b>mdMemberRef</b> metadata token representing the Type of the returned custom attribute.
      * @param {Pointer<Pointer<Void>>} ppBlob A pointer to an array of data that is the value of the custom attribute.
      * @param {Pointer<Integer>} pcbSize 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributeprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributeprops
      */
     GetCustomAttributeProps(cv, ptkObj, ptkType, ppBlob, pcbSize) {
         ptkObjMarshal := ptkObj is VarRef ? "uint*" : "ptr"
@@ -1357,7 +1598,11 @@ class IMetaDataImport extends IUnknown{
         ppBlobMarshal := ppBlob is VarRef ? "ptr*" : "ptr"
         pcbSizeMarshal := pcbSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(54, this, "uint", cv, ptkObjMarshal, ptkObj, ptkTypeMarshal, ptkType, ppBlobMarshal, ppBlob, pcbSizeMarshal, pcbSize, "HRESULT")
+        result := ComCall(54, this, "uint", cv, ptkObjMarshal, ptkObj, ptkTypeMarshal, ptkType, ppBlobMarshal, ppBlob, pcbSizeMarshal, pcbSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1366,15 +1611,19 @@ class IMetaDataImport extends IUnknown{
      * @param {Integer} tkResolutionScope A ModuleRef, AssemblyRef, or TypeRef token that specifies the module, assembly, or type, respectively, in which the type reference is defined.
      * @param {PWSTR} szName The name of the type reference to search for.
      * @param {Pointer<Integer>} ptr 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-findtyperef
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-findtyperef
      */
     FindTypeRef(tkResolutionScope, szName, ptr) {
         szName := szName is String ? StrPtr(szName) : szName
 
         ptrMarshal := ptr is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(55, this, "uint", tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "HRESULT")
+        result := ComCall(55, this, "uint", tkResolutionScope, "ptr", szName, ptrMarshal, ptr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1393,8 +1642,8 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Integer>} pdwCPlusTypeFlag A flag that marks a ValueType.
      * @param {Pointer<Pointer<Void>>} ppValue A constant string value returned by this member.
      * @param {Pointer<Integer>} pcchValue The size in characters of <i>ppValue</i>, or zero if <i>ppValue</i> does not hold a string.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getmemberprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getmemberprops
      */
     GetMemberProps(mb, pClass, szMember, cchMember, pchMember, pdwAttr, ppvSigBlob, pcbSigBlob, pulCodeRVA, pdwImplFlags, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szMember := szMember is String ? StrPtr(szMember) : szMember
@@ -1410,7 +1659,11 @@ class IMetaDataImport extends IUnknown{
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(56, this, "uint", mb, pClassMarshal, pClass, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(56, this, "uint", mb, pClassMarshal, pClass, "ptr", szMember, "uint", cchMember, pchMemberMarshal, pchMember, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pulCodeRVAMarshal, pulCodeRVA, pdwImplFlagsMarshal, pdwImplFlags, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1427,8 +1680,8 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Integer>} pdwCPlusTypeFlag A flag that specifies the value type of the field.
      * @param {Pointer<Pointer<Void>>} ppValue A constant value for the field.
      * @param {Pointer<Integer>} pcchValue The size in chars of <i>ppValue</i>, or zero if no string exists.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getfieldprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getfieldprops
      */
     GetFieldProps(mb, pClass, szField, cchField, pchField, pdwAttr, ppvSigBlob, pcbSigBlob, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szField := szField is String ? StrPtr(szField) : szField
@@ -1442,7 +1695,11 @@ class IMetaDataImport extends IUnknown{
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(57, this, "uint", mb, pClassMarshal, pClass, "ptr", szField, "uint", cchField, pchFieldMarshal, pchField, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(57, this, "uint", mb, pClassMarshal, pClass, "ptr", szField, "uint", cchField, pchFieldMarshal, pchField, pdwAttrMarshal, pdwAttr, ppvSigBlobMarshal, ppvSigBlob, pcbSigBlobMarshal, pcbSigBlob, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1482,7 +1739,11 @@ class IMetaDataImport extends IUnknown{
         rmdOtherMethodMarshal := rmdOtherMethod is VarRef ? "uint*" : "ptr"
         pcOtherMethodMarshal := pcOtherMethod is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(58, this, "uint", prop, pClassMarshal, pClass, "ptr", szProperty, "uint", cchProperty, pchPropertyMarshal, pchProperty, pdwPropFlagsMarshal, pdwPropFlags, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppDefaultValueMarshal, ppDefaultValue, pcchDefaultValueMarshal, pcchDefaultValue, pmdSetterMarshal, pmdSetter, pmdGetterMarshal, pmdGetter, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "HRESULT")
+        result := ComCall(58, this, "uint", prop, pClassMarshal, pClass, "ptr", szProperty, "uint", cchProperty, pchPropertyMarshal, pchProperty, pdwPropFlagsMarshal, pdwPropFlags, ppvSigMarshal, ppvSig, pbSigMarshal, pbSig, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppDefaultValueMarshal, ppDefaultValue, pcchDefaultValueMarshal, pcchDefaultValue, pmdSetterMarshal, pmdSetter, pmdGetterMarshal, pmdGetter, rmdOtherMethodMarshal, rmdOtherMethod, "uint", cMax, pcOtherMethodMarshal, pcOtherMethod, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1498,8 +1759,8 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Integer>} pdwCPlusTypeFlag A pointer to a flag specifying that the parameter is a ValueType.
      * @param {Pointer<Pointer<Void>>} ppValue A pointer to a constant string returned by the parameter.
      * @param {Pointer<Integer>} pcchValue The size of <i>ppValue</i> in wide characters, or zero if <i>ppValue</i> does not hold a string.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getparamprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getparamprops
      */
     GetParamProps(tk, pmd, pulSequence, szName, cchName, pchName, pdwAttr, pdwCPlusTypeFlag, ppValue, pcchValue) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -1512,18 +1773,24 @@ class IMetaDataImport extends IUnknown{
         ppValueMarshal := ppValue is VarRef ? "ptr*" : "ptr"
         pcchValueMarshal := pcchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(59, this, "uint", tk, pmdMarshal, pmd, pulSequenceMarshal, pulSequence, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, pdwAttrMarshal, pdwAttr, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "HRESULT")
+        result := ComCall(59, this, "uint", tk, pmdMarshal, pmd, pulSequenceMarshal, pulSequence, "ptr", szName, "uint", cchName, pchNameMarshal, pchName, pdwAttrMarshal, pdwAttr, pdwCPlusTypeFlagMarshal, pdwCPlusTypeFlag, ppValueMarshal, ppValue, pcchValueMarshal, pcchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the custom attribute, given its name and owner.
+     * @remarks
+     * It is legal to define multiple custom attributes for the same owner; they may even have the same name. However, <b>GetCustomAttributeByName</b> returns only one instance. (<b>GetCustomAttributeByName</b> returns the first instance that it encounters.) To find all instances of a custom attribute, call the <a href="https://docs.microsoft.com/windows/desktop/api/rometadataapi/nf-rometadataapi-imetadataimport-enumcustomattributes">EnumCustomAttributes</a> method.
      * @param {Integer} tkObj A metadata token representing the object that owns the custom attribute.
      * @param {PWSTR} szName The name of the custom attribute.
      * @param {Pointer<Pointer<Void>>} ppData A pointer to an array of data that is the value of the custom attribute.
      * @param {Pointer<Integer>} pcbData The size in bytes of the data returned in <i>const</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributebyname
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getcustomattributebyname
      */
     GetCustomAttributeByName(tkObj, szName, ppData, pcbData) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -1531,7 +1798,11 @@ class IMetaDataImport extends IUnknown{
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(60, this, "uint", tkObj, "ptr", szName, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "HRESULT")
+        result := ComCall(60, this, "uint", tkObj, "ptr", szName, ppDataMarshal, ppData, pcbDataMarshal, pcbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1539,7 +1810,7 @@ class IMetaDataImport extends IUnknown{
      * Gets a value indicating whether the specified token holds a valid reference to a code object.
      * @param {Integer} tk The token to check the reference validity for.
      * @returns {BOOL} <b>true</b> if <i>tk</i> is a valid metadata token within the current scope. Otherwise, <b>false</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-isvalidtoken
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-isvalidtoken
      */
     IsValidToken(tk) {
         result := ComCall(61, this, "uint", tk, "int")
@@ -1550,13 +1821,17 @@ class IMetaDataImport extends IUnknown{
      * Gets the TypeDef token for the parent Type of the specified nested type.
      * @param {Integer} tdNestedClass A TypeDef token representing the Type to return the parent class token for.
      * @param {Pointer<Integer>} ptdEnclosingClass A pointer to the TypeDef token for the Type that <i>tdNestedClass</i> is nested in.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getnestedclassprops
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getnestedclassprops
      */
     GetNestedClassProps(tdNestedClass, ptdEnclosingClass) {
         ptdEnclosingClassMarshal := ptdEnclosingClass is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(62, this, "uint", tdNestedClass, ptdEnclosingClassMarshal, ptdEnclosingClass, "HRESULT")
+        result := ComCall(62, this, "uint", tdNestedClass, ptdEnclosingClassMarshal, ptdEnclosingClass, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1565,14 +1840,18 @@ class IMetaDataImport extends IUnknown{
      * @param {Pointer<Void>} pvSig A pointer to the metadata signature of the method to return the calling convention for.
      * @param {Integer} cbSig The size in bytes of <i>const</i>.
      * @param {Pointer<Integer>} pCallConv A pointer to the native calling convention.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-getnativecallconvfromsig
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-getnativecallconvfromsig
      */
     GetNativeCallConvFromSig(pvSig, cbSig, pCallConv) {
         pvSigMarshal := pvSig is VarRef ? "ptr" : "ptr"
         pCallConvMarshal := pCallConv is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(63, this, pvSigMarshal, pvSig, "uint", cbSig, pCallConvMarshal, pCallConv, "HRESULT")
+        result := ComCall(63, this, pvSigMarshal, pvSig, "uint", cbSig, pCallConvMarshal, pCallConv, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -1580,13 +1859,17 @@ class IMetaDataImport extends IUnknown{
      * Gets a value indicating whether the field, method, or type represented by the specified metadata token has global scope.
      * @param {Integer} pd 
      * @param {Pointer<Integer>} pbGlobal 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadataimport-isglobal
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/rometadataapi/nf-rometadataapi-imetadataimport-isglobal
      */
     IsGlobal(pd, pbGlobal) {
         pbGlobalMarshal := pbGlobal is VarRef ? "int*" : "ptr"
 
-        result := ComCall(64, this, "uint", pd, pbGlobalMarshal, pbGlobal, "HRESULT")
+        result := ComCall(64, this, "uint", pd, pbGlobalMarshal, pbGlobal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

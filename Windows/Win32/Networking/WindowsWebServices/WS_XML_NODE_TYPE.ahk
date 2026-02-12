@@ -22,7 +22,7 @@
  * StartInput := WS_XML_NODE_TYPE_BOF
  * EndInput := WS_XML_NODE_TYPE_EOF
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ne-webservices-ws_xml_node_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ne-webservices-ws_xml_node_type
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

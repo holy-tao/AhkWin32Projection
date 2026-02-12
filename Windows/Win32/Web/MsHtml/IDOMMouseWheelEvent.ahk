@@ -47,7 +47,11 @@ class IDOMMouseWheelEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_wheelDelta() {
-        result := ComCall(7, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -69,10 +73,20 @@ class IDOMMouseWheelEvent extends IDispatch{
      * @returns {HRESULT} 
      */
     initMouseWheelEvent(eventType, canBubble, cancelable, viewArg, detailArg, screenXArg, screenYArg, clientXArg, clientYArg, buttonArg, relatedTargetArg, modifiersListArg, wheelDeltaArg) {
-        eventType := eventType is String ? BSTR.Alloc(eventType).Value : eventType
-        modifiersListArg := modifiersListArg is String ? BSTR.Alloc(modifiersListArg).Value : modifiersListArg
+        if(eventType is String) {
+            pin := BSTR.Alloc(eventType)
+            eventType := pin.Value
+        }
+        if(modifiersListArg is String) {
+            pin := BSTR.Alloc(modifiersListArg)
+            modifiersListArg := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "ushort", buttonArg, "ptr", relatedTargetArg, "ptr", modifiersListArg, "int", wheelDeltaArg, "HRESULT")
+        result := ComCall(8, this, "ptr", eventType, "short", canBubble, "short", cancelable, "ptr", viewArg, "int", detailArg, "int", screenXArg, "int", screenYArg, "int", clientXArg, "int", clientYArg, "ushort", buttonArg, "ptr", relatedTargetArg, "ptr", modifiersListArg, "int", wheelDeltaArg, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

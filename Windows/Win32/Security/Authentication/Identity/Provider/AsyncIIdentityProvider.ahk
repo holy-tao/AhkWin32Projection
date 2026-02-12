@@ -44,7 +44,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_GetIdentityEnum(eIdentityType, pFilterkey, pFilterPropVarValue) {
-        result := ComCall(3, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "HRESULT")
+        result := ComCall(3, this, "int", eIdentityType, "ptr", pFilterkey, "ptr", pFilterPropVarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -53,7 +57,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {IEnumUnknown} 
      */
     Finish_GetIdentityEnum() {
-        result := ComCall(4, this, "ptr*", &ppIdentityEnum := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppIdentityEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumUnknown(ppIdentityEnum)
     }
 
@@ -66,7 +74,11 @@ class AsyncIIdentityProvider extends IUnknown{
     Begin_Create(lpszUserName, pKeywordsToAdd) {
         lpszUserName := lpszUserName is String ? StrPtr(lpszUserName) : lpszUserName
 
-        result := ComCall(5, this, "ptr", lpszUserName, "ptr", pKeywordsToAdd, "HRESULT")
+        result := ComCall(5, this, "ptr", lpszUserName, "ptr", pKeywordsToAdd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +87,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {IPropertyStore} 
      */
     Finish_Create() {
-        result := ComCall(6, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &ppPropertyStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStore(ppPropertyStore)
     }
 
@@ -85,7 +101,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_Import(pPropertyStore) {
-        result := ComCall(7, this, "ptr", pPropertyStore, "HRESULT")
+        result := ComCall(7, this, "ptr", pPropertyStore, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +114,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_Import() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -107,7 +131,11 @@ class AsyncIIdentityProvider extends IUnknown{
     Begin_Delete(lpszUniqueID, pKeywordsToDelete) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", pKeywordsToDelete, "HRESULT")
+        result := ComCall(9, this, "ptr", lpszUniqueID, "ptr", pKeywordsToDelete, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -116,7 +144,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_Delete() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +160,11 @@ class AsyncIIdentityProvider extends IUnknown{
     Begin_FindByUniqueID(lpszUniqueID) {
         lpszUniqueID := lpszUniqueID is String ? StrPtr(lpszUniqueID) : lpszUniqueID
 
-        result := ComCall(11, this, "ptr", lpszUniqueID, "HRESULT")
+        result := ComCall(11, this, "ptr", lpszUniqueID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,7 +173,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {IPropertyStore} 
      */
     Finish_FindByUniqueID() {
-        result := ComCall(12, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppPropertyStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStore(ppPropertyStore)
     }
 
@@ -146,7 +186,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_GetProviderPropertyStore() {
-        result := ComCall(13, this, "HRESULT")
+        result := ComCall(13, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -155,7 +199,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {IPropertyStore} 
      */
     Finish_GetProviderPropertyStore() {
-        result := ComCall(14, this, "ptr*", &ppPropertyStore := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &ppPropertyStore := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPropertyStore(ppPropertyStore)
     }
 
@@ -166,7 +214,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_Advise(pIdentityAdvise, dwIdentityUpdateEvents) {
-        result := ComCall(15, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, "HRESULT")
+        result := ComCall(15, this, "ptr", pIdentityAdvise, "uint", dwIdentityUpdateEvents, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -175,7 +227,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {Integer} 
      */
     Finish_Advise() {
-        result := ComCall(16, this, "uint*", &pdwCookie := 0, "HRESULT")
+        result := ComCall(16, this, "uint*", &pdwCookie := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCookie
     }
 
@@ -185,7 +241,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Begin_UnAdvise(dwCookie) {
-        result := ComCall(17, this, "uint", dwCookie, "HRESULT")
+        result := ComCall(17, this, "uint", dwCookie, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -194,7 +254,11 @@ class AsyncIIdentityProvider extends IUnknown{
      * @returns {HRESULT} 
      */
     Finish_UnAdvise() {
-        result := ComCall(18, this, "HRESULT")
+        result := ComCall(18, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

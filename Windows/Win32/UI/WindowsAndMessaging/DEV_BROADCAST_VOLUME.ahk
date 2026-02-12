@@ -13,7 +13,7 @@
  * 
  * Messages for network drive arrival and removal are not sent whenever network commands are issued, but rather 
  *     when network connections will disappear as the result of a hardware event.
- * @see https://learn.microsoft.com/windows/win32/api/dbt/ns-dbt-dev_broadcast_volume
+ * @see https://learn.microsoft.com/windows/win32/api//content/dbt/ns-dbt-dev_broadcast_volume
  * @namespace Windows.Win32.UI.WindowsAndMessaging
  * @version v4.0.30319
  */

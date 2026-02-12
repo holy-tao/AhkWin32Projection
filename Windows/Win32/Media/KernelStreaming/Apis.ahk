@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
 #Include ..\..\Foundation\HANDLE.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 #Include ..\..\Foundation\DEVPROPKEY.ahk
 
 /**
@@ -348,32 +350,32 @@ class KernelStreaming {
     static KSATTRIBUTE_REQUIRED => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KSSTRING_Filter => "{9B365890-165F-11D0-A195-0020AFD156E4}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KSSTRING_Pin => "{146F1A80-4791-11D0-A5D6-28DB04C10000}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KSSTRING_Clock => "{53172480-4791-11D0-A5D6-28DB04C10000}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KSSTRING_Allocator => "{642F5D00-4791-11D0-A5D6-28DB04C10000}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KSSTRING_AllocatorEx => "{091BB63B-603F-11D1-B067-00A0C9062802}"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static KSSTRING_TopologyNode => "{0621061A-EE75-11D0-B915-00A0C9223196}"
 
@@ -3433,7 +3435,7 @@ class KernelStreaming {
 
     /**
      * 
-     * @param {HANDLE} Handle 
+     * @param {HANDLE} Handle_ 
      * @param {Integer} IoControl 
      * @param {Pointer} InBuffer 
      * @param {Integer} InLength 
@@ -3442,12 +3444,12 @@ class KernelStreaming {
      * @param {Pointer<Integer>} BytesReturned 
      * @returns {HRESULT} 
      */
-    static KsSynchronousDeviceControl(Handle, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
-        Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
+    static KsSynchronousDeviceControl(Handle_, IoControl, InBuffer, InLength, OutBuffer, OutLength, BytesReturned) {
+        Handle_ := Handle_ is Win32Handle ? NumGet(Handle_, "ptr") : Handle_
 
         BytesReturnedMarshal := BytesReturned is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", Handle, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, BytesReturnedMarshal, BytesReturned, "int")
+        result := DllCall("ksproxy.ax\KsSynchronousDeviceControl", "ptr", Handle_, "uint", IoControl, "ptr", InBuffer, "uint", InLength, "ptr", OutBuffer, "uint", OutLength, BytesReturnedMarshal, BytesReturned, "int")
         if(result != 0) {
             throw OSError(A_LastError || result)
         }

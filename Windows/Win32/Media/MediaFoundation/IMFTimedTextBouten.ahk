@@ -34,7 +34,11 @@ class IMFTimedTextBouten extends IUnknown{
      * @returns {Integer} 
      */
     GetBoutenType() {
-        result := ComCall(3, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -44,7 +48,11 @@ class IMFTimedTextBouten extends IUnknown{
      */
     GetBoutenColor() {
         value := MFARGB()
-        result := ComCall(4, this, "ptr", value, "HRESULT")
+        result := ComCall(4, this, "ptr", value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
@@ -53,7 +61,11 @@ class IMFTimedTextBouten extends IUnknown{
      * @returns {Integer} 
      */
     GetBoutenPosition() {
-        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Enables interoperability with a WinRT�RadialController object and provides access to RadialController members for customizing the interaction experience.
- * @see https://docs.microsoft.com/windows/win32/api//radialcontrollerinterop/nn-radialcontrollerinterop-iradialcontrollerinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/radialcontrollerinterop/nn-radialcontrollerinterop-iradialcontrollerinterop
  * @namespace Windows.Win32.UI.Input.Radial
  * @version v4.0.30319
  */
@@ -32,17 +32,21 @@ class IRadialControllerInterop extends IInspectable{
 
     /**
      * Instantiates a RadialController object and binds it to the active application.
-     * @param {HWND} hwnd Handle to the window of the active application.
+     * @param {HWND} hwnd_ Handle to the window of the active application.
      * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
      * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example, __uuidof(IRadialController) will get the GUID of the interface to a buffer resource.
-     * @returns {Pointer<Void>} Address of a pointer to a <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontroller">RadialController</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerinterop-createforwindow
+     * @returns {Pointer<Pointer<Void>>} Address of a pointer to a <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontroller">RadialController</a> object.
+     * @see https://learn.microsoft.com/windows/win32/api//content/radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerinterop-createforwindow
      */
-    CreateForWindow(hwnd, riid) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    CreateForWindow(hwnd_, riid) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(6, this, "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", hwnd_, "ptr", riid, "ptr*", &ppv := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppv
     }
 }

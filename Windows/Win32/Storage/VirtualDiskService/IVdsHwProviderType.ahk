@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a method to retrieve the type of hardware provider.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdshwprovidertype
+ * The IVdsHwProviderType interface (vds.h) provides a method to retrieve the type of hardware provider.
+ * @see https://learn.microsoft.com/windows/win32/api//content/vds/nn-vds-ivdshwprovidertype
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -31,12 +31,16 @@ class IVdsHwProviderType extends IUnknown{
     static VTableNames => ["GetProviderType"]
 
     /**
-     * Retrieves the type of the hardware provider.
+     * The IVdsHwProviderType::GetProviderType method (vds.h) retrieves the type of the hardware provider.
      * @returns {Integer} A pointer to a caller-allocated variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_hwprovider_type">VDS_HWPROVIDER_TYPE</a> enumeration value that specifies the hardware provider type. This parameter is required and cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdshwprovidertype-getprovidertype
+     * @see https://learn.microsoft.com/windows/win32/api//content/vds/nf-vds-ivdshwprovidertype-getprovidertype
      */
     GetProviderType() {
-        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 }

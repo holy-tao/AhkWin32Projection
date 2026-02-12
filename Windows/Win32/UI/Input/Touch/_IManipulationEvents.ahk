@@ -5,7 +5,7 @@
 
 /**
  * Handles manipulation and inertia events.
- * @see https://docs.microsoft.com/windows/win32/api//manipulations/nn-manipulations-_imanipulationevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nn-manipulations-_imanipulationevents
  * @namespace Windows.Win32.UI.Input.Touch
  * @version v4.0.30319
  */
@@ -38,18 +38,35 @@ class _IManipulationEvents extends IUnknown{
 
     /**
      * Handles the event for when manipulation or inertia begins.
+     * @remarks
+     * Manipulation events are generated for both the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-iinertiaprocessor">IInertiaProcessor</a> and <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-imanipulationprocessor">IManipulationProcessor</a> interfaces.
+     *     If you are using the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structure in calls to <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processdown">ProcessDown</a>, the coordinates will be in 
+     *     hundredths of a pixel.
      * @param {Float} x The origin x-coordinate in user-defined coordinates.
      * @param {Float} y The origin y-coordinate in user-defined coordinates.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-_imanipulationevents-manipulationstarted
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-_imanipulationevents-manipulationstarted
      */
     ManipulationStarted(x, y) {
-        result := ComCall(3, this, "float", x, "float", y, "HRESULT")
+        result := ComCall(3, this, "float", x, "float", y, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Handles events that happen when a manipulated object changes.
+     * @remarks
+     * Manipulation events are generated for both the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-iinertiaprocessor">IInertiaProcessor</a> and <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-imanipulationprocessor">IManipulationProcessor</a> interfaces.
+     *     If you are using the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structure in calls to <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processmove">ProcessMove</a>, the coordinates will be in 
+     *     hundredths of a pixel.
+     * 
+     * <div class="alert"><b>Note</b>  When using inertia, calls to <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-iinertiaprocessor-complete">IInertiaProcessor::Complete</a> can force the current manipulation to be extrapolated resulting in large deltas being passed to the ManipulationCompleted event.
+     * 	 To address this issue, perform updates on the completed event in addition to the delta event.
+     * 	 </div>
+     * <div> </div>
      * @param {Float} x The origin x-coordinate in user-defined coordinates.
      * @param {Float} y The origin y-coordinate in user-defined coordinates.
      * @param {Float} translationDeltaX The translation change about the x-axis in user-defined coordinates since the last event.
@@ -63,15 +80,28 @@ class _IManipulationEvents extends IUnknown{
      * @param {Float} cumulativeExpansion The expansion change since the beginning of the manipulation in user-defined coordinates.
      * @param {Float} cumulativeRotation The rotation change since the beginning of the manipulation in radians.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-_imanipulationevents-manipulationdelta
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-_imanipulationevents-manipulationdelta
      */
     ManipulationDelta(x, y, translationDeltaX, translationDeltaY, scaleDelta, expansionDelta, rotationDelta, cumulativeTranslationX, cumulativeTranslationY, cumulativeScale, cumulativeExpansion, cumulativeRotation) {
-        result := ComCall(4, this, "float", x, "float", y, "float", translationDeltaX, "float", translationDeltaY, "float", scaleDelta, "float", expansionDelta, "float", rotationDelta, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "HRESULT")
+        result := ComCall(4, this, "float", x, "float", y, "float", translationDeltaX, "float", translationDeltaY, "float", scaleDelta, "float", expansionDelta, "float", rotationDelta, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Handles the event when manipulation or inertia finishes.
+     * @remarks
+     * Manipulation events are generated for both the <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-iinertiaprocessor">IInertiaProcessor</a> and <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nn-manipulations-imanipulationprocessor">IManipulationProcessor</a> interfaces.
+     *     If you are using the values from the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-touchinput">TOUCHINPUT</a> structure in calls to <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-imanipulationprocessor-processup">ProcessUp</a>, the coordinates will be in 
+     *     hundredths of a pixel.
+     * 
+     * <div class="alert"><b>Note</b>  When using inertia, calls to <a href="https://docs.microsoft.com/windows/desktop/api/manipulations/nf-manipulations-iinertiaprocessor-complete">IInertiaProcessor::Complete</a> can force the current manipulation to be extrapolated resulting in large deltas being passed to the ManipulationCompleted event.
+     * 	 To address this issue, perform updates on the completed event in addition to the delta event.
+     * 	 </div>
+     * <div> </div>
      * @param {Float} x The origin x-coordinate in user-defined coordinates.
      * @param {Float} y The origin y-coordinate in user-defined coordinates.
      * @param {Float} cumulativeTranslationX The total translation about the x-axis since the beginning of the manipulation in user-defined coordinates.
@@ -80,10 +110,14 @@ class _IManipulationEvents extends IUnknown{
      * @param {Float} cumulativeExpansion The total expansion change since the beginning of the manipulation in user-defined coordinates.
      * @param {Float} cumulativeRotation The total rotation change since the beginning of the manipulation in radians.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//manipulations/nf-manipulations-_imanipulationevents-manipulationcompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/manipulations/nf-manipulations-_imanipulationevents-manipulationcompleted
      */
     ManipulationCompleted(x, y, cumulativeTranslationX, cumulativeTranslationY, cumulativeScale, cumulativeExpansion, cumulativeRotation) {
-        result := ComCall(5, this, "float", x, "float", y, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "HRESULT")
+        result := ComCall(5, this, "float", x, "float", y, "float", cumulativeTranslationX, "float", cumulativeTranslationY, "float", cumulativeScale, "float", cumulativeExpansion, "float", cumulativeRotation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

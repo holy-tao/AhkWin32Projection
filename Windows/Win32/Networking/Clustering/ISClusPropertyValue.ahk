@@ -81,7 +81,11 @@ class ISClusPropertyValue extends IDispatch{
      */
     get_Value() {
         pvarValue := VARIANT()
-        result := ComCall(7, this, "ptr", pvarValue, "HRESULT")
+        result := ComCall(7, this, "ptr", pvarValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarValue
     }
 
@@ -91,7 +95,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Value(varValue) {
-        result := ComCall(8, this, "ptr", varValue, "HRESULT")
+        result := ComCall(8, this, "ptr", varValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -100,7 +108,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(9, this, "int*", &pType := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
@@ -110,7 +122,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Type(Type) {
-        result := ComCall(10, this, "int", Type, "HRESULT")
+        result := ComCall(10, this, "int", Type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,7 +135,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {Integer} 
      */
     get_Format() {
-        result := ComCall(11, this, "int*", &pFormat := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pFormat := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFormat
     }
 
@@ -129,7 +149,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Format(Format) {
-        result := ComCall(12, this, "int", Format, "HRESULT")
+        result := ComCall(12, this, "int", Format, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,7 +162,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {Integer} 
      */
     get_Length() {
-        result := ComCall(13, this, "int*", &pLength := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &pLength := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pLength
     }
 
@@ -147,7 +175,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {Integer} 
      */
     get_DataCount() {
-        result := ComCall(14, this, "int*", &pCount := 0, "HRESULT")
+        result := ComCall(14, this, "int*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -156,7 +188,11 @@ class ISClusPropertyValue extends IDispatch{
      * @returns {ISClusPropertyValueData} 
      */
     get_Data() {
-        result := ComCall(15, this, "ptr*", &ppClusterPropertyValueData := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppClusterPropertyValueData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusPropertyValueData(ppClusterPropertyValueData)
     }
 }

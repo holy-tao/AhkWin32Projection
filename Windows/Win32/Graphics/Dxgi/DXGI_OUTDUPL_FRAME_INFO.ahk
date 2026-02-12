@@ -16,7 +16,7 @@
  * 
  * <div class="alert"><b>Note</b>  To correct visual effects, an application must process the move region data before it processes the dirty rectangles.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_frame_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgi1_2/ns-dxgi1_2-dxgi_outdupl_frame_info
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

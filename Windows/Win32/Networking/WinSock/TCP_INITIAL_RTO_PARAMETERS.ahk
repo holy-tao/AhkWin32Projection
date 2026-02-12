@@ -11,7 +11,7 @@
  * An application may use the unspecified defines,  <b>TCP_INITIAL_RTO_UNSPECIFIED_RTT</b> and <b>TCP_INITIAL_RTO_UNSPECIFIED_MAX_SYN_RETRANSMISSIONS</b>  when supplying values for one of these fields. This allows the system to pick up administrator configured settings for the parameter left unspecified.
  * 
  * An application can choose system defaults for any of these fields and supply those values using the default defines, <b>TCP_INITIAL_RTO_DEFAULT_RTT</b> and <b>TCP_INITIAL_RTO_DEFAULT_MAX_SYN_RETRANSMISSIONS</b>.
- * @see https://learn.microsoft.com/windows/win32/api/mstcpip/ns-mstcpip-tcp_initial_rto_parameters
+ * @see https://learn.microsoft.com/windows/win32/api//content/mstcpip/ns-mstcpip-tcp_initial_rto_parameters
  * @namespace Windows.Win32.Networking.WinSock
  * @version v4.0.30319
  */

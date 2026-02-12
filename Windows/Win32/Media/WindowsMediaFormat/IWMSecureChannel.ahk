@@ -5,7 +5,7 @@
 
 /**
  * The IWMSecureChannel interface provides methods that allow two DLLs to validate each other and perform secure communication.
- * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nn-wmsecure-iwmsecurechannel
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nn-wmsecure-iwmsecurechannel
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,11 +33,15 @@ class IWMSecureChannel extends IWMAuthorizer{
     /**
      * The WMSC_AddCertificate method adds certificates that this object can present to other secure channel objects. If no certs are added, then this object can only connect to objects with no signatures.
      * @param {IWMAuthorizer} pCert A pointer to an authorizer object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_addcertificate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_addcertificate
      */
     WMSC_AddCertificate(pCert) {
-        result := ComCall(6, this, "ptr", pCert, "HRESULT")
+        result := ComCall(6, this, "ptr", pCert, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,44 +49,64 @@ class IWMSecureChannel extends IWMAuthorizer{
      * The WMSC_AddSignature method adds signatures that this object will look for when trying to connect. If no signatures are added, then this object will connect to any other object.
      * @param {Pointer<Integer>} pbCertSig 
      * @param {Integer} cbCertSig 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_addsignature
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_addsignature
      */
     WMSC_AddSignature(pbCertSig, cbCertSig) {
         pbCertSigMarshal := pbCertSig is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, pbCertSigMarshal, pbCertSig, "uint", cbCertSig, "HRESULT")
+        result := ComCall(7, this, pbCertSigMarshal, pbCertSig, "uint", cbCertSig, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The WMSC_Connect method initializes the secure connection.
+     * @remarks
+     * This function allow each side of the channel to validate the other side before  sharing the secret that will be used for encryption.
+     *     In addition, the DLL serializers used to 
+     *      serialize the encryption become shared.
      * @param {IWMSecureChannel} pOtherSide Pointer to a secure channel object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_connect
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_connect
      */
     WMSC_Connect(pOtherSide) {
-        result := ComCall(8, this, "ptr", pOtherSide, "HRESULT")
+        result := ComCall(8, this, "ptr", pOtherSide, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The WMSC_IsConnected method checks to see if the secure connection is valid.
      * @returns {BOOL} A pointer to value that indicates if the secure connection is valid.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_isconnected
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_isconnected
      */
     WMSC_IsConnected() {
-        result := ComCall(9, this, "int*", &pfIsConnected := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pfIsConnected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsConnected
     }
 
     /**
      * The WMSC_Disconnect method destroys the secure connection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_disconnect
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_disconnect
      */
     WMSC_Disconnect() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,63 +115,89 @@ class IWMSecureChannel extends IWMAuthorizer{
      * @param {Pointer<Pointer<Integer>>} ppbCertificate <i>ppbCertificate</i> must be released with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> by the user.
      *      <i>ppbCertificate</i> can be <b>NULL</b> if no certificate was provided. 
      *      If no connection was made, this function returns E_FAIL
-     * @param {Pointer<Integer>} pdwSignature <i>pdwSignature</i>can be 0xFFFFFFFF if no signature was used to validate the cert.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_getvalidcertificate
+     * @param {Pointer<Integer>} pdwSignature <i>pdwSignature</i> can be 0xFFFFFFFF if no signature was used to validate the cert.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_getvalidcertificate
      */
     WMSC_GetValidCertificate(ppbCertificate, pdwSignature) {
         ppbCertificateMarshal := ppbCertificate is VarRef ? "ptr*" : "ptr"
         pdwSignatureMarshal := pdwSignature is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(11, this, ppbCertificateMarshal, ppbCertificate, pdwSignatureMarshal, pdwSignature, "HRESULT")
+        result := ComCall(11, this, ppbCertificateMarshal, ppbCertificate, pdwSignatureMarshal, pdwSignature, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The WMSC_Encrypt method encrypts data across DLL boundaries.
+     * @remarks
+     * <b>Encrypt</b> holds a lock on the connection which is released by <a href="https://docs.microsoft.com/windows/desktop/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_decrypt">Decrypt</a>, so threads should not block between calls to encrypt
+     *      and decrypt.
      * @param {Pointer<Integer>} pbData 
      * @param {Integer} cbData 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_encrypt
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_encrypt
      */
     WMSC_Encrypt(pbData, cbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(12, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
+        result := ComCall(12, this, pbDataMarshal, pbData, "uint", cbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The WMSC_Decrypt method decrypts data across DLL boundaries.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_encrypt">Encrypt</a> holds a lock on the connection which is released by <b>Decrypt</b>, so threads should not block between calls to encrypt
+     *      and decrypt.
      * @param {Pointer<Integer>} pbData 
      * @param {Integer} cbData 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_decrypt
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_decrypt
      */
     WMSC_Decrypt(pbData, cbData) {
         pbDataMarshal := pbData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(13, this, pbDataMarshal, pbData, "uint", cbData, "HRESULT")
+        result := ComCall(13, this, pbDataMarshal, pbData, "uint", cbData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The WMSC_Lock method locks access to the secure connection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_lock
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_lock
      */
     WMSC_Lock() {
-        result := ComCall(14, this, "HRESULT")
+        result := ComCall(14, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The WMSC_Unlock method unlocks access to the secure connection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_unlock
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_unlock
      */
     WMSC_Unlock() {
-        result := ComCall(15, this, "HRESULT")
+        result := ComCall(15, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -155,13 +205,17 @@ class IWMSecureChannel extends IWMAuthorizer{
      * The WMSC_SetSharedData method is used during the connection negotiation process.
      * @param {Integer} dwCertIndex 
      * @param {Pointer<Integer>} pbSharedData 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_setshareddata
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsecure/nf-wmsecure-iwmsecurechannel-wmsc_setshareddata
      */
     WMSC_SetSharedData(dwCertIndex, pbSharedData) {
         pbSharedDataMarshal := pbSharedData is VarRef ? "char*" : "ptr"
 
-        result := ComCall(16, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, "HRESULT")
+        result := ComCall(16, this, "uint", dwCertIndex, pbSharedDataMarshal, pbSharedData, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

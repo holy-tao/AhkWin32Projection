@@ -5,7 +5,7 @@
 
 /**
  * Extends the IUIAutomationElement7 interface.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationelement8
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nn-uiautomationclient-iuiautomationelement8
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -47,20 +47,28 @@ class IUIAutomationElement8 extends IUIAutomationElement7{
     /**
      * Gets the current heading level of the automation element.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_currentheadinglevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_currentheadinglevel
      */
     get_CurrentHeadingLevel() {
-        result := ComCall(115, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(115, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 
     /**
      * Gets the cached heading level of the automation element.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_cachedheadinglevel
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationclient/nf-uiautomationclient-iuiautomationelement8-get_cachedheadinglevel
      */
     get_CachedHeadingLevel() {
-        result := ComCall(116, this, "int*", &retVal := 0, "HRESULT")
+        result := ComCall(116, this, "int*", &retVal := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retVal
     }
 }

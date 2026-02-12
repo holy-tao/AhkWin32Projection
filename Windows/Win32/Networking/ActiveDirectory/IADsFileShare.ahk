@@ -7,14 +7,10 @@
 /**
  * The IADsFileShare interface is a dual interface that inherits from IADs. It is designed for representing a published file share across the network. Call the methods on IADsFileShare to access or publish data about a file share point.
  * @remarks
- * 
  * <b>IADsFileShare</b> is supported by WinNT system provider only. Using the WinNT provider, you can also bind to a FPNW share by substituting "FPNW" for "LanmanServer" in the code examples below.
  * 
  * To bind to a file share, using the WinNT system provider, you can explicitly bind to the file service "LanmanServer" on the host machine, and then enumerate the container to reach the file share of interest, or bind directly to the file share.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsfileshare
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsfileshare
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -83,7 +79,11 @@ class IADsFileShare extends IADs{
      * @returns {Integer} 
      */
     get_CurrentUserCount() {
-        result := ComCall(20, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(20, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -93,7 +93,11 @@ class IADsFileShare extends IADs{
      */
     get_Description() {
         retval := BSTR()
-        result := ComCall(21, this, "ptr", retval, "HRESULT")
+        result := ComCall(21, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -103,9 +107,16 @@ class IADsFileShare extends IADs{
      * @returns {HRESULT} 
      */
     put_Description(bstrDescription) {
-        bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
+        if(bstrDescription is String) {
+            pin := BSTR.Alloc(bstrDescription)
+            bstrDescription := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", bstrDescription, "HRESULT")
+        result := ComCall(22, this, "ptr", bstrDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +126,11 @@ class IADsFileShare extends IADs{
      */
     get_HostComputer() {
         retval := BSTR()
-        result := ComCall(23, this, "ptr", retval, "HRESULT")
+        result := ComCall(23, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -125,9 +140,16 @@ class IADsFileShare extends IADs{
      * @returns {HRESULT} 
      */
     put_HostComputer(bstrHostComputer) {
-        bstrHostComputer := bstrHostComputer is String ? BSTR.Alloc(bstrHostComputer).Value : bstrHostComputer
+        if(bstrHostComputer is String) {
+            pin := BSTR.Alloc(bstrHostComputer)
+            bstrHostComputer := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", bstrHostComputer, "HRESULT")
+        result := ComCall(24, this, "ptr", bstrHostComputer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -137,7 +159,11 @@ class IADsFileShare extends IADs{
      */
     get_Path() {
         retval := BSTR()
-        result := ComCall(25, this, "ptr", retval, "HRESULT")
+        result := ComCall(25, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -147,9 +173,16 @@ class IADsFileShare extends IADs{
      * @returns {HRESULT} 
      */
     put_Path(bstrPath) {
-        bstrPath := bstrPath is String ? BSTR.Alloc(bstrPath).Value : bstrPath
+        if(bstrPath is String) {
+            pin := BSTR.Alloc(bstrPath)
+            bstrPath := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", bstrPath, "HRESULT")
+        result := ComCall(26, this, "ptr", bstrPath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -158,7 +191,11 @@ class IADsFileShare extends IADs{
      * @returns {Integer} 
      */
     get_MaxUserCount() {
-        result := ComCall(27, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(27, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -168,7 +205,11 @@ class IADsFileShare extends IADs{
      * @returns {HRESULT} 
      */
     put_MaxUserCount(lnMaxUserCount) {
-        result := ComCall(28, this, "int", lnMaxUserCount, "HRESULT")
+        result := ComCall(28, this, "int", lnMaxUserCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

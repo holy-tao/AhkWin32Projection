@@ -11,7 +11,7 @@
  * 
  * 
  * [**Value**](counteritem-value.md) is the default property of **CounterItem**.
- * @see https://learn.microsoft.com/windows/win32/SysMon/counteritem
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SysMon/counteritem
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

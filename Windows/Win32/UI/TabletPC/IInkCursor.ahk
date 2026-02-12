@@ -10,7 +10,6 @@
 /**
  * Represents general information about the tablet cursor.
  * @remarks
- * 
  * An <b>IInkCursor</b> object represents the physical pen that the user holds. Physical pens may have multiple tips - such as normal and eraser ends - with each pen tip representing a different <b>IInkCursor</b> object. Some Tablet PCs allow multiple pens. Each cursor has an associated identifier that is unique on a system. For more information about how pens can be used with Tablet PC, see <a href="https://docs.microsoft.com/windows/desktop/tablet/pen-input--ink--and-recognition">Pen Input, Ink, and Recognition</a>.
  * 
  * A specific set of drawing attributes can be assigned to a known cursor, such as whether the pen color should be red or blue. A cursor also contains a collection of zero or more <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbutton">IInkCursorButton</a> objects.
@@ -20,9 +19,7 @@
  * An <b>IInkCursor</b> cannot be constructed explicitly. Instead, you obtain an <b>IInkCursor</b> from either events or the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_cursors">Cursors</a> property of an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> object, an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkoverlay-class">InkOverlay</a> object, or an <a href="https://docs.microsoft.com/windows/desktop/tablet/inkpicture-control-reference">InkPicture</a> control.
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC application programming interfaces (APIs).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkcursor
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nn-msinkaut-iinkcursor
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -90,55 +87,65 @@ class IInkCursor extends IDispatch{
     }
 
     /**
-     * Gets the name of the object.
+     * Gets the name of the object. (IInkCursor.get_Name)
      * @remarks
-     * 
      * Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcursor-get_name
      */
     get_Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
     /**
+     * Gets the identifier of an object. (IInkCursor.get_ID)
+     * @remarks
+     * An object's identifier never changes.
      * 
+     * <div class="alert"><b>Note</b>  Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to <b>SC_HOTKEY</b> or <b>SC_TASKLIST</b>; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.</div>
+     * <div> </div>
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-get_id
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcursor-get_id
      */
     get_Id() {
-        result := ComCall(8, this, "int*", &Id := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Id := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Id
     }
 
     /**
      * Gets a value that indicates whether the cursor is the inverted end of the pen.
      * @remarks
-     * 
      * Inverted cursors are generally associated with erasing. A pen might have one end that is intended for drawing and another intended for erasing. For more information about erasing ink, see <a href="https://docs.microsoft.com/windows/desktop/tablet/erasing-ink-with-the-pen">Erasing Ink with the Pen</a>.
      * 
      * Whether or not you use the <b>Inverted</b> property is entirely up to the needs of your application. Applications are not required to inspect inverted cursors, and the <i>ink collector</i> applies default drawing attributes to inverted cursors just as it does to cursors that are not inverted.
      * 
      * <div class="alert"><b>Note</b>  Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to <b>SC_HOTKEY</b> or <b>SC_TASKLIST</b>; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications. </div>
      * <div> </div>
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_inverted
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcursor-get_inverted
      */
     get_Inverted() {
-        result := ComCall(9, this, "short*", &Status := 0, "HRESULT")
-        return Status
+        result := ComCall(9, this, "short*", &Status_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return Status_
     }
 
     /**
-     * Gets or sets the drawing attributes to apply to ink as it is drawn.
+     * Gets or sets the drawing attributes to apply to ink as it is drawn. (IInkCursor.get_DrawingAttributes)
      * @remarks
-     * 
      * The drawing attributes specify the appearance of the stroke. For example, you can specify the style and color of a pen.
      * 
      * A cursor can have different drawing attributes for each <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> with which it comes in contact. If you do not specify drawing attributes for a cursor, it uses the default drawing attributes of the <b>InkCollector</b> object. These default attributes are set with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property of the <b>InkCollector</b> object.
@@ -147,56 +154,73 @@ class IInkCursor extends IDispatch{
      * 
      * <div class="alert"><b>Note</b>  This property behaves differently than the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property. Although the <b>DefaultDrawingAttributes</b> property specifies the drawing attributes that are applied to a new cursor, the <b>DrawingAttributes</b> property specifies the drawing attributes for ink that is yet to be collected.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {IInkDrawingAttributes} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcursor-get_drawingattributes
      */
     get_DrawingAttributes() {
-        result := ComCall(10, this, "ptr*", &Attributes := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &Attributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkDrawingAttributes(Attributes)
     }
 
     /**
+     * Gets or sets the drawing attributes to apply to ink as it is drawn.
+     * @remarks
+     * The drawing attributes specify the appearance of the stroke. For example, you can specify the style and color of a pen.
      * 
+     * A cursor can have different drawing attributes for each <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-class">InkCollector</a> with which it comes in contact. If you do not specify drawing attributes for a cursor, it uses the default drawing attributes of the <b>InkCollector</b> object. These default attributes are set with the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property of the <b>InkCollector</b> object.
+     * 
+     * Successive calls to the <b>DrawingAttributes</b> property change only the drawing attributes of new strokes. They do not apply to strokes that are already collected or being collected.
+     * 
+     * <div class="alert"><b>Note</b>  This property behaves differently than the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nf-msinkaut-iinkcollector-get_defaultdrawingattributes">DefaultDrawingAttributes</a> property. Although the <b>DefaultDrawingAttributes</b> property specifies the drawing attributes that are applied to a new cursor, the <b>DrawingAttributes</b> property specifies the drawing attributes for ink that is yet to be collected.</div>
+     * <div> </div>
      * @param {IInkDrawingAttributes} Attributes 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursor-putref_drawingattributes
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcursor-putref_drawingattributes
      */
     putref_DrawingAttributes(Attributes) {
-        result := ComCall(11, this, "ptr", Attributes, "HRESULT")
+        result := ComCall(11, this, "ptr", Attributes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Gets either the IInkTablet object to which a cursor belongs or the IInkTablet object that an object or control is currently using to collect input.
+     * Gets either the IInkTablet object to which a cursor belongs or the IInkTablet object that an object or control is currently using to collect input. (IInkCursor.get_Tablet)
      * @remarks
-     * 
      * For an object or control that collects ink, this property is valid only when the object or control is collecting ink from just one tablet. Accessing this property for an object or control that is collecting ink from all tablets generates an exception.
      * 
      * Accessing this property within certain message handlers can result in the underlying function being re-entered, causing unexpected results. Take care to avoid a reentrant call when handling any of the following messages: <b>WM_ACTIVATE</b>, <b>WM_ACTIVATEAPP</b>, <b>WM_NCACTIVATE</b>, <b>WM_PAINT</b>; <b>WM_SYSCOMMAND</b> if <i>wParam</i> is set to SC_HOTKEY or SC_TASKLIST; and <b>WM_SYSKEYDOWN</b> (when processing Alt-Tab or Alt-Esc key combinations). This is an issue with single-threaded apartment model applications.
-     * 
-     * 
      * @returns {IInkTablet} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_tablet
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcursor-get_tablet
      */
     get_Tablet() {
-        result := ComCall(12, this, "ptr*", &Tablet := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &Tablet := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkTablet(Tablet)
     }
 
     /**
      * Gets the IInkCursorButtons collection that is available on an IInkCursor.
      * @remarks
-     * 
      * For a pen, the buttons may include the writing tip, the eraser end, and the barrel button.
-     * 
-     * 
      * @returns {IInkCursorButtons} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursor-get_buttons
+     * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/nf-msinkaut-iinkcursor-get_buttons
      */
     get_Buttons() {
-        result := ComCall(13, this, "ptr*", &Buttons := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &Buttons := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IInkCursorButtons(Buttons)
     }
 }

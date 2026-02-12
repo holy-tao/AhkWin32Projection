@@ -16,7 +16,7 @@
  * 
  * call to <b>MappingRecognizeText</b>.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/elscore/ns-elscore-mapping_options
+ * @see https://learn.microsoft.com/windows/win32/api//content/elscore/ns-elscore-mapping_options
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */

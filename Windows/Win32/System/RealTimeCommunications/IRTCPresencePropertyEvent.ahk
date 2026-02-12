@@ -62,7 +62,11 @@ class IRTCPresencePropertyEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(7, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 
@@ -72,7 +76,11 @@ class IRTCPresencePropertyEvent extends IDispatch{
      */
     get_StatusText() {
         pbstrStatusText := BSTR()
-        result := ComCall(8, this, "ptr", pbstrStatusText, "HRESULT")
+        result := ComCall(8, this, "ptr", pbstrStatusText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrStatusText
     }
 
@@ -81,7 +89,11 @@ class IRTCPresencePropertyEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_PresenceProperty() {
-        result := ComCall(9, this, "int*", &penPresProp := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &penPresProp := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penPresProp
     }
 
@@ -91,7 +103,11 @@ class IRTCPresencePropertyEvent extends IDispatch{
      */
     get_Value() {
         pbstrValue := BSTR()
-        result := ComCall(10, this, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(10, this, "ptr", pbstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrValue
     }
 }

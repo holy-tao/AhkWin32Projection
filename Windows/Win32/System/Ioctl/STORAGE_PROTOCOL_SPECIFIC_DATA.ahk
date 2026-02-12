@@ -57,7 +57,7 @@
  * 
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-storage_protocol_specific_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-storage_protocol_specific_data
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

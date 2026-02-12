@@ -6,7 +6,7 @@
 
 /**
  * Creates Direct2D resources. This interface also enables the creation of ID2D1Device3 objects.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1factory4
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1factory4
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,13 +36,17 @@ class ID2D1Factory4 extends ID2D1Factory3{
      * @param {IDXGIDevice} dxgiDevice Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a>*</b>
      * 
      * The IDXGIDevice object used when creating the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1device3">ID2D1Device3</a>.
-     * @returns {ID2D1Device3} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1device3">ID2D1Device3</a>**</b>
+     * @returns {Pointer<ID2D1Device3>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1device3">ID2D1Device3</a>**</b>
      * 
      * The requested <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1device3">ID2D1Device3</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1factory4-createdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1factory4-createdevice
      */
     CreateDevice(dxgiDevice) {
-        result := ComCall(29, this, "ptr", dxgiDevice, "ptr*", &d2dDevice3 := 0, "HRESULT")
-        return ID2D1Device3(d2dDevice3)
+        result := ComCall(29, this, "ptr", dxgiDevice, "ptr*", &d2dDevice3 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return d2dDevice3
     }
 }

@@ -11,7 +11,7 @@
  * Defined values can be used as indexes to the standard bitmaps. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Controls/toolbar-standard-button-image-index-values">Toolbar Standard Button Image Index Values</a>.
  * 
  * The <b>TBADDBITMAP</b> structure is used with the <a href="https://docs.microsoft.com/windows/desktop/Controls/tb-addbitmap">TB_ADDBITMAP</a> message.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-tbaddbitmap
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-tbaddbitmap
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

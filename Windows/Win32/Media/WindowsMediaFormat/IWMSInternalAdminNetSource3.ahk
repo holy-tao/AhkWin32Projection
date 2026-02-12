@@ -7,7 +7,7 @@
 
 /**
  * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
- * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,12 +33,16 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
     static VTableNames => ["GetNetSourceCreator2", "FindProxyForURLEx2", "RegisterProxyFailure2", "ShutdownProxyContext2", "IsUsingIE2", "SetCredentialsEx2", "GetCredentialsEx2"]
 
     /**
-     * 
+     * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
      * @returns {IUnknown} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
     GetNetSourceCreator2() {
-        result := ComCall(7, this, "ptr*", &ppNetSourceCreator := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppNetSourceCreator := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppNetSourceCreator)
     }
 
@@ -83,30 +87,47 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-findproxyforurlex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-findproxyforurlex2
      */
     FindProxyForURLEx2(bstrProtocol, bstrHost, bstrUrl, pfProxyEnabled, pbstrProxyServer, pdwProxyPort, pqwProxyContext) {
-        bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
-        bstrHost := bstrHost is String ? BSTR.Alloc(bstrHost).Value : bstrHost
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrProtocol is String) {
+            pin := BSTR.Alloc(bstrProtocol)
+            bstrProtocol := pin.Value
+        }
+        if(bstrHost is String) {
+            pin := BSTR.Alloc(bstrHost)
+            bstrHost := pin.Value
+        }
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
         pfProxyEnabledMarshal := pfProxyEnabled is VarRef ? "int*" : "ptr"
         pdwProxyPortMarshal := pdwProxyPort is VarRef ? "uint*" : "ptr"
         pqwProxyContextMarshal := pqwProxyContext is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pqwProxyContextMarshal, pqwProxyContext, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrProtocol, "ptr", bstrHost, "ptr", bstrUrl, pfProxyEnabledMarshal, pfProxyEnabled, "ptr", pbstrProxyServer, pdwProxyPortMarshal, pdwProxyPort, pqwProxyContextMarshal, pqwProxyContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
      * @param {HRESULT} hrParam 
      * @param {Integer} qwProxyContext 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
     RegisterProxyFailure2(hrParam, qwProxyContext) {
-        result := ComCall(9, this, "int", hrParam, "uint", qwProxyContext, "HRESULT")
+        result := ComCall(9, this, "int", hrParam, "uint", qwProxyContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,21 +135,29 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * The ShutdownProxyContext2 method releases the internal resources used by IWMSInternalAdminNetSource3::FindProxyForURLEx2. To avoid memory leaks, you must call this method after you are finished making calls to FindProxyForURLEx2.
      * @param {Integer} qwProxyContext <b>QWORD</b> containing the proxy context. Set this to the last proxy context received from <b>FindProxyForURLEx2</b>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-shutdownproxycontext2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-shutdownproxycontext2
      */
     ShutdownProxyContext2(qwProxyContext) {
-        result := ComCall(10, this, "uint", qwProxyContext, "HRESULT")
+        result := ComCall(10, this, "uint", qwProxyContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
      * @param {Integer} qwProxyContext 
      * @returns {BOOL} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
     IsUsingIE2(qwProxyContext) {
-        result := ComCall(11, this, "uint", qwProxyContext, "int*", &pfIsUsingIE := 0, "HRESULT")
+        result := ComCall(11, this, "uint", qwProxyContext, "int*", &pfIsUsingIE := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsUsingIE
     }
 
@@ -145,15 +174,31 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * @param {BOOL} fConfirmedGood Boolean value that is True if the server has confirmed the password as correct. You can cache the password before receiving verification from the server, in which case you should set this to False.
      * @param {BOOL} fClearTextAuthentication Boolean value that is True if the credentials were obtained using an authentication scheme where credentials are sent over the network in an unencrypted form (such as HTTP Basic authentication).
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-setcredentialsex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-setcredentialsex2
      */
     SetCredentialsEx2(bstrRealm, bstrUrl, fProxy, bstrName, bstrPassword, fPersist, fConfirmedGood, fClearTextAuthentication) {
-        bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
+        if(bstrRealm is String) {
+            pin := BSTR.Alloc(bstrRealm)
+            bstrRealm := pin.Value
+        }
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrPassword is String) {
+            pin := BSTR.Alloc(bstrPassword)
+            bstrPassword := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "ptr", bstrName, "ptr", bstrPassword, "int", fPersist, "int", fConfirmedGood, "int", fClearTextAuthentication, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "ptr", bstrName, "ptr", bstrPassword, "int", fPersist, "int", fConfirmedGood, "int", fClearTextAuthentication, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,16 +215,26 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * @param {Pointer<BSTR>} pbstrPassword Pointer to a string containing the password.
      * @param {Pointer<BOOL>} pfConfirmedGood Boolean value that is True if the password was cached after it was confirmed as correct by the server.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-getcredentialsex2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-getcredentialsex2
      */
     GetCredentialsEx2(bstrRealm, bstrUrl, fProxy, fClearTextAuthentication, pdwUrlPolicy, pbstrName, pbstrPassword, pfConfirmedGood) {
-        bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
-        bstrUrl := bstrUrl is String ? BSTR.Alloc(bstrUrl).Value : bstrUrl
+        if(bstrRealm is String) {
+            pin := BSTR.Alloc(bstrRealm)
+            bstrRealm := pin.Value
+        }
+        if(bstrUrl is String) {
+            pin := BSTR.Alloc(bstrUrl)
+            bstrUrl := pin.Value
+        }
 
         pdwUrlPolicyMarshal := pdwUrlPolicy is VarRef ? "int*" : "ptr"
         pfConfirmedGoodMarshal := pfConfirmedGood is VarRef ? "int*" : "ptr"
 
-        result := ComCall(13, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "int", fClearTextAuthentication, pdwUrlPolicyMarshal, pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrRealm, "ptr", bstrUrl, "int", fProxy, "int", fClearTextAuthentication, pdwUrlPolicyMarshal, pdwUrlPolicy, "ptr", pbstrName, "ptr", pbstrPassword, pfConfirmedGoodMarshal, pfConfirmedGood, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

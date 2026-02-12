@@ -43,7 +43,11 @@ class IPrintCoreHelperUni2 extends IPrintCoreHelperUni{
         ppCommandBytesMarshal := ppCommandBytes is VarRef ? "ptr*" : "ptr"
         pcbCommandSizeMarshal := pcbCommandSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszCommandName, ppCommandBytesMarshal, ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "HRESULT")
+        result := ComCall(14, this, "ptr", pDevmode, "uint", cbSize, "ptr", pszCommandName, ppCommandBytesMarshal, ppCommandBytes, pcbCommandSizeMarshal, pcbCommandSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

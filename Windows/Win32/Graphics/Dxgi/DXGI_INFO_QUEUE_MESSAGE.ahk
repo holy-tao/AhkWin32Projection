@@ -8,7 +8,7 @@
  * 
  * <div class="alert"><b>Note</b>  This API requires the Windows Software Development Kit (SDK) for Windows 8.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/dxgidebug/ns-dxgidebug-dxgi_info_queue_message
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxgidebug/ns-dxgidebug-dxgi_info_queue_message
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */

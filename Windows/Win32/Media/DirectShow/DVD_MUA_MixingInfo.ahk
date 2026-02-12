@@ -71,7 +71,7 @@
  * <td>0x800</td>
  * </tr>
  * </table>
- * @see https://learn.microsoft.com/windows/win32/api/strmif/ns-strmif-dvd_mua_mixinginfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/strmif/ns-strmif-dvd_mua_mixinginfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

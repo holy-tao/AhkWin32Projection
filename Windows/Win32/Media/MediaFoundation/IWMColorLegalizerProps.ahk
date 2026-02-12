@@ -34,7 +34,11 @@ class IWMColorLegalizerProps extends IUnknown{
      * @returns {HRESULT} 
      */
     SetColorLegalizerQuality(lquality) {
-        result := ComCall(3, this, "int", lquality, "HRESULT")
+        result := ComCall(3, this, "int", lquality, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

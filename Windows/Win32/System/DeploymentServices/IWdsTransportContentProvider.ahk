@@ -6,7 +6,7 @@
 
 /**
  * Used to describe a content provider.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportcontentprovider
+ * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nn-wdstptmgmt-iwdstransportcontentprovider
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -68,44 +68,60 @@ class IWdsTransportContentProvider extends IDispatch{
     /**
      * Retrieves the name of the content provider.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name
      */
     get_Name() {
         pbszName := BSTR()
-        result := ComCall(7, this, "ptr", pbszName, "HRESULT")
+        result := ComCall(7, this, "ptr", pbszName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszName
     }
 
     /**
      * Retrieves the description of the content provider.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_description
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_description
      */
     get_Description() {
         pbszDescription := BSTR()
-        result := ComCall(8, this, "ptr", pbszDescription, "HRESULT")
+        result := ComCall(8, this, "ptr", pbszDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszDescription
     }
 
     /**
      * Retrieves the path to the content provider’s DLL.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_filepath
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_filepath
      */
     get_FilePath() {
         pbszFilePath := BSTR()
-        result := ComCall(9, this, "ptr", pbszFilePath, "HRESULT")
+        result := ComCall(9, this, "ptr", pbszFilePath, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszFilePath
     }
 
     /**
      * Retrieves the name of the method called to initialize the content provider.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_initializationroutine
+     * @see https://learn.microsoft.com/windows/win32/api//content/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_initializationroutine
      */
     get_InitializationRoutine() {
         pbszInitializationRoutine := BSTR()
-        result := ComCall(10, this, "ptr", pbszInitializationRoutine, "HRESULT")
+        result := ComCall(10, this, "ptr", pbszInitializationRoutine, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbszInitializationRoutine
     }
 }

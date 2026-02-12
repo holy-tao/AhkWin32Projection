@@ -29,39 +29,80 @@ class IXmlReader extends IUnknown{
     static VTableNames => ["SetInput", "GetProperty", "SetProperty", "Read", "GetNodeType", "MoveToFirstAttribute", "MoveToNextAttribute", "MoveToAttributeByName", "MoveToElement", "GetQualifiedName", "GetNamespaceUri", "GetLocalName", "GetPrefix", "GetValue", "ReadValueChunk", "GetBaseUri", "IsDefault", "IsEmptyElement", "GetLineNumber", "GetLinePosition", "GetAttributeCount", "GetDepth", "IsEOF"]
 
     /**
+     * Sets an input scope for the specified window.
+     * @remarks
+     * Calling this method replaces whatever scope is associated with the window.
      * 
+     * An application must call this method, passing in IS_DEFAULT to the <i>hwnd</i> parameter, to remove the input scope association before the window is destroyed.
+     * 
+     * This API works only when the window (<i>hwnd</i> parameter) and the calling thread are in the same thread. If you call this API for a different thread's window, it fails with E_INVALIDARG.
+     * 
+     * If you call this method on a window (<i>hwnd</i> parameter) that has 
+     * not been associated with a Document Manager, then no text service notifications are sent to interested clients (such as the touch keyboard) that may want to respond to the 
+     * scope change.
      * @param {IUnknown} pInput 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td>S_OK</td>
+     * <td>The method was successful.</td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api//content/inputscope/nf-inputscope-setinputscope
      */
     SetInput(pInput) {
-        result := ComCall(3, this, "ptr", pInput, "HRESULT")
+        result := ComCall(3, this, "ptr", pInput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {Integer} nProperty 
      * @returns {Pointer} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getproperty
      */
     GetProperty(nProperty) {
-        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
+        result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppValue
     }
 
     /**
-     * 
+     * Sets Interaction Context object properties.
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
      */
     SetProperty(nProperty, pValue) {
-        result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
+        result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Learn how to read a FILESTREAM column to a file using the IBCPSession interface in OLE DB Driver for SQL Server and write a format file with this example.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/oledb/ole-db-how-to/filestream/read-a-filestream-column-to-file-using-ibcpsession-ole-db
      */
     Read() {
         result := ComCall(6, this, "int*", &pNodeType := 0, "int")
@@ -73,7 +114,11 @@ class IXmlReader extends IUnknown{
      * @returns {Integer} 
      */
     GetNodeType() {
-        result := ComCall(7, this, "int*", &pNodeType := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pNodeType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNodeType
     }
 
@@ -114,7 +159,11 @@ class IXmlReader extends IUnknown{
      * @returns {HRESULT} 
      */
     MoveToElement() {
-        result := ComCall(11, this, "HRESULT")
+        result := ComCall(11, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -128,7 +177,11 @@ class IXmlReader extends IUnknown{
         ppwszQualifiedNameMarshal := ppwszQualifiedName is VarRef ? "ptr*" : "ptr"
         pcwchQualifiedNameMarshal := pcwchQualifiedName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, ppwszQualifiedNameMarshal, ppwszQualifiedName, pcwchQualifiedNameMarshal, pcwchQualifiedName, "HRESULT")
+        result := ComCall(12, this, ppwszQualifiedNameMarshal, ppwszQualifiedName, pcwchQualifiedNameMarshal, pcwchQualifiedName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,7 +195,11 @@ class IXmlReader extends IUnknown{
         ppwszNamespaceUriMarshal := ppwszNamespaceUri is VarRef ? "ptr*" : "ptr"
         pcwchNamespaceUriMarshal := pcwchNamespaceUri is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(13, this, ppwszNamespaceUriMarshal, ppwszNamespaceUri, pcwchNamespaceUriMarshal, pcwchNamespaceUri, "HRESULT")
+        result := ComCall(13, this, ppwszNamespaceUriMarshal, ppwszNamespaceUri, pcwchNamespaceUriMarshal, pcwchNamespaceUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -156,7 +213,11 @@ class IXmlReader extends IUnknown{
         ppwszLocalNameMarshal := ppwszLocalName is VarRef ? "ptr*" : "ptr"
         pcwchLocalNameMarshal := pcwchLocalName is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, ppwszLocalNameMarshal, ppwszLocalName, pcwchLocalNameMarshal, pcwchLocalName, "HRESULT")
+        result := ComCall(14, this, ppwszLocalNameMarshal, ppwszLocalName, pcwchLocalNameMarshal, pcwchLocalName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,21 +231,30 @@ class IXmlReader extends IUnknown{
         ppwszPrefixMarshal := ppwszPrefix is VarRef ? "ptr*" : "ptr"
         pcwchPrefixMarshal := pcwchPrefix is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(15, this, ppwszPrefixMarshal, ppwszPrefix, pcwchPrefixMarshal, pcwchPrefix, "HRESULT")
+        result := ComCall(15, this, ppwszPrefixMarshal, ppwszPrefix, pcwchPrefixMarshal, pcwchPrefix, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {Pointer<PWSTR>} ppwszValue 
      * @param {Pointer<Integer>} pcwchValue 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(ppwszValue, pcwchValue) {
         ppwszValueMarshal := ppwszValue is VarRef ? "ptr*" : "ptr"
         pcwchValueMarshal := pcwchValue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(16, this, ppwszValueMarshal, ppwszValue, pcwchValueMarshal, pcwchValue, "HRESULT")
+        result := ComCall(16, this, ppwszValueMarshal, ppwszValue, pcwchValueMarshal, pcwchValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -214,13 +284,18 @@ class IXmlReader extends IUnknown{
         ppwszBaseUriMarshal := ppwszBaseUri is VarRef ? "ptr*" : "ptr"
         pcwchBaseUriMarshal := pcwchBaseUri is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(18, this, ppwszBaseUriMarshal, ppwszBaseUri, pcwchBaseUriMarshal, pcwchBaseUri, "HRESULT")
+        result := ComCall(18, this, ppwszBaseUriMarshal, ppwszBaseUri, pcwchBaseUriMarshal, pcwchBaseUri, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * IsDefault
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/mbn/element-isdefault
      */
     IsDefault() {
         result := ComCall(19, this, "int")
@@ -241,7 +316,11 @@ class IXmlReader extends IUnknown{
      * @returns {Integer} 
      */
     GetLineNumber() {
-        result := ComCall(21, this, "uint*", &pnLineNumber := 0, "HRESULT")
+        result := ComCall(21, this, "uint*", &pnLineNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnLineNumber
     }
 
@@ -250,7 +329,11 @@ class IXmlReader extends IUnknown{
      * @returns {Integer} 
      */
     GetLinePosition() {
-        result := ComCall(22, this, "uint*", &pnLinePosition := 0, "HRESULT")
+        result := ComCall(22, this, "uint*", &pnLinePosition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnLinePosition
     }
 
@@ -259,7 +342,11 @@ class IXmlReader extends IUnknown{
      * @returns {Integer} 
      */
     GetAttributeCount() {
-        result := ComCall(23, this, "uint*", &pnAttributeCount := 0, "HRESULT")
+        result := ComCall(23, this, "uint*", &pnAttributeCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnAttributeCount
     }
 
@@ -268,7 +355,11 @@ class IXmlReader extends IUnknown{
      * @returns {Integer} 
      */
     GetDepth() {
-        result := ComCall(24, this, "uint*", &pnDepth := 0, "HRESULT")
+        result := ComCall(24, this, "uint*", &pnDepth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pnDepth
     }
 

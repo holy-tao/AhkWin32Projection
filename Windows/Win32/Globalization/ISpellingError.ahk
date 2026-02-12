@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\Win32ComInterface.ahk
 #Include ..\..\..\Guid.ahk
+#Include ..\System\Com\Apis.ahk
 #Include ..\System\Com\IUnknown.ahk
 
 /**
  * Provides information about a spelling error.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nn-spellcheck-ispellingerror
+ * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nn-spellcheck-ispellingerror
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -61,45 +62,59 @@ class ISpellingError extends IUnknown{
     /**
      * Gets the position in the checked text where the error begins.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_startindex
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellingerror-get_startindex
      */
     get_StartIndex() {
-        result := ComCall(3, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(3, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Gets the length of the erroneous text.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_length
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellingerror-get_length
      */
     get_Length() {
-        result := ComCall(4, this, "uint*", &value := 0, "HRESULT")
+        result := ComCall(4, this, "uint*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Indicates which corrective action should be taken for the spelling error.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction
      */
     get_CorrectiveAction() {
-        result := ComCall(5, this, "int*", &value := 0, "HRESULT")
+        result := ComCall(5, this, "int*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 
     /**
      * Gets the text to use as replacement text when the corrective action is replace.
      * @remarks
-     * 
      * If the <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/ne-spellcheck-corrective_action">CORRECTIVE_ACTION</a> returned by <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellingerror-get_correctiveaction">CorrectiveAction</a> is not <b>CORRECTIVE_ACTION_REPLACE</b>, <i>value</i> is the empty string.
-     * 
-     * 
      * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellingerror-get_replacement
+     * @see https://learn.microsoft.com/windows/win32/api//content/spellcheck/nf-spellcheck-ispellingerror-get_replacement
      */
     get_Replacement() {
-        result := ComCall(6, this, "ptr*", &value := 0, "HRESULT")
+        result := ComCall(6, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            Com.CoTaskMemFree(value)
+            throw OSError(A_LastError || result)
+        }
+
         return value
     }
 }

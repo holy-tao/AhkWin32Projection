@@ -6,11 +6,8 @@
 /**
  * The IStreamBufferSink2 interface is exposed by the Stream Buffer Sink filter.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferSink2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambuffersink2
+ * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nn-sbe-istreambuffersink2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,6 +34,10 @@ class IStreamBufferSink2 extends IStreamBufferSink{
 
     /**
      * The UnlockProfile method unlocks the Stream Buffer Sink filter's profile. After the profile is unlocked, you can change the name of the stub file.
+     * @remarks
+     * The filter graph must be stopped when you call this method. If the recording session has not been started, this method invalidates the recording. To re-create the recording, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nf-sbe-istreambuffersink-lockprofile">IStreamBufferSink::LockProfile</a> again. If the profile is not already locked, the <b>UnlockProfile</b> method has no effect and returns S_FALSE.
+     * 
+     * If the graph is running, stopping the graph automatically unlocks the profile without the need to call <b>UnlockProfile</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -67,10 +68,14 @@ class IStreamBufferSink2 extends IStreamBufferSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambuffersink2-unlockprofile
+     * @see https://learn.microsoft.com/windows/win32/api//content/sbe/nf-sbe-istreambuffersink2-unlockprofile
      */
     UnlockProfile() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

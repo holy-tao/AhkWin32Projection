@@ -6,7 +6,7 @@
 
 /**
  * Contains properties and methods that are available to a search operation.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-isearchjob
+ * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nn-wuapi-isearchjob
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -48,41 +48,59 @@ class ISearchJob extends IDispatch{
     /**
      * Gets the caller-specific state object that is passed to the IUpdateSearch.BeginSearch method.
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-get_asyncstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-isearchjob-get_asyncstate
      */
     get_AsyncState() {
         retval := VARIANT()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Gets a Boolean value that indicates whether the call to the IUpdateSearch.BeginSearch method is completely processed.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-get_iscompleted
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-isearchjob-get_iscompleted
      */
     get_IsCompleted() {
-        result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "short*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
     /**
      * Waits for an asynchronous operation to complete and then releases all the callbacks.
+     * @remarks
+     * When you use any asynchronous WUA API in your app, you might need to implement a time-out mechanism. For more info about how to perform asynchronous WUA operations, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/guidelines-for-asynchronous-wua-operations">Guidelines for Asynchronous WUA Operations</a>.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-cleanup
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-isearchjob-cleanup
      */
     CleanUp() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Makes a request to cancel the asynchronous search.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns  a COM or Windows error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchjob-requestabort
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/nf-wuapi-isearchjob-requestabort
      */
     RequestAbort() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

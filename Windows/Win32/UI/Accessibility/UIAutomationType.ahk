@@ -3,7 +3,7 @@
 
 /**
  * Contains values used to indicate Microsoft UI Automation data types.
- * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/ne-uiautomationcore-uiautomationtype
+ * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcore/ne-uiautomationcore-uiautomationtype
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */

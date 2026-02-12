@@ -3,7 +3,7 @@
 
 /**
  * Specifies the type of authentication used to connect to Remote Desktop Gateway (RD Gateway).
- * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-aaauthschemes
+ * @see https://learn.microsoft.com/windows/win32/api//content/tsgpolicyengine/ne-tsgpolicyengine-aaauthschemes
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

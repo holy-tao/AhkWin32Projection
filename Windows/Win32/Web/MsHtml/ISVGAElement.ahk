@@ -48,7 +48,11 @@ class ISVGAElement extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_target(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +61,11 @@ class ISVGAElement extends IDispatch{
      * @returns {ISVGAnimatedString} 
      */
     get_target() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGAnimatedString(p)
     }
 }

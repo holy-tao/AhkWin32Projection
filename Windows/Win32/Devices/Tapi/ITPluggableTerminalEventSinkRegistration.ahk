@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * The ITPluggableTerminalEventSinkRegistration interface registers and unregisters a client application for pluggable terminal events. The ITPluggableTerminalEventSinkRegistration interface is created by calling QueryInterface on ITTerminal.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3/nn-tapi3-itpluggableterminaleventsinkregistration
+ * The ITPluggableTerminalEventSinkRegistration (msp.h) interface registers and unregisters a client application for pluggable terminal events.
+ * @see https://learn.microsoft.com/windows/win32/api//content/msp/nn-msp-itpluggableterminaleventsinkregistration
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -31,24 +31,32 @@ class ITPluggableTerminalEventSinkRegistration extends IUnknown{
     static VTableNames => ["RegisterSink", "UnregisterSink"]
 
     /**
-     * The RegisterSink method registers the application for pluggable terminal event notification.
+     * The ITPluggableTerminalEventSinkRegistration::RegisterSink (msp.h) method registers the application for pluggable terminal event notification.
      * @param {ITPluggableTerminalEventSink} pEventSink Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/msp/nn-msp-itpluggableterminaleventsink">ITPluggableTerminalEventSink</a> interface.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3/nf-tapi3-itpluggableterminaleventsinkregistration-registersink
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msp/nf-msp-itpluggableterminaleventsinkregistration-registersink
      */
     RegisterSink(pEventSink) {
-        result := ComCall(3, this, "ptr", pEventSink, "HRESULT")
+        result := ComCall(3, this, "ptr", pEventSink, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The UnregisterSink method clears event registration for pluggable terminal events.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3/nf-tapi3-itpluggableterminaleventsinkregistration-unregistersink
+     * The ITPluggableTerminalEventSinkRegistration::UnregisterSink (msp.h) method clears event registration for pluggable terminal events.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/msp/nf-msp-itpluggableterminaleventsinkregistration-unregistersink
      */
     UnregisterSink() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

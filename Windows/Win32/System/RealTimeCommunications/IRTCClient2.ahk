@@ -58,7 +58,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     put_AnswerMode(enType, enMode) {
-        result := ComCall(45, this, "int", enType, "int", enMode, "HRESULT")
+        result := ComCall(45, this, "int", enType, "int", enMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +72,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {Integer} 
      */
     get_AnswerMode(enType) {
-        result := ComCall(46, this, "int", enType, "int*", &penMode := 0, "HRESULT")
+        result := ComCall(46, this, "int", enType, "int*", &penMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penMode
     }
 
@@ -80,7 +88,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     InvokeTuningWizardEx(hwndParent, fAllowAudio, fAllowVideo) {
-        result := ComCall(47, this, "ptr", hwndParent, "short", fAllowAudio, "short", fAllowVideo, "HRESULT")
+        result := ComCall(47, this, "ptr", hwndParent, "short", fAllowAudio, "short", fAllowVideo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +101,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {Integer} 
      */
     get_Version() {
-        result := ComCall(48, this, "int*", &plVersion := 0, "HRESULT")
+        result := ComCall(48, this, "int*", &plVersion := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plVersion
     }
 
@@ -99,9 +115,16 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     put_ClientName(bstrClientName) {
-        bstrClientName := bstrClientName is String ? BSTR.Alloc(bstrClientName).Value : bstrClientName
+        if(bstrClientName is String) {
+            pin := BSTR.Alloc(bstrClientName)
+            bstrClientName := pin.Value
+        }
 
-        result := ComCall(49, this, "ptr", bstrClientName, "HRESULT")
+        result := ComCall(49, this, "ptr", bstrClientName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -111,9 +134,16 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     put_ClientCurVer(bstrClientCurVer) {
-        bstrClientCurVer := bstrClientCurVer is String ? BSTR.Alloc(bstrClientCurVer).Value : bstrClientCurVer
+        if(bstrClientCurVer is String) {
+            pin := BSTR.Alloc(bstrClientCurVer)
+            bstrClientCurVer := pin.Value
+        }
 
-        result := ComCall(50, this, "ptr", bstrClientCurVer, "HRESULT")
+        result := ComCall(50, this, "ptr", bstrClientCurVer, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -123,7 +153,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     InitializeEx(lFlags) {
-        result := ComCall(51, this, "int", lFlags, "HRESULT")
+        result := ComCall(51, this, "int", lFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -136,10 +170,20 @@ class IRTCClient2 extends IRTCClient{
      * @returns {IRTCSession2} 
      */
     CreateSessionWithDescription(bstrContentType, bstrSessionDescription, pProfile, lFlags) {
-        bstrContentType := bstrContentType is String ? BSTR.Alloc(bstrContentType).Value : bstrContentType
-        bstrSessionDescription := bstrSessionDescription is String ? BSTR.Alloc(bstrSessionDescription).Value : bstrSessionDescription
+        if(bstrContentType is String) {
+            pin := BSTR.Alloc(bstrContentType)
+            bstrContentType := pin.Value
+        }
+        if(bstrSessionDescription is String) {
+            pin := BSTR.Alloc(bstrSessionDescription)
+            bstrSessionDescription := pin.Value
+        }
 
-        result := ComCall(52, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession2 := 0, "HRESULT")
+        result := ComCall(52, this, "ptr", bstrContentType, "ptr", bstrSessionDescription, "ptr", pProfile, "int", lFlags, "ptr*", &ppSession2 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCSession2(ppSession2)
     }
 
@@ -149,7 +193,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     SetSessionDescriptionManager(pSessionDescriptionManager) {
-        result := ComCall(53, this, "ptr", pSessionDescriptionManager, "HRESULT")
+        result := ComCall(53, this, "ptr", pSessionDescriptionManager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -160,7 +208,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     put_PreferredSecurityLevel(enSecurityType, enSecurityLevel) {
-        result := ComCall(54, this, "int", enSecurityType, "int", enSecurityLevel, "HRESULT")
+        result := ComCall(54, this, "int", enSecurityType, "int", enSecurityLevel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -170,7 +222,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {Integer} 
      */
     get_PreferredSecurityLevel(enSecurityType) {
-        result := ComCall(55, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "HRESULT")
+        result := ComCall(55, this, "int", enSecurityType, "int*", &penSecurityLevel := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penSecurityLevel
     }
 
@@ -181,7 +237,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {HRESULT} 
      */
     put_AllowedPorts(lTransport, enListenMode) {
-        result := ComCall(56, this, "int", lTransport, "int", enListenMode, "HRESULT")
+        result := ComCall(56, this, "int", lTransport, "int", enListenMode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -191,7 +251,11 @@ class IRTCClient2 extends IRTCClient{
      * @returns {Integer} 
      */
     get_AllowedPorts(lTransport) {
-        result := ComCall(57, this, "int", lTransport, "int*", &penListenMode := 0, "HRESULT")
+        result := ComCall(57, this, "int", lTransport, "int*", &penListenMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penListenMode
     }
 }

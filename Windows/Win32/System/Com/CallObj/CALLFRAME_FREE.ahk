@@ -3,7 +3,7 @@
 
 /**
  * Determines the parameter type to be freed. (CALLFRAME_FREE)
- * @see https://learn.microsoft.com/windows/win32/api/callobj/ne-callobj-callframe_free
+ * @see https://learn.microsoft.com/windows/win32/api//content/callobj/ne-callobj-callframe_free
  * @namespace Windows.Win32.System.Com.CallObj
  * @version v4.0.30319
  */

@@ -10,7 +10,7 @@
  * The base address of a segment is the address of offset 0 in the segment. To calculate this value, combine the <b>BaseLow</b>, <b>BaseMid</b>, and <b>BaseHi</b> members.
  * 
  * The limit of a segment is the address of the last byte that can be addressed in the segment. To calculate this value, combine the <b>LimitLow</b> and <b>LimitHi</b> members.
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-ldt_entry
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-ldt_entry
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

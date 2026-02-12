@@ -31,7 +31,7 @@
  * 
  * See 
  * <a href="https://docs.microsoft.com/windows/desktop/api/lmalert/nf-lmalert-netalertraiseex">NetAlertRaiseEx</a> for a code sample that demonstrates how to raise a user alert.
- * @see https://learn.microsoft.com/windows/win32/api/lmalert/ns-lmalert-user_other_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/lmalert/ns-lmalert-user_other_info
  * @namespace Windows.Win32.NetworkManagement.NetManagement
  * @version v4.0.30319
  */

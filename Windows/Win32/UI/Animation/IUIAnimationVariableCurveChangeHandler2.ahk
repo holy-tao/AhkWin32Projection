@@ -5,7 +5,7 @@
 
 /**
  * Defines a method for handling animation curve update events.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationvariablecurvechangehandler2
+ * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nn-uianimation-iuianimationvariablecurvechangehandler2
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
@@ -33,11 +33,15 @@ class IUIAnimationVariableCurveChangeHandler2 extends IUnknown{
     /**
      * Handles events that occur when the animation curve of an animation variable changes.
      * @param {IUIAnimationVariable2} variable The animation variable for which the animation curve has been updated.
-     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariablecurvechangehandler2-oncurvechanged
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api//content/uianimation/nf-uianimation-iuianimationvariablecurvechangehandler2-oncurvechanged
      */
     OnCurveChanged(variable) {
-        result := ComCall(3, this, "ptr", variable, "HRESULT")
+        result := ComCall(3, this, "ptr", variable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

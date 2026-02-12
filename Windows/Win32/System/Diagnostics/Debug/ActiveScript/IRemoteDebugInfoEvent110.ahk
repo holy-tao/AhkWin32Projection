@@ -39,7 +39,11 @@ class IRemoteDebugInfoEvent110 extends IUnknown{
     GetEventInfo(pMessageType, pbstrMessage, pbstrUrl, ppLocation) {
         pMessageTypeMarshal := pMessageType is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, pMessageTypeMarshal, pMessageType, "ptr", pbstrMessage, "ptr", pbstrUrl, "ptr*", ppLocation, "HRESULT")
+        result := ComCall(3, this, pMessageTypeMarshal, pMessageType, "ptr", pbstrMessage, "ptr", pbstrUrl, "ptr*", ppLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

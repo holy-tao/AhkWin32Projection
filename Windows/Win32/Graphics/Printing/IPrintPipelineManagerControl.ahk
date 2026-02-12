@@ -35,7 +35,11 @@ class IPrintPipelineManagerControl extends IUnknown{
      * @returns {HRESULT} 
      */
     RequestShutdown(hrReason, pReason) {
-        result := ComCall(3, this, "int", hrReason, "ptr", pReason, "HRESULT")
+        result := ComCall(3, this, "int", hrReason, "ptr", pReason, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class IPrintPipelineManagerControl extends IUnknown{
      * @returns {HRESULT} 
      */
     FilterFinished() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

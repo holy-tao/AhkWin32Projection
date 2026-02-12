@@ -12,7 +12,7 @@ class HAL_CALLBACKS extends Win32Struct
     static packingSize => 8
 
     /**
-     * @type {PCALLBACK_OBJECT}
+     * @type {Pointer<PCALLBACK_OBJECT>}
      */
     SetSystemInformation {
         get => NumGet(this, 0, "ptr")
@@ -20,7 +20,7 @@ class HAL_CALLBACKS extends Win32Struct
     }
 
     /**
-     * @type {PCALLBACK_OBJECT}
+     * @type {Pointer<PCALLBACK_OBJECT>}
      */
     BusCheck {
         get => NumGet(this, 8, "ptr")

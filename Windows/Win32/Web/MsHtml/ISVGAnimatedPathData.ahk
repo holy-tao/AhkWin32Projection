@@ -63,7 +63,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_pathSegList(v) {
-        result := ComCall(7, this, "ptr", v, "HRESULT")
+        result := ComCall(7, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +76,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {ISVGPathSegList} 
      */
     get_pathSegList() {
-        result := ComCall(8, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegList(p)
     }
 
@@ -82,7 +90,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_normalizedPathSegList(v) {
-        result := ComCall(9, this, "ptr", v, "HRESULT")
+        result := ComCall(9, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -91,7 +103,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {ISVGPathSegList} 
      */
     get_normalizedPathSegList() {
-        result := ComCall(10, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegList(p)
     }
 
@@ -101,7 +117,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_animatedPathSegList(v) {
-        result := ComCall(11, this, "ptr", v, "HRESULT")
+        result := ComCall(11, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +130,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {ISVGPathSegList} 
      */
     get_animatedPathSegList() {
-        result := ComCall(12, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegList(p)
     }
 
@@ -120,7 +144,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {HRESULT} 
      */
     putref_animatedNormalizedPathSegList(v) {
-        result := ComCall(13, this, "ptr", v, "HRESULT")
+        result := ComCall(13, this, "ptr", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +157,11 @@ class ISVGAnimatedPathData extends IDispatch{
      * @returns {ISVGPathSegList} 
      */
     get_animatedNormalizedPathSegList() {
-        result := ComCall(14, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISVGPathSegList(p)
     }
 }

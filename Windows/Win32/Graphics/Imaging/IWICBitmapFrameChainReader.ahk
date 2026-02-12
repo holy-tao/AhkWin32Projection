@@ -35,7 +35,11 @@ class IWICBitmapFrameChainReader extends IUnknown{
      * @returns {Integer} 
      */
     GetChainedFrameCount(chainType) {
-        result := ComCall(3, this, "int", chainType, "uint*", &pCount := 0, "HRESULT")
+        result := ComCall(3, this, "int", chainType, "uint*", &pCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCount
     }
 
@@ -46,7 +50,11 @@ class IWICBitmapFrameChainReader extends IUnknown{
      * @returns {IWICBitmapFrameDecode} 
      */
     GetChainedFrame(chainType, index) {
-        result := ComCall(4, this, "int", chainType, "uint", index, "ptr*", &ppIBitmapFrame := 0, "HRESULT")
+        result := ComCall(4, this, "int", chainType, "uint", index, "ptr*", &ppIBitmapFrame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWICBitmapFrameDecode(ppIBitmapFrame)
     }
 }

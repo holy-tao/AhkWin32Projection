@@ -34,7 +34,11 @@ class ISelectionServicesListener extends IUnknown{
      * @returns {HRESULT} 
      */
     BeginSelectionUndo() {
-        result := ComCall(3, this, "HRESULT")
+        result := ComCall(3, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +47,11 @@ class ISelectionServicesListener extends IUnknown{
      * @returns {HRESULT} 
      */
     EndSelectionUndo() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class ISelectionServicesListener extends IUnknown{
      * @returns {HRESULT} 
      */
     OnSelectedElementExit(pIElementStart, pIElementEnd, pIElementContentStart, pIElementContentEnd) {
-        result := ComCall(5, this, "ptr", pIElementStart, "ptr", pIElementEnd, "ptr", pIElementContentStart, "ptr", pIElementContentEnd, "HRESULT")
+        result := ComCall(5, this, "ptr", pIElementStart, "ptr", pIElementEnd, "ptr", pIElementContentStart, "ptr", pIElementContentEnd, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +79,11 @@ class ISelectionServicesListener extends IUnknown{
      * @returns {HRESULT} 
      */
     OnChangeType(eType, pIListener) {
-        result := ComCall(6, this, "int", eType, "ptr", pIListener, "HRESULT")
+        result := ComCall(6, this, "int", eType, "ptr", pIListener, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,7 +93,11 @@ class ISelectionServicesListener extends IUnknown{
      */
     GetTypeDetail() {
         pTypeDetail := BSTR()
-        result := ComCall(7, this, "ptr", pTypeDetail, "HRESULT")
+        result := ComCall(7, this, "ptr", pTypeDetail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pTypeDetail
     }
 }

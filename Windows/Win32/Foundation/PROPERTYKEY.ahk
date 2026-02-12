@@ -16,7 +16,7 @@
  * 
  * 
  * <a href="https://docs.microsoft.com/windows/desktop/shell/objects">SHCOLUMNID</a> can be considered a legacy structure with <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> being the new, preferred form. <b>PROPERTYKEY</b> has a broader purpose than <b>SHCOLUMNID</b>, and the new name is more descriptive of its uses.
- * @see https://learn.microsoft.com/windows/win32/api/wtypes/ns-wtypes-propertykey
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtypes/ns-wtypes-propertykey
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

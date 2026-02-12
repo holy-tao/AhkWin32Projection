@@ -3,7 +3,7 @@
 
 /**
  * Contains a set of four floating-point numbers that represent the location and size of a rectangle.
- * @see https://learn.microsoft.com/windows/win32/api/windows.foundation/ns-windows-foundation-rect
+ * @see https://learn.microsoft.com/windows/win32/api//content/windows.foundation/ns-windows-foundation-rect
  * @namespace Windows.Win32.Graphics.GdiPlus
  * @version v4.0.30319
  */

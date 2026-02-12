@@ -6,7 +6,6 @@
 /**
  * This notification interface signals an application about change and completion status of asynchronous connection requests.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnconnectionevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nn-mbnapi-imbnconnectionevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -45,49 +43,75 @@ class IMbnConnectionEvents extends IUnknown{
 
     /**
      * Notification method that signals the completion of a connection operation.
+     * @remarks
+     * Once an activation context is established, an application can use <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> to get the current connection state.  
+     * 
+     * When the connection operation results in an error, an application can call the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nf-mbnapi-imbnconnection-getactivationnetworkerror">GetActivationNetworkError</a> method of the <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface to obtain network error information.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the device on which the connection operation has completed.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the connection operation.
-     * @param {HRESULT} status The completion status.
+     * @param {HRESULT} status_ The completion status.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-onconnectcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnconnectionevents-onconnectcomplete
      */
-    OnConnectComplete(newConnection, requestID, status) {
-        result := ComCall(3, this, "ptr", newConnection, "uint", requestID, "int", status, "HRESULT")
+    OnConnectComplete(newConnection, requestID, status_) {
+        result := ComCall(3, this, "ptr", newConnection, "uint", requestID, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notification method that indicates that a disconnection operation has been performed.
+     * @remarks
+     * An application can use <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> to get the current connection state.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection that has been disconnected.
      * @param {Integer} requestID The request ID assigned by the Mobile Broadband service to identify the disconnection operation.
-     * @param {HRESULT} status The operation completion status.  This can only be <b>S_OK</b>.
+     * @param {HRESULT} status_ The operation completion status.  This can only be <b>S_OK</b>.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-ondisconnectcomplete
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnconnectionevents-ondisconnectcomplete
      */
-    OnDisconnectComplete(newConnection, requestID, status) {
-        result := ComCall(4, this, "ptr", newConnection, "uint", requestID, "int", status, "HRESULT")
+    OnDisconnectComplete(newConnection, requestID, status_) {
+        result := ComCall(4, this, "ptr", newConnection, "uint", requestID, "int", status_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notification method that indicates whether the connection state of the device has changed.
+     * @remarks
+     * An application can use <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> to get the updated connection state.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection on which the state has changed due to a system or network initiated change.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-onconnectstatechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnconnectionevents-onconnectstatechange
      */
     OnConnectStateChange(newConnection) {
-        result := ComCall(5, this, "ptr", newConnection, "HRESULT")
+        result := ComCall(5, this, "ptr", newConnection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Notification method that indicates a change in the voice call state of a device.
+     * @remarks
+     * <b>OnVoiceCallStateChange</b> is called when voice call state is available or when there is a change in the voice call state.   An application can use <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> to get the updated voice call state.
      * @param {IMbnConnection} newConnection An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnconnection">IMbnConnection</a> interface that represents the connection for which the voice call state has changed.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnconnectionevents-onvoicecallstatechange
+     * @see https://learn.microsoft.com/windows/win32/api//content/mbnapi/nf-mbnapi-imbnconnectionevents-onvoicecallstatechange
      */
     OnVoiceCallStateChange(newConnection) {
-        result := ComCall(6, this, "ptr", newConnection, "HRESULT")
+        result := ComCall(6, this, "ptr", newConnection, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

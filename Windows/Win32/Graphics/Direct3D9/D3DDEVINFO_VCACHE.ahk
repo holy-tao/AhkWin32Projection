@@ -3,7 +3,7 @@
 
 /**
  * Vertex cache optimization hints.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-vcache
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddevinfo-vcache
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

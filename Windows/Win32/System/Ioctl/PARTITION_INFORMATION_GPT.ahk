@@ -11,7 +11,7 @@
  * Starting with 
  *     Windows Server 2003 with SP1, GPT is supported on all Windows platforms, not only platforms that use 
  *     EFI.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-partition_information_gpt
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-partition_information_gpt
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

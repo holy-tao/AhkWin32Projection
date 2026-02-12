@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Contains parameters for the IDirectXVideoProcessor::VideoProcessBlt method.
+ * @see https://learn.microsoft.com/windows/win32/api//content/dxva2api/ns-dxva2api-dxva2_videoprocessbltparams
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

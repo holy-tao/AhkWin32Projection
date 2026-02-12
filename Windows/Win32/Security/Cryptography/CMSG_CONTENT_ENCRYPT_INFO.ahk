@@ -41,7 +41,7 @@
  * <dd><b>pfnFree</b></dd>
  * <dd><b>dwEncryptFlags</b></dd>
  * </dl>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cmsg_content_encrypt_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cmsg_content_encrypt_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

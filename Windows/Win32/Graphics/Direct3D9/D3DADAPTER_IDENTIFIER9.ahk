@@ -22,7 +22,7 @@
  * 
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3dadapter-identifier9
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3dadapter-identifier9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

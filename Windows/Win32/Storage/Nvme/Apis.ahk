@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Storage.Nvme
@@ -446,7 +448,7 @@ class Nvme {
     static NVMEOF_TRANSPORT_SAS_MAX_LEN => 256
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NVMEOF_DISCOVERY_NQN => "nqn.2014-08.org.nvmexpress.discovery"
 
@@ -501,7 +503,7 @@ class Nvme {
     static NVMEOF_DHCHAP_PROTOCOL_ID => 1
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static NVMEOF_DHCHAP_PREFIX_V1 => "DHHC-1:"
 

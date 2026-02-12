@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.DeviceManager
@@ -896,482 +898,482 @@ class DeviceManager {
     static WMDM_LOG_NOTIMESTAMP => 16
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFileName => "WMDM/FileName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFormatCode => "WMDM/FormatCode"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMLastModifiedDate => "WMDM/LastModifiedDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFileCreationDate => "WMDM/FileCreationDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFileSize => "WMDM/FileSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFileAttributes => "WMDM/FileAttributes"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszAudioWAVECodec => "WMDM/AudioWAVECodec"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszVideoFourCCCodec => "WMDM/VideoFourCCCodec"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMTitle => "WMDM/Title"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAuthor => "WMDM/Author"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDescription => "WMDM/Description"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMIsProtected => "WMDM/IsProtected"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumTitle => "WMDM/AlbumTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumArtist => "WMDM/AlbumArtist"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMTrack => "WMDM/Track"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMGenre => "WMDM/Genre"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMTrackMood => "WMDM/TrackMood"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumCoverFormat => "WMDM/AlbumCoverFormat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumCoverSize => "WMDM/AlbumCoverSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumCoverHeight => "WMDM/AlbumCoverHeight"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumCoverWidth => "WMDM/AlbumCoverWidth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumCoverDuration => "WMDM/AlbumCoverDuration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumCoverData => "WMDM/AlbumCoverData"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMYear => "WMDM/Year"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMComposer => "WMDM/Composer"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMCodec => "WMDM/Codec"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDRMId => "WMDM/DRMId"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMBitrate => "WMDM/Bitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMBitRateType => "WMDM/BitRateType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSampleRate => "WMDM/SampleRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMNumChannels => "WMDM/NumChannels"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMBlockAlignment => "WMDM/BlockAlignment"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAudioBitDepth => "WMDM/AudioBitDepth"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMTotalBitrate => "WMDM/TotalBitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMVideoBitrate => "WMDM/VideoBitrate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFrameRate => "WMDM/FrameRate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMScanType => "WMDM/ScanType"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMKeyFrameDistance => "WMDM/KeyFrameDistance"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMBufferSize => "WMDM/BufferSize"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMQualitySetting => "WMDM/QualitySetting"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMEncodingProfile => "WMDM/EncodingProfile"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDuration => "WMDM/Duration"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAlbumArt => "WMDM/AlbumArt"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMBuyNow => "WMDM/BuyNow"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMNonConsumable => "WMDM/NonConsumable"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMediaClassPrimaryID => "WMDM/MediaClassPrimaryID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMMediaClassSecondaryID => "WMDM/MediaClassSecondaryID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMUserEffectiveRating => "WMDM/UserEffectiveRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMUserRating => "WMDM/UserRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMUserRatingOnDevice => "WMDM/UserRatingOnDevice"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMPlayCount => "WMDM/PlayCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDevicePlayCount => "WMDM/DevicePlayCount"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMAuthorDate => "WMDM/AuthorDate"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMUserLastPlayTime => "WMDM/UserLastPlayTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSubTitle => "WMDM/SubTitle"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSubTitleDescription => "WMDM/SubTitleDescription"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMMediaCredits => "WMDM/MediaCredits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMMediaStationName => "WMDM/MediaStationName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMMediaOriginalChannel => "WMDM/MediaOriginalChannel"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMMediaOriginalBroadcastDateTime => "WMDM/MediaOriginalBroadcastDateTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMProviderCopyright => "WMDM/ProviderCopyright"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSyncID => "WMDM/SyncID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMPersistentUniqueID => "WMDM/PersistentUniqueID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMWidth => "WMDM/Width"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMHeight => "WMDM/Height"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSyncTime => "WMDM/SyncTime"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMParentalRating => "WMDM/ParentalRating"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMMetaGenre => "WMDM/MetaGenre"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMIsRepeat => "WMDM/IsRepeat"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSupportedDeviceProperties => "WMDM/SupportedDeviceProperties"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDeviceFriendlyName => "WMDM/DeviceFriendlyName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFormatsSupported => "WMDM/FormatsSupported"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMFormatsSupportedAreOrdered => "WMDM/FormatsSupportedAreOrdered"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSyncRelationshipID => "WMDM/SyncRelationshipID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDeviceModelName => "WMDM/DeviceModelName"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDeviceFirmwareVersion => "WMDM/DeviceFirmwareVersion"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDeviceVendorExtension => "WMDM/DeviceVendorExtension"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDeviceProtocol => "WMDM/DeviceProtocol"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDeviceServiceProviderVendor => "WMDM/DeviceServiceProviderVendor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDeviceRevocationInfo => "WMDM/DeviceRevocationInfo"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMCollectionID => "WMDM/CollectionID"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMOwner => "WMDM/Owner"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMEditor => "WMDM/Editor"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMWebmaster => "WMDM/Webmaster"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMSourceURL => "WMDM/SourceURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDestinationURL => "WMDM/DestinationURL"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMCategory => "WMDM/Category"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMTimeBookmark => "WMDM/TimeBookmark"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMObjectBookmark => "WMDM/ObjectBookmark"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMByteBookmark => "WMDM/ByteBookmark"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDataOffset => "WMDM/DataOffset"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDataLength => "WMDM/DataLength"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMDataUnits => "WMDM/DataUnits"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMTimeToLive => "WMDM/TimeToLive"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWMDMMediaGuid => "WMDM/MediaGuid"
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszWPDPassthroughPropertyValues => "WPD/PassthroughPropertyValues"
 

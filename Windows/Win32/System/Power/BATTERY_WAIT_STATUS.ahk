@@ -15,7 +15,7 @@
  * When any one of these conditions is satisfied, the data is collected and the operation returns. This allows applications to monitor typical dynamic battery information without polling the device.
  * 
  * Before using either of the two Capacity conditions, make sure the battery supports them by using the [**IOCTL\_BATTERY\_QUERY\_STATUS**](ioctl-battery-query-status.md) control code with a time-out of zero. Examine the results to determine if the **Capacity** member is supported (that is, not BATTERY\_UNKNOWN\_CAPACITY).
- * @see https://learn.microsoft.com/windows/win32/Power/battery-wait-status-str
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/Power/battery-wait-status-str
  * @namespace Windows.Win32.System.Power
  * @version v4.0.30319
  */

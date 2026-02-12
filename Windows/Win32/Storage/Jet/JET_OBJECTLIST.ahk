@@ -3,8 +3,8 @@
 #Include ..\StructuredStorage\JET_TABLEID.ahk
 
 /**
- * Learn more about: JET_OBJECTLIST class
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-objectlist-class
+ * Learn more about: JET_OBJECTLIST Structure
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-objectlist-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

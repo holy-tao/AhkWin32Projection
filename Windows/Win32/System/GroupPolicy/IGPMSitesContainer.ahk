@@ -8,7 +8,7 @@
 
 /**
  * The IGPMSitesContainer interface provides the methods required to access the scope of management (SOM) objects that represent sites in a forest.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmsitescontainer
+ * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nn-gpmgmt-igpmsitescontainer
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -66,7 +66,11 @@ class IGPMSitesContainer extends IDispatch{
      */
     get_DomainController() {
         pVal := BSTR()
-        result := ComCall(7, this, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -76,7 +80,11 @@ class IGPMSitesContainer extends IDispatch{
      */
     get_Domain() {
         pVal := BSTR()
-        result := ComCall(8, this, "ptr", pVal, "HRESULT")
+        result := ComCall(8, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -86,7 +94,11 @@ class IGPMSitesContainer extends IDispatch{
      */
     get_Forest() {
         pVal := BSTR()
-        result := ComCall(9, this, "ptr", pVal, "HRESULT")
+        result := ComCall(9, this, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
@@ -95,12 +107,19 @@ class IGPMSitesContainer extends IDispatch{
      * @param {BSTR} bstrSiteName Required. The site of interest; for example, Default-first-site-name. Use null-terminated string.
      * @returns {IGPMSOM} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsom">IGPMSOM</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsitescontainer-getsite
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmsitescontainer-getsite
      */
     GetSite(bstrSiteName) {
-        bstrSiteName := bstrSiteName is String ? BSTR.Alloc(bstrSiteName).Value : bstrSiteName
+        if(bstrSiteName is String) {
+            pin := BSTR.Alloc(bstrSiteName)
+            bstrSiteName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrSiteName, "ptr*", &ppSOM := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrSiteName, "ptr*", &ppSOM := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMSOM(ppSOM)
     }
 
@@ -109,10 +128,14 @@ class IGPMSitesContainer extends IDispatch{
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria Pointer to criteria to supply to the search. Valid criteria for the search include the following.
      * @returns {IGPMSOMCollection} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsomcollection">IGPMSOMCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites
+     * @see https://learn.microsoft.com/windows/win32/api//content/gpmgmt/nf-gpmgmt-igpmsitescontainer-searchsites
      */
     SearchSites(pIGPMSearchCriteria) {
-        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMSOMCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IGPMSOMCollection(ppIGPMSOMCollection)
     }
 }

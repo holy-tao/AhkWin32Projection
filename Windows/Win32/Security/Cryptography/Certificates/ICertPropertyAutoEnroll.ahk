@@ -6,7 +6,7 @@
 
 /**
  * Represents a certificate property that identifies a template that has been configured to enable autoenrollment of the certificate.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertyautoenroll
+ * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nn-certenroll-icertpropertyautoenroll
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -40,10 +40,12 @@ class ICertPropertyAutoEnroll extends ICertProperty{
 
     /**
      * Initializes the object by specifying the name of the template to be used for autoenrollment.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyautoenroll-get_templatename">TemplateName</a> property to retrieve the template name.
      * @param {BSTR} strTemplateName A <b>BSTR</b> variable that contains the template name or object identifier.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -63,28 +65,36 @@ class ICertPropertyAutoEnroll extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyautoenroll-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertyautoenroll-initialize
      */
     Initialize(strTemplateName) {
-        strTemplateName := strTemplateName is String ? BSTR.Alloc(strTemplateName).Value : strTemplateName
+        if(strTemplateName is String) {
+            pin := BSTR.Alloc(strTemplateName)
+            strTemplateName := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", strTemplateName, "HRESULT")
+        result := ComCall(14, this, "ptr", strTemplateName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a string that contains the name of the template that the certificate can use for autoenrollment.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyautoenroll-initialize">Initialize</a> method to specify the property value.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyautoenroll-get_templatename
+     * @see https://learn.microsoft.com/windows/win32/api//content/certenroll/nf-certenroll-icertpropertyautoenroll-get_templatename
      */
     get_TemplateName() {
         pValue := BSTR()
-        result := ComCall(15, this, "ptr", pValue, "HRESULT")
+        result := ComCall(15, this, "ptr", pValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pValue
     }
 }

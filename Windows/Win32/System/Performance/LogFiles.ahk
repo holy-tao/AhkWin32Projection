@@ -15,7 +15,7 @@
  * **Prior to Windows Vista:** You cannot add log files to the [**log file collection**](systemmonitor-logfiles.md) if the value of [**SystemMonitor.DataSourceType**](systemmonitor-datasourcetype.md) is set to [**DataSourceTypeConstants.sysmonLogFiles**](/windows/desktop/api/ISysmon/ne-isysmon-datasourcetypeconstants). First, set **SystemMonitor.DataSourceType** to **DataSourceTypeConstants.sysmonNullDataSource**, add your log files and counters, and then set **SystemMonitor.DataSourceType** to **DataSourceTypeConstants.sysmonLogFiles**.
  * 
  * The [**SystemMonitor.LogViewStart**](systemmonitor-logviewstart.md) and [**SystemMonitor.LogViewStop**](systemmonitor-logviewstop.md) properties specify the range of sampled values from the log files to graph. SYSMON graphs only one view worth of data from the log file (the graph view does not scroll as it does when graphing the current activity of the computer). If the sampled data exceeds what can be shown on a single graph view, SYSMON compresses the sampled data (each graphed point represents the average of multiple sampled values) to fit all the sampled data from the log files on the graph.
- * @see https://learn.microsoft.com/windows/win32/SysMon/logfiles
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/SysMon/logfiles
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

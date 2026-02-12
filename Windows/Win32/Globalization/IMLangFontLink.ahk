@@ -31,43 +31,55 @@ class IMLangFontLink extends IMLangCodePages{
 
     /**
      * 
-     * @param {HDC} hDC 
-     * @param {HFONT} hFont 
+     * @param {HDC} hDC_ 
+     * @param {HFONT} hFont_ 
      * @returns {Integer} 
      */
-    GetFontCodePages(hDC, hFont) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    GetFontCodePages(hDC_, hFont_) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
+        hFont_ := hFont_ is Win32Handle ? NumGet(hFont_, "ptr") : hFont_
 
-        result := ComCall(7, this, "ptr", hDC, "ptr", hFont, "uint*", &pdwCodePages := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", hDC_, "ptr", hFont_, "uint*", &pdwCodePages := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwCodePages
     }
 
     /**
      * 
-     * @param {HDC} hDC 
+     * @param {HDC} hDC_ 
      * @param {Integer} dwCodePages 
      * @param {HFONT} hSrcFont 
      * @returns {HFONT} 
      */
-    MapFont(hDC, dwCodePages, hSrcFont) {
-        hDC := hDC is Win32Handle ? NumGet(hDC, "ptr") : hDC
+    MapFont(hDC_, dwCodePages, hSrcFont) {
+        hDC_ := hDC_ is Win32Handle ? NumGet(hDC_, "ptr") : hDC_
         hSrcFont := hSrcFont is Win32Handle ? NumGet(hSrcFont, "ptr") : hSrcFont
 
         phDestFont := HFONT()
-        result := ComCall(8, this, "ptr", hDC, "uint", dwCodePages, "ptr", hSrcFont, "ptr", phDestFont, "HRESULT")
+        result := ComCall(8, this, "ptr", hDC_, "uint", dwCodePages, "ptr", hSrcFont, "ptr", phDestFont, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return phDestFont
     }
 
     /**
      * 
-     * @param {HFONT} hFont 
+     * @param {HFONT} hFont_ 
      * @returns {HRESULT} 
      */
-    ReleaseFont(hFont) {
-        hFont := hFont is Win32Handle ? NumGet(hFont, "ptr") : hFont
+    ReleaseFont(hFont_) {
+        hFont_ := hFont_ is Win32Handle ? NumGet(hFont_, "ptr") : hFont_
 
-        result := ComCall(9, this, "ptr", hFont, "HRESULT")
+        result := ComCall(9, this, "ptr", hFont_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +88,11 @@ class IMLangFontLink extends IMLangCodePages{
      * @returns {HRESULT} 
      */
     ResetFontMapping() {
-        result := ComCall(10, this, "HRESULT")
+        result := ComCall(10, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

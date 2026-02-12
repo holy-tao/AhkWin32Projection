@@ -5,7 +5,7 @@
 
 /**
  * The IUPnPServiceCallback interface is used to send event notifications to clients of Service objects.
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpservicecallback
+ * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nn-upnp-iupnpservicecallback
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -37,24 +37,34 @@ class IUPnPServiceCallback extends IUnknown{
      * @param {PWSTR} pcwszStateVarName Reference to a string that specifies the name of the state variable that has changed.
      * @param {VARIANT} vaValue Specifies the new value. The type of the data returned depends on the data type of the state variable for which the notification is sent.
      * @returns {HRESULT} The application should return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicecallback-statevariablechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpservicecallback-statevariablechanged
      */
     StateVariableChanged(pus, pcwszStateVarName, vaValue) {
         pcwszStateVarName := pcwszStateVarName is String ? StrPtr(pcwszStateVarName) : pcwszStateVarName
 
-        result := ComCall(3, this, "ptr", pus, "ptr", pcwszStateVarName, "ptr", vaValue, "HRESULT")
+        result := ComCall(3, this, "ptr", pus, "ptr", pcwszStateVarName, "ptr", vaValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The ServiceInstanceDied method is invoked when a service is no longer sending events.
+     * @remarks
+     * The UPnP framework invokes this method either when a service has notified the UPnP framework that it is no longer sending events or when the UPnP framework has failed to maintain its connection to a service.
      * @param {IUPnPService} pus Reference to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpservice">IUPnPService</a> object that specifies the service about which the UPnP framework is sending the notification.
      * @returns {HRESULT} The application should return S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpservicecallback-serviceinstancedied
+     * @see https://learn.microsoft.com/windows/win32/api//content/upnp/nf-upnp-iupnpservicecallback-serviceinstancedied
      */
     ServiceInstanceDied(pus) {
-        result := ComCall(4, this, "ptr", pus, "HRESULT")
+        result := ComCall(4, this, "ptr", pus, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

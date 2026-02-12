@@ -58,7 +58,11 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_width(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -67,7 +71,11 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {Integer} 
      */
     get_width() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -77,7 +85,11 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {HRESULT} 
      */
     put_height(v) {
-        result := ComCall(9, this, "int", v, "HRESULT")
+        result := ComCall(9, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -86,7 +98,11 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {Integer} 
      */
     get_height() {
-        result := ComCall(10, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -96,9 +112,16 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {ICanvasRenderingContext2D} 
      */
     getContext(contextId) {
-        contextId := contextId is String ? BSTR.Alloc(contextId).Value : contextId
+        if(contextId is String) {
+            pin := BSTR.Alloc(contextId)
+            contextId := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", contextId, "ptr*", &ppContext := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", contextId, "ptr*", &ppContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ICanvasRenderingContext2D(ppContext)
     }
 
@@ -109,10 +132,17 @@ class IHTMLCanvasElement extends IDispatch{
      * @returns {BSTR} 
      */
     toDataURL(type, jpegquality) {
-        type := type is String ? BSTR.Alloc(type).Value : type
+        if(type is String) {
+            pin := BSTR.Alloc(type)
+            type := pin.Value
+        }
 
         pUrl := BSTR()
-        result := ComCall(12, this, "ptr", type, "ptr", jpegquality, "ptr", pUrl, "HRESULT")
+        result := ComCall(12, this, "ptr", type, "ptr", jpegquality, "ptr", pUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pUrl
     }
 }

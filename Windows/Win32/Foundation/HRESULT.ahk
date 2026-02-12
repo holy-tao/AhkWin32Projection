@@ -34,7 +34,7 @@
  * [IMAPIProp::GetLastError](imapiprop-getlasterror.md)
  *   
  * [IMAPIViewAdviseSink::OnPrint](imapiviewadvisesink-onprint.md)
- * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hresult
+ * @see https://learn.microsoft.com/office/client-developer/ocs/docs/outlook/mapi/hresult
  * @namespace Windows.Win32.Foundation
  * @version v4.0.30319
  */

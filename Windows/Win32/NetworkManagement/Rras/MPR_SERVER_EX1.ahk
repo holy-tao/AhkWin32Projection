@@ -14,7 +14,7 @@
 
 /**
  * Used to get or set the configuration of a RAS server. (MPR_SERVER_EX1)
- * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_server_ex1
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-mpr_server_ex1
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

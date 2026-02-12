@@ -6,11 +6,8 @@
 /**
  * Use this interface to combine several data streams into a single stream by alternately interspersing portions of each.
  * @remarks
- * 
  * To create the <b>MsftStreamInterleave</b> object in a script, use IMAPI2.MsftStreamInterleave as the program identifier when calling <b>CreateObject</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-istreaminterleave
+ * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nn-imapi2-istreaminterleave
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -87,12 +84,16 @@ class IStreamInterleave extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreaminterleave-initialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/imapi2/nf-imapi2-istreaminterleave-initialize
      */
     Initialize(streams, interleaveSizes, streamCount) {
         interleaveSizesMarshal := interleaveSizes is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(14, this, "ptr*", streams, interleaveSizesMarshal, interleaveSizes, "uint", streamCount, "HRESULT")
+        result := ComCall(14, this, "ptr*", streams, interleaveSizesMarshal, interleaveSizes, "uint", streamCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

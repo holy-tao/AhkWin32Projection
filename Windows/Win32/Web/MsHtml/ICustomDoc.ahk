@@ -34,7 +34,11 @@ class ICustomDoc extends IUnknown{
      * @returns {HRESULT} 
      */
     SetUIHandler(pUIHandler) {
-        result := ComCall(3, this, "ptr", pUIHandler, "HRESULT")
+        result := ComCall(3, this, "ptr", pUIHandler, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

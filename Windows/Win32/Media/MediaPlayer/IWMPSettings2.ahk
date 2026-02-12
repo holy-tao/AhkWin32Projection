@@ -6,7 +6,7 @@
 
 /**
  * The IWMPSettings2 interface provides methods that supplement the IWMPSettings interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpsettings2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nn-wmp-iwmpsettings2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -45,6 +45,8 @@ class IWMPSettings2 extends IWMPSettings{
 
     /**
      * The get_defaultAudioLanguage method retrieves the LCID of the default audio language specified in Windows Media Player.
+     * @remarks
+     * An LCID uniquely identifies a particular language dialect, called a locale.
      * @param {Pointer<Integer>} plLangID Pointer to a <b>long</b> containing the LCID.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -65,17 +67,27 @@ class IWMPSettings2 extends IWMPSettings{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsettings2-get_defaultaudiolanguage
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpsettings2-get_defaultaudiolanguage
      */
     get_defaultAudioLanguage(plLangID) {
         plLangIDMarshal := plLangID is VarRef ? "int*" : "ptr"
 
-        result := ComCall(30, this, plLangIDMarshal, plLangID, "HRESULT")
+        result := ComCall(30, this, plLangIDMarshal, plLangID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The get_mediaAccessRights method retrieves a value indicating the permissions currently granted for library access.
+     * @remarks
+     * A webpage must first request permission from the user to read information from or write data to the library. This means that certain methods, properties, and events will be inaccessible from code if the appropriate access rights have not been granted. To obtain access rights, the application calls <b>IWMPSettings2::get_requestMediaAccessRights</b>, passing a parameter that specifies the desired access rights level.
+     * 
+     * Applications running on the user's computer always have full access rights.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>BSTR</b> containing the string "full".
      * @param {Pointer<BSTR>} pbstrRights 
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -96,15 +108,25 @@ class IWMPSettings2 extends IWMPSettings{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsettings2-get_mediaaccessrights
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpsettings2-get_mediaaccessrights
      */
     get_mediaAccessRights(pbstrRights) {
-        result := ComCall(31, this, "ptr", pbstrRights, "HRESULT")
+        result := ComCall(31, this, "ptr", pbstrRights, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The requestMediaAccessRights method requests a specified level of access to the library.
+     * @remarks
+     * A webpage must first request permission from the user to read information from or write data to the library. Invoking this method prompts the user with a dialog box that requests the specified permission level. This means that certain methods, properties, and events will be inaccessible from code if the appropriate access rights have not been granted. The current access rights level can be retrieved by using <b>IWMPSettings2::get_mediaAccessRights</b>.
+     * 
+     * Applications running on the user's computer are not required to use this method.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method always retrieves a <b>VARIANT_BOOL</b> set to <b>TRUE</b>.
      * @param {BSTR} bstrDesiredAccess 
      * @param {Pointer<VARIANT_BOOL>} pvbAccepted Pointer to a <b>VARIANT_BOOL</b> indicating whether the requested access rights were granted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -126,14 +148,21 @@ class IWMPSettings2 extends IWMPSettings{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsettings2-requestmediaaccessrights
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmp/nf-wmp-iwmpsettings2-requestmediaaccessrights
      */
     requestMediaAccessRights(bstrDesiredAccess, pvbAccepted) {
-        bstrDesiredAccess := bstrDesiredAccess is String ? BSTR.Alloc(bstrDesiredAccess).Value : bstrDesiredAccess
+        if(bstrDesiredAccess is String) {
+            pin := BSTR.Alloc(bstrDesiredAccess)
+            bstrDesiredAccess := pin.Value
+        }
 
         pvbAcceptedMarshal := pvbAccepted is VarRef ? "short*" : "ptr"
 
-        result := ComCall(32, this, "ptr", bstrDesiredAccess, pvbAcceptedMarshal, pvbAccepted, "HRESULT")
+        result := ComCall(32, this, "ptr", bstrDesiredAccess, pvbAcceptedMarshal, pvbAccepted, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

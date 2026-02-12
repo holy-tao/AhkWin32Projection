@@ -41,7 +41,11 @@ class IRTCBuddyEvent extends IDispatch{
      * @returns {IRTCBuddy} 
      */
     get_Buddy() {
-        result := ComCall(7, this, "ptr*", &ppBuddy := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppBuddy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCBuddy(ppBuddy)
     }
 }

@@ -3,7 +3,7 @@
 
 /**
  * Defines a range.
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3drange
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3drange
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

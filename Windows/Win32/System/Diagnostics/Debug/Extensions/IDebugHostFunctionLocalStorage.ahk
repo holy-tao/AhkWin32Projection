@@ -40,7 +40,11 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
         endMarshal := end is VarRef ? "uint*" : "ptr"
         guaranteedMarshal := guaranteed is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, startMarshal, start, endMarshal, end, guaranteedMarshal, guaranteed, "HRESULT")
+        result := ComCall(3, this, startMarshal, start, endMarshal, end, guaranteedMarshal, guaranteed, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,16 +53,27 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
      * @returns {Integer} 
      */
     GetStorageKind() {
-        result := ComCall(4, this, "int*", &kind := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &kind := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return kind
     }
 
     /**
-     * 
+     * Retrieves the information about the raw input devices for the current application.
+     * @remarks
+     * To receive raw input from a device, an application must register it by using <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-registerrawinputdevices">RegisterRawInputDevices</a>.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/winuser/nf-winuser-getregisteredrawinputdevices
      */
     GetRegister() {
-        result := ComCall(5, this, "uint*", &registerId := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &registerId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return registerId
     }
 
@@ -67,7 +82,11 @@ class IDebugHostFunctionLocalStorage extends IUnknown{
      * @returns {Integer} 
      */
     GetOffset() {
-        result := ComCall(6, this, "int64*", &offset := 0, "HRESULT")
+        result := ComCall(6, this, "int64*", &offset := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return offset
     }
 }

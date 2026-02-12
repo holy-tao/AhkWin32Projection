@@ -6,7 +6,7 @@
 
 /**
  * The IADsAcl interface provides methods for an ADSI client to access and manipulate the ACL or Inherited ACL attribute values. This interface manipulates the attributes.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsacl
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsacl
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -61,7 +61,11 @@ class IADsAcl extends IDispatch{
      */
     get_ProtectedAttrName() {
         retval := BSTR()
-        result := ComCall(7, this, "ptr", retval, "HRESULT")
+        result := ComCall(7, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -71,9 +75,16 @@ class IADsAcl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ProtectedAttrName(bstrProtectedAttrName) {
-        bstrProtectedAttrName := bstrProtectedAttrName is String ? BSTR.Alloc(bstrProtectedAttrName).Value : bstrProtectedAttrName
+        if(bstrProtectedAttrName is String) {
+            pin := BSTR.Alloc(bstrProtectedAttrName)
+            bstrProtectedAttrName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrProtectedAttrName, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrProtectedAttrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +94,11 @@ class IADsAcl extends IDispatch{
      */
     get_SubjectName() {
         retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -93,9 +108,16 @@ class IADsAcl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_SubjectName(bstrSubjectName) {
-        bstrSubjectName := bstrSubjectName is String ? BSTR.Alloc(bstrSubjectName).Value : bstrSubjectName
+        if(bstrSubjectName is String) {
+            pin := BSTR.Alloc(bstrSubjectName)
+            bstrSubjectName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrSubjectName, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrSubjectName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,7 +126,11 @@ class IADsAcl extends IDispatch{
      * @returns {Integer} 
      */
     get_Privileges() {
-        result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -114,17 +140,25 @@ class IADsAcl extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Privileges(lnPrivileges) {
-        result := ComCall(12, this, "int", lnPrivileges, "HRESULT")
+        result := ComCall(12, this, "int", lnPrivileges, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IADsAcl::CopyAcl method makes a copy of the existing ACL.
      * @returns {IDispatch} Pointer to the newly created copy of the existing ACL.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsacl-copyacl
+     * @see https://learn.microsoft.com/windows/win32/api//content/iads/nf-iads-iadsacl-copyacl
      */
     CopyAcl() {
-        result := ComCall(13, this, "ptr*", &ppAcl := 0, "HRESULT")
+        result := ComCall(13, this, "ptr*", &ppAcl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IDispatch(ppAcl)
     }
 }

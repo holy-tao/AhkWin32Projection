@@ -30,24 +30,40 @@ class IOpenService extends IUnknown{
     static VTableNames => ["IsDefault", "SetDefault", "GetID"]
 
     /**
-     * 
+     * IsDefault
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/mbn/element-isdefault
      */
     IsDefault() {
-        result := ComCall(3, this, "int*", &pfIsDefault := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pfIsDefault := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfIsDefault
     }
 
     /**
-     * 
+     * Sets the default configuration for a communications device. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winbase.h header defines SetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOL} fDefault 
-     * @param {HWND} hwnd 
-     * @returns {HRESULT} 
+     * @param {HWND} hwnd_ 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setdefaultcommconfigw
      */
-    SetDefault(fDefault, hwnd) {
-        hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
+    SetDefault(fDefault, hwnd_) {
+        hwnd_ := hwnd_ is Win32Handle ? NumGet(hwnd_, "ptr") : hwnd_
 
-        result := ComCall(4, this, "int", fDefault, "ptr", hwnd, "HRESULT")
+        result := ComCall(4, this, "int", fDefault, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -57,7 +73,11 @@ class IOpenService extends IUnknown{
      */
     GetID() {
         pbstrID := BSTR()
-        result := ComCall(5, this, "ptr", pbstrID, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrID
     }
 }

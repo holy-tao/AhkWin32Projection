@@ -55,7 +55,11 @@ class IRTCParticipantStateChangeEvent extends IDispatch{
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
-        result := ComCall(7, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppParticipant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCParticipant(ppParticipant)
     }
 
@@ -64,7 +68,11 @@ class IRTCParticipantStateChangeEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(8, this, "int*", &penState := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &penState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penState
     }
 
@@ -73,7 +81,11 @@ class IRTCParticipantStateChangeEvent extends IDispatch{
      * @returns {Integer} 
      */
     get_StatusCode() {
-        result := ComCall(9, this, "int*", &plStatusCode := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &plStatusCode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plStatusCode
     }
 }

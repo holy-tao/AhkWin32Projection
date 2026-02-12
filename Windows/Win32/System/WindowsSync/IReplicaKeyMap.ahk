@@ -6,11 +6,8 @@
 /**
  * Represents a mapping between replica keys and replica IDs.
  * @remarks
- * 
  * Because replica IDs repeatedly occur in the metadata for a replica and are suggested to be 16-byte GUIDs, Windows Sync represents replica IDs by using a map between replica IDs to 4-byte replica keys. Windows Sync then uses replica keys where references to particular replicas are required.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ireplicakeymap
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ireplicakeymap
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -89,13 +86,17 @@ class IReplicaKeyMap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ireplicakeymap-lookupreplicakey
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ireplicakeymap-lookupreplicakey
      */
     LookupReplicaKey(pbReplicaId, pdwReplicaKey) {
         pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
         pdwReplicaKeyMarshal := pdwReplicaKey is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "HRESULT")
+        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pdwReplicaKeyMarshal, pdwReplicaKey, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -156,13 +157,17 @@ class IReplicaKeyMap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ireplicakeymap-lookupreplicaid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ireplicakeymap-lookupreplicaid
      */
     LookupReplicaId(dwReplicaKey, pbReplicaId, pcbIdSize) {
         pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, "uint", dwReplicaKey, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(4, this, "uint", dwReplicaKey, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -230,13 +235,17 @@ class IReplicaKeyMap extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ireplicakeymap-serialize
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ireplicakeymap-serialize
      */
     Serialize(pbReplicaKeyMap, pcbReplicaKeyMap) {
         pbReplicaKeyMapMarshal := pbReplicaKeyMap is VarRef ? "char*" : "ptr"
         pcbReplicaKeyMapMarshal := pcbReplicaKeyMap is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(5, this, pbReplicaKeyMapMarshal, pbReplicaKeyMap, pcbReplicaKeyMapMarshal, pcbReplicaKeyMap, "HRESULT")
+        result := ComCall(5, this, pbReplicaKeyMapMarshal, pbReplicaKeyMap, pcbReplicaKeyMapMarshal, pcbReplicaKeyMap, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

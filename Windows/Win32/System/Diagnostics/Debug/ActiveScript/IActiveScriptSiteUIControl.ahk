@@ -34,7 +34,11 @@ class IActiveScriptSiteUIControl extends IUnknown{
      * @returns {Integer} 
      */
     GetUIBehavior(UicItem) {
-        result := ComCall(3, this, "int", UicItem, "int*", &pUicHandling := 0, "HRESULT")
+        result := ComCall(3, this, "int", UicItem, "int*", &pUicHandling := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pUicHandling
     }
 }

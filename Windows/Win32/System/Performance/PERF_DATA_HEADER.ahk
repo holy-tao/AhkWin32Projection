@@ -14,7 +14,7 @@
  * 
  * The timestamp information in the <b>PERF_DATA_HEADER</b> structure is required when
  * you compute the display values of certain performance counters.
- * @see https://learn.microsoft.com/windows/win32/api/perflib/ns-perflib-perf_data_header
+ * @see https://learn.microsoft.com/windows/win32/api//content/perflib/ns-perflib-perf_data_header
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

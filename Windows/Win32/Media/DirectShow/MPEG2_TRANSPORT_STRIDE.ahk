@@ -21,7 +21,7 @@
  * -   **dwOffset**: 0
  * -   **dwPacketLength**: 188
  * -   **dwStride**: 188
- * @see https://learn.microsoft.com/windows/win32/DirectShow/mpeg2-transport-stride
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/DirectShow/mpeg2-transport-stride
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */

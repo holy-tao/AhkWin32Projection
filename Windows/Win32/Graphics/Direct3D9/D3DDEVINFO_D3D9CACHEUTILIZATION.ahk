@@ -5,7 +5,7 @@
  * Measure the cache hit rate performance for textures and indexed vertices.
  * @remarks
  * An efficient cache is typically closer to a 90 percent hit rate, and an inefficient cache is typically closer to a 10 percent hit rate (although a low percentage is not necessarily a problem).
- * @see https://learn.microsoft.com/windows/win32/direct3d9/d3ddevinfo-d3d9cacheutilization
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/direct3d9/d3ddevinfo-d3d9cacheutilization
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */

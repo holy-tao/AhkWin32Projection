@@ -217,7 +217,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsadd
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsadd
      * @since windows6.0.6000
      */
     static NetDfsAdd(DfsEntryPath, ServerName, ShareName, Comment, Flags) {
@@ -245,7 +245,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsaddstdroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsaddstdroot
      * @since windows6.0.6000
      */
     static NetDfsAddStdRoot(ServerName, RootShare, Comment, Flags) {
@@ -267,7 +267,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsremovestdroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsremovestdroot
      * @since windows6.0.6000
      */
     static NetDfsRemoveStdRoot(ServerName, RootShare) {
@@ -295,7 +295,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsaddftroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsaddftroot
      * @since windows6.0.6000
      */
     static NetDfsAddFtRoot(ServerName, RootShare, FtDfsName, Comment, Flags) {
@@ -321,7 +321,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsremoveftroot
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsremoveftroot
      * @since windows6.0.6000
      */
     static NetDfsRemoveFtRoot(ServerName, RootShare, FtDfsName) {
@@ -352,7 +352,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsremoveftrootforced
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsremoveftrootforced
      * @since windows6.0.6000
      */
     static NetDfsRemoveFtRootForced(DomainName, ServerName, RootShare, FtDfsName) {
@@ -407,7 +407,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsremove
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsremove
      * @since windows6.0.6000
      */
     static NetDfsRemove(DfsEntryPath, ServerName, ShareName) {
@@ -473,7 +473,8 @@ class DistributedFileSystem {
      *       If this parameter is <b>MAX_PREFERRED_LENGTH</b>, the function allocates the amount of memory required for the data. 
      *       For more information, see the following Remarks section. This parameter is ignored if you specify level 200 or 
      *       level 300.
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ Pointer to a buffer that receives the requested information structures. The format of this data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the system and must be freed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function.
      * @param {Pointer<Integer>} EntriesRead Pointer to a value that receives the actual number of entries returned in the response.
      * @param {Pointer<Integer>} ResumeHandle Pointer to a value that contains a handle to be used for continuing an enumeration when more data is available than can be returned in a single call to this function. The handle should be zero on the first call and left unchanged for subsequent calls.  For more information, see the following Remarks section.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
@@ -482,17 +483,17 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsenum
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsenum
      * @since windows6.0.6000
      */
-    static NetDfsEnum(DfsName, Level, PrefMaxLen, Buffer_R, EntriesRead, ResumeHandle) {
+    static NetDfsEnum(DfsName, Level, PrefMaxLen, Buffer_, EntriesRead, ResumeHandle) {
         DfsName := DfsName is String ? StrPtr(DfsName) : DfsName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
         EntriesReadMarshal := EntriesRead is VarRef ? "uint*" : "ptr"
         ResumeHandleMarshal := ResumeHandle is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, Buffer_RMarshal, Buffer_R, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsEnum", "ptr", DfsName, "uint", Level, "uint", PrefMaxLen, Buffer_Marshal, Buffer_, EntriesReadMarshal, EntriesRead, ResumeHandleMarshal, ResumeHandle, "uint")
         return result
     }
 
@@ -546,22 +547,29 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {PWSTR} ShareName This parameter is currently ignored and should be <b>NULL</b>.
      * @param {Integer} Level 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ Pointer to the address of a buffer that receives the requested information structures. The format of this 
+     *       data depends on the value of the <i>Level</i> parameter. This buffer is allocated by the 
+     *       system and must be freed using the 
+     *       <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, 
+     *       see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> 
+     *       and 
+     *       <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsgetinfo
      * @since windows6.0.6000
      */
-    static NetDfsGetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsGetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsGetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -622,22 +630,24 @@ class DistributedFileSystem {
      *       path relative to the share.  For example, "share1\mydir1\mydir2". This parameter is optional. For more 
      *       information, see the Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} Buffer_ Pointer to a buffer that specifies the data. The format of this data depends on the value of the 
+     *       <i>Level</i> parameter. For more information, see 
+     *       <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is NERR_Success.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfssetinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfssetinfo
      * @since windows6.0.6000
      */
-    static NetDfsSetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsSetInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsSetInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -674,22 +684,25 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the name of the DFS root target or link target server. This parameter is optional.
      * @param {PWSTR} ShareName Pointer to a string that specifies the name of the share corresponding to the DFS root target or link target. This parameter is optional.
      * @param {Integer} Level 
-     * @param {Pointer<Pointer<Integer>>} Buffer_R 
+     * @param {Pointer<Pointer<Integer>>} Buffer_ Pointer to the address of a buffer that receives the requested information. This buffer is allocated by the system and must be freed using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/lmapibuf/nf-lmapibuf-netapibufferfree">NetApiBufferFree</a> function. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffer-lengths">Network Management Function Buffer Lengths</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsgetclientinfo
      * @since windows6.0.6000
      */
-    static NetDfsGetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsGetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "ptr*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsGetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -731,22 +744,23 @@ class DistributedFileSystem {
      * @param {PWSTR} ServerName Pointer to a string that specifies the DFS link target server name. This parameter is optional. For more information, see the Remarks section.
      * @param {PWSTR} ShareName Pointer to a string that specifies the DFS link target share name. This parameter is optional. For additional information, see the following Remarks section.
      * @param {Integer} Level 
-     * @param {Pointer<Integer>} Buffer_R 
+     * @param {Pointer<Integer>} Buffer_ Pointer to a buffer that contains the information to be set. The format of this information depends on the value of the <i>Level</i> parameter. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/NetMgmt/network-management-function-buffers">Network Management Function Buffers</a>.
      * @returns {Integer} If the function succeeds, the return value is <b>NERR_Success</b>.
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfssetclientinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfssetclientinfo
      * @since windows6.0.6000
      */
-    static NetDfsSetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_R) {
+    static NetDfsSetClientInfo(DfsEntryPath, ServerName, ShareName, Level, Buffer_) {
         DfsEntryPath := DfsEntryPath is String ? StrPtr(DfsEntryPath) : DfsEntryPath
         ServerName := ServerName is String ? StrPtr(ServerName) : ServerName
         ShareName := ShareName is String ? StrPtr(ShareName) : ShareName
 
-        Buffer_RMarshal := Buffer_R is VarRef ? "char*" : "ptr"
+        Buffer_Marshal := Buffer_ is VarRef ? "char*" : "ptr"
 
-        result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_RMarshal, Buffer_R, "uint")
+        result := DllCall("NETAPI32.dll\NetDfsSetClientInfo", "ptr", DfsEntryPath, "ptr", ServerName, "ptr", ShareName, "uint", Level, Buffer_Marshal, Buffer_, "uint")
         return result
     }
 
@@ -848,7 +862,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsmove
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsmove
      * @since windows6.0.6000
      */
     static NetDfsMove(OldDfsEntryPath, NewDfsEntryPath, Flags) {
@@ -965,7 +979,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsaddroottarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsaddroottarget
      * @since windows6.0.6000
      */
     static NetDfsAddRootTarget(pDfsPath, pTargetPath, MajorVersion, pComment, Flags) {
@@ -1034,7 +1048,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      *        <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsremoveroottarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsremoveroottarget
      * @since windows6.0.6000
      */
     static NetDfsRemoveRootTarget(pDfsPath, pTargetPath, Flags) {
@@ -1074,7 +1088,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsgetsecurity
      * @since windows6.0.6000
      */
     static NetDfsGetSecurity(DfsEntryPath, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
@@ -1111,7 +1125,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfssetsecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfssetsecurity
      * @since windows6.0.6000
      */
     static NetDfsSetSecurity(DfsEntryPath, SecurityInformation, pSecurityDescriptor) {
@@ -1137,7 +1151,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetstdcontainersecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsgetstdcontainersecurity
      * @since windows6.0.6000
      */
     static NetDfsGetStdContainerSecurity(MachineName, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
@@ -1160,7 +1174,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfssetstdcontainersecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfssetstdcontainersecurity
      * @since windows6.0.6000
      */
     static NetDfsSetStdContainerSecurity(MachineName, SecurityInformation, pSecurityDescriptor) {
@@ -1186,7 +1200,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetftcontainersecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsgetftcontainersecurity
      * @since windows6.0.6000
      */
     static NetDfsGetFtContainerSecurity(DomainName, SecurityInformation, ppSecurityDescriptor, lpcbSecurityDescriptor) {
@@ -1209,7 +1223,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfssetftcontainersecurity
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfssetftcontainersecurity
      * @since windows6.0.6000
      */
     static NetDfsSetFtContainerSecurity(DomainName, SecurityInformation, pSecurityDescriptor) {
@@ -1239,7 +1253,7 @@ class DistributedFileSystem {
      * 
      * If the function fails, the return value is a system error code. For a list of error codes, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">System Error Codes</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/lmdfs/nf-lmdfs-netdfsgetsupportednamespaceversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/lmdfs/nf-lmdfs-netdfsgetsupportednamespaceversion
      * @since windows6.0.6000
      */
     static NetDfsGetSupportedNamespaceVersion(Origin, pName, ppVersionInfo) {

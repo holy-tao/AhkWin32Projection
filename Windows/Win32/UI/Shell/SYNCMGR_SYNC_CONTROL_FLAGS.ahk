@@ -5,7 +5,7 @@
  * Indicates flags used by ISyncMgrControl::StartHandlerSync and ISyncMgrControl::StartItemSync.
  * @remarks
  * Typically, sync requests are queued if a synchronization is currently in progress. An item might be in both the ongoing synchronization and the queued synchronization. These flags specify whether such an item should be resynched when the queued synchronization is performed.
- * @see https://learn.microsoft.com/windows/win32/api/syncmgr/ne-syncmgr-syncmgr_sync_control_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/ne-syncmgr-syncmgr_sync_control_flags
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

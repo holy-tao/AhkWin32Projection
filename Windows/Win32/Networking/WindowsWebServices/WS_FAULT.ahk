@@ -4,7 +4,7 @@
 
 /**
  * A Fault is a value carried in the body of a message which conveys a processing failure. Faults are modeled using the WS_FAULT structure.
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_fault
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_fault
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

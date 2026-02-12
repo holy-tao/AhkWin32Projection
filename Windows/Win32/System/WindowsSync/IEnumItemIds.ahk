@@ -29,16 +29,23 @@ class IEnumItemIds extends IUnknown{
     static VTableNames => ["Next"]
 
     /**
-     * 
+     * NextMember (MDX)
+     * @remarks
+     * The **NextMember** function returns the next member, in the same level, that contains the specified member.
      * @param {Pointer<Integer>} pbItemId 
      * @param {Pointer<Integer>} pcbItemIdSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/mdx/nextmember-mdx
      */
     Next(pbItemId, pcbItemIdSize) {
         pbItemIdMarshal := pbItemId is VarRef ? "char*" : "ptr"
         pcbItemIdSizeMarshal := pcbItemIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "HRESULT")
+        result := ComCall(3, this, pbItemIdMarshal, pbItemId, pcbItemIdSizeMarshal, pcbItemIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -38,8 +38,15 @@ class IDxcCompilerArgs extends IUnknown{
     }
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * @returns {Integer} 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
+     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * 
+     * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
+     * @see https://learn.microsoft.com/windows/win32/api//content/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
         result := ComCall(4, this, "uint")
@@ -55,7 +62,11 @@ class IDxcCompilerArgs extends IUnknown{
     AddArguments(pArguments, argCount) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(5, this, pArgumentsMarshal, pArguments, "uint", argCount, "HRESULT")
+        result := ComCall(5, this, pArgumentsMarshal, pArguments, "uint", argCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +79,11 @@ class IDxcCompilerArgs extends IUnknown{
     AddArgumentsUTF8(pArguments, argCount) {
         pArgumentsMarshal := pArguments is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(6, this, pArgumentsMarshal, pArguments, "uint", argCount, "HRESULT")
+        result := ComCall(6, this, pArgumentsMarshal, pArguments, "uint", argCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +94,11 @@ class IDxcCompilerArgs extends IUnknown{
      * @returns {HRESULT} 
      */
     AddDefines(pDefines, defineCount) {
-        result := ComCall(7, this, "ptr", pDefines, "uint", defineCount, "HRESULT")
+        result := ComCall(7, this, "ptr", pDefines, "uint", defineCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -57,7 +57,11 @@ class ISClusResPossibleOwnerNodes extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
@@ -66,16 +70,29 @@ class ISClusResPossibleOwnerNodes extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
     /**
-     * 
+     * Refresh Method (RDS)
+     * @remarks
+     * You must set the [Connect](./connect-property-rds.md), [Server](./server-property-rds.md), and [SQL](./sql-property.md) properties before you use the **Refresh** method. All data-bound controls on the form associated with an **RDS.DataControl** object will reflect the new set of records. Any pre-existing [Recordset](../ado-api/recordset-object-ado.md) object is released, and any unsaved changes are discarded. The **Refresh** method automatically makes the first record the current record.  
+     *   
+     *  It is a good idea to call the **Refresh** method periodically when you work with data. If you retrieve data, and then leave it on a client computer for a while, it is likely to become out of date. It is possible that any changes that you make will fail, because someone else might have changed the record and submitted changes before you.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/refresh-method-rds
      */
     Refresh() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -85,7 +102,11 @@ class ISClusResPossibleOwnerNodes extends IDispatch{
      * @returns {ISClusNode} 
      */
     get_Item(varIndex) {
-        result := ComCall(10, this, "ptr", varIndex, "ptr*", &ppNode := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", varIndex, "ptr*", &ppNode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusNode(ppNode)
     }
 
@@ -95,7 +116,11 @@ class ISClusResPossibleOwnerNodes extends IDispatch{
      * @returns {HRESULT} 
      */
     AddItem(pNode) {
-        result := ComCall(11, this, "ptr", pNode, "HRESULT")
+        result := ComCall(11, this, "ptr", pNode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +130,11 @@ class ISClusResPossibleOwnerNodes extends IDispatch{
      * @returns {HRESULT} 
      */
     RemoveItem(varIndex) {
-        result := ComCall(12, this, "ptr", varIndex, "HRESULT")
+        result := ComCall(12, this, "ptr", varIndex, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -115,7 +144,11 @@ class ISClusResPossibleOwnerNodes extends IDispatch{
      */
     get_Modified() {
         pvarModified := VARIANT()
-        result := ComCall(13, this, "ptr", pvarModified, "HRESULT")
+        result := ComCall(13, this, "ptr", pvarModified, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvarModified
     }
 }

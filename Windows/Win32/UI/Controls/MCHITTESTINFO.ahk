@@ -8,7 +8,7 @@
  * Carries information specific to hit-testing points for a month calendar control. This structure is used with the MCM_HITTEST message and the corresponding MonthCal_HitTest macro.
  * @remarks
  * Columns and rows in this control use a zero-based index system, that is, the first column or row has an index of zero.
- * @see https://learn.microsoft.com/windows/win32/api/commctrl/ns-commctrl-mchittestinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/commctrl/ns-commctrl-mchittestinfo
  * @namespace Windows.Win32.UI.Controls
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
  * The list of credentials.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/webauthn/ns-webauthn-webauthn_credential_details_list
+ * @see https://learn.microsoft.com/windows/win32/api//content/webauthn/ns-webauthn-webauthn_credential_details_list
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

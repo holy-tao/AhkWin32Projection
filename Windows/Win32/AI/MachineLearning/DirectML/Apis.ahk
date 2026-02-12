@@ -59,7 +59,7 @@ class DirectML {
      * @returns {Pointer<Pointer<Void>>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-dmlcreatedevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-dmlcreatedevice
      * @since windows10.0.10240
      */
     static DMLCreateDevice(d3d12Device, flags, riid) {
@@ -98,7 +98,7 @@ class DirectML {
      * @returns {Pointer<Pointer<Void>>} Type: \_COM\_Outptr\_opt\_ <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the device. This is the address of a pointer to an [IDMLDevice](/windows/win32/api/directml/nn-directml-idmldevice), representing  the DirectML device created.
-     * @see https://learn.microsoft.com/windows/win32/api/directml/nf-directml-dmlcreatedevice1
+     * @see https://learn.microsoft.com/windows/win32/api//content/directml/nf-directml-dmlcreatedevice1
      */
     static DMLCreateDevice1(d3d12Device, flags, minimumFeatureLevel, riid) {
         result := DllCall("DirectML.dll\DMLCreateDevice1", "ptr", d3d12Device, "int", flags, "int", minimumFeatureLevel, "ptr", riid, "ptr*", &ppv := 0, "int")

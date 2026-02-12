@@ -49,7 +49,11 @@ class IWebWizardHost extends IDispatch{
      * @returns {HRESULT} 
      */
     FinalBack() {
-        result := ComCall(7, this, "HRESULT")
+        result := ComCall(7, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,16 +62,27 @@ class IWebWizardHost extends IDispatch{
      * @returns {HRESULT} 
      */
     FinalNext() {
-        result := ComCall(8, this, "HRESULT")
+        result := ComCall(8, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Cancel Method (RDS)
+     * @remarks
+     * When you call **Cancel**, [ReadyState](./readystate-property-rds.md) is automatically set to **adcReadyStateLoaded**, and the [Recordset](../ado-api/recordset-object-ado.md) will be empty.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/ado/reference/rds-api/cancel-method-rds
      */
     Cancel() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,9 +92,16 @@ class IWebWizardHost extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Caption(bstrCaption) {
-        bstrCaption := bstrCaption is String ? BSTR.Alloc(bstrCaption).Value : bstrCaption
+        if(bstrCaption is String) {
+            pin := BSTR.Alloc(bstrCaption)
+            bstrCaption := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrCaption, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrCaption, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -89,7 +111,11 @@ class IWebWizardHost extends IDispatch{
      */
     get_Caption() {
         pbstrCaption := BSTR()
-        result := ComCall(11, this, "ptr", pbstrCaption, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrCaption, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCaption
     }
 
@@ -100,9 +126,16 @@ class IWebWizardHost extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Property(bstrPropertyName, pvProperty) {
-        bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
+        if(bstrPropertyName is String) {
+            pin := BSTR.Alloc(bstrPropertyName)
+            bstrPropertyName := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrPropertyName, "ptr", pvProperty, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrPropertyName, "ptr", pvProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,10 +145,17 @@ class IWebWizardHost extends IDispatch{
      * @returns {VARIANT} 
      */
     get_Property(bstrPropertyName) {
-        bstrPropertyName := bstrPropertyName is String ? BSTR.Alloc(bstrPropertyName).Value : bstrPropertyName
+        if(bstrPropertyName is String) {
+            pin := BSTR.Alloc(bstrPropertyName)
+            bstrPropertyName := pin.Value
+        }
 
         pvProperty := VARIANT()
-        result := ComCall(13, this, "ptr", bstrPropertyName, "ptr", pvProperty, "HRESULT")
+        result := ComCall(13, this, "ptr", bstrPropertyName, "ptr", pvProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pvProperty
     }
 
@@ -127,7 +167,11 @@ class IWebWizardHost extends IDispatch{
      * @returns {HRESULT} 
      */
     SetWizardButtons(vfEnableBack, vfEnableNext, vfLastPage) {
-        result := ComCall(14, this, "short", vfEnableBack, "short", vfEnableNext, "short", vfLastPage, "HRESULT")
+        result := ComCall(14, this, "short", vfEnableBack, "short", vfEnableNext, "short", vfLastPage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,10 +182,20 @@ class IWebWizardHost extends IDispatch{
      * @returns {HRESULT} 
      */
     SetHeaderText(bstrHeaderTitle, bstrHeaderSubtitle) {
-        bstrHeaderTitle := bstrHeaderTitle is String ? BSTR.Alloc(bstrHeaderTitle).Value : bstrHeaderTitle
-        bstrHeaderSubtitle := bstrHeaderSubtitle is String ? BSTR.Alloc(bstrHeaderSubtitle).Value : bstrHeaderSubtitle
+        if(bstrHeaderTitle is String) {
+            pin := BSTR.Alloc(bstrHeaderTitle)
+            bstrHeaderTitle := pin.Value
+        }
+        if(bstrHeaderSubtitle is String) {
+            pin := BSTR.Alloc(bstrHeaderSubtitle)
+            bstrHeaderSubtitle := pin.Value
+        }
 
-        result := ComCall(15, this, "ptr", bstrHeaderTitle, "ptr", bstrHeaderSubtitle, "HRESULT")
+        result := ComCall(15, this, "ptr", bstrHeaderTitle, "ptr", bstrHeaderSubtitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

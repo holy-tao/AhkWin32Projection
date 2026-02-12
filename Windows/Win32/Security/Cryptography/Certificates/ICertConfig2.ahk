@@ -6,7 +6,7 @@
 
 /**
  * Provide functionality for retrieving the public configuration data (specified during client setup) for a Certificate Services server.
- * @see https://docs.microsoft.com/windows/win32/api//certcli/nn-certcli-icertconfig2
+ * @see https://learn.microsoft.com/windows/win32/api//content/certcli/nn-certcli-icertconfig2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -37,13 +37,20 @@ class ICertConfig2 extends ICertConfig{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertconfig2-setsharedfolder
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/certcli/nf-certcli-icertconfig2-setsharedfolder
      */
     SetSharedFolder(strSharedFolder) {
-        strSharedFolder := strSharedFolder is String ? BSTR.Alloc(strSharedFolder).Value : strSharedFolder
+        if(strSharedFolder is String) {
+            pin := BSTR.Alloc(strSharedFolder)
+            strSharedFolder := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", strSharedFolder, "HRESULT")
+        result := ComCall(11, this, "ptr", strSharedFolder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

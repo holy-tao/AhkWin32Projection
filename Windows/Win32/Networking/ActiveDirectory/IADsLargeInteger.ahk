@@ -6,12 +6,8 @@
 /**
  * Used to manipulate 64-bit integers of the LargeInteger type.
  * @remarks
- * 
  * Handling the <b>IADsLargeInteger</b> in Visual Basic is made difficult by the fact that Visual Basic has no native unsigned numeric data type. This can cause errors in data conversion if either the <a href="https://docs.microsoft.com/windows/desktop/ADSI/iadslargeinteger-property-methods">LowPart</a> or <b>HighPart</b> has the high bit set, which causes Visual Basic to handle the number as negative. The Visual Basic code examples below show how to properly handle the <b>IADsLargeInteger</b> in Visual Basic.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadslargeinteger
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadslargeinteger
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -57,7 +53,11 @@ class IADsLargeInteger extends IDispatch{
      * @returns {Integer} 
      */
     get_HighPart() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -67,7 +67,11 @@ class IADsLargeInteger extends IDispatch{
      * @returns {HRESULT} 
      */
     put_HighPart(lnHighPart) {
-        result := ComCall(8, this, "int", lnHighPart, "HRESULT")
+        result := ComCall(8, this, "int", lnHighPart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,7 +80,11 @@ class IADsLargeInteger extends IDispatch{
      * @returns {Integer} 
      */
     get_LowPart() {
-        result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -86,7 +94,11 @@ class IADsLargeInteger extends IDispatch{
      * @returns {HRESULT} 
      */
     put_LowPart(lnLowPart) {
-        result := ComCall(10, this, "int", lnLowPart, "HRESULT")
+        result := ComCall(10, this, "int", lnLowPart, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

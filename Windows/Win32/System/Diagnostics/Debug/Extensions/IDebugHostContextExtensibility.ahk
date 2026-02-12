@@ -47,17 +47,25 @@ class IDebugHostContextExtensibility extends IUnknown{
      * @returns {Void} 
      */
     ReadExtensionData(blobId, bufferSize) {
-        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, "ptr", &buffer := 0, "HRESULT")
-        return buffer
+        result := ComCall(4, this, "uint", blobId, "uint", bufferSize, "ptr", &buffer_ := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return buffer_
     }
 
     /**
      * 
-     * @returns {IDebugHostContextExtension} 
+     * @returns {Pointer<IDebugHostContextExtension>} 
      */
     CloneContextForModification() {
-        result := ComCall(5, this, "ptr*", &extensionHandle := 0, "HRESULT")
-        return IDebugHostContextExtension(extensionHandle)
+        result := ComCall(5, this, "ptr*", &extensionHandle := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return extensionHandle
     }
 
     /**
@@ -65,12 +73,16 @@ class IDebugHostContextExtensibility extends IUnknown{
      * @param {Integer} blobId 
      * @param {Integer} dataSize 
      * @param {Pointer<Void>} data 
-     * @returns {IDebugHostContext} 
+     * @returns {Pointer<IDebugHostContext>} 
      */
     CloneContextWithModification(blobId, dataSize, data) {
         dataMarshal := data is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(6, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "ptr*", &clonedContext := 0, "HRESULT")
-        return IDebugHostContext(clonedContext)
+        result := ComCall(6, this, "uint", blobId, "uint", dataSize, dataMarshal, data, "ptr*", &clonedContext := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return clonedContext
     }
 }

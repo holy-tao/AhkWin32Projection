@@ -3,6 +3,7 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\ID2D1Device.ahk
 #Include .\ID2D1DeviceContext.ahk
+#Include Common\D2D1_COLOR_F.ahk
 
 /**
  * @namespace Windows.Win32.Graphics.Direct2D
@@ -375,7 +376,7 @@ class Direct2D {
      * @returns {Pointer<Pointer<Void>>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address to a pointer to the new factory.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1createfactory
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-d2d1createfactory
      * @since windows6.1
      */
     static D2D1CreateFactory(factoryType, riid, pFactoryOptions) {
@@ -397,15 +398,15 @@ class Direct2D {
      * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The point about which to rotate.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix_ Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * When this method returns, contains the new rotation transformation. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makerotatematrix
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-d2d1makerotatematrix
      * @since windows6.1
      */
-    static D2D1MakeRotateMatrix(angle, center, matrix) {
-        DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", matrix)
+    static D2D1MakeRotateMatrix(angle, center, matrix_) {
+        DllCall("d2d1.dll\D2D1MakeRotateMatrix", "float", angle, "ptr", center, "ptr", matrix_)
     }
 
     /**
@@ -419,46 +420,46 @@ class Direct2D {
      * @param {D2D_POINT_2F} center Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * The center point of the skew operation.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix_ Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * When this method returns, contains the rotation transformation. You must allocate storage for this parameter.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1makeskewmatrix
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-d2d1makeskewmatrix
      * @since windows6.1
      */
-    static D2D1MakeSkewMatrix(angleX, angleY, center, matrix) {
-        DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", matrix)
+    static D2D1MakeSkewMatrix(angleX, angleY, center, matrix_) {
+        DllCall("d2d1.dll\D2D1MakeSkewMatrix", "float", angleX, "float", angleY, "ptr", center, "ptr", matrix_)
     }
 
     /**
      * Indicates whether the specified matrix is invertible.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix_ Type: <b>const <a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * The matrix to test.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1ismatrixinvertible
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-d2d1ismatrixinvertible
      * @since windows6.1
      */
-    static D2D1IsMatrixInvertible(matrix) {
-        result := DllCall("d2d1.dll\D2D1IsMatrixInvertible", "ptr", matrix, "int")
+    static D2D1IsMatrixInvertible(matrix_) {
+        result := DllCall("d2d1.dll\D2D1IsMatrixInvertible", "ptr", matrix_, "int")
         return result
     }
 
     /**
      * Tries to invert the specified matrix.
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
+     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix_ Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a>*</b>
      * 
      * The matrix to invert.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * <b>true</b> if the matrix was inverted; otherwise, <b>false</b>.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-d2d1invertmatrix
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-d2d1invertmatrix
      * @since windows6.1
      */
-    static D2D1InvertMatrix(matrix) {
-        result := DllCall("d2d1.dll\D2D1InvertMatrix", "ptr", matrix, "int")
+    static D2D1InvertMatrix(matrix_) {
+        result := DllCall("d2d1.dll\D2D1InvertMatrix", "ptr", matrix_, "int")
         return result
     }
 
@@ -471,7 +472,7 @@ class Direct2D {
      * @param {IDXGIDevice} dxgiDevice The DXGI device the Direct2D device is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device.
      * @returns {ID2D1Device} When this function returns, contains the address of a pointer to a Direct2D device.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1createdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-d2d1createdevice
      * @since windows8.0
      */
     static D2D1CreateDevice(dxgiDevice, creationProperties) {
@@ -496,7 +497,7 @@ class Direct2D {
      * @param {IDXGISurface} dxgiSurface The DXGI surface the Direct2D device context is associated with.
      * @param {Pointer<D2D1_CREATION_PROPERTIES>} creationProperties The properties to apply to the Direct2D device context.
      * @returns {ID2D1DeviceContext} When this function returns, contains the address of a pointer to a Direct2D device context.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1createdevicecontext
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-d2d1createdevicecontext
      * @since windows8.0
      */
     static D2D1CreateDeviceContext(dxgiSurface, creationProperties) {
@@ -516,16 +517,16 @@ class Direct2D {
      * @param {Integer} destinationColorSpace Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_color_space">D2D1_COLOR_SPACE</a></b>
      * 
      * The destination color space.
-     * @param {Pointer<D2D1_COLOR_F>} color Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
+     * @param {Pointer<D2D1_COLOR_F>} color_ Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a>*</b>
      * 
      * The source color.
      * @returns {D2D1_COLOR_F} Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-color-f">D2D1_COLOR_F</a></b>
      * 
      * The converted color.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1convertcolorspace
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-d2d1convertcolorspace
      */
-    static D2D1ConvertColorSpace(sourceColorSpace, destinationColorSpace, color) {
-        result := DllCall("d2d1.dll\D2D1ConvertColorSpace", "int", sourceColorSpace, "int", destinationColorSpace, "ptr", color, "ptr")
+    static D2D1ConvertColorSpace(sourceColorSpace, destinationColorSpace, color_) {
+        result := DllCall("d2d1.dll\D2D1ConvertColorSpace", "int", sourceColorSpace, "int", destinationColorSpace, "ptr", color_, "ptr")
         return result
     }
 
@@ -541,7 +542,7 @@ class Direct2D {
      * 
      * The cosine of the angle.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1sincos
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-d2d1sincos
      */
     static D2D1SinCos(angle, s, c) {
         sMarshal := s is VarRef ? "float*" : "ptr"
@@ -558,7 +559,7 @@ class Direct2D {
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The tangent of the angle.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1tan
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-d2d1tan
      */
     static D2D1Tan(angle) {
         result := DllCall("d2d1.dll\D2D1Tan", "float", angle, "float")
@@ -579,7 +580,7 @@ class Direct2D {
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The length of the vector.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-d2d1vec3length
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_1/nf-d2d1_1-d2d1vec3length
      */
     static D2D1Vec3Length(x, y, z) {
         result := DllCall("d2d1.dll\D2D1Vec3Length", "float", x, "float", y, "float", z, "float")
@@ -595,13 +596,13 @@ class Direct2D {
      * 
      * <div class="alert"><b>Note</b>  Since this describes how M affects vectors (rather than points), the translation components (_31 and _32) of M are ignored.</div>
      * <div> </div>
-     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix The input transform matrix.
+     * @param {Pointer<D2D_MATRIX_3X2_F>} matrix_ The input transform matrix.
      * @returns {Float} The scale factor.
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_2/nf-d2d1_2-d2d1computemaximumscalefactor
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_2/nf-d2d1_2-d2d1computemaximumscalefactor
      * @since windows8.1
      */
-    static D2D1ComputeMaximumScaleFactor(matrix) {
-        result := DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", matrix, "float")
+    static D2D1ComputeMaximumScaleFactor(matrix_) {
+        result := DllCall("d2d1.dll\D2D1ComputeMaximumScaleFactor", "ptr", matrix_, "float")
         return result
     }
 
@@ -658,7 +659,7 @@ class Direct2D {
      * 
      * Returns the interior point for the gradient mesh corresponding to point22 in the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ns-d2d1_3-d2d1_gradient_mesh_patch">D2D1_GRADIENT_MESH_PATCH</a> structure.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-d2d1getgradientmeshinteriorpointsfromcoonspatch
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-d2d1getgradientmeshinteriorpointsfromcoonspatch
      * @since windows10.0.10240
      */
     static D2D1GetGradientMeshInteriorPointsFromCoonsPatch(pPoint0, pPoint1, pPoint2, pPoint3, pPoint4, pPoint5, pPoint6, pPoint7, pPoint8, pPoint9, pPoint10, pPoint11, pTensorPoint11, pTensorPoint12, pTensorPoint21, pTensorPoint22) {

@@ -1,6 +1,7 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
 #Include ..\..\Foundation\HRSRC.ahk
 
@@ -9,7 +10,7 @@
  * @remarks
  * > [!NOTE]
  * > The oledlg.h header defines OLEUIEDITLINKS as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
- * @see https://learn.microsoft.com/windows/win32/api/oledlg/ns-oledlg-oleuieditlinksa
+ * @see https://learn.microsoft.com/windows/win32/api//content/oledlg/ns-oledlg-oleuieditlinksa
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  * @charset ANSI
@@ -131,9 +132,12 @@ class OLEUIEDITLINKSA extends Win32Struct
      * Application-defined data that the library passes to the hook function pointed to by the <b>lpfnHook</b> member. The library passes a pointer to the <b>OLEUIEDITLINKS</b> structure in the <i>lParam</i> parameter of the WM_INITDIALOG message; this pointer can be used to retrieve the <b>lCustData</b> member.
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(32, this)
+            return this.__lCustData
+        }
     }
 
     /**

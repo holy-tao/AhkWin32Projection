@@ -7,13 +7,10 @@
 /**
  * The IWMProximityDetection interface validates a playback device for receiving media data.
  * @remarks
- * 
  * The validation state is stored in the device registration database. You can check the validation state for a device by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmregistereddevice-isvalid">IWMRegisteredDevice::IsValid</a>.
  * 
  * Validation expires after 48 hours.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmproximitydetection
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nn-wmsdkidl-iwmproximitydetection
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -39,7 +36,13 @@ class IWMProximityDetection extends IUnknown{
     static VTableNames => ["StartDetection"]
 
     /**
-     * The StartDetection method begins the proximity detection process. After calling this method, do not release the IWMProximityDetection until you recieve the WMT_PROXIMITY_COMPLETED message.
+     * The StartDetection method begins the proximity detection process. After calling this method, do not release the IWMProximityDetection until you receive the WMT_PROXIMITY_COMPLETED message.
+     * @remarks
+     * This method is asynchronous. When proximity detection is complete, a WMT_PROXIMITY_RESULT message is sent to the callback specified by <i>pCallback</i>. The completion message is accompanied by an <b>HRESULT</b> indicating success or failure.
+     * 
+     * Regardless of whether the proximity detection completes, the listening thread runs for two minutes, then send the  WMT_PROXIMITY_COMPLETED message. Do not release the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmproximitydetection">IWMProximityDetection</a> interface until you receive this message.
+     * 
+     * If this method returns a failure code, no messages are sent to the callback.
      * @param {Pointer<Integer>} pbRegistrationMsg Address of the registration message in memory. This message is received by your application from the device.
      * @param {Integer} cbRegistrationMsg Size of registration message in bytes.
      * @param {Pointer<Integer>} pbLocalAddress Address of a <b>SOCKADDR_STORAGE</b> structure that contains the address of the local network interface to be used during proximity detection. If the <i>dwExtraPortsAllowed</i> parameter is not 0, the port number specified in the SOCKADDR_STORAGE structure identifies the beginning of the range of ports that will be tried.
@@ -47,15 +50,19 @@ class IWMProximityDetection extends IUnknown{
      * @param {Integer} dwExtraPortsAllowed Specifies the number of additional ports that the method will attempt to use if the previous ports were not successfully used. The method always attempts to use the port specified in the <i>pbLocalAddress</i> parameter first. If that attempt fails, then the method makes a number of additional attempts up to the value of this parameter. On each subsequent attempt, the port number is incremented. So if the port number in <i>pbLocalAddress</i> is 5000, and <i>dwExtraPortsAllowed</i> is set to 20, the method will start with port 5000 and, if necessary, try ports 5001 through 5020.
      * @param {IWMStatusCallback} pCallback Address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface that will receive proximity detection status messages.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This is passed to the application in calls to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmstatuscallback-onstatus">IWMStatusCallback::OnStatus</a> callback. You can use this parameter to differentiate between messages from different objects when sharing a single status callback.
-     * @returns {INSSBuffer} Address of a variable that receives the address of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on the buffer object containing the registration response message. You must send this message data to the device.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmproximitydetection-startdetection
+     * @returns {INSSBuffer} Address of a variable that receives the address of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface on the buffer object containing the registration response message. You must send this message data to the device.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsdkidl/nf-wmsdkidl-iwmproximitydetection-startdetection
      */
     StartDetection(pbRegistrationMsg, cbRegistrationMsg, pbLocalAddress, cbLocalAddress, dwExtraPortsAllowed, pCallback, pvContext) {
         pbRegistrationMsgMarshal := pbRegistrationMsg is VarRef ? "char*" : "ptr"
         pbLocalAddressMarshal := pbLocalAddress is VarRef ? "char*" : "ptr"
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
 
-        result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, "uint", cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", &ppRegistrationResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "HRESULT")
+        result := ComCall(3, this, pbRegistrationMsgMarshal, pbRegistrationMsg, "uint", cbRegistrationMsg, pbLocalAddressMarshal, pbLocalAddress, "uint", cbLocalAddress, "uint", dwExtraPortsAllowed, "ptr*", &ppRegistrationResponseMsg := 0, "ptr", pCallback, pvContextMarshal, pvContext, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return INSSBuffer(ppRegistrationResponseMsg)
     }
 }

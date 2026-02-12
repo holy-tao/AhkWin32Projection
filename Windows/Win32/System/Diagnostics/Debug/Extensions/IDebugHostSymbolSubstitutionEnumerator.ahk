@@ -30,12 +30,16 @@ class IDebugHostSymbolSubstitutionEnumerator extends IDebugHostSymbolEnumerator{
 
     /**
      * 
-     * @param {Pointer<IDebugHostSymbol>} symbol 
+     * @param {Pointer<Pointer<IDebugHostSymbol>>} symbol 
      * @param {Pointer<BSTR>} symbolText 
      * @returns {HRESULT} 
      */
     GetNextWithSubstitutionText(symbol, symbolText) {
-        result := ComCall(5, this, "ptr*", symbol, "ptr", symbolText, "HRESULT")
+        result := ComCall(5, this, "ptr*", symbol, "ptr", symbolText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

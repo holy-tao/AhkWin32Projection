@@ -37,7 +37,11 @@ class ITargetFrame2 extends IUnknown{
     SetFrameName(pszFrameName) {
         pszFrameName := pszFrameName is String ? StrPtr(pszFrameName) : pszFrameName
 
-        result := ComCall(3, this, "ptr", pszFrameName, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFrameName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -46,7 +50,11 @@ class ITargetFrame2 extends IUnknown{
      * @returns {PWSTR} 
      */
     GetFrameName() {
-        result := ComCall(4, this, "ptr*", &ppszFrameName := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppszFrameName := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszFrameName
     }
 
@@ -55,7 +63,11 @@ class ITargetFrame2 extends IUnknown{
      * @returns {IUnknown} 
      */
     GetParentFrame() {
-        result := ComCall(5, this, "ptr*", &ppunkParent := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &ppunkParent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkParent)
     }
 
@@ -67,16 +79,25 @@ class ITargetFrame2 extends IUnknown{
     SetFrameSrc(pszFrameSrc) {
         pszFrameSrc := pszFrameSrc is String ? StrPtr(pszFrameSrc) : pszFrameSrc
 
-        result := ComCall(6, this, "ptr", pszFrameSrc, "HRESULT")
+        result := ComCall(6, this, "ptr", pszFrameSrc, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * The GetFrameSrcAddressOffset function returns the offset of the frames source address.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/NetMon2/getframesrcaddressoffset
      */
     GetFrameSrc() {
-        result := ComCall(7, this, "ptr*", &ppszFrameSrc := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppszFrameSrc := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszFrameSrc
     }
 
@@ -85,7 +106,11 @@ class ITargetFrame2 extends IUnknown{
      * @returns {IOleContainer} 
      */
     GetFramesContainer() {
-        result := ComCall(8, this, "ptr*", &ppContainer := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppContainer := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IOleContainer(ppContainer)
     }
 
@@ -95,7 +120,11 @@ class ITargetFrame2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFrameOptions(dwFlags) {
-        result := ComCall(9, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(9, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,7 +133,11 @@ class ITargetFrame2 extends IUnknown{
      * @returns {Integer} 
      */
     GetFrameOptions() {
-        result := ComCall(10, this, "uint*", &pdwFlags := 0, "HRESULT")
+        result := ComCall(10, this, "uint*", &pdwFlags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwFlags
     }
 
@@ -115,7 +148,11 @@ class ITargetFrame2 extends IUnknown{
      * @returns {HRESULT} 
      */
     SetFrameMargins(dwWidth, dwHeight) {
-        result := ComCall(11, this, "uint", dwWidth, "uint", dwHeight, "HRESULT")
+        result := ComCall(11, this, "uint", dwWidth, "uint", dwHeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -129,7 +166,11 @@ class ITargetFrame2 extends IUnknown{
         pdwWidthMarshal := pdwWidth is VarRef ? "uint*" : "ptr"
         pdwHeightMarshal := pdwHeight is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(12, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "HRESULT")
+        result := ComCall(12, this, pdwWidthMarshal, pdwWidth, pdwHeightMarshal, pdwHeight, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,7 +183,11 @@ class ITargetFrame2 extends IUnknown{
     FindFrame(pszTargetName, dwFlags) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(13, this, "ptr", pszTargetName, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "HRESULT")
+        result := ComCall(13, this, "ptr", pszTargetName, "uint", dwFlags, "ptr*", &ppunkTargetFrame := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppunkTargetFrame)
     }
 
@@ -154,7 +199,11 @@ class ITargetFrame2 extends IUnknown{
     GetTargetAlias(pszTargetName) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := ComCall(14, this, "ptr", pszTargetName, "ptr*", &ppszTargetAlias := 0, "HRESULT")
+        result := ComCall(14, this, "ptr", pszTargetName, "ptr*", &ppszTargetAlias := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppszTargetAlias
     }
 }

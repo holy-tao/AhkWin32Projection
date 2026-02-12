@@ -42,9 +42,16 @@ class ICertificateAttestationChallenge2 extends ICertificateAttestationChallenge
      * @returns {HRESULT} 
      */
     put_KeyContainerName(Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", Value, "HRESULT")
+        result := ComCall(10, this, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,9 +62,16 @@ class ICertificateAttestationChallenge2 extends ICertificateAttestationChallenge
      * @returns {HRESULT} 
      */
     put_KeyBlob(Encoding, Value) {
-        Value := Value is String ? BSTR.Alloc(Value).Value : Value
+        if(Value is String) {
+            pin := BSTR.Alloc(Value)
+            Value := pin.Value
+        }
 
-        result := ComCall(11, this, "int", Encoding, "ptr", Value, "HRESULT")
+        result := ComCall(11, this, "int", Encoding, "ptr", Value, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

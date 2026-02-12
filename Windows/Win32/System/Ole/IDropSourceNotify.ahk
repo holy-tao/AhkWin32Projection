@@ -5,7 +5,7 @@
 
 /**
  * The IDropSourceNotify interface is implemented on an IDropSource object to receive notifications from OLE when a user drags the mouse into or out of a potential drop target window.
- * @see https://docs.microsoft.com/windows/win32/api//oleidl/nn-oleidl-idropsourcenotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nn-oleidl-idropsourcenotify
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -34,22 +34,30 @@ class IDropSourceNotify extends IUnknown{
      * OLE calls this method when the user drags the mouse cursor into a potential drop target window.
      * @param {HWND} hwndTarget The window handle of the potential drop target window.
      * @returns {HRESULT} This method returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-idropsourcenotify-dragentertarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-idropsourcenotify-dragentertarget
      */
     DragEnterTarget(hwndTarget) {
         hwndTarget := hwndTarget is Win32Handle ? NumGet(hwndTarget, "ptr") : hwndTarget
 
-        result := ComCall(3, this, "ptr", hwndTarget, "HRESULT")
+        result := ComCall(3, this, "ptr", hwndTarget, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * OLE calls this method when the user drags the mouse cursor out of a potential drop target window.
      * @returns {HRESULT} This method returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//oleidl/nf-oleidl-idropsourcenotify-dragleavetarget
+     * @see https://learn.microsoft.com/windows/win32/api//content/oleidl/nf-oleidl-idropsourcenotify-dragleavetarget
      */
     DragLeaveTarget() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -34,7 +34,11 @@ class IRTCSessionPortManagement extends IUnknown{
      * @returns {HRESULT} 
      */
     SetPortManager(pPortManager) {
-        result := ComCall(3, this, "ptr", pPortManager, "HRESULT")
+        result := ComCall(3, this, "ptr", pPortManager, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -10,7 +10,7 @@
  * <div> </div>
  * <div class="alert"><b>Note</b>  Additional constants might be added to the <b>VDS_STORAGE_BUS_TYPE</b> enumeration in future Windows versions. For this reason, your application must be designed to gracefully handle an unrecognized <b>VDS_STORAGE_BUS_TYPE</b> enumeration constant.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/vdslun/ne-vdslun-vds_storage_bus_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/vdslun/ne-vdslun-vds_storage_bus_type
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

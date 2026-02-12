@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-reserveandappendlog">ReserveAndAppendLog</see>, <see href="https://learn.microsoft.com/windows/win32/api//content/clfsw32/nf-clfsw32-reserveandappendlogaligned">ReserveAndAppendLogAligned</see>.
+ * @see 
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

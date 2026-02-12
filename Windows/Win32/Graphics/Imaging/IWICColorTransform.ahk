@@ -6,12 +6,10 @@
 /**
  * Exposes methods that transforms an IWICBitmapSource from one color context to another.
  * @remarks
- * 
  * A <b>IWICColorTransform</b> is an imaging pipeline component that knows how to pull pixels obtained from a given <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a> through a color transform. The color transform is defined by mapping colors from the source color context to the destination color context in a given output pixel format.
  * 
  * Once initialized, a color transform cannot be reinitialized. Because of this, a color transform cannot be used with multiple sources or varying parameters.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwiccolortransform
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nn-wincodec-iwiccolortransform
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -38,6 +36,31 @@ class IWICColorTransform extends IWICBitmapSource{
 
     /**
      * Initializes an IWICColorTransform with a IWICBitmapSource and transforms it from one IWICColorContext to another.
+     * @remarks
+     * The currently supported formats for the <i>pIContextSource</i>  and <i>pixelFmtDest</i> parameters are: 
+     * 
+     * 
+     * <ul>
+     * <li>GUID_WICPixelFormat8bppGray</li>
+     * <li>GUID_WICPixelFormat16bppGray</li>
+     * <li>GUID_WICPixelFormat16bppBGR555</li>
+     * <li>GUID_WICPixelFormat16bppBGR565</li>
+     * <li>GUID_WICPixelFormat24bppBGR</li>
+     * <li>GUID_WICPixelFormat24bppRGB</li>
+     * <li>GUID_WICPixelFormat32bppBGR</li>
+     * <li>GUID_WICPixelFormat32bppBGRA</li>
+     * <li>GUID_WICPixelFormat32bppPBGRA</li>
+     * <li>GUID_WICPixelFormat32bppPRGBA (Windows 8 and later)</li>
+     * <li>GUID_WICPixelFormat32bppRGBA</li>
+     * <li>GUID_WICPixelFormat32bppBGR101010</li>
+     * <li>GUID_WICPixelFormat32bppCMYK</li>
+     * <li>GUID_WICPixelFormat48bppBGR</li>
+     * <li>GUID_WICPixelFormat64bppBGRA 		(Windows 8 and later)</li>
+     * <li>GUID_WICPixelFormat64bppPBGRA (Windows 8 and later)</li>
+     * <li>GUID_WICPixelFormat64bppPRGBA (Windows 8 and later)</li>
+     * <li>GUID_WICPixelFormat64bppRGBA 		 (Windows 8 and later)</li>
+     * </ul>
+     * In order to get correct behavior from a color transform, the input and output pixel formats must be compatible with the source and destination color profiles. For example, an sRGB destination color profile will produce incorrect results when used with a CMYK destination pixel format.
      * @param {IWICBitmapSource} pIBitmapSource Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicbitmapsource">IWICBitmapSource</a>*</b>
      * 
      * The bitmap source used to initialize the color transform.
@@ -54,11 +77,15 @@ class IWICColorTransform extends IWICBitmapSource{
      * This parameter is limited to a subset of the native WIC pixel formats, see Remarks for a list.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwiccolortransform-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/wincodec/nf-wincodec-iwiccolortransform-initialize
      */
     Initialize(pIBitmapSource, pIContextSource, pIContextDest, pixelFmtDest) {
-        result := ComCall(8, this, "ptr", pIBitmapSource, "ptr", pIContextSource, "ptr", pIContextDest, "ptr", pixelFmtDest, "HRESULT")
+        result := ComCall(8, this, "ptr", pIBitmapSource, "ptr", pIContextSource, "ptr", pIContextDest, "ptr", pixelFmtDest, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

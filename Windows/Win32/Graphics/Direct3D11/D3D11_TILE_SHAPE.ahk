@@ -6,7 +6,7 @@
  * @remarks
  * Texels are equivalent to pixels.  For untyped buffer resources, a texel is just a byte. For multisample antialiasing (MSAA) surfaces, the numbers are still in terms of pixels/texels.
  * The values here are independent of the surface dimensions.  Even if the surface is smaller than what would fit in a tile, the full tile dimensions are reported here.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11_2/ns-d3d11_2-d3d11_tile_shape
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11_2/ns-d3d11_2-d3d11_tile_shape
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

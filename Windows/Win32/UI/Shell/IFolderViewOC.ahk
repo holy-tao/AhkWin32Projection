@@ -34,7 +34,11 @@ class IFolderViewOC extends IDispatch{
      * @returns {HRESULT} 
      */
     SetFolderView(pdisp) {
-        result := ComCall(7, this, "ptr", pdisp, "HRESULT")
+        result := ComCall(7, this, "ptr", pdisp, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

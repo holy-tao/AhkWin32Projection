@@ -3,7 +3,7 @@
 
 /**
  * The RAS_AUTH_ATTRIBUTE_TYPE enumerated type specifies attribute values used for session authentication.
- * @see https://learn.microsoft.com/windows/win32/api/raseapif/ne-raseapif-ras_auth_attribute_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/raseapif/ne-raseapif-ras_auth_attribute_type
  * @namespace Windows.Win32.Security.ExtensibleAuthenticationProtocol
  * @version v4.0.30319
  */

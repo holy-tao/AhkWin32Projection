@@ -41,7 +41,11 @@ class IRTCWatcher extends IRTCPresenceContact{
      * @returns {Integer} 
      */
     get_State() {
-        result := ComCall(11, this, "int*", &penState := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &penState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penState
     }
 
@@ -51,7 +55,11 @@ class IRTCWatcher extends IRTCPresenceContact{
      * @returns {HRESULT} 
      */
     put_State(enState) {
-        result := ComCall(12, this, "int", enState, "HRESULT")
+        result := ComCall(12, this, "int", enState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

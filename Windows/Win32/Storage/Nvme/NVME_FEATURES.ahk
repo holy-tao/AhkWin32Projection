@@ -5,7 +5,7 @@
  * Contains values that indicate which feature should be retrieved or configured by the **NVME_ADMIN_COMMAND_GET_FEATURES** and **NVME_ADMIN_COMMAND_SET_FEATURES** Admin commands.
  * @remarks
  * In the **NVME_ADMIN_COMMAND_GET_FEATURES** and **NVME_ADMIN_COMMAND_SET_FEATURES** Admin commands, the feature is specified in the Feature Identifier (**FID**) member of the [NVME_CDW10_GET_FEATURES](ns-nvme-nvme_cdw10_get_features.md) and [NVME_CDW10_SET_FEATURES](ns-nvme-nvme_cdw10_set_features.md) structures.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_features
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_features
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

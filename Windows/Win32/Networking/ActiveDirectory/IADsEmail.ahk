@@ -6,7 +6,7 @@
 
 /**
  * The IADsEmail interface provides methods for an ADSI client to access the Email Address attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsemail
+ * @see https://learn.microsoft.com/windows/win32/api//content/iads/nn-iads-iadsemail
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -52,7 +52,11 @@ class IADsEmail extends IDispatch{
      * @returns {Integer} 
      */
     get_Type() {
-        result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -62,7 +66,11 @@ class IADsEmail extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Type(lnType) {
-        result := ComCall(8, this, "int", lnType, "HRESULT")
+        result := ComCall(8, this, "int", lnType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -72,7 +80,11 @@ class IADsEmail extends IDispatch{
      */
     get_Address() {
         retval := BSTR()
-        result := ComCall(9, this, "ptr", retval, "HRESULT")
+        result := ComCall(9, this, "ptr", retval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return retval
     }
 
@@ -82,9 +94,16 @@ class IADsEmail extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Address(bstrAddress) {
-        bstrAddress := bstrAddress is String ? BSTR.Alloc(bstrAddress).Value : bstrAddress
+        if(bstrAddress is String) {
+            pin := BSTR.Alloc(bstrAddress)
+            bstrAddress := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrAddress, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

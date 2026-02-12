@@ -8,10 +8,8 @@
 /**
  * Exposes methods that provide information to handlers about the items they contain.
  * @remarks
- * 
  * Sync Center calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrhandler">ISyncMgrHandler</a> interface to obtain a pointer to the <b>ISyncMgrSyncItemContainer</b> interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrsyncitemcontainer
+ * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nn-syncmgr-isyncmgrsyncitemcontainer
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,24 +42,36 @@ class ISyncMgrSyncItemContainer extends IUnknown{
      * @returns {ISyncMgrSyncItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a> instance representing the sync item.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitem
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitem
      */
     GetSyncItem(pszItemID) {
         pszItemID := pszItemID is String ? StrPtr(pszItemID) : pszItemID
 
-        result := ComCall(3, this, "ptr", pszItemID, "ptr*", &ppItem := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pszItemID, "ptr*", &ppItem := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncMgrSyncItem(ppItem)
     }
 
     /**
      * Gets an interface that enumerates the handler's sync items.
+     * @remarks
+     * This method replaces the older <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/nf-mobsync-isyncmgrsynchronize-enumsyncmgritems">EnumSyncMgrItems</a> method. The older method returned an enumerator interface which returned a <a href="https://docs.microsoft.com/windows/desktop/api/mobsync/ns-mobsync-syncmgritem">SYNCMGRITEM</a> structure for each sync item. To get the data previously provided by that structure, Sync Center calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on each item's <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsyncitem">ISyncMgrSyncItem</a> interface to request a corresponding <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrsynciteminfo">ISyncMgrSyncItemInfo</a> interface.
+     * 
+     * The number of enumerated items can be obtained through the <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemcount">ISyncMgrSyncItemContainer::GetSyncItemCount</a> method.
      * @returns {IEnumSyncMgrSyncItems} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrsyncitems">IEnumSyncMgrSyncItems</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrsyncitems">IEnumSyncMgrSyncItems</a> instance. <b>IEnumSyncMgrSyncItems</b> can be used to retrieve an interface for each sync item in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemenumerator
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemenumerator
      */
     GetSyncItemEnumerator() {
-        result := ComCall(4, this, "ptr*", &ppenum := 0, "HRESULT")
+        result := ComCall(4, this, "ptr*", &ppenum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSyncMgrSyncItems(ppenum)
     }
 
@@ -70,10 +80,14 @@ class ISyncMgrSyncItemContainer extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * When this method returns, contains a pointer to the number of items in the container. This is the number of items enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-ienumsyncmgrsyncitems">IEnumSyncMgrSyncItems</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemcount
+     * @see https://learn.microsoft.com/windows/win32/api//content/syncmgr/nf-syncmgr-isyncmgrsyncitemcontainer-getsyncitemcount
      */
     GetSyncItemCount() {
-        result := ComCall(5, this, "uint*", &pcItems := 0, "HRESULT")
+        result := ComCall(5, this, "uint*", &pcItems := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcItems
     }
 }

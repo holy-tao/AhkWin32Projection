@@ -34,7 +34,11 @@ class ISpGrammarBuilder extends IUnknown{
      * @returns {HRESULT} 
      */
     ResetGrammar(NewLanguage) {
-        result := ComCall(3, this, "ushort", NewLanguage, "HRESULT")
+        result := ComCall(3, this, "ushort", NewLanguage, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class ISpGrammarBuilder extends IUnknown{
     GetRule(pszRuleName, dwRuleId, dwAttributes, fCreateIfNotExist, phInitialState) {
         pszRuleName := pszRuleName is String ? StrPtr(pszRuleName) : pszRuleName
 
-        result := ComCall(4, this, "ptr", pszRuleName, "uint", dwRuleId, "uint", dwAttributes, "int", fCreateIfNotExist, "ptr", phInitialState, "HRESULT")
+        result := ComCall(4, this, "ptr", pszRuleName, "uint", dwRuleId, "uint", dwAttributes, "int", fCreateIfNotExist, "ptr", phInitialState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -62,7 +70,11 @@ class ISpGrammarBuilder extends IUnknown{
     ClearRule(hState) {
         hState := hState is Win32Handle ? NumGet(hState, "ptr") : hState
 
-        result := ComCall(5, this, "ptr", hState, "HRESULT")
+        result := ComCall(5, this, "ptr", hState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -75,7 +87,11 @@ class ISpGrammarBuilder extends IUnknown{
     CreateNewState(hState, phState) {
         hState := hState is Win32Handle ? NumGet(hState, "ptr") : hState
 
-        result := ComCall(6, this, "ptr", hState, "ptr", phState, "HRESULT")
+        result := ComCall(6, this, "ptr", hState, "ptr", phState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +112,11 @@ class ISpGrammarBuilder extends IUnknown{
         psz := psz is String ? StrPtr(psz) : psz
         pszSeparators := pszSeparators is String ? StrPtr(pszSeparators) : pszSeparators
 
-        result := ComCall(7, this, "ptr", hFromState, "ptr", hToState, "ptr", psz, "ptr", pszSeparators, "int", eWordType, "float", Weight, "ptr", pPropInfo, "HRESULT")
+        result := ComCall(7, this, "ptr", hFromState, "ptr", hToState, "ptr", psz, "ptr", pszSeparators, "int", eWordType, "float", Weight, "ptr", pPropInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -114,33 +134,57 @@ class ISpGrammarBuilder extends IUnknown{
         hToState := hToState is Win32Handle ? NumGet(hToState, "ptr") : hToState
         hRule := hRule is Win32Handle ? NumGet(hRule, "ptr") : hRule
 
-        result := ComCall(8, this, "ptr", hFromState, "ptr", hToState, "ptr", hRule, "float", Weight, "ptr", pPropInfo, "HRESULT")
+        result := ComCall(8, this, "ptr", hFromState, "ptr", hToState, "ptr", hRule, "float", Weight, "ptr", pPropInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Adds a SYSTEM_RESOURCE_ATTRIBUTE_ACEaccess control entry (ACE) to the end of a system access control list (SACL).
      * @param {SPSTATEHANDLE} hRuleState 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>.
+     * 
+     * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/securitybaseapi/nf-securitybaseapi-addresourceattributeace
      */
     AddResource(hRuleState, pszResourceName, pszResourceValue) {
         hRuleState := hRuleState is Win32Handle ? NumGet(hRuleState, "ptr") : hRuleState
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
         pszResourceValue := pszResourceValue is String ? StrPtr(pszResourceValue) : pszResourceValue
 
-        result := ComCall(9, this, "ptr", hRuleState, "ptr", pszResourceName, "ptr", pszResourceValue, "HRESULT")
+        result := ComCall(9, this, "ptr", hRuleState, "ptr", pszResourceName, "ptr", pszResourceValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * 
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
+     * 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api//content/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit(dwReserved) {
-        result := ComCall(10, this, "uint", dwReserved, "HRESULT")
+        result := ComCall(10, this, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

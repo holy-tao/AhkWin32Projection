@@ -2,6 +2,7 @@
 #Include ..\..\..\..\Win32Struct.ahk
 #Include ..\..\Foundation\HWND.ahk
 #Include ..\..\Foundation\HINSTANCE.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio
@@ -135,9 +136,12 @@ class ACMFORMATCHOOSEA extends Win32Struct
     /**
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 256, "ptr")
-        set => NumPut("ptr", value, this, 256)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(256, this)
+            return this.__lCustData
+        }
     }
 
     /**

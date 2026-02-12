@@ -7,10 +7,8 @@
 /**
  * Provides methods used to manage location reports, event registration, and sensor permissions.
  * @remarks
- * 
- * When <b>CoCreateInstance</b> is callled to create an <b>ILocation</b> object, it may result in a notification being displayed in the taskbar, and a Location Activity event being logged in Event Viewer, if it is the application's first use of location.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//locationapi/nn-locationapi-ilocation
+ * When <b>CoCreateInstance</b> is called to create an <b>ILocation</b> object, it may result in a notification being displayed in the taskbar, and a Location Activity event being logged in Event Viewer, if it is the application's first use of location.
+ * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nn-locationapi-ilocation
  * @namespace Windows.Win32.Devices.Geolocation
  * @version v4.0.30319
  */
@@ -43,6 +41,12 @@ class ILocation extends IUnknown{
 
     /**
      * Requests location report events.
+     * @remarks
+     * The interval you request by using the <i>dwRequestedReportInterval</i> parameter represents the shortest amount of time between events. This means that you request to receive event notifications no more frequently than specified, but the elapsed time may be significantly longer. Use the <i>dwRequestedReportInterval</i> parameter to help ensure that event notifications do not use more processor resources than necessary.
+     * 
+     * The location provider is not required to provide reports at the interval that you request. Call <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreportinterval">GetReportInterval</a> to discover the true report interval setting.
+     * 
+     * Applications that need to get location data only once, to fill out a form or place the user's location on a map, should register for events and wait for the first report event as described in <a href="https://docs.microsoft.com/previous-versions/visualstudio">Waiting For a Location Report</a>.
      * @param {ILocationEvents} pEvents Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationevents">ILocationEvents</a> callback interface through which the requested event notifications will be received.
      * @param {Pointer<Guid>} reportType <b>GUID</b> that specifies the interface ID of the report type for which to receive event notifications.
      * @param {Integer} dwRequestedReportInterval <b>DWORD</b> that specifies the requested elapsed time, in milliseconds, between event notifications for the specified report type. If <i>dwRequestedReportInterval</i> is zero, no minimum interval is specified and your application requests to receive events at the location sensor's default interval. See Remarks.
@@ -87,10 +91,14 @@ class ILocation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-registerforreport
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-registerforreport
      */
     RegisterForReport(pEvents, reportType, dwRequestedReportInterval) {
-        result := ComCall(3, this, "ptr", pEvents, "ptr", reportType, "uint", dwRequestedReportInterval, "HRESULT")
+        result := ComCall(3, this, "ptr", pEvents, "ptr", reportType, "uint", dwRequestedReportInterval, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -138,48 +146,108 @@ class ILocation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-unregisterforreport
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-unregisterforreport
      */
     UnregisterForReport(reportType) {
-        result := ComCall(4, this, "ptr", reportType, "HRESULT")
+        result := ComCall(4, this, "ptr", reportType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves a location report.
+     * @remarks
+     * <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> is the base interface for specific location report types.   Call <b>QueryInterface</b> to retrieve a pointer to the correct report type.
+     * 
+     * When <b>GetReport</b> is called, it may result in a notification being displayed in the taskbar, and a Location Activity event being logged in Event Viewer, if it is the application's first use of location.
+     * 
+     * <div class="alert"><b>Note</b>  When an application first starts, or when a new location sensor is enabled, <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreportstatus">GetReportStatus</a> may report a status of <b>REPORT_RUNNING</b>  shortly before the new location report is available. Therefore, an initial call to <b>GetReport</b> can return an error (<b>ERROR_NO_DATA</b>) or a value that is not from the expected location sensor, even if <b>GetReportStatus</b> indicates a status of <b>REPORT_RUNNING</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreportstatus">GetReportStatus</a> for a description of a workaround for this issue.</div>
+     * <div> </div>
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the type of report to retrieve.
      * @returns {ILocationReport} Address of a pointer to <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilocationreport">ILocationReport</a> that receives the specified location report.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-getreport
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-getreport
      */
     GetReport(reportType) {
-        result := ComCall(5, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", reportType, "ptr*", &ppLocationReport := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ILocationReport(ppLocationReport)
     }
 
     /**
      * Retrieves the status for the specified report type.
+     * @remarks
+     * This method retrieves report status for new reports. The most recent reports remain available through <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreport">ILocation::GetReport</a>, regardless of the status reported by this method.
+     * 
+     * <h3><a id="Known_Issues"></a><a id="known_issues"></a><a id="KNOWN_ISSUES"></a>Known Issues</h3>
+     * When an application first starts, or when a new location sensor is enabled, <b>GetReportStatus</b> may report a status of <b>REPORT_RUNNING</b>  shortly before the location report is available.
+     * 
+     * Therefore, an initial call to <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreport">GetReport</a> will return an error (<b>ERROR_NO_DATA</b>) or a value that is not from the expected location sensor, even if <b>GetReportStatus</b> indicates a status of <b>REPORT_RUNNING</b>. This can happen in the following cases:<ol>
+     * <li>The application polls for status by using <b>GetReportStatus</b> until a report status of <b>REPORT_RUNNING</b> is returned, and then calls <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreport">GetReport</a>.  </li>
+     * <li><b>GetReportStatus</b> is called when the application starts. This may occur after creation of the location object, or after calling <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-requestpermissions">RequestPermissions</a>.</li>
+     * </ol>
+     * 
+     * 
+     * An application can mitigate the issue by implementing the following workaround. The workaround involves subscribing to location report events.
+     * 
+     * <h3><a id="Workaround__Subscribing_to_Events"></a><a id="workaround__subscribing_to_events"></a><a id="WORKAROUND__SUBSCRIBING_TO_EVENTS"></a>Workaround: Subscribing to Events</h3>
+     *  The application can subscribe to report events and wait for the report from the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocationevents-onlocationchanged">OnLocationChanged</a> event or the <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocationevents-onstatuschanged">OnStatusChanged</a> event. The application should wait for a specified finite amount of time.
+     * 
+     * The following example shows an application that waits for a location report of type <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nn-locationapi-ilatlongreport">ILatLongReport</a>. If a report is successfully retrieved within the specified amount of time, it prints out a message indicating that data was received.
+     * 
+     * The following example code demonstrates how an application may call a function named <b>WaitForLocationReport</b> that registers for events and waits for the first location report. <b>WaitForLocationReport</b> waits for an event that is set by a callback object. The function <b>WaitForLocationReport</b> and the callback object is defined in the examples that follow this one.
+     * 
+     * <div class="code"></div>
+     * 
+     * ```cpp
+     * // main.cpp
+     * // An application that demonstrates how to wait for a location report.
+     * // This sample waits for latitude/longitude reports but can be modified
+     * // to wait for civic address reports by replacing IID_ILatLongReport 
+     * // with IID_ICivicAddressReport in the following code.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to get the interval.
      * @returns {Integer} Address of a <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/ne-locationapi-location_report_status">LOCATION_REPORT_STATUS</a> that receives the current status for the specified report.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-getreportstatus
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-getreportstatus
      */
     GetReportStatus(reportType) {
-        result := ComCall(6, this, "ptr", reportType, "int*", &pStatus := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", reportType, "int*", &pStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pStatus
     }
 
     /**
      * Retrieves the requested amount of time, in milliseconds, between report events.
+     * @remarks
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-registerforreport">RegisterForReport</a> before calling this method.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to get the interval.
      * @returns {Integer} The address of a <b>DWORD</b> that receives the report interval value, in milliseconds. If the report is not registered, this will be set to <b>NULL</b>. If this value is set to zero, no minimum interval is specified and your application receives events at the location sensor's default interval.
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-getreportinterval
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-getreportinterval
      */
     GetReportInterval(reportType) {
-        result := ComCall(7, this, "ptr", reportType, "uint*", &pMilliseconds := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", reportType, "uint*", &pMilliseconds := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pMilliseconds
     }
 
     /**
      * Specifies the requested minimum amount of time, in milliseconds, between report events.
+     * @remarks
+     * The interval you request by using this method represents the shortest amount of time between events. This means that you request to receive event notifications no more frequently than specified, but the elapsed time may be significantly longer. Use this method to help ensure that event notifications do not use more processor resources than necessary.
+     * 
+     * It is not guaranteed that your request for a particular report interval will be set by the location provider. Call <a href="https://docs.microsoft.com/windows/desktop/api/locationapi/nf-locationapi-ilocation-getreportinterval">GetReportInterval </a> to discover the true report interval setting.
+     * 
+     * A report interval of zero means that no minimum interval is specified, and the application may receive events at the frequency that the location sensor sends events.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to set the interval.
      * @param {Integer} millisecondsRequested <b>DWORD</b> that contains the report interval value, in milliseconds. If this value is zero, no minimum interval is specified and your application receives events at the location sensor's default interval.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -223,10 +291,14 @@ class ILocation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-setreportinterval
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-setreportinterval
      */
     SetReportInterval(reportType, millisecondsRequested) {
-        result := ComCall(8, this, "ptr", reportType, "uint", millisecondsRequested, "HRESULT")
+        result := ComCall(8, this, "ptr", reportType, "uint", millisecondsRequested, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -234,10 +306,14 @@ class ILocation extends IUnknown{
      * Retrieves the current requested accuracy setting.
      * @param {Pointer<Guid>} reportType <b>REFIID</b> that specifies the report type for which to get the requested accuracy.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-getdesiredaccuracy
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-getdesiredaccuracy
      */
     GetDesiredAccuracy(reportType) {
-        result := ComCall(9, this, "ptr", reportType, "int*", &pDesiredAccuracy := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", reportType, "int*", &pDesiredAccuracy := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDesiredAccuracy
     }
 
@@ -281,20 +357,33 @@ class ILocation extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The value of <i>desiredAccuracy</i> is not supported in the <a href="/previous-versions/windows/desktop/legacy/dd756639(v=vs.85)">LOCATION_DESIRED_ACCURACY</a> enumerated type.
+     * The value of <i>desiredAccuracy</i> is not supported in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd756639(v=vs.85)">LOCATION_DESIRED_ACCURACY</a> enumerated type.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-setdesiredaccuracy
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-setdesiredaccuracy
      */
     SetDesiredAccuracy(reportType, desiredAccuracy) {
-        result := ComCall(10, this, "ptr", reportType, "int", desiredAccuracy, "HRESULT")
+        result := ComCall(10, this, "ptr", reportType, "int", desiredAccuracy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Opens a system dialog box to request user permission to enable location devices.
+     * @remarks
+     * If the user chooses not to enable location services, Windows will not show the  permissions dialog box again.
+     * 
+     * <div class="alert"><b>Note</b>  Repeated asynchronous calls to <b>RequestPermissions</b> will display multiple instances of the <b>Enable location services</b> dialog box and can potentially flood the screen with dialog boxes, resulting in a poor user experience. If you think that other location sensors might be installed after your first call to <b>RequestPermissions</b>, requiring another call to <b>RequestPermissions</b>, you should either call <b>RequestPermissions</b> synchronously or wait until all location sensors are installed to make an asynchronous call. </div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  Making a synchronous call from the user interface (UI) thread of a Windows application can block the UI thread and make the application less responsive. To prevent this, do not make a synchronous call to <b>RequestPermissions</b> from the UI thread.</div>
+     * <div> </div>
+     * <div class="alert"><b>Note</b>  If an  application running in protected mode, such as a Browser Helper Object (BHO) for Internet Explorer, calls <b>RequestPermissions</b>, and the user chooses not to enable location using the dialog box, the location provider will not be enabled, but Windows will display the dialog box again if <b>RequestPermissions</b> is called again by the same user.   </div>
+     * <div> </div>
      * @param {HWND} hParent <b>HWND</b> for the parent window. This parameter is optional. In Windows 8 the dialog is always modal if <i>hParent</i> is provided, and not modal if <i>hParent</i> is NULL.
      * @param {Pointer<Guid>} pReportTypes Pointer to an <b>IID</b> array. This array must contain interface IDs for all report types for which you are requesting permission. The interface IDs of the valid report types are IID_ILatLongReport and  IID_ICivicAddressReport. The count of IDs must match the value specified through the <i>count</i> parameter.
      * @param {Integer} count The count of interface IDs contained in <i>pReportTypes</i>.
@@ -391,12 +480,16 @@ class ILocation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//locationapi/nf-locationapi-ilocation-requestpermissions
+     * @see https://learn.microsoft.com/windows/win32/api//content/locationapi/nf-locationapi-ilocation-requestpermissions
      */
     RequestPermissions(hParent, pReportTypes, count, fModal) {
         hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
 
-        result := ComCall(11, this, "ptr", hParent, "ptr", pReportTypes, "uint", count, "int", fModal, "HRESULT")
+        result := ComCall(11, this, "ptr", hParent, "ptr", pReportTypes, "uint", count, "int", fModal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

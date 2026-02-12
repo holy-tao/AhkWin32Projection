@@ -30,14 +30,24 @@ class IShellUIHelper3 extends IShellUIHelper2{
     static VTableNames => ["AddService", "IsServiceInstalled", "InPrivateFilteringEnabled", "AddToFavoritesBar", "BuildNewTabPage", "SetRecentlyClosedVisible", "SetActivitiesVisible", "ContentDiscoveryReset", "IsSuggestedSitesEnabled", "EnableSuggestedSites", "NavigateToSuggestedSites", "ShowTabsHelp", "ShowInPrivateHelp"]
 
     /**
-     * 
+     * Defines the possible ways in which the IUpdateServiceManager2 interface can process service registration requests.
+     * @remarks
+     * For info about how  <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager2-addservice2">IUpdateServiceManager2::AddService2</a> behaves when you specify different combinations of <b>AddServiceFlag</b> values in the <i>flags</i> parameter, see the Remarks section of <b>IUpdateServiceManager2::AddService2</b>.
      * @param {BSTR} URL 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/wuapi/ne-wuapi-addserviceflag
      */
     AddService(URL) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
 
-        result := ComCall(36, this, "ptr", URL, "HRESULT")
+        result := ComCall(36, this, "ptr", URL, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,10 +58,20 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {Integer} 
      */
     IsServiceInstalled(URL, Verb) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
-        Verb := Verb is String ? BSTR.Alloc(Verb).Value : Verb
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
+        if(Verb is String) {
+            pin := BSTR.Alloc(Verb)
+            Verb := pin.Value
+        }
 
-        result := ComCall(37, this, "ptr", URL, "ptr", Verb, "uint*", &pdwResult := 0, "HRESULT")
+        result := ComCall(37, this, "ptr", URL, "ptr", Verb, "uint*", &pdwResult := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pdwResult
     }
 
@@ -60,7 +80,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {VARIANT_BOOL} 
      */
     InPrivateFilteringEnabled() {
-        result := ComCall(38, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(38, this, "short*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
@@ -72,10 +96,20 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     AddToFavoritesBar(URL, Title, Type) {
-        URL := URL is String ? BSTR.Alloc(URL).Value : URL
-        Title := Title is String ? BSTR.Alloc(Title).Value : Title
+        if(URL is String) {
+            pin := BSTR.Alloc(URL)
+            URL := pin.Value
+        }
+        if(Title is String) {
+            pin := BSTR.Alloc(Title)
+            Title := pin.Value
+        }
 
-        result := ComCall(39, this, "ptr", URL, "ptr", Title, "ptr", Type, "HRESULT")
+        result := ComCall(39, this, "ptr", URL, "ptr", Title, "ptr", Type, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +118,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     BuildNewTabPage() {
-        result := ComCall(40, this, "HRESULT")
+        result := ComCall(40, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -94,7 +132,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     SetRecentlyClosedVisible(fVisible) {
-        result := ComCall(41, this, "short", fVisible, "HRESULT")
+        result := ComCall(41, this, "short", fVisible, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -104,7 +146,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     SetActivitiesVisible(fVisible) {
-        result := ComCall(42, this, "short", fVisible, "HRESULT")
+        result := ComCall(42, this, "short", fVisible, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -113,7 +159,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     ContentDiscoveryReset() {
-        result := ComCall(43, this, "HRESULT")
+        result := ComCall(43, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -122,7 +172,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {VARIANT_BOOL} 
      */
     IsSuggestedSitesEnabled() {
-        result := ComCall(44, this, "short*", &pfEnabled := 0, "HRESULT")
+        result := ComCall(44, this, "short*", &pfEnabled := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfEnabled
     }
 
@@ -132,7 +186,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     EnableSuggestedSites(fEnable) {
-        result := ComCall(45, this, "short", fEnable, "HRESULT")
+        result := ComCall(45, this, "short", fEnable, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -142,9 +200,16 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     NavigateToSuggestedSites(bstrRelativeUrl) {
-        bstrRelativeUrl := bstrRelativeUrl is String ? BSTR.Alloc(bstrRelativeUrl).Value : bstrRelativeUrl
+        if(bstrRelativeUrl is String) {
+            pin := BSTR.Alloc(bstrRelativeUrl)
+            bstrRelativeUrl := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", bstrRelativeUrl, "HRESULT")
+        result := ComCall(46, this, "ptr", bstrRelativeUrl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -153,7 +218,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     ShowTabsHelp() {
-        result := ComCall(47, this, "HRESULT")
+        result := ComCall(47, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +231,11 @@ class IShellUIHelper3 extends IShellUIHelper2{
      * @returns {HRESULT} 
      */
     ShowInPrivateHelp() {
-        result := ComCall(48, this, "HRESULT")
+        result := ComCall(48, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -6,16 +6,13 @@
 /**
  * A module-instance interface is used for resource rebinding.
  * @remarks
- * 
  * To get a module-instance interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11module-createinstance">ID3D11Module::CreateInstance</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d11shader/nf-d3d11shader-id3d11functionlinkinggraph-createmoduleinstance">ID3D11FunctionLinkingGraph::CreateModuleInstance</a>.
  *       
  * 
  * <div class="alert"><b>Note</b>  <b>ID3D11ModuleInstance</b> requires the D3dcompiler_47.dll or a later version of the DLL.
  *       </div>
  * <div> </div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nn-d3d11shader-id3d11moduleinstance
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nn-d3d11shader-id3d11moduleinstance
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -51,7 +48,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} cbDstOffset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The offset in bytes of the destination slot for rebinding. The offset must have 16-byte alignment.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -62,13 +59,17 @@ class ID3D11ModuleInstance extends IUnknown{
      *               </li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds
      *               </li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindconstantbuffer
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindconstantbuffer
      */
     BindConstantBuffer(uSrcSlot, uDstSlot, cbDstOffset) {
-        result := ComCall(3, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", cbDstOffset, "HRESULT")
+        result := ComCall(3, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", cbDstOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -83,7 +84,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} cbDstOffset Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The offset in bytes of the destination slot for rebinding. The offset must have 16-byte alignment.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -94,15 +95,19 @@ class ID3D11ModuleInstance extends IUnknown{
      *               </li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds
      *               </li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindconstantbufferbyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindconstantbufferbyname
      */
     BindConstantBufferByName(pName, uDstSlot, cbDstOffset) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(4, this, "ptr", pName, "uint", uDstSlot, "uint", cbDstOffset, "HRESULT")
+        result := ComCall(4, this, "ptr", pName, "uint", uDstSlot, "uint", cbDstOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -117,7 +122,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -125,13 +130,17 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresource
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresource
      */
     BindResource(uSrcSlot, uDstSlot, uCount) {
-        result := ComCall(5, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(5, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -146,7 +155,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -154,15 +163,19 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourcebyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourcebyname
      */
     BindResourceByName(pName, uDstSlot, uCount) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(6, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(6, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -177,7 +190,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -185,13 +198,17 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindsampler
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindsampler
      */
     BindSampler(uSrcSlot, uDstSlot, uCount) {
-        result := ComCall(7, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(7, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -206,7 +223,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -214,15 +231,19 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindsamplerbyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindsamplerbyname
      */
     BindSamplerByName(pName, uDstSlot, uCount) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(8, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(8, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -237,7 +258,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -245,13 +266,17 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindunorderedaccessview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindunorderedaccessview
      */
     BindUnorderedAccessView(uSrcSlot, uDstSlot, uCount) {
-        result := ComCall(9, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(9, this, "uint", uSrcSlot, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -266,7 +291,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -274,15 +299,19 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindunorderedaccessviewbyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindunorderedaccessviewbyname
      */
     BindUnorderedAccessViewByName(pName, uDstSlot, uCount) {
         pName := pName is String ? StrPtr(pName) : pName
 
-        result := ComCall(10, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "HRESULT")
+        result := ComCall(10, this, "ptr", pName, "uint", uDstSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -297,7 +326,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -305,13 +334,17 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourceasunorderedaccessview
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourceasunorderedaccessview
      */
     BindResourceAsUnorderedAccessView(uSrcSrvSlot, uDstUavSlot, uCount) {
-        result := ComCall(11, this, "uint", uSrcSrvSlot, "uint", uDstUavSlot, "uint", uCount, "HRESULT")
+        result := ComCall(11, this, "uint", uSrcSrvSlot, "uint", uDstUavSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -326,7 +359,7 @@ class ID3D11ModuleInstance extends IUnknown{
      * @param {Integer} uCount Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of slots for rebinding.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns:
      * 
@@ -334,15 +367,19 @@ class ID3D11ModuleInstance extends IUnknown{
      * <li><b>S_OK</b> for a valid rebinding</li>
      * <li><b>S_FALSE</b> for rebinding a nonexistent slot; that is, for which the shader reflection doesn’t have any data</li>
      * <li><b>E_FAIL</b> for an invalid rebinding, for example, the rebinding is out-of-bounds</li>
-     * <li>Possibly one of the other <a href="/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
+     * <li>Possibly one of the other <a href="https://docs.microsoft.com/windows/desktop/direct3d11/d3d11-graphics-reference-returnvalues">Direct3D 11 Return Codes</a>
      * </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourceasunorderedaccessviewbyname
+     * @see https://learn.microsoft.com/windows/win32/api//content/d3d11shader/nf-d3d11shader-id3d11moduleinstance-bindresourceasunorderedaccessviewbyname
      */
     BindResourceAsUnorderedAccessViewByName(pSrvName, uDstUavSlot, uCount) {
         pSrvName := pSrvName is String ? StrPtr(pSrvName) : pSrvName
 
-        result := ComCall(12, this, "ptr", pSrvName, "uint", uDstUavSlot, "uint", uCount, "HRESULT")
+        result := ComCall(12, this, "ptr", pSrvName, "uint", uDstUavSlot, "uint", uCount, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

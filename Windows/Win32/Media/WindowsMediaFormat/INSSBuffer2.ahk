@@ -5,7 +5,7 @@
 
 /**
  * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
- * @see https://docs.microsoft.com/windows/win32/api//wmsbuffer/nn-wmsbuffer-inssbuffer2
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nn-wmsbuffer-inssbuffer2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -31,27 +31,35 @@ class INSSBuffer2 extends INSSBuffer{
     static VTableNames => ["GetSampleProperties", "SetSampleProperties"]
 
     /**
-     * 
+     * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
      * @param {Integer} cbProperties 
      * @returns {Integer} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nn-wmsbuffer-inssbuffer2
      */
     GetSampleProperties(cbProperties) {
-        result := ComCall(8, this, "uint", cbProperties, "char*", &pbProperties := 0, "HRESULT")
+        result := ComCall(8, this, "uint", cbProperties, "char*", &pbProperties := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbProperties
     }
 
     /**
-     * 
+     * The INSSBuffer2 interface inherits from INSSBuffer and defines two additional methods. Currently, neither of these methods is implemented.
      * @param {Integer} cbProperties 
      * @param {Pointer<Integer>} pbProperties 
      * @returns {HRESULT} 
-     * @see https://learn.microsoft.com/windows/win32/api/wmsbuffer/nn-wmsbuffer-inssbuffer2
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmsbuffer/nn-wmsbuffer-inssbuffer2
      */
     SetSampleProperties(cbProperties, pbProperties) {
         pbPropertiesMarshal := pbProperties is VarRef ? "char*" : "ptr"
 
-        result := ComCall(9, this, "uint", cbProperties, pbPropertiesMarshal, pbProperties, "HRESULT")
+        result := ComCall(9, this, "uint", cbProperties, pbPropertiesMarshal, pbProperties, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

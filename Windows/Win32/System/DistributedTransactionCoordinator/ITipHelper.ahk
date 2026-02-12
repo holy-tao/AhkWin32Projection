@@ -37,7 +37,11 @@ class ITipHelper extends IUnknown{
     Pull(i_pszTxUrl) {
         i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
 
-        result := ComCall(3, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr*", &o_ppITransaction := 0, "HRESULT")
+        result := ComCall(3, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr*", &o_ppITransaction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransaction(o_ppITransaction)
     }
 
@@ -50,7 +54,11 @@ class ITipHelper extends IUnknown{
     PullAsync(i_pszTxUrl, i_pTipPullSink) {
         i_pszTxUrlMarshal := i_pszTxUrl is VarRef ? "char*" : "ptr"
 
-        result := ComCall(4, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr", i_pTipPullSink, "ptr*", &o_ppITransaction := 0, "HRESULT")
+        result := ComCall(4, this, i_pszTxUrlMarshal, i_pszTxUrl, "ptr", i_pTipPullSink, "ptr*", &o_ppITransaction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransaction(o_ppITransaction)
     }
 
@@ -59,7 +67,11 @@ class ITipHelper extends IUnknown{
      * @returns {Pointer<Integer>} 
      */
     GetLocalTmUrl() {
-        result := ComCall(5, this, "ptr*", &o_ppszLocalTmUrl := 0, "HRESULT")
+        result := ComCall(5, this, "ptr*", &o_ppszLocalTmUrl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return o_ppszLocalTmUrl
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Used to implement error trapping on the asynchronous batch work that is submitted through the activity created by CoCreateActivity.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iasyncerrornotify
+ * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nn-comsvcs-iasyncerrornotify
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -32,12 +32,20 @@ class IAsyncErrorNotify extends IUnknown{
 
     /**
      * Called by COM+ when an error occurs in your asynchronous batch work.
+     * @remarks
+     * This method should be implemented to gracefully handle errors that occur when your batch work is running asynchronously. Because the process terminates (FailFast) on any unrecoverable error, without this method you have no way of knowing when errors occur in your asynchronous batch work. The process also terminates when this method returns an error as its return value.
+     * 
+     * The batch work itself is implemented in <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iservicecall-oncall">IServiceCall::OnCall</a>, and it is run asynchronously by calling <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iserviceactivity-asynchronouscall">IServiceActivity::AsynchronousCall</a> using the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iserviceactivity">IServiceActivity</a> pointer that was returned from the call to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-cocreateactivity">CoCreateActivity</a>.
      * @param {HRESULT} hr The <b>HRESULT</b> value of the error that occurred while your batch work was running asynchronously.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iasyncerrornotify-onerror
+     * @see https://learn.microsoft.com/windows/win32/api//content/comsvcs/nf-comsvcs-iasyncerrornotify-onerror
      */
     OnError(hr) {
-        result := ComCall(3, this, "int", hr, "HRESULT")
+        result := ComCall(3, this, "int", hr, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

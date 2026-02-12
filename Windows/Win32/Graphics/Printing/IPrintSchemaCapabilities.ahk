@@ -60,23 +60,41 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {IPrintSchemaFeature} 
      */
     GetFeatureByKeyName(bstrKeyName) {
-        bstrKeyName := bstrKeyName is String ? BSTR.Alloc(bstrKeyName).Value : bstrKeyName
+        if(bstrKeyName is String) {
+            pin := BSTR.Alloc(bstrKeyName)
+            bstrKeyName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", &ppFeature := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrKeyName, "ptr*", &ppFeature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaFeature(ppFeature)
     }
 
     /**
-     * 
+     * This function is intended for infrastructure use only. (GetFeatureEnabledState)
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     GetFeature(bstrName, bstrNamespaceUri) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrNamespaceUri := bstrNamespaceUri is String ? BSTR.Alloc(bstrNamespaceUri).Value : bstrNamespaceUri
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrNamespaceUri is String) {
+            pin := BSTR.Alloc(bstrNamespaceUri)
+            bstrNamespaceUri := pin.Value
+        }
 
-        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppFeature := 0, "HRESULT")
+        result := ComCall(11, this, "ptr", bstrName, "ptr", bstrNamespaceUri, "ptr*", &ppFeature := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaFeature(ppFeature)
     }
 
@@ -85,7 +103,11 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {IPrintSchemaPageImageableSize} 
      */
     get_PageImageableSize() {
-        result := ComCall(12, this, "ptr*", &ppPageImageableSize := 0, "HRESULT")
+        result := ComCall(12, this, "ptr*", &ppPageImageableSize := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaPageImageableSize(ppPageImageableSize)
     }
 
@@ -94,7 +116,11 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_JobCopiesAllDocumentsMinValue() {
-        result := ComCall(13, this, "uint*", &pulJobCopiesAllDocumentsMinValue := 0, "HRESULT")
+        result := ComCall(13, this, "uint*", &pulJobCopiesAllDocumentsMinValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulJobCopiesAllDocumentsMinValue
     }
 
@@ -103,7 +129,11 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {Integer} 
      */
     get_JobCopiesAllDocumentsMaxValue() {
-        result := ComCall(14, this, "uint*", &pulJobCopiesAllDocumentsMaxValue := 0, "HRESULT")
+        result := ComCall(14, this, "uint*", &pulJobCopiesAllDocumentsMaxValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pulJobCopiesAllDocumentsMaxValue
     }
 
@@ -113,7 +143,11 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {IPrintSchemaOption} 
      */
     GetSelectedOptionInPrintTicket(pFeature) {
-        result := ComCall(15, this, "ptr", pFeature, "ptr*", &ppOption := 0, "HRESULT")
+        result := ComCall(15, this, "ptr", pFeature, "ptr*", &ppOption := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaOption(ppOption)
     }
 
@@ -123,7 +157,11 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
      * @returns {IPrintSchemaOptionCollection} 
      */
     GetOptions(pFeature) {
-        result := ComCall(16, this, "ptr", pFeature, "ptr*", &ppOptionCollection := 0, "HRESULT")
+        result := ComCall(16, this, "ptr", pFeature, "ptr*", &ppOptionCollection := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IPrintSchemaOptionCollection(ppOptionCollection)
     }
 }

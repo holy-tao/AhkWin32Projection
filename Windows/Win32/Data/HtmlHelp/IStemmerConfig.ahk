@@ -5,7 +5,7 @@
 
 /**
  * Use this interface to provide configuration information that controls stemming.
- * @see https://docs.microsoft.com/windows/win32/api//infotech/nn-infotech-istemmerconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/infotech/nn-infotech-istemmerconfig
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */
@@ -68,24 +68,81 @@ class IStemmerConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-istemmerconfig-setlocaleinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/infotech/nf-infotech-istemmerconfig-setlocaleinfo
      */
     SetLocaleInfo(dwCodePageID, lcid) {
-        result := ComCall(3, this, "uint", dwCodePageID, "uint", lcid, "HRESULT")
+        result := ComCall(3, this, "uint", dwCodePageID, "uint", lcid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves information about a locale specified by identifier. (Unicode)
+     * @remarks
+     * For the operation of this function, see Remarks for <a href="https://docs.microsoft.com/windows/desktop/api/winnls/nf-winnls-getlocaleinfoex">GetLocaleInfoEx</a>.
      * 
+     * <div class="alert"><b>Note</b>   Even when the <i>LCType</i> parameter is specified as LOCALE_FONTSIGNATURE, <i>cchData</i> and the function return are still TCHAR counts. The count is different for the ANSI and Unicode versions of the function. When an application calls the generic version of <b>GetLocaleInfo</b> with LOCALE_FONTSIGNATURE, <i>cchData</i> can be safely specified as sizeof(LOCALESIGNATURE) / sizeof(TCHAR).</div>
+     * <div> </div>
+     * The following examples deal correctly with the buffer size for non-text values:
+     * 
+     * 
+     * ```cpp
+     * int   ret;
+     * CALID calid;
+     * DWORD value;
+     * 
+     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
+     *                     LOCALE_ICALENDARTYPE | LOCALE_RETURN_NUMBER,
+     *                     (LPTSTR)&value,
+     *                     sizeof(value) / sizeof(TCHAR) );
+     * calid = value;
+     * 
+     * LOCALESIGNATURE LocSig;
+     * 
+     * ret = GetLocaleInfo(LOCALE_USER_DEFAULT,
+     *                     LOCALE_FONTSIGNATURE,
+     *                     (LPWSTR)&LocSig,
+     *                     sizeof(LocSig) / sizeof(TCHAR) );
+     * 
+     * ```
+     * 
+     * 
+     * The ANSI string retrieved by the ANSI version of this function is translated from Unicode to ANSI based on the default ANSI code page for the locale identifier. However, if <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-use-cp-acp">LOCALE_USE_CP_ACP</a> is specified, the translation is based on the system default ANSI code page.
+     * 
+     * When the ANSI version of this function is used with a Unicode-only locale identifier, the function can succeed because the operating system uses the system code page. However, characters that are undefined in the system code page appear in the string as a question mark (?). 
+     *       
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winnls.h header defines GetLocaleInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Pointer<Integer>} pdwCodePageID 
      * @param {Pointer<Integer>} plcid 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Returns the number of characters retrieved in the locale data buffer if successful and <i>cchData</i> is a nonzero value. If the function succeeds, <i>cchData</i> is nonzero, and <a href="https://docs.microsoft.com/windows/desktop/Intl/locale-return-constants">LOCALE_RETURN_NUMBER</a> is specified, the return value is the size of the integer retrieved in the data buffer; that is, 2 for the Unicode version of the function or 4 for the ANSI version. If the function succeeds and the value of <i>cchData</i> is 0, the return value is the required size, in characters including a null character, for the locale data buffer.
+     * 
+     * The function returns 0 if it does not succeed. To get extended error information, the application can call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>, which can return one of the following error codes:
+     * 
+     * <ul>
+     * <li>ERROR_INSUFFICIENT_BUFFER. A supplied buffer size was not large enough, or  it was incorrectly set to <b>NULL</b>. </li>
+     * <li>ERROR_INVALID_FLAGS. The values supplied for flags were not valid.</li>
+     * <li>ERROR_INVALID_PARAMETER. Any of the parameter values was invalid.</li>
+     * </ul>
+     * @see https://learn.microsoft.com/windows/win32/api//content/winnls/nf-winnls-getlocaleinfow
      */
     GetLocaleInfo(pdwCodePageID, plcid) {
         pdwCodePageIDMarshal := pdwCodePageID is VarRef ? "uint*" : "ptr"
         plcidMarshal := plcid is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pdwCodePageIDMarshal, pdwCodePageID, plcidMarshal, plcid, "HRESULT")
+        result := ComCall(4, this, pdwCodePageIDMarshal, pdwCodePageID, plcidMarshal, plcid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -96,7 +153,11 @@ class IStemmerConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     SetControlInfo(grfStemFlags, dwReserved) {
-        result := ComCall(5, this, "uint", grfStemFlags, "uint", dwReserved, "HRESULT")
+        result := ComCall(5, this, "uint", grfStemFlags, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -110,7 +171,11 @@ class IStemmerConfig extends IUnknown{
         pgrfStemFlagsMarshal := pgrfStemFlags is VarRef ? "uint*" : "ptr"
         pdwReservedMarshal := pdwReserved is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, pgrfStemFlagsMarshal, pgrfStemFlags, pdwReservedMarshal, pdwReserved, "HRESULT")
+        result := ComCall(6, this, pgrfStemFlagsMarshal, pgrfStemFlags, pdwReservedMarshal, pdwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -121,7 +186,11 @@ class IStemmerConfig extends IUnknown{
      * @returns {HRESULT} 
      */
     LoadExternalStemmerData(pStream, dwExtDataType) {
-        result := ComCall(7, this, "ptr", pStream, "uint", dwExtDataType, "HRESULT")
+        result := ComCall(7, this, "ptr", pStream, "uint", dwExtDataType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

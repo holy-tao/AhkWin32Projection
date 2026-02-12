@@ -4,8 +4,8 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * Developers should use IPropertyDescription instead.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ipropertyui
+ * Developers should use IPropertyDescription instead. (IPropertyUI)
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ipropertyui
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -46,8 +46,8 @@ class IPropertyUI extends IUnknown{
      * The number of characters that were consumed in parsing <i>pszName</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipropertyui-parsepropertyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ipropertyui-parsepropertyname
      */
     ParsePropertyName(pszName, pfmtid, ppid, pchEaten) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -55,7 +55,11 @@ class IPropertyUI extends IUnknown{
         ppidMarshal := ppid is VarRef ? "uint*" : "ptr"
         pchEatenMarshal := pchEaten is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszName, "ptr", pfmtid, ppidMarshal, ppid, pchEatenMarshal, pchEaten, "HRESULT")
+        result := ComCall(3, this, "ptr", pszName, "ptr", pfmtid, ppidMarshal, ppid, pchEatenMarshal, pchEaten, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -70,7 +74,11 @@ class IPropertyUI extends IUnknown{
     GetCannonicalName(fmtid, pid, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(4, this, "ptr", fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(4, this, "ptr", fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,13 +101,17 @@ class IPropertyUI extends IUnknown{
      * The length of the property display name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipropertyui-getdisplayname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ipropertyui-getdisplayname
      */
     GetDisplayName(fmtid, pid, flags, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(5, this, "ptr", fmtid, "uint", pid, "int", flags, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(5, this, "ptr", fmtid, "uint", pid, "int", flags, "ptr", pwszText, "uint", cchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -119,13 +131,17 @@ class IPropertyUI extends IUnknown{
      * The length of the property description.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipropertyui-getpropertydescription
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ipropertyui-getpropertydescription
      */
     GetPropertyDescription(fmtid, pid, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(6, this, "ptr", fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(6, this, "ptr", fmtid, "uint", pid, "ptr", pwszText, "uint", cchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -140,10 +156,14 @@ class IPropertyUI extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * The width of the property description.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipropertyui-getdefaultwidth
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ipropertyui-getdefaultwidth
      */
     GetDefaultWidth(fmtid, pid) {
-        result := ComCall(7, this, "ptr", fmtid, "uint", pid, "uint*", &pcxChars := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", fmtid, "uint", pid, "uint*", &pcxChars := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcxChars
     }
 
@@ -158,10 +178,14 @@ class IPropertyUI extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_propertyui_flags">PROPERTYUI_FLAGS</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_propertyui_flags">PROPERTYUI_FLAGS</a> for the property.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipropertyui-getflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ipropertyui-getflags
      */
     GetFlags(fmtid, pid) {
-        result := ComCall(8, this, "ptr", fmtid, "uint", pid, "int*", &pflags := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", fmtid, "uint", pid, "int*", &pflags := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pflags
     }
 
@@ -181,18 +205,22 @@ class IPropertyUI extends IUnknown{
      * @param {Integer} cchText Type: <b>DWORD</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipropertyui-formatfordisplay
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ipropertyui-formatfordisplay
      */
     FormatForDisplay(fmtid, pid, ppropvar, puiff, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := ComCall(9, this, "ptr", fmtid, "uint", pid, "ptr", ppropvar, "int", puiff, "ptr", pwszText, "uint", cchText, "HRESULT")
+        result := ComCall(9, this, "ptr", fmtid, "uint", pid, "ptr", ppropvar, "int", puiff, "ptr", pwszText, "uint", cchText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Developers should use IPropertyDescription instead.
+     * Developers should use IPropertyDescription instead. (IPropertyUI.GetHelpInfo)
      * @param {Pointer<Guid>} fmtid Type: <b>REFFMTID</b>
      * 
      * The FMTID of the property.
@@ -206,12 +234,16 @@ class IPropertyUI extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The Help context ID for the property.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipropertyui-gethelpinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ipropertyui-gethelpinfo
      */
     GetHelpInfo(fmtid, pid, pwszHelpFile, cch) {
         pwszHelpFile := pwszHelpFile is String ? StrPtr(pwszHelpFile) : pwszHelpFile
 
-        result := ComCall(10, this, "ptr", fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, "uint*", &puHelpID := 0, "HRESULT")
+        result := ComCall(10, this, "ptr", fmtid, "uint", pid, "ptr", pwszHelpFile, "uint", cch, "uint*", &puHelpID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return puHelpID
     }
 }

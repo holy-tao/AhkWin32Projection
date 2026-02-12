@@ -1,11 +1,12 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\LRESULT.ahk
 
 /**
  * The ICOPEN structure contains information about the data stream being compressed or decompressed, the version number of the driver, and how the driver is used.
  * @remarks
  * This structure is passed to video capture drivers when they are opened. This allows a single installable driver to function as either an installable compressor or a video capture device. By examining the <b>fccType</b> member of the <b>ICOPEN</b> structure, the driver can determine its function. For example, a <b>fccType</b> value of "VIDC" indicates that it is opened as an installable video compressor.
- * @see https://learn.microsoft.com/windows/win32/api/vfw/ns-vfw-icopen
+ * @see https://learn.microsoft.com/windows/win32/api//content/vfw/ns-vfw-icopen
  * @namespace Windows.Win32.Media.Multimedia
  * @version v4.0.30319
  */
@@ -111,9 +112,12 @@ class ICOPEN extends Win32Struct
      * 
      * @type {LRESULT}
      */
-    dwError {
-        get => NumGet(this, 24, "ptr")
-        set => NumPut("ptr", value, this, 24)
+    dwError{
+        get {
+            if(!this.HasProp("__dwError"))
+                this.__dwError := LRESULT(24, this)
+            return this.__dwError
+        }
     }
 
     /**

@@ -51,10 +51,20 @@ class IRTCUserSearchQuery extends IUnknown{
      * @returns {HRESULT} 
      */
     put_SearchTerm(bstrName, bstrValue) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
-        bstrValue := bstrValue is String ? BSTR.Alloc(bstrValue).Value : bstrValue
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
+        if(bstrValue is String) {
+            pin := BSTR.Alloc(bstrValue)
+            bstrValue := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrName, "ptr", bstrValue, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrName, "ptr", bstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -64,10 +74,17 @@ class IRTCUserSearchQuery extends IUnknown{
      * @returns {BSTR} 
      */
     get_SearchTerm(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
         pbstrValue := BSTR()
-        result := ComCall(4, this, "ptr", bstrName, "ptr", pbstrValue, "HRESULT")
+        result := ComCall(4, this, "ptr", bstrName, "ptr", pbstrValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrValue
     }
 
@@ -77,7 +94,11 @@ class IRTCUserSearchQuery extends IUnknown{
      */
     get_SearchTerms() {
         pbstrNames := BSTR()
-        result := ComCall(5, this, "ptr", pbstrNames, "HRESULT")
+        result := ComCall(5, this, "ptr", pbstrNames, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrNames
     }
 
@@ -88,7 +109,11 @@ class IRTCUserSearchQuery extends IUnknown{
      * @returns {HRESULT} 
      */
     put_SearchPreference(enPreference, lValue) {
-        result := ComCall(6, this, "int", enPreference, "int", lValue, "HRESULT")
+        result := ComCall(6, this, "int", enPreference, "int", lValue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -98,7 +123,11 @@ class IRTCUserSearchQuery extends IUnknown{
      * @returns {Integer} 
      */
     get_SearchPreference(enPreference) {
-        result := ComCall(7, this, "int", enPreference, "int*", &plValue := 0, "HRESULT")
+        result := ComCall(7, this, "int", enPreference, "int*", &plValue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plValue
     }
 
@@ -108,9 +137,16 @@ class IRTCUserSearchQuery extends IUnknown{
      * @returns {HRESULT} 
      */
     put_SearchDomain(bstrDomain) {
-        bstrDomain := bstrDomain is String ? BSTR.Alloc(bstrDomain).Value : bstrDomain
+        if(bstrDomain is String) {
+            pin := BSTR.Alloc(bstrDomain)
+            bstrDomain := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrDomain, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrDomain, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -120,7 +156,11 @@ class IRTCUserSearchQuery extends IUnknown{
      */
     get_SearchDomain() {
         pbstrDomain := BSTR()
-        result := ComCall(9, this, "ptr", pbstrDomain, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrDomain, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDomain
     }
 }

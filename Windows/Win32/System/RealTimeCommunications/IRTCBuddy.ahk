@@ -48,7 +48,11 @@ class IRTCBuddy extends IRTCPresenceContact{
      * @returns {Integer} 
      */
     get_Status() {
-        result := ComCall(11, this, "int*", &penStatus := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &penStatus := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return penStatus
     }
 
@@ -58,7 +62,11 @@ class IRTCBuddy extends IRTCPresenceContact{
      */
     get_Notes() {
         pbstrNotes := BSTR()
-        result := ComCall(12, this, "ptr", pbstrNotes, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrNotes, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrNotes
     }
 }

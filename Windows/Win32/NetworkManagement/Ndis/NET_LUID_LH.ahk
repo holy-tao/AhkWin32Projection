@@ -9,7 +9,7 @@
  * The <b>IF_LUID</b> and <b>NET_LUID_LH</b> structures are other names that can be used for the <b>NET_LUID</b> union.
  * 
  * The values for the <b>IfType</b> bitfield are defined in the <i>Ipifcons.h</i> include file. Only the possible values listed in the description of the <b>IfType</b> member are currently supported.
- * @see https://learn.microsoft.com/windows/win32/api/ifdef/ns-ifdef-net_luid_lh
+ * @see https://learn.microsoft.com/windows/win32/api//content/ifdef/ns-ifdef-net_luid_lh
  * @namespace Windows.Win32.NetworkManagement.Ndis
  * @version v4.0.30319
  */

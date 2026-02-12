@@ -5,7 +5,7 @@
 
 /**
  * Represents the mechanism by which the destination provider retrieves item data from the source provider.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isynchronousdataretriever
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isynchronousdataretriever
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class ISynchronousDataRetriever extends IUnknown{
     static VTableNames => ["GetIdParameters", "LoadChangeData"]
 
     /**
-     * Gets the ID format schema of the provider.
+     * Gets the ID format schema of the provider. (ISynchronousDataRetriever.GetIdParameters)
      * @param {Pointer<ID_PARAMETERS>} pIdParameters Returns the ID format schema of the provider.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -60,21 +60,31 @@ class ISynchronousDataRetriever extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynchronousdataretriever-getidparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isynchronousdataretriever-getidparameters
      */
     GetIdParameters(pIdParameters) {
-        result := ComCall(3, this, "ptr", pIdParameters, "HRESULT")
+        result := ComCall(3, this, "ptr", pIdParameters, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Retrieves item data for a change.
+     * Retrieves item data for a change. (ISynchronousDataRetriever.LoadChangeData)
+     * @remarks
+     * The source provider determines the data retrieval interface that is implemented by the object that is returned in <i>ppUnkData</i>. The destination provider can acquire this interface by using the <b>QueryInterface</b> method of <i>ppUnkData</i>.
      * @param {ILoadChangeContext} pLoadChangeContext Metadata that describes the change for which data should be retrieved.
      * @returns {IUnknown} Returns the item data for the change specified in <i>pLoadChangeContext</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynchronousdataretriever-loadchangedata
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isynchronousdataretriever-loadchangedata
      */
     LoadChangeData(pLoadChangeContext) {
-        result := ComCall(4, this, "ptr", pLoadChangeContext, "ptr*", &ppUnkData := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pLoadChangeContext, "ptr*", &ppUnkData := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppUnkData)
     }
 }

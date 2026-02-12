@@ -11,7 +11,7 @@
  * The confidence level at which the gesture recognizer returns <b>NoGesture</b> cannot be changed.
  * 
  * If <b>NoGesture</b> is the first element in the array (which means that every recognized gesture is below the suggested confidence threshold), then the platform alters the default value of the <i>Cancel</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkcollector-gesture">Gesture</a> event handler from <b>FALSE</b> to <b>TRUE</b>. This causes the ink to be considered a stroke and not be deleted from the <a href="https://docs.microsoft.com/windows/desktop/tablet/inkdisp-class">InkDisp</a> object by default.
- * @see https://learn.microsoft.com/windows/win32/api/msinkaut/ne-msinkaut-inkapplicationgesture
+ * @see https://learn.microsoft.com/windows/win32/api//content/msinkaut/ne-msinkaut-inkapplicationgesture
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

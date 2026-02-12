@@ -5,7 +5,7 @@
 
 /**
  * DEVICEDIALOGDATA2 structure - Defines the data needed to call a device dialog.
- * @see https://learn.microsoft.com/windows/win32/wia/-wia-devicedialogdata2
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-devicedialogdata2
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */

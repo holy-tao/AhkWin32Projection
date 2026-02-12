@@ -29,12 +29,17 @@ class IElementBehaviorSiteRender extends IUnknown{
     static VTableNames => ["Invalidate", "InvalidateRenderInfo", "InvalidateStyle"]
 
     /**
-     * 
+     * Enables the user to remove a single name and all associated data from the name cache.
      * @param {Pointer<RECT>} pRect 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Returns <b>TRUE</b> if the name and associated data are removed from the name cache; otherwise, it returns <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/filehc/nf-filehc-invalidatename
      */
     Invalidate(pRect) {
-        result := ComCall(3, this, "ptr", pRect, "HRESULT")
+        result := ComCall(3, this, "ptr", pRect, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -43,7 +48,11 @@ class IElementBehaviorSiteRender extends IUnknown{
      * @returns {HRESULT} 
      */
     InvalidateRenderInfo() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -52,7 +61,11 @@ class IElementBehaviorSiteRender extends IUnknown{
      * @returns {HRESULT} 
      */
     InvalidateStyle() {
-        result := ComCall(5, this, "HRESULT")
+        result := ComCall(5, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

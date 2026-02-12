@@ -36,10 +36,20 @@ class IFClipNotificationHelper extends IUnknown{
      * @returns {HRESULT} 
      */
     ShowSystemDialog(titleText, bodyText) {
-        titleText := titleText is String ? BSTR.Alloc(titleText).Value : titleText
-        bodyText := bodyText is String ? BSTR.Alloc(bodyText).Value : bodyText
+        if(titleText is String) {
+            pin := BSTR.Alloc(titleText)
+            titleText := pin.Value
+        }
+        if(bodyText is String) {
+            pin := BSTR.Alloc(bodyText)
+            bodyText := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", titleText, "ptr", bodyText, "HRESULT")
+        result := ComCall(3, this, "ptr", titleText, "ptr", bodyText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -8,7 +8,7 @@
 
 /**
  * The ITPhoneEvent interface contains methods that retrieve the description of phone events that have occurred.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itphoneevent
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itphoneevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -98,12 +98,20 @@ class ITPhoneEvent extends IDispatch{
 
     /**
      * The get_Phone method returns a pointer to the ITPhone interface on the phone object that fired this event.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface returned by <b>ITPhoneEvent::get_Phone</b>. The application must call <b>Release</b> on the 
+     * <b>ITPhone</b> interface to free resources associated with it.
      * @returns {ITPhone} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_phone
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_phone
      */
     get_Phone() {
-        result := ComCall(7, this, "ptr*", &ppPhone := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &ppPhone := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITPhone(ppPhone)
     }
 
@@ -111,21 +119,32 @@ class ITPhoneEvent extends IDispatch{
      * The get_Event method returns a PHONE_EVENT value specifying the type of phone event that occurred.
      * @returns {Integer} The 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_event">PHONE_EVENT</a> descriptor of the event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_event
      */
     get_Event() {
-        result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pEvent := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pEvent
     }
 
     /**
      * The get_ButtonState method returns a PHONE_BUTTON_STATE value specifying the state to which the button has transitioned. This information is available only when the ITPhoneEvent::get_Event method returns PE_BUTTON.
+     * @remarks
+     * This method is available because some buttons do not support the PBS_DOWN button state, but instead momentarily report PBS_PRESSED. Additionally, the application can miss the button press on phones that do support PBS_DOWN if the button is pressed only for a short time and the call to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itphone-get_buttonstate">ITPhone::get_ButtonState</a> method does not execute quickly enough.
      * @returns {Integer} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_button_state">PHONE_BUTTON_STATE</a> descriptor of the button's current state.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_buttonstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_buttonstate
      */
     get_ButtonState() {
-        result := ComCall(9, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 
@@ -133,10 +152,14 @@ class ITPhoneEvent extends IDispatch{
      * The get_HookSwitchState method returns a PHONE_HOOK_SWITCH_STATE value specifying the state to which the hookswitch has transitioned. This information is available only when the ITPhoneEvent::get_Event method returns PE_HOOKSWITCH.
      * @returns {Integer} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_state">PHONE_HOOK_SWITCH_STATE</a> descriptor of the current hookswitch state.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_hookswitchstate
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchstate
      */
     get_HookSwitchState() {
-        result := ComCall(10, this, "int*", &pState := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &pState := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pState
     }
 
@@ -144,30 +167,42 @@ class ITPhoneEvent extends IDispatch{
      * The get_HookSwitchDevice method returns a PHONE_HOOK_SWITCH_DEVICE value specifying the hookswitch device that changed state. This information is available only when the ITPhoneEvent::get_Event method returns PE_HOOKSWITCH.
      * @returns {Integer} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-phone_hook_switch_device">PHONE_HOOK_SWITCH_DEVICE</a> descriptor of the type of device that has changed hookswitch state.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_hookswitchdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_hookswitchdevice
      */
     get_HookSwitchDevice() {
-        result := ComCall(11, this, "int*", &pDevice := 0, "HRESULT")
+        result := ComCall(11, this, "int*", &pDevice := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDevice
     }
 
     /**
      * The get_RingMode method returns a long value specifying the ring mode to which the phone has transitioned. This information is available only when the ITPhoneEvent::get_Event method returns PE_RINGMODE.
      * @returns {Integer} Ring mode.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_ringmode
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_ringmode
      */
     get_RingMode() {
-        result := ComCall(12, this, "int*", &plRingMode := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &plRingMode := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plRingMode
     }
 
     /**
      * The get_ButtonLampId method returns a long value indicating which button or lamp triggered the event. This information is available only when ITPhoneEvent::get_Event returns PE_LAMPMODE or PE_BUTTON.
      * @returns {Integer} Button or lamp ID.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_buttonlampid
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_buttonlampid
      */
     get_ButtonLampId() {
-        result := ComCall(13, this, "int*", &plButtonLampId := 0, "HRESULT")
+        result := ComCall(13, this, "int*", &plButtonLampId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plButtonLampId
     }
 
@@ -175,11 +210,15 @@ class ITPhoneEvent extends IDispatch{
      * The get_NumberGathered method returns a BSTR value specifying the phone number that was gathered. This information is available only when the ITPhoneEvent::get_Event method returns PE_NUMBERGATHERED.
      * @returns {BSTR} Phone number that was gathered. The <b>BSTR</b> is allocated using 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> and should be deallocated by the client.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_numbergathered
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_numbergathered
      */
     get_NumberGathered() {
         ppNumber := BSTR()
-        result := ComCall(14, this, "ptr", ppNumber, "HRESULT")
+        result := ComCall(14, this, "ptr", ppNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppNumber
     }
 
@@ -187,10 +226,14 @@ class ITPhoneEvent extends IDispatch{
      * The get_Call method returns a pointer to the ITCallInfo interface for the call object involved in the event.
      * @returns {ITCallInfo} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itphoneevent-get_call
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itphoneevent-get_call
      */
     get_Call() {
-        result := ComCall(15, this, "ptr*", &ppCallInfo := 0, "HRESULT")
+        result := ComCall(15, this, "ptr*", &ppCallInfo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITCallInfo(ppCallInfo)
     }
 }

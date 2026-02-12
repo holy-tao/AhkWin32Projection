@@ -5,7 +5,7 @@
  * Defines constants that specify the kind(s) of objects to include in an enumeration operation.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/netfw/ne-netfw-fw_dynamic_keyword_address_enum_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/ne-netfw-fw_dynamic_keyword_address_enum_flags
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

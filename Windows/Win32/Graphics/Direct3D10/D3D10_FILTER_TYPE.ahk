@@ -3,7 +3,7 @@
 
 /**
  * Types of magnification or minification sampler filters. (D3D10_FILTER_TYPE)
- * @see https://learn.microsoft.com/windows/win32/api/d3d10/ne-d3d10-d3d10_filter_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d10/ne-d3d10-d3d10_filter_type
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */

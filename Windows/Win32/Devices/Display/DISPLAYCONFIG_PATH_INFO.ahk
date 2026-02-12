@@ -7,7 +7,7 @@
 
 /**
  * The DISPLAYCONFIG_PATH_INFO structure is used to describe a single path from a target to a source.
- * @see https://learn.microsoft.com/windows/win32/api/wingdi/ns-wingdi-displayconfig_path_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wingdi/ns-wingdi-displayconfig_path_info
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

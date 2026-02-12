@@ -1,9 +1,11 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Struct.ahk
+#Include ..\..\Foundation\WPARAM.ahk
+#Include ..\..\Foundation\LPARAM.ahk
 
 /**
  * Used by SendIMEMessageEx to specify the subfunction to be executed in the Input Method Editor (IME) message and its parameters. This structure is also used to receive return values from those subfunctions.
- * @see https://learn.microsoft.com/windows/win32/api/ime/ns-ime-imestruct
+ * @see https://learn.microsoft.com/windows/win32/api//content/ime/ns-ime-imestruct
  * @namespace Windows.Win32.System.WindowsProgramming
  * @version v4.0.30319
  */
@@ -26,9 +28,12 @@ class IMESTRUCT extends Win32Struct
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {WPARAM}
      */
-    wParam {
-        get => NumGet(this, 8, "ptr")
-        set => NumPut("ptr", value, this, 8)
+    wParam{
+        get {
+            if(!this.HasProp("__wParam"))
+                this.__wParam := WPARAM(8, this)
+            return this.__wParam
+        }
     }
 
     /**
@@ -62,26 +67,35 @@ class IMESTRUCT extends Win32Struct
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {LPARAM}
      */
-    lParam1 {
-        get => NumGet(this, 32, "ptr")
-        set => NumPut("ptr", value, this, 32)
+    lParam1{
+        get {
+            if(!this.HasProp("__lParam1"))
+                this.__lParam1 := LPARAM(32, this)
+            return this.__lParam1
+        }
     }
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {LPARAM}
      */
-    lParam2 {
-        get => NumGet(this, 40, "ptr")
-        set => NumPut("ptr", value, this, 40)
+    lParam2{
+        get {
+            if(!this.HasProp("__lParam2"))
+                this.__lParam2 := LPARAM(40, this)
+            return this.__lParam2
+        }
     }
 
     /**
      * Usage depends on the subfunction specified in <b>fnc</b>.
      * @type {LPARAM}
      */
-    lParam3 {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lParam3{
+        get {
+            if(!this.HasProp("__lParam3"))
+                this.__lParam3 := LPARAM(48, this)
+            return this.__lParam3
+        }
     }
 }

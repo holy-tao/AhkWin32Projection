@@ -21,7 +21,7 @@
  * <li><b>HwCounters</b></li>
  * <li><b>HwCountersCount</b></li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-performance_data
+ * @see https://learn.microsoft.com/windows/win32/api//content/winnt/ns-winnt-performance_data
  * @namespace Windows.Win32.System.Performance.HardwareCounterProfiling
  * @version v4.0.30319
  */

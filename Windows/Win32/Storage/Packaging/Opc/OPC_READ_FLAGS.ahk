@@ -10,7 +10,7 @@
  * 
  * <div class="alert"><b>Important</b>  Parts may be repeatedly read from the stream at any time, regardless of which read flags are set. For example, when a package is saved, previously accessed relationships in a Relationships part in the original package may be accessed again to preserve markup compatibility.</div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/msopc/ne-msopc-opc_read_flags
+ * @see https://learn.microsoft.com/windows/win32/api//content/msopc/ne-msopc-opc_read_flags
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */

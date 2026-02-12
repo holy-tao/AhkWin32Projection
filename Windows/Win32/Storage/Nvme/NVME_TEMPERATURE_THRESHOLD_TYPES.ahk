@@ -5,7 +5,7 @@
  * Contains values that indicate the type of threshold for the temperature of the overall device (controller and NVM included).
  * @remarks
  * Values from this enumeration are used in the **THSEL** field of the [NVME_CDW11_FEATURE_TEMPERATURE_THRESHOLD](ns-nvme-nvme_cdw11_feature_temperature_threshold.md) structure.
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ne-nvme-nvme_temperature_threshold_types
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ne-nvme-nvme_temperature_threshold_types
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

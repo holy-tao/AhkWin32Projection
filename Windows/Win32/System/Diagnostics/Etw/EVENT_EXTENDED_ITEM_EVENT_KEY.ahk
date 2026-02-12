@@ -5,7 +5,7 @@
  * 
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/evntcons/ns-evntcons-event_extended_item_event_key
+ * @see https://learn.microsoft.com/windows/win32/api//content/evntcons/ns-evntcons-event_extended_item_event_key
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */

@@ -30,7 +30,11 @@ class IAsyncGetSendNotificationCookie extends IPrintAsyncCookie{
      * @returns {HRESULT} 
      */
     FinishAsyncCallWithData(param0, param1) {
-        result := ComCall(5, this, "ptr", param0, "int", param1, "HRESULT")
+        result := ComCall(5, this, "ptr", param0, "int", param1, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

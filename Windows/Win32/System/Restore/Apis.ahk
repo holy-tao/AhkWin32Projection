@@ -169,7 +169,7 @@ class Restore {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. The <b>llSequenceNumber</b> member of <i>pSMgrStatus</i> receives the sequence number of the restore point.
      * 
      * If the function fails, the return value is <b>FALSE</b>. The <b>nStatus</b> member of <i>pSMgrStatus</i> receives error information.
-     * @see https://learn.microsoft.com/windows/win32/api/srrestoreptapi/nf-srrestoreptapi-srsetrestorepointa
+     * @see https://learn.microsoft.com/windows/win32/api//content/srrestoreptapi/nf-srrestoreptapi-srsetrestorepointa
      * @since windows5.1.2600
      */
     static SRSetRestorePointA(pRestorePtSpec, pSMgrStatus) {
@@ -230,7 +230,7 @@ class Restore {
      * @returns {BOOL} If the function succeeds, the return value is <b>TRUE</b>. The <b>llSequenceNumber</b> member of <i>pSMgrStatus</i> receives the sequence number of the restore point.
      * 
      * If the function fails, the return value is <b>FALSE</b>. The <b>nStatus</b> member of <i>pSMgrStatus</i> receives error information.
-     * @see https://learn.microsoft.com/windows/win32/api/srrestoreptapi/nf-srrestoreptapi-srsetrestorepointw
+     * @see https://learn.microsoft.com/windows/win32/api//content/srrestoreptapi/nf-srrestoreptapi-srsetrestorepointw
      * @since windows5.1.2600
      */
     static SRSetRestorePointW(pRestorePtSpec, pSMgrStatus) {
@@ -246,7 +246,7 @@ class Restore {
      * @returns {Integer} If the function succeeds, the return value is ERROR_SUCCESS.
      * 
      * If the specified restore point does not exist or cannot be removed, the return value is ERROR_INVALID_DATA. All other error codes indicate an internal error.
-     * @see https://learn.microsoft.com/windows/win32/api/srrestoreptapi/nf-srrestoreptapi-srremoverestorepoint
+     * @see https://learn.microsoft.com/windows/win32/api//content/srrestoreptapi/nf-srrestoreptapi-srremoverestorepoint
      * @since windows5.1.2600
      */
     static SRRemoveRestorePoint(dwRPNum) {

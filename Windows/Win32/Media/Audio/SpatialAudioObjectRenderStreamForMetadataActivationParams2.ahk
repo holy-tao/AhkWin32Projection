@@ -48,7 +48,7 @@
  * }
  * 
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/ns-spatialaudiometadata-spatialaudioobjectrenderstreamformetadataactivationparams2
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialaudiometadata/ns-spatialaudiometadata-spatialaudioobjectrenderstreamformetadataactivationparams2
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

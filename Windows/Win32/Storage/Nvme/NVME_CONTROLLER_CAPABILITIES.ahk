@@ -5,7 +5,7 @@
  * Contains read only values that specify the basic capabilities of the controller to host software.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/nvme/ns-nvme-nvme_controller_capabilities
+ * @see https://learn.microsoft.com/windows/win32/api//content/nvme/ns-nvme-nvme_controller_capabilities
  * @namespace Windows.Win32.Storage.Nvme
  * @version v4.0.30319
  */

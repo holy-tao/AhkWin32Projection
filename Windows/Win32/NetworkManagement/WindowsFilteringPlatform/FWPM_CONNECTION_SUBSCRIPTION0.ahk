@@ -3,7 +3,7 @@
 
 /**
  * Stores information used to subscribe to notifications about a connection object.
- * @see https://learn.microsoft.com/windows/win32/api/fwpmtypes/ns-fwpmtypes-fwpm_connection_subscription0
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwpmtypes/ns-fwpmtypes-fwpm_connection_subscription0
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -34,7 +34,11 @@ class ISpCFGInterpreterSite extends IUnknown{
      * @returns {HRESULT} 
      */
     AddTextReplacement(pReplace) {
-        result := ComCall(3, this, "ptr", pReplace, "HRESULT")
+        result := ComCall(3, this, "ptr", pReplace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -44,7 +48,11 @@ class ISpCFGInterpreterSite extends IUnknown{
      * @returns {HRESULT} 
      */
     AddProperty(pProperty) {
-        result := ComCall(4, this, "ptr", pProperty, "HRESULT")
+        result := ComCall(4, this, "ptr", pProperty, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -56,7 +64,11 @@ class ISpCFGInterpreterSite extends IUnknown{
     GetResourceValue(pszResourceName) {
         pszResourceName := pszResourceName is String ? StrPtr(pszResourceName) : pszResourceName
 
-        result := ComCall(5, this, "ptr", pszResourceName, "ptr*", &ppCoMemResource := 0, "HRESULT")
+        result := ComCall(5, this, "ptr", pszResourceName, "ptr*", &ppCoMemResource := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppCoMemResource
     }
 }

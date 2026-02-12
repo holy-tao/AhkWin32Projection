@@ -3,7 +3,7 @@
 
 /**
  * Specifies a proxy property. (WS_PROXY_PROPERTY)
- * @see https://learn.microsoft.com/windows/win32/api/webservices/ns-webservices-ws_proxy_property
+ * @see https://learn.microsoft.com/windows/win32/api//content/webservices/ns-webservices-ws_proxy_property
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */

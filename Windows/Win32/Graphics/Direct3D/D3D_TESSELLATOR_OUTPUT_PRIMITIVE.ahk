@@ -13,7 +13,7 @@
  * 
  * typedef D3D_TESSELLATOR_OUTPUT_PRIMITIVE D3D11_TESSELLATOR_OUTPUT_PRIMITIVE;
  * ```
- * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/ne-d3dcommon-d3d_tessellator_output_primitive
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3dcommon/ne-d3dcommon-d3d_tessellator_output_primitive
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */

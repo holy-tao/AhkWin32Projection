@@ -35,7 +35,11 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {Integer} 
      */
     uniqueID(pNode) {
-        result := ComCall(43, this, "ptr", pNode, "int*", &pID := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", pNode, "int*", &pID := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pID
     }
 
@@ -45,7 +49,11 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {Integer} 
      */
     depth(pNode) {
-        result := ComCall(44, this, "ptr", pNode, "int*", &pDepth := 0, "HRESULT")
+        result := ComCall(44, this, "ptr", pNode, "int*", &pDepth := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDepth
     }
 
@@ -55,7 +63,11 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {Integer} 
      */
     childNumber(pNode) {
-        result := ComCall(45, this, "ptr", pNode, "int*", &pNumber := 0, "HRESULT")
+        result := ComCall(45, this, "ptr", pNode, "int*", &pNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNumber
     }
 
@@ -66,9 +78,16 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {Integer} 
      */
     ancestorChildNumber(bstrNodeName, pNode) {
-        bstrNodeName := bstrNodeName is String ? BSTR.Alloc(bstrNodeName).Value : bstrNodeName
+        if(bstrNodeName is String) {
+            pin := BSTR.Alloc(bstrNodeName)
+            bstrNodeName := pin.Value
+        }
 
-        result := ComCall(46, this, "ptr", bstrNodeName, "ptr", pNode, "int*", &pNumber := 0, "HRESULT")
+        result := ComCall(46, this, "ptr", bstrNodeName, "ptr", pNode, "int*", &pNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNumber
     }
 
@@ -78,7 +97,11 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {Integer} 
      */
     absoluteChildNumber(pNode) {
-        result := ComCall(47, this, "ptr", pNode, "int*", &pNumber := 0, "HRESULT")
+        result := ComCall(47, this, "ptr", pNode, "int*", &pNumber := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pNumber
     }
 
@@ -89,10 +112,17 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {BSTR} 
      */
     formatIndex(lIndex, bstrFormat) {
-        bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
+        if(bstrFormat is String) {
+            pin := BSTR.Alloc(bstrFormat)
+            bstrFormat := pin.Value
+        }
 
         pbstrFormattedString := BSTR()
-        result := ComCall(48, this, "int", lIndex, "ptr", bstrFormat, "ptr", pbstrFormattedString, "HRESULT")
+        result := ComCall(48, this, "int", lIndex, "ptr", bstrFormat, "ptr", pbstrFormattedString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFormattedString
     }
 
@@ -103,10 +133,17 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {BSTR} 
      */
     formatNumber(dblNumber, bstrFormat) {
-        bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
+        if(bstrFormat is String) {
+            pin := BSTR.Alloc(bstrFormat)
+            bstrFormat := pin.Value
+        }
 
         pbstrFormattedString := BSTR()
-        result := ComCall(49, this, "double", dblNumber, "ptr", bstrFormat, "ptr", pbstrFormattedString, "HRESULT")
+        result := ComCall(49, this, "double", dblNumber, "ptr", bstrFormat, "ptr", pbstrFormattedString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFormattedString
     }
 
@@ -118,10 +155,17 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {BSTR} 
      */
     formatDate(varDate, bstrFormat, varDestLocale) {
-        bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
+        if(bstrFormat is String) {
+            pin := BSTR.Alloc(bstrFormat)
+            bstrFormat := pin.Value
+        }
 
         pbstrFormattedString := BSTR()
-        result := ComCall(50, this, "ptr", varDate, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "HRESULT")
+        result := ComCall(50, this, "ptr", varDate, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFormattedString
     }
 
@@ -133,10 +177,17 @@ class IXTLRuntime extends IXMLDOMNode{
      * @returns {BSTR} 
      */
     formatTime(varTime, bstrFormat, varDestLocale) {
-        bstrFormat := bstrFormat is String ? BSTR.Alloc(bstrFormat).Value : bstrFormat
+        if(bstrFormat is String) {
+            pin := BSTR.Alloc(bstrFormat)
+            bstrFormat := pin.Value
+        }
 
         pbstrFormattedString := BSTR()
-        result := ComCall(51, this, "ptr", varTime, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "HRESULT")
+        result := ComCall(51, this, "ptr", varTime, "ptr", bstrFormat, "ptr", varDestLocale, "ptr", pbstrFormattedString, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFormattedString
     }
 }

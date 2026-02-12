@@ -34,7 +34,11 @@ class IModelKeyReference2 extends IModelKeyReference{
      * @returns {HRESULT} 
      */
     OverrideContextObject(newContextObject) {
-        result := ComCall(10, this, "ptr", newContextObject, "HRESULT")
+        result := ComCall(10, this, "ptr", newContextObject, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

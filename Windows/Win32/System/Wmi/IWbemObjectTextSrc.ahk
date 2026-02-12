@@ -7,7 +7,7 @@
 
 /**
  * The IWbemObjectTextSrc interface is used to translate IWbemClassObject instances to and from differing text formats.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemobjecttextsrc
+ * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nn-wbemcli-iwbemobjecttextsrc
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -40,32 +40,46 @@ class IWbemObjectTextSrc extends IUnknown{
 
     /**
      * The IWbemObjectTextSrc::GetText method creates a textual representation of an IWbemClassObject object; for example, an XML representation.
+     * @remarks
+     * For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/representing-objects-in-xml">Representing Objects in XML</a>.
      * @param {Integer} lFlags Reserved. Must be 0L.
      * @param {IWbemClassObject} pObj Reference to the object to be represented in text format. This parameter cannot be <b>NULL</b>.
      * @param {Integer} uObjTextFormat Definition of the text format used to represent the object. For more information about valid values for this parameter, see Remarks.
      * @param {IWbemContext} pCtx Optional. Context object for the operation. The context object can be used to specify whether  certain parts of the object are represented in text; for example, whether to include qualifiers in the textual representation. The context object takes the following optional values.
      * @returns {BSTR} Textual representation of the object. User must free the string using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when finished with <i>strText</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemobjecttextsrc-gettext
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nf-wbemcli-iwbemobjecttextsrc-gettext
      */
     GetText(lFlags, pObj, uObjTextFormat, pCtx) {
         strText := BSTR()
-        result := ComCall(3, this, "int", lFlags, "ptr", pObj, "uint", uObjTextFormat, "ptr", pCtx, "ptr", strText, "HRESULT")
+        result := ComCall(3, this, "int", lFlags, "ptr", pObj, "uint", uObjTextFormat, "ptr", pCtx, "ptr", strText, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return strText
     }
 
     /**
-     * 
+     * The IWbemObjectTextSrc interface is used to translate IWbemClassObject instances to and from differing text formats.
      * @param {Integer} lFlags 
      * @param {BSTR} strText 
      * @param {Integer} uObjTextFormat 
      * @param {IWbemContext} pCtx 
      * @returns {IWbemClassObject} 
-     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemobjecttextsrc
+     * @see https://learn.microsoft.com/windows/win32/api//content/wbemcli/nn-wbemcli-iwbemobjecttextsrc
      */
     CreateFromText(lFlags, strText, uObjTextFormat, pCtx) {
-        strText := strText is String ? BSTR.Alloc(strText).Value : strText
+        if(strText is String) {
+            pin := BSTR.Alloc(strText)
+            strText := pin.Value
+        }
 
-        result := ComCall(4, this, "int", lFlags, "ptr", strText, "uint", uObjTextFormat, "ptr", pCtx, "ptr*", &pNewObj := 0, "HRESULT")
+        result := ComCall(4, this, "int", lFlags, "ptr", strText, "uint", uObjTextFormat, "ptr", pCtx, "ptr*", &pNewObj := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWbemClassObject(pNewObj)
     }
 }

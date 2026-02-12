@@ -5,7 +5,7 @@
  * Represents video encoder rate control structure definitions for a D3D12_VIDEO_ENCODER_RATE_CONTROL structure.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/d3d12video/ns-d3d12video-d3d12_video_encoder_rate_control_configuration_params
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d12video/ns-d3d12video-d3d12_video_encoder_rate_control_configuration_params
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

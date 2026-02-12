@@ -54,7 +54,11 @@ class IWebGeoposition extends IDispatch{
      * @returns {IWebGeocoordinates} 
      */
     get_coords() {
-        result := ComCall(7, this, "ptr*", &p := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IWebGeocoordinates(p)
     }
 
@@ -63,7 +67,11 @@ class IWebGeoposition extends IDispatch{
      * @returns {Integer} 
      */
     get_timestamp() {
-        result := ComCall(8, this, "uint*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "uint*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

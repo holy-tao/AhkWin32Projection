@@ -20,7 +20,7 @@
  * A common use of these two flags involves filling dynamic index/vertex buffers with geometry that can be seen from the camera's current position. The first time that data is entered into the buffer on a given frame, <a href="https://docs.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11devicecontext-map">Map</a> is called with <b>D3D11_MAP_WRITE_DISCARD</b>; doing so invalidates the previous contents of the buffer. The buffer is then filled with all available data.
  * 
  * Subsequent writes to the buffer within the same frame should use <b>D3D11_MAP_WRITE_NO_OVERWRITE</b>. This will enable the CPU to access a resource that is potentially being used by the GPU as long as the restrictions described previously are respected.
- * @see https://learn.microsoft.com/windows/win32/api/d3d11/ne-d3d11-d3d11_map
+ * @see https://learn.microsoft.com/windows/win32/api//content/d3d11/ne-d3d11-d3d11_map
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */

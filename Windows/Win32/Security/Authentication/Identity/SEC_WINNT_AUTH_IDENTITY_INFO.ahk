@@ -14,7 +14,7 @@
  * 1. First, check the first **DWORD** of **SEC_WINNT_AUTH_IDENTITY_INFO**. If the first **DWORD** is **0x200**, it is either an **AuthIdExw** or **AuthIdExA**. Otherwise, if the first **DWORD** is **0x201**, the structure is an **AuthIdEx2** structure. Otherwise, the structure is either an **AuthId_a** or an **AuthId_w**.
  * 
  * 1. Secondly, check the flags for **SEC_WINNT_AUTH_IDENTITY_ANSI** or **SEC_WINNT_AUTH_IDENTITY_UNICODE**. The presence of the former means the structure is an ANSI structure. Otherwise, the structure is the wide version. Note that **AuthIdEx2** does not have an ANSI version, so this check does not apply to it.
- * @see https://learn.microsoft.com/windows/win32/api/sspi/ns-sspi-sec_winnt_auth_identity_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/sspi/ns-sspi-sec_winnt_auth_identity_info
  * @namespace Windows.Win32.Security.Authentication.Identity
  * @version v4.0.30319
  */

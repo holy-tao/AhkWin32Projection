@@ -18,7 +18,7 @@
  * Specifying a <b>COAUTHINFO</b> structure allows DCOM activations to work correctly with security providers other than NTLMSSP. You can also specify additional security information used during remote activations for interoperability with alternate implementations of DCOM. 
  * 
  * If you set <b>dwAuthzSvc</b>, <b>pwszServerPrincName</b>, <b>dwImpersonationLevel</b>, or <b>dwCapabilities</b> to incorrect values and call either <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetclassobject">CoGetClassObject</a> or <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a>, these functions do not return E_INVALIDARG or a similar error. Default values are used instead of the incorrect values.
- * @see https://learn.microsoft.com/windows/win32/api/wtypesbase/ns-wtypesbase-coauthinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/wtypesbase/ns-wtypesbase-coauthinfo
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */

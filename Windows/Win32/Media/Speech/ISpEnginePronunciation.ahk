@@ -29,20 +29,25 @@ class ISpEnginePronunciation extends IUnknown{
     static VTableNames => ["Normalize", "GetPronunciations"]
 
     /**
-     * 
+     * Contains values that specify the behavior of UiaGetUpdatedCache.
      * @param {PWSTR} pszWord 
      * @param {PWSTR} pszLeftContext 
      * @param {PWSTR} pszRightContext 
      * @param {Integer} LangID 
      * @param {Pointer<SPNORMALIZATIONLIST>} pNormalizationList 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(pszWord, pszLeftContext, pszRightContext, LangID, pNormalizationList) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord
         pszLeftContext := pszLeftContext is String ? StrPtr(pszLeftContext) : pszLeftContext
         pszRightContext := pszRightContext is String ? StrPtr(pszRightContext) : pszRightContext
 
-        result := ComCall(3, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, "ushort", LangID, "ptr", pNormalizationList, "HRESULT")
+        result := ComCall(3, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, "ushort", LangID, "ptr", pNormalizationList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,7 +65,11 @@ class ISpEnginePronunciation extends IUnknown{
         pszLeftContext := pszLeftContext is String ? StrPtr(pszLeftContext) : pszLeftContext
         pszRightContext := pszRightContext is String ? StrPtr(pszRightContext) : pszRightContext
 
-        result := ComCall(4, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, "ushort", LangID, "ptr", pEnginePronunciationList, "HRESULT")
+        result := ComCall(4, this, "ptr", pszWord, "ptr", pszLeftContext, "ptr", pszRightContext, "ushort", LangID, "ptr", pEnginePronunciationList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

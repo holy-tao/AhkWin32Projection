@@ -31,18 +31,22 @@ class IInternetProtocolInfo extends IUnknown{
     /**
      * 
      * @param {PWSTR} pwzUrl 
-     * @param {Integer} ParseAction 
+     * @param {Integer} ParseAction_ 
      * @param {Integer} dwParseFlags 
      * @param {PWSTR} pwzResult 
      * @param {Integer} cchResult 
      * @param {Integer} dwReserved 
      * @returns {Integer} 
      */
-    ParseUrl(pwzUrl, ParseAction, dwParseFlags, pwzResult, cchResult, dwReserved) {
+    ParseUrl(pwzUrl, ParseAction_, dwParseFlags, pwzResult, cchResult, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(3, this, "ptr", pwzUrl, "int", ParseAction, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        result := ComCall(3, this, "ptr", pwzUrl, "int", ParseAction_, "uint", dwParseFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchResult
     }
 
@@ -61,7 +65,11 @@ class IInternetProtocolInfo extends IUnknown{
         pwzRelativeUrl := pwzRelativeUrl is String ? StrPtr(pwzRelativeUrl) : pwzRelativeUrl
         pwzResult := pwzResult is String ? StrPtr(pwzResult) : pwzResult
 
-        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "HRESULT")
+        result := ComCall(4, this, "ptr", pwzBaseUrl, "ptr", pwzRelativeUrl, "uint", dwCombineFlags, "ptr", pwzResult, "uint", cchResult, "uint*", &pcchResult := 0, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcchResult
     }
 
@@ -76,12 +84,23 @@ class IInternetProtocolInfo extends IUnknown{
         pwzUrl1 := pwzUrl1 is String ? StrPtr(pwzUrl1) : pwzUrl1
         pwzUrl2 := pwzUrl2 is String ? StrPtr(pwzUrl2) : pwzUrl2
 
-        result := ComCall(5, this, "ptr", pwzUrl1, "ptr", pwzUrl2, "uint", dwCompareFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pwzUrl1, "ptr", pwzUrl2, "uint", dwCompareFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
+     * Retrieves limit and job state information from the job object.
+     * @remarks
+     * Use 
+     * <b>QueryInformationJobObject</b> to obtain the current limits and modify them. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function to set new limits.
      * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {PWSTR} pwzUrl 
      * @param {Integer} OueryOption 
      * @param {Integer} dwQueryFlags 
@@ -89,7 +108,11 @@ class IInternetProtocolInfo extends IUnknown{
      * @param {Integer} cbBuffer 
      * @param {Pointer<Integer>} pcbBuf 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api//content/jobapi2/nf-jobapi2-queryinformationjobobject
      */
     QueryInfo(pwzUrl, OueryOption, dwQueryFlags, pBuffer, cbBuffer, pcbBuf, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl
@@ -97,7 +120,11 @@ class IInternetProtocolInfo extends IUnknown{
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
         pcbBufMarshal := pcbBuf is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwzUrl, "int", OueryOption, "uint", dwQueryFlags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufMarshal, pcbBuf, "uint", dwReserved, "HRESULT")
+        result := ComCall(6, this, "ptr", pwzUrl, "int", OueryOption, "uint", dwQueryFlags, pBufferMarshal, pBuffer, "uint", cbBuffer, pcbBufMarshal, pcbBuf, "uint", dwReserved, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

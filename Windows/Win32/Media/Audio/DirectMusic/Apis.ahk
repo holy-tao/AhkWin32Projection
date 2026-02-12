@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\..\Guid.ahk
+#Include ..\..\..\System\WinRT\Apis.ahk
+#Include ..\..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.Audio.DirectMusic
@@ -1081,7 +1083,7 @@ class DirectMusic {
     static DLSID_SamplePlaybackRate => Guid("{2a91f713-a4bf-11d2-bbdf-00600833dbd8}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static REGSTR_PATH_SOFTWARESYNTHS => "Software\Microsoft\DirectMusic\SoftwareSynths"
 

@@ -96,7 +96,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {HRESULT} 
      */
     put_x(v) {
-        result := ComCall(7, this, "float", v, "HRESULT")
+        result := ComCall(7, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -105,7 +109,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {Float} 
      */
     get_x() {
-        result := ComCall(8, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -115,7 +123,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {HRESULT} 
      */
     put_y(v) {
-        result := ComCall(9, this, "float", v, "HRESULT")
+        result := ComCall(9, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -124,7 +136,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {Float} 
      */
     get_y() {
-        result := ComCall(10, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(10, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -134,7 +150,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {HRESULT} 
      */
     put_r1(v) {
-        result := ComCall(11, this, "float", v, "HRESULT")
+        result := ComCall(11, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -143,7 +163,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {Float} 
      */
     get_r1() {
-        result := ComCall(12, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(12, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -153,7 +177,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {HRESULT} 
      */
     put_r2(v) {
-        result := ComCall(13, this, "float", v, "HRESULT")
+        result := ComCall(13, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -162,7 +190,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {Float} 
      */
     get_r2() {
-        result := ComCall(14, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(14, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -172,7 +204,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {HRESULT} 
      */
     put_angle(v) {
-        result := ComCall(15, this, "float", v, "HRESULT")
+        result := ComCall(15, this, "float", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -181,7 +217,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {Float} 
      */
     get_angle() {
-        result := ComCall(16, this, "float*", &p := 0, "HRESULT")
+        result := ComCall(16, this, "float*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -191,7 +231,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {HRESULT} 
      */
     put_largeArcFlag(v) {
-        result := ComCall(17, this, "short", v, "HRESULT")
+        result := ComCall(17, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -200,7 +244,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_largeArcFlag() {
-        result := ComCall(18, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(18, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
@@ -210,7 +258,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {HRESULT} 
      */
     put_sweepFlag(v) {
-        result := ComCall(19, this, "short", v, "HRESULT")
+        result := ComCall(19, this, "short", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -219,7 +271,11 @@ class ISVGPathSegArcRel extends IDispatch{
      * @returns {VARIANT_BOOL} 
      */
     get_sweepFlag() {
-        result := ComCall(20, this, "short*", &p := 0, "HRESULT")
+        result := ComCall(20, this, "short*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 }

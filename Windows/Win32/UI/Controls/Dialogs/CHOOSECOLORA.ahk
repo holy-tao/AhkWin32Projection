@@ -1,12 +1,13 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\..\Win32Struct.ahk
 #Include ..\..\..\Foundation\HWND.ahk
+#Include ..\..\..\Foundation\LPARAM.ahk
 
 /**
  * The CHOOSECOLORA (ANSI) structure (commdlg.h) contains information the ChooseColor function uses to initialize the Color dialog box.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/commdlg/ns-commdlg-choosecolora
+ * @see https://learn.microsoft.com/windows/win32/api//content/commdlg/ns-commdlg-choosecolora
  * @namespace Windows.Win32.UI.Controls.Dialogs
  * @version v4.0.30319
  * @charset ANSI
@@ -201,9 +202,12 @@ class CHOOSECOLORA extends Win32Struct
      * Application-defined data that the system passes to the hook procedure identified by the <b>lpfnHook</b> member. When the system sends the <a href="https://docs.microsoft.com/windows/desktop/dlgbox/wm-initdialog">WM_INITDIALOG</a> message to the hook procedure, the message's <i>lParam</i> parameter is a pointer to the <b>CHOOSECOLOR</b> structure specified when the dialog was created. The hook procedure can use this pointer to get the <b>lCustData</b> value.
      * @type {LPARAM}
      */
-    lCustData {
-        get => NumGet(this, 48, "ptr")
-        set => NumPut("ptr", value, this, 48)
+    lCustData{
+        get {
+            if(!this.HasProp("__lCustData"))
+                this.__lCustData := LPARAM(48, this)
+            return this.__lCustData
+        }
     }
 
     /**

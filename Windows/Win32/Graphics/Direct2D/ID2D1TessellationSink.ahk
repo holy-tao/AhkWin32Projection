@@ -5,7 +5,7 @@
 
 /**
  * Populates an ID2D1Mesh object with triangles.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1tessellationsink
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nn-d2d1-id2d1tessellationsink
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class ID2D1TessellationSink extends IUnknown{
      * 
      * The number of triangles to copy from the <i>triangles</i> array.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1tessellationsink-addtriangles
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1tessellationsink-addtriangles
      */
     AddTriangles(triangles, trianglesCount) {
         ComCall(3, this, "ptr", triangles, "uint", trianglesCount)
@@ -47,13 +47,17 @@ class ID2D1TessellationSink extends IUnknown{
 
     /**
      * Closes the sink and returns its error status.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1tessellationsink-close
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an [**HRESULT**](/windows/desktop/com/structure-of-com-error-codes) error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1/nf-d2d1-id2d1tessellationsink-close
      */
     Close() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

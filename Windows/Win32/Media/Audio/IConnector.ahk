@@ -6,7 +6,7 @@
 
 /**
  * The IConnector interface represents a point of connection between components.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-iconnector
+ * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nn-devicetopology-iconnector
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -33,6 +33,18 @@ class IConnector extends IUnknown{
 
     /**
      * The GetType method gets the type of this connector.
+     * @remarks
+     * A connector corresponds to a "pin" in kernel streaming (KS) terminology. The mapping of KS pins to connectors is as follows:
+     * 
+     * <ul>
+     * <li>If the KS pin communication type is KSPIN_COMMUNICATION_SINK, KSPIN_COMMUNICATION_SOURCE, or KSPIN_COMMUNICATION_BOTH, then the connector type is Software_IO.</li>
+     * <li>Else, if the pin is part of a physical connection between two KS filters (devices) in the same audio adapter or in different audio adapters, then the connector type is Software_Fixed.</li>
+     * <li>Else, if the KS pin category is KSNODETYPE_SPEAKER, KSNODETYPE_MICROPHONE, KSNODETYPE_LINE_CONNECTOR, or KSNODETYPE_SPDIF_INTERFACE, the connector type is Physical_External.</li>
+     * <li>Else, for a pin that does not meet any of the preceding criteria, the connector type is Physical_Internal.</li>
+     * </ul>
+     * For more information about KS pins, see the Windows DDK documentation.
+     * 
+     * For a code example that calls the <b>GetType</b> method, see the implementation of the SelectCaptureDevice function in <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
      * @returns {Integer} Pointer to a variable into which the method writes the connector type. The connector type is one of the following <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-connectortype">ConnectorType</a> enumeration constants:
      * 
      * Unknown_Connector
@@ -46,15 +58,21 @@ class IConnector extends IUnknown{
      * Software_Fixed
      * 
      * Network
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-gettype
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-gettype
      */
     GetType() {
-        result := ComCall(3, this, "int*", &pType := 0, "HRESULT")
+        result := ComCall(3, this, "int*", &pType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pType
     }
 
     /**
      * The GetDataFlow method gets the direction of data flow through this connector.
+     * @remarks
+     * For a code example that calls this method, see the implementation of the SelectCaptureDevice function in <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
      * @returns {Integer} Pointer to a variable into which the method writes the data-flow direction. The direction is one of the following <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-dataflow">DataFlow</a> enumeration values:
      * 
      * In
@@ -62,10 +80,14 @@ class IConnector extends IUnknown{
      * Out
      * 
      * If data flows into the device through the connector, the data-flow direction is In. Otherwise, the data-flow direction is Out.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-getdataflow
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-getdataflow
      */
     GetDataFlow() {
-        result := ComCall(4, this, "int*", &pFlow := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pFlow := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pFlow
     }
 
@@ -97,7 +119,7 @@ class IConnector extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The current connector and remote connector pointed to by <i>pConnectTo</i>, have the same direction of data flow. A connector with data-flow direction "In" must be connected to another connector with data-flow direction "Out" to create a valid connection in the topology. To determine the data flow of a connector, call <a href="/windows/desktop/api/devicetopology/nf-devicetopology-iconnector-getdataflow">IConnector::GetDataFlow</a>. 
+     * The current connector and remote connector pointed to by <i>pConnectTo</i>, have the same direction of data flow. A connector with data-flow direction "In" must be connected to another connector with data-flow direction "Out" to create a valid connection in the topology. To determine the data flow of a connector, call <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iconnector-getdataflow">IConnector::GetDataFlow</a>. 
      * 
      * </td>
      * </tr>
@@ -124,10 +146,14 @@ class IConnector extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-connectto
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-connectto
      */
     ConnectTo(pConnectTo) {
-        result := ComCall(5, this, "ptr", pConnectTo, "HRESULT")
+        result := ComCall(5, this, "ptr", pConnectTo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -163,50 +189,89 @@ class IConnector extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-disconnect
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-disconnect
      */
     Disconnect() {
-        result := ComCall(6, this, "HRESULT")
+        result := ComCall(6, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IsConnected method indicates whether this connector is connected to another connector.
+     * @remarks
+     * For a code example that calls the <b>IsConnected</b> method, see the implementation of the SelectCaptureDevice function in <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
      * @returns {BOOL} Pointer to a <b>BOOL</b> variable into which the method writes the connection state. If the state is <b>TRUE</b>, this connector is connected to another connector. If <b>FALSE</b>, this connector is unconnected.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-isconnected
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-isconnected
      */
     IsConnected() {
-        result := ComCall(7, this, "int*", &pbConnected := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &pbConnected := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbConnected
     }
 
     /**
      * The GetConnectedTo method gets the connector to which this connector is connected.
+     * @remarks
+     * For code examples that call this method, see the implementations of the GetHardwareDeviceTopology and SelectCaptureDevice functions in <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-topologies">Device Topologies</a>.
+     * 
+     * For information about Software_IO connections, see <a href="https://docs.microsoft.com/windows/win32/api/devicetopology/ne-devicetopology-connectortype">ConnectorType Enumeration</a>. For information about the HRESULT_FROM_WIN32 macro, see the Windows SDK documentation. For information about the DEVICE_STATE_NOTPRESENT device state, see <a href="https://docs.microsoft.com/windows/desktop/CoreAudio/device-state-xxx-constants">DEVICE_STATE_XXX Constants</a>.
      * @returns {IConnector} Pointer to a pointer variable into which the method writes the address of the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-iconnector">IConnector</a> interface of the other connector object. Through this method, the caller obtains a counted reference to the interface. The caller is responsible for releasing the interface, when it is no longer needed, by calling the interface's <b>Release</b> method. If the <b>GetConnectedTo</b> call fails,  <i>*ppConTo</i> is <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-getconnectedto
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-getconnectedto
      */
     GetConnectedTo() {
-        result := ComCall(8, this, "ptr*", &ppConTo := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &ppConTo := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IConnector(ppConTo)
     }
 
     /**
      * The GetConnectorIdConnectedTo method gets the global ID of the connector, if any, that this connector is connected to.
+     * @remarks
+     * A global ID is a string that uniquely identifies a part among all parts in all device topologies in the system. Clients should treat this string as opaque. That is, clients should not attempt to parse the contents of the string to obtain information about the part. The reason is that the string format is undefined and might change from one implementation of the DeviceTopology API to the next.
      * @returns {PWSTR} Pointer to a string pointer into which the method writes the address of a null-terminated, wide-character string that contains the other connector's global ID. The method allocates the storage for the string. The caller is responsible for freeing the storage, when it is no longer needed, by calling the <b>CoTaskMemFree</b> function. If the <b>GetConnectorIdConnectedTo</b> call fails,  <i>*ppwstrConnectorId</i> is <b>NULL</b>. For information about <b>CoTaskMemFree</b>, see the Windows SDK documentation.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-getconnectoridconnectedto
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-getconnectoridconnectedto
      */
     GetConnectorIdConnectedTo() {
-        result := ComCall(9, this, "ptr*", &ppwstrConnectorId := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppwstrConnectorId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwstrConnectorId
     }
 
     /**
      * The GetDeviceIdConnectedTo method gets the device identifier of the audio device, if any, that this connector is connected to.
+     * @remarks
+     * The device identifier obtained from this method can be used as an input parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/mmdeviceapi/nf-mmdeviceapi-immdeviceenumerator-getdevice">IMMDeviceEnumerator::GetDevice</a> method.
+     * 
+     * This method is functionally equivalent to, but more efficient than, the following series of method calls:
+     * 
+     * <ul>
+     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iconnector-getconnectedto">IConnector::GetConnectedTo</a> method to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-iconnector">IConnector</a> interface of the "to" connector.</li>
+     * <li>Call the <b>IConnector::QueryInterface</b> method (with parameter <i>iid</i> set to <b>REFIID</b> IID_IPart) to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-ipart">IPart</a> interface of the "to" connector.</li>
+     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-ipart-gettopologyobject">IPart::GetTopologyObject</a> method to obtain the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-idevicetopology">IDeviceTopology</a> interface of the "to" device (the device that contains the "to" connector).</li>
+     * <li>Call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-idevicetopology-getdeviceid">IDeviceTopology::GetDeviceId</a> method to obtain the device ID of the "to" device.</li>
+     * </ul>
      * @returns {PWSTR} Pointer to a string pointer into which the method writes the address of a null-terminated, wide-character string that contains the device identifier of the connected device. The method allocates the storage for the string. The caller is responsible for freeing the storage, when it is no longer needed, by calling the <b>CoTaskMemFree</b> function. If the <b>GetDeviceIdConnectedTo</b> call fails,  <i>*ppwstrDeviceId</i> is <b>NULL</b>. For information about <b>CoTaskMemFree</b>, see the Windows SDK documentation.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iconnector-getdeviceidconnectedto
+     * @see https://learn.microsoft.com/windows/win32/api//content/devicetopology/nf-devicetopology-iconnector-getdeviceidconnectedto
      */
     GetDeviceIdConnectedTo() {
-        result := ComCall(10, this, "ptr*", &ppwstrDeviceId := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppwstrDeviceId := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppwstrDeviceId
     }
 }

@@ -5,7 +5,7 @@
  * Stores an array of exactly 16 bytes.
  * @remarks
  * This data type  is useful for IPv6 addresses.
- * @see https://learn.microsoft.com/windows/win32/api/fwptypes/ns-fwptypes-fwp_byte_array16
+ * @see https://learn.microsoft.com/windows/win32/api//content/fwptypes/ns-fwptypes-fwp_byte_array16
  * @namespace Windows.Win32.NetworkManagement.WindowsFilteringPlatform
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * The ISCPSecureAuthenticate interface is the primary interface of the secure content provider, which Windows Media Device Manager queries to authenticate the secure content provider and to be authenticated by the secure content provider.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iscpsecureauthenticate
+ * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nn-mswmdm-iscpsecureauthenticate
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -34,10 +34,14 @@ class ISCPSecureAuthenticate extends IUnknown{
     /**
      * The GetSecureQuery method is used to obtain a pointer to the ISCPSecureQuery interface.
      * @returns {ISCPSecureQuery} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iscpsecurequery">ISCPSecureQuery</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecureauthenticate-getsecurequery
+     * @see https://learn.microsoft.com/windows/win32/api//content/mswmdm/nf-mswmdm-iscpsecureauthenticate-getsecurequery
      */
     GetSecureQuery() {
-        result := ComCall(3, this, "ptr*", &ppSecureQuery := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppSecureQuery := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISCPSecureQuery(ppSecureQuery)
     }
 }

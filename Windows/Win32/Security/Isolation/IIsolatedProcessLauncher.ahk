@@ -40,7 +40,11 @@ class IIsolatedProcessLauncher extends IUnknown{
         arguments := arguments is String ? StrPtr(arguments) : arguments
         workingDirectory := workingDirectory is String ? StrPtr(workingDirectory) : workingDirectory
 
-        result := ComCall(3, this, "ptr", process, "ptr", arguments, "ptr", workingDirectory, "HRESULT")
+        result := ComCall(3, this, "ptr", process, "ptr", arguments, "ptr", workingDirectory, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -55,7 +59,11 @@ class IIsolatedProcessLauncher extends IUnknown{
         hostPath := hostPath is String ? StrPtr(hostPath) : hostPath
         containerPath := containerPath is String ? StrPtr(containerPath) : containerPath
 
-        result := ComCall(4, this, "ptr", hostPath, "ptr", containerPath, "int", readOnly, "HRESULT")
+        result := ComCall(4, this, "ptr", hostPath, "ptr", containerPath, "int", readOnly, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -65,7 +73,11 @@ class IIsolatedProcessLauncher extends IUnknown{
      */
     GetContainerGuid() {
         guid := Guid()
-        result := ComCall(5, this, "ptr", guid, "HRESULT")
+        result := ComCall(5, this, "ptr", guid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return guid
     }
 
@@ -75,7 +87,11 @@ class IIsolatedProcessLauncher extends IUnknown{
      * @returns {HRESULT} 
      */
     AllowSetForegroundAccess(pid) {
-        result := ComCall(6, this, "uint", pid, "HRESULT")
+        result := ComCall(6, this, "uint", pid, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -84,7 +100,11 @@ class IIsolatedProcessLauncher extends IUnknown{
      * @returns {BOOL} 
      */
     IsContainerRunning() {
-        result := ComCall(7, this, "int*", &running := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &running := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return running
     }
 }

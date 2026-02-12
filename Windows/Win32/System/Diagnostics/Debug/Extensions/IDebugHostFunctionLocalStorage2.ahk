@@ -42,7 +42,11 @@ class IDebugHostFunctionLocalStorage2 extends IUnknown{
         isIndirectAccessMarshal := isIndirectAccess is VarRef ? "int*" : "ptr"
         indirectOffsetMarshal := indirectOffset is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, registerIdMarshal, registerId, offsetMarshal, offset, isIndirectAccessMarshal, isIndirectAccess, indirectOffsetMarshal, indirectOffset, "HRESULT")
+        result := ComCall(3, this, registerIdMarshal, registerId, offsetMarshal, offset, isIndirectAccessMarshal, isIndirectAccess, indirectOffsetMarshal, indirectOffset, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

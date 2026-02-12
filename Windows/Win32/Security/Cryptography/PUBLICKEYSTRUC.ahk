@@ -3,7 +3,7 @@
 
 /**
  * Indicates a key's BLOB type and the algorithm that the key uses.
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-publickeystruc
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-publickeystruc
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

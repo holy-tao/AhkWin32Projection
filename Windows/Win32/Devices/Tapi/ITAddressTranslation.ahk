@@ -10,7 +10,7 @@
 
 /**
  * The ITAddressTranslation interface provides methods that allow translation of a calling address into a different format. For example, an application may need to translate an address from canonical to dialable prior to making a call.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itaddresstranslation
+ * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nn-tapi3if-itaddresstranslation
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -51,23 +51,50 @@ class ITAddressTranslation extends IDispatch{
 
     /**
      * The TranslateAddress method creates the address translation information interface.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for <i>pAddressToTranslate</i> and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * The 
+     * <b>TranslateAddress</b> method is a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linetranslateaddress">LineTranslateAddress</a> function.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddresstranslationinfo">ITAddressTranslationInfo</a> interface returned by <b>TranslateAddress</b>. The application must call <b>Release</b> on the 
+     * <b>ITAddressTranslationInfo</b> interface to free resources associated with it.
      * @param {BSTR} pAddressToTranslate Pointer to <b>BSTR</b> containing address that requires translation.
      * @param {Integer} lCard Calling card used for translation.
      * @param {Integer} lTranslateOptions Indicator of translation options, see 
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/linetranslateoption--constants">LINETRANSLATEOPTION__Constants</a>.
      * @returns {ITAddressTranslationInfo} Pointer to newly created 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itaddresstranslationinfo">ITAddressTranslationInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresstranslation-translateaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itaddresstranslation-translateaddress
      */
     TranslateAddress(pAddressToTranslate, lCard, lTranslateOptions) {
-        pAddressToTranslate := pAddressToTranslate is String ? BSTR.Alloc(pAddressToTranslate).Value : pAddressToTranslate
+        if(pAddressToTranslate is String) {
+            pin := BSTR.Alloc(pAddressToTranslate)
+            pAddressToTranslate := pin.Value
+        }
 
-        result := ComCall(7, this, "ptr", pAddressToTranslate, "int", lCard, "int", lTranslateOptions, "ptr*", &ppTranslated := 0, "HRESULT")
+        result := ComCall(7, this, "ptr", pAddressToTranslate, "int", lCard, "int", lTranslateOptions, "ptr*", &ppTranslated := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITAddressTranslationInfo(ppTranslated)
     }
 
     /**
      * The TranslateDialog method displays an application-modal dialog box that allows the user to change the current location of a phone number about to be dialed, adjust location and calling card parameters, and see the effect.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for <i>pAddressIn</i> and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * The 
+     * <b>TranslateDialog</b> method is a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linetranslatedialog">LineTranslateDialog</a> function.
      * @param {Pointer} hwndOwner A handle to a window to which the dialog box is to be attached. Can be a <b>NULL</b> value to indicate that any window created during the function should have no owner window.
      * @param {BSTR} pAddressIn A pointer to <b>BSTR</b> containing a phone number that is used to show the effect of the user's changes on the location parameters. The number must be in canonical format. This pointer can be left <b>NULL</b>, in which case the phone number portion of the dialog box is not displayed. If the <i>pAddressIn</i> parameter contains a subaddress or name field or additional addresses separated from the first address by ASCII CR and LF characters, only the first address is used in the dialog box.
      * @returns {HRESULT} This method can return one of these values.
@@ -188,60 +215,118 @@ class ITAddressTranslation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresstranslation-translatedialog
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itaddresstranslation-translatedialog
      */
     TranslateDialog(hwndOwner, pAddressIn) {
-        pAddressIn := pAddressIn is String ? BSTR.Alloc(pAddressIn).Value : pAddressIn
+        if(pAddressIn is String) {
+            pin := BSTR.Alloc(pAddressIn)
+            pAddressIn := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", hwndOwner, "ptr", pAddressIn, "HRESULT")
+        result := ComCall(8, this, "ptr", hwndOwner, "ptr", pAddressIn, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The EnumerateLocations method enumerates the currently available address locations. This method is provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_Locations method.
+     * @remarks
+     * The 
+     * <b>EnumerateLocations</b> method is a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegettranslatecaps">LineGetTranslateCaps</a> function, and takes location information from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure returned by that function.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumlocation">IEnumLocation</a> interface returned by <b>ITAddressTranslation::EnumerateLocations</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumLocation</b> interface to free resources associated with it.
      * @returns {IEnumLocation} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumlocation">IEnumLocation</a> object created.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresstranslation-enumeratelocations
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itaddresstranslation-enumeratelocations
      */
     EnumerateLocations() {
-        result := ComCall(9, this, "ptr*", &ppEnumLocation := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnumLocation := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumLocation(ppEnumLocation)
     }
 
     /**
      * The get_Locations method creates a collection of currently available address locations. This method is provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateLocations method.
+     * @remarks
+     * The 
+     * <b>get_Locations</b> method is a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegettranslatecaps">LineGetTranslateCaps</a> function, and takes location information from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure returned by that function.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itlocationinfo">ITLocationInfo</a> interface returned by <b>ITAddressTranslation::get_Locations</b>. The application must call <b>Release</b> on the 
+     * <b>ITLocationInfo</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itlocationinfo">ITLocationInfo</a> interface pointers (location objects).
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresstranslation-get_locations
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itaddresstranslation-get_locations
      */
     get_Locations() {
         pVariant := VARIANT()
-        result := ComCall(10, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(10, this, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 
     /**
      * The EnumerateCallingCards method enumerates calling cards associated with the address. This method is provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_CallingCards method.
+     * @remarks
+     * This method is a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegettranslatecaps">LineGetTranslateCaps</a> function, and takes calling card information from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure returned by that function.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcallingcard">IEnumCallingCard</a> interface returned by <b>ITAddressTranslation::EnumerateCallingCards</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumCallingCard</b> interface to free resources associated with it.
      * @returns {IEnumCallingCard} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcallingcard">IEnumCallingCard</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresstranslation-enumeratecallingcards
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itaddresstranslation-enumeratecallingcards
      */
     EnumerateCallingCards() {
-        result := ComCall(11, this, "ptr*", &ppEnumCallingCard := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppEnumCallingCard := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumCallingCard(ppEnumCallingCard)
     }
 
     /**
      * The get_CallingCards method creates a collection of calling cards associated with the address.
+     * @remarks
+     * The 
+     * <b>get_CallingCards</b> method is a COM wrapper for the TAPI 2.2 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linegettranslatecaps">LineGetTranslateCaps</a> function, and takes calling card information from the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linetranslatecaps">LINETRANSLATECAPS</a> structure returned by that function.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallingcard">ITCallingCard</a> interface returned by <b>ITAddressTranslation::get_CallingCards</b>. The application must call <b>Release</b> on the 
+     * <b>ITCallingCard</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallingcard">ITCallingCard</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddresstranslation-get_callingcards
+     * @see https://learn.microsoft.com/windows/win32/api//content/tapi3if/nf-tapi3if-itaddresstranslation-get_callingcards
      */
     get_CallingCards() {
         pVariant := VARIANT()
-        result := ComCall(12, this, "ptr", pVariant, "HRESULT")
+        result := ComCall(12, this, "ptr", pVariant, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVariant
     }
 }

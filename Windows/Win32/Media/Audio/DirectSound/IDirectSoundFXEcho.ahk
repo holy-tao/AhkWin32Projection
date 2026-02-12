@@ -35,7 +35,11 @@ class IDirectSoundFXEcho extends IUnknown{
      * @returns {HRESULT} 
      */
     SetAllParameters(pcDsFxEcho) {
-        result := ComCall(3, this, "ptr", pcDsFxEcho, "HRESULT")
+        result := ComCall(3, this, "ptr", pcDsFxEcho, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -45,7 +49,11 @@ class IDirectSoundFXEcho extends IUnknown{
      */
     GetAllParameters() {
         pDsFxEcho := DSFXEcho()
-        result := ComCall(4, this, "ptr", pDsFxEcho, "HRESULT")
+        result := ComCall(4, this, "ptr", pDsFxEcho, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pDsFxEcho
     }
 }

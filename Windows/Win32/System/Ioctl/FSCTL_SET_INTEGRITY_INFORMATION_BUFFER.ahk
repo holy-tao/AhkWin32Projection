@@ -7,7 +7,7 @@
  * If <b>FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF</b> is specified and the file is opened 
  *     with sharing permissions such that subsequent opens can succeed, it's possible for corrupt data to be read by an 
  *     application that did not specify <b>FSCTL_INTEGRITY_FLAG_CHECKSUM_ENFORCEMENT_OFF</b>.
- * @see https://learn.microsoft.com/windows/win32/api/winioctl/ns-winioctl-fsctl_set_integrity_information_buffer
+ * @see https://learn.microsoft.com/windows/win32/api//content/winioctl/ns-winioctl-fsctl_set_integrity_information_buffer
  * @namespace Windows.Win32.System.Ioctl
  * @version v4.0.30319
  */

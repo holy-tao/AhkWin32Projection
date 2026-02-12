@@ -56,20 +56,37 @@ class ISWbemMethodSet extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(7, this, "ptr*", &pUnk := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(pUnk)
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {BSTR} strName 
      * @param {Integer} iFlags 
      * @returns {ISWbemMethod} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/wia/-wia-item
      */
     Item(strName, iFlags) {
-        strName := strName is String ? BSTR.Alloc(strName).Value : strName
+        if(strName is String) {
+            pin := BSTR.Alloc(strName)
+            strName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", &objWbemMethod := 0, "HRESULT")
+        result := ComCall(8, this, "ptr", strName, "int", iFlags, "ptr*", &objWbemMethod := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISWbemMethod(objWbemMethod)
     }
 
@@ -78,7 +95,11 @@ class ISWbemMethodSet extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(9, this, "int*", &iCount := 0, "HRESULT")
+        result := ComCall(9, this, "int*", &iCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return iCount
     }
 }

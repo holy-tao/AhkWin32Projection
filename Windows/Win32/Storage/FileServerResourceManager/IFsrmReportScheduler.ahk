@@ -7,7 +7,6 @@
 /**
  * Used to manage scheduled tasks for report jobs and file management jobs.
  * @remarks
- * 
  * To enumerate the schedules for reports, call the 
  *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportmanager-enumreportjobs">IFsrmReportManager::EnumReportJobs</a> 
  *     method. Use the task name in the 
@@ -29,9 +28,7 @@
  * 
  * To create this object from a script, use the "Fsrm.FsrmReportScheduler" program 
  *     identifier.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmreportscheduler
+ * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nn-fsrmreports-ifsrmreportscheduler
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -64,19 +61,58 @@ class IFsrmReportScheduler extends IDispatch{
 
     /**
      * Verifies that the specified local directory paths that are used as the source for the reports are valid.
+     * @remarks
+     * If the paths are valid, you can use them when calling the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-createscheduletask">IFsrmReportScheduler::CreateScheduleTask</a> 
+     *     method.
+     * 
+     * The paths are valid if:
+     * 
+     * <ul>
+     * <li>All paths in the array are on NTFS volumes.</li>
+     * <li>All paths in the array are on volumes that are online accessible.</li>
+     * <li>For clusters, all paths are on volumes that are in the same failover group.</li>
+     * </ul>
+     * If one of the paths fails to validate, there is no indication of which path failed. To determine which path 
+     *     failed, you need to call this method for each path separately. For clusters, if all paths validate, you need to 
+     *     verify the cluster groups using the cluster APIs.
      * @param {Pointer<VARIANT>} namespacesSafeArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of local 
      *       directory paths. Each element of the array is a variant of type <b>VT_BSTR</b>. Use the 
      *       <b>bstrVal</b> member of the variant to set the path.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-verifynamespaces
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-verifynamespaces
      */
     VerifyNamespaces(namespacesSafeArray) {
-        result := ComCall(7, this, "ptr", namespacesSafeArray, "HRESULT")
+        result := ComCall(7, this, "ptr", namespacesSafeArray, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a scheduled task that is used to trigger a report job.
+     * @remarks
+     * To run a report job on a schedule, the value of the <i>taskName</i> parameter and the value 
+     *     of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_task">IFsrmReportJob::Task</a> property must be the 
+     *     same.
+     * 
+     * Specify the same namespaces for this method that you specified for the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_namespaceroots">IFsrmReportJob::NamespaceRoots</a> property. 
+     *     This method validates the namespace paths. For validation details, see the Remarks section of 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-verifynamespaces">VerifyNamespaces</a>.
+     * 
+     * To generate the XML, you can use the Task Scheduler v2.0 interfaces to define the scheduled task; however, the 
+     *     task definition must be v1.0 compatible. (Use the Task Scheduler API to define the task but not to register the 
+     *     task—this method registers the task.) After defining the task, access the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itaskdefinition-get_xmltext">ITaskDefinition::XmlText</a> property to get 
+     *     the XML.
+     * 
+     * Note that FSRM ignores triggers in the XML that FSRM does not support.  For the "MONTHLYDOW" 
+     *     trigger, you cannot use the V2 extensions. For example,  if you specify "WeeksOfMonth", you can 
+     *     specify only one week of the month and it cannot be the fifth week. Also, for "DaysOfWeek", you 
+     *     can specify only one day.
      * @param {BSTR} taskName The name of a <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a> 
      *       task to create. The string is limited to 230 characters.
      * @param {Pointer<VARIANT>} namespacesSafeArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of local 
@@ -86,18 +122,33 @@ class IFsrmReportScheduler extends IDispatch{
      * @param {BSTR} serializedTask An XML string that defines the Task Scheduler job. For details, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-schema">Task Scheduler Schema</a>.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-createscheduletask
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-createscheduletask
      */
     CreateScheduleTask(taskName, namespacesSafeArray, serializedTask) {
-        taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
-        serializedTask := serializedTask is String ? BSTR.Alloc(serializedTask).Value : serializedTask
+        if(taskName is String) {
+            pin := BSTR.Alloc(taskName)
+            taskName := pin.Value
+        }
+        if(serializedTask is String) {
+            pin := BSTR.Alloc(serializedTask)
+            serializedTask := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", taskName, "ptr", namespacesSafeArray, "ptr", serializedTask, "HRESULT")
+        result := ComCall(8, this, "ptr", taskName, "ptr", namespacesSafeArray, "ptr", serializedTask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Modifies a task that is used to trigger a report job.
+     * @remarks
+     * Specify the same namespaces for this method that you specified for the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_namespaceroots">IFsrmReportJob::NamespaceRoots</a> property. 
+     *     This method validates the namespace paths. For validation details, see the Remarks section of 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-verifynamespaces">IFsrmReportScheduler::VerifyNamespaces</a>.
      * @param {BSTR} taskName The name of a <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a> 
      *       task to modify. The string is limited to 230 characters.
      * @param {Pointer<VARIANT>} namespacesSafeArray A <b>VARIANT</b> that contains a <b>SAFEARRAY</b> of local 
@@ -107,13 +158,23 @@ class IFsrmReportScheduler extends IDispatch{
      * @param {BSTR} serializedTask An XML string that defines the Task Scheduler job. For details, see 
      *       <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-schema">Task Scheduler Schema</a>.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-modifyscheduletask
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-modifyscheduletask
      */
     ModifyScheduleTask(taskName, namespacesSafeArray, serializedTask) {
-        taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
-        serializedTask := serializedTask is String ? BSTR.Alloc(serializedTask).Value : serializedTask
+        if(taskName is String) {
+            pin := BSTR.Alloc(taskName)
+            taskName := pin.Value
+        }
+        if(serializedTask is String) {
+            pin := BSTR.Alloc(serializedTask)
+            serializedTask := pin.Value
+        }
 
-        result := ComCall(9, this, "ptr", taskName, "ptr", namespacesSafeArray, "ptr", serializedTask, "HRESULT")
+        result := ComCall(9, this, "ptr", taskName, "ptr", namespacesSafeArray, "ptr", serializedTask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -122,12 +183,19 @@ class IFsrmReportScheduler extends IDispatch{
      * @param {BSTR} taskName The name of a <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-scheduler-start-page">Task Scheduler</a> 
      *       task to delete. The string is limited to 230 characters.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmreportscheduler-deletescheduletask
+     * @see https://learn.microsoft.com/windows/win32/api//content/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-deletescheduletask
      */
     DeleteScheduleTask(taskName) {
-        taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
+        if(taskName is String) {
+            pin := BSTR.Alloc(taskName)
+            taskName := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", taskName, "HRESULT")
+        result := ComCall(10, this, "ptr", taskName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

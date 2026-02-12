@@ -4,8 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * Callback interface to notify the application when an asynchronous method completes.
- * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nn-rtworkq-irtwqasynccallback
+ * Callback interface to notify the application when an asynchronous method completes. (IRtwqAsyncCallback)
+ * @see https://learn.microsoft.com/windows/win32/api//content/rtworkq/nn-rtworkq-irtwqasynccallback
  * @namespace Windows.Win32.System.Threading
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class IRtwqAsyncCallback extends IUnknown{
     static VTableNames => ["GetParameters", "Invoke"]
 
     /**
-     * Provides configuration information to the dispatching thread for a callback.
+     * Provides configuration information to the dispatching thread for a callback. (IRtwqAsyncCallback.GetParameters)
      * @param {Pointer<Integer>} pdwFlags Receives a flag indicating the behavior of the callback object's <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nf-rtworkq-irtwqasynccallback-invoke">IRtwqAsyncCallback::Invoke</a> method. The following values are defined. The default value is zero.
      * 
      * <table>
@@ -83,18 +83,24 @@ class IRtwqAsyncCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqasynccallback-getparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtworkq/nf-rtworkq-irtwqasynccallback-getparameters
      */
     GetParameters(pdwFlags, pdwQueue) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
         pdwQueueMarshal := pdwQueue is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, pdwQueueMarshal, pdwQueue, "HRESULT")
+        result := ComCall(3, this, pdwFlagsMarshal, pdwFlags, pdwQueueMarshal, pdwQueue, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * Called when an asynchronous operation is completed.
+     * Called when an asynchronous operation is completed. (IRtwqAsyncCallback.Invoke)
+     * @remarks
+     * Within your implementation of <a href="https://docs.microsoft.com/windows/desktop/DirectShow/cdeferredcommand-invoke">Invoke</a>, call the corresponding <b>End...</b> method.
      * @param {IRtwqAsyncResult} pAsyncResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/rtworkq/nn-rtworkq-irtwqasyncresult">IRtwqAsyncResult</a> interface. Pass this pointer to the asynchronous <b>End...</b> method to complete the asynchronous call.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -115,10 +121,14 @@ class IRtwqAsyncCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rtworkq/nf-rtworkq-irtwqasynccallback-invoke
+     * @see https://learn.microsoft.com/windows/win32/api//content/rtworkq/nf-rtworkq-irtwqasynccallback-invoke
      */
     Invoke(pAsyncResult) {
-        result := ComCall(4, this, "ptr", pAsyncResult, "HRESULT")
+        result := ComCall(4, this, "ptr", pAsyncResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

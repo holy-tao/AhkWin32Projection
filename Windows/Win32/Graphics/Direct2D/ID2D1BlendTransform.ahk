@@ -5,7 +5,7 @@
 
 /**
  * Provides methods to allow a blend operation to be inserted into a transform graph.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1blendtransform
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nn-d2d1effectauthor-id2d1blendtransform
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ID2D1BlendTransform extends ID2D1ConcreteTransform{
      * 
      * The new blend description specified for the blend transform.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-setdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-setdescription
      */
     SetDescription(description) {
         ComCall(6, this, "ptr", description)
@@ -48,7 +48,7 @@ class ID2D1BlendTransform extends ID2D1ConcreteTransform{
      * 
      * When this method returns, contains the blend description specified for the blend transform.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1effectauthor/nf-d2d1effectauthor-id2d1blendtransform-getdescription
      */
     GetDescription(description) {
         ComCall(7, this, "ptr", description)

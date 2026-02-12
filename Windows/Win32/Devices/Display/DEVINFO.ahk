@@ -40,7 +40,7 @@
  * 
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winddi/ns-winddi-devinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winddi/ns-winddi-devinfo
  * @namespace Windows.Win32.Devices.Display
  * @version v4.0.30319
  */

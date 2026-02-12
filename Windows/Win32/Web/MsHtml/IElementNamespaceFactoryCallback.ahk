@@ -30,19 +30,33 @@ class IElementNamespaceFactoryCallback extends IUnknown{
     static VTableNames => ["Resolve"]
 
     /**
-     * 
+     * Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation.
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrTagName 
      * @param {BSTR} bstrAttrs 
      * @param {IElementNamespace} pNamespace 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} The address of the import, or the failure stub for it.
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/DevNotes/resolvedelayloadedapi
      */
     Resolve(bstrNamespace, bstrTagName, bstrAttrs, pNamespace) {
-        bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace
-        bstrTagName := bstrTagName is String ? BSTR.Alloc(bstrTagName).Value : bstrTagName
-        bstrAttrs := bstrAttrs is String ? BSTR.Alloc(bstrAttrs).Value : bstrAttrs
+        if(bstrNamespace is String) {
+            pin := BSTR.Alloc(bstrNamespace)
+            bstrNamespace := pin.Value
+        }
+        if(bstrTagName is String) {
+            pin := BSTR.Alloc(bstrTagName)
+            bstrTagName := pin.Value
+        }
+        if(bstrAttrs is String) {
+            pin := BSTR.Alloc(bstrAttrs)
+            bstrAttrs := pin.Value
+        }
 
-        result := ComCall(3, this, "ptr", bstrNamespace, "ptr", bstrTagName, "ptr", bstrAttrs, "ptr", pNamespace, "HRESULT")
+        result := ComCall(3, this, "ptr", bstrNamespace, "ptr", bstrTagName, "ptr", bstrAttrs, "ptr", pNamespace, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

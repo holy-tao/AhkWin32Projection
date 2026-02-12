@@ -7,10 +7,8 @@
 /**
  * The IFaxSender interface defines a messaging object used by a fax client application to retrieve and set sender information about fax senders. The object also includes methods to store sender data in and retrieve sender data from the local registry.
  * @remarks
- * 
  * A default implementation of <b>IFaxSender</b> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxsender">FaxSender</a> object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxsender
+ * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nn-faxcomex-ifaxsender
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -170,26 +168,37 @@ class IFaxSender extends IDispatch{
     }
 
     /**
-     * The IFaxSender::get_BillingCode property is a null-terminated string that contains the billing code associated with the sender.
+     * The IFaxSender::get_BillingCode property is a null-terminated string that contains the billing code associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_billingcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_billingcode
      */
     get_BillingCode() {
         pbstrBillingCode := BSTR()
-        result := ComCall(7, this, "ptr", pbstrBillingCode, "HRESULT")
+        result := ComCall(7, this, "ptr", pbstrBillingCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrBillingCode
     }
 
     /**
-     * The IFaxSender::get_BillingCode property is a null-terminated string that contains the billing code associated with the sender.
+     * The IFaxSender::get_BillingCode property is a null-terminated string that contains the billing code associated with the sender. (Put)
      * @param {BSTR} bstrBillingCode 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_billingcode
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_billingcode
      */
     put_BillingCode(bstrBillingCode) {
-        bstrBillingCode := bstrBillingCode is String ? BSTR.Alloc(bstrBillingCode).Value : bstrBillingCode
+        if(bstrBillingCode is String) {
+            pin := BSTR.Alloc(bstrBillingCode)
+            bstrBillingCode := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", bstrBillingCode, "HRESULT")
+        result := ComCall(8, this, "ptr", bstrBillingCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -199,7 +208,11 @@ class IFaxSender extends IDispatch{
      */
     get_City() {
         pbstrCity := BSTR()
-        result := ComCall(9, this, "ptr", pbstrCity, "HRESULT")
+        result := ComCall(9, this, "ptr", pbstrCity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCity
     }
 
@@ -209,33 +222,51 @@ class IFaxSender extends IDispatch{
      * @returns {HRESULT} 
      */
     put_City(bstrCity) {
-        bstrCity := bstrCity is String ? BSTR.Alloc(bstrCity).Value : bstrCity
+        if(bstrCity is String) {
+            pin := BSTR.Alloc(bstrCity)
+            bstrCity := pin.Value
+        }
 
-        result := ComCall(10, this, "ptr", bstrCity, "HRESULT")
+        result := ComCall(10, this, "ptr", bstrCity, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_Company property is a null-terminated string that contains the company name associated with the sender.
+     * The IFaxSender::get_Company property is a null-terminated string that contains the company name associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_company
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_company
      */
     get_Company() {
         pbstrCompany := BSTR()
-        result := ComCall(11, this, "ptr", pbstrCompany, "HRESULT")
+        result := ComCall(11, this, "ptr", pbstrCompany, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCompany
     }
 
     /**
-     * The IFaxSender::get_Company property is a null-terminated string that contains the company name associated with the sender.
+     * The IFaxSender::get_Company property is a null-terminated string that contains the company name associated with the sender. (Put)
      * @param {BSTR} bstrCompany 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_company
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_company
      */
     put_Company(bstrCompany) {
-        bstrCompany := bstrCompany is String ? BSTR.Alloc(bstrCompany).Value : bstrCompany
+        if(bstrCompany is String) {
+            pin := BSTR.Alloc(bstrCompany)
+            bstrCompany := pin.Value
+        }
 
-        result := ComCall(12, this, "ptr", bstrCompany, "HRESULT")
+        result := ComCall(12, this, "ptr", bstrCompany, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -245,7 +276,11 @@ class IFaxSender extends IDispatch{
      */
     get_Country() {
         pbstrCountry := BSTR()
-        result := ComCall(13, this, "ptr", pbstrCountry, "HRESULT")
+        result := ComCall(13, this, "ptr", pbstrCountry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrCountry
     }
 
@@ -255,201 +290,296 @@ class IFaxSender extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Country(bstrCountry) {
-        bstrCountry := bstrCountry is String ? BSTR.Alloc(bstrCountry).Value : bstrCountry
+        if(bstrCountry is String) {
+            pin := BSTR.Alloc(bstrCountry)
+            bstrCountry := pin.Value
+        }
 
-        result := ComCall(14, this, "ptr", bstrCountry, "HRESULT")
+        result := ComCall(14, this, "ptr", bstrCountry, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_Department property is a null-terminated string that contains the department associated with the sender.
+     * The IFaxSender::get_Department property is a null-terminated string that contains the department associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_department
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_department
      */
     get_Department() {
         pbstrDepartment := BSTR()
-        result := ComCall(15, this, "ptr", pbstrDepartment, "HRESULT")
+        result := ComCall(15, this, "ptr", pbstrDepartment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrDepartment
     }
 
     /**
-     * The IFaxSender::get_Department property is a null-terminated string that contains the department associated with the sender.
+     * The IFaxSender::get_Department property is a null-terminated string that contains the department associated with the sender. (Put)
      * @param {BSTR} bstrDepartment 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_department
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_department
      */
     put_Department(bstrDepartment) {
-        bstrDepartment := bstrDepartment is String ? BSTR.Alloc(bstrDepartment).Value : bstrDepartment
+        if(bstrDepartment is String) {
+            pin := BSTR.Alloc(bstrDepartment)
+            bstrDepartment := pin.Value
+        }
 
-        result := ComCall(16, this, "ptr", bstrDepartment, "HRESULT")
+        result := ComCall(16, this, "ptr", bstrDepartment, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_Email property is a null-terminated string that contains the email address associated with the sender.
+     * The IFaxSender::get_Email property is a null-terminated string that contains the email address associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_email
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_email
      */
     get_Email() {
         pbstrEmail := BSTR()
-        result := ComCall(17, this, "ptr", pbstrEmail, "HRESULT")
+        result := ComCall(17, this, "ptr", pbstrEmail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrEmail
     }
 
     /**
-     * The IFaxSender::get_Email property is a null-terminated string that contains the email address associated with the sender.
+     * The IFaxSender::get_Email property is a null-terminated string that contains the email address associated with the sender. (Put)
      * @param {BSTR} bstrEmail 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_email
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_email
      */
     put_Email(bstrEmail) {
-        bstrEmail := bstrEmail is String ? BSTR.Alloc(bstrEmail).Value : bstrEmail
+        if(bstrEmail is String) {
+            pin := BSTR.Alloc(bstrEmail)
+            bstrEmail := pin.Value
+        }
 
-        result := ComCall(18, this, "ptr", bstrEmail, "HRESULT")
+        result := ComCall(18, this, "ptr", bstrEmail, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_FaxNumber property is a null-terminated string that contains the fax number associated with the sender.
+     * The IFaxSender::get_FaxNumber property is a null-terminated string that contains the fax number associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_faxnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_faxnumber
      */
     get_FaxNumber() {
         pbstrFaxNumber := BSTR()
-        result := ComCall(19, this, "ptr", pbstrFaxNumber, "HRESULT")
+        result := ComCall(19, this, "ptr", pbstrFaxNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrFaxNumber
     }
 
     /**
-     * The IFaxSender::get_FaxNumber property is a null-terminated string that contains the fax number associated with the sender.
+     * The IFaxSender::get_FaxNumber property is a null-terminated string that contains the fax number associated with the sender. (Put)
      * @param {BSTR} bstrFaxNumber 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_faxnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_faxnumber
      */
     put_FaxNumber(bstrFaxNumber) {
-        bstrFaxNumber := bstrFaxNumber is String ? BSTR.Alloc(bstrFaxNumber).Value : bstrFaxNumber
+        if(bstrFaxNumber is String) {
+            pin := BSTR.Alloc(bstrFaxNumber)
+            bstrFaxNumber := pin.Value
+        }
 
-        result := ComCall(20, this, "ptr", bstrFaxNumber, "HRESULT")
+        result := ComCall(20, this, "ptr", bstrFaxNumber, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_HomePhone property is a null-terminated string that contains the home telephone number associated with the sender.
+     * The IFaxSender::get_HomePhone property is a null-terminated string that contains the home telephone number associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_homephone
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_homephone
      */
     get_HomePhone() {
         pbstrHomePhone := BSTR()
-        result := ComCall(21, this, "ptr", pbstrHomePhone, "HRESULT")
+        result := ComCall(21, this, "ptr", pbstrHomePhone, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrHomePhone
     }
 
     /**
-     * The IFaxSender::get_HomePhone property is a null-terminated string that contains the home telephone number associated with the sender.
+     * The IFaxSender::get_HomePhone property is a null-terminated string that contains the home telephone number associated with the sender. (Put)
      * @param {BSTR} bstrHomePhone 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_homephone
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_homephone
      */
     put_HomePhone(bstrHomePhone) {
-        bstrHomePhone := bstrHomePhone is String ? BSTR.Alloc(bstrHomePhone).Value : bstrHomePhone
+        if(bstrHomePhone is String) {
+            pin := BSTR.Alloc(bstrHomePhone)
+            bstrHomePhone := pin.Value
+        }
 
-        result := ComCall(22, this, "ptr", bstrHomePhone, "HRESULT")
+        result := ComCall(22, this, "ptr", bstrHomePhone, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_Name property is a null-terminated string that contains the name of the sender.
+     * The IFaxSender::get_Name property is a null-terminated string that contains the name of the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_name
      */
     get_Name() {
         pbstrName := BSTR()
-        result := ComCall(23, this, "ptr", pbstrName, "HRESULT")
+        result := ComCall(23, this, "ptr", pbstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrName
     }
 
     /**
-     * The IFaxSender::get_Name property is a null-terminated string that contains the name of the sender.
+     * The IFaxSender::get_Name property is a null-terminated string that contains the name of the sender. (Put)
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_name
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_name
      */
     put_Name(bstrName) {
-        bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
+        if(bstrName is String) {
+            pin := BSTR.Alloc(bstrName)
+            bstrName := pin.Value
+        }
 
-        result := ComCall(24, this, "ptr", bstrName, "HRESULT")
+        result := ComCall(24, this, "ptr", bstrName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_TSID property is a null-terminated string that contains the transmitting station identifier (TSID) for the sender's device.
+     * The IFaxSender::get_TSID property is a null-terminated string that contains the transmitting station identifier (TSID) for the sender's device. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_tsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_tsid
      */
     get_TSID() {
         pbstrTSID := BSTR()
-        result := ComCall(25, this, "ptr", pbstrTSID, "HRESULT")
+        result := ComCall(25, this, "ptr", pbstrTSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTSID
     }
 
     /**
-     * The IFaxSender::get_TSID property is a null-terminated string that contains the transmitting station identifier (TSID) for the sender's device.
+     * The IFaxSender::get_TSID property is a null-terminated string that contains the transmitting station identifier (TSID) for the sender's device. (Put)
      * @param {BSTR} bstrTSID 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_tsid
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_tsid
      */
     put_TSID(bstrTSID) {
-        bstrTSID := bstrTSID is String ? BSTR.Alloc(bstrTSID).Value : bstrTSID
+        if(bstrTSID is String) {
+            pin := BSTR.Alloc(bstrTSID)
+            bstrTSID := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", bstrTSID, "HRESULT")
+        result := ComCall(26, this, "ptr", bstrTSID, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_OfficePhone property is a null-terminated string that contains the office telephone number associated with the sender.
+     * The IFaxSender::get_OfficePhone property is a null-terminated string that contains the office telephone number associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_officephone
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_officephone
      */
     get_OfficePhone() {
         pbstrOfficePhone := BSTR()
-        result := ComCall(27, this, "ptr", pbstrOfficePhone, "HRESULT")
+        result := ComCall(27, this, "ptr", pbstrOfficePhone, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrOfficePhone
     }
 
     /**
-     * The IFaxSender::get_OfficePhone property is a null-terminated string that contains the office telephone number associated with the sender.
+     * The IFaxSender::get_OfficePhone property is a null-terminated string that contains the office telephone number associated with the sender. (Put)
      * @param {BSTR} bstrOfficePhone 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_officephone
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_officephone
      */
     put_OfficePhone(bstrOfficePhone) {
-        bstrOfficePhone := bstrOfficePhone is String ? BSTR.Alloc(bstrOfficePhone).Value : bstrOfficePhone
+        if(bstrOfficePhone is String) {
+            pin := BSTR.Alloc(bstrOfficePhone)
+            bstrOfficePhone := pin.Value
+        }
 
-        result := ComCall(28, this, "ptr", bstrOfficePhone, "HRESULT")
+        result := ComCall(28, this, "ptr", bstrOfficePhone, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_OfficeLocation property is a null-terminated string that contains the office location of the sender.
+     * The IFaxSender::get_OfficeLocation property is a null-terminated string that contains the office location of the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_officelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_officelocation
      */
     get_OfficeLocation() {
         pbstrOfficeLocation := BSTR()
-        result := ComCall(29, this, "ptr", pbstrOfficeLocation, "HRESULT")
+        result := ComCall(29, this, "ptr", pbstrOfficeLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrOfficeLocation
     }
 
     /**
-     * The IFaxSender::get_OfficeLocation property is a null-terminated string that contains the office location of the sender.
+     * The IFaxSender::get_OfficeLocation property is a null-terminated string that contains the office location of the sender. (Put)
      * @param {BSTR} bstrOfficeLocation 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_officelocation
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_officelocation
      */
     put_OfficeLocation(bstrOfficeLocation) {
-        bstrOfficeLocation := bstrOfficeLocation is String ? BSTR.Alloc(bstrOfficeLocation).Value : bstrOfficeLocation
+        if(bstrOfficeLocation is String) {
+            pin := BSTR.Alloc(bstrOfficeLocation)
+            bstrOfficeLocation := pin.Value
+        }
 
-        result := ComCall(30, this, "ptr", bstrOfficeLocation, "HRESULT")
+        result := ComCall(30, this, "ptr", bstrOfficeLocation, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -459,7 +589,11 @@ class IFaxSender extends IDispatch{
      */
     get_State() {
         pbstrState := BSTR()
-        result := ComCall(31, this, "ptr", pbstrState, "HRESULT")
+        result := ComCall(31, this, "ptr", pbstrState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrState
     }
 
@@ -469,67 +603,90 @@ class IFaxSender extends IDispatch{
      * @returns {HRESULT} 
      */
     put_State(bstrState) {
-        bstrState := bstrState is String ? BSTR.Alloc(bstrState).Value : bstrState
+        if(bstrState is String) {
+            pin := BSTR.Alloc(bstrState)
+            bstrState := pin.Value
+        }
 
-        result := ComCall(32, this, "ptr", bstrState, "HRESULT")
+        result := ComCall(32, this, "ptr", bstrState, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_StreetAddress property is a null-terminated string that contains the street address associated with the sender.
+     * The IFaxSender::get_StreetAddress property is a null-terminated string that contains the street address associated with the sender. (Get)
      * @remarks
-     * 
      * The street address should also include the city, state, zip code (postal code) and country/region for the sender.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_streetaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_streetaddress
      */
     get_StreetAddress() {
         pbstrStreetAddress := BSTR()
-        result := ComCall(33, this, "ptr", pbstrStreetAddress, "HRESULT")
+        result := ComCall(33, this, "ptr", pbstrStreetAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrStreetAddress
     }
 
     /**
-     * The IFaxSender::get_StreetAddress property is a null-terminated string that contains the street address associated with the sender.
+     * The IFaxSender::get_StreetAddress property is a null-terminated string that contains the street address associated with the sender. (Put)
      * @remarks
-     * 
      * The street address should also include the city, state, zip code (postal code) and country/region for the sender.
-     * 
-     * 
      * @param {BSTR} bstrStreetAddress 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_streetaddress
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_streetaddress
      */
     put_StreetAddress(bstrStreetAddress) {
-        bstrStreetAddress := bstrStreetAddress is String ? BSTR.Alloc(bstrStreetAddress).Value : bstrStreetAddress
+        if(bstrStreetAddress is String) {
+            pin := BSTR.Alloc(bstrStreetAddress)
+            bstrStreetAddress := pin.Value
+        }
 
-        result := ComCall(34, this, "ptr", bstrStreetAddress, "HRESULT")
+        result := ComCall(34, this, "ptr", bstrStreetAddress, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
-     * The IFaxSender::get_Title property is a null-terminated string that contains the title associated with the sender.
+     * The IFaxSender::get_Title property is a null-terminated string that contains the title associated with the sender. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-get_title
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-get_title
      */
     get_Title() {
         pbstrTitle := BSTR()
-        result := ComCall(35, this, "ptr", pbstrTitle, "HRESULT")
+        result := ComCall(35, this, "ptr", pbstrTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrTitle
     }
 
     /**
-     * The IFaxSender::get_Title property is a null-terminated string that contains the title associated with the sender.
+     * The IFaxSender::get_Title property is a null-terminated string that contains the title associated with the sender. (Put)
      * @param {BSTR} bstrTitle 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-put_title
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-put_title
      */
     put_Title(bstrTitle) {
-        bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
+        if(bstrTitle is String) {
+            pin := BSTR.Alloc(bstrTitle)
+            bstrTitle := pin.Value
+        }
 
-        result := ComCall(36, this, "ptr", bstrTitle, "HRESULT")
+        result := ComCall(36, this, "ptr", bstrTitle, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -539,7 +696,11 @@ class IFaxSender extends IDispatch{
      */
     get_ZipCode() {
         pbstrZipCode := BSTR()
-        result := ComCall(37, this, "ptr", pbstrZipCode, "HRESULT")
+        result := ComCall(37, this, "ptr", pbstrZipCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbstrZipCode
     }
 
@@ -549,33 +710,56 @@ class IFaxSender extends IDispatch{
      * @returns {HRESULT} 
      */
     put_ZipCode(bstrZipCode) {
-        bstrZipCode := bstrZipCode is String ? BSTR.Alloc(bstrZipCode).Value : bstrZipCode
+        if(bstrZipCode is String) {
+            pin := BSTR.Alloc(bstrZipCode)
+            bstrZipCode := pin.Value
+        }
 
-        result := ComCall(38, this, "ptr", bstrZipCode, "HRESULT")
+        result := ComCall(38, this, "ptr", bstrZipCode, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IFaxSender::get_LoadDefaultSender method fills the FaxSender object with the default sender information.
+     * @remarks
+     * The default sender information is saved using the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxsender-savedefaultsender-vb">IFaxSender::SaveDefaultSender</a> method.
+     * 
+     * This method can return remote procedure call (RPC) return values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-loaddefaultsender
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-loaddefaultsender
      */
     LoadDefaultSender() {
-        result := ComCall(39, this, "HRESULT")
+        result := ComCall(39, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * The IFaxSender::SaveDefaultSender method stores information about the default sender from the FaxSender object.
+     * @remarks
+     * To load the default sender information into a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxsender">FaxSender</a> object, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxsender-loaddefaultsender-vb">IFaxSender::get_LoadDefaultSender</a> method.
+     * 
+     * This method can return remote procedure call (RPC) return values. For more information, see <a href="https://docs.microsoft.com/windows/desktop/Rpc/rpc-return-values">RPC Return Values</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxsender-savedefaultsender
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/faxcomex/nf-faxcomex-ifaxsender-savedefaultsender
      */
     SaveDefaultSender() {
-        result := ComCall(40, this, "HRESULT")
+        result := ComCall(40, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

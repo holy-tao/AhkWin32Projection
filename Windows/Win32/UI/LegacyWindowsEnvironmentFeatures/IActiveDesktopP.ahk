@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that manage the Windows Desktop.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-iactivedesktopp
+ * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nn-shlobj-iactivedesktopp
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319
  */
@@ -38,10 +38,14 @@ class IActiveDesktopP extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-iactivedesktopp-setsafemode
+     * @see https://learn.microsoft.com/windows/win32/api//content/shlobj/nf-shlobj-iactivedesktopp-setsafemode
      */
     SetSafeMode(dwFlags) {
-        result := ComCall(3, this, "uint", dwFlags, "HRESULT")
+        result := ComCall(3, this, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -50,7 +54,11 @@ class IActiveDesktopP extends IUnknown{
      * @returns {HRESULT} 
      */
     EnsureUpdateHTML() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -63,7 +71,11 @@ class IActiveDesktopP extends IUnknown{
     SetScheme(pwszSchemeName, dwFlags) {
         pwszSchemeName := pwszSchemeName is String ? StrPtr(pwszSchemeName) : pwszSchemeName
 
-        result := ComCall(5, this, "ptr", pwszSchemeName, "uint", dwFlags, "HRESULT")
+        result := ComCall(5, this, "ptr", pwszSchemeName, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -79,7 +91,11 @@ class IActiveDesktopP extends IUnknown{
 
         pdwcchBufferMarshal := pdwcchBuffer is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(6, this, "ptr", pwszSchemeName, pdwcchBufferMarshal, pdwcchBuffer, "uint", dwFlags, "HRESULT")
+        result := ComCall(6, this, "ptr", pwszSchemeName, pdwcchBufferMarshal, pdwcchBuffer, "uint", dwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

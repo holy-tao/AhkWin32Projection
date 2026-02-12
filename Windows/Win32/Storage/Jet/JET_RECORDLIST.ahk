@@ -3,8 +3,8 @@
 #Include ..\StructuredStorage\JET_TABLEID.ahk
 
 /**
- * Learn more about: JET_RECORDLIST constructor
- * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/jet-recordlist-constructor
+ * Learn more about: JET_RECORDLIST Structure
+ * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/jet-recordlist-structure
  * @namespace Windows.Win32.Storage.Jet
  * @version v4.0.30319
  */

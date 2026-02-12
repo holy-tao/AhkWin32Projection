@@ -10,7 +10,7 @@
  * 
  * </div>
  * <div> </div>
- * @see https://learn.microsoft.com/windows/win32/api/http/ns-http-http_service_binding_base
+ * @see https://learn.microsoft.com/windows/win32/api//content/http/ns-http-http_service_binding_base
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

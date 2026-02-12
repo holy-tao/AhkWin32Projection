@@ -7,7 +7,7 @@
 
 /**
  * Use this interface to get or set session properties.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapisessionproperties
+ * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nn-rdpencomapi-irdpsrapisessionproperties
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -39,9 +39,8 @@ class IRDPSRAPISessionProperties extends IDispatch{
     static VTableNames => ["get_Property", "put_Property"]
 
     /**
-     * Sets or gets a named session property.
+     * Sets or gets a named session property. (Get)
      * @remarks
-     * 
      * You can set and get the following properties. The property names are case-sensitive.
      * 
      * <table>
@@ -268,24 +267,28 @@ class IRDPSRAPISessionProperties extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {BSTR} PropertyName 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisessionproperties-get_property
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapisessionproperties-get_property
      */
     get_Property(PropertyName) {
-        PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
+        if(PropertyName is String) {
+            pin := BSTR.Alloc(PropertyName)
+            PropertyName := pin.Value
+        }
 
         pVal := VARIANT()
-        result := ComCall(7, this, "ptr", PropertyName, "ptr", pVal, "HRESULT")
+        result := ComCall(7, this, "ptr", PropertyName, "ptr", pVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pVal
     }
 
     /**
-     * Sets or gets a named session property.
+     * Sets or gets a named session property. (Put)
      * @remarks
-     * 
      * You can set and get the following properties. The property names are case-sensitive.
      * 
      * <table>
@@ -512,17 +515,22 @@ class IRDPSRAPISessionProperties extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {BSTR} PropertyName 
      * @param {VARIANT} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapisessionproperties-put_property
+     * @see https://learn.microsoft.com/windows/win32/api//content/rdpencomapi/nf-rdpencomapi-irdpsrapisessionproperties-put_property
      */
     put_Property(PropertyName, newVal) {
-        PropertyName := PropertyName is String ? BSTR.Alloc(PropertyName).Value : PropertyName
+        if(PropertyName is String) {
+            pin := BSTR.Alloc(PropertyName)
+            PropertyName := pin.Value
+        }
 
-        result := ComCall(8, this, "ptr", PropertyName, "ptr", newVal, "HRESULT")
+        result := ComCall(8, this, "ptr", PropertyName, "ptr", newVal, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

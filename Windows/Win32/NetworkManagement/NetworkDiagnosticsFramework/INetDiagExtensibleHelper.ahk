@@ -40,7 +40,11 @@ class INetDiagExtensibleHelper extends IUnknown{
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"
         prgMatchValuesMarshal := prgMatchValues is VarRef ? "ptr*" : "ptr"
 
-        result := ComCall(3, this, "uint", celt, "ptr", rgKeyAttributes, pceltMarshal, pcelt, prgMatchValuesMarshal, prgMatchValues, "HRESULT")
+        result := ComCall(3, this, "uint", celt, "ptr", rgKeyAttributes, pceltMarshal, pcelt, prgMatchValuesMarshal, prgMatchValues, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

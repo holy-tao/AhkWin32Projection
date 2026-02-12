@@ -7,7 +7,7 @@
 
 /**
  * Configures the settings of a stream in an ASF file.
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfstreamconfig
+ * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nn-wmcontainer-imfasfstreamconfig
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,18 +35,22 @@ class IMFASFStreamConfig extends IMFAttributes{
     /**
      * Gets the major media type of the stream.
      * @returns {Guid} Receives the major media type for the stream. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-type-guids">Major Media Types</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-getstreamtype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getstreamtype
      */
     GetStreamType() {
         pguidStreamType := Guid()
-        result := ComCall(33, this, "ptr", pguidStreamType, "HRESULT")
+        result := ComCall(33, this, "ptr", pguidStreamType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pguidStreamType
     }
 
     /**
      * Retrieves the stream number of the stream.
      * @returns {Integer} The method returns the  stream number.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-getstreamnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getstreamnumber
      */
     GetStreamNumber() {
         result := ComCall(34, this, "ushort")
@@ -55,6 +59,8 @@ class IMFASFStreamConfig extends IMFAttributes{
 
     /**
      * Assigns a stream number to the stream.
+     * @remarks
+     * Stream numbers start from 1 and do not need to be sequential.
      * @param {Integer} wStreamNum The number to assign to the stream.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -75,25 +81,37 @@ class IMFASFStreamConfig extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-setstreamnumber
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-setstreamnumber
      */
     SetStreamNumber(wStreamNum) {
-        result := ComCall(35, this, "ushort", wStreamNum, "HRESULT")
+        result := ComCall(35, this, "ushort", wStreamNum, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the media type of the stream.
+     * @remarks
+     * To reduce unnecessary copying, the method returns a pointer to the media type  that is stored internally by the object. Do not modify the returned media type,  as the results are not defined.
      * @returns {IMFMediaType} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type object associated with the stream. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-getmediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getmediatype
      */
     GetMediaType() {
-        result := ComCall(36, this, "ptr*", &ppIMediaType := 0, "HRESULT")
+        result := ComCall(36, this, "ptr*", &ppIMediaType := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFMediaType(ppIMediaType)
     }
 
     /**
      * Sets the media type for the Advanced Systems Format (ASF) stream configuration object.
+     * @remarks
+     * Some validation of the media type is performed by this method. However, a media type can be successfully set, but cause an error when the stream is added to the profile.
      * @param {IMFMediaType} pIMediaType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of a configured media type object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -114,20 +132,28 @@ class IMFASFStreamConfig extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-setmediatype
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-setmediatype
      */
     SetMediaType(pIMediaType) {
-        result := ComCall(37, this, "ptr", pIMediaType, "HRESULT")
+        result := ComCall(37, this, "ptr", pIMediaType, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Retrieves the number of payload extensions that are configured for the stream.
      * @returns {Integer} Receives the number of payload extensions.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextensioncount
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextensioncount
      */
     GetPayloadExtensionCount() {
-        result := ComCall(38, this, "ushort*", &pcPayloadExtensions := 0, "HRESULT")
+        result := ComCall(38, this, "ushort*", &pcPayloadExtensions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pcPayloadExtensions
     }
 
@@ -190,14 +216,18 @@ class IMFASFStreamConfig extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-getpayloadextension
      */
     GetPayloadExtension(wPayloadExtensionNumber, pguidExtensionSystemID, pcbExtensionDataSize, pbExtensionSystemInfo, pcbExtensionSystemInfo) {
         pcbExtensionDataSizeMarshal := pcbExtensionDataSize is VarRef ? "ushort*" : "ptr"
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
         pcbExtensionSystemInfoMarshal := pcbExtensionSystemInfo is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(39, this, "ushort", wPayloadExtensionNumber, "ptr", pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "HRESULT")
+        result := ComCall(39, this, "ushort", wPayloadExtensionNumber, "ptr", pguidExtensionSystemID, pcbExtensionDataSizeMarshal, pcbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, pcbExtensionSystemInfoMarshal, pcbExtensionSystemInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -226,17 +256,23 @@ class IMFASFStreamConfig extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-addpayloadextension
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-addpayloadextension
      */
     AddPayloadExtension(guidExtensionSystemID, cbExtensionDataSize, pbExtensionSystemInfo, cbExtensionSystemInfo) {
         pbExtensionSystemInfoMarshal := pbExtensionSystemInfo is VarRef ? "char*" : "ptr"
 
-        result := ComCall(40, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "HRESULT")
+        result := ComCall(40, this, "ptr", guidExtensionSystemID, "ushort", cbExtensionDataSize, pbExtensionSystemInfoMarshal, pbExtensionSystemInfo, "uint", cbExtensionSystemInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Removes all payload extensions that are configured for the stream.
+     * @remarks
+     * None.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -256,20 +292,30 @@ class IMFASFStreamConfig extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-removeallpayloadextensions
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-removeallpayloadextensions
      */
     RemoveAllPayloadExtensions() {
-        result := ComCall(41, this, "HRESULT")
+        result := ComCall(41, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Creates a copy of the Advanced Systems Format (ASF) stream configuration object.
+     * @remarks
+     * The cloned object is completely independent of the original.
      * @returns {IMFASFStreamConfig} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfstreamconfig">IMFASFStreamConfig</a> interface of the new object. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfstreamconfig-clone
+     * @see https://learn.microsoft.com/windows/win32/api//content/wmcontainer/nf-wmcontainer-imfasfstreamconfig-clone
      */
     Clone() {
-        result := ComCall(42, this, "ptr*", &ppIStreamConfig := 0, "HRESULT")
+        result := ComCall(42, this, "ptr*", &ppIStreamConfig := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IMFASFStreamConfig(ppIStreamConfig)
     }
 }

@@ -5,7 +5,7 @@
 
 /**
  * Receives quota-related event notifications.
- * @see https://docs.microsoft.com/windows/win32/api//dskquota/nn-dskquota-idiskquotaevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nn-dskquota-idiskquotaevents
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -35,10 +35,14 @@ class IDiskQuotaEvents extends IUnknown{
      * @param {IDiskQuotaUser} pUser A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauser">IDiskQuotaUser</a> interface for the quota user object. Do not  call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on this pointer. The <b>DiskQuotaControl</b> object controls the lifetime of the user object.
      * @returns {HRESULT} The return value is ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotaevents-onusernamechanged
+     * @see https://learn.microsoft.com/windows/win32/api//content/dskquota/nf-dskquota-idiskquotaevents-onusernamechanged
      */
     OnUserNameChanged(pUser) {
-        result := ComCall(3, this, "ptr", pUser, "HRESULT")
+        result := ComCall(3, this, "ptr", pUser, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

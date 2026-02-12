@@ -36,7 +36,11 @@ class IJsDebugProcess extends IUnknown{
      * @returns {IJsDebugStackWalker} 
      */
     CreateStackWalker(threadId) {
-        result := ComCall(3, this, "uint", threadId, "ptr*", &ppStackWalker := 0, "HRESULT")
+        result := ComCall(3, this, "uint", threadId, "ptr*", &ppStackWalker := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IJsDebugStackWalker(ppStackWalker)
     }
 
@@ -49,7 +53,11 @@ class IJsDebugProcess extends IUnknown{
      * @returns {IJsDebugBreakPoint} 
      */
     CreateBreakPoint(documentId, characterOffset, characterCount, isEnabled) {
-        result := ComCall(4, this, "uint", documentId, "uint", characterOffset, "uint", characterCount, "int", isEnabled, "ptr*", &ppDebugBreakPoint := 0, "HRESULT")
+        result := ComCall(4, this, "uint", documentId, "uint", characterOffset, "uint", characterCount, "int", isEnabled, "ptr*", &ppDebugBreakPoint := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IJsDebugBreakPoint(ppDebugBreakPoint)
     }
 
@@ -59,7 +67,11 @@ class IJsDebugProcess extends IUnknown{
      * @returns {HRESULT} 
      */
     PerformAsyncBreak(threadId) {
-        result := ComCall(5, this, "uint", threadId, "HRESULT")
+        result := ComCall(5, this, "uint", threadId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -68,7 +80,11 @@ class IJsDebugProcess extends IUnknown{
      * @returns {Integer} 
      */
     GetExternalStepAddress() {
-        result := ComCall(6, this, "uint*", &pCodeAddress := 0, "HRESULT")
+        result := ComCall(6, this, "uint*", &pCodeAddress := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pCodeAddress
     }
 }

@@ -36,7 +36,11 @@ class ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemovedExtendedData{
      */
     GetAutoBreadcrumbsOutput1() {
         pOutput := D3D12_DRED_AUTO_BREADCRUMBS_OUTPUT1()
-        result := ComCall(5, this, "ptr", pOutput, "HRESULT")
+        result := ComCall(5, this, "ptr", pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pOutput
     }
 
@@ -46,7 +50,11 @@ class ID3D12DeviceRemovedExtendedData1 extends ID3D12DeviceRemovedExtendedData{
      */
     GetPageFaultAllocationOutput1() {
         pOutput := D3D12_DRED_PAGE_FAULT_OUTPUT1()
-        result := ComCall(6, this, "ptr", pOutput, "HRESULT")
+        result := ComCall(6, this, "ptr", pOutput, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pOutput
     }
 }

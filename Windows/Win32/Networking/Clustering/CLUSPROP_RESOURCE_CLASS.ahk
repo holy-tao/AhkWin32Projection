@@ -11,7 +11,7 @@
  *      provide a unique identifier for the class that is set to a value greater than 
  *      <b>CLUS_RESCLASS_USER</b>. <b>CLUS_RESCLASS_USER</b> specifies the 
  *      beginning for user-defined resource class identifiers.
- * @see https://learn.microsoft.com/windows/win32/api/clusapi/ns-clusapi-clusprop_resource_class
+ * @see https://learn.microsoft.com/windows/win32/api//content/clusapi/ns-clusapi-clusprop_resource_class
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */

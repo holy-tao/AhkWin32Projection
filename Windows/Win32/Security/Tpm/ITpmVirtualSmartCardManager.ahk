@@ -5,7 +5,7 @@
 
 /**
  * Manages the TPM virtual smart cards.
- * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanager
+ * @see https://learn.microsoft.com/windows/win32/api//content/tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanager
  * @namespace Windows.Win32.Security.Tpm
  * @version v4.0.30319
  */
@@ -38,6 +38,8 @@ class ITpmVirtualSmartCardManager extends IUnknown{
 
     /**
      * Creates a TPM virtual smart card with the given parameters.
+     * @remarks
+     * When the method succeeds, the <i>ppszInstanceId</i> parameter points to the Unicode buffer that contains the instance identifier of the newly created TPM virtual smart card reader. When you have finished using the buffer, the caller needs to free the buffer on the client by calling the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function, as directed in the COM memory management rules.
      * @param {PWSTR} pszFriendlyName Display name of the smart card reader node. This is shown in the Device Manager, but it is not the reader name as seen by the smart card resource manager (SCRM).
      * @param {Integer} bAdminAlgId Algorithm identifier of the admin key. Currently, to work with the inbox GIDS minidriver, this value should be VSC_DEFAULT_ADMIN_ALGORITHM_ID (3-key triple DES with ISO/IEC 9797 padding method 2 in CBC chaining mode).
      * @param {Pointer<Integer>} pbAdminKey Pointer to a byte array that contains the admin key of the virtual smart card to be created.
@@ -55,7 +57,7 @@ class ITpmVirtualSmartCardManager extends IUnknown{
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
      * If the method fails, it returns a Win32 error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanager-createvirtualsmartcard
+     * @see https://learn.microsoft.com/windows/win32/api//content/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanager-createvirtualsmartcard
      */
     CreateVirtualSmartCard(pszFriendlyName, bAdminAlgId, pbAdminKey, cbAdminKey, pbAdminKcv, cbAdminKcv, pbPuk, cbPuk, pbPin, cbPin, fGenerate, pStatusCallback, ppszInstanceId, pfNeedReboot) {
         pszFriendlyName := pszFriendlyName is String ? StrPtr(pszFriendlyName) : pszFriendlyName
@@ -67,7 +69,11 @@ class ITpmVirtualSmartCardManager extends IUnknown{
         ppszInstanceIdMarshal := ppszInstanceId is VarRef ? "ptr*" : "ptr"
         pfNeedRebootMarshal := pfNeedReboot is VarRef ? "int*" : "ptr"
 
-        result := ComCall(3, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, "int", fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "HRESULT")
+        result := ComCall(3, this, "ptr", pszFriendlyName, "char", bAdminAlgId, pbAdminKeyMarshal, pbAdminKey, "uint", cbAdminKey, pbAdminKcvMarshal, pbAdminKcv, "uint", cbAdminKcv, pbPukMarshal, pbPuk, "uint", cbPuk, pbPinMarshal, pbPin, "uint", cbPin, "int", fGenerate, "ptr", pStatusCallback, ppszInstanceIdMarshal, ppszInstanceId, pfNeedRebootMarshal, pfNeedReboot, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -76,12 +82,16 @@ class ITpmVirtualSmartCardManager extends IUnknown{
      * @param {PWSTR} pszInstanceId Instance identifier of the TPM virtual smart card that is returned from a successful <a href="https://docs.microsoft.com/windows/desktop/api/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanager-createvirtualsmartcard">CreateVirtualSmartCard</a> method call.
      * @param {ITpmVirtualSmartCardManagerStatusCallback} pStatusCallback Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/tpmvscmgr/nn-tpmvscmgr-itpmvirtualsmartcardmanagerstatuscallback">ITpmVirtualSmartCardManagerStatusCallback</a> interface. The TPM virtual smart card manager uses this callback interface to communicate the progress and errors during creation of the virtual smart card. If the <i>pStatusCallback</i> parameter is <b>NULL</b>, no progress is reported to the client before the operation completes.
      * @returns {BOOL} Pointer to a Boolean value to receive whether the requested operation needs to reboot the client computer.
-     * @see https://docs.microsoft.com/windows/win32/api//tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanager-destroyvirtualsmartcard
+     * @see https://learn.microsoft.com/windows/win32/api//content/tpmvscmgr/nf-tpmvscmgr-itpmvirtualsmartcardmanager-destroyvirtualsmartcard
      */
     DestroyVirtualSmartCard(pszInstanceId, pStatusCallback) {
         pszInstanceId := pszInstanceId is String ? StrPtr(pszInstanceId) : pszInstanceId
 
-        result := ComCall(4, this, "ptr", pszInstanceId, "ptr", pStatusCallback, "int*", &pfNeedReboot := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", pszInstanceId, "ptr", pStatusCallback, "int*", &pfNeedReboot := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pfNeedReboot
     }
 }

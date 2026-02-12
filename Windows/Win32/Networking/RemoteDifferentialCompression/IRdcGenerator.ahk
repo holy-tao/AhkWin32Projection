@@ -6,7 +6,7 @@
 
 /**
  * Used to process the input data and read the parameters used by the generator.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdcgenerator
+ * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nn-msrdc-irdcgenerator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -44,10 +44,14 @@ class IRdcGenerator extends IUnknown{
      * @returns {IRdcGeneratorParameters} Address of a pointer that on successful return will contain the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgeneratorparameters">IRdcGeneratorParameters</a> interface pointer for the 
      *       parameters for the generator level specified in the <i>level</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
      */
     GetGeneratorParameters(level) {
-        result := ComCall(3, this, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
+        result := ComCall(3, this, "uint", level, "ptr*", &iGeneratorParameters := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRdcGeneratorParameters(iGeneratorParameters)
     }
 
@@ -64,21 +68,25 @@ class IRdcGenerator extends IUnknown{
      *       generator was created.
      * @param {Pointer<Pointer<RdcBufferPointer>>} outputBuffers The address of an array of <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ns-msrdc-rdcbufferpointer">RdcBufferPointer</a> structures that 
      *       will receive the output buffers. The <b>m_Used</b> member of these structures will be filled with the number of bytes returned in the buffer.
-     * @param {Pointer<Integer>} rdc_ErrorCode The address of an <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
+     * @param {Pointer<Integer>} rdc_ErrorCode_ The address of an <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that is 
      *       filled with an RDC specific error code if the return value from the 
      *       <b>Process</b> method is 
      *       <b>E_FAIL</b>. If this value is <b>RDC_Win32ErrorCode</b>, then the 
      *       return value of the <b>Process</b> method contains the 
      *       specific error code.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgenerator-process
+     * @see https://learn.microsoft.com/windows/win32/api//content/msrdc/nf-msrdc-irdcgenerator-process
      */
-    Process(endOfInput, endOfOutput, inputBuffer, depth, outputBuffers, rdc_ErrorCode) {
+    Process(endOfInput, endOfOutput, inputBuffer, depth, outputBuffers, rdc_ErrorCode_) {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"
         outputBuffersMarshal := outputBuffers is VarRef ? "ptr*" : "ptr"
-        rdc_ErrorCodeMarshal := rdc_ErrorCode is VarRef ? "int*" : "ptr"
+        rdc_ErrorCode_Marshal := rdc_ErrorCode_ is VarRef ? "int*" : "ptr"
 
-        result := ComCall(4, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "uint", depth, outputBuffersMarshal, outputBuffers, rdc_ErrorCodeMarshal, rdc_ErrorCode, "HRESULT")
+        result := ComCall(4, this, "int", endOfInput, endOfOutputMarshal, endOfOutput, "ptr", inputBuffer, "uint", depth, outputBuffersMarshal, outputBuffers, rdc_ErrorCode_Marshal, rdc_ErrorCode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

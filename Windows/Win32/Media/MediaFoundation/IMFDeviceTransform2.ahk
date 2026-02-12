@@ -31,10 +31,14 @@ class IMFDeviceTransform2 extends IMFDeviceTransform{
 
     /**
      * 
-     * @returns {IMFAttributes} 
+     * @returns {Pointer<IMFAttributes>} 
      */
     GetTransformAttributes() {
-        result := ComCall(23, this, "ptr*", &ppAttributes := 0, "HRESULT")
-        return IMFAttributes(ppAttributes)
+        result := ComCall(23, this, "ptr*", &ppAttributes := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return ppAttributes
     }
 }

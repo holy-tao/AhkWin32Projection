@@ -6,7 +6,7 @@
 
 /**
  * Creates Direct2D resources. This interface performs all the same functions as the ID2D1Factory6 interface, plus it enables the creation of ID2D1Device6 objects.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1factory7
+ * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nn-d2d1_3-id2d1factory7
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,17 +32,21 @@ class ID2D1Factory7 extends ID2D1Factory6{
     static VTableNames => ["CreateDevice"]
 
     /**
-     * Creates a new Direct2D device from the given IDXGIDevice.
+     * Creates a new Direct2D device from the given IDXGIDevice. (ID2D1Factory7.CreateDevice)
      * @param {IDXGIDevice} dxgiDevice Type: <b>IDXGIDevice*</b>
      * 
      * The IDXGIDevice from which to create the Direct2D device.
-     * @returns {ID2D1Device6} Type: <b>ID2D1Device6**</b>
+     * @returns {Pointer<ID2D1Device6>} Type: <b>ID2D1Device6**</b>
      * 
      * The created device.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1factory7-createdevice
+     * @see https://learn.microsoft.com/windows/win32/api//content/d2d1_3/nf-d2d1_3-id2d1factory7-createdevice
      */
     CreateDevice(dxgiDevice) {
-        result := ComCall(32, this, "ptr", dxgiDevice, "ptr*", &d2dDevice6 := 0, "HRESULT")
-        return ID2D1Device6(d2dDevice6)
+        result := ComCall(32, this, "ptr", dxgiDevice, "ptr*", &d2dDevice6 := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return d2dDevice6
     }
 }

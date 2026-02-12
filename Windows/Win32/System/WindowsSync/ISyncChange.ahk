@@ -7,7 +7,7 @@
 
 /**
  * Represents a change to an item.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchange
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncchange
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -77,13 +77,17 @@ class ISyncChange extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getownerreplicaid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getownerreplicaid
      */
     GetOwnerReplicaId(pbReplicaId, pcbIdSize) {
         pbReplicaIdMarshal := pbReplicaId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(3, this, pbReplicaIdMarshal, pbReplicaId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,13 +136,17 @@ class ISyncChange extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getrootitemid
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getrootitemid
      */
     GetRootItemId(pbRootItemId, pcbIdSize) {
         pbRootItemIdMarshal := pbRootItemId is VarRef ? "char*" : "ptr"
         pcbIdSizeMarshal := pcbIdSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbRootItemIdMarshal, pbRootItemId, pcbIdSizeMarshal, pcbIdSize, "HRESULT")
+        result := ComCall(4, this, pbRootItemIdMarshal, pbRootItemId, pcbIdSizeMarshal, pcbIdSize, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -221,12 +229,16 @@ class ISyncChange extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getchangeversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getchangeversion
      */
     GetChangeVersion(pbCurrentReplicaId, pVersion) {
         pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
+        result := ComCall(5, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -287,17 +299,46 @@ class ISyncChange extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getcreationversion
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getcreationversion
      */
     GetCreationVersion(pbCurrentReplicaId, pVersion) {
         pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "HRESULT")
+        result := ComCall(6, this, pbCurrentReplicaIdMarshal, pbCurrentReplicaId, "ptr", pVersion, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets flags that are associated with this change.
+     * @remarks
+     * The following table describes the values that the source and destination provider can use for this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>SYNC_CHANGE_FLAG value </th>
+     * <th>Provider </th>
+     * <th>Indicates </th>
+     * </tr>
+     * <tr>
+     * <td><b>SYNC_CHANGE_FLAG_DELETED 
+     * </b></td>
+     * <td>Source or destination
+     * </td>
+     * <td>The item previously existed in the replica but has been deleted.
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>SYNC_CHANGE_FLAG_DOES_NOT_EXIST</b></td>
+     * <td>Destination only
+     * </td>
+     * <td>The item does not exist in the destination replica.
+     * </td>
+     * </tr>
+     * </table>
      * @param {Pointer<Integer>} pdwFlags Returns the flags that are associated with this change. This will be a combination of <b>SYNC_CHANGE_FLAG</b> values (See Remarks).
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -329,17 +370,25 @@ class ISyncChange extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getflags
      */
     GetFlags(pdwFlags) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "HRESULT")
+        result := ComCall(7, this, pdwFlagsMarshal, pdwFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets the work estimate for this change.
+     * @remarks
+     * The work estimate is a part of the total work that is estimated for the batch or the session.
+     * 
+     * The work estimate is only meaningful when the <b>ISyncChange</b> object represents a change from the source provider.
      * @param {Pointer<Integer>} pdwWork The work estimate for this change. The default value is zero.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -371,47 +420,69 @@ class ISyncChange extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getworkestimate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getworkestimate
      */
     GetWorkEstimate(pdwWork) {
         pdwWorkMarshal := pdwWork is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(8, this, pdwWorkMarshal, pdwWork, "HRESULT")
+        result := ComCall(8, this, pdwWorkMarshal, pdwWork, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
     /**
      * Gets an object that can enumerate change units that are contained in this change.
      * @returns {IEnumSyncChangeUnits} Returns a change unit enumerator. Returns <b>NULL</b> when this change does not contain change units.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getchangeunits
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getchangeunits
      */
     GetChangeUnits() {
-        result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
+        result := ComCall(9, this, "ptr*", &ppEnum := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumSyncChangeUnits(ppEnum)
     }
 
     /**
      * Gets the made-with knowledge for this change.
      * @returns {ISyncKnowledge} Returns the made-with knowledge for this change. The made-with knowledge for a change is typically the knowledge that the replica had when this change was made. This knowledge is only meaningful when the <b>ISyncChange</b> object represents a change from the source provider.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getmadewithknowledge
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getmadewithknowledge
      */
     GetMadeWithKnowledge() {
-        result := ComCall(10, this, "ptr*", &ppMadeWithKnowledge := 0, "HRESULT")
+        result := ComCall(10, this, "ptr*", &ppMadeWithKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppMadeWithKnowledge)
     }
 
     /**
      * Gets the knowledge that a replica will learn when this change is applied to its item store.
+     * @remarks
+     * <b>GetLearnedKnowledge</b> can be used by a provider that uses a custom change applier.
      * @returns {ISyncKnowledge} Returns the knowledge that a replica will learn when this change is applied to its item store. This knowledge is valid only when the current knowledge of the replica contains the prerequisite knowledge of the change batch that contains this change. This knowledge is only meaningful when the <b>ISyncChange</b> object represents a change from the source provider.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-getlearnedknowledge
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-getlearnedknowledge
      */
     GetLearnedKnowledge() {
-        result := ComCall(11, this, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppLearnedKnowledge := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISyncKnowledge(ppLearnedKnowledge)
     }
 
     /**
      * Sets the work estimate for this change.
+     * @remarks
+     * The work estimate is a part of the total work that is estimated for the batch or the session.
+     * 
+     * The work estimate is only meaningful when the <b>ISyncChange</b> object represents a change from the source provider.
      * @param {Integer} dwWork The work estimate for this change.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -432,10 +503,14 @@ class ISyncChange extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchange-setworkestimate
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-isyncchange-setworkestimate
      */
     SetWorkEstimate(dwWork) {
-        result := ComCall(12, this, "uint", dwWork, "HRESULT")
+        result := ComCall(12, this, "uint", dwWork, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

@@ -37,7 +37,11 @@ class IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest{
      * @returns {HRESULT} 
      */
     setProxy(proxySetting, varProxyServer, varBypassList) {
-        result := ComCall(25, this, "int", proxySetting, "ptr", varProxyServer, "ptr", varBypassList, "HRESULT")
+        result := ComCall(25, this, "int", proxySetting, "ptr", varProxyServer, "ptr", varBypassList, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,10 +52,20 @@ class IServerXMLHTTPRequest2 extends IServerXMLHTTPRequest{
      * @returns {HRESULT} 
      */
     setProxyCredentials(bstrUserName, bstrPassword) {
-        bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
-        bstrPassword := bstrPassword is String ? BSTR.Alloc(bstrPassword).Value : bstrPassword
+        if(bstrUserName is String) {
+            pin := BSTR.Alloc(bstrUserName)
+            bstrUserName := pin.Value
+        }
+        if(bstrPassword is String) {
+            pin := BSTR.Alloc(bstrPassword)
+            bstrPassword := pin.Value
+        }
 
-        result := ComCall(26, this, "ptr", bstrUserName, "ptr", bstrPassword, "HRESULT")
+        result := ComCall(26, this, "ptr", bstrUserName, "ptr", bstrPassword, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

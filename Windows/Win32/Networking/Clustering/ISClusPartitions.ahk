@@ -49,7 +49,11 @@ class ISClusPartitions extends IDispatch{
      * @returns {Integer} 
      */
     get_Count() {
-        result := ComCall(7, this, "int*", &plCount := 0, "HRESULT")
+        result := ComCall(7, this, "int*", &plCount := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return plCount
     }
 
@@ -58,7 +62,11 @@ class ISClusPartitions extends IDispatch{
      * @returns {IUnknown} 
      */
     get__NewEnum() {
-        result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
+        result := ComCall(8, this, "ptr*", &retval := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(retval)
     }
 
@@ -68,7 +76,11 @@ class ISClusPartitions extends IDispatch{
      * @returns {ISClusPartition} 
      */
     get_Item(varIndex) {
-        result := ComCall(9, this, "ptr", varIndex, "ptr*", &ppPartition := 0, "HRESULT")
+        result := ComCall(9, this, "ptr", varIndex, "ptr*", &ppPartition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISClusPartition(ppPartition)
     }
 }

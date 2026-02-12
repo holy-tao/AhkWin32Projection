@@ -32,7 +32,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/winsvc/nf-winsvc-setserviceobjectsecurity">SetServiceObjectSecurity</a>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/winsvc/ns-winsvc-service_launch_protected_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsvc/ns-winsvc-service_launch_protected_info
  * @namespace Windows.Win32.System.Services
  * @version v4.0.30319
  */

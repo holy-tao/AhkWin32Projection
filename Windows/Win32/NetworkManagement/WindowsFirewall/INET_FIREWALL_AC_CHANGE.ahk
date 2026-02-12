@@ -5,7 +5,7 @@
 
 /**
  * The INET_FIREWALL_AC_CHANGE structure contains information about a change made to an app container. (INET_FIREWALL_AC_CHANGE)
- * @see https://learn.microsoft.com/windows/win32/api/netfw/ns-netfw-inet_firewall_ac_change
+ * @see https://learn.microsoft.com/windows/win32/api//content/netfw/ns-netfw-inet_firewall_ac_change
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */

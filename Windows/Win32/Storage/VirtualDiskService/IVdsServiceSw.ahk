@@ -36,7 +36,11 @@ class IVdsServiceSw extends IUnknown{
     GetDiskObject(pwszDeviceID) {
         pwszDeviceID := pwszDeviceID is String ? StrPtr(pwszDeviceID) : pwszDeviceID
 
-        result := ComCall(3, this, "ptr", pwszDeviceID, "ptr*", &ppDiskUnk := 0, "HRESULT")
+        result := ComCall(3, this, "ptr", pwszDeviceID, "ptr*", &ppDiskUnk := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IUnknown(ppDiskUnk)
     }
 }

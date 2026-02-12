@@ -5,7 +5,7 @@
 
 /**
  * Enables interoperability with a WinRT SpatialInteractionManager object and provides access to SpatialInteractionManager members for accessing user input from hands, motion controllers, and system voice commands.
- * @see https://docs.microsoft.com/windows/win32/api//spatialinteractionmanagerinterop/nn-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop
+ * @see https://learn.microsoft.com/windows/win32/api//content/spatialinteractionmanagerinterop/nn-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -32,21 +32,64 @@ class ISpatialInteractionManagerInterop extends IInspectable{
 
     /**
      * Retrieves a SpatialInteractionManager object bound to the active application.
+     * @remarks
+     * This example shows how to retrieve a [SpatialInteractionManager](/uwp/api/windows.ui.input.spatial.spatialinteractionmanager) by using **ISpatialInteractionManagerInterop::GetForWindow** to retrieve the **SpatialInteractionManager** for an [HWND](/windows/desktop/winprog/windows-data-types).
+     * 
+     * ```cppwinrt
+     * // This code example depends on these headers.
+     * // <SpatialInteractionManagerInterop.h>
+     * // <Windows.UI.Input.Spatial.h>
+     * // <winrt/Windows.UI.Input.Spatial.h>
+     *  
+     * // Create the window for the HolographicSpace.
+     * hWnd = CreateWindowW(
+     *     m_szWindowClass, 
+     *     m_szTitle,
+     *     WS_VISIBLE,
+     *     CW_USEDEFAULT, 
+     *     0, 
+     *     CW_USEDEFAULT, 
+     *     0, 
+     *     nullptr, 
+     *     nullptr, 
+     *     hInstance, 
+     *     nullptr);
+     *  
+     * if (!hWnd)
+     * {
+     *     winrt::check_hresult(E_FAIL);
+     * }
+     *  
+     * {
+     *     using namespace winrt::Windows::UI::Input::Spatial;
+     *     winrt::com_ptr<ISpatialInteractionManagerInterop> spatialInteractionManagerInterop = 
+     *         winrt::get_activation_factory<SpatialInteractionManager, ISpatialInteractionManagerInterop>();
+     *  
+     *     winrt::com_ptr<ABI::Windows::UI::Input::Spatial::ISpatialInteractionManager> spSpatialInteractionManager;
+     *     winrt::check_hresult(spatialInteractionManagerInterop->GetForWindow(hWnd, __uuidof(ABI::Windows::UI::Input::Spatial::ISpatialInteractionManager), winrt::put_abi(spSpatialInteractionManager)));
+     *  
+     *     SpatialInteractionManager spatialInteractionManager = spSpatialInteractionManager.as<SpatialInteractionManager>();
+     * }
+     * ```
      * @param {HWND} window Type: [HWND](/windows/desktop/winprog/windows-data-types)
      * 
      * Handle to the window of the active application.
      * @param {Pointer<Guid>} riid Type: **REFIID**
      * 
      * The GUID of the [SpatialInteractionManager](/uwp/api/windows.ui.input.spatial.spatialinteractionmanager) object.
-     * @returns {Pointer<Void>} Type: **void\*\***
+     * @returns {Pointer<Pointer<Void>>} Type: **void\*\***
      * 
      * Address of a pointer to a [SpatialInteractionManager](/uwp/api/windows.ui.input.spatial.spatialinteractionmanager) object.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialinteractionmanagerinterop/nf-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop-getforwindow
+     * @see https://learn.microsoft.com/windows/win32/api//content/spatialinteractionmanagerinterop/nf-spatialinteractionmanagerinterop-ispatialinteractionmanagerinterop-getforwindow
      */
     GetForWindow(window, riid) {
         window := window is Win32Handle ? NumGet(window, "ptr") : window
 
-        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", &spatialInteractionManager := 0, "HRESULT")
+        result := ComCall(6, this, "ptr", window, "ptr", riid, "ptr*", &spatialInteractionManager := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return spatialInteractionManager
     }
 }

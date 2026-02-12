@@ -9,7 +9,7 @@
  * 
  * 
  * ```cpp
- * @see https://learn.microsoft.com/windows/win32/api/dbghelp/ns-dbghelp-imagehlp_duplicate_symbol64
+ * @see https://learn.microsoft.com/windows/win32/api//content/dbghelp/ns-dbghelp-imagehlp_duplicate_symbol64
  * @namespace Windows.Win32.System.Diagnostics.Debug
  * @version v4.0.30319
  */

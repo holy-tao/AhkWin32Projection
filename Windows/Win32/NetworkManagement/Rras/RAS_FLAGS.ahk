@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The connection is using AppleTalk Remote Access Protocol (ARAP).
+ * @see https://learn.microsoft.com/windows/win32/api//content/mprapi/ns-mprapi-ras_connection_0
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

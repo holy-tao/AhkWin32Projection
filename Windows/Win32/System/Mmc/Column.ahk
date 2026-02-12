@@ -5,6 +5,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Column Name Limitations
+ * @see https://learn.microsoft.com/sql/ocs/docs/odbc/microsoft/column-name-limitations
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -60,12 +62,17 @@ class Column extends IDispatch{
     }
 
     /**
-     * 
+     * Name Property (SecurityCertificate Class)
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/relational-databases/wmi-provider-configuration-classes/securitycertificate-class/name-property-securitycertificate-class
      */
     Name() {
         Name := BSTR()
-        result := ComCall(7, this, "ptr", Name, "HRESULT")
+        result := ComCall(7, this, "ptr", Name, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Name
     }
 
@@ -74,7 +81,11 @@ class Column extends IDispatch{
      * @returns {Integer} 
      */
     get_Width() {
-        result := ComCall(8, this, "int*", &Width := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &Width := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Width
     }
 
@@ -84,7 +95,11 @@ class Column extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Width(Width) {
-        result := ComCall(9, this, "int", Width, "HRESULT")
+        result := ComCall(9, this, "int", Width, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -93,7 +108,11 @@ class Column extends IDispatch{
      * @returns {Integer} 
      */
     get_DisplayPosition() {
-        result := ComCall(10, this, "int*", &DisplayPosition := 0, "HRESULT")
+        result := ComCall(10, this, "int*", &DisplayPosition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return DisplayPosition
     }
 
@@ -103,7 +122,11 @@ class Column extends IDispatch{
      * @returns {HRESULT} 
      */
     put_DisplayPosition(Index) {
-        result := ComCall(11, this, "int", Index, "HRESULT")
+        result := ComCall(11, this, "int", Index, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -112,7 +135,11 @@ class Column extends IDispatch{
      * @returns {BOOL} 
      */
     get_Hidden() {
-        result := ComCall(12, this, "int*", &Hidden := 0, "HRESULT")
+        result := ComCall(12, this, "int*", &Hidden := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return Hidden
     }
 
@@ -122,7 +149,11 @@ class Column extends IDispatch{
      * @returns {HRESULT} 
      */
     put_Hidden(Hidden) {
-        result := ComCall(13, this, "int", Hidden, "HRESULT")
+        result := ComCall(13, this, "int", Hidden, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -132,7 +163,11 @@ class Column extends IDispatch{
      * @returns {HRESULT} 
      */
     SetAsSortColumn(SortOrder) {
-        result := ComCall(14, this, "int", SortOrder, "HRESULT")
+        result := ComCall(14, this, "int", SortOrder, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -141,7 +176,11 @@ class Column extends IDispatch{
      * @returns {BOOL} 
      */
     IsSortColumn() {
-        result := ComCall(15, this, "int*", &IsSortColumn := 0, "HRESULT")
+        result := ComCall(15, this, "int*", &IsSortColumn := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IsSortColumn
     }
 }

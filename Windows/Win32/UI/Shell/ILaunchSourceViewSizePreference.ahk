@@ -7,12 +7,9 @@
 /**
  * Provides methods for retrieving information about the source application.
  * @remarks
- * 
  * <h3><a id="When_to_implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to implement</h3>
  * --&gt;
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ilaunchsourceviewsizepreference
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-ilaunchsourceviewsizepreference
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -39,15 +36,17 @@ class ILaunchSourceViewSizePreference extends IUnknown{
 
     /**
      * Retrieves the position of the source application window.
-     * @returns {HWND} Type: <b>HWND*</b>
-     * 
-     * Contains the address of a pointer to a window handle.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewtoposition
+     * @returns {HWND} 
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewtoposition
      */
     GetSourceViewToPosition() {
-        hwnd := HWND()
-        result := ComCall(3, this, "ptr", hwnd, "HRESULT")
-        return hwnd
+        hwnd_ := HWND()
+        result := ComCall(3, this, "ptr", hwnd_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return hwnd_
     }
 
     /**
@@ -55,10 +54,14 @@ class ILaunchSourceViewSizePreference extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>*</b>
      * 
      * Contains the address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-application_view_size_preference">APPLICATION_VIEW_SIZE_PREFERENCE</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewsizepreference
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-ilaunchsourceviewsizepreference-getsourceviewsizepreference
      */
     GetSourceViewSizePreference() {
-        result := ComCall(4, this, "int*", &sourceSizeAfterLaunch := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &sourceSizeAfterLaunch := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return sourceSizeAfterLaunch
     }
 }

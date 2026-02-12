@@ -102,7 +102,7 @@ class Mailslots {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createmailslota
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createmailslota
      * @since windows5.0
      */
     static CreateMailslotA(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes) {
@@ -209,7 +209,7 @@ class Mailslots {
      * 
      * If the function fails, the return value is <b>INVALID_HANDLE_VALUE</b>. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-createmailslotw
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-createmailslotw
      * @since windows5.0
      */
     static CreateMailslotW(lpName, nMaxMessageSize, lReadTimeout, lpSecurityAttributes) {
@@ -260,7 +260,7 @@ class Mailslots {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-getmailslotinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-getmailslotinfo
      * @since windows5.0
      */
     static GetMailslotInfo(hMailslot, lpMaxMessageSize, lpNextSize, lpMessageCount, lpReadTimeout) {
@@ -325,7 +325,7 @@ class Mailslots {
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
      * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setmailslotinfo
+     * @see https://learn.microsoft.com/windows/win32/api//content/winbase/nf-winbase-setmailslotinfo
      * @since windows5.0
      */
     static SetMailslotInfo(hMailslot, lReadTimeout) {

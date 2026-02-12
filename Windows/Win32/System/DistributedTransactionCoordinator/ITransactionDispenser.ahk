@@ -35,20 +35,29 @@ class ITransactionDispenser extends IUnknown{
      * @returns {ITransactionOptions} 
      */
     GetOptionsObject() {
-        result := ComCall(3, this, "ptr*", &ppOptions := 0, "HRESULT")
+        result := ComCall(3, this, "ptr*", &ppOptions := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransactionOptions(ppOptions)
     }
 
     /**
-     * 
+     * Learn more about: BeginTransactionGrbit enumeration
      * @param {IUnknown} punkOuter 
      * @param {Integer} isoLevel 
      * @param {Integer} isoFlags 
      * @param {ITransactionOptions} pOptions 
      * @returns {ITransaction} 
+     * @see https://learn.microsoft.com/windows/win32/ktop-src/extensible-storage-engine/begintransactiongrbit-enumeration
      */
     BeginTransaction(punkOuter, isoLevel, isoFlags, pOptions) {
-        result := ComCall(4, this, "ptr", punkOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", &ppTransaction := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", punkOuter, "int", isoLevel, "uint", isoFlags, "ptr", pOptions, "ptr*", &ppTransaction := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ITransaction(ppTransaction)
     }
 }

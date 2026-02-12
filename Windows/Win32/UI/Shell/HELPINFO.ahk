@@ -5,7 +5,7 @@
 
 /**
  * Contains information about an item for which context-sensitive help has been requested.
- * @see https://learn.microsoft.com/windows/win32/api/winuser/ns-winuser-helpinfo
+ * @see https://learn.microsoft.com/windows/win32/api//content/winuser/ns-winuser-helpinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

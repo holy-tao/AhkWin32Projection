@@ -36,11 +36,15 @@ class IViewObjectPresentSite extends IUnknown{
      * @param {Integer} height 
      * @param {Integer} backBufferCount 
      * @param {Integer} format 
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @returns {ISurfacePresenter} 
      */
-    CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, mode) {
-        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode, "ptr*", &ppQueue := 0, "HRESULT")
+    CreateSurfacePresenter(pDevice, width, height, backBufferCount, format, mode_) {
+        result := ComCall(3, this, "ptr", pDevice, "uint", width, "uint", height, "uint", backBufferCount, "int", format, "int", mode_, "ptr*", &ppQueue := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ISurfacePresenter(ppQueue)
     }
 
@@ -49,17 +53,25 @@ class IViewObjectPresentSite extends IUnknown{
      * @returns {BOOL} 
      */
     IsHardwareComposition() {
-        result := ComCall(4, this, "int*", &pIsHardwareComposition := 0, "HRESULT")
+        result := ComCall(4, this, "int*", &pIsHardwareComposition := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pIsHardwareComposition
     }
 
     /**
      * 
-     * @param {Integer} mode 
+     * @param {Integer} mode_ 
      * @returns {HRESULT} 
      */
-    SetCompositionMode(mode) {
-        result := ComCall(5, this, "int", mode, "HRESULT")
+    SetCompositionMode(mode_) {
+        result := ComCall(5, this, "int", mode_, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

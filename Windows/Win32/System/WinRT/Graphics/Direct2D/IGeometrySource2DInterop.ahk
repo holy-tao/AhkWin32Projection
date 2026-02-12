@@ -31,20 +31,28 @@ class IGeometrySource2DInterop extends IUnknown{
 
     /**
      * 
-     * @returns {ID2D1Geometry} 
+     * @returns {Pointer<ID2D1Geometry>} 
      */
     GetGeometry() {
-        result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
-        return ID2D1Geometry(value)
+        result := ComCall(3, this, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
     }
 
     /**
      * 
      * @param {ID2D1Factory} factory 
-     * @returns {ID2D1Geometry} 
+     * @returns {Pointer<ID2D1Geometry>} 
      */
     TryGetGeometryUsingFactory(factory) {
-        result := ComCall(4, this, "ptr", factory, "ptr*", &value := 0, "HRESULT")
-        return ID2D1Geometry(value)
+        result := ComCall(4, this, "ptr", factory, "ptr*", &value := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
+        return value
     }
 }

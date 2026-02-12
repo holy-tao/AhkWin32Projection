@@ -37,7 +37,11 @@ class ICLRDebugManager extends IUnknown{
     BeginConnection(dwConnectionId, szConnectionName) {
         szConnectionName := szConnectionName is String ? StrPtr(szConnectionName) : szConnectionName
 
-        result := ComCall(3, this, "uint", dwConnectionId, "ptr", szConnectionName, "HRESULT")
+        result := ComCall(3, this, "uint", dwConnectionId, "ptr", szConnectionName, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -49,7 +53,11 @@ class ICLRDebugManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetConnectionTasks(id, dwCount, ppCLRTask) {
-        result := ComCall(4, this, "uint", id, "uint", dwCount, "ptr*", ppCLRTask, "HRESULT")
+        result := ComCall(4, this, "uint", id, "uint", dwCount, "ptr*", ppCLRTask, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -59,7 +67,11 @@ class ICLRDebugManager extends IUnknown{
      * @returns {HRESULT} 
      */
     EndConnection(dwConnectionId) {
-        result := ComCall(5, this, "uint", dwConnectionId, "HRESULT")
+        result := ComCall(5, this, "uint", dwConnectionId, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -69,7 +81,11 @@ class ICLRDebugManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetDacl(pacl) {
-        result := ComCall(6, this, "ptr", pacl, "HRESULT")
+        result := ComCall(6, this, "ptr", pacl, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -78,7 +94,11 @@ class ICLRDebugManager extends IUnknown{
      * @returns {Pointer<ACL>} 
      */
     GetDacl() {
-        result := ComCall(7, this, "ptr*", &pacl := 0, "HRESULT")
+        result := ComCall(7, this, "ptr*", &pacl := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pacl
     }
 
@@ -87,7 +107,11 @@ class ICLRDebugManager extends IUnknown{
      * @returns {BOOL} 
      */
     IsDebuggerAttached() {
-        result := ComCall(8, this, "int*", &pbAttached := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &pbAttached := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pbAttached
     }
 
@@ -97,7 +121,11 @@ class ICLRDebugManager extends IUnknown{
      * @returns {HRESULT} 
      */
     SetSymbolReadingPolicy(policy) {
-        result := ComCall(9, this, "int", policy, "HRESULT")
+        result := ComCall(9, this, "int", policy, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

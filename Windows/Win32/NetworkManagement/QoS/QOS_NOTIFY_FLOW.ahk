@@ -3,7 +3,7 @@
 
 /**
  * The QOS_NOTIFY_FLOW enumeration specifies the circumstances that must be present for the QOSNotifyFlow function to send a notification.
- * @see https://learn.microsoft.com/windows/win32/api/qos2/ne-qos2-qos_notify_flow
+ * @see https://learn.microsoft.com/windows/win32/api//content/qos2/ne-qos2-qos_notify_flow
  * @namespace Windows.Win32.NetworkManagement.QoS
  * @version v4.0.30319
  */

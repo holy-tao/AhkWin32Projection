@@ -39,7 +39,7 @@ class Compression {
      * @param {Pointer<COMPRESS_ALLOCATION_ROUTINES>} AllocationRoutines Optional memory allocation and deallocation routines in a <a href="https://docs.microsoft.com/windows/win32/api/compressapi/ns-compressapi-compress_allocation_routines">COMPRESS_ALLOCATION_ROUTINES</a> structure.
      * @param {Pointer<COMPRESSOR_HANDLE>} CompressorHandle If the function succeeds, the handle to the specified compressor.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-createcompressor
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-createcompressor
      * @since windows8.0
      */
     static CreateCompressor(Algorithm, AllocationRoutines, CompressorHandle) {
@@ -62,7 +62,7 @@ class Compression {
      * @param {Pointer} CompressInformation The information being set read as bytes. The maximum size in bytes is given by <i>CompressInformationSize</i>.
      * @param {Pointer} CompressInformationSize Maximum size  of the information in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-setcompressorinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-setcompressorinformation
      * @since windows8.0
      */
     static SetCompressorInformation(CompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
@@ -87,7 +87,7 @@ class Compression {
      * @param {Pointer} CompressInformation Information for the compression algorithm written as bytes. The maximum size in bytes of this information is given by <i>CompressInformationSize</i>.
      * @param {Pointer} CompressInformationSize Maximum size  in bytes of the information.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-querycompressorinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-querycompressorinformation
      * @since windows8.0
      */
     static QueryCompressorInformation(CompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
@@ -116,7 +116,7 @@ class Compression {
      * @param {Pointer} CompressedBufferSize Maximum size  in bytes of the buffer that receives the compressed information.
      * @param {Pointer<Pointer>} CompressedDataSize Actual size  in bytes of the compressed information received.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-compress
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-compress
      * @since windows8.0
      */
     static Compress(CompressorHandle, UncompressedData, UncompressedDataSize, CompressedBuffer, CompressedBufferSize, CompressedDataSize) {
@@ -140,7 +140,7 @@ class Compression {
      * If the compression algorithm fails for some internal reason, the error from <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can be <b>ERROR_FUNCTION_FAILED</b>.    If the  system cannot locate the compression algorithm handle, the error can be <b>ERROR_INVALID_HANDLE</b>.
      * @param {COMPRESSOR_HANDLE} CompressorHandle Handle to the compressor returned by <a href="https://docs.microsoft.com/windows/desktop/api/compressapi/nf-compressapi-createcompressor">CreateCompressor</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-resetcompressor
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-resetcompressor
      * @since windows8.0
      */
     static ResetCompressor(CompressorHandle) {
@@ -162,7 +162,7 @@ class Compression {
      * If the compression algorithm fails for some internal reason, the error from <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can be <b>ERROR_FUNCTION_FAILED</b>.    If the  system cannot locate the compression algorithm handle, the error can be <b>ERROR_INVALID_HANDLE</b>.
      * @param {COMPRESSOR_HANDLE} CompressorHandle Handle to the compressor to be closed. This is the handle to the compressor that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/compressapi/nf-compressapi-createcompressor">CreateCompressor</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-closecompressor
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-closecompressor
      * @since windows8.0
      */
     static CloseCompressor(CompressorHandle) {
@@ -186,7 +186,7 @@ class Compression {
      * @param {Pointer<COMPRESS_ALLOCATION_ROUTINES>} AllocationRoutines Optional memory allocation and deallocation routines in a <a href="https://docs.microsoft.com/windows/win32/api/compressapi/ns-compressapi-compress_allocation_routines">COMPRESS_ALLOCATION_ROUTINES</a> structure.
      * @param {Pointer<DECOMPRESSOR_HANDLE>} DecompressorHandle If the function succeeds, the handle to the specified decompressor.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-createdecompressor
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-createdecompressor
      * @since windows8.0
      */
     static CreateDecompressor(Algorithm, AllocationRoutines, DecompressorHandle) {
@@ -209,7 +209,7 @@ class Compression {
      * @param {Pointer} CompressInformation The information being set read as bytes. The maximum size in bytes is given by <i>CompressInformationSize</i>.
      * @param {Pointer} CompressInformationSize Maximum size  of the information in bytes.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-setdecompressorinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-setdecompressorinformation
      * @since windows8.0
      */
     static SetDecompressorInformation(DecompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
@@ -234,7 +234,7 @@ class Compression {
      * @param {Pointer} CompressInformation Information for the compression algorithm written as bytes. The maximum size in bytes of this information is given by <i>CompressInformationSize</i>.
      * @param {Pointer} CompressInformationSize Maximum size  in bytes of the information.
      * @returns {BOOL} Returns <b>TRUE</b> to indicate success and <b>FALSE</b> otherwise. Call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> to determine cause of failure.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-querydecompressorinformation
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-querydecompressorinformation
      * @since windows8.0
      */
     static QueryDecompressorInformation(DecompressorHandle, CompressInformationClass, CompressInformation, CompressInformationSize) {
@@ -275,7 +275,7 @@ class Compression {
      * @param {Pointer} UncompressedBufferSize Size  in bytes of the buffer that receives the uncompressed information.
      * @param {Pointer<Pointer>} UncompressedDataSize Actual size  in bytes of the uncompressed information received.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-decompress
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-decompress
      * @since windows8.0
      */
     static Decompress(DecompressorHandle, CompressedData, CompressedDataSize, UncompressedBuffer, UncompressedBufferSize, UncompressedDataSize) {
@@ -299,7 +299,7 @@ class Compression {
      * If the compression algorithm fails for some internal reason, the error from <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can be <b>ERROR_FUNCTION_FAILED</b>.    If the  system cannot locate the compression algorithm handle, the error can be <b>ERROR_INVALID_HANDLE</b>.
      * @param {DECOMPRESSOR_HANDLE} DecompressorHandle Handle to the decompressor returned by <a href="https://docs.microsoft.com/windows/desktop/api/compressapi/nf-compressapi-createdecompressor">CreateDecompressor</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-resetdecompressor
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-resetdecompressor
      * @since windows8.0
      */
     static ResetDecompressor(DecompressorHandle) {
@@ -321,7 +321,7 @@ class Compression {
      * If the compression algorithm fails for some internal reason, the error from <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> can be <b>ERROR_FUNCTION_FAILED</b>.    If the  system cannot locate the compression algorithm handle, the error can be <b>ERROR_INVALID_HANDLE</b>.
      * @param {DECOMPRESSOR_HANDLE} DecompressorHandle Handle to the decompressor to be closed. This is the handle to the compressor that was returned by <a href="https://docs.microsoft.com/windows/desktop/api/compressapi/nf-compressapi-createdecompressor">CreateDecompressor</a>.
      * @returns {BOOL} If the function succeeds, the return value is nonzero. If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://learn.microsoft.com/windows/win32/api/compressapi/nf-compressapi-closedecompressor
+     * @see https://learn.microsoft.com/windows/win32/api//content/compressapi/nf-compressapi-closedecompressor
      * @since windows8.0
      */
     static CloseDecompressor(DecompressorHandle) {

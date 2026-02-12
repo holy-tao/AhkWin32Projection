@@ -49,7 +49,11 @@ class ISVGStringList extends IDispatch{
      * @returns {HRESULT} 
      */
     put_numberOfItems(v) {
-        result := ComCall(7, this, "int", v, "HRESULT")
+        result := ComCall(7, this, "int", v, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -58,16 +62,27 @@ class ISVGStringList extends IDispatch{
      * @returns {Integer} 
      */
     get_numberOfItems() {
-        result := ComCall(8, this, "int*", &p := 0, "HRESULT")
+        result := ComCall(8, this, "int*", &p := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return p
     }
 
     /**
-     * 
+     * clearBatch Method (SQLServerStatement)
+     * @remarks
+     * This clearBatch method is specified by the clearBatch method in the java.sql.Statement interface.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/sql/ocs/docs/connect/jdbc/reference/clearbatch-method-sqlserverstatement
      */
     clear() {
-        result := ComCall(9, this, "HRESULT")
+        result := ComCall(9, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -77,10 +92,17 @@ class ISVGStringList extends IDispatch{
      * @returns {BSTR} 
      */
     initialize(newItem) {
-        newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
+        if(newItem is String) {
+            pin := BSTR.Alloc(newItem)
+            newItem := pin.Value
+        }
 
         ppResult := BSTR()
-        result := ComCall(10, this, "ptr", newItem, "ptr", ppResult, "HRESULT")
+        result := ComCall(10, this, "ptr", newItem, "ptr", ppResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
@@ -91,7 +113,11 @@ class ISVGStringList extends IDispatch{
      */
     getItem(index) {
         ppResult := BSTR()
-        result := ComCall(11, this, "int", index, "ptr", ppResult, "HRESULT")
+        result := ComCall(11, this, "int", index, "ptr", ppResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
@@ -102,10 +128,17 @@ class ISVGStringList extends IDispatch{
      * @returns {BSTR} 
      */
     insertItemBefore(newItem, index) {
-        newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
+        if(newItem is String) {
+            pin := BSTR.Alloc(newItem)
+            newItem := pin.Value
+        }
 
         ppResult := BSTR()
-        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr", ppResult, "HRESULT")
+        result := ComCall(12, this, "ptr", newItem, "int", index, "ptr", ppResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
@@ -116,10 +149,17 @@ class ISVGStringList extends IDispatch{
      * @returns {BSTR} 
      */
     replaceItem(newItem, index) {
-        newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
+        if(newItem is String) {
+            pin := BSTR.Alloc(newItem)
+            newItem := pin.Value
+        }
 
         ppResult := BSTR()
-        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr", ppResult, "HRESULT")
+        result := ComCall(13, this, "ptr", newItem, "int", index, "ptr", ppResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
@@ -130,7 +170,11 @@ class ISVGStringList extends IDispatch{
      */
     removeItem(index) {
         ppResult := BSTR()
-        result := ComCall(14, this, "int", index, "ptr", ppResult, "HRESULT")
+        result := ComCall(14, this, "int", index, "ptr", ppResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 
@@ -140,10 +184,17 @@ class ISVGStringList extends IDispatch{
      * @returns {BSTR} 
      */
     appendItem(newItem) {
-        newItem := newItem is String ? BSTR.Alloc(newItem).Value : newItem
+        if(newItem is String) {
+            pin := BSTR.Alloc(newItem)
+            newItem := pin.Value
+        }
 
         ppResult := BSTR()
-        result := ComCall(15, this, "ptr", newItem, "ptr", ppResult, "HRESULT")
+        result := ComCall(15, this, "ptr", newItem, "ptr", ppResult, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return ppResult
     }
 }

@@ -9,7 +9,7 @@
  *  This structure is followed by a list of 
  * <a href="https://docs.microsoft.com/windows/desktop/api/winperf/ns-winperf-perf_counter_definition">PERF_COUNTER_DEFINITION</a> structures, one for each counter defined for the performance object.
  * 		For details on the layout of the performance data block, see <a href="https://docs.microsoft.com/windows/desktop/PerfCtrs/performance-data-format">Performance Data Format</a>.
- * @see https://learn.microsoft.com/windows/win32/api/winperf/ns-winperf-perf_object_type
+ * @see https://learn.microsoft.com/windows/win32/api//content/winperf/ns-winperf-perf_object_type
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */

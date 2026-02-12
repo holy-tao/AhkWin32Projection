@@ -38,7 +38,11 @@ class IDebugExtendedProperty extends IDebugProperty{
      */
     GetExtendedPropertyInfo(dwFieldSpec, nRadix) {
         pExtendedPropertyInfo := ExtendedDebugPropertyInfo()
-        result := ComCall(8, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", pExtendedPropertyInfo, "HRESULT")
+        result := ComCall(8, this, "uint", dwFieldSpec, "uint", nRadix, "ptr", pExtendedPropertyInfo, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return pExtendedPropertyInfo
     }
 
@@ -49,7 +53,11 @@ class IDebugExtendedProperty extends IDebugProperty{
      * @returns {IEnumDebugExtendedPropertyInfo} 
      */
     EnumExtendedMembers(dwFieldSpec, nRadix) {
-        result := ComCall(9, this, "uint", dwFieldSpec, "uint", nRadix, "ptr*", &ppeepi := 0, "HRESULT")
+        result := ComCall(9, this, "uint", dwFieldSpec, "uint", nRadix, "ptr*", &ppeepi := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IEnumDebugExtendedPropertyInfo(ppeepi)
     }
 }

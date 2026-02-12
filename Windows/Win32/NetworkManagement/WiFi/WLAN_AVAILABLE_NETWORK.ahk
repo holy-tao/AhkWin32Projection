@@ -4,7 +4,7 @@
 
 /**
  * Contains information about an available wireless network. (WLAN_AVAILABLE_NETWORK)
- * @see https://learn.microsoft.com/windows/win32/api/wlanapi/ns-wlanapi-wlan_available_network
+ * @see https://learn.microsoft.com/windows/win32/api//content/wlanapi/ns-wlanapi-wlan_available_network
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */

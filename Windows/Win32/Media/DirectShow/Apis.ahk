@@ -1,6 +1,8 @@
 #Requires AutoHotkey v2.0.0 64-bit
 #Include ..\..\..\..\Win32Handle.ahk
 #Include ..\..\..\..\Guid.ahk
+#Include ..\..\System\WinRT\Apis.ahk
+#Include ..\..\System\WinRT\HSTRING.ahk
 
 /**
  * @namespace Windows.Win32.Media.DirectShow
@@ -2686,7 +2688,7 @@ class DirectShow {
     static VFW_S_DVD_RENDER_STATUS => 262944
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static CFSTR_VFW_FILTERLIST => "Video for Windows 4 Filters"
 
@@ -3886,7 +3888,7 @@ class DirectShow {
     static MSTapeDeviceGUID => Guid("{8c0f6af2-0edb-44c1-8aeb-59040bd830ed}")
 
     /**
-     * @type {String}
+     * @type {HSTRING}
      */
     static g_wszExcludeScriptStreamDeliverySynchronization => "ExcludeScriptStreamDeliverySynchronization"
 
@@ -4336,7 +4338,7 @@ class DirectShow {
      * @param {PSTR} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortexta
+     * @see https://learn.microsoft.com/windows/win32/api//content/errors/nf-errors-amgeterrortexta
      */
     static AMGetErrorTextA(hr, pbuffer, MaxLen) {
         pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer
@@ -4354,7 +4356,7 @@ class DirectShow {
      * @param {PWSTR} pbuffer Pointer to a character buffer that receives the error message.
      * @param {Integer} MaxLen Number of characters in <i>pBuffer</i>.
      * @returns {Integer} Returns the number of characters returned in the buffer, or zero if an error occurred.
-     * @see https://learn.microsoft.com/windows/win32/api/errors/nf-errors-amgeterrortextw
+     * @see https://learn.microsoft.com/windows/win32/api//content/errors/nf-errors-amgeterrortextw
      */
     static AMGetErrorTextW(hr, pbuffer, MaxLen) {
         pbuffer := pbuffer is String ? StrPtr(pbuffer) : pbuffer

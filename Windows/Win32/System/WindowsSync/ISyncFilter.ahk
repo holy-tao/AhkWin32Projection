@@ -4,6 +4,10 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Represents information about a filter that is used to control the data that is included in an ISyncChangeBatch object.
+ * @remarks
+ * If a provider filters the contents of a change batch that it creates, it must create a filtered <b>ISyncChangeBatch</b> object.  The filtered change batch object contains an <b>ISyncFilterInfo</b> object that describes how the contents of the change batch were filtered.
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-isyncfilterinfo
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -34,7 +38,11 @@ class ISyncFilter extends IUnknown{
      * @returns {HRESULT} 
      */
     IsIdentical(pSyncFilter) {
-        result := ComCall(3, this, "ptr", pSyncFilter, "HRESULT")
+        result := ComCall(3, this, "ptr", pSyncFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -48,7 +56,11 @@ class ISyncFilter extends IUnknown{
         pbSyncFilterMarshal := pbSyncFilter is VarRef ? "char*" : "ptr"
         pcbSyncFilterMarshal := pcbSyncFilter is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(4, this, pbSyncFilterMarshal, pbSyncFilter, pcbSyncFilterMarshal, pcbSyncFilter, "HRESULT")
+        result := ComCall(4, this, pbSyncFilterMarshal, pbSyncFilter, pcbSyncFilterMarshal, pcbSyncFilter, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

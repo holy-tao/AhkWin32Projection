@@ -5,7 +5,7 @@
 
 /**
  * Represents a clock vector element that contains FeedSync information.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ifeedclockvectorelement
+ * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nn-winsync-ifeedclockvectorelement
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IFeedClockVectorElement extends IClockVectorElement{
 
     /**
      * Gets a SYNC_TIME value that corresponds to the when value for the item.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/winsync/ns-winsync-sync_time">SYNC_TIME</a> structure is a packed date-and-time value that can store years between 1601 and 67136 and times that are accurate to the millisecond.
      * @param {Pointer<SYNC_TIME>} pSyncTime Returns a <a href="https://docs.microsoft.com/windows/desktop/api/winsync/ns-winsync-sync_time">SYNC_TIME</a> value that corresponds to the <b>when</b> value for the item.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -60,10 +62,14 @@ class IFeedClockVectorElement extends IClockVectorElement{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ifeedclockvectorelement-getsynctime
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ifeedclockvectorelement-getsynctime
      */
     GetSyncTime(pSyncTime) {
-        result := ComCall(5, this, "ptr", pSyncTime, "HRESULT")
+        result := ComCall(5, this, "ptr", pSyncTime, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -97,12 +103,16 @@ class IFeedClockVectorElement extends IClockVectorElement{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ifeedclockvectorelement-getflags
+     * @see https://learn.microsoft.com/windows/win32/api//content/winsync/nf-winsync-ifeedclockvectorelement-getflags
      */
     GetFlags(pbFlags) {
         pbFlagsMarshal := pbFlags is VarRef ? "char*" : "ptr"
 
-        result := ComCall(6, this, pbFlagsMarshal, pbFlags, "HRESULT")
+        result := ComCall(6, this, pbFlagsMarshal, pbFlags, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

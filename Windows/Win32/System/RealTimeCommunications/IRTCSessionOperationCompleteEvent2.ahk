@@ -41,7 +41,11 @@ class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEve
      * @returns {IRTCParticipant} 
      */
     get_Participant() {
-        result := ComCall(11, this, "ptr*", &ppParticipant := 0, "HRESULT")
+        result := ComCall(11, this, "ptr*", &ppParticipant := 0, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return IRTCParticipant(ppParticipant)
     }
 
@@ -52,7 +56,11 @@ class IRTCSessionOperationCompleteEvent2 extends IRTCSessionOperationCompleteEve
      * @returns {HRESULT} 
      */
     GetRemoteSessionDescription(pbstrContentType, pbstrSessionDescription) {
-        result := ComCall(12, this, "ptr", pbstrContentType, "ptr", pbstrSessionDescription, "HRESULT")
+        result := ComCall(12, this, "ptr", pbstrContentType, "ptr", pbstrSessionDescription, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

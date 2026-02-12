@@ -6,10 +6,8 @@
 /**
  * Exposes methods that initialize and stop a progress dialog.
  * @remarks
- * 
  * To instantiate an object that implements this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> using the class identifier (CLSID) CLSID_ProgressDialog.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iactionprogressdialog
+ * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nn-shobjidl_core-iactionprogressdialog
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -45,14 +43,18 @@ class IActionProgressDialog extends IUnknown{
      * The string displayed when a user closes the dialog before completion.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iactionprogressdialog-initialize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iactionprogressdialog-initialize
      */
     Initialize(flags, pszTitle, pszCancel) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
         pszCancel := pszCancel is String ? StrPtr(pszCancel) : pszCancel
 
-        result := ComCall(3, this, "uint", flags, "ptr", pszTitle, "ptr", pszCancel, "HRESULT")
+        result := ComCall(3, this, "uint", flags, "ptr", pszTitle, "ptr", pszCancel, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 
@@ -60,11 +62,15 @@ class IActionProgressDialog extends IUnknown{
      * Stops a progress dialog.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iactionprogressdialog-stop
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api//content/shobjidl_core/nf-shobjidl_core-iactionprogressdialog-stop
      */
     Stop() {
-        result := ComCall(4, this, "HRESULT")
+        result := ComCall(4, this, "int")
+        if(result != 0) {
+            throw OSError(A_LastError || result)
+        }
+
         return result
     }
 }

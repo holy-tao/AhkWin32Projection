@@ -5,7 +5,7 @@
  * Specifies various ink editor events.
  * @remarks
  * 
- * @see https://learn.microsoft.com/windows/win32/api/inked/ne-inked-dispid_inkeditevents
+ * @see https://learn.microsoft.com/windows/win32/api//content/inked/ne-inked-dispid_inkeditevents
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

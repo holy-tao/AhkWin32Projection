@@ -6,7 +6,7 @@
  * @remarks
  * The <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_storage_device_id_descriptor">VDS_STORAGE_DEVICE_ID_DESCRIPTOR</a> 
  *     structure includes this structure as a member to specify a particular storage device identifier for a LUN.
- * @see https://learn.microsoft.com/windows/win32/api/vdslun/ns-vdslun-vds_storage_identifier
+ * @see https://learn.microsoft.com/windows/win32/api//content/vdslun/ns-vdslun-vds_storage_identifier
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */

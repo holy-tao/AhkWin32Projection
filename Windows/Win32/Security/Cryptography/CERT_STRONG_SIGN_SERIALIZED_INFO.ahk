@@ -39,7 +39,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptverifymessagesignature">CryptVerifyMessageSignature</a>
  * </li>
  * </ul>
- * @see https://learn.microsoft.com/windows/win32/api/wincrypt/ns-wincrypt-cert_strong_sign_serialized_info
+ * @see https://learn.microsoft.com/windows/win32/api//content/wincrypt/ns-wincrypt-cert_strong_sign_serialized_info
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */
