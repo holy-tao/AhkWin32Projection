@@ -21,8 +21,6 @@ class Win32ComInterface extends Win32Struct {
 
     static sizef := A_PtrSize
 
-    ptr => super.ptr
-
     /**
      * Initializes a new `Win32ComInterface` object
      * @param {Integer} ptrOrImpl the interface pointer to wrap, or an object containing
@@ -69,19 +67,30 @@ class Win32ComInterface extends Win32Struct {
             throw Error("Cannot implement an unowned interface instance")
         }
 
-        ; NOTE: we need to account for C++ calling conventions, which include an implicit "this" as their first parmeters
-        this.__vTable[1] := CallbackCreate(ObjBindMethod(this, "__DefaultQueryInterface"), callbackCreateFlags, 3)
-        this.__vTable[2] := CallbackCreate(ObjBindMethod(this, "__DefaultAddRef"), callbackCreateFlags, 1)
-        this.__vTable[3] := CallbackCreate(ObjBindMethod(this, "__DefaultRelease"), callbackCreateFlags, 1)
+        ; Special handling for IUnknown methods since we have defaults when the caller doesn't override them
+        for(i, fnName in ["QueryInterface", "AddRef", "Release"]) {
+            minParams := fnName == "QueryInterface" ? 3 : 1
+            fn := implObj.HasMethod(fnName, minParams) ? 
+                ObjBindMethod(implObj, fnName) : 
+                ObjBindMethod(this, "__Default" fnName)
+
+            addr := CallbackCreate(fn, callbackCreateFlags, minParams)
+            this.__vTable[i] := addr
+        }
 
         iFace := Win32Struct.ResolveClassName(this.__Class)
         while((iFaceName := iFace.Prototype.__Class) != "IUnknown"){
             for(i, fnName in iFace.VTableNames){
                 paramCount := GetMethod(iFace.Prototype, fnName).MinParams
-                fnImpl := GetMethod(implObj, fnName)
-                
-                addr := CallbackCreate(fnImpl.Bind(implObj), callbackCreateFlags, paramCount)
 
+                ; Note MinParams is unreliable because it varies between fat arrow functions and methods
+                if(!HasMethod(implObj, fnName)) {
+                    msg := Format("Cannot implement '{1}' using object of type '{2}': missing method '{3}::{4}'", 
+                        type(this), type(implObj), iFaceName, fnName)
+                    throw MethodError(msg, -2, implObj)
+                }
+
+                addr := CallbackCreate(ObjBindMethod(implObj, fnName), callbackCreateFlags, paramCount)
                 this.__vTable[i + iFace.vTableOffset] := addr
             }
 
@@ -132,15 +141,25 @@ class Win32ComInterface extends Win32Struct {
     }
 
     __Delete(){
-        ; If this is a user-implemented interface, clear the virtual function table
-        if(this.owned){
-            if(this.refCount > 0){
-                throw MemoryError("Interface implementation object released with references remaining", , this.refCount)
-            }
+        if(this.owned && this.refCount > 0){
+            throw MemoryError(Format("Script-owned {1} released with {2} references remaining", type(this), this.refCount))
+        }
+    }
 
-            for(ptr in this.__vTable){
-                CallbackFree(ptr)
-            }
+    /**
+     * For AHK-implemented (owned) interfaces, clears the virtual function table. This releases references held in
+     * the callbacks, which in turn allows the interface and its implementation object to be freed.
+     */
+    Dispose() {
+        if(!this.owned)
+            throw Error("Cannot dispose of an unowned interface", -1)
+
+        for(ptr in this.__vTable){
+            if(ptr == 0)
+                continue
+
+            CallbackFree(ptr)
+            ptr := 0
         }
     }
 
@@ -155,26 +174,32 @@ class Win32ComInterface extends Win32Struct {
      *          of the found interface, if any
      */
     __DefaultQueryInterface(_, riid, comOutPtr){
-        ; These don't seem to be defined in any enums or as constants anywhere...
-        ; See https://learn.microsoft.com/en-us/windows/win32/com/error-handling-strategies
-        static E_NOINTERFACE := 0x80004002, E_POINTER := 0x80004003, S_OK := 0
+        OK() {
+            NumPut("ptr", this.ptr, comOutPtr)
+            ComCall(1, this, "uint")
+            return 0
+        }
 
         ; Spec says we must do this if the out pointer is null
         if(comOutPtr == 0){
-            return E_POINTER
+            return 0x80004003 ; E_POINTER
+        }
+
+        ; Allow instances (e.g. parameterized types) to provide their own IID
+        if(this.HasProp("IID") && this.IID.Equals(riid)) {
+            return OK()
         }
 
         obj := Win32Struct.ResolveClassName(this.__Class)
         while(obj.Prototype.__Class != "Win32ComInterface"){
             if(obj.IID.Equals(riid)){
-                NumPut("ptr", this.ptr, comOutPtr)
-                ComCall(1, this, "uint")    ; Call AddRef()
-                return S_OK
+                return OK()
             }
             obj := obj.base
         }
 
-        return E_NOINTERFACE
+        NumPut("ptr", 0, comOutPtr)
+        return 0x80004002 ; E_NOINTERFACE
     }
 
     __DefaultAddRef(_) => ++this.refCount

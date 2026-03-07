@@ -82,6 +82,76 @@ class Win32ComInterfaceTests {
         Implement_WithMissingFunction_ThrowsMethodError(){
             Assert.Throws((*) => DummyInterface({TestNoArgs: (pThis, vtable) => 1 }), MethodError)
         }
+
+        Implement_WithObjectWithAddRefOverride_UsesOverride(){
+            argActual := 0, noArgsCalled := false
+            addRefCalled := false
+
+            test := DummyInterface({
+                AddRef: (self, vtable) => (addRefCalled := true, 2),
+                TestNoArgs: (pThis, vtable) => noArgsCalled := true, 
+                TestArg: (pThis, vtable, arg) => argActual := arg
+            })
+            
+            refCount := test.AddRef()
+
+            Assert.Equals(addRefCalled, true)
+            Assert.Equals(refCount, 2)
+
+            test.Release()
+        }
+
+        Implement_WithObjectWithQIOverride_UsesOverride(){
+            queryInterfaceOverrideCalled := false
+
+            test := DummyInterface({
+                QueryInterface: (self, vtable, riid, ptr) => (queryInterfaceOverrideCalled := true),
+                TestNoArgs: (pThis, vtable) => FileAppend("Should not be called", "**"), 
+                TestArg: (pThis, vtable, arg) => FileAppend("Should not be called", "**")
+            })
+
+            result := test.QueryInterface(DummyInterface.IID.ptr, &outPtr := 0)
+
+            Assert.Equals(queryInterfaceOverrideCalled, true)
+
+            test.Release()
+        }
+
+        DefaultQueryInterface_WithInstanceIID_GetsInterface(){
+            test := DummyInterface({
+                TestNoArgs: (pThis, vtable) => FileAppend("Should not be called", "**"), 
+                TestArg: (pThis, vtable, arg) => FileAppend("Should not be called", "**")
+            })
+
+            instanceIID := Guid.Create()
+            test.IID := instanceIID
+
+            result := test.QueryInterface(instanceIID, &outPtr := 0)
+
+            Assert.Equals(result, 0)             ; Should return S_OK
+            Assert.Equals(test.RefCount, 2)      ; Assert that AddRef() was called
+            Assert.Equals(outPtr, test.ptr)      ; Pointer should be a pointer to itself
+
+            test.Release()
+        }
+
+        DefaultQueryInterface_WithInstanceIID_FallsBackToTopLevelIID(){
+            test := DummyInterface({
+                TestNoArgs: (pThis, vtable) => FileAppend("Should not be called", "**"), 
+                TestArg: (pThis, vtable, arg) => FileAppend("Should not be called", "**")
+            })
+
+            instanceIID := Guid.Create()
+            test.IID := instanceIID
+
+            result := test.QueryInterface(DummyInterface.IID.ptr, &outPtr := 0)
+
+            Assert.Equals(result, 0)             ; Should return S_OK
+            Assert.Equals(test.RefCount, 2)      ; Assert that AddRef() was called
+            Assert.Equals(outPtr, test.ptr)      ; Pointer should be a pointer to itself
+
+            test.Release()
+        }
     }
 
     FunctionCount_Always_CountsAllFunctions(){
@@ -90,6 +160,7 @@ class Win32ComInterfaceTests {
     }
 }
 
+;@ahkunit-ignore
 class DummyInterface extends IUnknown {
 
         static sizeof => A_PtrSize
