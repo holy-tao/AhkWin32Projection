@@ -21,6 +21,7 @@
 #Include ./generator-extensions/ColorrrefExtensions.test.ahk
 #Include ./generator-extensions/BstrExtensions.test.ahk
 #Include ./generator-extensions/StringUtils.test.ahk
+#Include ./generator-extensions/NTSTATUSExtensions.test.ahk
 
 tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     Win32StructTest, 
@@ -36,7 +37,8 @@ tester := Yunit.Use(YunitStdOut, BetterJUnit, YunitResultCounter).Test(
     BSTRExtensionTests,
     GuidTests,
     Win32EnumTests,
-    StringUtilExtensionTests
+    StringUtilExtensionTests,
+    NTSTATUSExtensionTests
 )
 
 ExitApp(YunitResultCounter.failures == 0? 0 : 1)
