@@ -7,11 +7,8 @@
 /**
  * The ITfFunctionProvider interface is implemented by an application or text service to provide various function objects.
  * @remarks
- * 
  * A function provider is registered by calling <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITFSourceSingle::AdviseSingleSink</a> with IID_ITfFunctionProvider when the text service is activated. The text service should unregister its function provider with <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-unadvisesinglesink">ITFSourceSingle::UnadviseSingleSink</a> when it is deactivated.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itffunctionprovider
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itffunctionprovider
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -39,7 +36,7 @@ class ITfFunctionProvider extends IUnknown{
     /**
      * ITfFunctionProvider::GetType method
      * @returns {Guid} Pointer to a GUID value that receives the type identifier of the function provider.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itffunctionprovider-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-gettype
      */
     GetType() {
         pguid := Guid()
@@ -50,7 +47,7 @@ class ITfFunctionProvider extends IUnknown{
     /**
      * ITfFunctionProvider::GetDescription method
      * @returns {BSTR} Pointer to a BSTR that receives the description string. This value must be allocated using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a>. The caller must this memory using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itffunctionprovider-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-getdescription
      */
     GetDescription() {
         pbstrDesc := BSTR()
@@ -63,7 +60,7 @@ class ITfFunctionProvider extends IUnknown{
      * @param {Pointer<Guid>} rguid Contains a GUID value that identifies the function group that the requested function belongs to. This value can be GUID_NULL.
      * @param {Pointer<Guid>} riid Contains an interface identifier that identifies the requested function within the group specified by <i>rguid</i>. This value can be specified by the application, text service, or one of the IID_ITfFn* values.
      * @returns {IUnknown} Pointer to an <b>IUnknown</b> interface pointer that receives the requested function interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itffunctionprovider-getfunction
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itffunctionprovider-getfunction
      */
     GetFunction(rguid, riid) {
         result := ComCall(5, this, "ptr", rguid, "ptr", riid, "ptr*", &ppunk := 0, "HRESULT")

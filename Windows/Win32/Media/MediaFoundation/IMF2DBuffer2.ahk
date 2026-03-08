@@ -4,13 +4,10 @@
 #Include .\IMF2DBuffer.ahk
 
 /**
- * Represents a buffer that contains a two-dimensional surface, such as a video frame.
+ * Represents a buffer that contains a two-dimensional surface, such as a video frame. (IMF2DBuffer2)
  * @remarks
- * 
  * This interface extends the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer">IMF2DBuffer</a> interface and adds a safer version of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">IMF2DBuffer::Lock2D</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imf2dbuffer2
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imf2dbuffer2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,7 +33,31 @@ class IMF2DBuffer2 extends IMF2DBuffer{
     static VTableNames => ["Lock2DSize", "Copy2DTo"]
 
     /**
-     * Gives the caller access to the memory in the buffer.
+     * Gives the caller access to the memory in the buffer. (IMF2DBuffer2.Lock2DSize)
+     * @remarks
+     * When you are done accessing the memory, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-unlock2d">IMF2DBuffer::Unlock2D</a> to unlock the buffer. You must call <b>Unlock2D</b> once for each call to <b>Lock2DSize</b>.
+     * 
+     * This method is equivalent to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">IMF2DBuffer::Lock2D</a> method. However, <b>Lock2DSize</b> is preferred because it enables the caller to validate memory pointers, and because it supports read-only locks. A buffer is not guaranteed to support the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer2">IMF2DBuffer2</a> interface. To access a buffer, you should try the following methods in the order listed:
+     * 
+     * <ol>
+     * <li><b>IMF2DBuffer2::Lock2DSize</b></li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imf2dbuffer-lock2d">IMF2DBuffer::Lock2D</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-lock">IMFMediaBuffer::Lock</a>
+     * </li>
+     * </ol>
+     * The <i>ppbBufferStart</i> and <i>pcbBufferLength</i> parameters receive the bounds of the buffer memory. Use these values to guard against buffer overruns. Use the values of <i>ppbScanline0</i> and <i>plPitch</i> to access the image data. If the image is bottom-up in memory, <i>ppbScanline0</i> will point to the last scan line in memory and <i>plPitch</i> will be negative. For more information, see <a href="https://docs.microsoft.com/windows/desktop/medfound/image-stride">Image Stride</a>.
+     * 
+     * The <i>lockFlags</i> parameter specifies whether the buffer is locked for read-only access, write-only access,  or read/write access. 
+     * 
+     * <ul>
+     * <li>If the buffer is already locked for read-only access, it cannot be locked for write access.</li>
+     * <li>If the buffer is already locked for write-only access, it cannot be locked for read access.</li>
+     * <li>If the buffer is already locked for read/write access, it can be locked for read or write access.</li>
+     * </ul>
+     * When possible, use a read-only or write-only lock, and avoid locking the buffer for read/write access. If the buffer represents a DirectX Graphics Infrastructure (DXGI) surface, a read/write lock can cause an extra copy between CPU memory and GPU memory.
      * @param {Integer} lockFlags A member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/ne-mfobjects-mf2dbuffer_lockflags">MF2DBuffer_LockFlags</a> enumeration that specifies whether to lock the buffer for reading, writing, or both.
      * @param {Pointer<Pointer<Integer>>} ppbScanline0 Receives a pointer to the first byte of the top row of pixels in the image. The top row is defined as the top row when the image is presented to the viewer, and might not be the first row in memory.
      * @param {Pointer<Integer>} plPitch Receives the surface stride, in bytes. The stride might be negative, indicating that the image is oriented from the bottom up in memory.
@@ -83,7 +104,7 @@ class IMF2DBuffer2 extends IMF2DBuffer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer2-lock2dsize
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer2-lock2dsize
      */
     Lock2DSize(lockFlags, ppbScanline0, plPitch, ppbBufferStart, pcbBufferLength) {
         ppbScanline0Marshal := ppbScanline0 is VarRef ? "ptr*" : "ptr"
@@ -97,9 +118,11 @@ class IMF2DBuffer2 extends IMF2DBuffer{
 
     /**
      * Copies the buffer to another 2D buffer object.
+     * @remarks
+     * The destination buffer must be at least as large as the source buffer.
      * @param {IMF2DBuffer2} pDestBuffer A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imf2dbuffer2">IMF2DBuffer2</a> interface of the destination buffer.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imf2dbuffer2-copy2dto
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imf2dbuffer2-copy2dto
      */
     Copy2DTo(pDestBuffer) {
         result := ComCall(11, this, "ptr", pDestBuffer, "HRESULT")

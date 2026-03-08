@@ -41,8 +41,17 @@ class IScriptNode extends IUnknown{
     }
 
     /**
+     * Deletes an access control entry (ACE) from an access control list (ACL).
+     * @remarks
+     * An application can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
+     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * @returns {HRESULT} 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
      */
     Delete() {
         result := ComCall(4, this, "HRESULT")
@@ -51,8 +60,10 @@ class IScriptNode extends IUnknown{
 
     /**
      * Retrieves a handle to the specified window's parent or owner.
+     * @remarks
+     * To obtain a window's owner window, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getwindow">GetWindow</a> with the <b>GW_OWNER</b> flag. To obtain the parent window and not the owner, instead of using <b>GetParent</b>, use <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getancestor">GetAncestor</a> with the <b>GA_PARENT</b> flag.
      * @returns {IScriptNode} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getparent
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getparent
      */
     GetParent() {
         result := ComCall(5, this, "ptr*", &ppsnParent := 0, "HRESULT")

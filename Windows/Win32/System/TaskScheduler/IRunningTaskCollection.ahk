@@ -7,7 +7,7 @@
 
 /**
  * Provides a collection that is used to control running tasks.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-irunningtaskcollection
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-irunningtaskcollection
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -49,7 +49,7 @@ class IRunningTaskCollection extends IDispatch{
     /**
      * Gets the number of running tasks in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtaskcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtaskcollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &pCount := 0, "HRESULT")
@@ -59,15 +59,12 @@ class IRunningTaskCollection extends IDispatch{
     /**
      * Gets the specified task from the collection.
      * @remarks
-     * 
      * IRunningTaskCollection::get_Item returns E_INVALIDARG and E_TYPE_MISMATCH instead of E_INVALID_VARIANT when an invalid argument is specified.
      * 
      * Collections are 1-based. That is, the index for the first item in the collection is 1.
-     * 
-     * 
      * @param {VARIANT} index 
      * @returns {IRunningTask} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtaskcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtaskcollection-get_item
      */
     get_Item(index) {
         result := ComCall(8, this, "ptr", index, "ptr*", &ppRunningTask := 0, "HRESULT")
@@ -77,7 +74,7 @@ class IRunningTaskCollection extends IDispatch{
     /**
      * Gets the collection enumerator for the running task collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-irunningtaskcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-irunningtaskcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Represents an object identifier (OID).
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-iobjectid
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-iobjectid
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -55,10 +55,26 @@ class IObjectId extends IDispatch{
 
     /**
      * Initializes the object from a CERTENROLL_OBJECTID enumeration value.
+     * @remarks
+     * Every <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a> value is associated with an ASN.1 object identifier. For example, the value <b>XCN_OID_ECDSA_SHA1</b> is associated with a string that contains 1.2.840.10045.4.1. This is the dotted decimal representation of the iso(1)member-body(2)us(840)10045 signatures(4)sha1(1) object identifier.
+     * 
+     * The <b>InitializeFromName</b> method searches the registry for information associated with the ASN.1 object identifier. If information is found, the method internally populates a <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_oid_info">CRYPT_OID_INFO</a> structure and associates it with the object. The method also uses the local information to initialize, if possible, the display name of the object.
+     * 
+     * You can call the following properties to retrieve information about an initialized <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_friendlyname">FriendlyName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_name">Name</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_value">Value</a>
+     * </li>
+     * </ul>
      * @param {Integer} Name A <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a> enumeration value.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -102,7 +118,7 @@ class IObjectId extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-initializefromname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-initializefromname
      */
     InitializeFromName(Name) {
         result := ComCall(7, this, "int", Name, "HRESULT")
@@ -111,10 +127,22 @@ class IObjectId extends IDispatch{
 
     /**
      * Initializes the object from a string that contains a dotted decimal object identifier (OID).
+     * @remarks
+     * You can call the following properties to retrieve information about an initialized <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_friendlyname">FriendlyName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_name">Name</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_value">Value</a>
+     * </li>
+     * </ul>
      * @param {BSTR} strValue A <b>BSTR</b> variable that contains the dotted decimal representation of the ASN.1 object identifier. For example, the value 1.2.840.10045.4.1. represents the iso(1)member-body(2)us(840)10045 signatures(4)sha1(1) object identifier.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -158,7 +186,7 @@ class IObjectId extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-initializefromvalue
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-initializefromvalue
      */
     InitializeFromValue(strValue) {
         strValue := strValue is String ? BSTR.Alloc(strValue).Value : strValue
@@ -169,6 +197,8 @@ class IObjectId extends IDispatch{
 
     /**
      * Initializes the object from an algorithm name or an object identifier.
+     * @remarks
+     * You can use the upper 16 bits of the <i>GroupId</i> parameter to specify the key size for algorithms that accept a variable bit length. For example, to initialize an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object from a 192-bit AES algorithm, specify "AES" for the <i>strAlgorithmName</i> parameter, shift the length left by 16, and perform a bitwise-<b>OR</b> combination on the shifted bit length and the <i>GroupId</i> value.
      * @param {Integer} GroupId An  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-objectidgroupid">ObjectIdGroupId</a> enumeration value that specifies the OID group to search. This can be any of the following algorithm groups:<ul>
      * <li><b>XCN_CRYPT_HASH_ALG_OID_GROUP_ID</b></li>
      * <li><b>XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID</b></li>
@@ -186,7 +216,7 @@ class IObjectId extends IDispatch{
      * @param {BSTR} strAlgorithmName A <b>BSTR</b> variable that contains the name. You can specify a name, or an OID in dotted decimal format.  The method verifies that the format is consistent with the ASN.1 X.208 standard. For more information about CNG algorithm names, see <a href="https://docs.microsoft.com/windows/desktop/SecCNG/cng-algorithm-identifiers">CNG Algorithm Identifiers</a>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -230,7 +260,7 @@ class IObjectId extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-initializefromalgorithmname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-initializefromalgorithmname
      */
     InitializeFromAlgorithmName(GroupId, KeyFlags, AlgFlags, strAlgorithmName) {
         strAlgorithmName := strAlgorithmName is String ? BSTR.Alloc(strAlgorithmName).Value : strAlgorithmName
@@ -242,7 +272,6 @@ class IObjectId extends IDispatch{
     /**
      * Retrieves a CERTENROLL_OBJECTID value that contains an object identifier.
      * @remarks
-     * 
      * You must call any of the following methods before you can retrieve this property value:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-initializefromalgorithmname">InitializeFromAlgorithmName</a>
@@ -264,10 +293,8 @@ class IObjectId extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_value">Value</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_name
      */
     get_Name() {
         result := ComCall(10, this, "int*", &pValue := 0, "HRESULT")
@@ -275,9 +302,8 @@ class IObjectId extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a display name for the object identifier.
+     * Specifies and retrieves a display name for the object identifier. (Get)
      * @remarks
-     * 
      * You must call any of the following methods before you can retrieve this property value:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-initializefromalgorithmname">InitializeFromAlgorithmName</a>
@@ -299,10 +325,8 @@ class IObjectId extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_value">Value</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-get_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_friendlyname
      */
     get_FriendlyName() {
         pValue := BSTR()
@@ -311,9 +335,8 @@ class IObjectId extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a display name for the object identifier.
+     * Specifies and retrieves a display name for the object identifier. (Put)
      * @remarks
-     * 
      * You must call any of the following methods before you can retrieve this property value:<ul>
      * <li>
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-initializefromalgorithmname">InitializeFromAlgorithmName</a>
@@ -335,11 +358,9 @@ class IObjectId extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_value">Value</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-put_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-put_friendlyname
      */
     put_FriendlyName(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
@@ -351,7 +372,6 @@ class IObjectId extends IDispatch{
     /**
      * Retrieves a string that contains the dotted decimal object identifier (OID).
      * @remarks
-     * 
      * The dotted decimal format is discussed in the ASN.1 X.208 specification. For example, the string 1.2.840.10045.4.1. represents the iso(1)member-body(2)us(840)10045 signatures(4)sha1(1) object identifier.
      * 
      * You must call any of the following methods before you can retrieve this property value:<ul>
@@ -375,10 +395,8 @@ class IObjectId extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-iobjectid-get_name">Name</a>
      * </li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-get_value
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-get_value
      */
     get_Value() {
         pValue := BSTR()
@@ -388,6 +406,10 @@ class IObjectId extends IDispatch{
 
     /**
      * Retrieves the display name associated with an algorithm object identifier (OID).
+     * @remarks
+     * You can use the <b>XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID</b> constant to create a <i>GroupId</i> parameter value that takes account of the key size for algorithms that can be identified by a variable bit length. For example, to initialize an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object from a 192-bit AES algorithm, specify "AES" for the <i>strAlgorithmName</i> parameter, shift the length left by 16, and perform a bitwise-OR combination on the shifted bit length and <b>XCN_CRYPT_ENCRYPT_ALG_OID_GROUP_ID</b>.
+     * 
+     * If you set the <i>GroupId</i> parameter to anything other than <b>XCN_CRYPT_PUBKEY_ALG_OID_GROUP_ID</b>, specify <b>XCN_CRYPT_OID_INFO_PUBKEY_ANY</b> for the <i>KeyFlags</i> parameter.
      * @param {Integer} GroupId An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-objectidgroupid">ObjectIdGroupId</a> enumeration value that specifies the OID group to search. This can be any of the following algorithm groups:
      * 
      * <ul>
@@ -407,7 +429,7 @@ class IObjectId extends IDispatch{
      * </ul>
      * @param {Integer} KeyFlags 
      * @returns {BSTR} Pointer to a <b>BSTR</b> variable that contains the name.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-iobjectid-getalgorithmname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-iobjectid-getalgorithmname
      */
     GetAlgorithmName(GroupId, KeyFlags) {
         pstrAlgorithmName := BSTR()

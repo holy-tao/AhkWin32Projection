@@ -4,13 +4,10 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Creates a proxy to a byte stream.
+ * Creates a proxy to a byte stream. (IMFByteStreamProxyClassFactory)
  * @remarks
- * 
  * This interface provides a factory object for creating a proxy to an existing Microsoft Media Foundation byte stream. The CLSID of the factory object is <b>CLSID_MFByteStreamProxyClassFactory</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfbytestreamproxyclassfactory
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfbytestreamproxyclassfactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,12 +33,12 @@ class IMFByteStreamProxyClassFactory extends IUnknown{
     static VTableNames => ["CreateByteStreamProxy"]
 
     /**
-     * Creates a proxy to a byte stream.
+     * Creates a proxy to a byte stream. (IMFByteStreamProxyClassFactory.CreateByteStreamProxy)
      * @param {IMFByteStream} pByteStream A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface of the byte stream to proxy.
      * @param {IMFAttributes} pAttributes Reserved. Set to <b>NULL</b>.
-     * @param {Pointer<Guid>} riid The interface identifer (IID) of the interface being requested.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @returns {Pointer<Void>} Receives a pointer to the interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfbytestreamproxyclassfactory-createbytestreamproxy
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfbytestreamproxyclassfactory-createbytestreamproxy
      */
     CreateByteStreamProxy(pByteStream, pAttributes, riid) {
         result := ComCall(3, this, "ptr", pByteStream, "ptr", pAttributes, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")

@@ -6,11 +6,8 @@
 /**
  * The IUnsecuredApartment interface is used to simplify the process of making asynchronous calls from a client process.
  * @remarks
- * 
  * <b>IUnsecuredApartment</b> allows WMI to create a separate process to handle callbacks. Using this interface creates security risks, as described in <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/setting-security-on-an-asynchronous-call">Setting Security on an Asynchronous Call</a>. Semisynchronous access or performing access checks are recommended instead of asynchronous calls. For more information and an example of using <b>IUnsecuredApartment</b>, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/lowering-the-security-for-a-sink-in-a-separate-process">Lowering the Security for a Sink in a Separate Process</a>. Use <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemunsecuredapartment">IWbemUnsecuredApartment::CreateSinkStub</a> for a more secure approach.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iunsecuredapartment
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iunsecuredapartment
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -43,12 +40,15 @@ class IUnsecuredApartment extends IUnknown{
 
     /**
      * The CreateObjectStub method creates an object forwarder sink to assist in receiving asynchronous calls from Windows Management.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Because the call-back to the sink might not be returned at the same authentication level as the client requires, it is recommended that you use semisynchronous instead of asynchronous communication.  For more information, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/calling-a-method">Calling a Method</a>.</div>
+     * <div> </div>
      * @param {IUnknown} pObject Pointer to the client's in-process implementation of 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a>.
      * @returns {IUnknown} Receives a pointer to a substitute object to be used in asynchronous 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> calls. The user receives an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer and must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> for <b>IID_WbemObjectSink</b> before using this object in asynchronous 
      * <b>IWbemServices</b> calls.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iunsecuredapartment-createobjectstub
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iunsecuredapartment-createobjectstub
      */
     CreateObjectStub(pObject) {
         result := ComCall(3, this, "ptr", pObject, "ptr*", &ppStub := 0, "HRESULT")

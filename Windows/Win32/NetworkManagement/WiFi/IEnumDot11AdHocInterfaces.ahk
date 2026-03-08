@@ -6,7 +6,7 @@
 
 /**
  * Represents the collection of currently visible 802.11 ad hoc network interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-ienumdot11adhocinterfaces
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-ienumdot11adhocinterfaces
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IEnumDot11AdHocInterfaces extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Gets the specified number of elements from the sequence and advances the current position by the number of items retrieved.
+     * Gets the specified number of elements from the sequence and advances the current position by the number of items retrieved. (IEnumDot11AdHocInterfaces.Next)
      * @param {Integer} cElt The number of elements requested.
      * @param {Pointer<IDot11AdHocInterface>} rgElt A pointer to a variable that, on successful return, points to an array of pointers to <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocinterface">IDot11AdHocInterface</a> interfaces. The array is of size <i>cElt</i>.
      * @param {Pointer<Integer>} pcEltFetched A pointer to a variable that specifies the number of elements returned in <i>rgElt</i>.
@@ -110,7 +110,7 @@ class IEnumDot11AdHocInterfaces extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocinterfaces-next
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocinterfaces-next
      */
     Next(cElt, rgElt, pcEltFetched) {
         pcEltFetchedMarshal := pcEltFetched is VarRef ? "uint*" : "ptr"
@@ -120,7 +120,7 @@ class IEnumDot11AdHocInterfaces extends IUnknown{
     }
 
     /**
-     * Skips over the next specified number of elements in the enumeration sequence.
+     * Skips over the next specified number of elements in the enumeration sequence. (IEnumDot11AdHocInterfaces.Skip)
      * @param {Integer} cElt The number of elements to skip.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -152,7 +152,7 @@ class IEnumDot11AdHocInterfaces extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocinterfaces-skip
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocinterfaces-skip
      */
     Skip(cElt) {
         result := ComCall(4, this, "uint", cElt, "HRESULT")
@@ -160,7 +160,7 @@ class IEnumDot11AdHocInterfaces extends IUnknown{
     }
 
     /**
-     * Resets to the beginning of the enumeration sequence.
+     * Resets to the beginning of the enumeration sequence. (IEnumDot11AdHocInterfaces.Reset)
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
      * <table>
@@ -191,7 +191,7 @@ class IEnumDot11AdHocInterfaces extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocinterfaces-reset
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocinterfaces-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -199,9 +199,9 @@ class IEnumDot11AdHocInterfaces extends IUnknown{
     }
 
     /**
-     * Creates a new enumeration interface.
-     * @returns {IEnumDot11AdHocInterfaces} A pointer that, on successful return, points to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocinterfaces">IEnumDot11AdHocInterfaces</a>interface.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-ienumdot11adhocinterfaces-clone
+     * Creates a new enumeration interface. (IEnumDot11AdHocInterfaces.Clone)
+     * @returns {IEnumDot11AdHocInterfaces} A pointer that, on successful return, points to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocinterfaces">IEnumDot11AdHocInterfaces</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-ienumdot11adhocinterfaces-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

@@ -6,11 +6,8 @@
 /**
  * Represents information about a filter that is used to control the data that is included in an ISyncChangeBatch object.
  * @remarks
- * 
  * If a provider filters the contents of a change batch that it creates, it must create a filtered <b>ISyncChangeBatch</b> object.  The filtered change batch object contains an <b>ISyncFilterInfo</b> object that describes how the contents of the change batch were filtered.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncfilterinfo
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncfilterinfo
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -77,7 +74,7 @@ class ISyncFilterInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfilterinfo-serialize
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfilterinfo-serialize
      */
     Serialize(pbBuffer, pcbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"

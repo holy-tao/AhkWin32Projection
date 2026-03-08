@@ -67,10 +67,11 @@ class IPrintSchemaCapabilities extends IPrintSchemaElement{
     }
 
     /**
-     * 
+     * This function is intended for infrastructure use only. (GetFeatureEnabledState)
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrNamespaceUri 
      * @returns {IPrintSchemaFeature} 
+     * @see https://learn.microsoft.com/windows/win32/api/featurestagingapi/nf-featurestagingapi-getfeatureenabledstate
      */
     GetFeature(bstrName, bstrNamespaceUri) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName

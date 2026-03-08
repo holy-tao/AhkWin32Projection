@@ -6,7 +6,6 @@
 /**
  * Exposes a method for getting a thumbnail image and is intended to be implemented for thumbnail handlers. The object that implements this interface must also implement IInitializeWithStream.
  * @remarks
- * 
  * The Shell calls <a href="https://docs.microsoft.com/windows/desktop/api/thumbcache/nf-thumbcache-ithumbnailprovider-getthumbnail">IThumbnailProvider::GetThumbnail</a> to obtain an image to use as a representation of the item.
  * 
  * An implementation of this interface for photo thumbnails is supplied in Microsoft Windows as CLSID_PhotoThumbnailProvider. Applications that use the supplied implementation must define a constant CLSID identifier using the GUID {C7657C4A-9F68-40fa-A4DF-96BC08EB3551}.
@@ -28,8 +27,7 @@
  * <b>Client apps</b> If you're developing a client app, you should use <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemimagefactory">IShellItemImageFactory</a> instead. 
  * 
  * <b>Windows Vista</b> IThumbnailProivder is new for Vista and replaces <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iextractimage">IExtractImage</a>. Vista still supports IExtractImage but lacks the ability to return the image type (alpha or not).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//thumbcache/nn-thumbcache-ithumbnailprovider
+ * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nn-thumbcache-ithumbnailprovider
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -65,8 +63,8 @@ class IThumbnailProvider extends IUnknown{
      * @param {Pointer<Integer>} pdwAlpha Type: <b>WTS_ALPHATYPE*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//thumbcache/nf-thumbcache-ithumbnailprovider-getthumbnail
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/thumbcache/nf-thumbcache-ithumbnailprovider-getthumbnail
      */
     GetThumbnail(cx, phbmp, pdwAlpha) {
         pdwAlphaMarshal := pdwAlpha is VarRef ? "int*" : "ptr"

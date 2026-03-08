@@ -6,7 +6,7 @@
 
 /**
  * Creates an object that is enlisted within a manual transaction using the Transaction Internet Protocol (TIP).
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icreatewithtiptransactionex
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icreatewithtiptransactionex
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class ICreateWithTipTransactionEx extends IUnknown{
      * @param {Pointer<Guid>} rclsid The CLSID of the type of object to be instantiated.
      * @param {Pointer<Guid>} riid The ID of the interface to be returned by the <i>ppvObj</i> parameter.
      * @returns {Pointer<Void>} A reference to a new object of the type specified by the <i>rclsid</i> argument, through the interface specified by the <i>riid</i> argument.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icreatewithtiptransactionex-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithtiptransactionex-createinstance
      */
     CreateInstance(bstrTipUrl, rclsid, riid) {
         bstrTipUrl := bstrTipUrl is String ? BSTR.Alloc(bstrTipUrl).Value : bstrTipUrl

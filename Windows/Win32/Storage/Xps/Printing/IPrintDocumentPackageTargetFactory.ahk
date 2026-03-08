@@ -6,7 +6,7 @@
 
 /**
  * Used with IPrintDocumentPackageTarget for starting a print job.
- * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nn-documenttarget-iprintdocumentpackagetargetfactory
+ * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nn-documenttarget-iprintdocumentpackagetargetfactory
  * @namespace Windows.Win32.Storage.Xps.Printing
  * @version v4.0.30319
  */
@@ -47,7 +47,7 @@ class IPrintDocumentPackageTargetFactory extends IUnknown{
      * @param {IStream} jobOutputStream The job content. The application must set the seek pointer to the beginning before specifying the job output stream.
      * @param {IStream} jobPrintTicketStream A pointer to the <b>IStream</b> interface that is used by the caller to write the job-level print ticket that will be associated with this job.
      * @returns {IPrintDocumentPackageTarget} The target output.
-     * @see https://docs.microsoft.com/windows/win32/api//documenttarget/nf-documenttarget-iprintdocumentpackagetargetfactory-createdocumentpackagetargetforprintjob
+     * @see https://learn.microsoft.com/windows/win32/api/documenttarget/nf-documenttarget-iprintdocumentpackagetargetfactory-createdocumentpackagetargetforprintjob
      */
     CreateDocumentPackageTargetForPrintJob(printerName, jobName, jobOutputStream, jobPrintTicketStream) {
         printerName := printerName is String ? StrPtr(printerName) : printerName

@@ -5,7 +5,7 @@
 
 /**
  * Provides additional information about an object's context. This interface extends the IObjectContextInfo interface.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjectcontextinfo2
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontextinfo2
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -63,7 +63,7 @@ class IObjectContextInfo2 extends IObjectContextInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo2-getpartitionid
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getpartitionid
      */
     GetPartitionId(pGuid) {
         result := ComCall(8, this, "ptr", pGuid, "HRESULT")
@@ -74,7 +74,7 @@ class IObjectContextInfo2 extends IObjectContextInfo{
      * Retrieves the identifier of the application of the current object context.
      * @param {Pointer<Guid>} pGuid A GUID that identifies the application.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationid
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationid
      */
     GetApplicationId(pGuid) {
         result := ComCall(9, this, "ptr", pGuid, "HRESULT")
@@ -85,7 +85,7 @@ class IObjectContextInfo2 extends IObjectContextInfo{
      * Retrieves the identifier of the application instance of the current object context.
      * @param {Pointer<Guid>} pGuid A GUID that identifies the application instance.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationinstanceid
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontextinfo2-getapplicationinstanceid
      */
     GetApplicationInstanceId(pGuid) {
         result := ComCall(10, this, "ptr", pGuid, "HRESULT")

@@ -258,11 +258,38 @@ class ISpeechPhraseInfo extends IDispatch{
     }
 
     /**
+     * The GetTextAlign function retrieves the text-alignment setting for the specified device context.
+     * @remarks
+     * The bounding rectangle is a rectangle bounding all of the character cells in a string of text. Its dimensions can be obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-gettextextentpoint32a">GetTextExtentPoint32</a> function.
      * 
+     * The text-alignment flags determine how the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions align a string of text in relation to the string's reference point provided to <b>TextOut</b> or <b>ExtTextOut</b>.
+     * 
+     * The text-alignment flags are not necessarily single bit flags and may be equal to zero. The flags must be examined in groups of related flags, as shown in the following list.
+     * 
+     * <ul>
+     * <li>TA_LEFT, TA_RIGHT, and TA_CENTER</li>
+     * <li>TA_BOTTOM, TA_TOP, and TA_BASELINE</li>
+     * <li>TA_NOUPDATECP and TA_UPDATECP</li>
+     * </ul>
+     * If the current font has a vertical default base line, the related flags are as shown in the following list.
+     * 
+     * <ul>
+     * <li>TA_LEFT, TA_RIGHT, and VTA_BASELINE</li>
+     * <li>TA_BOTTOM, TA_TOP, and VTA_CENTER</li>
+     * <li>TA_NOUPDATECP and TA_UPDATECP</li>
+     * </ul>
+     * <p class="proch"><b>To verify that a particular flag is set in the return value of this function:</b>
+     * 
+     * <ol>
+     * <li>Apply the bitwise OR operator to the flag and its related flags.</li>
+     * <li>Apply the bitwise AND operator to the result and the return value.</li>
+     * <li>Test for the equality of this result and the flag.</li>
+     * </ol>
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @param {VARIANT_BOOL} UseReplacements 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-gettextalign
      */
     GetText(StartElement, Elements, UseReplacements) {
         Text := BSTR()

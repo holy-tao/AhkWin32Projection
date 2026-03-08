@@ -8,7 +8,7 @@
 
 /**
  * An instance of the IWMDMStorage interface provides methods to examine and explore a storage (a generic name for a data or collection object, such as a file, folder, or playlist) on a device.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmstorage
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmstorage
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -41,6 +41,8 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * The SetAttributes method sets the attributes of the storage.
+     * @remarks
+     * Many of the attributes listed for <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage-getattributes">GetAttributes</a> cannot be set, and so are not listed in the attribute table for <b>SetAttributes</b>.
      * @param {Integer} dwAttributes <b>DWORD</b> specifying the attributes to be set. The following table lists the attributes that can be set by this parameter.
      * 
      * <table>
@@ -107,8 +109,8 @@ class IWMDMStorage extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-setattributes
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-setattributes
      */
     SetAttributes(dwAttributes, pFormat) {
         result := ComCall(3, this, "uint", dwAttributes, "ptr", pFormat, "HRESULT")
@@ -117,8 +119,10 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * The GetStorageGlobals method retrieves the IWMDMStorageGlobals interface of the root storage of this storage.
+     * @remarks
+     * The <b>IWMDMStorageGlobals</b> interface returned provides methods for accessing global information about the root storage of the current storage. Because this interface exposes global device information, an application only needs to call this method once, on any storage within a single memory container.
      * @returns {IWMDMStorageGlobals} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmstorageglobals">IWMDMStorageGlobals</a> interface, which provides information about the device such as serial number, capabilities, and so on. The caller must release this interface when finished with it.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-getstorageglobals
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getstorageglobals
      */
     GetStorageGlobals() {
         result := ComCall(4, this, "ptr*", &ppStorageGlobals := 0, "HRESULT")
@@ -242,7 +246,7 @@ class IWMDMStorage extends IUnknown{
      * <td>This storage contains the default storage where new digital media should be placed.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-getattributes
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getattributes
      */
     GetAttributes(pFormat) {
         result := ComCall(5, this, "uint*", &pdwAttributes := 0, "ptr", pFormat, "HRESULT")
@@ -260,8 +264,8 @@ class IWMDMStorage extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-getname
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getname
      */
     GetName(pwszName, nMaxChars) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -272,8 +276,10 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * The GetDate method retrieves the date when the storage was last modified.
+     * @remarks
+     * The time is specified in coordinated universal time.
      * @returns {WMDMDATETIME} Pointer to a <b>WMDMDATETIME</b> structure specifying the date on which the storage object (file or folder) was last modified.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-getdate
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getdate
      */
     GetDate() {
         pDateTimeUTC := WMDMDATETIME()
@@ -283,6 +289,8 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * The GetSize method retrieves the size of the storage, in bytes.
+     * @remarks
+     * For folders or abstract objects (such as abstract playlists), the size is zero.
      * @param {Pointer<Integer>} pdwSizeLow Pointer to a <b>DWORD</b> specifying the low-order part of the storage object size, in bytes.
      * @param {Pointer<Integer>} pdwSizeHigh Pointer to a <b>DWORD</b> specifying the high-order part of the storage object size, in bytes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -292,8 +300,8 @@ class IWMDMStorage extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-getsize
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getsize
      */
     GetSize(pdwSizeLow, pdwSizeHigh) {
         pdwSizeLowMarshal := pdwSizeLow is VarRef ? "uint*" : "ptr"
@@ -305,6 +313,14 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * The GetRights method retrieves rights information for a licensed storage.
+     * @remarks
+     * Object rights describe the usage permissions for digital media content. For example, the <b>WMDMRIGHTS</b> structure can contain information concerning how many times a file can be played and who can play it. This method will fail if this is not a licensed file.
+     * 
+     * The <i>ppRights</i> array is allocated by this method, and must be freed by the application using <b>CoTaskMemFree</b>, a standard Win32 function.
+     * 
+     * To receive progress events for this call, use <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmstorage4-getrightswithprogress">IWMDMStorage4::GetRightsWithProgress</a>.
+     * 
+     * After calling this method, an application can calculate the message authentication code (MAC) values of parameters and compare them with output MAC values to ensure that the parameters have not been tampered with. The following example code shows one way to do this.
      * @param {Pointer<Pointer<WMDMRIGHTS>>} ppRights Pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/WMDM/wmdmrights">WMDMRIGHTS</a> structures that contain the storage rights. This parameter is included in the message authentication code. Windows Media Device Manager allocates this memory, and the application must release it with <b>CoTaskMemFree</b>.
      * @param {Pointer<Integer>} pnRightsCount Pointer to the number of <b>WMDMRIGHTS</b> structures in the <i>ppRights</i> array. This parameter is included in the message authentication code.
      * @param {Pointer<Integer>} abMac Array of bytes containing the message authentication code (MAC) for the parameter data of this method.
@@ -315,8 +331,8 @@ class IWMDMStorage extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-getrights
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-getrights
      */
     GetRights(ppRights, pnRightsCount, abMac) {
         ppRightsMarshal := ppRights is VarRef ? "ptr*" : "ptr"
@@ -329,8 +345,10 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * The EnumStorage method retrieves an IWMDMEnumStorage interface to enumerate the immediate child storages of the current storage.
+     * @remarks
+     * The <b>IWMDMEnumStorage</b> interface that is retrieved will enumerate the immediate children of this object. This method allows an application to navigate the contents of a device recursively.
      * @returns {IWMDMEnumStorage} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmenumstorage">IWMDMEnumStorage</a> interface. The caller must release this interface when done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-enumstorage
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-enumstorage
      */
     EnumStorage() {
         result := ComCall(10, this, "ptr*", &pEnumStorage := 0, "HRESULT")
@@ -339,6 +357,8 @@ class IWMDMStorage extends IUnknown{
 
     /**
      * The SendOpaqueCommand method sends a command to the storage through Windows Media Device Manager, without processing it.
+     * @remarks
+     * This method is intended for storage media commands that do not affect the operation of Windows Media Device Manager and should be passed through unchanged.
      * @param {Pointer<OPAQUECOMMAND>} pCommand Pointer to an <a href="https://docs.microsoft.com/windows/desktop/WMDM/opaquecommand">OPAQUECOMMAND</a> structure containing the command to execute. Data can be passed two ways—from the application to the device, and from the device back to the application when the call finishes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
@@ -347,8 +367,8 @@ class IWMDMStorage extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmstorage-sendopaquecommand
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmstorage-sendopaquecommand
      */
     SendOpaqueCommand(pCommand) {
         result := ComCall(11, this, "ptr", pCommand, "HRESULT")

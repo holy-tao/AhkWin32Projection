@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that perform operations with streams.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapitransportstream
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstream
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IRDPSRAPITransportStream extends IUnknown{
      * @returns {IRDPSRAPITransportStreamBuffer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a>**</b>
      * 
      * The address of an <a href="https://docs.microsoft.com/windows/desktop/api/rdpencomapi/nn-rdpencomapi-irdpsrapitransportstreambuffer">IRDPSRAPITransportStreamBuffer</a> interface pointer that receives the buffer object.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-allocbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-allocbuffer
      */
     AllocBuffer(maxPayload) {
         result := ComCall(3, this, "int", maxPayload, "ptr*", &ppBuffer := 0, "HRESULT")
@@ -54,7 +54,7 @@ class IRDPSRAPITransportStream extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-freebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-freebuffer
      */
     FreeBuffer(pBuffer) {
         result := ComCall(4, this, "ptr", pBuffer, "HRESULT")
@@ -69,7 +69,7 @@ class IRDPSRAPITransportStream extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-writebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-writebuffer
      */
     WriteBuffer(pBuffer) {
         result := ComCall(5, this, "ptr", pBuffer, "HRESULT")
@@ -84,7 +84,7 @@ class IRDPSRAPITransportStream extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-readbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-readbuffer
      */
     ReadBuffer(pBuffer) {
         result := ComCall(6, this, "ptr", pBuffer, "HRESULT")
@@ -99,7 +99,7 @@ class IRDPSRAPITransportStream extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-open
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-open
      */
     Open(pCallbacks) {
         result := ComCall(7, this, "ptr", pCallbacks, "HRESULT")
@@ -109,7 +109,7 @@ class IRDPSRAPITransportStream extends IUnknown{
     /**
      * Called by the Remote Desktop Protocol (RDP) stack to close the stream.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-close
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapitransportstream-close
      */
     Close() {
         result := ComCall(8, this, "HRESULT")

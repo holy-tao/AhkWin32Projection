@@ -8,7 +8,7 @@
 
 /**
  * The IX509CertificateTemplateWritable interface enables you to add a template to or delete it from a template store. Currently, Active Directory is the only available store.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509certificatetemplatewritable
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificatetemplatewritable
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -45,7 +45,7 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * @param {IX509CertificateTemplate} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> interface that represents a certificate request template.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -71,7 +71,7 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>pValue</i> parameter does not point to an <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> interface.
+     * The <i>pValue</i> parameter does not point to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplate">IX509CertificateTemplate</a> interface.
      * 
      * </td>
      * </tr>
@@ -82,12 +82,12 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplatewritable">IX509CertificateTemplateWritable</a> has already been initialized.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplatewritable">IX509CertificateTemplateWritable</a> has already been initialized.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplatewritable-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-initialize
      */
     Initialize(pValue) {
         result := ComCall(7, this, "ptr", pValue, "HRESULT")
@@ -96,11 +96,19 @@ class IX509CertificateTemplateWritable extends IDispatch{
 
     /**
      * Deletes a template from or saves it to Active Directory.
+     * @remarks
+     * When <b>CommitFlagSaveTemplateGenerateOID</b> is specified in the <i>commitFlags</i> argument, this method will not succeed unless the template and OID containers have already been created. These containers can be created in any of the following ways:
+     * 
+     * <ul>
+     * <li>Installing an enterprise certification authority on the server.</li>
+     * <li>Launching the Certtmpl.msc snap-in.</li>
+     * <li>Using the <b>Certutil.exe -installDefaultTemplates</b> command to install the default templates.</li>
+     * </ul>
      * @param {Integer} commitFlags 
      * @param {BSTR} strServerContext A <b>BSTR</b> variable that contains the DNS name of the Active Directory server to which the changes will be applied. If this value is <b>NULL</b>, the changes will be applied to the default domain controller.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -169,7 +177,7 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-commit">Commit</a> method is not supported for default templates.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-commit">Commit</a> method is not supported for default templates.
      * 
      * </td>
      * </tr>
@@ -180,12 +188,12 @@ class IX509CertificateTemplateWritable extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplatewritable">IX509CertificateTemplateWritable</a> object has not been initialized.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificatetemplatewritable">IX509CertificateTemplateWritable</a> object has not been initialized.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplatewritable-commit
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-commit
      */
     Commit(commitFlags, strServerContext) {
         strServerContext := strServerContext is String ? BSTR.Alloc(strServerContext).Value : strServerContext
@@ -195,15 +203,12 @@ class IX509CertificateTemplateWritable extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object.
+     * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object. (Get)
      * @remarks
-     * 
      * Currently, TemplatePropSecurityDescriptor is the only property that you can set. The property value must be a <b>VARIANT</b> of type <b>VT_BSTR</b> or <b>VT_BYREF|VT_BSTR</b> and must be a valid SDDL string.
-     * 
-     * 
      * @param {Integer} property 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplatewritable-get_property
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-get_property
      */
     get_Property(property) {
         pValue := VARIANT()
@@ -212,16 +217,13 @@ class IX509CertificateTemplateWritable extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object.
+     * Specifies or retrieves a property value for the IX509CertificateTemplateWritable object. (Put)
      * @remarks
-     * 
      * Currently, TemplatePropSecurityDescriptor is the only property that you can set. The property value must be a <b>VARIANT</b> of type <b>VT_BSTR</b> or <b>VT_BYREF|VT_BSTR</b> and must be a valid SDDL string.
-     * 
-     * 
      * @param {Integer} property 
      * @param {VARIANT} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplatewritable-put_property
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-put_property
      */
     put_Property(property, value) {
         result := ComCall(10, this, "int", property, "ptr", value, "HRESULT")
@@ -231,12 +233,9 @@ class IX509CertificateTemplateWritable extends IDispatch{
     /**
      * Retrieves a copy of the IX509CertificateTemplate object that was used to initialize this IX509CertificateTemplateWritable instance.
      * @remarks
-     * 
      * You must call the COM <b>Release</b> method to free the interface pointer when you are finished using it.
-     * 
-     * 
      * @returns {IX509CertificateTemplate} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplatewritable-get_template
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplatewritable-get_template
      */
     get_Template() {
         result := ComCall(11, this, "ptr*", &ppValue := 0, "HRESULT")

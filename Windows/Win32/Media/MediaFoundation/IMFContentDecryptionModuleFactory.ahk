@@ -8,8 +8,7 @@
  * A factory interface for creating IMFContentDecryptionModuleAccess objects.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulefactory
+ * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmodulefactory
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,10 +34,12 @@ class IMFContentDecryptionModuleFactory extends IUnknown{
     static VTableNames => ["IsTypeSupported", "CreateContentDecryptionModuleAccess"]
 
     /**
-     * 
-     * @param {PWSTR} keySystem 
-     * @param {PWSTR} contentType 
-     * @returns {BOOL} 
+     * Queries whether the specified Key System and, optionally, content type are supported.
+     * @remarks
+     * For information about Key Systems, see the Encrypted Media Extension specification's [Key System](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#key-system)
+     * @param {PWSTR} keySystem An **LPCWSTR** specifying the Key System for which support is being queried.
+     * @param {PWSTR} contentType Optional. An **LPCWSTR** specifying the content type for which support is being queried.
+     * @returns {BOOL} True if the specified Key System and content type are supported; otherwise, false.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulefactory-istypesupported
      */
     IsTypeSupported(keySystem, contentType) {
@@ -50,11 +51,13 @@ class IMFContentDecryptionModuleFactory extends IUnknown{
     }
 
     /**
-     * 
-     * @param {PWSTR} keySystem 
-     * @param {Pointer<IPropertyStore>} configurations 
-     * @param {Integer} numConfigurations 
-     * @returns {IMFContentDecryptionModuleAccess} 
+     * Creates an instance of the IMFContentDecryptionModuleAccess interface.
+     * @remarks
+     * **IMFContentDecryptionModuleAccess** is based on the Encrypted Media Extension specification's [MediaKeySystemAccess.getConfiguration](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#mediakeysystemaccess-interface).
+     * @param {PWSTR} keySystem An **LPWSTR** identifying the Key System for which the interface is created.
+     * @param {Pointer<IPropertyStore>} configurations An [IPropertyStore](../propsys/nn-propsys-ipropertystore.md) object containing the configuration options for the CDM.
+     * @param {Integer} numConfigurations A **DWORD** specifying the number of properties in the *configurations* parameter.
+     * @returns {IMFContentDecryptionModuleAccess} Receives the created **IMFContentDecryptionModuleAccess** object.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmodulefactory-createcontentdecryptionmoduleaccess
      */
     CreateContentDecryptionModuleAccess(keySystem, configurations, numConfigurations) {

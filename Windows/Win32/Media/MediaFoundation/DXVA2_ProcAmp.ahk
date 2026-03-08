@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Contains values for DirectX Video Acceleration (DXVA) video processing operations.
+ * @see https://learn.microsoft.com/windows/win32/api/dxva2api/ns-dxva2api-dxva2_procampvalues
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */

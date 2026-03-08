@@ -7,7 +7,7 @@
 
 /**
  * The IGPMResult interface contains methods to retrieve status message information while performing various types of GPO processing operations such as restore, import, copy and backup.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmresult
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmresult
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -78,7 +78,7 @@ class IGPMResult extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmresult-overallstatus
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmresult-overallstatus
      */
     OverallStatus() {
         result := ComCall(9, this, "HRESULT")

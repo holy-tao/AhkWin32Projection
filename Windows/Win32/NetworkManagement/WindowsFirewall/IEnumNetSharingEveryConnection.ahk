@@ -6,7 +6,7 @@
 
 /**
  * The IEnumNetSharingEveryConnection interface provides methods for enumerating all the connections in the Connections folder.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-ienumnetsharingeveryconnection
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-ienumnetsharingeveryconnection
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -136,7 +136,7 @@ class IEnumNetSharingEveryConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingeveryconnection-next
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingeveryconnection-next
      */
     Next(celt, rgVar, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -146,7 +146,7 @@ class IEnumNetSharingEveryConnection extends IUnknown{
     }
 
     /**
-     * The Skip method skips the specified number of privately-shared connections for this enumeration.
+     * The Skip method skips the specified number of privately-shared connections for this enumeration. (IEnumNetSharingEveryConnection.Skip)
      * @param {Integer} celt Specifies the number of privately-shared connections to skip.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
@@ -246,7 +246,7 @@ class IEnumNetSharingEveryConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingeveryconnection-skip
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingeveryconnection-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -254,7 +254,7 @@ class IEnumNetSharingEveryConnection extends IUnknown{
     }
 
     /**
-     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration.
+     * The Reset method causes subsequent enumeration calls to operate from the beginning of the enumeration. (IEnumNetSharingEveryConnection.Reset)
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
      * If the method fails, the return value is one of the following error codes.
@@ -353,7 +353,7 @@ class IEnumNetSharingEveryConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingeveryconnection-reset
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingeveryconnection-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -361,10 +361,10 @@ class IEnumNetSharingEveryConnection extends IUnknown{
     }
 
     /**
-     * The Clone method creates a new enumeration interface from this enumeration.
+     * The Clone method creates a new enumeration interface from this enumeration. (IEnumNetSharingEveryConnection.Clone)
      * @returns {IEnumNetSharingEveryConnection} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-ienumnetsharingeveryconnection">IEnumNetSharingEveryConnection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-ienumnetsharingeveryconnection-clone
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-ienumnetsharingeveryconnection-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

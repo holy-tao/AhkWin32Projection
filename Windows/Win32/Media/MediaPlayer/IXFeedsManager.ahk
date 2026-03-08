@@ -186,9 +186,10 @@ class IXFeedsManager extends IUnknown{
     }
 
     /**
-     * 
+     * Contains values that specify the behavior of UiaGetUpdatedCache.
      * @param {IStream} pStreamIn 
      * @returns {IStream} 
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(pStreamIn) {
         result := ComCall(17, this, "ptr", pStreamIn, "ptr*", &ppStreamOut := 0, "HRESULT")

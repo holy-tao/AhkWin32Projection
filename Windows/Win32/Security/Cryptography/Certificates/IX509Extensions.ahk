@@ -7,7 +7,7 @@
 
 /**
  * The IX509Extensions interface defines the following methods and properties to manage a collection of IX509Extension objects.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509extensions
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509extensions
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class IX509Extensions extends IDispatch{
      * Retrieves an IX509Extension object from the collection by index number.
      * @param {Integer} Index 
      * @returns {IX509Extension} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-get_itembyindex
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -60,7 +60,7 @@ class IX509Extensions extends IDispatch{
     /**
      * Retrieves the number of IX509Extension objects in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -68,9 +68,9 @@ class IX509Extensions extends IDispatch{
     }
 
     /**
-     * Retrieves the enumerator for the collection.
+     * Retrieves the enumerator for the collection. (IX509Extensions.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -82,8 +82,8 @@ class IX509Extensions extends IDispatch{
      * @param {IX509Extension} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509extension">IX509Extension</a> object to add to the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -95,8 +95,8 @@ class IX509Extensions extends IDispatch{
      * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -107,8 +107,8 @@ class IX509Extensions extends IDispatch{
      * Removes all IX509Extension objects from the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -119,7 +119,7 @@ class IX509Extensions extends IDispatch{
      * Retrieves the index of an extension in the collection by object identifier (OID).
      * @param {IObjectId} pObjectId 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-get_indexbyobjectid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-get_indexbyobjectid
      */
     get_IndexByObjectId(pObjectId) {
         result := ComCall(13, this, "ptr", pObjectId, "int*", &pIndex := 0, "HRESULT")
@@ -131,8 +131,8 @@ class IX509Extensions extends IDispatch{
      * @param {IX509Extensions} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509extensions">IX509Extensions</a> interface that contains the collection to add.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509extensions-addrange
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509extensions-addrange
      */
     AddRange(pValue) {
         result := ComCall(14, this, "ptr", pValue, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * This interface is not currently implemented.
- * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nn-windowsstoragecom-ioplockbreakinghandler
+ * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-ioplockbreakinghandler
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */
@@ -31,9 +31,9 @@ class IOplockBreakingHandler extends IUnknown{
     static VTableNames => ["OplockBreaking"]
 
     /**
-     * This method is not currently implemented.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-ioplockbreakinghandler-oplockbreaking
+     * This method is not currently implemented. (IOplockBreakingHandler.OplockBreaking)
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-ioplockbreakinghandler-oplockbreaking
      */
     OplockBreaking() {
         result := ComCall(3, this, "HRESULT")

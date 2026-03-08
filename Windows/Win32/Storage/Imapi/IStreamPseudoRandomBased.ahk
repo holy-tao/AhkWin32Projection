@@ -6,11 +6,8 @@
 /**
  * Use this interface to generate a read-only data stream whose data is initialized with pseudo-random data (not cryptographically safe). You must call the SetSize method to set the requested size of the stream.
  * @remarks
- * 
  * To create the <b>MsftStreamPrgn001</b> object in a script, use IMAPI2.MsftStreamPrgn001 as the program identifier when calling <b>CreateObject</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-istreampseudorandombased
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-istreampseudorandombased
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -47,7 +44,7 @@ class IStreamPseudoRandomBased extends IStream{
      * Sets the seed value used by the random number generator and seeks to the start of stream.
      * @param {Integer} value Seed value for the random number generator.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-put_seed
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-put_seed
      */
     put_Seed(value) {
         result := ComCall(14, this, "uint", value, "HRESULT")
@@ -57,7 +54,7 @@ class IStreamPseudoRandomBased extends IStream{
     /**
      * Retrieves the seed value used by the random number generator.
      * @returns {Integer} Seed value for the random number generator.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-get_seed
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-get_seed
      */
     get_Seed() {
         result := ComCall(15, this, "uint*", &value := 0, "HRESULT")
@@ -66,6 +63,8 @@ class IStreamPseudoRandomBased extends IStream{
 
     /**
      * Sets a list of seed values for the random number generator and seeks to the start of stream.
+     * @remarks
+     * Use this method to provide a seed value greater than 32 bits.
      * @param {Pointer<Integer>} values Array of seed values used by the random number generator.
      * @param {Integer} eCount Number of seed values in the <i>values</i> array.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
@@ -89,7 +88,7 @@ class IStreamPseudoRandomBased extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-put_extendedseed
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-put_extendedseed
      */
     put_ExtendedSeed(values, eCount) {
         valuesMarshal := values is VarRef ? "uint*" : "ptr"
@@ -123,7 +122,7 @@ class IStreamPseudoRandomBased extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-istreampseudorandombased-get_extendedseed
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-istreampseudorandombased-get_extendedseed
      */
     get_ExtendedSeed(values, eCount) {
         valuesMarshal := values is VarRef ? "ptr*" : "ptr"

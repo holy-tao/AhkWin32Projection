@@ -4,14 +4,15 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents a request for a sample from a MediaStreamSource.
+ * Describes the IMFMediaStreamSourceSampleRequest interface and provides its members, methods, remarks, and requirements.
  * @remarks
+ * The **IMFMediaStreamSourceSampleRequest** interface inherits from the [**IUnknown**](/windows/win32/api/unknwn/nn-unknwn-iunknown) interface. **IMFMediaStreamSourceSampleRequest** also has these types of members:
  * 
- * <b>MFMediaStreamSourceSampleRequest</b> is implemented by the
- *      <a href="https://docs.microsoft.com/uwp/api/windows.media.core.mediastreamsourcesamplerequest">Windows.Media.Core.MediaStreamSourceSampleRequest</a> runtime class.
+ * -   [Methods](#methods)
  * 
  * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediastreamsourcesamplerequest
+ * **MFMediaStreamSourceSampleRequest** is implemented by the [**Windows.Media.Core.MediaStreamSourceSampleRequest**](/uwp/api/Windows.Media.Core.MediaStreamSourceSampleRequest) runtime class.
+ * @see https://learn.microsoft.com/windows/win32/medfound/imfmediastreamsourcesamplerequest
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,8 +40,8 @@ class IMFMediaStreamSourceSampleRequest extends IUnknown{
     /**
      * Sets the sample for the media stream source.
      * @param {IMFSample} value The sample for the media stream source.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediastreamsourcesamplerequest-setsample
+     * @returns {HRESULT} If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/medfound/imfmediastreamsourcesamplerequest-setsample
      */
     SetSample(value) {
         result := ComCall(3, this, "ptr", value, "HRESULT")

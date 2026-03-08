@@ -6,7 +6,6 @@
 /**
  * The IUIContextualUI interface is implemented by the Ribbon framework and provides the core functionality for the Context Popup View.
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-contextpopup">Context Popup</a> is composed of two components: the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextmenu">ContextMenu</a> and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-minitoolbar">MiniToolbar</a> elements.
  * 			
  * 				
@@ -27,9 +26,7 @@
  * The following screen shot shows the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-controls-contextpopup">Context Popup</a> with a <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextmenu">ContextMenu</a> and <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-minitoolbar">MiniToolbar</a>.
  * 
  * <img alt="Screen shot with callouts showing the ContentPopup, ContextMenu, and MiniToolbar." src="./images/IUIContextualUI_Concepts.png"/>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuicontextualui
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuicontextualui
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -56,6 +53,8 @@ class IUIContextualUI extends IUnknown{
 
     /**
      * Displays a ContextPopup.
+     * @remarks
+     * The location of the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a> is not based on the screen coordinates of the application window or the mouse pointer.
      * @param {Integer} x Type: <b>INT32</b>
      * 
      * The absolute x-coordinate, in screen coordinates, for the upper-left corner of the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
@@ -64,8 +63,8 @@ class IUIContextualUI extends IUnknown{
      * The absolute y-coordinate, in screen coordinates, for the upper-left corner of the <a href="https://docs.microsoft.com/windows/desktop/windowsribbon/windowsribbon-element-contextpopup">ContextPopup</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuicontextualui-showatlocation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuicontextualui-showatlocation
      */
     ShowAtLocation(x, y) {
         result := ComCall(3, this, "int", x, "int", y, "HRESULT")

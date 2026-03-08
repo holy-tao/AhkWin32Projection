@@ -40,8 +40,15 @@ class IPrintWriteStream extends IUnknown{
     }
 
     /**
+     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
+     * @remarks
+     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
+     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
+     * 
+     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         ComCall(4, this)

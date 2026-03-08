@@ -36,11 +36,22 @@ class ISpObjectToken extends ISpDataKey{
     static VTableNames => ["SetId", "GetId", "GetCategory", "CreateInstance", "GetStorageFileName", "RemoveStorageFileName", "Remove", "IsUISupported", "DisplayUI", "MatchesAttributes"]
 
     /**
-     * 
+     * Sets the specified identifier string in the volume's metadata.
      * @param {PWSTR} pszCategoryId 
      * @param {PWSTR} pszTokenId 
      * @param {BOOL} fCreateIfNotExist 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * This method returns one of the following codes or another error code if it fails.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                  | Description                                                                                                     |
+     * |------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                  | The method was successful.<br/>                                                                           |
+     * | <dl> <dt>**FVE\_E\_LOCKED\_VOLUME**</dt> <dt>2150694912 (0x80310000)</dt> </dl> | This drive is locked by BitLocker Drive Encryption. You must unlock this volume from Control Panel. <br/> |
+     * | <dl> <dt>**FVE\_E\_NOT\_ACTIVATED**</dt> <dt>2150694920 (0x80310008)</dt> </dl> | BitLocker is not enabled on the volume. Add a key protector to enable BitLocker. <br/>                    |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/setidentificationfield-win32-encryptablevolume
      */
     SetId(pszCategoryId, pszTokenId, fCreateIfNotExist) {
         pszCategoryId := pszCategoryId is String ? StrPtr(pszCategoryId) : pszCategoryId
@@ -51,8 +62,9 @@ class ISpObjectToken extends ISpDataKey{
     }
 
     /**
-     * 
+     * Returns the identifier string available in the volume's metadata.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
         result := ComCall(16, this, "ptr*", &ppszCoMemTokenId := 0, "HRESULT")
@@ -69,12 +81,15 @@ class ISpObjectToken extends ISpDataKey{
     }
 
     /**
-     * 
+     * The CWbemGlueFactory class is part of the WMI Provider Framework. The Provider Framework implements methods of this interface internally to create new instances of classes for the provider.
+     * @remarks
+     * The destructor for the class is <b>CWbemGlueFactory::~CWbemGlueFactory.</b>
      * @param {IUnknown} pUnkOuter 
      * @param {Integer} dwClsContext 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer<Void>>} ppvObject 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wbemglue/nl-wbemglue-cwbemgluefactory
      */
     CreateInstance(pUnkOuter, dwClsContext, riid, ppvObject) {
         ppvObjectMarshal := ppvObject is VarRef ? "ptr*" : "ptr"
@@ -114,9 +129,22 @@ class ISpObjectToken extends ISpDataKey{
     }
 
     /**
-     * 
+     * Removes a TPM command from the local list of commands blocked from running on the computer.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @param {Pointer<Guid>} pclsidCaller 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned.
+     * 
+     * Common return codes are listed below.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                 | Description                           |
+     * |---------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl> | The method was successful.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/removeblockedcommand-win32-tpm
      */
     Remove(pclsidCaller) {
         result := ComCall(21, this, "ptr", pclsidCaller, "HRESULT")

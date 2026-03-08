@@ -7,7 +7,6 @@
 /**
  * Signals an application about notification events related to Mobile Broadband device services on the system.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.<ol>
  * <li>Get an <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nn-ocidl-iconnectionpoint">IConnectionPoint</a> interface by calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> on an <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservicesmanager">IMbnDeviceServicesManager</a> object.</li>
  * <li>Call <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-iconnectionpointcontainer-findconnectionpoint">FindConnectionPoint</a> on the returned interface and pass IID_IMbnDeviceServicesEvents to RIID.</li>
@@ -19,8 +18,7 @@
  * 
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2001/january/msdn-magazine-january-2001">COM Connection Points article</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbndeviceservicesevents
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbndeviceservicesevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -47,6 +45,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
 
     /**
      * Notification method indicating that a query for the messages supported on a device service has completed.
+     * @remarks
+     * The Mobile Broadband service will free the memory for <i>commandIDList</i> after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the query was requested.
      * @param {Pointer<SAFEARRAY>} commandIDList An array that contains the list of command IDs supported by the device service.  This field is valid only if the status is <b>S_OK</b>.
      * @param {HRESULT} status A status code that indicates the outcome of the operation.
@@ -70,7 +70,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerysupportedcommandscomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerysupportedcommandscomplete
      */
     OnQuerySupportedCommandsComplete(deviceService, commandIDList, status, requestID) {
         result := ComCall(3, this, "ptr", deviceService, "ptr", commandIDList, "int", status, "uint", requestID, "HRESULT")
@@ -101,7 +101,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onopencommandsessioncomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onopencommandsessioncomplete
      */
     OnOpenCommandSessionComplete(deviceService, status, requestID) {
         result := ComCall(4, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
@@ -132,7 +132,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosecommandsessioncomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosecommandsessioncomplete
      */
     OnCloseCommandSessionComplete(deviceService, status, requestID) {
         result := ComCall(5, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
@@ -141,6 +141,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
 
     /**
      * Notification method indicating that a device service SET request has completed.
+     * @remarks
+     * The <i>deviceServiceData</i> byte array contains the byte-by-byte copy of data returned by the device. The Mobile Broadband service will free the memory after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the operation was requested.
      * @param {Integer} responseID An identifier for the response.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data returned by the device. If the response is fragmented across multiple indications, this only contains the information for one fragment. This field is valid only if the status is <b>S_OK</b>.
@@ -165,7 +167,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onsetcommandcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onsetcommandcomplete
      */
     OnSetCommandComplete(deviceService, responseID, deviceServiceData, status, requestID) {
         result := ComCall(6, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", status, "uint", requestID, "HRESULT")
@@ -174,6 +176,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
 
     /**
      * Notification method indicating that a device service QUERY request has completed.
+     * @remarks
+     * The <i>deviceServiceData</i> byte array contains the byte-by-byte copy of data returned by the device. The Mobile Broadband service will free the memory after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object on which the operation was requested.
      * @param {Integer} responseID A identifier for the response.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data returned by the device. If the response is fragmented across multiple indications, this only contains the information for one fragment. This field is valid only if the status is <b>S_OK</b>.
@@ -198,7 +202,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerycommandcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onquerycommandcomplete
      */
     OnQueryCommandComplete(deviceService, responseID, deviceServiceData, status, requestID) {
         result := ComCall(7, this, "ptr", deviceService, "uint", responseID, "ptr", deviceServiceData, "int", status, "uint", requestID, "HRESULT")
@@ -207,6 +211,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
 
     /**
      * Notification method signaling a device service state change event from the Mobile Broadband device.
+     * @remarks
+     * The <i>deviceServiceData</i> byte array contains the byte-by-byte copy of data returned by the device. The Mobile Broadband service will free the memory after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> object for which the event notification was received.
      * @param {Integer} eventID An identifier for the event.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data returned by underlying device.
@@ -229,7 +235,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-oneventnotification
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-oneventnotification
      */
     OnEventNotification(deviceService, eventID, deviceServiceData) {
         result := ComCall(8, this, "ptr", deviceService, "uint", eventID, "ptr", deviceServiceData, "HRESULT")
@@ -260,7 +266,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onopendatasessioncomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onopendatasessioncomplete
      */
     OnOpenDataSessionComplete(deviceService, status, requestID) {
         result := ComCall(9, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
@@ -291,7 +297,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosedatasessioncomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onclosedatasessioncomplete
      */
     OnCloseDataSessionComplete(deviceService, status, requestID) {
         result := ComCall(10, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
@@ -322,7 +328,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onwritedatacomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onwritedatacomplete
      */
     OnWriteDataComplete(deviceService, status, requestID) {
         result := ComCall(11, this, "ptr", deviceService, "int", status, "uint", requestID, "HRESULT")
@@ -331,6 +337,8 @@ class IMbnDeviceServicesEvents extends IUnknown{
 
     /**
      * Notification for data being read from a device service data session.
+     * @remarks
+     * This byte array contains the byte-by-byte copy of data read from the device service session. The Mobile Broadband service will free the memory for this field after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnDeviceService} deviceService The <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbndeviceservice">IMbnDeviceService</a> session object on which the data was read.
      * @param {Pointer<SAFEARRAY>} deviceServiceData A byte array containing the data read from the underlying device service session.
      * @returns {HRESULT} The method must return the following value.
@@ -352,7 +360,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-onreaddata
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-onreaddata
      */
     OnReadData(deviceService, deviceServiceData) {
         result := ComCall(12, this, "ptr", deviceService, "ptr", deviceServiceData, "HRESULT")
@@ -382,7 +390,7 @@ class IMbnDeviceServicesEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbndeviceservicesevents-oninterfacestatechange
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbndeviceservicesevents-oninterfacestatechange
      */
     OnInterfaceStateChange(interfaceID, stateChange) {
         interfaceID := interfaceID is String ? BSTR.Alloc(interfaceID).Value : interfaceID

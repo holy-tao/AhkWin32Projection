@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfDisplayAttributeInfo interface is implemented by the TSF manager to provide an enumeration of display attribute information objects.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtfdisplayattributeinfo
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtfdisplayattributeinfo
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
     /**
      * IEnumTfDisplayAttributeInfo::Clone method
      * @returns {IEnumTfDisplayAttributeInfo} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfdisplayattributeinfo">IEnumTfDisplayAttributeInfo</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-clone
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -76,7 +76,7 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-next
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-next
      */
     Next(ulCount, rgInfo, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -106,7 +106,7 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-reset
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -146,7 +146,7 @@ class IEnumTfDisplayAttributeInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtfdisplayattributeinfo-skip
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtfdisplayattributeinfo-skip
      */
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")

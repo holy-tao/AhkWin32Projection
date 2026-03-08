@@ -7,8 +7,7 @@
  * Enables interoperability with a WinRT UserConsentVerifier class object and provides access to UserConsentVerifier members to verify the current user.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//userconsentverifierinterop/nn-userconsentverifierinterop-iuserconsentverifierinterop
+ * @see https://learn.microsoft.com/windows/win32/api/userconsentverifierinterop/nn-userconsentverifierinterop-iuserconsentverifierinterop
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -34,11 +33,15 @@ class IUserConsentVerifierInterop extends IInspectable{
     static VTableNames => ["RequestVerificationForWindowAsync"]
 
     /**
+     * Performs a verification using a device such as Microsoft Passport PIN, Windows Hello, or a fingerprint reader.
+     * @param {HWND} appWindow Handle to the window of the active application.
+     * @param {HSTRING} message A message to display to the user for this biometric verification request.
+     * @param {Pointer<Guid>} riid The GUID for the resource interface.
      * 
-     * @param {HWND} appWindow 
-     * @param {HSTRING} message 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example: 
+     * 
+     * `__uuidof(IAsyncOperation)`
+     * @returns {Pointer<Void>} A [IAsyncOperation](/uwp/api/windows.foundation.iasyncoperation-1) value that returns a value from the [UserConsentVerificationResult](/uwp/api/windows.security.credentials.ui.userconsentverificationresult) enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/userconsentverifierinterop/nf-userconsentverifierinterop-iuserconsentverifierinterop-requestverificationforwindowasync
      */
     RequestVerificationForWindowAsync(appWindow, message, riid) {

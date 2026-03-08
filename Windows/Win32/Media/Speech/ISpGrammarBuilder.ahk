@@ -119,11 +119,15 @@ class ISpGrammarBuilder extends IUnknown{
     }
 
     /**
-     * 
+     * Adds a SYSTEM_RESOURCE_ATTRIBUTE_ACEaccess control entry (ACE) to the end of a system access control list (SACL).
      * @param {SPSTATEHANDLE} hRuleState 
      * @param {PWSTR} pszResourceName 
      * @param {PWSTR} pszResourceValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, it returns <b>TRUE</b>.
+     * 
+     * If the function fails, it returns <b>FALSE</b>. To get extended error information, call 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addresourceattributeace
      */
     AddResource(hRuleState, pszResourceName, pszResourceValue) {
         hRuleState := hRuleState is Win32Handle ? NumGet(hRuleState, "ptr") : hRuleState
@@ -135,9 +139,17 @@ class ISpGrammarBuilder extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
+     * 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit(dwReserved) {
         result := ComCall(10, this, "uint", dwReserved, "HRESULT")

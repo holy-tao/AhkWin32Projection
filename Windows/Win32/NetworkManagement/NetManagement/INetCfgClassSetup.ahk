@@ -43,7 +43,12 @@ class INetCfgClassSetup extends IUnknown{
     }
 
     /**
+     * Note This section describes functionality designed for use by online stores. Use of this functionality outside the context of an online store is not supported. The Install element specifies values used by Windows Media Player to install an online store.
+     * @remarks
+     * If any of the required attributes are missing or not available, Windows Media Player setup will not attempt to download and install the online store provider code. Setup will configure the offline default values as specified in the **ServiceInfo** document. **ServiceInfo** can be used when not connected to the Internet by passing the default provider name and the **ServiceInfo** information as command-line parameters. See [Redistributing Windows Media Player Software](redistributing-windows-media-player-software.md) for details about command-line options.
      * 
+     * > [!Note]  
+     * > Use of this element requires that you sign a redistribution agreement with Microsoft. Contact your business representative for details.
      * @param {PWSTR} pszwInfId 
      * @param {Pointer<OBO_TOKEN>} pOboToken 
      * @param {Integer} dwSetupFlags 
@@ -51,6 +56,7 @@ class INetCfgClassSetup extends IUnknown{
      * @param {PWSTR} pszwAnswerFile 
      * @param {PWSTR} pszwAnswerSections 
      * @returns {INetCfgComponent} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/install-element
      */
     Install(pszwInfId, pOboToken, dwSetupFlags, dwUpgradeFromBuildNo, pszwAnswerFile, pszwAnswerSections) {
         pszwInfId := pszwInfId is String ? StrPtr(pszwInfId) : pszwInfId

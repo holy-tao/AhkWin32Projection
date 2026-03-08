@@ -4,8 +4,8 @@
 #Include .\IDWriteFontSet2.ahk
 
 /**
- * Represents a font set.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontset3
+ * Represents a font set. (IDWriteFontSet3)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontset3
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -31,9 +31,13 @@ class IDWriteFontSet3 extends IDWriteFontSet2{
     static VTableNames => ["GetFontSourceType", "GetFontSourceNameLength", "GetFontSourceName"]
 
     /**
+     * Retrieves the font source type of the specified font.
+     * @param {Integer} fontIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {Integer} fontIndex 
-     * @returns {Integer} 
+     * Zero-based index of the font.
+     * @returns {Integer} Type: **[DWRITE_FONT_SOURCE_TYPE](./ne-dwrite_3-dwrite_font_source_type.md)**
+     * 
+     * The font source type of the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset3-getfontsourcetype
      */
     GetFontSourceType(fontIndex) {
@@ -42,9 +46,13 @@ class IDWriteFontSet3 extends IDWriteFontSet2{
     }
 
     /**
+     * Retrieves the length of the font source name for the specified font.
+     * @param {Integer} listIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {Integer} listIndex 
-     * @returns {Integer} 
+     * Zero-based index of the font.
+     * @returns {Integer} Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
+     * 
+     * The length of the font source name for the specified font.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset3-getfontsourcenamelength
      */
     GetFontSourceNameLength(listIndex) {
@@ -53,11 +61,19 @@ class IDWriteFontSet3 extends IDWriteFontSet2{
     }
 
     /**
+     * Copies the font source name (for the specified font) into an output array.
+     * @param {Integer} listIndex Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {Integer} listIndex 
-     * @param {PWSTR} stringBuffer 
-     * @param {Integer} stringBufferSize 
-     * @returns {HRESULT} 
+     * Zero-based index of the font.
+     * @param {PWSTR} stringBuffer Type: **[WCHAR](/windows/win32/winprog/windows-data-types)\***
+     * 
+     * Character array that receives the string. Call [GetFontSourceNameLength](./nf-dwrite_3-idwritefontset3-getfontsourcenamelength.md) to determine the size of array to allocate.
+     * @param {Integer} stringBufferSize Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
+     * 
+     * Size of the array in characters. The size must include space for the terminating null character.
+     * @returns {HRESULT} Type: **[HRESULT](/windows/win32/com/structure-of-com-error-codes)**
+     * 
+     * If the function succeeds, it returns **S_OK**. Otherwise, it returns an [**HRESULT**](/windows/win32/com/structure-of-com-error-codes) [error code](/windows/win32/com/com-error-codes-10).
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontset3-getfontsourcename
      */
     GetFontSourceName(listIndex, stringBuffer, stringBufferSize) {

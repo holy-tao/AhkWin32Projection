@@ -5,7 +5,7 @@
 
 /**
  * Represents an IP-based transport address.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdtransportaddress
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdtransportaddress
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IWSDTransportAddress extends IWSDAddress{
     /**
      * Gets the IP port number associated with this transport address.
      * @returns {Integer} Port number associated with the address object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdtransportaddress-getport
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-getport
      */
     GetPort() {
         result := ComCall(5, this, "ushort*", &pwPort := 0, "HRESULT")
@@ -62,7 +62,7 @@ class IWSDTransportAddress extends IWSDAddress{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdtransportaddress-setport
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-setport
      */
     SetPort(wPort) {
         result := ComCall(6, this, "ushort", wPort, "HRESULT")
@@ -70,9 +70,11 @@ class IWSDTransportAddress extends IWSDAddress{
     }
 
     /**
-     * Gets a pointer to a string representation of the address object.
+     * Gets a pointer to a string representation of the address object. (IWSDTransportAddress.GetTransportAddress)
+     * @remarks
+     * The string returned by this method may contain an IPv4 or unbracketed IPv6 address such as "fe80::1".  It may also contain a bracketed IPv6 address that includes the port such as "[fe80::1]:1234".  The caller should parse the string carefully to account for both possibilities.
      * @returns {PWSTR} String representation of the address object. Do not deallocate this pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdtransportaddress-gettransportaddress
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-gettransportaddress
      */
     GetTransportAddress() {
         result := ComCall(7, this, "ptr*", &ppszAddress := 0, "HRESULT")
@@ -80,12 +82,14 @@ class IWSDTransportAddress extends IWSDAddress{
     }
 
     /**
-     * Gets a pointer to a string representation of the address object.
+     * Gets a pointer to a string representation of the address object. (IWSDTransportAddress.GetTransportAddressEx)
+     * @remarks
+     * The string returned by this method may contain an IPv4 or unbracketed IPv6 address such as "fe80::1".  It may also contain a bracketed IPv6 address that includes the port such as "[fe80::1]:1234".  The caller should parse the string carefully to account for both possibilities.
      * @param {BOOL} fSafe Specifies whether the scope identifier for an IPv6 address is included in the returned <i>ppszAddress</i> string. For example, if the address object represents an IPv6 link local address and <i>fSafe</i> is <b>FALSE</b>, then the IPv6 scope identifier will be included in the returned <i>ppszAddress</i> string.
      * 
      * If the address object represents an IPv4 address or a host name, this parameter is ignored.
      * @returns {PWSTR} String representation of the address object. Do not deallocate this pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdtransportaddress-gettransportaddressex
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-gettransportaddressex
      */
     GetTransportAddressEx(fSafe) {
         result := ComCall(8, this, "int", fSafe, "ptr*", &ppszAddress := 0, "HRESULT")
@@ -141,7 +145,7 @@ class IWSDTransportAddress extends IWSDAddress{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdtransportaddress-settransportaddress
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdtransportaddress-settransportaddress
      */
     SetTransportAddress(pszAddress) {
         pszAddress := pszAddress is String ? StrPtr(pszAddress) : pszAddress

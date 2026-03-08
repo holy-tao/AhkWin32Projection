@@ -32,8 +32,9 @@ class IDebugHostFunctionLocalDetails extends IUnknown{
     static VTableNames => ["GetName", "GetType", "EnumerateStorage", "GetLocalKind", "GetArgumentPosition"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetName
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getname
      */
     GetName() {
         name := BSTR()
@@ -42,8 +43,12 @@ class IDebugHostFunctionLocalDetails extends IUnknown{
     }
 
     /**
-     * 
+     * The GetTypeByName function retrieves a service type GUID for a network service specified by name. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The nspapi.h header defines GetTypeByName as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @returns {IDebugHostType} 
+     * @see https://learn.microsoft.com/windows/win32/api/nspapi/nf-nspapi-gettypebynamea
      */
     GetType() {
         result := ComCall(4, this, "ptr*", &localType := 0, "HRESULT")

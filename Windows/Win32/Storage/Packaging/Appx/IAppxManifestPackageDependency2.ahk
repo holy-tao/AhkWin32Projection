@@ -4,8 +4,8 @@
 #Include .\IAppxManifestPackageDependency.ahk
 
 /**
- * Describes the dependency of one package on another package.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestpackagedependency2
+ * Describes the dependency of one package on another package. (IAppxManifestPackageDependency2)
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestpackagedependency2
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -32,9 +32,12 @@ class IAppxManifestPackageDependency2 extends IAppxManifestPackageDependency{
 
     /**
      * Returns the maximum major version number of the package that is tested to be compatible with the current package.
+     * @remarks
+     * If the
+     * <b>MaxMajorVersionTested</b> attribute is not specified for the current dependency package, this method returns the highest 16 bits of the <b>MinVersion</b> field. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency-getminversion">GetMinVersion</a> method.
      * @returns {Integer} The maximum major version number of the dependency package that has been tested to be compatible
      * with the current package.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency2-getmaxmajorversiontested
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestpackagedependency2-getmaxmajorversiontested
      */
     GetMaxMajorVersionTested() {
         result := ComCall(6, this, "ushort*", &maxMajorVersionTested := 0, "HRESULT")

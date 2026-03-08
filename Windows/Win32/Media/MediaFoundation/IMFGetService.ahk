@@ -4,15 +4,12 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Queries an object for a specified service interface.
+ * Queries an object for a specified service interface. (IMFGetService)
  * @remarks
- * 
  * A service is an interface that is exposed by one object but might be implemented by another object. The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">GetService</a> method is equivalent to <b>QueryInterface</b>, with the following difference: when <b>QueryInterface</b> retrieves a pointer to an interface, it is guaranteed that you can query the returned interface and get back the original interface. The <b>GetService</b> method does not make this guarantee, because the retrieved interface might be implemented by a separate object.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-mfgetservice">MFGetService</a> function is a helper function that queries an object for <b>IMFGetService</b> and calls the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">GetService</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfgetservice
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfgetservice
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -42,7 +39,7 @@ class IMFGetService extends IUnknown{
      * @param {Pointer<Guid>} guidService The service identifier (SID) of the service. For a list of service identifiers, see <a href="https://docs.microsoft.com/windows/desktop/medfound/service-interfaces">Service Interfaces</a>.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @returns {Pointer<Void>} Receives the interface pointer. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfgetservice-getservice
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfgetservice-getservice
      */
     GetService(guidService, riid) {
         result := ComCall(3, this, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")

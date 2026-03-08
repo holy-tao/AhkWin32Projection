@@ -30,8 +30,9 @@ class IDebugHostConstant extends IDebugHostSymbol{
     static VTableNames => ["GetValue"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue() {
         value := VARIANT()

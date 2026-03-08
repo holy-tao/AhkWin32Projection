@@ -8,7 +8,7 @@
 
 /**
  * Represents a particular spell checker provider for a particular language, to be used by the spell checking infrastructure.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nn-spellcheckprovider-ispellcheckprovider
+ * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nn-spellcheckprovider-ispellcheckprovider
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -62,9 +62,9 @@ class ISpellCheckProvider extends IUnknown{
     }
 
     /**
-     * Gets the BCP47 language tag this instance of the spell checker supports.
+     * Gets the BCP47 language tag this instance of the spell checker supports. (ISpellCheckProvider.get_LanguageTag)
      * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_languagetag
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_languagetag
      */
     get_LanguageTag() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")
@@ -72,10 +72,12 @@ class ISpellCheckProvider extends IUnknown{
     }
 
     /**
-     * Checks the spelling of the supplied text and returns a collection of spelling errors.
+     * Checks the spelling of the supplied text and returns a collection of spelling errors. (ISpellCheckProvider.Check)
+     * @remarks
+     * The returned <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a> should contain the results of spell checking. A correct <i>text</i> should return an empty (not a null) enumeration.
      * @param {PWSTR} text The text to check.
      * @returns {IEnumSpellingError} The result of checking this text, returned as an <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-check
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-check
      */
     Check(text) {
         text := text is String ? StrPtr(text) : text
@@ -85,10 +87,10 @@ class ISpellCheckProvider extends IUnknown{
     }
 
     /**
-     * Retrieves spelling suggestions for the supplied text.
+     * Retrieves spelling suggestions for the supplied text. (ISpellCheckProvider.Suggest)
      * @param {PWSTR} word The word or phrase to get suggestions for.
      * @returns {IEnumString} The list of suggestions, returned as an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-suggest
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-suggest
      */
     Suggest(word) {
         word := word is String ? StrPtr(word) : word
@@ -98,10 +100,10 @@ class ISpellCheckProvider extends IUnknown{
     }
 
     /**
-     * Retrieves the value associated with the given option.
+     * Retrieves the value associated with the given option. (ISpellCheckProvider.GetOptionValue)
      * @param {PWSTR} optionId The option identifier.
      * @returns {Integer} The value associated with <i>optionId</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-getoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-getoptionvalue
      */
     GetOptionValue(optionId) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
@@ -112,6 +114,8 @@ class ISpellCheckProvider extends IUnknown{
 
     /**
      * Sets the value associated with the given option.
+     * @remarks
+     * This method is called by the system, which reads the option values that were set by the user in the control panel and sends them to the <a href="https://docs.microsoft.com/windows/desktop/api/spellcheckprovider/nn-spellcheckprovider-ispellcheckprovider">ISpellCheckProvider</a>. If the option was not set, this method will not be called and the provider should initialize itself internally with the default value for the option.
      * @param {PWSTR} optionId The option identifier.
      * @param {Integer} value The value to associate with <i>optionId</i>.
      * @returns {HRESULT} This method can return one of these values.
@@ -155,7 +159,7 @@ class ISpellCheckProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-setoptionvalue
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-setoptionvalue
      */
     SetOptionValue(optionId, value) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
@@ -167,7 +171,7 @@ class ISpellCheckProvider extends IUnknown{
     /**
      * Gets all of the declared option identifiers recognized by the spell checker.
      * @returns {IEnumString} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_optionids
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_optionids
      */
     get_OptionIds() {
         result := ComCall(8, this, "ptr*", &value := 0, "HRESULT")
@@ -177,7 +181,7 @@ class ISpellCheckProvider extends IUnknown{
     /**
      * Gets the identifier for this spell checker engine.
      * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_id
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_id
      */
     get_Id() {
         result := ComCall(9, this, "ptr*", &value := 0, "HRESULT")
@@ -185,9 +189,9 @@ class ISpellCheckProvider extends IUnknown{
     }
 
     /**
-     * Gets text, suitable to display to the user, that describes this spell checker.
+     * Gets text, suitable to display to the user, that describes this spell checker. (ISpellCheckProvider.get_LocalizedName)
      * @returns {PWSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_localizedname
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-get_localizedname
      */
     get_LocalizedName() {
         result := ComCall(10, this, "ptr*", &value := 0, "HRESULT")
@@ -195,10 +199,10 @@ class ISpellCheckProvider extends IUnknown{
     }
 
     /**
-     * Retrieves the information (id, description, heading and labels) of a specific option.
+     * Retrieves the information (id, description, heading and labels) of a specific option. (ISpellCheckProvider.GetOptionDescription)
      * @param {PWSTR} optionId Identifier of the option to be retrieved.
      * @returns {IOptionDescription} <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ioptiondescription">IOptionDescription</a> interface that contains the information about <i>optionId</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-getoptiondescription
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-getoptiondescription
      */
     GetOptionDescription(optionId) {
         optionId := optionId is String ? StrPtr(optionId) : optionId
@@ -209,6 +213,8 @@ class ISpellCheckProvider extends IUnknown{
 
     /**
      * Initialize the specified word list to contain only the specified words.
+     * @remarks
+     * This method is called by the system (for example, when the client calls <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nf-spellcheck-ispellchecker-add">ISpellChecker::Add</a>), which passes the words from the respective word list to the provider so that it can consider the word list when spell checking.
      * @param {Integer} wordlistType The type of word list.
      * @param {IEnumString} words The set of words to be included in the word list, passed as an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstring">IEnumString</a> object..
      * @returns {HRESULT} This method can return one of these values.
@@ -236,12 +242,12 @@ class ISpellCheckProvider extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>wordlistType</i> is not a valid member of the <a href="/windows/desktop/api/spellcheck/ne-spellcheck-wordlist_type">WORDLIST_TYPE</a> enumeration.
+     * <i>wordlistType</i> is not a valid member of the <a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/ne-spellcheck-wordlist_type">WORDLIST_TYPE</a> enumeration.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-initializewordlist
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-initializewordlist
      */
     InitializeWordlist(wordlistType, words) {
         result := ComCall(12, this, "int", wordlistType, "ptr", words, "HRESULT")

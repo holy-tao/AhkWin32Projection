@@ -6,7 +6,7 @@
 
 /**
  * The IWMStreamPrioritization interface provides methods to set and read priority records for a file.Stream prioritization allows content creators to specify the priority of the streams in an ASF file.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmstreamprioritization
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamprioritization
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,9 +33,15 @@ class IWMStreamPrioritization extends IUnknown{
 
     /**
      * The GetPriorityRecords method retrieves the list of streams and their priorities from the profile.
+     * @remarks
+     * You should make two calls to <b>GetPriorityRecords</b>. On the first call, pass <b>NULL</b> as <i>pRecordArray</i>. On return, the value of <i>pcRecords</i> is set to the number of prioritization records in the stream priority object. Then you can allocate the required amount of memory for the array and pass a pointer to it as <i>pRecordArray</i> in the second call.
+     * 
+     * If you pass an array as <i>pRecordArray</i> that does not have enough elements allocated to contain the data, an error code of ASF_E_BUFFERTOOSMALL is returned. When returning this error code, the method still sets the value of <i>pcRecords</i>.
+     * 
+     * Records in a stream prioritization object are given in order of decreasing priority
      * @param {Pointer<Integer>} pcRecords Pointer to a <b>WORD</b> that receives the count of records.
      * @returns {WM_STREAM_PRIORITY_RECORD} Pointer to an array of <b>WM_STREAM_PRIORITY_RECORD</b> structures. This array will receive the current stream priority data.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-getpriorityrecords
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-getpriorityrecords
      */
     GetPriorityRecords(pcRecords) {
         pcRecordsMarshal := pcRecords is VarRef ? "ushort*" : "ptr"
@@ -47,6 +53,12 @@ class IWMStreamPrioritization extends IUnknown{
 
     /**
      * The SetPriorityRecords method assigns the members of an array as the stream priority list in the stream prioritization object.
+     * @remarks
+     * Valid arrays contain no duplicate stream numbers. Streams are listed in the array in descending priority order. Any stream that is designated as mandatory must occur in the array before any entries that are optional. If any of these rules are broken, <b>SetPriorityRecords</b> will return E_INVALIDARG.
+     * 
+     * <b>SetPriorityRecords</b> overwrites an existing stream priority array if there is one. You can clear the array by passing zero for <i>cRecords</i>.
+     * 
+     * This method does not verify that the streams specified are valid for the profile.
      * @param {Pointer<WM_STREAM_PRIORITY_RECORD>} pRecordArray Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_stream_priority_record">WM_STREAM_PRIORITY_RECORD</a> structures.
      * @param {Integer} cRecords Count of records.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -94,7 +106,7 @@ class IWMStreamPrioritization extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-setpriorityrecords
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamprioritization-setpriorityrecords
      */
     SetPriorityRecords(pRecordArray, cRecords) {
         result := ComCall(4, this, "ptr", pRecordArray, "ushort", cRecords, "HRESULT")

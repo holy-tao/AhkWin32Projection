@@ -6,12 +6,10 @@
 /**
  * The IDShowPlugin interface enables the Windows Media Source filter to communicate with the Windows Media Player 6.4 Plug-in for Netscape Navigator.
  * @remarks
- * 
  * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
  * 
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nn-qnetwork-idshowplugin
+ * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-idshowplugin
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -50,9 +48,11 @@ class IDShowPlugin extends IUnknown{
 
     /**
      * The get_URL method retrieves the URL of the current web page.
+     * @remarks
+     * The caller must release the returned <b>BSTR</b>, by calling <b>SysFreeString</b>.
      * @param {Pointer<BSTR>} pURL Receives the URL.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-idshowplugin-get_url
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-idshowplugin-get_url
      */
     get_URL(pURL) {
         result := ComCall(3, this, "ptr", pURL, "HRESULT")
@@ -61,9 +61,11 @@ class IDShowPlugin extends IUnknown{
 
     /**
      * The get_UserAgent method retrieves the User-Agent field from the HTTP header.
+     * @remarks
+     * The caller must release the returned <b>BSTR</b>, by calling <b>SysFreeString</b>.
      * @param {Pointer<BSTR>} pUserAgent Pointer to a variable that receives the User-Agent string.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-idshowplugin-get_useragent
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-idshowplugin-get_useragent
      */
     get_UserAgent(pUserAgent) {
         result := ComCall(4, this, "ptr", pUserAgent, "HRESULT")

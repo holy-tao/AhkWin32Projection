@@ -30,9 +30,12 @@ class IGameInputDispatcher extends IUnknown{
     static VTableNames => ["Dispatch", "OpenWaitHandle"]
 
     /**
-     * 
+     * Specifies the threading and apartment type for a new DispatcherQueueController.
+     * @remarks
+     * Introduced in Windows 10, version 1709.
      * @param {Integer} quotaInMicroseconds 
      * @returns {Boolean} 
+     * @see https://learn.microsoft.com/windows/win32/api/dispatcherqueue/ns-dispatcherqueue-dispatcherqueueoptions
      */
     Dispatch(quotaInMicroseconds) {
         result := ComCall(3, this, "uint", quotaInMicroseconds, "int")

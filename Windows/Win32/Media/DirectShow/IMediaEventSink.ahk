@@ -5,7 +5,7 @@
 
 /**
  * Notifies the Filter Graph Manager of events that occur within the filter graph.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-imediaeventsink
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-imediaeventsink
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,11 +32,13 @@ class IMediaEventSink extends IUnknown{
 
     /**
      * The Notify method notifies the Filter Graph Manager of an event.
+     * @remarks
+     * The event is queued but not delivered to the application on this thread. For a list of notification codes and event parameter values, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/event-notification-codes">Event Notification Codes</a>.
      * @param {Integer} EventCode Identifier of the event.
      * @param {Pointer} EventParam1 First event parameter.
      * @param {Pointer} EventParam2 Second event parameter.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-imediaeventsink-notify
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-imediaeventsink-notify
      */
     Notify(EventCode, EventParam1, EventParam2) {
         result := ComCall(3, this, "int", EventCode, "ptr", EventParam1, "ptr", EventParam2, "HRESULT")

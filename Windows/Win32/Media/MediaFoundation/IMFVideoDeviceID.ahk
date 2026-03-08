@@ -5,7 +5,7 @@
 
 /**
  * Returns the device identifier supported by a video renderer component.
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-imfvideodeviceid
+ * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideodeviceid
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IMFVideoDeviceID extends IUnknown{
 
     /**
      * Returns the identifier of the video device supported by an EVR mixer or presenter.
+     * @remarks
+     * If a mixer or presenter uses Direct3D 9, it must return the value IID_IDirect3DDevice9 in <i>pDeviceID</i>. The EVR's default mixer and presenter both return this value. If you write a custom mixer or presenter, it can return some other value. However, the mixer and presenter must use matching device identifiers.
      * @returns {Guid} Receives the device identifier. Generally, the value is IID_IDirect3DDevice9.
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideodeviceid-getdeviceid
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideodeviceid-getdeviceid
      */
     GetDeviceID() {
         pDeviceID := Guid()

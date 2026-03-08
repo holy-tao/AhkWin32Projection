@@ -6,8 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Represents a list of fonts.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontlist
+ * Represents a list of fonts. (IDWriteFontList)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontlist
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IDWriteFontList extends IUnknown{
      * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the current <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontlist-getfontcollection
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontlist-getfontcollection
      */
     GetFontCollection() {
         result := ComCall(3, this, "ptr*", &fontCollection := 0, "HRESULT")
@@ -49,7 +49,7 @@ class IDWriteFontList extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The number of fonts in the font list.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontlist-getfontcount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontlist-getfontcount
      */
     GetFontCount() {
         result := ComCall(4, this, "uint")
@@ -57,14 +57,14 @@ class IDWriteFontList extends IUnknown{
     }
 
     /**
-     * Gets a font given its zero-based index.
+     * Gets a font given its zero-based index. (IDWriteFontList.GetFont)
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * Zero-based index of the font in the font list.
      * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the newly created <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontlist-getfont
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontlist-getfont
      */
     GetFont(index) {
         result := ComCall(5, this, "uint", index, "ptr*", &font := 0, "HRESULT")

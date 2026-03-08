@@ -29,11 +29,16 @@ class IActiveScriptStats extends IUnknown{
     static VTableNames => ["GetStat", "GetStatEx", "ResetStats"]
 
     /**
-     * 
+     * Gets current Interaction Context state and the time when the context will return to idle state.
+     * @remarks
+     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
      * @param {Integer} stid 
      * @param {Pointer<Integer>} pluHi 
      * @param {Pointer<Integer>} pluLo 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      */
     GetStat(stid, pluHi, pluLo) {
         pluHiMarshal := pluHi is VarRef ? "uint*" : "ptr"

@@ -4,12 +4,10 @@
 #Include .\IBrowserService2.ahk
 
 /**
- * Deprecated.
+ * Deprecated. (IBrowserService3)
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice">IBrowserService</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice2">IBrowserService2</a> interfaces, from which it inherits.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-ibrowserservice3
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice3
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,8 +42,8 @@ class IBrowserService3 extends IBrowserService2{
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure that contains the available dimensions.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice3-_positionviewwindow
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice3-_positionviewwindow
      */
     _PositionViewWindow(hwnd, prc) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -55,7 +53,9 @@ class IBrowserService3 extends IBrowserService2{
     }
 
     /**
-     * Deprecated. Parses a URL into a pointer to an item identifier list (PIDL).
+     * Deprecated. Parses a URL into a pointer to an item identifier list (PIDL). (IBrowserService3.IEParseDisplayNameEx)
+     * @remarks
+     * This method replaces <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-ibrowserservice-ieparsedisplayname">IEParseDisplayName</a>.
      * @param {Integer} uiCP Type: <b>UINT</b>
      * 
      * The code page (for example, CP_ACP, the system default code page).
@@ -68,7 +68,7 @@ class IBrowserService3 extends IBrowserService2{
      * @returns {Pointer<ITEMIDLIST>} Type: <b>LPITEMIDLIST*</b>
      * 
      * The PIDL created from the parsed URL.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice3-ieparsedisplaynameex
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice3-ieparsedisplaynameex
      */
     IEParseDisplayNameEx(uiCP, pwszPath, dwFlags) {
         pwszPath := pwszPath is String ? StrPtr(pwszPath) : pwszPath

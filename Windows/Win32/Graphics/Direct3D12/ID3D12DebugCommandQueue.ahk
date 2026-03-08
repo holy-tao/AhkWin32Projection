@@ -5,7 +5,7 @@
 
 /**
  * Provides methods to monitor and debug a command queue.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandqueue
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nn-d3d12sdklayers-id3d12debugcommandqueue
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -31,7 +31,9 @@ class ID3D12DebugCommandQueue extends IUnknown{
     static VTableNames => ["AssertResourceState"]
 
     /**
-     * Checks whether a resource, or subresource, is in a specified state, or not.
+     * Checks whether a resource, or subresource, is in a specified state, or not. (ID3D12DebugCommandQueue.AssertResourceState)
+     * @remarks
+     * This method is very similar to <a href="https://docs.microsoft.com/windows/desktop/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandlist-assertresourcestate">ID3D12DebugCommandList::AssertResourceState</a>, however there are methods on the command queue that work directly with resources that might need to be monitored (for example <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12commandqueue-copytilemappings">ID3D12CommandQueue::CopyTileMappings</a>).
      * @param {ID3D12Resource} pResource Type: <b>ID3D12Resource*</b>
      * 
      * Specifies the  <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> to check.
@@ -45,7 +47,7 @@ class ID3D12DebugCommandQueue extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * This method returns true if the resource or subresource is in the specified state, false otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandqueue-assertresourcestate
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12sdklayers/nf-d3d12sdklayers-id3d12debugcommandqueue-assertresourcestate
      */
     AssertResourceState(pResource, Subresource, State) {
         result := ComCall(3, this, "ptr", pResource, "uint", Subresource, "uint", State, "int")

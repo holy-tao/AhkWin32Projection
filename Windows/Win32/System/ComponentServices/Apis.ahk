@@ -84,11 +84,7 @@ class ComponentServices {
      * @since windows5.1.2600
      */
     static CoGetDefaultContext(aptType, riid) {
-        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoGetDefaultContext", "int", aptType, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -174,11 +170,7 @@ class ComponentServices {
     static CoCreateActivity(pIUnknown, riid, ppObj) {
         ppObjMarshal := ppObj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, "ptr", riid, ppObjMarshal, ppObj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("comsvcs.dll\CoCreateActivity", "ptr", pIUnknown, "ptr", riid, ppObjMarshal, ppObj, "HRESULT")
         return result
     }
 
@@ -264,11 +256,7 @@ class ComponentServices {
      * @since windows5.1.2600
      */
     static CoEnterServiceDomain(pConfigObject) {
-        result := DllCall("comsvcs.dll\CoEnterServiceDomain", "ptr", pConfigObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("comsvcs.dll\CoEnterServiceDomain", "ptr", pConfigObject, "HRESULT")
         return result
     }
 
@@ -308,11 +296,7 @@ class ComponentServices {
     static GetManagedExtensions(dwExts) {
         dwExtsMarshal := dwExts is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("comsvcs.dll\GetManagedExtensions", dwExtsMarshal, dwExts, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("comsvcs.dll\GetManagedExtensions", dwExtsMarshal, dwExts, "HRESULT")
         return result
     }
 
@@ -410,11 +394,7 @@ class ComponentServices {
      * @since windows5.0
      */
     static RecycleSurrogate(lReasonCode) {
-        result := DllCall("comsvcs.dll\RecycleSurrogate", "int", lReasonCode, "CDecl int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("comsvcs.dll\RecycleSurrogate", "int", lReasonCode, "CDecl HRESULT")
         return result
     }
 
@@ -433,11 +413,7 @@ class ComponentServices {
     static MTSCreateActivity(riid, ppobj) {
         ppobjMarshal := ppobj is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("comsvcs.dll\MTSCreateActivity", "ptr", riid, ppobjMarshal, ppobj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("comsvcs.dll\MTSCreateActivity", "ptr", riid, ppobjMarshal, ppobj, "HRESULT")
         return result
     }
 
@@ -448,11 +424,7 @@ class ComponentServices {
      * @since windows5.0
      */
     static GetDispenserManager() {
-        result := DllCall("MTxDM.dll\GetDispenserManager", "ptr*", &param0 := 0, "CDecl int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MTxDM.dll\GetDispenserManager", "ptr*", &param0 := 0, "CDecl HRESULT")
         return IDispenserManager(param0)
     }
 

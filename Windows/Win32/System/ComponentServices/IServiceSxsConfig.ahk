@@ -4,7 +4,7 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * 
+ * Configures side-by-side assemblies for the work that is done when calling either CoCreateActivity or CoEnterServiceDomain.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iservicesxsconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
@@ -32,9 +32,11 @@ class IServiceSxsConfig extends IUnknown{
 
     /**
      * Configures the side-by-side assembly for the enclosed work.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsdirectory">SxsDirectory</a> method must be called if a new side-by-side assembly domain is created using a call to this method.
      * @param {Integer} scsConfig A value from the <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/ne-comsvcs-csc_sxsconfig">CSC_SxsConfig</a> enumeration.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesxsconfig-sxsconfig
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsconfig
      */
     SxsConfig(scsConfig) {
         result := ComCall(3, this, "int", scsConfig, "HRESULT")
@@ -43,9 +45,11 @@ class IServiceSxsConfig extends IUnknown{
 
     /**
      * Sets the file name of the side-by-side assembly for the enclosed work.
+     * @remarks
+     * The appropriate file name extension will be added to the <i>szSxsName</i> parameter. A default file name is used if this method is not called.
      * @param {PWSTR} szSxsName The file name for the side-by-side assembly.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesxsconfig-sxsname
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsname
      */
     SxsName(szSxsName) {
         szSxsName := szSxsName is String ? StrPtr(szSxsName) : szSxsName
@@ -56,9 +60,11 @@ class IServiceSxsConfig extends IUnknown{
 
     /**
      * Sets the directory for the side-by-side assembly for the enclosed work.
+     * @remarks
+     * This method must be called if a new side-by-side assembly domain is created using the call to <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsconfig">SxsConfig</a>.
      * @param {PWSTR} szSxsDirectory The name of the directory for the side-by-side assembly that is to be used for the enclosed work.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iservicesxsconfig-sxsdirectory
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iservicesxsconfig-sxsdirectory
      */
     SxsDirectory(szSxsDirectory) {
         szSxsDirectory := szSxsDirectory is String ? StrPtr(szSxsDirectory) : szSxsDirectory

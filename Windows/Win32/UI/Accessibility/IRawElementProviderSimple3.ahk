@@ -7,7 +7,6 @@
 /**
  * Extends the IRawElementProviderSimple2 interface to enable retrieving metadata about how accessible technology should say the preferred content type.
  * @remarks
- * 
  * Screen reading accessibility tools like Narrator use a speech synthesizer to read what an app is showing.  Speech synthesizers usually read the provided content well based on the content description.
  * 
  * However, the speech synthesizer could use some help describing the preferred content type. The SayAs command provides accurate content reading from a Microsoft UI Automation provider to a UI Automation client (such as a screen reader) through UI Automation core APIs.
@@ -27,9 +26,7 @@
  * 
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irawelementprovidersimple3
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple3
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -55,11 +52,11 @@ class IRawElementProviderSimple3 extends IRawElementProviderSimple2{
     static VTableNames => ["GetMetadataValue"]
 
     /**
-     * Gets metadata from the UI Automation element that indicates how the information should be interpreted.
+     * Gets metadata from the UI Automation element that indicates how the information should be interpreted. (IRawElementProviderSimple3.GetMetadataValue)
      * @param {Integer} targetId The ID of the property to retrieve.
      * @param {Integer} metadataId Specifies the type of metadata to retrieve.
      * @returns {VARIANT} The metadata.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovidersimple3-getmetadatavalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple3-getmetadatavalue
      */
     GetMetadataValue(targetId, metadataId) {
         returnVal := VARIANT()

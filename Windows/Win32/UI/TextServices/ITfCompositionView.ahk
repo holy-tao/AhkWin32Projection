@@ -6,7 +6,7 @@
 
 /**
  * The ITfCompositionView interface is implemented by the TSF manager and used by an application to obtain data about a composition view. An instance of this interface is provided by one of the ITfContextOwnerCompositionSink methods.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcompositionview
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompositionview
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -33,8 +33,10 @@ class ITfCompositionView extends IUnknown{
 
     /**
      * ITfCompositionView::GetOwnerClsid method
+     * @remarks
+     * This method can be used to enable a text service to filter compositions that it does not own.
      * @returns {Guid} Pointer to a CLSID that receives the class identifier of the text service that owns the composition.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompositionview-getownerclsid
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompositionview-getownerclsid
      */
     GetOwnerClsid() {
         pclsid := Guid()
@@ -45,7 +47,7 @@ class ITfCompositionView extends IUnknown{
     /**
      * ITfCompositionView::GetRange method
      * @returns {ITfRange} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcomposition">ITfRange</a> interface pointer that receives the range object. It is possible that the range will have zero length.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompositionview-getrange
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompositionview-getrange
      */
     GetRange() {
         result := ComCall(4, this, "ptr*", &ppRange := 0, "HRESULT")

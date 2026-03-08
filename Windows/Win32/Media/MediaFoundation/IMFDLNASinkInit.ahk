@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Initializes the Digital Living Network Alliance (DLNA) media sink.
- * @see https://docs.microsoft.com/windows/win32/api//mfmp2dlna/nn-mfmp2dlna-imfdlnasinkinit
+ * Initializes the Digital Living Network Alliance (DLNA) media sink. (IMFDLNASinkInit)
+ * @see https://learn.microsoft.com/windows/win32/api/mfmp2dlna/nn-mfmp2dlna-imfdlnasinkinit
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class IMFDLNASinkInit extends IUnknown{
     static VTableNames => ["Initialize"]
 
     /**
-     * Initializes the Digital Living Network Alliance (DLNA) media sink.
+     * Initializes the Digital Living Network Alliance (DLNA) media sink. (IMFDLNASinkInit.Initialize)
      * @param {IMFByteStream} pByteStream Pointer to a byte stream. The DLNA media sink writes data to this byte stream. The byte stream must be writable.
      * @param {BOOL} fPal If <b>TRUE</b>, the DLNA media sink accepts PAL video formats. Otherwise, it accepts NTSC video  formats.
      * @returns {HRESULT} This method can return one of these values.
@@ -70,12 +70,12 @@ class IMFDLNASinkInit extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The media sink's <a href="/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">IMFMediaSink::Shutdown</a> method was called.
+     * The media sink's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-shutdown">IMFMediaSink::Shutdown</a> method was called.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfmp2dlna/nf-mfmp2dlna-imfdlnasinkinit-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/mfmp2dlna/nf-mfmp2dlna-imfdlnasinkinit-initialize
      */
     Initialize(pByteStream, fPal) {
         result := ComCall(3, this, "ptr", pByteStream, "int", fPal, "HRESULT")

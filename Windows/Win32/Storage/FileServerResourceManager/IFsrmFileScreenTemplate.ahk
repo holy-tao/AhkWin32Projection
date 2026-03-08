@@ -7,7 +7,7 @@
 
 /**
  * Used to configure templates from which new file screens can be derived.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplate
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplate
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -41,17 +41,13 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
     }
 
     /**
-     * Retrieves and sets the name of the file screen template.
+     * Retrieves and sets the name of the file screen template. (Get)
      * @remarks
-     * 
      * If a template with the specified name exists, the template fails with 
      *     <b>FSRM_E_ALREADY_EXISTS</b> when you call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileScreen::Commit</a> method.
-     * 
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-get_name
      */
     get_Name() {
         name := BSTR()
@@ -60,18 +56,14 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
     }
 
     /**
-     * Retrieves and sets the name of the file screen template.
+     * Retrieves and sets the name of the file screen template. (Put)
      * @remarks
-     * 
      * If a template with the specified name exists, the template fails with 
      *     <b>FSRM_E_ALREADY_EXISTS</b> when you call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileScreen::Commit</a> method.
-     * 
-     * 
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -81,10 +73,10 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
     }
 
     /**
-     * Copies the property values of the specified template to this template.
+     * Copies the property values of the specified template to this template. (IFsrmFileScreenTemplate.CopyTemplate)
      * @param {BSTR} fileScreenTemplateName The name of another template from which to copy the property values. The name is limited to 4,000 characters.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-copytemplate
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-copytemplate
      */
     CopyTemplate(fileScreenTemplateName) {
         fileScreenTemplateName := fileScreenTemplateName is String ? BSTR.Alloc(fileScreenTemplateName).Value : fileScreenTemplateName
@@ -102,7 +94,7 @@ class IFsrmFileScreenTemplate extends IFsrmFileScreenBase{
      * @returns {IFsrmDerivedObjectsResult} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmderivedobjectsresult">IFsrmDerivedObjectsResult</a> interface 
      *       that you use to determine the list of derived objects that were updated and whether the update was 
      *       successful.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-commitandupdatederived
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-commitandupdatederived
      */
     CommitAndUpdateDerived(commitOptions, applyOptions) {
         result := ComCall(21, this, "int", commitOptions, "int", applyOptions, "ptr*", &derivedObjectsResult := 0, "HRESULT")

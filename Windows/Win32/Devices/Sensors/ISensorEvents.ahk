@@ -5,7 +5,7 @@
 
 /**
  * The callback interface you must implement if you want to receive sensor events.
- * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nn-sensorsapi-isensorevents
+ * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nn-sensorsapi-isensorevents
  * @namespace Windows.Win32.Devices.Sensors
  * @version v4.0.30319
  */
@@ -53,7 +53,7 @@ class ISensorEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorevents-onstatechanged
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onstatechanged
      */
     OnStateChanged(pSensor, state) {
         result := ComCall(3, this, "ptr", pSensor, "int", state, "HRESULT")
@@ -83,7 +83,7 @@ class ISensorEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorevents-ondataupdated
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-ondataupdated
      */
     OnDataUpdated(pSensor, pNewData) {
         result := ComCall(4, this, "ptr", pSensor, "ptr", pNewData, "HRESULT")
@@ -92,11 +92,15 @@ class ISensorEvents extends IUnknown{
 
     /**
      * Provides custom event notifications.
+     * @remarks
+     * This callback method receives custom event notifications. Custom events are defined by sensor providers. Platform-defined event IDs are defined in Sensors.h.
+     * 
+     * To receive new data from a sensor, use the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensorevents-ondataupdated">OnDataUpdated Method</a>.
      * @param {ISensor} pSensor Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nn-sensorsapi-isensor">ISensor</a> interface that represents the sensor that raised the event.
      * @param {Pointer<Guid>} eventID <b>REFGUID</b> that identifies the event.
      * @param {IPortableDeviceValues} pEventData Pointer to the <a href="https://docs.microsoft.com/previous-versions//ms740012(v=vs.85)">IPortableDeviceValues</a> interface that contains the event data.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorevents-onevent
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onevent
      */
     OnEvent(pSensor, eventID, pEventData) {
         result := ComCall(5, this, "ptr", pSensor, "ptr", eventID, "ptr", pEventData, "HRESULT")
@@ -105,6 +109,8 @@ class ISensorEvents extends IUnknown{
 
     /**
      * Provides notification that a sensor device is no longer connected.
+     * @remarks
+     * To know when a sensor enters, subscribe to the <a href="https://docs.microsoft.com/windows/desktop/api/sensorsapi/nf-sensorsapi-isensormanagerevents-onsensorenter">ISensorManagerEvents::OnSensorEnter</a> event.
      * @param {Pointer<Guid>} ID The ID of the sensor.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -125,7 +131,7 @@ class ISensorEvents extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensorsapi/nf-sensorsapi-isensorevents-onleave
+     * @see https://learn.microsoft.com/windows/win32/api/sensorsapi/nf-sensorsapi-isensorevents-onleave
      */
     OnLeave(ID) {
         result := ComCall(6, this, "ptr", ID, "HRESULT")

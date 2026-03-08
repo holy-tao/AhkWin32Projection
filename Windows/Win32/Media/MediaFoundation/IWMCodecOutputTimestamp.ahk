@@ -5,7 +5,7 @@
 
 /**
  * Gets the time stamp of the next video frame to be decoded.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmcodecoutputtimestamp
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmcodecoutputtimestamp
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMCodecOutputTimestamp extends IUnknown{
 
     /**
      * Queries the decoder for the time stamp of the upcoming output sample. Use this method if you need to know the time of the sample before calling IMediaObject::ProcessOutput or IMFTransform::ProcessOutput to get the sample.
+     * @remarks
+     * This method is important when decoding video using frame interpolation, because the rendering application cannot predict the time stamps of interpolated frames.
      * @param {Pointer<Integer>} prtTime Address of a variable that receives the presentation time of the next sample.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -52,7 +54,7 @@ class IWMCodecOutputTimestamp extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmcodecoutputtimestamp-getnextoutputtime
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmcodecoutputtimestamp-getnextoutputtime
      */
     GetNextOutputTime(prtTime) {
         prtTimeMarshal := prtTime is VarRef ? "int64*" : "ptr"

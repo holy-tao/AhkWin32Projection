@@ -29,11 +29,14 @@ class ISAXErrorHandler extends IUnknown{
     static VTableNames => ["error", "fatalError", "ignorableWarning"]
 
     /**
-     * 
+     * Submits an error message to the information queue.
+     * @remarks
+     * This operation does nothing on devices that do not support it.
      * @param {ISAXLocator} pLocator 
      * @param {PWSTR} pwchErrorMessage 
      * @param {HRESULT} hrErrorCode 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/errorf
      */
     error(pLocator, pwchErrorMessage, hrErrorCode) {
         pwchErrorMessage := pwchErrorMessage is String ? StrPtr(pwchErrorMessage) : pwchErrorMessage

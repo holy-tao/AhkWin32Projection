@@ -6,7 +6,7 @@
 
 /**
  * The IGPMStatusMessage interface contains property methods that retrieve various properties of status messages related to GPO operations.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmstatusmessage
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmstatusmessage
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -82,7 +82,7 @@ class IGPMStatusMessage extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstatusmessage-errorcode
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstatusmessage-errorcode
      */
     ErrorCode() {
         result := ComCall(8, this, "HRESULT")
@@ -116,7 +116,7 @@ class IGPMStatusMessage extends IDispatch{
      * 
      * <h3>VB</h3>
      * Returns <b>S_OK</b> if successful. Returns a failure code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmstatusmessage-operationcode
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmstatusmessage-operationcode
      */
     OperationCode() {
         result := ComCall(11, this, "HRESULT")

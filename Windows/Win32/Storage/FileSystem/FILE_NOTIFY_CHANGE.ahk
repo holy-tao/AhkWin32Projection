@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotification</see>, <see href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationw">FindFirstChangeNotification</see>, <see href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotificationA</see>, <see href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationw">FindFirstChangeNotificationA</see>, <see href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationa">FindFirstChangeNotificationW</see>, <see href="https://learn.microsoft.com/windows/win32/api/fileapi/nf-fileapi-findfirstchangenotificationw">FindFirstChangeNotificationW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readdirectorychangesexw">ReadDirectoryChangesExW</see>, <see href="https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-readdirectorychangesw">ReadDirectoryChangesW</see>.
+ * @see 
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */

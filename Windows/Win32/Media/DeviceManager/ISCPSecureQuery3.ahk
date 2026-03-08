@@ -5,7 +5,7 @@
 
 /**
  * The ISCPSecureQuery3 interface extends ISCPSecureQuery2 by providing a set of new methods for retrieving the rights and making decision on a clear channel.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iscpsecurequery3
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecurequery3
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2{
 
     /**
      * The GetRightsOnClearChannel method retrieves rights information for the current piece of content on a clear channel.
+     * @remarks
+     * This method is identical to <b>ISCPSecureQuery::GetRights</b> except that the parameters passed to this method are not encrypted. Consequently this method is more efficient.
      * @param {Pointer<Integer>} pData Pointer to data object.
      * @param {Integer} dwSize Number of bytes of data in the <i>pData</i> buffer.
      * @param {Pointer<Integer>} pbSPSessionKey Pointer to an array of bytes containing the session key for securing communication with the service provider to which <i>pStgGlobals</i> points.
@@ -54,7 +56,7 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2{
      * </dl>
      * </td>
      * <td width="60%">
-     * This method was called out of sequence. <a href="/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands">ISCPSecureQuery::GetDataDemands</a> and then <a href="/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata">ISCPSecureQuery::ExamineData</a>must be called, in that order.
+     * This method was called out of sequence. <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands">ISCPSecureQuery::GetDataDemands</a> and then <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata">ISCPSecureQuery::ExamineData</a> must be called, in that order.
      * 
      * </td>
      * </tr>
@@ -103,7 +105,7 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecurequery3-getrightsonclearchannel
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery3-getrightsonclearchannel
      */
     GetRightsOnClearChannel(pData, dwSize, pbSPSessionKey, dwSessionKeyLen, pStgGlobals, pProgressCallback, ppRights, pnRightsCount) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
@@ -117,6 +119,8 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2{
 
     /**
      * The MakeDecisionOnClearChannel method determines whether access to the content is allowed on a clear channel. If access is allowed, this method returns the interface used to access the content.
+     * @remarks
+     * This method is identical to <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery2-makedecision2">ISCPSecureQuery2::MakeDecision2</a> except that the parameters passed to this method are not encrypted. Consequently this method is more efficient.
      * @param {Integer} fuFlags Flags describing the data offered to the content provider for making decisions. The following flags can be present.
      * 
      * <table>
@@ -217,7 +221,7 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2{
      * </dl>
      * </td>
      * <td width="60%">
-     * Windows Media Device Manager must call this method again with another packet of data. The size of the packet is determined by the <i>pdwMinDecisionData</i> parameter in the <a href="/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands">ISCPSecureQuery::GetDataDemands</a> method.
+     * Windows Media Device Manager must call this method again with another packet of data. The size of the packet is determined by the <i>pdwMinDecisionData</i> parameter in the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands">ISCPSecureQuery::GetDataDemands</a> method.
      * 
      * </td>
      * </tr>
@@ -255,7 +259,7 @@ class ISCPSecureQuery3 extends ISCPSecureQuery2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecurequery3-makedecisiononclearchannel
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery3-makedecisiononclearchannel
      */
     MakeDecisionOnClearChannel(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, pProgressCallback, pAppCertApp, dwAppCertAppLen, pAppCertSP, dwAppCertSPLen, pszRevocationURL, pdwRevocationURLLen, pdwRevocationBitFlag, pqwFileSize, pUnknown, ppExchange) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"

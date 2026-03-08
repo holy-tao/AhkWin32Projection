@@ -254,8 +254,9 @@ class IMXWriter extends IDispatch{
     }
 
     /**
-     * 
+     * Flushes the internal buffers for the log files.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Http/flush-logbuffer
      */
     flush() {
         result := ComCall(23, this, "HRESULT")

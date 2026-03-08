@@ -49,9 +49,14 @@ class IBanneredBar extends IUnknown{
     }
 
     /**
-     * 
+     * The SetBitmapBits function sets the bits of color data for a bitmap to the specified values.
+     * @remarks
+     * The array identified by <i>lpBits</i> must be WORD aligned.
      * @param {HBITMAP} hBitmap 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is the number of bytes used in setting the bitmap bits.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-setbitmapbits
      */
     SetBitmap(hBitmap) {
         hBitmap := hBitmap is Win32Handle ? NumGet(hBitmap, "ptr") : hBitmap
@@ -61,8 +66,9 @@ class IBanneredBar extends IUnknown{
     }
 
     /**
-     * 
+     * The GetBitmapBits function copies the bitmap bits of a specified device-dependent bitmap into a buffer.
      * @returns {HBITMAP} 
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getbitmapbits
      */
     GetBitmap() {
         phBitmap := HBITMAP()

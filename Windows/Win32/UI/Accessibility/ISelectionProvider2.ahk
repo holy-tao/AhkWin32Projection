@@ -7,7 +7,6 @@
 /**
  * Extends the ISelectionItemProvider interface to provide information about selected items.
  * @remarks
- * 
  * This interface is implemented by a Microsoft UI Automation provider.
  * 
  * Providers should raise an event of type <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">UIA_Selection_InvalidatedEventId</a> when a selection in a container has changed significantly.
@@ -30,9 +29,7 @@
  * <li>The user selects down the column to cell F7</li>
  * <li>The user then selects left to cell D7</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iselectionprovider2
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iselectionprovider2
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -88,7 +85,7 @@ class ISelectionProvider2 extends ISelectionProvider{
     /**
      * Gets the first item in a group of selected items.
      * @returns {IRawElementProviderSimple} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_firstselecteditem
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_firstselecteditem
      */
     get_FirstSelectedItem() {
         result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
@@ -98,7 +95,7 @@ class ISelectionProvider2 extends ISelectionProvider{
     /**
      * Gets the last item in a group of selected items.
      * @returns {IRawElementProviderSimple} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_lastselecteditem
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_lastselecteditem
      */
     get_LastSelectedItem() {
         result := ComCall(7, this, "ptr*", &retVal := 0, "HRESULT")
@@ -108,7 +105,7 @@ class ISelectionProvider2 extends ISelectionProvider{
     /**
      * Gets the currently selected item.
      * @returns {IRawElementProviderSimple} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_currentselecteditem
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_currentselecteditem
      */
     get_CurrentSelectedItem() {
         result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")
@@ -118,7 +115,7 @@ class ISelectionProvider2 extends ISelectionProvider{
     /**
      * Gets the number of selected items.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_itemcount
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iselectionprovider2-get_itemcount
      */
     get_ItemCount() {
         result := ComCall(9, this, "int*", &retVal := 0, "HRESULT")

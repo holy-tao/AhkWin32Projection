@@ -29,9 +29,10 @@ class IPrinterScriptableSequentialStream extends IDispatch{
     static VTableNames => ["Read", "Write"]
 
     /**
-     * 
+     * The ReadBlobFromFile function reads a BLOB in a file.
      * @param {Integer} cbRead 
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(cbRead) {
         result := ComCall(7, this, "int", cbRead, "ptr*", &ppArray := 0, "HRESULT")
@@ -39,9 +40,10 @@ class IPrinterScriptableSequentialStream extends IDispatch{
     }
 
     /**
-     * 
+     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
      * @param {IDispatch} pArray 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
      */
     Write(pArray) {
         result := ComCall(8, this, "ptr", pArray, "int*", &pcbWritten := 0, "HRESULT")

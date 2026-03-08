@@ -6,7 +6,7 @@
 
 /**
  * Represents an external certificate property that contains information about a certificate enrollment policy (CEP) server and a certificate enrollment server (CES).
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyenrollmentpolicyserver
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
      * @param {BSTR} strEnrollmentServerUrl A <b>BSTR</b> variable that contains the URL for the certificate enrollment server.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -62,7 +62,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-initialize
      */
     Initialize(PropertyFlags, AuthFlags, EnrollmentServerAuthFlags, UrlFlags, strRequestId, strUrl, strId, strEnrollmentServerUrl) {
         strRequestId := strRequestId is String ? BSTR.Alloc(strRequestId).Value : strRequestId
@@ -77,7 +77,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
     /**
      * Retrieves a string that contains the URL for the certificate enrollment policy (CEP) server.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the URL.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverurl
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverurl
      */
     GetPolicyServerUrl() {
         pValue := BSTR()
@@ -87,8 +87,10 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
 
     /**
      * Retrieves a string that uniquely identifies the certificate enrollment policy (CEP) server.
+     * @remarks
+     * The ID can be any string. It is set by the administrator who installs the CEP server.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the ID string.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpolicyserverid
      */
     GetPolicyServerId() {
         pValue := BSTR()
@@ -99,7 +101,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
     /**
      * Retrieves a string that contains the URL for the certificate enrollment server.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the URL.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverurl
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverurl
      */
     GetEnrollmentServerUrl() {
         pValue := BSTR()
@@ -109,8 +111,10 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
 
     /**
      * Retrieves a unique string identifier for the certificate request sent to the certification authority during enrollment.
+     * @remarks
+     * The string can contain any information that uniquely identifies the certificate request.  This value is set when you call  the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-initialize">Initialize</a> method.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the ID string.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getrequestidstring
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getrequestidstring
      */
     GetRequestIdString() {
         pValue := BSTR()
@@ -121,7 +125,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
     /**
      * Retrieves a value that specifies the default policy server URL.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpropertyflags
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getpropertyflags
      */
     GetPropertyFlags() {
         result := ComCall(19, this, "int*", &pValue := 0, "HRESULT")
@@ -131,7 +135,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
     /**
      * Retrieves a set of flags that contain miscellaneous policy information about the certificate enrollment policy (CEP) server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-geturlflags
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-geturlflags
      */
     GetUrlFlags() {
         result := ComCall(20, this, "int*", &pValue := 0, "HRESULT")
@@ -141,7 +145,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
     /**
      * The GetAuthentication method retrieves a value that specifies the type of authentication used by the certificate enrollment policy (CEP) server to authenticate a client. This value is set by the Initialize method.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getauthentication
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getauthentication
      */
     GetAuthentication() {
         result := ComCall(21, this, "int*", &pValue := 0, "HRESULT")
@@ -151,7 +155,7 @@ class ICertPropertyEnrollmentPolicyServer extends ICertProperty{
     /**
      * The GetEnrollmentServerAuthentication method retrieves a value that specifies the type of authentication used by the certificate enrollment server (CES) to authenticate a client. This value is set by the Initialize method.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverauthentication
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyenrollmentpolicyserver-getenrollmentserverauthentication
      */
     GetEnrollmentServerAuthentication() {
         result := ComCall(22, this, "int*", &pValue := 0, "HRESULT")

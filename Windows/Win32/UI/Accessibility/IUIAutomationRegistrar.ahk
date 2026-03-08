@@ -6,11 +6,8 @@
 /**
  * Exposes methods for registering new control patterns, properties, and events.
  * @remarks
- * 
- * The <b>IUIAutomationRegistrar</b> interface is exposed by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384837(v=vs.85)">CUIAutomationRegistrar</a> object. To obtain an instance of this object, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> function with a class ID of <b>CLSID_CUIAutomationRegistrar</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-iuiautomationregistrar
+ * The **IUIAutomationRegistrar** interface is exposed by the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/ff384837(v=vs.85)">CUIAutomationRegistrar</a> object. To obtain an instance of this object, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstance">CoCreateInstance</a> function with a class ID of <b>CLSID_CUIAutomationRegistrar</b>.
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-iuiautomationregistrar
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -37,13 +34,15 @@ class IUIAutomationRegistrar extends IUnknown{
 
     /**
      * Registers a third-party property.
+     * @remarks
+     * The property ID can be used in various property methods, including <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomationelement-getcurrentpropertyvalue">GetCurrentPropertyValue</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nf-uiautomationclient-iuiautomation-createpropertycondition">CreatePropertyCondition</a>. The same value can be used as a WinEvent value for property change events in <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> implementations.
      * @param {Pointer<UIAutomationPropertyInfo>} property Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationpropertyinfo">UIAutomationPropertyInfo</a>*</b>
      * 
      * A pointer to a structure that contains information about the property to register.
      * @returns {Integer} Type: <b>PropertyID*</b>
      * 
      * Receives the property ID of the newly registered property.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerproperty
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerproperty
      */
     RegisterProperty(property) {
         result := ComCall(3, this, "ptr", property, "int*", &propertyId := 0, "HRESULT")
@@ -52,13 +51,15 @@ class IUIAutomationRegistrar extends IUnknown{
 
     /**
      * Registers a third-party Microsoft UI Automation event.
-     * @param {Pointer<UIAutomationEventInfo>} event Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationeventinfo">UIAutomationEventInfo</a>*</b>
+     * @remarks
+     * The event ID can be used in various event methods, and as a WinEvent value for events in <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> implementations.
+     * @param {Pointer<UIAutomationEventInfo>} event Type: **<a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationeventinfo">UIAutomationEventInfo</a>***
      * 
      * A pointer to a  structure that contains information about the event to register.
-     * @returns {Integer} Type: <b>EVENTID*</b>
+     * @returns {Integer} Type: **EVENTID***
      * 
      * Receives the event identifier. For a list of event IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-event-ids">Event Identifiers</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerevent
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerevent
      */
     RegisterEvent(event) {
         result := ComCall(4, this, "ptr", event, "int*", &eventId := 0, "HRESULT")
@@ -67,6 +68,8 @@ class IUIAutomationRegistrar extends IUnknown{
 
     /**
      * Registers a third-party control pattern.
+     * @remarks
+     * The pattern, property, and event IDs retrieved by this method can be used in <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-iaccessibleex">IAccessibleEx</a> implementations.
      * @param {Pointer<UIAutomationPatternInfo>} pattern Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ns-uiautomationcore-uiautomationpatterninfo">UIAutomationPatternInfo</a>*</b>
      * 
      * A pointer to a structure that contains information about the control pattern to register.
@@ -88,10 +91,10 @@ class IUIAutomationRegistrar extends IUnknown{
      * @param {Pointer<Integer>} pEventIds Type: <b>EVENTID*</b>
      * 
      * Receives an array of identifiers for events that are raised by the pattern.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerpattern
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-iuiautomationregistrar-registerpattern
      */
     RegisterPattern(pattern, pPatternId, pPatternAvailablePropertyId, propertyIdCount, pPropertyIds, eventIdCount, pEventIds) {
         pPatternIdMarshal := pPatternId is VarRef ? "int*" : "ptr"

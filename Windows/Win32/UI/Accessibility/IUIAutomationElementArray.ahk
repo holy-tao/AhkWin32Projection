@@ -6,7 +6,7 @@
 
 /**
  * Represents a collection of UI Automation elements.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationelementarray
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationelementarray
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -39,9 +39,9 @@ class IUIAutomationElementArray extends IUnknown{
     }
 
     /**
-     * Retrieves the number of elements in the collection.
+     * Retrieves the number of elements in the collection. (IUIAutomationElementArray.get_Length)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-get_length
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-get_length
      */
     get_Length() {
         result := ComCall(3, this, "int*", &length := 0, "HRESULT")
@@ -56,7 +56,7 @@ class IUIAutomationElementArray extends IUnknown{
      * @returns {IUIAutomationElement} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationclient/nn-uiautomationclient-iuiautomationelement">IUIAutomationElement</a>**</b>
      * 
      * Receives a pointer to the element.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-getelement
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationelementarray-getelement
      */
     GetElement(index) {
         result := ComCall(4, this, "int", index, "ptr*", &element := 0, "HRESULT")

@@ -18,7 +18,6 @@
 /**
  * Used to create all subsequent DirectWrite objects. This interface is the root factory interface for all DirectWrite objects.
  * @remarks
- * 
  * Create an <b>IDWriteFactory</b> object by using the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-dwritecreatefactory">DWriteCreateFactory</a> function.  
  * 
  * 
@@ -38,9 +37,7 @@
  * 
  * 
  * An <b>IDWriteFactory</b> object holds state information, such as font loader registration and cached font data.  This state can be shared or isolated.  Shared is recommended for most applications because it saves memory.  However, isolated can be useful in situations where you want to have a separate state for some objects.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefactory
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefactory
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -76,7 +73,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the system font collection object, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-getsystemfontcollection
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-getsystemfontcollection
      */
     GetSystemFontCollection(checkForUpdates) {
         result := ComCall(3, this, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
@@ -98,7 +95,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
      * 
      * Contains  an address of a pointer to the system font collection object if the method succeeds, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createcustomfontcollection
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomfontcollection
      */
     CreateCustomFontCollection(collectionLoader, collectionKey, collectionKeySize) {
         result := ComCall(4, this, "ptr", collectionLoader, "ptr", collectionKey, "uint", collectionKeySize, "ptr*", &fontCollection := 0, "HRESULT")
@@ -107,13 +104,19 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Registers a custom font collection loader with the factory object.
+     * @remarks
+     * This function registers a font collection loader with DirectWrite. The font collection loader interface, which should be implemented by a singleton object, 
+     *       handles enumerating font files in a font collection given a particular type of key. A given instance can only be registered once. Succeeding attempts will return an error, 
+     *       indicating that it has already been registered. Note that font file loader implementations must not register themselves with DirectWrite inside their constructors, 
+     *       and must not unregister themselves inside their destructors, because registration and unregistration operations increment and decrement the object reference count respectively. 
+     *       Instead, registration and unregistration with DirectWrite of font file loaders should be performed outside of the font file loader implementation.
      * @param {IDWriteFontCollectionLoader} fontCollectionLoader Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollectionloader">IDWriteFontCollectionLoader</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollectionloader">IDWriteFontCollectionLoader</a> object to be registered.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-registerfontcollectionloader
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-registerfontcollectionloader
      */
     RegisterFontCollectionLoader(fontCollectionLoader) {
         result := ComCall(5, this, "ptr", fontCollectionLoader, "HRESULT")
@@ -127,8 +130,8 @@ class IDWriteFactory extends IUnknown{
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollectionloader">IDWriteFontCollectionLoader</a> object to be unregistered.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-unregisterfontcollectionloader
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-unregisterfontcollectionloader
      */
     UnregisterFontCollectionLoader(fontCollectionLoader) {
         result := ComCall(6, this, "ptr", fontCollectionLoader, "HRESULT")
@@ -150,7 +153,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteFontFile} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the newly created font file reference object, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createfontfilereference
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createfontfilereference
      */
     CreateFontFileReference(filePath, lastWriteTime) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
@@ -161,6 +164,10 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Creates a reference to an application-specific font file resource.
+     * @remarks
+     * This function is provided for cases when an application or a document needs to use a private font
+     *      without having to install it on the system. <i>fontFileReferenceKey</i> has to be unique only in the scope
+     *      of the <i>fontFileLoader</i> used in this call.
      * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
      * 
      * A font file reference key that uniquely identifies the font file resource
@@ -175,7 +182,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteFontFile} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>**</b>
      * 
      * Contains an address of a pointer to the newly created font file object when this method succeeds, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createcustomfontfilereference
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomfontfilereference
      */
     CreateCustomFontFileReference(fontFileReferenceKey, fontFileReferenceKeySize, fontFileLoader) {
         result := ComCall(8, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "ptr", fontFileLoader, "ptr*", &fontFile := 0, "HRESULT")
@@ -192,7 +199,7 @@ class IDWriteFactory extends IUnknown{
      * The number of font files, in element count, required to represent the font face.
      * @param {Pointer<IDWriteFontFile>} fontFiles Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a>*</b>
      * 
-     * A font file object representing the font face.  Because <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>maintains its own references
+     * A font file object representing the font face.  Because <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a> maintains its own references
      *      to the input font file objects, you may release them after this call.
      * @param {Integer} faceIndex Type: <b>UINT32</b>
      * 
@@ -204,7 +211,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteFontFace} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the newly created font face object, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createfontface
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createfontface
      */
     CreateFontFace(fontFaceType, numberOfFiles, fontFiles, faceIndex, fontFaceSimulationFlags) {
         result := ComCall(9, this, "int", fontFaceType, "uint", numberOfFiles, "ptr*", fontFiles, "uint", faceIndex, "int", fontFaceSimulationFlags, "ptr*", &fontFace := 0, "HRESULT")
@@ -216,7 +223,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteRenderingParams} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the newly created  rendering parameters object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createrenderingparams
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createrenderingparams
      */
     CreateRenderingParams() {
         result := ComCall(10, this, "ptr*", &renderingParams := 0, "HRESULT")
@@ -231,7 +238,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteRenderingParams} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the rendering parameters object created by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createmonitorrenderingparams
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createmonitorrenderingparams
      */
     CreateMonitorRenderingParams(monitor) {
         monitor := monitor is Win32Handle ? NumGet(monitor, "ptr") : monitor
@@ -241,7 +248,7 @@ class IDWriteFactory extends IUnknown{
     }
 
     /**
-     * Creates a rendering parameters object with the specified properties.
+     * Creates a rendering parameters object with the specified properties. (IDWriteFactory.CreateCustomRenderingParams)
      * @param {Float} gamma Type: <b>FLOAT</b>
      * 
      * The gamma level to be set for the new rendering parameters object.
@@ -260,7 +267,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteRenderingParams} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriterenderingparams">IDWriteRenderingParams</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the newly created rendering parameters object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createcustomrenderingparams
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, clearTypeLevel, pixelGeometry, renderingMode) {
         result := ComCall(12, this, "float", gamma, "float", enhancedContrast, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", &renderingParams := 0, "HRESULT")
@@ -269,13 +276,23 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Registers a font file loader with DirectWrite.
+     * @remarks
+     * This function registers a font file loader with DirectWrite.
+     *      The font file loader interface, which should be implemented   by a singleton object, handles loading font file resources of a particular type from a key.
+     *      A given instance can only be registered once.
+     *      Succeeding attempts will return an error, indicating that it has already been registered.
+     *      Note that font file loader implementations must not register themselves with DirectWrite
+     *      inside their constructors, and must not unregister themselves inside their destructors, because
+     *      registration and unregistration operations increment and decrement the object reference count respectively.
+     *      Instead, registration and unregistration with DirectWrite of font file loaders should be performed
+     *      outside of the font file loader implementation.
      * @param {IDWriteFontFileLoader} fontFileLoader Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileloader">IDWriteFontFileLoader</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileloader">IDWriteFontFileLoader</a> object for a particular file resource type.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-registerfontfileloader
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-registerfontfileloader
      */
     RegisterFontFileLoader(fontFileLoader) {
         result := ComCall(13, this, "ptr", fontFileLoader, "HRESULT")
@@ -284,13 +301,21 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Unregisters a font file loader that was previously registered with the DirectWrite font system using RegisterFontFileLoader.
+     * @remarks
+     * This function unregisters font file loader callbacks with the DirectWrite font system.
+     *      You should implement the font file loader interface by a singleton object.
+     *      Note that font file loader implementations must not register themselves with DirectWrite
+     *      inside their constructors and must not unregister themselves in their destructors, because
+     *      registration and unregistration operations increment and decrement the object reference count respectively.
+     *      Instead, registration and unregistration of font file loaders with DirectWrite should be performed
+     *      outside of the font file loader implementation.
      * @param {IDWriteFontFileLoader} fontFileLoader Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfileloader">IDWriteFontFileLoader</a>*</b>
      * 
      * Pointer to the file loader that was previously registered with the DirectWrite font system using <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-registerfontfileloader">RegisterFontFileLoader</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-unregisterfontfileloader
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-unregisterfontfileloader
      */
     UnregisterFontFileLoader(fontFileLoader) {
         result := ComCall(14, this, "ptr", fontFileLoader, "HRESULT")
@@ -298,7 +323,7 @@ class IDWriteFactory extends IUnknown{
     }
 
     /**
-     * Creates a text format object used for text layout.
+     * Creates a text format object used for text layout. (IDWriteFactory.CreateTextFormat)
      * @param {PWSTR} fontFamilyName Type: <b>const WCHAR*</b>
      * 
      * An array of characters that contains the name of the font family
@@ -323,7 +348,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteTextFormat} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextformat">IDWriteTextFormat</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to a  newly created text format object, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createtextformat
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextformat
      */
     CreateTextFormat(fontFamilyName, fontCollection, fontWeight, fontStyle, fontStretch, fontSize, localeName) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
@@ -338,7 +363,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteTypography} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetypography">IDWriteTypography</a>**</b>
      * 
      * When this method returns, contains the address of  a pointer to a newly created typography object, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createtypography
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtypography
      */
     CreateTypography() {
         result := ComCall(16, this, "ptr*", &typography := 0, "HRESULT")
@@ -350,7 +375,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteGdiInterop} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritegdiinterop">IDWriteGdiInterop</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to a GDI interop object if successful, or <b>NULL</b> in case of failure.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-getgdiinterop
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-getgdiinterop
      */
     GetGdiInterop() {
         result := ComCall(17, this, "ptr*", &gdiInterop := 0, "HRESULT")
@@ -359,9 +384,7 @@ class IDWriteFactory extends IUnknown{
 
     /**
      * Takes a string, text format, and associated constraints, and produces an object that represents the fully analyzed and formatted result.
-     * @param {PWSTR} string Type: <b>const WCHAR*</b>
-     * 
-     * An array of characters that contains the string to create a new <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a> object from. This array must be of length <i>stringLength</i> and can contain embedded <b>NULL</b> characters.
+     * @param {PWSTR} string_R 
      * @param {Integer} stringLength Type: <b>UINT32</b>
      * 
      * The number of characters in  the string.
@@ -377,20 +400,21 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteTextLayout} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the resultant text layout object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createtextlayout
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextlayout
      */
-    CreateTextLayout(string, stringLength, textFormat, maxWidth, maxHeight) {
-        string := string is String ? StrPtr(string) : string
+    CreateTextLayout(string_R, stringLength, textFormat, maxWidth, maxHeight) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := ComCall(18, this, "ptr", string, "uint", stringLength, "ptr", textFormat, "float", maxWidth, "float", maxHeight, "ptr*", &textLayout := 0, "HRESULT")
+        result := ComCall(18, this, "ptr", string_R, "uint", stringLength, "ptr", textFormat, "float", maxWidth, "float", maxHeight, "ptr*", &textLayout := 0, "HRESULT")
         return IDWriteTextLayout(textLayout)
     }
 
     /**
      * Takes a string, format, and associated constraints, and produces an object representing the result, formatted for a particular display resolution and measuring mode.
-     * @param {PWSTR} string Type: <b>const WCHAR*</b>
-     * 
-     * An array of characters that contains the string to create a new <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a> object from. This array must be of length <i>stringLength</i> and can contain embedded <b>NULL</b> characters.
+     * @remarks
+     * The resulting text layout should only be used for the intended resolution,
+     *      and for cases where text scalability is desired <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextlayout">CreateTextLayout</a> should be used instead.
+     * @param {PWSTR} string_R 
      * @param {Integer} stringLength Type: <b>UINT32</b>
      * 
      * The length of the string, in character count.
@@ -405,7 +429,7 @@ class IDWriteFactory extends IUnknown{
      * The height of the layout box.
      * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
      * 
-     * The number of physical pixels per DIP (device independent pixel). For example, if rendering onto a 96 DPI device <i>pixelsPerDip</i>is 1. If rendering onto a 120 DPI device <i>pixelsPerDip</i> is 1.25 (120/96).
+     * The number of physical pixels per DIP (device independent pixel). For example, if rendering onto a 96 DPI device <i>pixelsPerDip</i> is 1. If rendering onto a 120 DPI device <i>pixelsPerDip</i> is 1.25 (120/96).
      * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
      * 
      * An optional transform applied to the glyphs and their positions. This transform is applied after the
@@ -418,24 +442,27 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteTextLayout} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout">IDWriteTextLayout</a>**</b>
      * 
      * When this method returns, contains an address to the pointer of the resultant text layout object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-creategdicompatibletextlayout
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-creategdicompatibletextlayout
      */
-    CreateGdiCompatibleTextLayout(string, stringLength, textFormat, layoutWidth, layoutHeight, pixelsPerDip, transform, useGdiNatural) {
-        string := string is String ? StrPtr(string) : string
+    CreateGdiCompatibleTextLayout(string_R, stringLength, textFormat, layoutWidth, layoutHeight, pixelsPerDip, transform, useGdiNatural) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        result := ComCall(19, this, "ptr", string, "uint", stringLength, "ptr", textFormat, "float", layoutWidth, "float", layoutHeight, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
+        result := ComCall(19, this, "ptr", string_R, "uint", stringLength, "ptr", textFormat, "float", layoutWidth, "float", layoutHeight, "float", pixelsPerDip, "ptr", transform, "int", useGdiNatural, "ptr*", &textLayout := 0, "HRESULT")
         return IDWriteTextLayout(textLayout)
     }
 
     /**
      * Creates an inline object for trimming, using an ellipsis as the omission sign.
+     * @remarks
+     * The ellipsis will be created using the current settings of the format, including base font, style, and any effects.
+     *      Alternate omission signs can be created by the application by implementing <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteinlineobject">IDWriteInlineObject</a>.
      * @param {IDWriteTextFormat} textFormat Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextformat">IDWriteTextFormat</a>*</b>
      * 
      * A text format object, created with <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextformat">CreateTextFormat</a>, used for text layout.
      * @returns {IDWriteInlineObject} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteinlineobject">IDWriteInlineObject</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the omission (that is, ellipsis trimming) sign created by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createellipsistrimmingsign
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createellipsistrimmingsign
      */
     CreateEllipsisTrimmingSign(textFormat) {
         result := ComCall(20, this, "ptr", textFormat, "ptr*", &trimmingSign := 0, "HRESULT")
@@ -447,7 +474,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteTextAnalyzer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalyzer">IDWriteTextAnalyzer</a>**</b>
      * 
      * When this method returns, contains an address of  a pointer to the newly created text analyzer object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createtextanalyzer
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextanalyzer
      */
     CreateTextAnalyzer() {
         result := ComCall(21, this, "ptr*", &textAnalyzer := 0, "HRESULT")
@@ -468,7 +495,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteNumberSubstitution} Type: <b><a href="https://docs.microsoft.com/windows/win32/DirectWrite/idwritenumbersubstitution">IDWriteNumberSubstitution</a>**</b>
      * 
      * When this method returns, contains an address to  a pointer to the number substitution object created by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createnumbersubstitution
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createnumbersubstitution
      */
     CreateNumberSubstitution(substitutionMethod, localeName, ignoreUserOverride) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
@@ -478,13 +505,15 @@ class IDWriteFactory extends IUnknown{
     }
 
     /**
-     * Creates a glyph run analysis object, which encapsulates information used to render a glyph run.
+     * Creates a glyph run analysis object, which encapsulates information used to render a glyph run. (IDWriteFactory.CreateGlyphRunAnalysis)
+     * @remarks
+     * The glyph run analysis object contains the results of analyzing the glyph run, including the positions of all the glyphs and references to all of the rasterized glyphs in the font cache.
      * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a>*</b>
      * 
      * A structure that contains the properties of the glyph run (font face, advances, and so on).
      * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
      * 
-     * Number of physical pixels per DIP (device independent pixel). For example, if rendering onto a 96 DPI bitmap then <i>pixelsPerDip</i>is 1. If rendering onto a 120 DPI bitmap then <i>pixelsPerDip</i> is 1.25.
+     * Number of physical pixels per DIP (device independent pixel). For example, if rendering onto a 96 DPI bitmap then <i>pixelsPerDip</i> is 1. If rendering onto a 120 DPI bitmap then <i>pixelsPerDip</i> is 1.25.
      * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
      * 
      * Optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified the <i>emSize</i> and <i>pixelsPerDip</i>.
@@ -504,7 +533,7 @@ class IDWriteFactory extends IUnknown{
      * @returns {IDWriteGlyphRunAnalysis} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteglyphrunanalysis">IDWriteGlyphRunAnalysis</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the newly created glyph run analysis object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefactory-createglyphrunanalysis
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createglyphrunanalysis
      */
     CreateGlyphRunAnalysis(glyphRun, pixelsPerDip, transform, renderingMode, measuringMode, baselineOriginX, baselineOriginY) {
         result := ComCall(23, this, "ptr", glyphRun, "float", pixelsPerDip, "ptr", transform, "int", renderingMode, "int", measuringMode, "float", baselineOriginX, "float", baselineOriginY, "ptr*", &glyphRunAnalysis := 0, "HRESULT")

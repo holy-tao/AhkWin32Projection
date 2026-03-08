@@ -6,7 +6,6 @@
 /**
  * The ITfSourceSingle interface is implemented by the TSF manager.
  * @remarks
- * 
  * The TSF manager has different implementations of <b>ITfSourceSingle</b>, depending upon how the <b>ITfSourceSingle</b> interface is obtained. The difference in the implementations is the types of advise sinks that can be installed with the interface. The different implementations can be obtained from the following objects.
  * 
  * <ul>
@@ -20,10 +19,7 @@
  * </li>
  * </ul>
  * For more information about advise sinks that can be installed by each implementation, see <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink">ITfSourceSingle::AdviseSingleSink</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfsourcesingle
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfsourcesingle
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -127,7 +123,7 @@ class ITfSourceSingle extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsourcesingle-advisesinglesink
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-advisesinglesink
      */
     AdviseSingleSink(tid, riid, punk) {
         result := ComCall(3, this, "uint", tid, "ptr", riid, "ptr", punk, "HRESULT")
@@ -179,7 +175,7 @@ class ITfSourceSingle extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfsourcesingle-unadvisesinglesink
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfsourcesingle-unadvisesinglesink
      */
     UnadviseSingleSink(tid, riid) {
         result := ComCall(4, this, "uint", tid, "ptr", riid, "HRESULT")

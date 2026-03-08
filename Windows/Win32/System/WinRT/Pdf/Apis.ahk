@@ -23,11 +23,7 @@ class Pdf {
      * @see https://learn.microsoft.com/windows/win32/api/windows.data.pdf.interop/nf-windows-data-pdf-interop-pdfcreaterenderer
      */
     static PdfCreateRenderer(pDevice) {
-        result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr*", &ppRenderer := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Data.Pdf.dll\PdfCreateRenderer", "ptr", pDevice, "ptr*", &ppRenderer := 0, "HRESULT")
         return IPdfRendererNative(ppRenderer)
     }
 

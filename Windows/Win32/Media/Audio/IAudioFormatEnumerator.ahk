@@ -5,7 +5,7 @@
 
 /**
  * Provides a list of supported audio formats. The most preferred format is first in the list. Get a reference to this interface by calling ISpatialAudioClient::GetSupportedAudioObjectFormatEnumerator.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nn-spatialaudioclient-iaudioformatenumerator
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nn-spatialaudioclient-iaudioformatenumerator
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IAudioFormatEnumerator extends IUnknown{
     /**
      * Gets the number of supported audio formats in the list.
      * @returns {Integer} The number of supported audio formats in the list.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &count := 0, "HRESULT")
@@ -44,7 +44,7 @@ class IAudioFormatEnumerator extends IUnknown{
      * Gets the format with the specified index in the list. The formats are listed in order of importance. The most preferable format is first in the list.
      * @param {Integer} index The index of the item in the list to retrieve.
      * @returns {Pointer<WAVEFORMATEX>} Pointer to a pointer to a <b>WAVEFORMATEX</b> structure describing a supported audio format.
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getformat
+     * @see https://learn.microsoft.com/windows/win32/api/spatialaudioclient/nf-spatialaudioclient-iaudioformatenumerator-getformat
      */
     GetFormat(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &format := 0, "HRESULT")

@@ -1289,8 +1289,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSStopRemoteControlSession", "uint", LogonId, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1320,8 +1320,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSStartRemoteControlSessionW", "ptr", pTargetServerName, "uint", TargetLogonId, "char", HotkeyVk, "ushort", HotkeyModifiers, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1351,8 +1351,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSStartRemoteControlSessionA", "ptr", pTargetServerName, "uint", TargetLogonId, "char", HotkeyVk, "ushort", HotkeyModifiers, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1389,8 +1389,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSConnectSessionA", "uint", LogonId, "uint", TargetLogonId, "ptr", pPassword, "int", bWait, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1427,8 +1427,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSConnectSessionW", "uint", LogonId, "uint", TargetLogonId, "ptr", pPassword, "int", bWait, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1471,8 +1471,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateServersW", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1515,8 +1515,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateServersA", "ptr", pDomainName, "uint", Reserved, "uint", Version, ppServerInfoMarshal, ppServerInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1700,8 +1700,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsW", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1746,8 +1746,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsA", "ptr", hServer, "uint", Reserved, "uint", Version, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1795,8 +1795,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExW", "ptr", hServer, pLevelMarshal, pLevel, "uint", Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1844,8 +1844,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateSessionsExA", "ptr", hServer, pLevelMarshal, pLevel, "uint", Filter, ppSessionInfoMarshal, ppSessionInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1891,8 +1891,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesW", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1938,8 +1938,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesA", "ptr", hServer, "uint", Reserved, "uint", Version, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1964,8 +1964,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSTerminateProcess", "ptr", hServer, "uint", ProcessId, "uint", ExitCode, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2036,8 +2036,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationW", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2108,8 +2108,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQuerySessionInformationA", "ptr", hServer, "uint", SessionId, "int", WTSInfoClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2160,8 +2160,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryUserConfigW", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2212,8 +2212,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryUserConfigA", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2281,8 +2281,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSetUserConfigW", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", pBuffer, "uint", DataLength, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2350,8 +2350,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSetUserConfigA", "ptr", pServerName, "ptr", pUserName, "int", WTSConfigClass, "ptr", pBuffer, "uint", DataLength, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2411,8 +2411,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSendMessageW", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, pResponseMarshal, pResponse, "int", bWait, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2472,8 +2472,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSendMessageA", "ptr", hServer, "uint", SessionId, "ptr", pTitle, "uint", TitleLength, "ptr", pMessage, "uint", MessageLength, "uint", Style, "uint", Timeout, pResponseMarshal, pResponse, "int", bWait, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2504,8 +2504,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSDisconnectSession", "ptr", hServer, "uint", SessionId, "int", bWait, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2542,8 +2542,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSLogoffSession", "ptr", hServer, "uint", SessionId, "int", bWait, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2583,8 +2583,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSShutdownSystem", "ptr", hServer, "uint", ShutdownFlag, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2614,8 +2614,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSWaitSystemEvent", "ptr", hServer, "uint", EventMask, pEventFlagsMarshal, pEventFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2652,7 +2652,7 @@ class RemoteDesktop {
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpen", "ptr", hServer, "uint", SessionId, "ptr", pVirtualName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2695,7 +2695,7 @@ class RemoteDesktop {
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelOpenEx", "uint", SessionId, "ptr", pVirtualName, "uint", flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2720,8 +2720,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelClose", "ptr", hChannelHandle, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2760,8 +2760,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelRead", "ptr", hChannelHandle, "uint", TimeOut, "ptr", Buffer_R, "uint", BufferSize, pBytesReadMarshal, pBytesRead, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2795,8 +2795,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelWrite", "ptr", hChannelHandle, "ptr", Buffer_R, "uint", Length, pBytesWrittenMarshal, pBytesWritten, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2819,8 +2819,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelPurgeInput", "ptr", hChannelHandle, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2843,8 +2843,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelPurgeOutput", "ptr", hChannelHandle, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2969,8 +2969,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSVirtualChannelQuery", "ptr", hChannelHandle, "int", param1, ppBufferMarshal, ppBuffer, pBytesReturnedMarshal, pBytesReturned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3027,8 +3027,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotification", "ptr", hWnd, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3052,8 +3052,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotification", "ptr", hWnd, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3100,8 +3100,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "uint", dwFlags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3129,8 +3129,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSUnRegisterSessionNotificationEx", "ptr", hServer, "ptr", hWnd, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3172,8 +3172,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryUserToken", "uint", SessionId, "ptr", phToken, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3213,8 +3213,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSFreeMemoryExW", "int", WTSTypeClass, pMemoryMarshal, pMemory, "uint", NumberOfEntries, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3254,8 +3254,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSFreeMemoryExA", "int", WTSTypeClass, pMemoryMarshal, pMemory, "uint", NumberOfEntries, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3302,8 +3302,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExW", "ptr", hServer, pLevelMarshal, pLevel, "uint", SessionId, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3350,8 +3350,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateProcessesExA", "ptr", hServer, pLevelMarshal, pLevel, "uint", SessionId, ppProcessInfoMarshal, ppProcessInfo, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3401,8 +3401,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateListenersW", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, pListenersMarshal, pListeners, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3452,8 +3452,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSEnumerateListenersA", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, pListenersMarshal, pListeners, pCountMarshal, pCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3491,8 +3491,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryListenerConfigW", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "ptr", pBuffer, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3530,8 +3530,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSQueryListenerConfigA", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "ptr", pBuffer, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3574,8 +3574,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSCreateListenerW", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "ptr", pBuffer, "uint", flag, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3618,8 +3618,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSCreateListenerA", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "ptr", pBuffer, "uint", flag, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3655,8 +3655,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSetListenerSecurityW", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3692,8 +3692,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSSetListenerSecurityA", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3738,8 +3738,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityW", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3784,8 +3784,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("WTSAPI32.dll\WTSGetListenerSecurityA", "ptr", hServer, pReservedMarshal, pReserved, "uint", Reserved, "ptr", pListenerName, "uint", SecurityInformation, "ptr", pSecurityDescriptor, "uint", nLength, lpnLengthNeededMarshal, lpnLengthNeeded, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3954,11 +3954,7 @@ class RemoteDesktop {
 
         pRenderHintIDMarshal := pRenderHintID is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WTSAPI32.dll\WTSSetRenderHint", pRenderHintIDMarshal, pRenderHintID, "ptr", hwndOwner, "uint", renderHintType, "uint", cbHintDataLength, "ptr", pHintData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WTSAPI32.dll\WTSSetRenderHint", pRenderHintIDMarshal, pRenderHintID, "ptr", hwndOwner, "uint", renderHintType, "uint", cbHintDataLength, "ptr", pHintData, "HRESULT")
         return result
     }
 
@@ -3988,8 +3984,8 @@ class RemoteDesktop {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\ProcessIdToSessionId", "uint", dwProcessId, pSessionIdMarshal, pSessionId, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

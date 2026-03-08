@@ -60,8 +60,9 @@ class INetCfgComponent extends IUnknown{
     }
 
     /**
-     * 
+     * Returns the identifier string available in the volume's metadata.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/SecProv/getidentificationfield-win32-encryptablevolume
      */
     GetId() {
         result := ComCall(6, this, "ptr*", &ppszwId := 0, "HRESULT")

@@ -33,12 +33,12 @@ class IDebugHostMemory extends IUnknown{
      * 
      * @param {IDebugHostContext} context 
      * @param {Location} location 
-     * @param {Pointer} buffer 
+     * @param {Pointer} buffer_R 
      * @param {Integer} bufferSize 
      * @returns {Integer} 
      */
-    ReadBytes(context, location, buffer, bufferSize) {
-        result := ComCall(3, this, "ptr", context, "ptr", location, "ptr", buffer, "uint", bufferSize, "uint*", &bytesRead := 0, "HRESULT")
+    ReadBytes(context, location, buffer_R, bufferSize) {
+        result := ComCall(3, this, "ptr", context, "ptr", location, "ptr", buffer_R, "uint", bufferSize, "uint*", &bytesRead := 0, "HRESULT")
         return bytesRead
     }
 
@@ -46,12 +46,12 @@ class IDebugHostMemory extends IUnknown{
      * 
      * @param {IDebugHostContext} context 
      * @param {Location} location 
-     * @param {Pointer} buffer 
+     * @param {Pointer} buffer_R 
      * @param {Integer} bufferSize 
      * @returns {Integer} 
      */
-    WriteBytes(context, location, buffer, bufferSize) {
-        result := ComCall(4, this, "ptr", context, "ptr", location, "ptr", buffer, "uint", bufferSize, "uint*", &bytesWritten := 0, "HRESULT")
+    WriteBytes(context, location, buffer_R, bufferSize) {
+        result := ComCall(4, this, "ptr", context, "ptr", location, "ptr", buffer_R, "uint", bufferSize, "uint*", &bytesWritten := 0, "HRESULT")
         return bytesWritten
     }
 

@@ -6,11 +6,8 @@
 /**
  * Enables Windows Store apps to opt out of the automatic invocation behavior.
  * @remarks
- * 
  * Clients can request that the touch keyboard and handwriting input panel check to see that a user tapped in the edit control with focus before invoking.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelinvocationconfiguration
+ * @see https://learn.microsoft.com/windows/win32/api/inputpanelconfiguration/nn-inputpanelconfiguration-iinputpanelinvocationconfiguration
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,8 +34,19 @@ class IInputPanelInvocationConfiguration extends IUnknown{
 
     /**
      * Requires an explicit user tap in an edit field before the touch keyboard invokes.
+     * @remarks
+     * When the <b>RequireTouchInEditControl</b> method is called, all future focus changes require an explicit user tap in an edit field before the touch keyboard invokes. You can call the <b>RequireTouchInEditControl</b> method multiple times, but there's no way to undo the setting. 
+     * 
+     * This setting applies for any focus event that takes place to a window that is running in the process that called it. The <b>RequireTouchInEditControl</b> method doesn't affect owned windows in another process that have an ownership chain to the current process that called <b>RequireTouchInEditControl</b>. 
+     * 
+     * The <b>RequireTouchInEditControl</b> method always returns <b>S_OK</b>. If this API is used, then the <b>IsUIBusy</b> property has no effect. The two interaction models are essentially mutually exclusive.
+     * 
+     * The following code shows how to call the <b>RequireTouchInEditControl</b> method.
+     * 
+     * 
+     * ```cpp
      * @returns {HRESULT} The <b>RequireTouchInEditControl</b> method always returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//inputpanelconfiguration/nf-inputpanelconfiguration-iinputpanelinvocationconfiguration-requiretouchineditcontrol
+     * @see https://learn.microsoft.com/windows/win32/api/inputpanelconfiguration/nf-inputpanelconfiguration-iinputpanelinvocationconfiguration-requiretouchineditcontrol
      */
     RequireTouchInEditControl() {
         result := ComCall(3, this, "HRESULT")

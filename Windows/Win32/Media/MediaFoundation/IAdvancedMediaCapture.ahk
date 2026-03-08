@@ -6,7 +6,7 @@
 
 /**
  * Enables advanced media capture.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nn-mfmediacapture-iadvancedmediacapture
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nn-mfmediacapture-iadvancedmediacapture
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAdvancedMediaCapture extends IUnknown{
     /**
      * Gets the advanced media capture settings.
      * @returns {IAdvancedMediaCaptureSettings} 
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nf-mfmediacapture-iadvancedmediacapture-getadvancedmediacapturesettings
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nf-mfmediacapture-iadvancedmediacapture-getadvancedmediacapturesettings
      */
     GetAdvancedMediaCaptureSettings() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")

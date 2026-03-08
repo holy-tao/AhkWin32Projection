@@ -5,7 +5,7 @@
 
 /**
  * The IContentPrefetcherTaskTrigger interface supports content prefetching behavior and performance testing by defining methods that allow you to verify that an installed app package is registered for this background task and manually trigger its content prefetch operations.
- * @see https://docs.microsoft.com/windows/win32/api//icontentprefetchertasktrigger/nn-icontentprefetchertasktrigger-icontentprefetchertasktrigger
+ * @see https://learn.microsoft.com/windows/win32/api/icontentprefetchertasktrigger/nn-icontentprefetchertasktrigger-icontentprefetchertasktrigger
  * @namespace Windows.Win32.Networking.WindowsWebServices
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class IContentPrefetcherTaskTrigger extends IInspectable{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-triggercontentprefetchertask
+     * @see https://learn.microsoft.com/windows/win32/api/icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-triggercontentprefetchertask
      */
     TriggerContentPrefetcherTask(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -77,7 +77,7 @@ class IContentPrefetcherTaskTrigger extends IInspectable{
      * Indicates if an app package has registered for the content prefetch background task.
      * @param {PWSTR} packageFullName The package ID.
      * @returns {Integer} True if the app package has registered for the content prefetch background task; otherwise, false.
-     * @see https://docs.microsoft.com/windows/win32/api//icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-isregisteredforcontentprefetch
+     * @see https://learn.microsoft.com/windows/win32/api/icontentprefetchertasktrigger/nf-icontentprefetchertasktrigger-icontentprefetchertasktrigger-isregisteredforcontentprefetch
      */
     IsRegisteredForContentPrefetch(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName

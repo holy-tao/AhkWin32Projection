@@ -6,7 +6,7 @@
 
 /**
  * Provides access to the operating system handle of a storage folder.
- * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nn-windowsstoragecom-istoragefolderhandleaccess
+ * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nn-windowsstoragecom-istoragefolderhandleaccess
  * @namespace Windows.Win32.System.WinRT.Storage
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IStorageFolderHandleAccess extends IUnknown{
      * @param {Integer} options The flags of the file handle.
      * @param {IOplockBreakingHandler} oplockBreakingHandler Not currently implemented.
      * @returns {HANDLE} The handle to the file.
-     * @see https://docs.microsoft.com/windows/win32/api//windowsstoragecom/nf-windowsstoragecom-istoragefolderhandleaccess-create
+     * @see https://learn.microsoft.com/windows/win32/api/windowsstoragecom/nf-windowsstoragecom-istoragefolderhandleaccess-create
      */
     Create(fileName, creationOptions, accessOptions, sharingOptions, options, oplockBreakingHandler) {
         fileName := fileName is String ? StrPtr(fileName) : fileName

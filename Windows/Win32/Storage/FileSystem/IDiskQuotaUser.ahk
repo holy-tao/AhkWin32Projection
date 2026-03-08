@@ -5,7 +5,7 @@
 
 /**
  * Represents a single user quota entry in the volume quota information file.
- * @see https://docs.microsoft.com/windows/win32/api//dskquota/nn-dskquota-idiskquotauser
+ * @see https://learn.microsoft.com/windows/win32/api/dskquota/nn-dskquota-idiskquotauser
  * @namespace Windows.Win32.Storage.FileSystem
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IDiskQuotaUser extends IUnknown{
      * Retrieves a unique identifier (ID) number for the DiskQuotaUser object.
      * @param {Pointer<Integer>} pulID The name strings associated with the disk quota user.
      * @returns {HRESULT} This method returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getid
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getid
      */
     GetID(pulID) {
         pulIDMarshal := pulID is VarRef ? "uint*" : "ptr"
@@ -81,7 +81,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getname
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getname
      */
     GetName(pszAccountContainer, cchAccountContainer, pszLogonName, cchLogonName, pszDisplayName, cchDisplayName) {
         pszAccountContainer := pszAccountContainer is String ? StrPtr(pszAccountContainer) : pszAccountContainer
@@ -147,7 +147,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getsidlength
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getsidlength
      */
     GetSidLength(pdwLength) {
         pdwLengthMarshal := pdwLength is VarRef ? "uint*" : "ptr"
@@ -157,7 +157,7 @@ class IDiskQuotaUser extends IUnknown{
     }
 
     /**
-     * Retrieves the user's security identifier (SID).
+     * Retrieves the user's security identifier (SID). (IDiskQuotaUser.GetSid)
      * @param {Pointer<Integer>} pbSidBuffer The SID.
      * @param {Integer} cbSidBuffer The size of the buffer, in bytes. Use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nf-dskquota-idiskquotauser-getsidlength">IDiskQuotaUser::GetSidLength</a> method to obtain the required size for the buffer.
@@ -224,7 +224,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getsid
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getsid
      */
     GetSid(pbSidBuffer, cbSidBuffer) {
         pbSidBufferMarshal := pbSidBuffer is VarRef ? "char*" : "ptr"
@@ -321,7 +321,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getquotathreshold
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotathreshold
      */
     GetQuotaThreshold(pllThreshold) {
         pllThresholdMarshal := pllThreshold is VarRef ? "int64*" : "ptr"
@@ -419,7 +419,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getquotathresholdtext
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotathresholdtext
      */
     GetQuotaThresholdText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -516,7 +516,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getquotalimit
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotalimit
      */
     GetQuotaLimit(pllLimit) {
         pllLimitMarshal := pllLimit is VarRef ? "int64*" : "ptr"
@@ -614,7 +614,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getquotalimittext
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotalimittext
      */
     GetQuotaLimitText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -711,7 +711,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getquotaused
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotaused
      */
     GetQuotaUsed(pllUsed) {
         pllUsedMarshal := pllUsed is VarRef ? "int64*" : "ptr"
@@ -809,7 +809,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getquotausedtext
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotausedtext
      */
     GetQuotaUsedText(pszText, cchText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
@@ -908,7 +908,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getquotainformation
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getquotainformation
      */
     GetQuotaInformation(pbQuotaInfo, cbQuotaInfo) {
         pbQuotaInfoMarshal := pbQuotaInfo is VarRef ? "ptr" : "ptr"
@@ -919,7 +919,7 @@ class IDiskQuotaUser extends IUnknown{
 
     /**
      * Sets the user's warning threshold value on the volume.
-     * @param {Integer} llThreshold The warning threshold value.
+     * @param {Integer} llThreshold The warning threshold value, in bytes.
      * @param {BOOL} fWriteThrough If this value is <b>TRUE</b>, the value is written immediately to the volume's quota file. Otherwise, the value is written only to the quota user object's local memory. This value should typically be set to <b>TRUE</b>. Set it to <b>FALSE</b> when using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauserbatch">IDiskQuotaUserBatch</a> interface to modify multiple user quota entries at the same time.
      * @returns {HRESULT} This method returns a file system error or one of the following values.
@@ -974,7 +974,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-setquotathreshold
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-setquotathreshold
      */
     SetQuotaThreshold(llThreshold, fWriteThrough) {
         result := ComCall(14, this, "int64", llThreshold, "int", fWriteThrough, "HRESULT")
@@ -983,7 +983,7 @@ class IDiskQuotaUser extends IUnknown{
 
     /**
      * Sets the user's quota limit value on the volume.
-     * @param {Integer} llLimit The default quota limit, in bytes. If this value is -1, the user has an unlimited quota.
+     * @param {Integer} llLimit The quota limit, in bytes. If this value is -1, the user has an unlimited quota.
      * @param {BOOL} fWriteThrough If this value is <b>TRUE</b>, the value is written immediately to the volume's quota file. Otherwise, the value is written only to the quota user object's local memory. This value should typically be set to <b>TRUE</b>. Set it to <b>FALSE</b> when using the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/dskquota/nn-dskquota-idiskquotauserbatch">IDiskQuotaUserBatch</a> interface to modify multiple user quota entries at once.
      * @returns {HRESULT} This method returns a file system error or one of the following values.
@@ -1038,7 +1038,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-setquotalimit
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-setquotalimit
      */
     SetQuotaLimit(llLimit, fWriteThrough) {
         result := ComCall(15, this, "int64", llLimit, "int", fWriteThrough, "HRESULT")
@@ -1048,7 +1048,7 @@ class IDiskQuotaUser extends IUnknown{
     /**
      * Invalidates the quota information stored in the quota user object.
      * @returns {HRESULT} This method returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-invalidate
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-invalidate
      */
     Invalidate() {
         result := ComCall(16, this, "HRESULT")
@@ -1077,8 +1077,8 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * <tr>
-     * <td width="40%"><a id="DISKQUOTA_USER_ABLE"></a><a id="diskquota_user_able"></a><dl>
-     * <dt><b>DISKQUOTA_USER_ABLE</b></dt>
+     * <td width="40%"><a id="DISKQUOTA_USER_ACCOUNT_UNAVAILABLE"></a><a id="diskquota_user_account_unavailable"></a><dl>
+     * <dt><b>DISKQUOTA_USER_ACCOUNT_UNAVAILABLE</b></dt>
      * <dt>1</dt>
      * </dl>
      * </td>
@@ -1162,7 +1162,7 @@ class IDiskQuotaUser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dskquota/nf-dskquota-idiskquotauser-getaccountstatus
+     * @see https://learn.microsoft.com/windows/win32/api/dskquota/nf-dskquota-idiskquotauser-getaccountstatus
      */
     GetAccountStatus(pdwStatus) {
         pdwStatusMarshal := pdwStatus is VarRef ? "uint*" : "ptr"

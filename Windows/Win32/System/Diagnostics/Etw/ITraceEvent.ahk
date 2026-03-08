@@ -7,11 +7,8 @@
 /**
  * Provides access to data relating to a specific event.
  * @remarks
- * 
  * This interface is not supported on Windows 7 for the IA64 architecture.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//relogger/nn-relogger-itraceevent
+ * @see https://learn.microsoft.com/windows/win32/api/relogger/nn-relogger-itraceevent
  * @namespace Windows.Win32.System.Diagnostics.Etw
  * @version v4.0.30319
  */
@@ -41,7 +38,7 @@ class ITraceEvent extends IUnknown{
      * @returns {ITraceEvent} Type: <b>IEvent**</b>
      * 
      * The new event.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-clone
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &NewEvent := 0, "HRESULT")
@@ -53,7 +50,7 @@ class ITraceEvent extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * The user context. This is the context specified in the call to <a href="https://docs.microsoft.com/windows/desktop/api/relogger/nf-relogger-itracerelogger-addlogfiletracestream">ITraceRelogger::AddLogfileTraceStream</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-getusercontext
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-getusercontext
      */
     GetUserContext() {
         result := ComCall(4, this, "ptr*", &UserContext := 0, "HRESULT")
@@ -62,10 +59,12 @@ class ITraceEvent extends IUnknown{
 
     /**
      * Retrieves the event record that describes an event.
+     * @remarks
+     * Event records describe the metadata associated with an event, such as time logged, length, and the event payload.
      * @returns {Pointer<EVENT_RECORD>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/evntcons/ns-evntcons-event_record">PEVENT_RECORD</a>*</b>
      * 
      * The event record.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-geteventrecord
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-geteventrecord
      */
     GetEventRecord() {
         result := ComCall(5, this, "ptr*", &EventRecord := 0, "HRESULT")
@@ -74,6 +73,8 @@ class ITraceEvent extends IUnknown{
 
     /**
      * Sets the payload for an event.
+     * @remarks
+     * Payloads contain only developer-defined data.
      * @param {Pointer<Integer>} Payload Type: <b>BYTE*</b>
      * 
      * The event payload data.
@@ -82,8 +83,8 @@ class ITraceEvent extends IUnknown{
      * Size of the payload data, in bytes.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setpayload
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setpayload
      */
     SetPayload(Payload, PayloadSize) {
         PayloadMarshal := Payload is VarRef ? "char*" : "ptr"
@@ -99,8 +100,8 @@ class ITraceEvent extends IUnknown{
      * The event descriptor data.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-seteventdescriptor
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-seteventdescriptor
      */
     SetEventDescriptor(EventDescriptor) {
         result := ComCall(7, this, "ptr", EventDescriptor, "HRESULT")
@@ -114,8 +115,8 @@ class ITraceEvent extends IUnknown{
      * Identifier of the process that should own this event.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setprocessid
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setprocessid
      */
     SetProcessId(ProcessId) {
         result := ComCall(8, this, "uint", ProcessId, "HRESULT")
@@ -123,9 +124,11 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Sets the processor index in the current thread.
+     * @param {Integer} ProcessorIndex The processor index.
+     * @returns {HRESULT} Type: **HRESULT**
      * 
-     * @param {Integer} ProcessorIndex 
-     * @returns {HRESULT} 
+     * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setprocessorindex
      */
     SetProcessorIndex(ProcessorIndex) {
@@ -140,8 +143,8 @@ class ITraceEvent extends IUnknown{
      * Identifier of the thread that generates the event.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setthreadid
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setthreadid
      */
     SetThreadId(ThreadId) {
         result := ComCall(10, this, "uint", ThreadId, "HRESULT")
@@ -149,10 +152,12 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the thread times in the current thread.
      * @param {Integer} KernelTime 
      * @param {Integer} UserTime 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: **HRESULT**
+     * 
+     * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setthreadtimes
      */
     SetThreadTimes(KernelTime, UserTime) {
@@ -161,9 +166,11 @@ class ITraceEvent extends IUnknown{
     }
 
     /**
+     * Sets the activity ID in the current thread.
+     * @param {Pointer<Guid>} ActivityId The activity ID.
+     * @returns {HRESULT} Type: **HRESULT**
      * 
-     * @param {Pointer<Guid>} ActivityId 
-     * @returns {HRESULT} 
+     * If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setactivityid
      */
     SetActivityId(ActivityId) {
@@ -178,8 +185,8 @@ class ITraceEvent extends IUnknown{
      *  The time at which the event occurred, in system time.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-settimestamp
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-settimestamp
      */
     SetTimeStamp(TimeStamp) {
         TimeStampMarshal := TimeStamp is VarRef ? "int64*" : "ptr"
@@ -195,8 +202,8 @@ class ITraceEvent extends IUnknown{
      * Unique identifier of the provider.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//relogger/nf-relogger-itraceevent-setproviderid
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/relogger/nf-relogger-itraceevent-setproviderid
      */
     SetProviderId(ProviderId) {
         result := ComCall(14, this, "ptr", ProviderId, "HRESULT")

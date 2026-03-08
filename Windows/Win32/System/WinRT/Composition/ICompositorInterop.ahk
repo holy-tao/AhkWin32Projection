@@ -4,7 +4,9 @@
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
+ * Native interoperation interface that allows creating swapchain surfaces and graphics devices. This is interface is available in C++ only.
+ * @remarks
+ * See <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiondrawingsurfaceinterop">ICompositionDrawingSurfaceInterop</a> for usage examples.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositorinterop
  * @namespace Windows.Win32.System.WinRT.Composition
  * @version v4.0.30319
@@ -31,9 +33,13 @@ class ICompositorInterop extends IUnknown{
     static VTableNames => ["CreateCompositionSurfaceForHandle", "CreateCompositionSurfaceForSwapChain", "CreateGraphicsDevice"]
 
     /**
+     * Creates an instance of CompositionSurface for use with the handle of a swapchain. In order to host media swapchain on a CompositionSurface, use the IMFMediaEngineEx::GetVideoSwapchainHandle method.
+     * @param {HANDLE} swapChain Type: <b>HANDLE*</b>
      * 
-     * @param {HANDLE} swapChain 
-     * @returns {Pointer<ICompositionSurface>} 
+     * The handle of the swap chain to create the CompositionSurface for.
+     * @returns {Pointer<ICompositionSurface>} Type: <b>ICompositionSurface**</b>
+     * 
+     * The created CompositionSurface.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforhandle
      */
     CreateCompositionSurfaceForHandle(swapChain) {
@@ -44,9 +50,13 @@ class ICompositorInterop extends IUnknown{
     }
 
     /**
+     * Creates an instance of CompositionSurface for use with a swap chain.
+     * @param {IUnknown} swapChain Type: <b>IUnknown*</b>
      * 
-     * @param {IUnknown} swapChain 
-     * @returns {Pointer<ICompositionSurface>} 
+     * The swap chain to create the CompositionSurface for.
+     * @returns {Pointer<ICompositionSurface>} Type: <b>ICompositionSurface**</b>
+     * 
+     * The created CompositionSurface.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-createcompositionsurfaceforswapchain
      */
     CreateCompositionSurfaceForSwapChain(swapChain) {
@@ -55,9 +65,13 @@ class ICompositorInterop extends IUnknown{
     }
 
     /**
+     * Creates a CompositionGraphicsDevice backed by the specified rendering device.
+     * @param {IUnknown} renderingDevice Type: <b>IUnknown*</b>
      * 
-     * @param {IUnknown} renderingDevice 
-     * @returns {Pointer<CompositionGraphicsDevice>} 
+     * The rendering device to back the CompositionGraphicsDevice.
+     * @returns {Pointer<CompositionGraphicsDevice>} Type: <b>ICompositionGraphicsDevice**</b>
+     * 
+     * The created CompositionGraphicsDevice.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositorinterop-creategraphicsdevice
      */
     CreateGraphicsDevice(renderingDevice) {

@@ -8,7 +8,7 @@
 
 /**
  * The ITTAPI2 interface derives from the ITTAPI interface. It adds additional methods on the TAPI object to support phone devices.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ittapi2
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapi2
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -42,10 +42,14 @@ class ITTAPI2 extends ITTAPI{
 
     /**
      * The get_Phones method enumerates the phone objects corresponding to the phone devices. If there are no phones available that can be used with the address, this method produces an empty collection and returns S_OK.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface returned by <b>ITTAPI2::get_Phones</b>. The application must call <b>Release</b> on the 
+     * <b>ITPhone</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface pointers.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi2-get_phones
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-get_phones
      */
     get_Phones() {
         pPhones := VARIANT()
@@ -55,9 +59,13 @@ class ITTAPI2 extends ITTAPI{
 
     /**
      * The EnumeratePhones method enumerates the phone objects corresponding to the phone devices. If there are no phones available that can be used with the address, this method produces an empty enumeration and returns S_OK.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface returned by <b>ITTAPI2::EnumeratePhones</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumPhone</b> interface to free resources associated with it.
      * @returns {IEnumPhone} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumphone">IEnumPhone</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi2-enumeratephones
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-enumeratephones
      */
     EnumeratePhones() {
         result := ComCall(24, this, "ptr*", &ppEnumPhone := 0, "HRESULT")
@@ -68,7 +76,7 @@ class ITTAPI2 extends ITTAPI{
      * The CreateEmptyCollectionObject method creates an empty collection object. The collection can be filled with ITDetectTone or ITCustomTone objects for use with the DetectTonesByCollection method or the GenerateCustomTonesByCollection method, respectively.
      * @returns {ITCollection2} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection2">ITCollection2</a> interface on the new collection object.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapi2-createemptycollectionobject
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapi2-createemptycollectionobject
      */
     CreateEmptyCollectionObject() {
         result := ComCall(25, this, "ptr*", &ppCollection := 0, "HRESULT")

@@ -8,15 +8,12 @@
 /**
  * Represents a collection of IInkCursorButton objects for an IInkCursor interface.
  * @remarks
- * 
  * You can use this collection to enumerate over the available <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbutton">IInkCursorButton</a> objects on a known <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursor">IInkCursor</a> object.
  * 
  * For more information about collections in COM, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
  * 
  * If you define a class that implements this interface, the new class will not interact correctly with the Tablet PC APIs.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkcursorbuttons
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkcursorbuttons
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -56,9 +53,9 @@ class IInkCursorButtons extends IDispatch{
     }
 
     /**
-     * Gets the number of objects or collections contained in a collection.
+     * Gets the number of objects or collections contained in a collection. (IInkCursorButtons.get_Count)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursorbuttons-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbuttons-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -76,11 +73,15 @@ class IInkCursorButtons extends IDispatch{
 
     /**
      * Retrieves the IInkCursorButton object at the specified index or string identifier within the IInkCursorButtons collection.
+     * @remarks
+     * An error occurs if the index doesn't match any existing member of the collection.
+     * 
+     * The <b>Item</b> method takes an input argument of type VARIANT. However, the subtype of this variable must be integer or string (BSTR). This means that when you are using late binding, such as when you use a scripting language, you must pass in the argument as a STRING literal and not use a variable.
      * @param {VARIANT} Identifier The zero-based index or BSTR identifier of the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbutton">IInkCursorButton</a> object to get.
      * 
      * For more information about the VARIANT and BSTR data types, see <a href="https://docs.microsoft.com/windows/desktop/tablet/using-the-com-library">Using the COM Library</a>.
      * @returns {IInkCursorButton} Upon return, contains the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbutton">IInkCursorButton</a> object at the specified index within the <a href="https://docs.microsoft.com/windows/desktop/api/msinkaut/nn-msinkaut-iinkcursorbuttons">IInkCursorButtons</a> collection.
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkcursorbuttons-item
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkcursorbuttons-item
      */
     Item(Identifier) {
         result := ComCall(9, this, "ptr", Identifier, "ptr*", &Button := 0, "HRESULT")

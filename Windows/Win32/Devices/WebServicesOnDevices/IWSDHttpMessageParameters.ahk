@@ -6,7 +6,7 @@
 
 /**
  * Provides access to the HTTP headers used when transmitting messages via SOAP-over-HTTP.
- * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nn-wsdbase-iwsdhttpmessageparameters
+ * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nn-wsdbase-iwsdhttpmessageparameters
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -75,7 +75,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setinboundhttpheaders
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setinboundhttpheaders
      */
     SetInboundHttpHeaders(pszHeaders) {
         pszHeaders := pszHeaders is String ? StrPtr(pszHeaders) : pszHeaders
@@ -87,7 +87,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
     /**
      * Retrieves the current HTTP headers used for inbound SOAP-over-HTTP transmissions.
      * @returns {PWSTR} Pointer used to receive the current HTTP headers in use. Do not deallocate this pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getinboundhttpheaders
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getinboundhttpheaders
      */
     GetInboundHttpHeaders() {
         result := ComCall(9, this, "ptr*", &ppszHeaders := 0, "HRESULT")
@@ -138,7 +138,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setoutboundhttpheaders
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setoutboundhttpheaders
      */
     SetOutboundHttpHeaders(pszHeaders) {
         pszHeaders := pszHeaders is String ? StrPtr(pszHeaders) : pszHeaders
@@ -150,7 +150,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
     /**
      * Retrieves the current HTTP headers used for outbound SOAP-over-HTTP transmissions.
      * @returns {PWSTR} Pointer used to receive the current HTTP headers in use.  Do not deallocate this pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getoutboundhttpheaders
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getoutboundhttpheaders
      */
     GetOutboundHttpHeaders() {
         result := ComCall(11, this, "ptr*", &ppszHeaders := 0, "HRESULT")
@@ -201,7 +201,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setid
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setid
      */
     SetID(pszId) {
         pszId := pszId is String ? StrPtr(pszId) : pszId
@@ -213,7 +213,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
     /**
      * Retrieves the transport ID for the current transaction.
      * @returns {PWSTR} Pointer used to return the transport ID for the current transaction. Do not deallocate this pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getid
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getid
      */
     GetID() {
         result := ComCall(13, this, "ptr*", &ppszId := 0, "HRESULT")
@@ -247,7 +247,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setcontext
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-setcontext
      */
     SetContext(pContext) {
         result := ComCall(14, this, "ptr", pContext, "HRESULT")
@@ -257,7 +257,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
     /**
      * Retrieves the private transmission context for the current transaction.
      * @returns {IUnknown} Pointer to the pointer used to retrieve the desired private transmission context for the current transaction.
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getcontext
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-getcontext
      */
     GetContext() {
         result := ComCall(15, this, "ptr*", &ppContext := 0, "HRESULT")
@@ -290,7 +290,7 @@ class IWSDHttpMessageParameters extends IWSDMessageParameters{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdbase/nf-wsdbase-iwsdhttpmessageparameters-clear
+     * @see https://learn.microsoft.com/windows/win32/api/wsdbase/nf-wsdbase-iwsdhttpmessageparameters-clear
      */
     Clear() {
         result := ComCall(16, this, "HRESULT")

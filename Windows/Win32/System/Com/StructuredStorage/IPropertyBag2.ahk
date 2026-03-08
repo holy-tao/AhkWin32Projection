@@ -5,6 +5,10 @@
 #Include ..\IUnknown.ahk
 
 /**
+ * Windows Imaging Component (WIC) proxy function for IPropertyBag2::Write.
+ * @remarks
+ * 
+ * @see https://learn.microsoft.com/windows/win32/wic/-wic-codec-ipropertybag2-write-proxy
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
@@ -30,12 +34,13 @@ class IPropertyBag2 extends IUnknown{
     static VTableNames => ["Read", "Write", "CountProperties", "GetPropertyInfo", "LoadObject"]
 
     /**
-     * 
+     * The ReadBlobFromFile function reads a BLOB in a file.
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {IErrorLog} pErrLog 
      * @param {Pointer<HRESULT>} phrError 
      * @returns {VARIANT} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(cProperties, pPropBag, pErrLog, phrError) {
         phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
@@ -46,11 +51,15 @@ class IPropertyBag2 extends IUnknown{
     }
 
     /**
-     * 
+     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {Pointer<VARIANT>} pvarValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method has no parameters.
+     * 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
      */
     Write(cProperties, pPropBag, pvarValue) {
         result := ComCall(4, this, "uint", cProperties, "ptr", pPropBag, "ptr", pvarValue, "HRESULT")
@@ -67,12 +76,17 @@ class IPropertyBag2 extends IUnknown{
     }
 
     /**
-     * 
+     * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetPropertyInfo** function.
      * @param {Integer} iProperty 
      * @param {Integer} cProperties 
      * @param {Pointer<PROPBAG2>} pPropBag 
      * @param {Pointer<Integer>} pcProperties 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is a pointer to the property.
+     * 
+     * If the function is unsuccessful, the return value is **NULL**.
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(iProperty, cProperties, pPropBag, pcProperties) {
         pcPropertiesMarshal := pcProperties is VarRef ? "uint*" : "ptr"

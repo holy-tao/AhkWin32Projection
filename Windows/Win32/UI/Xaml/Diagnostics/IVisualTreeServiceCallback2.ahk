@@ -5,7 +5,7 @@
 
 /**
  * Represents additional capabilities of an IVisualTreeServiceCallback object.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/nn-xamlom-ivisualtreeservicecallback2
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ivisualtreeservicecallback2
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */
@@ -32,11 +32,13 @@ class IVisualTreeServiceCallback2 extends IVisualTreeServiceCallback{
 
     /**
      * Communicates the state of an element in the visual tree when it changes.
+     * @remarks
+     * When any XAML diagnostics API results in a resource reference becoming invalid, this callback will be notified of the invalid reference. An instance handle will be given that corresponds to an element in the tree, and a string representation of the path to the invalid reference. The grammar for the syntax is: PropertyName:Full.Dotted.TypeName[Indexer] and paths can be separated with a forward slash ("/") to be chained together.
      * @param {Integer} element The XAML element in the visual tree.
      * @param {Integer} elementState The state of the element.
      * @param {PWSTR} context The path to the element.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservicecallback2-onelementstatechanged
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservicecallback2-onelementstatechanged
      */
     OnElementStateChanged(element, elementState, context) {
         context := context is String ? StrPtr(context) : context

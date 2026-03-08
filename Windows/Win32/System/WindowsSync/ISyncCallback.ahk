@@ -5,7 +5,7 @@
 
 /**
  * Represents application callbacks that are used to notify the application of synchronization events.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isynccallback
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isynccallback
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ISyncCallback extends IUnknown{
 
     /**
      * Occurs periodically during the synchronization session to report progress.
+     * @remarks
+     * Exactly when <b>OnProgress</b> is sent and with what values depends on the providers.
      * @param {Integer} provider The role of the provider that is associated with this event.
      * @param {Integer} syncStage The current stage of the synchronization session.
      * @param {Integer} dwCompletedWork The amount of work that is currently completed in the session. This value is interpreted as being a part of <i>dwTotalWork</i>.
@@ -63,7 +65,7 @@ class ISyncCallback extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynccallback-onprogress
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onprogress
      */
     OnProgress(provider, syncStage, dwCompletedWork, dwTotalWork) {
         result := ComCall(3, this, "int", provider, "int", syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")
@@ -100,7 +102,7 @@ class ISyncCallback extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynccallback-onchange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onchange
      */
     OnChange(pSyncChange) {
         result := ComCall(4, this, "ptr", pSyncChange, "HRESULT")
@@ -109,6 +111,8 @@ class ISyncCallback extends IUnknown{
 
     /**
      * Occurs when a conflict is detected when the concurrency conflict resolution policy is set to CRP_NONE.
+     * @remarks
+     * This notification can be used by an application to perform custom conflict resolution for concurrency conflicts. To accomplish this, the application inspects and processes the contents of <i>pConflict</i>, and then sets the resolution action for the conflict by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-ichangeconflict">IChangeConflict::SetResolveActionForChange</a> before it returns from this method.
      * @param {IChangeConflict} pConflict Information about the conflict. This includes metadata and item data for the two changes that are in conflict.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -137,7 +141,7 @@ class ISyncCallback extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynccallback-onconflict
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onconflict
      */
     OnConflict(pConflict) {
         result := ComCall(5, this, "ptr", pConflict, "HRESULT")
@@ -146,6 +150,8 @@ class ISyncCallback extends IUnknown{
 
     /**
      * Occurs when the forgotten knowledge from the source provider is not contained in the current knowledge of the destination provider.
+     * @remarks
+     * By default, if an application callback is not registered to receive this notification, Windows Sync uses <b>SFEA_ABORT</b>.
      * @param {Pointer<Integer>} pFullEnumerationAction Specifies how a synchronization session should handle the full enumeration.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -174,7 +180,7 @@ class ISyncCallback extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynccallback-onfullenumerationneeded
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onfullenumerationneeded
      */
     OnFullEnumerationNeeded(pFullEnumerationAction) {
         pFullEnumerationActionMarshal := pFullEnumerationAction is VarRef ? "int*" : "ptr"
@@ -213,7 +219,7 @@ class ISyncCallback extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isynccallback-onrecoverableerror
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isynccallback-onrecoverableerror
      */
     OnRecoverableError(pRecoverableError) {
         result := ComCall(7, this, "ptr", pRecoverableError, "HRESULT")

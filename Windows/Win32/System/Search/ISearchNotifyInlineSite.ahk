@@ -5,7 +5,7 @@
 
 /**
  * Provides methods the Search service uses to send updates on catalog and index status to notification providers.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchnotifyinlinesite
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchnotifyinlinesite
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -43,8 +43,8 @@ class ISearchNotifyInlineSite extends IUnknown{
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/searchapi/ns-searchapi-search_item_indexing_status">SEARCH_ITEM_INDEXING_STATUS</a> structures containing status update information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchnotifyinlinesite-onitemindexedstatuschange
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-onitemindexedstatuschange
      */
     OnItemIndexedStatusChange(sipStatus, dwNumEntries, rgItemStatusEntries) {
         result := ComCall(3, this, "int", sipStatus, "uint", dwNumEntries, "ptr", rgItemStatusEntries, "HRESULT")
@@ -53,6 +53,14 @@ class ISearchNotifyInlineSite extends IUnknown{
 
     /**
      * Called by the search service to notify a client when the status of the catalog changes.
+     * @remarks
+     * When a catalog checkpoint occurs, the search service updates the <i>dwLastCheckPointNumber</i>, and all notifications sent prior to that checkpoint are safe and recoverable in the event of a service failure. Notification providers need to track only those notifications sent between checkpoints and must resend them if the catalog is restored or reset.
+     *             
+     * 
+     * If a catalog restore occurs, the search service rolls back the catalog to the last saved checkpoint and updates the <i>guidCheckPointSignature</i>. In this situation, notification providers must resend all notifications accumulated since the most recent saved checkpoint, as identified by the <i>dwLastCheckPointNumber</i> parameter.
+     *             
+     * 
+     * If a catalog reset occurs, the search service resets the entire catalog and updates the <i>guidCatalogResetSignature</i>. The notification provider must resend its entire crawl scope.
      * @param {Pointer<Guid>} guidCatalogResetSignature Type: <b>REFGUID</b>
      * 
      * A GUID representing the catalog reset. If this GUID changes, all notifications must be resent.
@@ -64,8 +72,8 @@ class ISearchNotifyInlineSite extends IUnknown{
      * A number indicating the last checkpoint saved.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchnotifyinlinesite-oncatalogstatuschange
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchnotifyinlinesite-oncatalogstatuschange
      */
     OnCatalogStatusChange(guidCatalogResetSignature, guidCheckPointSignature, dwLastCheckPointNumber) {
         result := ComCall(4, this, "ptr", guidCatalogResetSignature, "ptr", guidCheckPointSignature, "uint", dwLastCheckPointNumber, "HRESULT")

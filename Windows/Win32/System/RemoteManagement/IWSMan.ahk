@@ -6,7 +6,7 @@
 
 /**
  * Provides methods and properties used to create a session, represented by a Session object.
- * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nn-wsmandisp-iwsman
+ * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nn-wsmandisp-iwsman
  * @namespace Windows.Win32.System.RemoteManagement
  * @version v4.0.30319
  */
@@ -53,6 +53,35 @@ class IWSMan extends IDispatch{
 
     /**
      * Creates a Session object that can then be used for subsequent network operations.
+     * @remarks
+     * The following list contains examples of formats used to specify connection information in the <i>connection</i> parameter (when creating an HTTPS session, the &lt;<i>Address</i>&gt; field must match the server computer certificate name, otherwise a failure occurs):
+     * 
+     * <ul>
+     * <li>
+     * "https://service"
+     * 
+     * Uses HTTPS to connect to the default web service location.
+     * 
+     * </li>
+     * <li>
+     * "https://service.corp.com/websvcs/wsman"
+     * 
+     * Uses HTTPS to connect to the specific web service location.
+     * 
+     * </li>
+     * <li>
+     * "https://[E3D7:0000:0000:0000:51F4:9BC8:C0A8:6420]"
+     * 
+     * Uses HTTPS and IPv6 with the default port.
+     * 
+     * </li>
+     * <li>
+     * "https://[E3D7:0000:0000:0000:51F4:9BC8:C0A8:6420]:9999/wsman"
+     * 
+     * Uses HTTPS and IPv6 with the given port.
+     * 
+     * </li>
+     * </ul>
      * @param {BSTR} connection The protocol and service to connect to, including either IPv4 or IPv6. The format of the connection information is as follows: &lt;<i>Transport</i>&gt;&lt;<i>Address</i>&gt;&lt;<i>Suffix</i>&gt;. For examples, see Remarks. If no connection information is provided, the local computer is used.
      * @param {Integer} flags The session flags that specify the authentication method, such as 
      *      <a href="https://docs.microsoft.com/windows/desktop/WinRM/windows-remote-management-glossary">Negotiate authentication</a> 
@@ -75,7 +104,7 @@ class IWSMan extends IDispatch{
      * For more information, see <a href="https://docs.microsoft.com/windows/desktop/WinRM/authentication-for-remote-connections">Authentication for Remote Connections</a> and the <i>connectionOptions</i> parameter.
      * @param {IDispatch} connectionOptions A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanconnectionoptions">IWSManConnectionOptions</a> object that contains a user name and password. The default is <b>NULL</b>.
      * @returns {IDispatch} A pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmansession">IWSManSession</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsman-createsession
+     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-createsession
      */
     CreateSession(connection, flags, connectionOptions) {
         connection := connection is String ? BSTR.Alloc(connection).Value : connection
@@ -87,7 +116,7 @@ class IWSMan extends IDispatch{
     /**
      * Creates an IWSManConnectionOptions object that specifies the user name and password used when creating a session.
      * @returns {IDispatch} A pointer to a new <a href="https://docs.microsoft.com/windows/desktop/api/wsmandisp/nn-wsmandisp-iwsmanconnectionoptions">IWSManConnectionOptions</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsman-createconnectionoptions
+     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-createconnectionoptions
      */
     CreateConnectionOptions() {
         result := ComCall(8, this, "ptr*", &connectionOptions := 0, "HRESULT")
@@ -97,7 +126,7 @@ class IWSMan extends IDispatch{
     /**
      * Gets the command line of the process that loads the automation component.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsman-get_commandline
+     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_commandline
      */
     get_CommandLine() {
         value := BSTR()
@@ -108,7 +137,7 @@ class IWSMan extends IDispatch{
     /**
      * Gets additional error information, in an XML stream, for the preceding call to an IWSMan method if Windows Remote Management service was unable to create an IWSManSession object, an IWSManConnectionOptions object, or an IWSManResourceLocator object.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wsmandisp/nf-wsmandisp-iwsman-get_error
+     * @see https://learn.microsoft.com/windows/win32/api/wsmandisp/nf-wsmandisp-iwsman-get_error
      */
     get_Error() {
         value := BSTR()

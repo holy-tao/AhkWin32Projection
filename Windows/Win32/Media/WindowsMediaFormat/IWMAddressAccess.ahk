@@ -6,7 +6,7 @@
 
 /**
  * The IWMAddressAccess interface controls IP access lists on the writer network sink object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmaddressaccess
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmaddressaccess
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IWMAddressAccess extends IUnknown{
      * The GetAccessEntryCount method retrieves the number of entries in the IP address access list.
      * @param {Integer} aeType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wm_aetype">WM_AETYPE</a> enumeration specifying the type of entry (exclusion or inclusion).
      * @returns {Integer} Pointer to a variable that receives the number of entries of the type specified in <i>aeType</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentrycount
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentrycount
      */
     GetAccessEntryCount(aeType) {
         result := ComCall(3, this, "int", aeType, "uint*", &pcEntries := 0, "HRESULT")
@@ -47,7 +47,7 @@ class IWMAddressAccess extends IUnknown{
      * @param {Integer} aeType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wm_aetype">WM_AETYPE</a> enumeration specifying the type of entry to retrieve (exclusion or inclusion).
      * @param {Integer} dwEntryNum Specifies the zero-based index of the entry. Use the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentrycount">IWMAddressAccess::GetAccessEntryCount</a> method to get the number of entries.
      * @returns {WM_ADDRESS_ACCESSENTRY} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_address_accessentry">WM_ADDRESS_ACCESSENTRY</a> structure that receives the access entry.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentry
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-getaccessentry
      */
     GetAccessEntry(aeType, dwEntryNum) {
         pAddrAccessEntry := WM_ADDRESS_ACCESSENTRY()
@@ -60,7 +60,7 @@ class IWMAddressAccess extends IUnknown{
      * @param {Integer} aeType A member of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wm_aetype">WM_AETYPE</a> enumeration specifying the access permissions (exclusion or inclusion).
      * @param {Pointer<WM_ADDRESS_ACCESSENTRY>} pAddrAccessEntry Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_address_accessentry">WM_ADDRESS_ACCESSENTRY</a> structure that specifies the IP address or range of addresses.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmaddressaccess-addaccessentry
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-addaccessentry
      */
     AddAccessEntry(aeType, pAddrAccessEntry) {
         result := ComCall(5, this, "int", aeType, "ptr", pAddrAccessEntry, "HRESULT")
@@ -112,7 +112,7 @@ class IWMAddressAccess extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmaddressaccess-removeaccessentry
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmaddressaccess-removeaccessentry
      */
     RemoveAccessEntry(aeType, dwEntryNum) {
         result := ComCall(6, this, "int", aeType, "uint", dwEntryNum, "HRESULT")

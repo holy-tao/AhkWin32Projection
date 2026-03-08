@@ -6,7 +6,7 @@
 
 /**
  * IWMPEffects interface
- * @see https://docs.microsoft.com/windows/win32/api//effects/nn-effects-iwmpeffects
+ * @see https://learn.microsoft.com/windows/win32/api/effects/nn-effects-iwmpeffects
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -33,11 +33,13 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The Render method renders the visualization.
+     * @remarks
+     * The device context is normalized by this method.
      * @param {Pointer<TimedLevel>} pLevels Pointer to a <b>TimedLevel</b> structure.
      * @param {HDC} hdc Specifies a handle to a device context.
      * @param {Pointer<RECT>} prc Specifies the rectangle the visualization is to be rendered in.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-render
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-render
      */
     Render(pLevels, hdc, prc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
@@ -52,7 +54,7 @@ class IWMPEffects extends IUnknown{
      * @param {Integer} lSampleRate <b>Long</b> integer containing the sample rate in hertz (Hz). For example, a value of 22500 would specify a rate of 22.5KHz.
      * @param {BSTR} bstrTitle <b>String</b> specifying the title.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-mediainfo
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-mediainfo
      */
     MediaInfo(lChannelCount, lSampleRate, bstrTitle) {
         bstrTitle := bstrTitle is String ? BSTR.Alloc(bstrTitle).Value : bstrTitle
@@ -63,6 +65,8 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The GetCapabilities method gets the capabilities of the visualization.
+     * @remarks
+     * A default implementation of this method is not included in the visualization wizard.
      * @param {Pointer<Integer>} pdwCapabilities <b>DWORD</b> containing the capabilities.
      * 
      * The current values are as follows.
@@ -96,7 +100,7 @@ class IWMPEffects extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-getcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getcapabilities
      */
     GetCapabilities(pdwCapabilities) {
         pdwCapabilitiesMarshal := pdwCapabilities is VarRef ? "uint*" : "ptr"
@@ -107,9 +111,11 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The GetTitle method gets the display title of the visualization.
+     * @remarks
+     * This method allows the application to show the user a title when the visualization itself is displayed. The title should be as unique as possible. Do not use titles of visualizations included with the Windows Media Player as this will cause confusion to the user.
      * @param {Pointer<BSTR>} bstrTitle <b>String</b> containing the title.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-gettitle
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-gettitle
      */
     GetTitle(bstrTitle) {
         result := ComCall(6, this, "ptr", bstrTitle, "HRESULT")
@@ -118,10 +124,12 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The GetPresetTitle method gets the title of the current preset.
+     * @remarks
+     * Called by Windows Media Player to obtain the title of a given preset.
      * @param {Integer} nPreset <b>Long</b> preset number.
      * @param {Pointer<BSTR>} bstrPresetTitle <b>BSTR</b> preset title.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-getpresettitle
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getpresettitle
      */
     GetPresetTitle(nPreset, bstrPresetTitle) {
         result := ComCall(7, this, "int", nPreset, "ptr", bstrPresetTitle, "HRESULT")
@@ -130,9 +138,11 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The GetPresetCount method gets the preset count.
+     * @remarks
+     * Called by Windows Media Player to obtain the number of presets contained by the visualization.
      * @param {Pointer<Integer>} pnPresetCount <b>Long</b> value specifying the preset count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-getpresetcount
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getpresetcount
      */
     GetPresetCount(pnPresetCount) {
         pnPresetCountMarshal := pnPresetCount is VarRef ? "int*" : "ptr"
@@ -143,9 +153,11 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The SetCurrentPreset method gets the current preset from Windows Media Player and sets it in the visualization.
+     * @remarks
+     * This is called by the Windows Media Player to request that the given preset be displayed.
      * @param {Integer} nPreset <b>Long</b> value specifying the new preset index.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-setcurrentpreset
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-setcurrentpreset
      */
     SetCurrentPreset(nPreset) {
         result := ComCall(9, this, "int", nPreset, "HRESULT")
@@ -156,7 +168,7 @@ class IWMPEffects extends IUnknown{
      * The GetCurrentPreset method gets the current preset, by number, from the visualization and provides it to Windows Media Player.
      * @param {Pointer<Integer>} pnPreset <b>Long</b> value specifying the current preset, by number.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-getcurrentpreset
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-getcurrentpreset
      */
     GetCurrentPreset(pnPreset) {
         pnPresetMarshal := pnPreset is VarRef ? "int*" : "ptr"
@@ -167,9 +179,11 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The DisplayPropertyPage method displays the property page of a visualization, if it exists.
+     * @remarks
+     * Implement this method if you want to display a property page to the user to adjust any values of the visualization.
      * @param {HWND} hwndOwner Handle to the dialog that will be displayed.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-displaypropertypage
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-displaypropertypage
      */
     DisplayPropertyPage(hwndOwner) {
         hwndOwner := hwndOwner is Win32Handle ? NumGet(hwndOwner, "ptr") : hwndOwner
@@ -180,9 +194,13 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The GoFullscreen method instructs the visualization to switch to full-screen mode.
+     * @remarks
+     * This method is called when the visualization is to go full screen or leave full screen. If the full screen capabilities flag is not returned through <b>GetCapabilities</b>, your visualization will not be asked to go or render full screen. This method will be called before <b>RenderFullScreen</b> is called.
+     * 
+     * A default implementation of this method is not included in the visualization wizard.
      * @param {BOOL} fFullScreen <b>Boolean</b> indicating whether to switch to full-screen mode.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-gofullscreen
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-gofullscreen
      */
     GoFullscreen(fFullScreen) {
         result := ComCall(12, this, "int", fFullScreen, "HRESULT")
@@ -191,9 +209,17 @@ class IWMPEffects extends IUnknown{
 
     /**
      * The RenderFullScreen method renders the visualization in full-screen mode.
+     * @remarks
+     * The <b>GoFullscreen</b> method must be called with a <b>True</b> value before <b>RenderFullScreen</b> can be called.
+     * 
+     * The user can enter or leave full screen mode by pressing the Alt and Enter keys simultaneously.
+     * 
+     * A default implementation of this method is not included in the visualization wizard.
+     * 
+     * If your implementation returns an error from this method, then <b>GoFullscreen</b>(<b>False</b>) will be called to ask your visualization to drop out of full screen mode.
      * @param {Pointer<TimedLevel>} pLevels Pointer to a <b>TimedLevel</b> structure.
      * @returns {HRESULT} If the method succeeds, your implementation should return S_OK. If it fails, return an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//effects/nf-effects-iwmpeffects-renderfullscreen
+     * @see https://learn.microsoft.com/windows/win32/api/effects/nf-effects-iwmpeffects-renderfullscreen
      */
     RenderFullScreen(pLevels) {
         result := ComCall(13, this, "ptr", pLevels, "HRESULT")

@@ -7,7 +7,6 @@
 /**
  * Represents a factory that can instantiate a WPD Automation Device object.
  * @remarks
- * 
  * The <b>IPortableDeviceDispatchFactory</b> interface can be CoCreated directly using <b>CLSID_PortableDeviceDispatchFactory</b> as in the following code.
  * 
  * 
@@ -16,11 +15,7 @@
  * HRESULT hr = CoCreateInstance(CLSID_PortableDeviceDispatchFactory, NULL, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&pDeviceDispatchFactory));   
  * 
  * ```
- * 
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledevicedispatchfactory
+ * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicedispatchfactory
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -52,10 +47,13 @@ class IPortableDeviceDispatchFactory extends IUnknown{
     static VTableNames => ["GetDeviceDispatch"]
 
     /**
-     * Instantiates a WPD Automation Device object for a given WPD device identifier.
+     * Instantiates a WPD Automation Device object for a given WPD device identifier. (IPortableDeviceDispatchFactory.GetDeviceDispatch)
+     * @remarks
+     * For an example of how to use <b>GetDeviceDispatch</b> method to instantiate a WPD Automation <b>Device</b>  object, see 
+     *   <a href="https://docs.microsoft.com/previous-versions/windows/desktop/wpdauto/instantiating-the-wpd-automation-factory-interface">Instantiating the WPD Automation Factory Interface</a>.
      * @param {PWSTR} pszPnPDeviceID A pointer to a <b>String</b> that is used by Plug-and-play to identify a currently connected WPD device. The Plug and Play (PnP) identifier for a particular device can be obtained from the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">IPortableDeviceManager::GetDevices</a> method in the WPD C++/COM API.
      * @returns {IDispatch} Contains a pointer to the <b>IDispatch</b> implementation for the WPD Automation <a href="https://docs.microsoft.com/previous-versions/windows/desktop/wiaaut/-wiaaut-device">Device</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicedispatchfactory-getdevicedispatch
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedispatchfactory-getdevicedispatch
      */
     GetDeviceDispatch(pszPnPDeviceID) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID

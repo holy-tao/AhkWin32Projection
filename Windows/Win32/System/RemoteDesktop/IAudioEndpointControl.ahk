@@ -6,11 +6,9 @@
 /**
  * Controls the stream state of an endpoint.
  * @remarks
- * 
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
  *     applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioendpointcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointcontrol
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -37,8 +35,14 @@ class IAudioEndpointControl extends IUnknown{
 
     /**
      * Starts the endpoint stream.
+     * @remarks
+     * The implementation of this method can differ depending on the type of device that the endpoint represents.
+     * 
+     * This method must not be called from a real-time processing thread.
+     * 
+     * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-start
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-start
      */
     Start() {
         result := ComCall(3, this, "HRESULT")
@@ -47,8 +51,15 @@ class IAudioEndpointControl extends IUnknown{
 
     /**
      * Resets the endpoint stream.
+     * @remarks
+     * <b>Reset</b> discards all data that has not been processed yet.
+     *     The implementation of this method may differ depending on the type of device that the endpoint represents.
+     * 
+     * This method must not be called from a real-time processing thread.
+     * 
+     * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-reset
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -57,8 +68,14 @@ class IAudioEndpointControl extends IUnknown{
 
     /**
      * Stops the endpoint stream.
+     * @remarks
+     * The implementation of this method can differ depending on the type of device that the endpoint represents.
+     * 
+     * This method must not be called from a real-time processing thread.
+     * 
+     * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-stop
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointcontrol-stop
      */
     Stop() {
         result := ComCall(5, this, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that provide enumeration services for individual metadata items.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicenummetadataitem
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicenummetadataitem
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class IWICEnumMetadataItem extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * The number of items that were retrieved. This value is always less than or equal to the number of items requested.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-next
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-next
      */
     Next(celt, rgeltSchema, rgeltId, rgeltValue) {
         result := ComCall(3, this, "uint", celt, "ptr", rgeltSchema, "ptr", rgeltId, "ptr", rgeltValue, "uint*", &pceltFetched := 0, "HRESULT")
@@ -62,8 +62,8 @@ class IWICEnumMetadataItem extends IUnknown{
      * The number of objects to skip.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-skip
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -74,8 +74,8 @@ class IWICEnumMetadataItem extends IUnknown{
      * Resets the current position to the beginning of the enumeration.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-reset
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -87,7 +87,7 @@ class IWICEnumMetadataItem extends IUnknown{
      * @returns {IWICEnumMetadataItem} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicenummetadataitem">IWICEnumMetadataItem</a>**</b>
      * 
      * A pointer that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicenummetadataitem">IWICEnumMetadataItem</a> copy.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicenummetadataitem-clone
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicenummetadataitem-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppIEnumMetadataItem := 0, "HRESULT")

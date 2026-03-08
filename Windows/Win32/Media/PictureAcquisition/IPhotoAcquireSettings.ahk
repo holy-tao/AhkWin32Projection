@@ -7,7 +7,7 @@
 
 /**
  * The IPhotoAcquireSettings interface is used to work with image acquisition settings, such as file name format.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquiresettings
+ * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquiresettings
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -34,6 +34,8 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The InitializeFromRegistry method specifies a registry key from which to initialize settings.
+     * @remarks
+     * The structure of the registry has not yet been determined at this point.
      * @param {PWSTR} pszRegistryKey Pointer to a null-terminated string containing the registry key.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -65,7 +67,7 @@ class IPhotoAcquireSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-initializefromregistry
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-initializefromregistry
      */
     InitializeFromRegistry(pszRegistryKey) {
         pszRegistryKey := pszRegistryKey is String ? StrPtr(pszRegistryKey) : pszRegistryKey
@@ -96,7 +98,7 @@ class IPhotoAcquireSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setflags
      */
     SetFlags(dwPhotoAcquireFlags) {
         result := ComCall(4, this, "uint", dwPhotoAcquireFlags, "HRESULT")
@@ -105,6 +107,78 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The SetOutputFilenameTemplate method specifies a format string (template) that specifies the format of file names.
+     * @remarks
+     * Format strings contain a mix of path literals and tokens. A format string looks like the following:
+     * 
+     * 
+     * ```cpp
+     * 
+     * $(MyPicturesFolder)\$(DateAcquired), $(EventName)\$(EventName) $(SequenceNumber).$(OriginalExtension)
+     * 
+     * ```
+     * 
+     * 
+     * The token format looks like the following, where <c>OptionalPrefix</code> and <code>OptionSuffix</code> are suppressed if the replacement for the <code>TokenIdentifier</c> yields a zero-length string:
+     * 
+     * 
+     * ```cpp
+     * 
+     * $([OptionalPrefix]TokenIdentifier:SubToken[OptionalSuffix]|AlternateString)
+     * 
+     * ```
+     * 
+     * 
+     * The caret ("^") is an escape character, so "^$" would yield "$" in the final path.
+     * 
+     * Parentheses and brackets are not allowed as literals within tokens, but can be used outside of tokens. This means you cannot use "[", "]", "(", or ")" within the <c>OptionalString</c> sub-token unless they are escaped with a caret ("^").
+     * 
+     * There are a few different classes of tokens, including the following:
+     * 
+     * <b>SHGetSpecialFolder</b> variables such as the following. These must be the first token, and can only occur once, at most:
+     * 
+     * <ul>
+     * <li><c>MyPicturesFolder</c></li>
+     * <li><c>MyDocumentsFolder</c></li>
+     * </ul>
+     * Session variables such as the following:
+     * 
+     * <ul>
+     * <li><c>SequenceNumber</c> (The sequence number is used to avoid filename collisions; if it exists, it must be in the file name portion of the path.)</li>
+     * <li><c>DateAcquired</c></li>
+     * <li><c>EventName</c></li>
+     * <li><c>UserName</c></li>
+     * <li><c>MachineName</c></li>
+     * </ul>
+     * File and metadata variables such as the following:
+     * 
+     * <ul>
+     * <li><c>DateTaken</c></li>
+     * <li><c>OriginalFilename</c></li>
+     * <li><c>OriginalExtension</c></li>
+     * <li><c>CameraModel</c></li>
+     * <li><c>Width</c></li>
+     * <li><c>Height</c></li>
+     * </ul>
+     * Since these tokens are not intended to be visible to users, they will not be localized. For example, <c>$(DateTaken)</c> will be the same on all versions of Microsoft Windows, regardless of locale or language settings.
+     * 
+     * As an example, suppose <c>EventName</c> is "Meghan's Birthday" and the naming pattern is as follows:
+     * 
+     * 
+     * ``` syntax
+     * 
+     * $(MyPicturesFolder)\$(DateAcquired)$([, ]EventName)\$(EventName[ ])$(SequenceNumber).$(OriginalExtension)
+     * 
+     * ```
+     * 
+     * The resulting files would be named as follows:
+     * 
+     * C:\Documents and Settings\shauniv\My Documents\My Pictures\2003-11-14, Meghan's Birthday\Meghan's Birthday 001.jpg
+     * 
+     * C:\Documents and Settings\shauniv\My Documents\My Pictures\2003-11-14, Meghan's Birthday\Meghan's Birthday 002.jpg
+     * 
+     * C:\Documents and Settings\shauniv\My Documents\My Pictures\2003-11-14, Meghan's Birthday\Meghan's Birthday 003.jpg
+     * 
+     * C:\Documents and Settings\shauniv\My Documents\My Pictures\2003-11-14, Meghan's Birthday\Meghan's Birthday 004.jpg
      * @param {PWSTR} pszTemplate Pointer to a null-terminated string containing the format string.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -125,7 +199,7 @@ class IPhotoAcquireSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-setoutputfilenametemplate
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setoutputfilenametemplate
      */
     SetOutputFilenameTemplate(pszTemplate) {
         pszTemplate := pszTemplate is String ? StrPtr(pszTemplate) : pszTemplate
@@ -136,6 +210,15 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The SetSequencePaddingWidth method sets a value indicating how wide sequential fields in filenames will be.
+     * @remarks
+     * If the value passed to <c>SetSequencePaddingWidth</code> is nonzero and the format string specified in <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setoutputfilenametemplate">SetOutputFileNameTemplate</a> contains a sequential token, this method sets the width allotted for the sequential token. For example, given the template <code>$(GroupTag)$(AcquisitionSequence).$(OriginalExtension)</c>, if padding is set to 0, a file name might appear as 
+     * ``` syntax
+     * "Image1.jpg"
+     * ```
+     *  If padding is set to 3, the file name may appear as 
+     * ``` syntax
+     * "Image   1.jpg"
+     * ```
      * @param {Integer} dwWidth Double word value containing the width of sequential fields.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -156,7 +239,7 @@ class IPhotoAcquireSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-setsequencepaddingwidth
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setsequencepaddingwidth
      */
     SetSequencePaddingWidth(dwWidth) {
         result := ComCall(6, this, "uint", dwWidth, "HRESULT")
@@ -165,6 +248,24 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The SetSequenceZeroPadding method sets a value indicating whether zeros or spaces are used to pad sequential file names.
+     * @remarks
+     * A file name padded with zeros might appear as
+     * 
+     * 
+     * 
+     * ``` syntax
+     * "IMG0001.JPG"
+     * ```
+     * 
+     * 
+     * 
+     * The same file name without zero padding might appear as 
+     * 
+     * 
+     * 
+     * ``` syntax
+     * "IMG   1.JPG"
+     * ```
      * @param {BOOL} fZeroPad Flag that, if set to <b>TRUE</b>, indicates that zeros pad sequential file names.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -185,7 +286,7 @@ class IPhotoAcquireSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-setsequencezeropadding
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setsequencezeropadding
      */
     SetSequenceZeroPadding(fZeroPad) {
         result := ComCall(7, this, "int", fZeroPad, "HRESULT")
@@ -194,6 +295,8 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The SetGroupTag method sets the group tag for an acquisition session.
+     * @remarks
+     * The group tag is stored as a keyword in each file's metadata. It is also used in the file name if the <c>$(GroupTag)</c> token is present in the format string passed to <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setoutputfilenametemplate">SetOutputFileNameTemplate</a>.
      * @param {PWSTR} pszGroupTag Pointer to a null-terminated string containing the group tag.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -214,7 +317,7 @@ class IPhotoAcquireSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-setgrouptag
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setgrouptag
      */
     SetGroupTag(pszGroupTag) {
         pszGroupTag := pszGroupTag is String ? StrPtr(pszGroupTag) : pszGroupTag
@@ -225,6 +328,8 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The SetAcquisitionTime method sets the acquisition time explicitly.
+     * @remarks
+     * This method is typically used to force two sessions to show the same acquisition time. If not explicitly set, acquisition time defaults to the current machine time.
      * @param {Pointer<FILETIME>} pftAcquisitionTime Specifies the acquisition time.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -245,7 +350,7 @@ class IPhotoAcquireSettings extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-setacquisitiontime
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setacquisitiontime
      */
     SetAcquisitionTime(pftAcquisitionTime) {
         result := ComCall(9, this, "ptr", pftAcquisitionTime, "HRESULT")
@@ -255,7 +360,7 @@ class IPhotoAcquireSettings extends IUnknown{
     /**
      * The GetFlags method retrieves the photo acquire flags.
      * @returns {Integer} Pointer to a double word value containing the photo acquire flags.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getflags
      */
     GetFlags() {
         result := ComCall(10, this, "uint*", &pdwPhotoAcquireFlags := 0, "HRESULT")
@@ -264,8 +369,17 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The GetOutputFilenameTemplate method retrieves a format string (template) that specifies the format of file names.
+     * @remarks
+     * Format strings contain a mix of path literals and tokens. A format string looks like the following:
+     * 
+     * 
+     * ``` syntax
+     * 
+     * $(MyPicturesFolder)\$(DateAcquired), $(EventName)\$(EventName) $(SequenceNumber).$(OriginalExtension)
+     * 
+     * ```
      * @returns {BSTR} Pointer to a string containing the format string.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-getoutputfilenametemplate
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getoutputfilenametemplate
      */
     GetOutputFilenameTemplate() {
         pbstrTemplate := BSTR()
@@ -275,8 +389,12 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The GetSequencePaddingWidth method retrieves a value indicating how wide sequential fields in file names will be.
+     * @remarks
+     * If the format string specified in <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiresettings-setoutputfilenametemplate">SetOutputFileNameTemplate</a> contains a sequential token, this method gets the width allotted for the sequential token.
+     * 
+     * If the format string does not contain a sequential token, the value returned by this method is not defined.
      * @returns {Integer} Pointer to a double word value containing the width of sequential fields.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencepaddingwidth
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencepaddingwidth
      */
     GetSequencePaddingWidth() {
         result := ComCall(12, this, "uint*", &pdwWidth := 0, "HRESULT")
@@ -285,8 +403,26 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The GetSequenceZeroPadding method retrieves a value that indicates whether zeros or spaces will be used to pad sequential file names.
+     * @remarks
+     * A file name padded with zeros might appear as
+     * 
+     * 
+     * 
+     * ``` syntax
+     * "IMG0001.JPG"
+     * ```
+     * 
+     * 
+     * 
+     * The same file name without zero padding might appear as 
+     * 
+     * 
+     * 
+     * ``` syntax
+     * "IMG   1.JPG"
+     * ```
      * @returns {BOOL} Pointer to a flag that, if set to <b>TRUE</b>, indicates that zeros will pad sequential file names.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencezeropadding
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getsequencezeropadding
      */
     GetSequenceZeroPadding() {
         result := ComCall(13, this, "int*", &pfZeroPad := 0, "HRESULT")
@@ -295,8 +431,10 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The GetGroupTag method retrieves a tag string for the group of files being downloaded from the device.
+     * @remarks
+     * The group tag is stored as a keyword in each file's metadata. It is also used in the file name if the <c>$(GroupTag)</c> token is present in the format string passed to <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getoutputfilenametemplate">SetOutputFileNameTemplate</a>.
      * @returns {BSTR} Pointer to a string containing the group tag.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-getgrouptag
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getgrouptag
      */
     GetGroupTag() {
         pbstrGroupTag := BSTR()
@@ -306,8 +444,10 @@ class IPhotoAcquireSettings extends IUnknown{
 
     /**
      * The GetAcquisitionTime method retrieves the acquisition time of the current session.
+     * @remarks
+     * If not set explicitly, the acquisition time defaults to the current machine time.
      * @returns {FILETIME} Specifies acquisition time.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresettings-getacquisitiontime
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresettings-getacquisitiontime
      */
     GetAcquisitionTime() {
         pftAcquisitionTime := FILETIME()

@@ -6,11 +6,8 @@
 /**
  * The ITfTextLayoutSink interface supports the context layout change by an application. Install this advise sink by calling ITfSource::AdviseSink with IID_ITfTextLayoutSink. A text service can optionally implement this interface.
  * @remarks
- * 
  * TSF does not currently support multiple views; some features of this interface are limited.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itftextlayoutsink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itftextlayoutsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -37,11 +34,13 @@ class ITfTextLayoutSink extends IUnknown{
 
     /**
      * ITfTextLayoutSink::OnLayoutChange method
+     * @remarks
+     * Each context has a default view for which a reference can be obtained using the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontext-getactiveview">ITfContext::GetActiveView</a> method. The method returns only the value TF_LC_CHANGE for the <i>lcode</i> parameter for this view, because the values are possible only for multiple views. Because TSF does not support multiple views, this method never receives other values of the <b>TfLayoutCode</b> enumeration.
      * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface for the context that changed.
      * @param {Integer} lcode Specifies the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tflayoutcode">TfLayoutCode</a> element that describes the layout change.
      * @param {ITfContextView} pView Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontextview">ITfContextView</a> interface for the context view in that the layout change occurred.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftextlayoutsink-onlayoutchange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftextlayoutsink-onlayoutchange
      */
     OnLayoutChange(pic, lcode, pView) {
         result := ComCall(3, this, "ptr", pic, "int", lcode, "ptr", pView, "HRESULT")

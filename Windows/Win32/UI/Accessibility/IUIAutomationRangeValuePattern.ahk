@@ -5,7 +5,7 @@
 
 /**
  * Provides access to a control that presents a range of values.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationrangevaluepattern
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationrangevaluepattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -115,14 +115,14 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     }
 
     /**
-     * Sets the value of the control.
+     * Sets the value of the control. (IUIAutomationRangeValuePattern.SetValue)
      * @param {Float} val Type: <b>double</b>
      * 
      * The value to set as the value of the control.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-setvalue
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-setvalue
      */
     SetValue(val) {
         result := ComCall(3, this, "double", val, "HRESULT")
@@ -132,7 +132,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the value of the control.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentvalue
      */
     get_CurrentValue() {
         result := ComCall(4, this, "double*", &retVal := 0, "HRESULT")
@@ -142,7 +142,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Indicates whether the value of the element can be changed.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentisreadonly
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentisreadonly
      */
     get_CurrentIsReadOnly() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
@@ -152,7 +152,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the maximum value of the control.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentmaximum
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentmaximum
      */
     get_CurrentMaximum() {
         result := ComCall(6, this, "double*", &retVal := 0, "HRESULT")
@@ -162,7 +162,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the minimum value of the control.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentminimum
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentminimum
      */
     get_CurrentMinimum() {
         result := ComCall(7, this, "double*", &retVal := 0, "HRESULT")
@@ -172,12 +172,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the value that is added to or subtracted from the value of the control when a large change is made, such as when the PAGE DOWN key is pressed.
      * @remarks
-     * 
      * The LargeChange property can support a Not a Number (NaN) value. When retrieving this property, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentlargechange
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentlargechange
      */
     get_CurrentLargeChange() {
         result := ComCall(8, this, "double*", &retVal := 0, "HRESULT")
@@ -187,12 +184,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the value that is added to or subtracted from the value of the control when a small change is made, such as when an arrow key is pressed.
      * @remarks
-     * 
      * The SmallChange property can support a Not a Number (NaN) value. When retrieving this property, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentsmallchange
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_currentsmallchange
      */
     get_CurrentSmallChange() {
         result := ComCall(9, this, "double*", &retVal := 0, "HRESULT")
@@ -202,7 +196,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the cached value of the control.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedvalue
      */
     get_CachedValue() {
         result := ComCall(10, this, "double*", &retVal := 0, "HRESULT")
@@ -212,7 +206,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves a cached value that indicates whether the value of the element can be changed.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedisreadonly
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedisreadonly
      */
     get_CachedIsReadOnly() {
         result := ComCall(11, this, "int*", &retVal := 0, "HRESULT")
@@ -222,7 +216,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the cached maximum value of the control.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedmaximum
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedmaximum
      */
     get_CachedMaximum() {
         result := ComCall(12, this, "double*", &retVal := 0, "HRESULT")
@@ -232,7 +226,7 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves the cached minimum value of the control.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedminimum
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedminimum
      */
     get_CachedMinimum() {
         result := ComCall(13, this, "double*", &retVal := 0, "HRESULT")
@@ -242,12 +236,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves, from the cache, the value that is added to or subtracted from the value of the control when a large change is made, such as when the PAGE DOWN key is pressed.
      * @remarks
-     * 
      * The LargeChange property can support a Not a Number (NaN) value. When retrieving this property, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedlargechange
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedlargechange
      */
     get_CachedLargeChange() {
         result := ComCall(14, this, "double*", &retVal := 0, "HRESULT")
@@ -257,12 +248,9 @@ class IUIAutomationRangeValuePattern extends IUnknown{
     /**
      * Retrieves, from the cache, the value that is added to or subtracted from the value of the control when a small change is made, such as when an arrow key is pressed.
      * @remarks
-     * 
      * The SmallChange property can support a Not a Number (NaN) value. When retrieving this property, a client can use the <a href="https://docs.microsoft.com/previous-versions/visualstudio/visual-studio-6.0/aa298428(v=vs.60)">_isnan</a> function to determine whether the property is a NaN value.
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedsmallchange
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationrangevaluepattern-get_cachedsmallchange
      */
     get_CachedSmallChange() {
         result := ComCall(15, this, "double*", &retVal := 0, "HRESULT")

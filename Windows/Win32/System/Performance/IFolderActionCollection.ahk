@@ -8,10 +8,8 @@
 /**
  * Manages a collection of FolderAction objects.To get this interface, access the IDataManager::FolderActions property.
  * @remarks
- * 
  * You can add one or more <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ifolderaction">IFolderAction</a> instances. Each instance determines when a folder action occurs. For example, one instance  can trigger folder actions to occur at week one (<a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ifolderaction-get_age">IFolderAction::Age</a> is 7) and a second instance can trigger folder actions to occur at week 10 (<b>Age</b> is 10).
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-ifolderactioncollection
+ * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-ifolderactioncollection
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -53,7 +51,7 @@ class IFolderActionCollection extends IDispatch{
     /**
      * Retrieves the number of folder actions in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "uint*", &Count := 0, "HRESULT")
@@ -63,13 +61,10 @@ class IFolderActionCollection extends IDispatch{
     /**
      * Retrieves the requested folder action from the collection.
      * @remarks
-     * 
      * This property is the object's default property.
-     * 
-     * 
      * @param {VARIANT} Index 
      * @returns {IFolderAction} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get_item
      */
     get_Item(Index) {
         result := ComCall(8, this, "ptr", Index, "ptr*", &Action := 0, "HRESULT")
@@ -77,18 +72,15 @@ class IFolderActionCollection extends IDispatch{
     }
 
     /**
-     * Retrieves an interface to the enumeration.
+     * Retrieves an interface to the enumeration. (IFolderActionCollection.get__NewEnum)
      * @remarks
-     * 
      * C++ programmers use this property.
      * 
      * The enumeration is a snapshot of the collection at the time of the call.
      * 
      * The items of the enumeration are variants whose type is VT_UNKNOWN. To query for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ifolderaction">IFolderAction</a> interface, use the <b>punkVal</b> member of the variant.
-     * 
-     * 
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &Enum := 0, "HRESULT")
@@ -99,7 +91,7 @@ class IFolderActionCollection extends IDispatch{
      * Adds a folder action to the collection.
      * @param {IFolderAction} Action An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ifolderaction">IFolderAction</a> interface of the action to add to the collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-add
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-add
      */
     Add(Action) {
         result := ComCall(10, this, "ptr", Action, "HRESULT")
@@ -108,9 +100,11 @@ class IFolderActionCollection extends IDispatch{
 
     /**
      * Removes a folder action from the collection based on the specified index.
+     * @remarks
+     * If the variant type is VT_DISPATCH, pass the <b>IDispatch</b> interface of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ifolderaction">IFolderAction</a> interface to be removed.
      * @param {VARIANT} Index The zero-based index of the folder action to remove from the collection. The variant type can be VT_I4, VT_UI4, or VT_DISPATCH.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "ptr", Index, "HRESULT")
@@ -120,7 +114,7 @@ class IFolderActionCollection extends IDispatch{
     /**
      * Removes all folder actions from the collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-clear
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -131,7 +125,7 @@ class IFolderActionCollection extends IDispatch{
      * Adds one or more folder actions to the collection.
      * @param {IFolderActionCollection} Actions An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ifolderactioncollection">IFolderActionCollection</a> interface to a collection of one or more folder actions to add to this collection.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-addrange
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-addrange
      */
     AddRange(Actions) {
         result := ComCall(13, this, "ptr", Actions, "HRESULT")
@@ -141,7 +135,7 @@ class IFolderActionCollection extends IDispatch{
     /**
      * Creates a folder action object.
      * @returns {IFolderAction} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ifolderaction">IFolderAction</a> interface that you use to describe the action to be taken by the data manager.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-ifolderactioncollection-createfolderaction
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-ifolderactioncollection-createfolderaction
      */
     CreateFolderAction() {
         result := ComCall(14, this, "ptr*", &FolderAction := 0, "HRESULT")

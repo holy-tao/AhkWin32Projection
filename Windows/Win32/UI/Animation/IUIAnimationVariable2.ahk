@@ -6,7 +6,7 @@
 
 /**
  * Defines an animation variable, which represents a visual element that can be animated in multiple dimensions.
- * @see https://docs.microsoft.com/windows/win32/api//uianimation/nn-uianimation-iuianimationvariable2
+ * @see https://learn.microsoft.com/windows/win32/api/uianimation/nn-uianimation-iuianimationvariable2
  * @namespace Windows.Win32.UI.Animation
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Gets the number of dimensions that the animation variable is to be animated in.
      * @returns {Integer} The number of dimensions.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getdimension
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getdimension
      */
     GetDimension() {
         result := ComCall(3, this, "uint*", &dimension := 0, "HRESULT")
@@ -44,7 +44,7 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Gets the value of the animation variable.
      * @returns {Float} The value of the animation variable.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvalue
      */
     GetValue() {
         result := ComCall(4, this, "double*", &value := 0, "HRESULT")
@@ -55,7 +55,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * Gets the value of the animation variable in the specified dimension.
      * @param {Integer} cDimension The dimension from which to get the value of the animation variable.
      * @returns {Float} The value of the animation variable.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getvectorvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvectorvalue
      */
     GetVectorValue(cDimension) {
         result := ComCall(5, this, "double*", &value := 0, "uint", cDimension, "HRESULT")
@@ -64,9 +64,11 @@ class IUIAnimationVariable2 extends IUnknown{
 
     /**
      * Gets the animation curve of the animation variable.
+     * @remarks
+     * The application implements the <a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a> object that is referenced by the <i>animation</i> parameter.
      * @param {IDCompositionAnimation} animation The object that generates a sequence of animation curve primitives.
-     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getcurve
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getcurve
      */
     GetCurve(animation) {
         result := ComCall(6, this, "ptr", animation, "HRESULT")
@@ -75,10 +77,12 @@ class IUIAnimationVariable2 extends IUnknown{
 
     /**
      * Gets the animation curve of the animation variable for the specified dimension.
+     * @remarks
+     * The application implements the <a href="https://docs.microsoft.com/windows/desktop/api/dcompanimation/nn-dcompanimation-idcompositionanimation">IDCompositionAnimation</a> object that is referenced by the <i>animation</i> parameter.
      * @param {Pointer<IDCompositionAnimation>} animation The object that generates a sequence of animation curve primitives.
      * @param {Integer} cDimension The number of animation curves.
-     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getvectorcurve
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getvectorcurve
      */
     GetVectorCurve(animation, cDimension) {
         result := ComCall(7, this, "ptr*", animation, "uint", cDimension, "HRESULT")
@@ -86,9 +90,9 @@ class IUIAnimationVariable2 extends IUnknown{
     }
 
     /**
-     * Gets the final value of the animation variable. This is the value after all currently scheduled animations have completed.
+     * Gets the final value of the animation variable. This is the value after all currently scheduled animations have completed. (IUIAnimationVariable2.GetFinalValue)
      * @returns {Float} The final value of the animation variable.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getfinalvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalvalue
      */
     GetFinalValue() {
         result := ComCall(8, this, "double*", &finalValue := 0, "HRESULT")
@@ -99,7 +103,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * Gets the final value of the animation variable for the specified dimension. This is the value after all currently scheduled animations have completed.
      * @param {Integer} cDimension The dimension from which to get the value of the animation variable.
      * @returns {Float} The final value of the animation variable.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getfinalvectorvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalvectorvalue
      */
     GetFinalVectorValue(cDimension) {
         result := ComCall(9, this, "double*", &finalValue := 0, "uint", cDimension, "HRESULT")
@@ -107,9 +111,9 @@ class IUIAnimationVariable2 extends IUnknown{
     }
 
     /**
-     * Gets the previous value of the animation variable. This is the value of the animation variable before the most recent update.
+     * Gets the previous value of the animation variable. This is the value of the animation variable before the most recent update. (IUIAnimationVariable2.GetPreviousValue)
      * @returns {Float} The previous value of the animation variable.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getpreviousvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousvalue
      */
     GetPreviousValue() {
         result := ComCall(10, this, "double*", &previousValue := 0, "HRESULT")
@@ -120,7 +124,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * Gets the previous value of the animation variable for the specified dimension. This is the value of the animation variable before the most recent update.
      * @param {Integer} cDimension The dimension from which to get the value of the animation variable.
      * @returns {Float} The previous value of the animation variable.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getpreviousvectorvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousvectorvalue
      */
     GetPreviousVectorValue(cDimension) {
         result := ComCall(11, this, "double*", &previousValue := 0, "uint", cDimension, "HRESULT")
@@ -130,7 +134,7 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Gets the integer value of the animation variable.
      * @returns {Integer} The value of the animation variable as an integer.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getintegervalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getintegervalue
      */
     GetIntegerValue() {
         result := ComCall(12, this, "int*", &value := 0, "HRESULT")
@@ -141,7 +145,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * Gets the integer value of the animation variable for the specified dimension.
      * @param {Integer} cDimension The dimension from which to get the value of the animation variable.
      * @returns {Integer} The value of the animation variable as an integer.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getintegervectorvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getintegervectorvalue
      */
     GetIntegerVectorValue(cDimension) {
         result := ComCall(13, this, "int*", &value := 0, "uint", cDimension, "HRESULT")
@@ -151,7 +155,7 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Gets the final integer value of the animation variable. This is the value after all currently scheduled animations have completed.
      * @returns {Integer} The final value of the animation variable as an integer.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervalue
      */
     GetFinalIntegerValue() {
         result := ComCall(14, this, "int*", &finalValue := 0, "HRESULT")
@@ -162,7 +166,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * Gets the final integer value of the animation variable for the specified dimension. This is the value after all currently scheduled animations have completed.
      * @param {Integer} cDimension The dimension from which to get the value of the animation variable.
      * @returns {Integer} The final value of the animation variable as an integer.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervectorvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getfinalintegervectorvalue
      */
     GetFinalIntegerVectorValue(cDimension) {
         result := ComCall(15, this, "int*", &finalValue := 0, "uint", cDimension, "HRESULT")
@@ -172,7 +176,7 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Gets the previous integer value of the animation variable in the specified dimension. This is the value of the animation variable before the most recent update.
      * @returns {Integer} The previous value of the animation variable as an integer.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervalue
      */
     GetPreviousIntegerValue() {
         result := ComCall(16, this, "int*", &previousValue := 0, "HRESULT")
@@ -183,7 +187,7 @@ class IUIAnimationVariable2 extends IUnknown{
      * Gets the previous integer value of the animation variable for the specified dimension. This is the value of the animation variable before the most recent update.
      * @param {Integer} cDimension The dimension from which to get the value of the animation variable.
      * @returns {Integer} The previous value of the animation variable as an integer.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervectorvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getpreviousintegervectorvalue
      */
     GetPreviousIntegerVectorValue(cDimension) {
         result := ComCall(17, this, "int*", &previousValue := 0, "uint", cDimension, "HRESULT")
@@ -193,7 +197,7 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Gets the active storyboard for the animation variable.
      * @returns {IUIAnimationStoryboard2} The active storyboard, or NULL if the animation variable is not being animated.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-getcurrentstoryboard
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-getcurrentstoryboard
      */
     GetCurrentStoryboard() {
         result := ComCall(18, this, "ptr*", &storyboard := 0, "HRESULT")
@@ -203,8 +207,8 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Sets the lower bound (floor) for the value of the animation variable. The value of the animation variable should not fall below the specified value.
      * @param {Float} bound The lower bound for the value of the animation variable.
-     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setlowerbound
+     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setlowerbound
      */
     SetLowerBound(bound) {
         result := ComCall(19, this, "double", bound, "HRESULT")
@@ -215,8 +219,8 @@ class IUIAnimationVariable2 extends IUnknown{
      * Sets the lower bound (floor) value of each specified dimension for the animation variable. The value of each animation variable should not fall below its lower bound.
      * @param {Pointer<Float>} bound A vector (of size <i>cDimension</i>) that contains  the lower bound values of each dimension.
      * @param {Integer} cDimension The number of dimensions that require lower bound values. This parameter specifies the number of values listed in <i>bound</i>.
-     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setlowerboundvector
+     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setlowerboundvector
      */
     SetLowerBoundVector(bound, cDimension) {
         boundMarshal := bound is VarRef ? "double*" : "ptr"
@@ -228,8 +232,8 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Sets the upper bound (ceiling) for the value of the animation variable. The value of the animation variable should not rise above the specified value.
      * @param {Float} bound The upper bound for the value of the animation variable.
-     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setupperbound
+     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setupperbound
      */
     SetUpperBound(bound) {
         result := ComCall(21, this, "double", bound, "HRESULT")
@@ -240,8 +244,8 @@ class IUIAnimationVariable2 extends IUnknown{
      * Sets the upper bound (ceiling) value of each specified dimension for the animation variable. The value of each animation variable should not rise above its upper bound.
      * @param {Pointer<Float>} bound A vector (of size <i>cDimension</i>) that contains  the upper bound values of each dimension.
      * @param {Integer} cDimension The number of dimensions that require upper bound values. This parameter specifies the number of values listed in <i>bound</i>.
-     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setupperboundvector
+     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setupperboundvector
      */
     SetUpperBoundVector(bound, cDimension) {
         boundMarshal := bound is VarRef ? "double*" : "ptr"
@@ -252,9 +256,12 @@ class IUIAnimationVariable2 extends IUnknown{
 
     /**
      * Sets the rounding mode of the animation variable.
+     * @remarks
+     * An animation variable's rounding mode determines how a floating-point value is converted to an integer.
+     *       The default mode for each variable is <b>UI_ANIMATION_ROUNDING_NEAREST</b>.
      * @param {Integer} mode The rounding mode.
-     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setroundingmode
+     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setroundingmode
      */
     SetRoundingMode(mode) {
         result := ComCall(23, this, "int", mode, "HRESULT")
@@ -263,36 +270,45 @@ class IUIAnimationVariable2 extends IUnknown{
 
     /**
      * Sets the tag of the animation variable.
-     * @param {IUnknown} object The object portion of the tag. This parameter can be <b>NULL</b>.
+     * @remarks
+     * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>), and it can be used by an application to identify an animation variable.          
+     *          Because <b>NULL</b> is a valid object component of a tag, the <i>object</i> parameter can be <b>NULL</b>.
+     * @param {IUnknown} object_R 
      * @param {Integer} id The identifier portion of the tag.
-     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-settag
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-settag
      */
-    SetTag(object, id) {
-        result := ComCall(24, this, "ptr", object, "uint", id, "HRESULT")
+    SetTag(object_R, id) {
+        result := ComCall(24, this, "ptr", object_R, "uint", id, "HRESULT")
         return result
     }
 
     /**
      * Gets the tag of the animation variable.
-     * @param {Pointer<IUnknown>} object The object portion of the tag.
+     * @remarks
+     * A tag is a pairing of an integer identifier (<i>id</i>) with a COM object (<i>object</i>); it can be used by an application to identify an animation variable.
+     * 
+     * The parameters are optional, so that the method can return both portions of the tag, or just the identifier or object portion.
+     * @param {Pointer<IUnknown>} object_R 
      * @param {Pointer<Integer>} id The identifier portion of the tag.
-     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-gettag
+     * @returns {HRESULT} If this method succeeds, it returns S_OK. Otherwise, it returns an  <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-gettag
      */
-    GetTag(object, id) {
+    GetTag(object_R, id) {
         idMarshal := id is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(25, this, "ptr*", object, idMarshal, id, "HRESULT")
+        result := ComCall(25, this, "ptr*", object_R, idMarshal, id, "HRESULT")
         return result
     }
 
     /**
      * Specifies a handler for changes to the value of the animation variable.
+     * @remarks
+     * Passing <b>NULL</b> for the <i>handler</i> parameter causes Windows Animation to release its reference to any handler object that you passed in earlier. This technique can be essential for breaking reference cycles without having to call the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager2-shutdown">IUIAnimationManager2::Shutdown</a> method.
      * @param {IUIAnimationVariableChangeHandler2} handler The handler for changes to the value of the animation variable. This parameter can be <b>NULL</b>.
      * @param {BOOL} fRegisterForNextAnimationEvent If <b>TRUE</b>, specifies that the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager2-estimatenexteventtime">EstimateNextEventTime</a> method will incorporate <i>handler</i> into its estimate of the time interval until the next animation event. No default value.
-     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setvariablechangehandler
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariablechangehandler
      */
     SetVariableChangeHandler(handler, fRegisterForNextAnimationEvent) {
         result := ComCall(26, this, "ptr", handler, "int", fRegisterForNextAnimationEvent, "HRESULT")
@@ -301,10 +317,15 @@ class IUIAnimationVariable2 extends IUnknown{
 
     /**
      * Specifies a handler for changes to the integer value of the animation variable.
+     * @remarks
+     * Passing <b>NULL</b> for the <i>handler</i> parameter causes Windows Animation to release its reference to any handler object that you passed in earlier. This technique can be essential for breaking reference cycles without having to call the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager2-shutdown">Shutdown</a> method.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationvariableintegerchangehandler2-onintegervaluechanged">IUIAnimationVariableIntegerChangeHandler2::OnIntegerValueChanged</a> is called only if the rounded value has changed since the last update.
      * @param {IUIAnimationVariableIntegerChangeHandler2} handler A pointer to the handler for changes to the integer value of the animation variable. This parameter can be <b>NULL</b>.
      * @param {BOOL} fRegisterForNextAnimationEvent If <b>TRUE</b>, specifies that the <a href="https://docs.microsoft.com/windows/desktop/api/uianimation/nf-uianimation-iuianimationmanager2-estimatenexteventtime">EstimateNextEventTime</a> method will incorporate <i>handler</i> into its estimate of the time interval until the next animation event. No default value.
-     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setvariableintegerchangehandler
+     * @returns {HRESULT} Returns <b>S_OK</b> if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariableintegerchangehandler
      */
     SetVariableIntegerChangeHandler(handler, fRegisterForNextAnimationEvent) {
         result := ComCall(27, this, "ptr", handler, "int", fRegisterForNextAnimationEvent, "HRESULT")
@@ -314,8 +335,8 @@ class IUIAnimationVariable2 extends IUnknown{
     /**
      * Specifies a handler for changes to the animation curve of the animation variable.
      * @param {IUIAnimationVariableCurveChangeHandler2} handler A pointer to the handler for changes to the animation curve of the animation variable. This parameter can be <b>NULL</b>.
-     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//uianimation/nf-uianimation-iuianimationvariable2-setvariablecurvechangehandler
+     * @returns {HRESULT} Returns S_OK if successful; otherwise an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/UIAnimation/uianimation-error-codes">Windows Animation Error Codes</a> for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/uianimation/nf-uianimation-iuianimationvariable2-setvariablecurvechangehandler
      */
     SetVariableCurveChangeHandler(handler) {
         result := ComCall(28, this, "ptr", handler, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * This interface performs all the same functions as the existing ID2D1GdiMetafileSink interface. It also enables access to metafile records.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1gdimetafilesink1
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1gdimetafilesink1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ID2D1GdiMetafileSink1 extends ID2D1GdiMetafileSink{
 
     /**
      * Provides access to metafile records, including their type, data, and flags.
+     * @remarks
+     * For details on the EMF and EMF+ formats, please see Microsoft technical documents  <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-emf/91c257d7-c39d-4a36-9b1f-63e3f73d30ca">MS-EMF</a> and <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-emfplus/5f92c789-64f2-46b5-9ed4-15a9bb0946c6">MS-EMFPLUS</a>.
      * @param {Integer} recordType Type: <b>DWORD</b>
      * 
      * The type of metafile record being processed. Please see <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-emf/91c257d7-c39d-4a36-9b1f-63e3f73d30ca">MS-EMF</a> and <a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-emfplus/5f92c789-64f2-46b5-9ed4-15a9bb0946c6">MS-EMFPLUS</a> for a list of record types.
@@ -47,7 +49,7 @@ class ID2D1GdiMetafileSink1 extends ID2D1GdiMetafileSink{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * S_OK if successful, otherwise a failure HRESULT.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1gdimetafilesink1-processrecord
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1gdimetafilesink1-processrecord
      */
     ProcessRecord(recordType, recordData, recordDataSize, flags) {
         recordDataMarshal := recordData is VarRef ? "ptr" : "ptr"

@@ -6,7 +6,7 @@
 
 /**
  * Contains information about the change in the progress of an asynchronous download operation.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-idownloadprogresschangedcallbackargs
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-idownloadprogresschangedcallbackargs
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IDownloadProgressChangedCallbackArgs extends IDispatch{
     /**
      * Gets an interface that contains the progress of the asynchronous download at the time that the callback was made.
      * @returns {IDownloadProgress} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-idownloadprogresschangedcallbackargs-get_progress
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-idownloadprogresschangedcallbackargs-get_progress
      */
     get_Progress() {
         result := ComCall(7, this, "ptr*", &retval := 0, "HRESULT")

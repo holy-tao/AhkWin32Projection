@@ -6,7 +6,7 @@
 
 /**
  * Represents a collection of Windows Deployment Services (WDS) transport management objects.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportcollection
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcollection
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -54,7 +54,7 @@ class IWdsTransportCollection extends IDispatch{
     /**
      * Receives the number of objects in this collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "uint*", &pulCount := 0, "HRESULT")
@@ -65,7 +65,7 @@ class IWdsTransportCollection extends IDispatch{
      * Receives a pointer to the object that matches the specified index.
      * @param {Integer} ulIndex 
      * @returns {IDispatch} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get_item
      */
     get_Item(ulIndex) {
         result := ComCall(8, this, "uint", ulIndex, "ptr*", &ppVal := 0, "HRESULT")
@@ -75,7 +75,7 @@ class IWdsTransportCollection extends IDispatch{
     /**
      * Receives a pointer to an enumerator that can be used to iterate over the objects in this collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppVal := 0, "HRESULT")

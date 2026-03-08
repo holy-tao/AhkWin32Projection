@@ -6,7 +6,7 @@
 
 /**
  * Enables the management of stream configurations for a multiplexed media source. A stream configuration defines a set of substreams that can be included the multiplexed output.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfmuxstreammediatypemanager
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmuxstreammediatypemanager
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,9 +32,9 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
     static VTableNames => ["GetStreamCount", "GetMediaType", "GetStreamConfigurationCount", "AddStreamConfiguration", "RemoveStreamConfiguration", "GetStreamConfiguration"]
 
     /**
-     * Gets the count of substreams managed by the multiplexed media source.
+     * Gets the count of substreams managed by the multiplexed media source. (IMFMuxStreamMediaTypeManager.GetStreamCount)
      * @returns {Integer} The count of substreams managed by the multiplexed media source.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamcount
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamcount
      */
     GetStreamCount() {
         result := ComCall(3, this, "uint*", &pdwMuxStreamCount := 0, "HRESULT")
@@ -45,7 +45,7 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
      * Gets the IMFMediaType of the substream with the specified index.
      * @param {Integer} dwMuxStreamIndex The index of the substream for which the media type is retrieved.
      * @returns {IMFMediaType} The media type of the substream with the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getmediatype
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getmediatype
      */
     GetMediaType(dwMuxStreamIndex) {
         result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
@@ -55,7 +55,7 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
     /**
      * Gets the count of registered stream configurations, which define set of substreams that can be included the multiplexed output.
      * @returns {Integer} The number of registered stream configurations.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamconfigurationcount
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamconfigurationcount
      */
     GetStreamConfigurationCount() {
         result := ComCall(5, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -64,6 +64,8 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
 
     /**
      * Registers a stream configuration, which defines a set of substreams that can be included the multiplexed output.
+     * @remarks
+     * Stream configurations are ordered within the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmuxstreammediatypemanager">IMFMuxStreamMediaTypeManager</a> by the numeric value of the bitmask.
      * @param {Integer} ullStreamMask A bitmask value where the bits that are on represent the indices of the substreams that are included in the stream configuration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
@@ -120,7 +122,7 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-addstreamconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-addstreamconfiguration
      */
     AddStreamConfiguration(ullStreamMask) {
         result := ComCall(6, this, "uint", ullStreamMask, "HRESULT")
@@ -174,7 +176,7 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-removestreamconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-removestreamconfiguration
      */
     RemoveStreamConfiguration(ullStreamMask) {
         result := ComCall(7, this, "uint", ullStreamMask, "HRESULT")
@@ -183,9 +185,11 @@ class IMFMuxStreamMediaTypeManager extends IUnknown{
 
     /**
      * Gets the stream configuration with the specified index, which defines a set of substreams that can be included the multiplexed output.
+     * @remarks
+     * Stream configurations are ordered within the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmuxstreammediatypemanager">IMFMuxStreamMediaTypeManager</a> by the numeric value of the bitmask.
      * @param {Integer} ulIndex The index of the configuration to retrieve.
      * @returns {Integer} The index of the configuration to retrieve.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamconfiguration
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreammediatypemanager-getstreamconfiguration
      */
     GetStreamConfiguration(ulIndex) {
         result := ComCall(8, this, "uint", ulIndex, "uint*", &pullStreamMask := 0, "HRESULT")

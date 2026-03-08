@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Defines values that are used with the FILE_IO_PRIORITY_HINT_INFO structure to specify the priority hint for a file I/O operation.
+ * @see https://learn.microsoft.com/windows/win32/api/winbase/ne-winbase-priority_hint
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */

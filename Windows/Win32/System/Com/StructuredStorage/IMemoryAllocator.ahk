@@ -3,7 +3,9 @@
 #Include ..\..\..\..\..\Guid.ahk
 
 /**
- * 
+ * Implemented by the memory allocator for the StgConvertPropertyToVariant function.
+ * @remarks
+ * This class is only used by the [**StgConvertPropertyToVariant**](/windows/desktop/api/propidl/nf-propidl-stgconvertpropertytovariant) function.
  * @see https://learn.microsoft.com/windows/win32/Stg/imemoryallocator
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
@@ -25,8 +27,8 @@ class IMemoryAllocator extends Win32ComInterface{
     static VTableNames => ["Allocate", "Free"]
 
     /**
-     * 
-     * @param {Integer} cbSize 
+     * The Allocate method allocates memory for the StgConvertPropertyToVariant function when the function converts a SERIALIZEDPROPERTYVALUE data type to a PROPVARIANT data type.
+     * @param {Integer} cbSize Specifies the size of memory to be allocated.
      * @returns {Pointer<Void>} 
      * @see https://learn.microsoft.com/windows/win32/Stg/imemoryallocator-allocate
      */
@@ -36,8 +38,8 @@ class IMemoryAllocator extends Win32ComInterface{
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} pv 
+     * The Free method frees the memory allocated by the Allocate method.
+     * @param {Pointer<Void>} pv Pointer to the memory to be freed.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/Stg/imemoryallocator-free
      */

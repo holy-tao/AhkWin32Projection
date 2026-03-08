@@ -6,7 +6,7 @@
 
 /**
  * A function instance is created as the result of calling one of the IFunctionDiscovery methods; client program do not create these objects themselves.
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -42,7 +42,7 @@ class IFunctionInstance extends IServiceProvider{
      * This identifier should not be manipulated or manufactured programmatically. The string should only be used to retrieve function instances and for comparison purposes. 
      * 
      * Be sure to free this buffer using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getid
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getid
      */
     GetID() {
         result := ComCall(4, this, "ptr*", &ppszCoMemIdentity := 0, "HRESULT")
@@ -54,7 +54,7 @@ class IFunctionInstance extends IServiceProvider{
      * @returns {Pointer<Integer>} The provider instance identifier string. For root devices, this string has the same value as PKEY_PNPX_GlobalIdentity.
      * 
      * Be sure to free this buffer using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getproviderinstanceid
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getproviderinstanceid
      */
     GetProviderInstanceID() {
         result := ComCall(5, this, "ptr*", &ppszCoMemProviderInstanceIdentity := 0, "HRESULT")
@@ -63,12 +63,16 @@ class IFunctionInstance extends IServiceProvider{
 
     /**
      * Opens the property store for the function instance.
+     * @remarks
+     * Only one property store per function instance can be open at a time. If <b>OpenPropertyStore</b> is called twice on the same function instance, both <i>ppIPropertyStore</i> pointers would point to the same property store. Furthermore, the access mode (as specified by the  <i>dwStgAccess</i> parameter) would be determined by the most recent <b>OpenPropertyStore</b> call. Applications should call <b>Release</b> to close a property store before opening another.
+     * 
+     * It is possible that <b>OpenPropertyStore</b> will return a property store for a device that has been removed. In this case, the property keys in the store will be empty. This situation may occur if the device's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/function-discovery-glossary">devnode</a> was deleted but the property store associated with the device's function instance is still accessible. This situation occurs rarely.
      * @param {Integer} dwStgAccess The access mode to be assigned to the open stream.  For this method, the following access modes are supported:
      * 
      * <a id="STGM_READ"></a>
      * <a id="stgm_read"></a>
      * @returns {IPropertyStore} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-openpropertystore
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-openpropertystore
      */
     OpenPropertyStore(dwStgAccess) {
         result := ComCall(6, this, "uint", dwStgAccess, "ptr*", &ppIPropertyStore := 0, "HRESULT")
@@ -77,6 +81,8 @@ class IFunctionInstance extends IServiceProvider{
 
     /**
      * Gets the category and subcategory strings for the function instance.
+     * @remarks
+     * The category and subcategory of a function instance always refer to the provider category from which a function instance comes.
      * @param {Pointer<Pointer<Integer>>} ppszCoMemCategory The null-terminated identifier string of the category. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/category-definitions">Category Definitions</a>.
      * 
      * Be sure to free this buffer using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
@@ -111,7 +117,7 @@ class IFunctionInstance extends IServiceProvider{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getcategory
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryapi/nf-functiondiscoveryapi-ifunctioninstance-getcategory
      */
     GetCategory(ppszCoMemCategory, ppszCoMemSubCategory) {
         ppszCoMemCategoryMarshal := ppszCoMemCategory is VarRef ? "ptr*" : "ptr"

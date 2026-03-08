@@ -7,10 +7,8 @@
 /**
  * The IFELanguage interface provides language processing services using the Microsoft IME.
  * @remarks
- * 
  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifelanguageinstance">CreateIFELanguageInstance</a> function.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msime/nn-msime-ifelanguage
+ * @see https://learn.microsoft.com/windows/win32/api/msime/nn-msime-ifelanguage
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
@@ -38,7 +36,7 @@ class IFELanguage extends IUnknown{
     /**
      * Initializes the IFELanguage object.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-open
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-open
      */
     Open() {
         result := ComCall(3, this, "HRESULT")
@@ -48,7 +46,7 @@ class IFELanguage extends IUnknown{
     /**
      * Terminates the IFELanguage object.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-close
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")
@@ -380,7 +378,7 @@ class IFELanguage extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-getjmorphresult
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-getjmorphresult
      */
     GetJMorphResult(dwRequest, dwCMode, cwchInput, pwchInput, pfCInfo, ppResult) {
         pwchInput := pwchInput is String ? StrPtr(pwchInput) : pwchInput
@@ -642,7 +640,7 @@ class IFELanguage extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-getconversionmodecaps
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-getconversionmodecaps
      */
     GetConversionModeCaps(pdwCaps) {
         pdwCapsMarshal := pdwCaps is VarRef ? "uint*" : "ptr"
@@ -653,32 +651,32 @@ class IFELanguage extends IUnknown{
 
     /**
      * 
-     * @param {BSTR} string 
+     * @param {BSTR} string_R 
      * @param {Integer} start 
      * @param {Integer} length 
      * @param {Pointer<BSTR>} phonetic 
      * @returns {HRESULT} 
      */
-    GetPhonetic(string, start, length, phonetic) {
-        string := string is String ? BSTR.Alloc(string).Value : string
+    GetPhonetic(string_R, start, length, phonetic) {
+        string_R := string_R is String ? BSTR.Alloc(string_R).Value : string_R
 
-        result := ComCall(7, this, "ptr", string, "int", start, "int", length, "ptr", phonetic, "HRESULT")
+        result := ComCall(7, this, "ptr", string_R, "int", start, "int", length, "ptr", phonetic, "HRESULT")
         return result
     }
 
     /**
      * Converts the input string (which usually contains the Hiragana character) to converted strings.
-     * @param {BSTR} string A string of phonetic characters to convert.
+     * @param {BSTR} string_R 
      * @param {Integer} start The starting character from which <a href="https://docs.microsoft.com/windows/desktop/api/msime/nn-msime-ifelanguage">IFELanguage</a> begins conversion. The first character of <i>string</i> is represented by 1 (not 0).
      * @param {Integer} length The number of characters to convert. If this value is -1, all of the remaining characters from <i>start</i>  are converted.
      * @param {Pointer<BSTR>} result The converted string. This string is allocated by <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstringlen">SysAllocStringLen</a> and must be freed by the client.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifelanguage-getconversion
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifelanguage-getconversion
      */
-    GetConversion(string, start, length, result) {
-        string := string is String ? BSTR.Alloc(string).Value : string
+    GetConversion(string_R, start, length, result) {
+        string_R := string_R is String ? BSTR.Alloc(string_R).Value : string_R
 
-        result := ComCall(8, this, "ptr", string, "int", start, "int", length, "ptr", result, "HRESULT")
+        result := ComCall(8, this, "ptr", string_R, "int", start, "int", length, "ptr", result, "HRESULT")
         return result
     }
 }

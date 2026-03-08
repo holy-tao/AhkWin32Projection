@@ -7,7 +7,7 @@
 
 /**
  * Exported by the server engine and is called by exit modules.
- * @see https://docs.microsoft.com/windows/win32/api//certif/nn-certif-icertserverexit
+ * @see https://learn.microsoft.com/windows/win32/api/certif/nn-certif-icertserverexit
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class ICertServerExit extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-setcontext
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-setcontext
      */
     SetContext(Context) {
         result := ComCall(7, this, "int", Context, "HRESULT")
@@ -48,6 +48,9 @@ class ICertServerExit extends IDispatch{
 
     /**
      * Returns a named property from a request.
+     * @remarks
+     * You must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-setcontext">ICertServerExit::SetContext</a> prior to using this method.
      * @param {BSTR} strPropertyName Specifies the property to retrieve. There is a stock set of certificate properties, referred to as the name properties, that are always valid and can be retrieved by calling this method. For information about these properties, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/name-properties">Name Properties</a>.
      * 
@@ -236,7 +239,7 @@ class ICertServerExit extends IDispatch{
      * </tr>
      * </table>
      * @returns {VARIANT} A pointer to the <b>VARIANT</b> that will contain the request property type.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-getrequestproperty
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getrequestproperty
      */
     GetRequestProperty(strPropertyName, PropertyType) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
@@ -248,9 +251,32 @@ class ICertServerExit extends IDispatch{
 
     /**
      * Returns a named attribute value from a request.
+     * @remarks
+     * You must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-setcontext">ICertServerExit::SetContext</a> prior to using this method.
+     * 
+     * The following request attributes are unique to KEYGEN style requests.
+     * 
+     * <table>
+     * <tr>
+     * <th>Property name</th>
+     * <th>Type</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>Challenge</td>
+     * <td><b>String</b></td>
+     * <td>Challenge string that accompanies the request.</td>
+     * </tr>
+     * <tr>
+     * <td>ExpectedChallenge</td>
+     * <td><b>String</b></td>
+     * <td>If the challenge string is incorrect, then the server will set the value of this request attribute to the expected challenge so that failure can be diagnosed.</td>
+     * </tr>
+     * </table>
      * @param {BSTR} strAttributeName The name of the attribute to retrieve.
      * @returns {BSTR} A pointer to a <b>BSTR</b> value that will contain the attribute value.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-getrequestattribute
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getrequestattribute
      */
     GetRequestAttribute(strAttributeName) {
         strAttributeName := strAttributeName is String ? BSTR.Alloc(strAttributeName).Value : strAttributeName
@@ -261,7 +287,10 @@ class ICertServerExit extends IDispatch{
     }
 
     /**
-     * Returns a named property from a certificate.
+     * Returns a named property from a certificate. (ICertServerExit.GetCertificateProperty)
+     * @remarks
+     * You must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-setcontext">ICertServerExit::SetContext</a> prior to using this method.
      * @param {BSTR} strPropertyName Specifies the named property to retrieve. There is a stock set of certificate properties, referred to as the <i>name properties</i>, that are always valid and can be retrieved by calling this method. For information about these properties, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/name-properties">Name Properties</a>. Other properties that can be retrieved include the certificate properties.
      * 						
@@ -429,7 +458,7 @@ class ICertServerExit extends IDispatch{
      * </tr>
      * </table>
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> that will contain the property value. The returned value is encoded as a <b>BSTR</b>. Use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysstringbytelen">SysStringByteLen</a> function to retrieve the length of the <b>BSTR</b>.  The binary <a href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">BLOB</a> is stored as a <a href="https://docs.microsoft.com/windows/desktop/SecGloss/d-gly">Distinguished Encoding Rules</a>  encoded X.509 certificate.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-getcertificateproperty
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getcertificateproperty
      */
     GetCertificateProperty(strPropertyName, PropertyType) {
         strPropertyName := strPropertyName is String ? BSTR.Alloc(strPropertyName).Value : strPropertyName
@@ -441,6 +470,9 @@ class ICertServerExit extends IDispatch{
 
     /**
      * Gets a specified certificate extension.
+     * @remarks
+     * You must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-setcontext">ICertServerExit::SetContext</a> prior to using this method.
      * @param {BSTR} strExtensionName A string that contains the name of the extension.
      * @param {Integer} Type Specifies the type of the extension. The type can be one of the following types.
      * 
@@ -491,7 +523,7 @@ class ICertServerExit extends IDispatch{
      * </tr>
      * </table>
      * @returns {VARIANT} A  pointer to a <b>VARIANT</b> that receives the requested extension value.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-getcertificateextension
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getcertificateextension
      */
     GetCertificateExtension(strExtensionName, Type) {
         strExtensionName := strExtensionName is String ? BSTR.Alloc(strExtensionName).Value : strExtensionName
@@ -503,8 +535,107 @@ class ICertServerExit extends IDispatch{
 
     /**
      * Gets the flags from the extension acquired by the most recent call to ICertServerExit::GetCertificateExtension.
+     * @remarks
+     * There are two kinds of flags used in extensions: policy flags and origin flags.<table>
+     * <tr>
+     * <th>Flag type</th>
+     * <th>Explanation</th>
+     * </tr>
+     * <tr>
+     * <td>Policy</td>
+     * <td>Provides information about the certificate extension. Policy flags can be set by the policy module.</td>
+     * </tr>
+     * <tr>
+     * <td>Origin</td>
+     * <td>Indicates the module that set the certificate extension. Origin flags are only set by the server engine.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * One or more policy flags can be returned from an extension. The following are predefined policy flags.<table>
+     * <tr>
+     * <th>Policy flag value</th>
+     * <th>Explanation</th>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_CRITICAL_FLAG</td>
+     * <td>This is a critical extension.</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_DISABLE_FLAG</td>
+     * <td>Extension will not be used.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * One of the following origin flags can also be returned.<table>
+     * <tr>
+     * <th>Origin flag value</th>
+     * <th>Explanation</th>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_REQUEST</td>
+     * <td>The extension was extracted from an array of extensions stored in the szOID_CERT_EXTENSIONS (1.3.6.1.4.1.311.2.1.14) or szOID_RSA_certExtensions (1.2.840.113549.1.9.14) attribute of a PKCS #10 request.</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_POLICY</td>
+     * <td>The policy module set the extension.</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_ADMIN</td>
+     * <td>The administrator set the extension. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-setcertificateextension">ICertAdmin::SetCertificateExtension</a>.</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_SERVER</td>
+     * <td>The server engine set the extension.</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_RENEWALCERT</td>
+     * <td>The extension was extracted from the certificate stored in the szOID_RENEWAL_CERTIFICATE (1.3.6.1.4.1.311.13.1) attribute of a PKCS #10 renewal request.</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_IMPORTEDCERT</td>
+     * <td>The extension was extracted from an imported certificate (the certificate was passed to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin-importcertificate">ICertAdmin::ImportCertificate</a>).</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_PKCS7</td>
+     * <td>The extension was extracted from an array of extensions stored in the szOID_CERT_EXTENSIONS (1.3.6.1.4.1.311.2.1.14) or szOID_RSA_certExtensions (1.2.840.113549.1.9.14) attribute of a PKCS #7 request.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * Predefined masks are provided for ease of use in determining which flags are set in the return value. The following masks are provided.<table>
+     * <tr>
+     * <th>Mask value</th>
+     * <th>Explanation</th>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_POLICY_MASK</td>
+     * <td>This value (0x0000FFFF) is used to examine policy flags.</td>
+     * </tr>
+     * <tr>
+     * <td>EXTENSION_ORIGIN_MASK</td>
+     * <td>This value (0x000F0000) is used to examine origin flags.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * It is safe to use the high 8 bits of EXTENSION_POLICY_MASK for custom data. These bits will be saved persistently in the database but will not be written to the certificate extensions.
+     * 
+     * You must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-setcontext">ICertServerExit::SetContext</a> prior to using this method.
      * @returns {Integer} A pointer to a <b>LONG</b> variable that will contain the extension flags.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-getcertificateextensionflags
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-getcertificateextensionflags
      */
     GetCertificateExtensionFlags() {
         result := ComCall(12, this, "int*", &pExtFlags := 0, "HRESULT")
@@ -512,13 +643,16 @@ class ICertServerExit extends IDispatch{
     }
 
     /**
-     * Initializes the internal enumeration pointer to the first certificate extension associated with the current context.
+     * Initializes the internal enumeration pointer to the first certificate extension associated with the current context. (ICertServerExit.EnumerateExtensionsSetup)
+     * @remarks
+     * You must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-setcontext">ICertServerExit::SetContext</a> before using this method.
      * @param {Integer} Flags This parameter is reserved and must be set to zero.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-enumerateextensionssetup
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateextensionssetup
      */
     EnumerateExtensionsSetup(Flags) {
         result := ComCall(13, this, "int", Flags, "HRESULT")
@@ -527,8 +661,11 @@ class ICertServerExit extends IDispatch{
 
     /**
      * Returns the object identifier (OID) string (also known as the extension name) of the next certificate extension to be enumerated, then increments the internal pointer to the following extension.
+     * @remarks
+     * This method enumerates certificate extensions recorded in the database, even those that are disabled and do not appear in the certificate. To determine whether an extension is disabled, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-getcertificateextensionflags">ICertServerExit::GetCertificateExtensionFlags</a> to test the extension's EXTENSION_DISABLE_FLAG bit.
      * @returns {BSTR} A pointer to the enumerated extension name.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-enumerateextensions
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateextensions
      */
     EnumerateExtensions() {
         pstrExtensionName := BSTR()
@@ -539,7 +676,7 @@ class ICertServerExit extends IDispatch{
     /**
      * Frees any resources connected with extension enumeration.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-enumerateextensionsclose
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateextensionsclose
      */
     EnumerateExtensionsClose() {
         result := ComCall(15, this, "HRESULT")
@@ -547,13 +684,16 @@ class ICertServerExit extends IDispatch{
     }
 
     /**
-     * Initializes the internal enumeration pointer to the first request attribute associated with the current context.
+     * Initializes the internal enumeration pointer to the first request attribute associated with the current context. (ICertServerExit.EnumerateAttributesSetup)
+     * @remarks
+     * You must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certif/nf-certif-icertserverexit-setcontext">ICertServerExit::SetContext</a> prior to using this method.
      * @param {Integer} Flags This parameter is reserved and must be set to zero.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-enumerateattributessetup
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributessetup
      */
     EnumerateAttributesSetup(Flags) {
         result := ComCall(16, this, "int", Flags, "HRESULT")
@@ -563,7 +703,7 @@ class ICertServerExit extends IDispatch{
     /**
      * Returns the name of the next request attribute within the current context, then increments the internal pointer to the following attribute.
      * @returns {BSTR} A pointer to the enumerated attribute name.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-enumerateattributes
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributes
      */
     EnumerateAttributes() {
         pstrAttributeName := BSTR()
@@ -576,8 +716,8 @@ class ICertServerExit extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certif/nf-certif-icertserverexit-enumerateattributesclose
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certif/nf-certif-icertserverexit-enumerateattributesclose
      */
     EnumerateAttributesClose() {
         result := ComCall(18, this, "HRESULT")

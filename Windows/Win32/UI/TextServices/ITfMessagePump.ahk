@@ -6,12 +6,8 @@
 /**
  * The ITfMessagePump interface is implemented by the TSF manager and is used by an application to obtain messages from the application message queue.
  * @remarks
- * 
  * If the application is Unicode, it should use the PeekMessageW and GetMessageW methods. Otherwise, the application should use the PeekMessageA and GetMessageA methods.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfmessagepump
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfmessagepump
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -38,6 +34,8 @@ class ITfMessagePump extends IUnknown{
 
     /**
      * ITfMessagePump::PeekMessageA method
+     * @remarks
+     * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
      * @param {HWND} hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window owned by the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value to obtain.
@@ -74,7 +72,7 @@ class ITfMessagePump extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmessagepump-peekmessagea
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-peekmessagea
      */
     PeekMessageA(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -87,6 +85,8 @@ class ITfMessagePump extends IUnknown{
 
     /**
      * ITfMessagePump::GetMessageA method
+     * @remarks
+     * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
      * @param {HWND} hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window that belongs to the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value obtained.
@@ -122,7 +122,7 @@ class ITfMessagePump extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmessagepump-getmessagea
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-getmessagea
      */
     GetMessageA(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -135,6 +135,8 @@ class ITfMessagePump extends IUnknown{
 
     /**
      * ITfMessagePump::PeekMessageW method
+     * @remarks
+     * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
      * @param {HWND} hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window that belongs to the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value to obtain.
@@ -171,7 +173,7 @@ class ITfMessagePump extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmessagepump-peekmessagew
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-peekmessagew
      */
     PeekMessageW(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, wRemoveMsg, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -184,6 +186,8 @@ class ITfMessagePump extends IUnknown{
 
     /**
      * ITfMessagePump::GetMessageW method
+     * @remarks
+     * If <i>wMsgFilterMin</i> and <i>wMsgFilterMax</i> are both zero, this method returns all available messages; that is, no range filtering is performed.
      * @param {Pointer<MSG>} pMsg Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that receives message data.
      * @param {HWND} hwnd Handle to the window whose messages are obtained. The window must belong to the current thread. If this value is <b>NULL</b>, this method obtains messages for any window owned by the calling thread.
      * @param {Integer} wMsgFilterMin Specifies the lowest message value to obtain.
@@ -219,7 +223,7 @@ class ITfMessagePump extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfmessagepump-getmessagew
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfmessagepump-getmessagew
      */
     GetMessageW(pMsg, hwnd, wMsgFilterMin, wMsgFilterMax, pfResult) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

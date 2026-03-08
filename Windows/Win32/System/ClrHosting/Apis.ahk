@@ -106,11 +106,7 @@ class ClrHosting {
 
         dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\GetCORSystemDirectory", "ptr", pbuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetCORSystemDirectory", "ptr", pbuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
         return result
     }
 
@@ -127,21 +123,34 @@ class ClrHosting {
 
         dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\GetCORVersion", "ptr", pbBuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetCORVersion", "ptr", pbBuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
         return result
     }
 
     /**
+     * Retrieves version information for the specified file. (GetFileVersionInfoW)
+     * @remarks
+     * File version info has fixed and non-fixed part. The fixed part contains information like version number. The non-fixed part contains things like strings. In the past <b>GetFileVersionInfo</b> was taking version information from the binary (exe/dll). Currently, it is querying fixed version from language neutral file (exe/dll) and the non-fixed part from mui file, merges them and returns to the user.
+     * If the given binary does not have a mui file then behavior is as in previous version.
      * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-getfileversioninfosizea">GetFileVersionInfoSize</a> function before calling the <b>GetFileVersionInfo</b> function. To retrieve information from the file-version information buffer, use the <a href="https://docs.microsoft.com/windows/desktop/api/winver/nf-winver-verqueryvaluea">VerQueryValue</a> function.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winver.h header defines GetFileVersionInfo as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {PWSTR} szFilename 
      * @param {PWSTR} szBuffer 
      * @param {Integer} cchBuffer 
      * @param {Pointer<Integer>} dwLength 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>BOOL</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winver/nf-winver-getfileversioninfow
      * @deprecated 
      */
     static GetFileVersion(szFilename, szBuffer, cchBuffer, dwLength) {
@@ -150,11 +159,7 @@ class ClrHosting {
 
         dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\GetFileVersion", "ptr", szFilename, "ptr", szBuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetFileVersion", "ptr", szFilename, "ptr", szBuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
         return result
     }
 
@@ -171,11 +176,7 @@ class ClrHosting {
 
         dwLengthMarshal := dwLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\GetCORRequiredVersion", "ptr", pbuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetCORRequiredVersion", "ptr", pbuffer, "uint", cchBuffer, dwLengthMarshal, dwLength, "HRESULT")
         return result
     }
 
@@ -205,11 +206,7 @@ class ClrHosting {
         dwDirectoryLengthMarshal := dwDirectoryLength is VarRef ? "uint*" : "ptr"
         dwlengthMarshal := dwlength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\GetRequestedRuntimeInfo", "ptr", pExe, "ptr", pwszVersion, "ptr", pConfigurationFile, "uint", startupFlags, "uint", runtimeInfoFlags, "ptr", pDirectory, "uint", dwDirectory, dwDirectoryLengthMarshal, dwDirectoryLength, "ptr", pVersion, "uint", cchBuffer, dwlengthMarshal, dwlength, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetRequestedRuntimeInfo", "ptr", pExe, "ptr", pwszVersion, "ptr", pConfigurationFile, "uint", startupFlags, "uint", runtimeInfoFlags, "ptr", pDirectory, "uint", dwDirectory, dwDirectoryLengthMarshal, dwDirectoryLength, "ptr", pVersion, "uint", cchBuffer, dwlengthMarshal, dwlength, "HRESULT")
         return result
     }
 
@@ -225,11 +222,7 @@ class ClrHosting {
         pExe := pExe is String ? StrPtr(pExe) : pExe
         pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersion", "ptr", pExe, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "HRESULT")
         return dwLength
     }
 
@@ -254,11 +247,7 @@ class ClrHosting {
         pReservedMarshal := pReserved is VarRef ? "ptr" : "ptr"
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeHost", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", pwszHostConfigFile, pReservedMarshal, pReserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -279,11 +268,7 @@ class ClrHosting {
 
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeEx", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -301,11 +286,7 @@ class ClrHosting {
     static CorBindToRuntimeByCfg(pCfgStream, reserved, startupFlags, rclsid, riid, ppv) {
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, "uint", reserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CorBindToRuntimeByCfg", "ptr", pCfgStream, "uint", reserved, "uint", startupFlags, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -325,11 +306,7 @@ class ClrHosting {
 
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CorBindToRuntime", "ptr", pwszVersion, "ptr", pwszBuildFlavor, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -347,11 +324,7 @@ class ClrHosting {
 
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CorBindToCurrentRuntime", "ptr", pwszFileName, "ptr", rclsid, "ptr", riid, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -368,11 +341,7 @@ class ClrHosting {
 
         ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, ppObjectMarshal, ppObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\ClrCreateManagedInstance", "ptr", pTypeName, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
         return result
     }
 
@@ -399,11 +368,7 @@ class ClrHosting {
         hinst := hinst is Win32Handle ? NumGet(hinst, "ptr") : hinst
         lpszCmdLine := lpszCmdLine is String ? StrPtr(lpszCmdLine) : lpszCmdLine
 
-        result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\RunDll32ShimW", "ptr", hwnd, "ptr", hinst, "ptr", lpszCmdLine, "int", nCmdShow, "HRESULT")
         return result
     }
 
@@ -427,11 +392,7 @@ class ClrHosting {
 
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSCorEE.dll\LoadLibraryShim", "ptr", szDllName, "ptr", szVersion, pvReservedMarshal, pvReserved, "ptr", phModDll, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\LoadLibraryShim", "ptr", szDllName, "ptr", szVersion, pvReservedMarshal, pvReserved, "ptr", phModDll, "HRESULT")
         return result
     }
 
@@ -455,11 +416,7 @@ class ClrHosting {
         lpvArgument2Marshal := lpvArgument2 is VarRef ? "ptr" : "ptr"
         pvReservedMarshal := pvReserved is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CallFunctionShim", "ptr", szDllName, "ptr", szFunctionName, lpvArgument1Marshal, lpvArgument1, lpvArgument2Marshal, lpvArgument2, "ptr", szVersion, pvReservedMarshal, pvReserved, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CallFunctionShim", "ptr", szDllName, "ptr", szFunctionName, lpvArgument1Marshal, lpvArgument1, lpvArgument2Marshal, lpvArgument2, "ptr", szVersion, pvReservedMarshal, pvReserved, "HRESULT")
         return result
     }
 
@@ -475,11 +432,7 @@ class ClrHosting {
 
         ppvMarshal := ppv is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\GetRealProcAddress", "ptr", pwszProcName, ppvMarshal, ppv, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetRealProcAddress", "ptr", pwszProcName, ppvMarshal, ppv, "HRESULT")
         return result
     }
 
@@ -505,11 +458,7 @@ class ClrHosting {
     static LoadStringRC(iResouceID, szBuffer, iMax, bQuiet) {
         szBuffer := szBuffer is String ? StrPtr(szBuffer) : szBuffer
 
-        result := DllCall("MSCorEE.dll\LoadStringRC", "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\LoadStringRC", "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, "HRESULT")
         return result
     }
 
@@ -529,11 +478,7 @@ class ClrHosting {
 
         pcwchUsedMarshal := pcwchUsed is VarRef ? "int*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\LoadStringRCEx", "uint", lcid, "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, pcwchUsedMarshal, pcwchUsed, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\LoadStringRCEx", "uint", lcid, "uint", iResouceID, "ptr", szBuffer, "int", iMax, "int", bQuiet, pcwchUsedMarshal, pcwchUsed, "HRESULT")
         return result
     }
 
@@ -549,11 +494,7 @@ class ClrHosting {
         pBeginHostSetupMarshal := pBeginHostSetup is VarRef ? "ptr*" : "ptr"
         pEndHostSetupMarshal := pEndHostSetup is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\LockClrVersion", "ptr", hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\LockClrVersion", "ptr", hostCallback, pBeginHostSetupMarshal, pBeginHostSetup, pEndHostSetupMarshal, pEndHostSetup, "HRESULT")
         return result
     }
 
@@ -567,11 +508,7 @@ class ClrHosting {
     static CreateDebuggingInterfaceFromVersion(iDebuggerVersion, szDebuggeeVersion) {
         szDebuggeeVersion := szDebuggeeVersion is String ? StrPtr(szDebuggeeVersion) : szDebuggeeVersion
 
-        result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", "int", iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr*", &ppCordb := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CreateDebuggingInterfaceFromVersion", "int", iDebuggerVersion, "ptr", szDebuggeeVersion, "ptr*", &ppCordb := 0, "HRESULT")
         return IUnknown(ppCordb)
     }
 
@@ -587,11 +524,7 @@ class ClrHosting {
         hProcess := hProcess is Win32Handle ? NumGet(hProcess, "ptr") : hProcess
         pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-        result := DllCall("MSCorEE.dll\GetVersionFromProcess", "ptr", hProcess, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetVersionFromProcess", "ptr", hProcess, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "HRESULT")
         return dwLength
     }
 
@@ -612,11 +545,7 @@ class ClrHosting {
         ppwzManifestPathsMarshal := ppwzManifestPaths is VarRef ? "ptr*" : "ptr"
         ppwzActivationDataMarshal := ppwzActivationData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MSCorEE.dll\CorLaunchApplication", "int", dwClickOnceHost, "ptr", pwzAppFullName, "uint", dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, "uint", dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, "ptr", lpProcessInformation, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CorLaunchApplication", "int", dwClickOnceHost, "ptr", pwzAppFullName, "uint", dwManifestPaths, ppwzManifestPathsMarshal, ppwzManifestPaths, "uint", dwActivationData, ppwzActivationDataMarshal, ppwzActivationData, "ptr", lpProcessInformation, "HRESULT")
         return result
     }
 
@@ -631,11 +560,7 @@ class ClrHosting {
     static GetRequestedRuntimeVersionForCLSID(rclsid, pVersion, cchBuffer, dwResolutionFlags) {
         pVersion := pVersion is String ? StrPtr(pVersion) : pVersion
 
-        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", "ptr", rclsid, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "int", dwResolutionFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetRequestedRuntimeVersionForCLSID", "ptr", rclsid, "ptr", pVersion, "uint", cchBuffer, "uint*", &dwLength := 0, "int", dwResolutionFlags, "HRESULT")
         return dwLength
     }
 
@@ -645,11 +570,7 @@ class ClrHosting {
      * @returns {IUnknown} 
      */
     static GetCLRIdentityManager(riid) {
-        result := DllCall("MSCorEE.dll\GetCLRIdentityManager", "ptr", riid, "ptr*", &ppManager := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\GetCLRIdentityManager", "ptr", riid, "ptr*", &ppManager := 0, "HRESULT")
         return IUnknown(ppManager)
     }
 
@@ -660,11 +581,7 @@ class ClrHosting {
      * @returns {Pointer<Void>} 
      */
     static CLRCreateInstance(clsid, riid) {
-        result := DllCall("MSCorEE.dll\CLRCreateInstance", "ptr", clsid, "ptr", riid, "ptr*", &ppInterface := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MSCorEE.dll\CLRCreateInstance", "ptr", clsid, "ptr", riid, "ptr*", &ppInterface := 0, "HRESULT")
         return ppInterface
     }
 

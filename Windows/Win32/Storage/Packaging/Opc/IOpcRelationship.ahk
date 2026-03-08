@@ -8,7 +8,6 @@
 /**
  * Represents a relationship, which is a link between a source, which is a part or the package, and a target.
  * @remarks
- * 
  * To create a relationship object to represent a relationship, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipset-createrelationship">IOpcRelationshipSet::CreateRelationship</a> method. To get a pointer to the interface of a relationship object that represents an existing relationship, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipset-getrelationship">IOpcRelationshipSet::GetRelationship</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationshipenumerator-getcurrent">IOpcRelationshipEnumerator::GetCurrent</a> method.
  * 
  * Example relationship markup for a relationship that targets a part:
@@ -88,10 +87,7 @@
  *  
  * 
  * For more information about relationships, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcrelationship
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationship
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -118,12 +114,22 @@ class IOpcRelationship extends IUnknown{
 
     /**
      * Gets the unique identifier of the relationship.
+     * @remarks
+     * The identifier of a relationship is not useful for finding relationships because it is arbitrary and local to the package.
+     * 
+     * The definitive way to find a part of interest is by using a relationship type.
+     * 
+     * Finding a part requires several steps. For detailed information about finding a part, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/finding-the-core-properties-part">Finding the Core Properties Part</a>.
+     * 
+     * This method allocates memory used by the string returned in <i>relationshipIdentifier</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
+     * 
+     * For more information about relationships, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
      * @returns {PWSTR} The identifier of the relationship.
      * 
      * The identifier of a relationship is arbitrary and local to the package, and, therefore, .
      * 
      * Valid identifiers conform to the restrictions for <b>xsd:ID</b>, which are  documented in section 3.3.8 ID of the <a href="https://www.w3.org/TR/xmlschema-2/#ID">W3C Recommendation, XML Schema Part 2: Datatypes Second Edition</a> (http://www.w3.org/TR/xmlschema-2/#ID).
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-getid
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getid
      */
     GetId() {
         result := ComCall(3, this, "ptr*", &relationshipIdentifier := 0, "HRESULT")
@@ -132,10 +138,18 @@ class IOpcRelationship extends IUnknown{
 
     /**
      * Gets the relationship type.
+     * @remarks
+     * This method allocates memory used by the string returned in <i>relationshipType</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
+     * 
+     * The definitive way to find a part of interest is by using a relationship type.
+     * 
+     * Finding a part of interest requires several steps. For detailed information about finding a part, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/finding-the-core-properties-part">Finding the Core Properties Part</a>.
+     * 
+     * For more information about relationships, relationship types and a list of relationship types defined by the OPC, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>OPC</i>.
      * @returns {PWSTR} Receives the relationship type, which is the qualified name of the relationship, as defined by the package format designer or the <i>OPC</i>.
      * 
      * For more information about relationship types see Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-getrelationshiptype
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getrelationshiptype
      */
     GetRelationshipType() {
         result := ComCall(4, this, "ptr*", &relationshipType := 0, "HRESULT")
@@ -144,8 +158,14 @@ class IOpcRelationship extends IUnknown{
 
     /**
      * Gets the URI of the relationship�source.
+     * @remarks
+     * If the source of a relationship is the package itself, the URI in <i>sourceUri</i> represents the package root: "/".
+     * 
+     * If the relationship  target is a part, form the part name by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcuri-combineparturi">IOpcUri::CombinePartUri</a> method from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a> interface pointer received in <i>sourceUri</i>. Use the relative URI received in the <i>targetUri</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationship-gettargeturi">GetTargetUri</a> method as the input parameter of the <b>IOpcUri::CombinePartUri</b> call. For an example, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/resolving-a-part-name-from-a-relationship-s-target-uri">Resolving a Part Name from a Target URI</a>.
+     * 
+     * For more information about relationships, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
      * @returns {IOpcUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a> interface of the OPC URI object that represents the URI of the relationship source.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-getsourceuri
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-getsourceuri
      */
     GetSourceUri() {
         result := ComCall(5, this, "ptr*", &sourceUri := 0, "HRESULT")
@@ -154,10 +174,24 @@ class IOpcRelationship extends IUnknown{
 
     /**
      * Gets the URI of the relationship�target.
+     * @remarks
+     * The definitive way to find a part of interest is by using a relationship type.
+     * 
+     * Finding a part of interest requires several steps. For detailed information about finding a part, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/parts-overview">Parts Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/finding-the-core-properties-part">Finding the Core Properties Part</a>.
+     * 
+     * To determine whether the target of the relationship is internal or external, call the <b>GetTargetUri</b> method.
+     * 
+     * If the relationship target is internal, the target is a part.
+     * 
+     * If the relationship target is a part, the URI in <i>targetUri</i> is relative to the URI of the relationship source.
+     * 
+     * If the relationship  target is a part, form the part name by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcuri-combineparturi">IOpcUri::CombinePartUri</a> method from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcuri">IOpcUri</a> interface pointer received in <i>sourceUri</i> parameter of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationship-getsourceuri">GetSourceUri</a> method. Use the relative URI received in <i>targetUri</i> as the input parameter of the <b>IOpcUri::CombinePartUri</b> call. For an example, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/resolving-a-part-name-from-a-relationship-s-target-uri">Resolving a Part Name from a Target URI</a>.
+     * 
+     * For more information about relationships, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
      * @returns {IUri} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/ms775038(v=vs.85)">IUri</a> interface of the URI that represents the URI of the relationship's target.
      * 
      * If the relationship target is internal, the  target is a part and the URI of the target is relative to the URI of the source part.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-gettargeturi
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-gettargeturi
      */
     GetTargetUri() {
         result := ComCall(6, this, "ptr*", &targetUri := 0, "HRESULT")
@@ -166,12 +200,22 @@ class IOpcRelationship extends IUnknown{
 
     /**
      * Gets a value that describes whether the relationship's target is internal or external to the package.
+     * @remarks
+     * If the relationship target is internal, the  target is a part. The URI of the target is relative to the URI of the source part.
+     * 
+     * To get the URI of the target of the relationship, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcrelationship-gettargeturi">IOpcRelationship::GetTargetUri</a> method.
+     * 
+     * The definitive way to find a part of interest is by using a relationship type.
+     * 
+     * Finding a part of interest requires several steps. For detailed information about finding a part, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/parts-overview">Parts Overview</a> and  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/finding-the-core-properties-part">Finding the Core Properties Part</a>.
+     * 
+     * For more information about relationships, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
      * @returns {Integer} A value  that describes whether the relationship's target is internal or external to the package.
      * 
      * If the target of the relationship is internal, the target is a part.
      * 
      * If the target of the relationship is external, the target is a resource outside of the package.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationship-gettargetmode
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationship-gettargetmode
      */
     GetTargetMode() {
         result := ComCall(7, this, "int*", &targetMode := 0, "HRESULT")

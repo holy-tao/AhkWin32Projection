@@ -7,11 +7,8 @@
 /**
  * Provides a method to obtain the entire XML device description document for a specific device.
  * @remarks
- * 
  * This interface is obtained by calling QueryInterface on the same object that provides an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nn-upnp-iupnpdevice">IUPnPDevice</a>, after which <a href="https://docs.microsoft.com/windows/desktop/api/upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument">GetDocument</a> can be called on it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//upnp/nn-upnp-iupnpdevicedocumentaccessex
+ * @see https://learn.microsoft.com/windows/win32/api/upnp/nn-upnp-iupnpdevicedocumentaccessex
  * @namespace Windows.Win32.Devices.Enumeration.Pnp
  * @version v4.0.30319
  */
@@ -38,10 +35,13 @@ class IUPnPDeviceDocumentAccessEx extends IUnknown{
 
     /**
      * Retrieves the XML device description document for a UPnP device.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This method does not support scripting.</div>
+     * <div> </div>
      * @returns {BSTR} Receives the XML device description document for the device.
      * 
      * After obtaining the XML device document, the memory for this parameter must be free by passing it to SysFreeString.
-     * @see https://docs.microsoft.com/windows/win32/api//upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument
+     * @see https://learn.microsoft.com/windows/win32/api/upnp/nf-upnp-iupnpdevicedocumentaccessex-getdocument
      */
     GetDocument() {
         pbstrDocument := BSTR()

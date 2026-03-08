@@ -4,13 +4,10 @@
 #Include .\IUpdateSearcher.ahk
 
 /**
- * Searches for updates on a server.
+ * Searches for updates on a server. (IUpdateSearcher2)
  * @remarks
- * 
  * The <b>IUpdateSearcher2</b> interface  may require you to update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatesearcher2
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesearcher2
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -44,14 +41,11 @@ class IUpdateSearcher2 extends IUpdateSearcher{
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether to ignore the download priority.
+     * Gets and sets a Boolean value that indicates whether to ignore the download priority. (Get)
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher2">IUpdateSearcher2</a> interface  may require you to update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher2-get_ignoredownloadpriority
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-get_ignoredownloadpriority
      */
     get_IgnoreDownloadPriority() {
         result := ComCall(25, this, "short*", &retval := 0, "HRESULT")
@@ -59,15 +53,12 @@ class IUpdateSearcher2 extends IUpdateSearcher{
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether to ignore the download priority.
+     * Gets and sets a Boolean value that indicates whether to ignore the download priority. (Put)
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher2">IUpdateSearcher2</a> interface  may require you to update Windows Update Agent (WUA). For more information, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/updating-the-windows-update-agent">Updating Windows Update Agent</a>.
-     * 
-     * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesearcher2-put_ignoredownloadpriority
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesearcher2-put_ignoredownloadpriority
      */
     put_IgnoreDownloadPriority(value) {
         result := ComCall(26, this, "short", value, "HRESULT")

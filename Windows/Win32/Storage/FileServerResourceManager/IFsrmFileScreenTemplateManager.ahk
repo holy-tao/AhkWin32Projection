@@ -9,14 +9,11 @@
 /**
  * Used to manage file screen templates.
  * @remarks
- * 
  * Note that a new installation of the operating system includes FSRM-defined templates.
  * 
  * To create this object from a script, use the "Fsrm.FsrmFileScreenTemplateManager" program 
  *     identifier.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplatemanager
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplatemanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -52,7 +49,7 @@ class IFsrmFileScreenTemplateManager extends IDispatch{
      * @returns {IFsrmFileScreenTemplate} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplate">IFsrmFileScreenTemplate</a> interface to the 
      *       newly create template. To add the template to FSRM, call the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmFileScreenTemplate::Commit</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-createtemplate
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-createtemplate
      */
     CreateTemplate() {
         result := ComCall(7, this, "ptr*", &fileScreenTemplate := 0, "HRESULT")
@@ -63,7 +60,7 @@ class IFsrmFileScreenTemplateManager extends IDispatch{
      * Retrieves the specified file screen template.
      * @param {BSTR} name The name of the file screen template to retrieve. The name is limited to 4,000 characters.
      * @returns {IFsrmFileScreenTemplate} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplate">IFsrmFileScreenTemplate</a> interface to the retrieved template.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-gettemplate
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-gettemplate
      */
     GetTemplate(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -78,7 +75,7 @@ class IFsrmFileScreenTemplateManager extends IDispatch{
      * @returns {IFsrmCommittableCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcommittablecollection">IFsrmCommittableCollection</a> interface that contains a collection of file screen templates.
      * 
      * Each item of the collection is a <b>VARIANT</b> of type <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplate">IFsrmFileScreenTemplate</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-enumtemplates
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-enumtemplates
      */
     EnumTemplates(options) {
         result := ComCall(9, this, "int", options, "ptr*", &fileScreenTemplates := 0, "HRESULT")
@@ -87,9 +84,11 @@ class IFsrmFileScreenTemplateManager extends IDispatch{
 
     /**
      * Exports the templates as an XML string.
+     * @remarks
+     * Typically, you use this method to save the templates to a file. You can then copy the file to another computer and call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-importtemplates">IFsrmFileScreenTemplateManager::ImportTemplates</a> method to import the templates.
      * @param {Pointer<VARIANT>} fileScreenTemplateNamesArray A variant that contains the names of the file screen templates to export. If <b>NULL</b>, the method exports all file screens.
      * @returns {BSTR} The specified templates in XML format.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-exporttemplates
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-exporttemplates
      */
     ExportTemplates(fileScreenTemplateNamesArray) {
         serializedFileScreenTemplates := BSTR()
@@ -106,7 +105,7 @@ class IFsrmFileScreenTemplateManager extends IDispatch{
      * Each item of the collection is a <b>VARIANT</b> of type <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nn-fsrmscreen-ifsrmfilescreentemplateimported">IFsrmFileScreenTemplateImported</a> interface.
      * 
      * To add the templates to FSRM, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmcommittablecollection-commit">IFsrmCommittableCollection::Commit</a> method. To add the templates to FSRM and propagate the changes to objects that were derived from the template, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-commitandupdatederived">IFsrmFileScreenTemplateImported::CommitAndUpdateDerived</a> method on each item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-importtemplates
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplatemanager-importtemplates
      */
     ImportTemplates(serializedFileScreenTemplates, fileScreenTemplateNamesArray) {
         serializedFileScreenTemplates := serializedFileScreenTemplates is String ? BSTR.Alloc(serializedFileScreenTemplates).Value : serializedFileScreenTemplates

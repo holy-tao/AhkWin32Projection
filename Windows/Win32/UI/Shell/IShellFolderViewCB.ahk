@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that allows communication between Windows Explorer and a folder view implemented using the system folder view object (the IShellView object returned through SHCreateShellFolderView) so that the folder view can be notified of events and modify its view accordingly.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-ishellfolderviewcb
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishellfolderviewcb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -256,7 +256,7 @@ class IShellFolderViewCB extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishellfolderviewcb-messagesfvcb
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishellfolderviewcb-messagesfvcb
      */
     MessageSFVCB(uMsg, wParam, lParam) {
         result := ComCall(3, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")

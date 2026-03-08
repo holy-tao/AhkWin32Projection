@@ -8,7 +8,7 @@
 
 /**
  * Manages a collection of DataCollector objects.To get this interface, access the IDataCollectorSet::DataCollectors property.
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-idatacollectorcollection
+ * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-idatacollectorcollection
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class IDataCollectorCollection extends IDispatch{
     /**
      * Retrieves the number of data collectors in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
@@ -60,13 +60,10 @@ class IDataCollectorCollection extends IDispatch{
     /**
      * Retrieves the requested data collector from the collection.
      * @remarks
-     * 
      * This property is the object's default property.
-     * 
-     * 
      * @param {VARIANT} index 
      * @returns {IDataCollector} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-get_item
      */
     get_Item(index) {
         result := ComCall(8, this, "ptr", index, "ptr*", &collector := 0, "HRESULT")
@@ -74,18 +71,15 @@ class IDataCollectorCollection extends IDispatch{
     }
 
     /**
-     * Retrieves an interface to the enumeration.
+     * Retrieves an interface to the enumeration. (IDataCollectorCollection.get__NewEnum)
      * @remarks
-     * 
      * C++ programmers use this property.
      * 
      * The items of the enumeration are variants whose type is VT_UNKNOWN. To query for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> interface, use the <b>punkVal</b> member of the variant.
      * 
      * The enumeration is a snapshot of the collection at the time of the call.
-     * 
-     * 
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &retVal := 0, "HRESULT")
@@ -115,7 +109,7 @@ class IDataCollectorCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-add
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-add
      */
     Add(collector) {
         result := ComCall(10, this, "ptr", collector, "HRESULT")
@@ -124,9 +118,13 @@ class IDataCollectorCollection extends IDispatch{
 
     /**
      * Removes a data collector from the collection.
+     * @remarks
+     * If the variant type is VT_DISPATCH, pass the <b>IDispatch</b> interface of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> to be removed.
+     * 
+     * Note that by removing the collector from the collection, you are also removing the collector from the data collector set.
      * @param {VARIANT} collector The zero-based index of the data collector to remove from the collection. The variant type can be VT_I4, VT_UI4, or VT_DISPATCH.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-remove
      */
     Remove(collector) {
         result := ComCall(11, this, "ptr", collector, "HRESULT")
@@ -135,8 +133,10 @@ class IDataCollectorCollection extends IDispatch{
 
     /**
      * Removes all data collectors from the collection.
+     * @remarks
+     * Note that by removing the collectors from the collection, you are also removing the collectors from the data collector set.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-clear
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -166,7 +166,7 @@ class IDataCollectorCollection extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-addrange
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-addrange
      */
     AddRange(collectors) {
         result := ComCall(13, this, "ptr", collectors, "HRESULT")
@@ -175,11 +175,72 @@ class IDataCollectorCollection extends IDispatch{
 
     /**
      * Creates a data collector using the specified XML.
+     * @remarks
+     * If the XML syntax is valid, this API will return S_OK, even if one or more properties is not valid.  Those properties whose values are valid are set. Those properties whose values are not valid are set to their default value.
+     * 
+     * To determine the errors that occurred, retrieve the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemapitem">IValueMapItem</a> interface for each error. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemapitem-get_key">IValueMapItem::Key</a> property contains the XPath of the element in error, for example, /AlertDataCollector/TaskArguments. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemapitem-get_value">IValueMapItem::Value</a> property contains the HRESULT associated with the error, and the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemapitem-get_description">IValueMapItem::Description</a> property contains the message text associated with the error.
+     * 
+     * Typically, any errors that occur will be one of the following HRESULT values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Error</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>PLA_S_PROPERTY_IGNORED</td>
+     * <td>PLA ignored the property element because the data collector does not contain the specified property.</td>
+     * </tr>
+     * <tr>
+     * <td>PLA_E_PROPERTY_CONFLICT</td>
+     * <td>The property conflicts with another property, for example, both <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logappend">LogAppend</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_logcircular">LogCircular</a> are VARIANT_TRUE.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Use one of the following interface identifiers to query the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> interface for the specific data collector.
+     * 
+     * <table>
+     * <tr>
+     * <th>Data collector interface</th>
+     * <th>Interface identifier</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-iapitracingdatacollector">IApiTracingDataCollector</a>
+     * </td>
+     * <td>IID_IApiTracingDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ialertdatacollector">IAlertDataCollector</a>
+     * </td>
+     * <td>IID_IAlertDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-iconfigurationdatacollector">IConfigurationDataCollector</a>
+     * </td>
+     * <td>IID_IConfigurationDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-iperformancecounterdatacollector">IPerformanceCounterDataCollector</a>
+     * </td>
+     * <td>IID_IPerformanceCounterDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-itracedatacollector">ITraceDataCollector</a>
+     * </td>
+     * <td>IID_ITraceDataCollector</td>
+     * </tr>
+     * </table>
      * @param {BSTR} bstrXml A string that contains the XML of the data collector to create. For details on specifying the XML string, see the Remarks section of the data collector that you want to create.
      * @param {Pointer<IValueMap>} pValidation An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ivaluemap">IValueMap</a> interface that you use to retrieve the validation error of each property whose value is not valid. The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-ivaluemap-get_count">IValueMap::Count</a> property is zero if there were no errors.
      * @param {Pointer<IDataCollector>} pCollector An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> interface of the newly created data collector. To get the actual data collector interface requested, call the <b>QueryInterface</b> method.
      * @returns {HRESULT} Returns S_OK if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml
      */
     CreateDataCollectorFromXml(bstrXml, pValidation, pCollector) {
         bstrXml := bstrXml is String ? BSTR.Alloc(bstrXml).Value : bstrXml
@@ -190,9 +251,48 @@ class IDataCollectorCollection extends IDispatch{
 
     /**
      * Creates a data collector of the specified type.
+     * @remarks
+     * Use one of the following interface identifiers to query the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> interface for the specific data collector.
+     * 
+     * <table>
+     * <tr>
+     * <th>Data collector interface</th>
+     * <th>Interface identifier</th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-iapitracingdatacollector">IApiTracingDataCollector</a>
+     * </td>
+     * <td>IID_IApiTracingDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-ialertdatacollector">IAlertDataCollector</a>
+     * </td>
+     * <td>IID_IAlertDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-iconfigurationdatacollector">IConfigurationDataCollector</a>
+     * </td>
+     * <td>IID_IConfigurationDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-iperformancecounterdatacollector">IPerformanceCounterDataCollector</a>
+     * </td>
+     * <td>IID_IPerformanceCounterDataCollector</td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-itracedatacollector">ITraceDataCollector</a>
+     * </td>
+     * <td>IID_ITraceDataCollector</td>
+     * </tr>
+     * </table>
      * @param {Integer} Type The type of data collector to create. For possible data collector types, see the <a href="https://docs.microsoft.com/windows/win32/api/pla/ne-pla-datacollectortype">DataCollectorType</a> enumeration.
      * @returns {IDataCollector} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> interface of the newly created data collector. To get the actual data collector interface requested, call the <b>QueryInterface</b> method.
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-idatacollectorcollection-createdatacollector
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-idatacollectorcollection-createdatacollector
      */
     CreateDataCollector(Type) {
         result := ComCall(15, this, "int", Type, "ptr*", &Collector := 0, "HRESULT")

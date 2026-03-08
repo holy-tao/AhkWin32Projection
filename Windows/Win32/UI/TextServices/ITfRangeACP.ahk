@@ -5,7 +5,7 @@
 
 /**
  * The ITfRangeACP interface is implemented by the TSF manager and is used by an application character position (ACP)-based application to access and manipulate range objects.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfrangeacp
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfrangeacp
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class ITfRangeACP extends ITfRange{
 
     /**
      * ITfRangeACP::GetExtent method
+     * @remarks
+     * This method should only be called by the owner of the ACP-based context because the character position and range length will only have meaning to a caller that recognizes the text store implementation.
      * @param {Pointer<Integer>} pacpAnchor Pointer to a <b>LONG</b> value that receives the application character position of the range start anchor.
      * @param {Pointer<Integer>} pcch Pointer to a <b>LONG</b> value that receives the number of characters in the range.
      * @returns {HRESULT} This method can return one of these values.
@@ -75,7 +77,7 @@ class ITfRangeACP extends ITfRange{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfrangeacp-getextent
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrangeacp-getextent
      */
     GetExtent(pacpAnchor, pcch) {
         pacpAnchorMarshal := pacpAnchor is VarRef ? "int*" : "ptr"
@@ -87,6 +89,8 @@ class ITfRangeACP extends ITfRange{
 
     /**
      * ITfRangeACP::SetExtent method
+     * @remarks
+     * This method should only be called by the owner of the ACP-based context because the character position and range length will only have meaning to a caller that recognizes the text store implementation.
      * @param {Integer} acpAnchor Contains the application character position of the range start anchor.
      * @param {Integer} cch Contains the number of characters in the range.
      * @returns {HRESULT} This method can return one of these values.
@@ -130,7 +134,7 @@ class ITfRangeACP extends ITfRange{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfrangeacp-setextent
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfrangeacp-setextent
      */
     SetExtent(acpAnchor, cch) {
         result := ComCall(26, this, "int", acpAnchor, "int", cch, "HRESULT")

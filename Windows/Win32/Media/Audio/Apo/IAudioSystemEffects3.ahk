@@ -4,7 +4,9 @@
 #Include .\IAudioSystemEffects2.ahk
 
 /**
- * 
+ * Implemented by clients that require an APOInitSystemEffects3 structure to be passed into the IAudioProcessingObject::Initialize method.
+ * @remarks
+ * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
  * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nn-audioengineextensionapo-iaudiosystemeffects3
  * @namespace Windows.Win32.Media.Audio.Apo
  * @version v4.0.30319
@@ -31,11 +33,13 @@ class IAudioSystemEffects3 extends IAudioSystemEffects2{
     static VTableNames => ["GetControllableSystemEffectsList", "SetAudioSystemEffectState"]
 
     /**
-     * 
-     * @param {Pointer<Pointer<AUDIO_SYSTEMEFFECT>>} effects 
-     * @param {Pointer<Integer>} numEffects 
-     * @param {HANDLE} event 
-     * @returns {HRESULT} 
+     * Implemented by System Effects Audio Processing Object (sAPO) audio effects to allow the caller to get the current list of effects.
+     * @remarks
+     * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
+     * @param {Pointer<Pointer<AUDIO_SYSTEMEFFECT>>} effects Receives a pointer to an array of [AUDIO_SYSTEMEFFECT_STATE](ns-audioengineextensionapo-audio_systemeffect.md) structures representing the current list of audio effects.
+     * @param {Pointer<Integer>} numEffects Receives the number of **AUDIO_EFFECT** structures returned in *effects*.
+     * @param {HANDLE} event The HANDLE of the event that will be signaled if the list changes.
+     * @returns {HRESULT} An HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudiosystemeffects3-getcontrollablesystemeffectslist
      */
     GetControllableSystemEffectsList(effects, numEffects, event) {
@@ -49,10 +53,12 @@ class IAudioSystemEffects3 extends IAudioSystemEffects2{
     }
 
     /**
-     * 
-     * @param {Guid} effectId 
-     * @param {Integer} state 
-     * @returns {HRESULT} 
+     * Implemented by System Effects Audio Processing Object (sAPO) audio effects to allow the caller to set the state of effects.
+     * @remarks
+     * For more information on the Windows 11 APIs for the Audio Processing Objects (APOs) that can ship with audio drivers, see [Windows 11 APIs for Audio Processing Objects](/windows-hardware/drivers/audio/windows-11-apis-for-audio-processing-objects).
+     * @param {Guid} effectId The GUID identifier for an audio effect. Audio effect GUIDs are defined in [ksmedia.h](/windows-hardware/drivers/audio/ksmedia-h).
+     * @param {Integer} state A value from the [AUDIO_SYSTEMEFFECT_STATE](ne-audioengineextensionapo-audio_systemeffect_state.md) enumerating specifying the state to set.
+     * @returns {HRESULT} An HRESULT.
      * @see https://learn.microsoft.com/windows/win32/api/audioengineextensionapo/nf-audioengineextensionapo-iaudiosystemeffects3-setaudiosystemeffectstate
      */
     SetAudioSystemEffectState(effectId, state) {

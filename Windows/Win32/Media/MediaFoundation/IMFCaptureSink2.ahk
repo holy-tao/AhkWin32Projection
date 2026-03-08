@@ -5,7 +5,7 @@
 
 /**
  * Extends the IMFCaptureSink interface to provide functionality for dynamically setting the output media type of the record sink or preview sink.
- * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcapturesink2
+ * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcapturesink2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,6 +32,9 @@ class IMFCaptureSink2 extends IMFCaptureSink{
 
     /**
      * Dynamically sets the output media type of the record sink or preview sink.
+     * @remarks
+     * This is an asynchronous call.  Listen to the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-capture-engine-output-media-type-set">MF_CAPTURE_ENGINE_OUTPUT_MEDIA_TYPE_SET</a> event
+     * to be notified when the output media type has been set.
      * @param {Integer} dwStreamIndex The stream index to change the output media type on.
      * @param {IMFMediaType} pMediaType The new output media type.
      * @param {IMFAttributes} pEncodingAttributes The new encoder attributes. This can be  <b>null</b>.
@@ -65,7 +68,7 @@ class IMFCaptureSink2 extends IMFCaptureSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcapturesink2-setoutputmediatype
+     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcapturesink2-setoutputmediatype
      */
     SetOutputMediaType(dwStreamIndex, pMediaType, pEncodingAttributes) {
         result := ComCall(8, this, "uint", dwStreamIndex, "ptr", pMediaType, "ptr", pEncodingAttributes, "HRESULT")

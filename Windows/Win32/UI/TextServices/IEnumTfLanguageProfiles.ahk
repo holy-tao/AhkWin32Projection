@@ -6,7 +6,7 @@
 
 /**
  * The IEnumTfLanguageProfiles interface is implemented by the TSF manager to provide an enumeration of language profiles.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-ienumtflanguageprofiles
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-ienumtflanguageprofiles
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IEnumTfLanguageProfiles extends IUnknown{
     /**
      * IEnumTfLanguageProfiles::Clone method
      * @returns {IEnumTfLanguageProfiles} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtflanguageprofiles">IEnumTfLanguageProfiles</a> interface pointer that receives the new enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtflanguageprofiles-clone
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtflanguageprofiles-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -87,7 +87,7 @@ class IEnumTfLanguageProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtflanguageprofiles-next
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtflanguageprofiles-next
      */
     Next(ulCount, pProfile, pcFetch) {
         pcFetchMarshal := pcFetch is VarRef ? "uint*" : "ptr"
@@ -117,7 +117,7 @@ class IEnumTfLanguageProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtflanguageprofiles-reset
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtflanguageprofiles-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -157,7 +157,7 @@ class IEnumTfLanguageProfiles extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-ienumtflanguageprofiles-skip
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-ienumtflanguageprofiles-skip
      */
     Skip(ulCount) {
         result := ComCall(6, this, "uint", ulCount, "HRESULT")

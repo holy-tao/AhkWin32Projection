@@ -9,12 +9,8 @@
 /**
  * Contains the actions that are performed by the task.
  * @remarks
- * 
  * When reading or writing XML for a task, the actions of the task are specified in the  <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-actions-tasktype-element">Actions</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iactioncollection
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iactioncollection
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -70,7 +66,7 @@ class IActionCollection extends IDispatch{
      * Gets the number of actions in the collection.
      * @param {Pointer<Integer>} pCount 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_count
      */
     get_Count(pCount) {
         pCountMarshal := pCount is VarRef ? "int*" : "ptr"
@@ -82,13 +78,10 @@ class IActionCollection extends IDispatch{
     /**
      * Gets a specified action from the collection.
      * @remarks
-     * 
      * Collections are 1-based. In other words, the index for the first item in the collection is 1.
-     * 
-     * 
      * @param {Integer} index 
      * @returns {IAction} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_item
      */
     get_Item(index) {
         result := ComCall(8, this, "int", index, "ptr*", &ppAction := 0, "HRESULT")
@@ -98,7 +91,7 @@ class IActionCollection extends IDispatch{
     /**
      * Gets the collection enumerator for the action collection.
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -106,10 +99,10 @@ class IActionCollection extends IDispatch{
     }
 
     /**
-     * Gets or sets an XML-formatted version of the collection.
+     * Gets or sets an XML-formatted version of the collection. (Get)
      * @param {Pointer<BSTR>} pText 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-get_xmltext
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_xmltext
      */
     get_XmlText(pText) {
         result := ComCall(10, this, "ptr", pText, "HRESULT")
@@ -117,10 +110,10 @@ class IActionCollection extends IDispatch{
     }
 
     /**
-     * Gets or sets an XML-formatted version of the collection.
+     * Gets or sets an XML-formatted version of the collection. (Put)
      * @param {BSTR} text 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-put_xmltext
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-put_xmltext
      */
     put_XmlText(text) {
         text := text is String ? BSTR.Alloc(text).Value : text
@@ -131,6 +124,8 @@ class IActionCollection extends IDispatch{
 
     /**
      * Creates and adds a new action to the collection.
+     * @remarks
+     * You cannot add more than 32 actions to the collection.
      * @param {Integer} type This parameter is set to one of the following  <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/ne-taskschd-task_action_type">TASK_ACTION_TYPE</a> enumeration constants.
      * 
      * <table>
@@ -186,7 +181,7 @@ class IActionCollection extends IDispatch{
      * @returns {IAction} An <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iaction">IAction</a> interface that represents the new action. 
      * 
      * Pass in a reference to a <b>NULL</b> <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-iaction">IAction</a> interface pointer.  Referencing a non-<b>NULL</b> pointer can cause a memory leak because the pointer will be overwritten.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-create
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-create
      */
     Create(type) {
         result := ComCall(12, this, "int", type, "ptr*", &ppAction := 0, "HRESULT")
@@ -195,9 +190,13 @@ class IActionCollection extends IDispatch{
 
     /**
      * Removes the specified action from the collection.
+     * @remarks
+     * <b>IActionCollection::Remove</b> returns E_INVALIDARG and E_TYPE_MISMATCH instead of E_INVALID_VARIANT when an invalid argument is specified.
+     * 
+     * When removing items, note that the index for the first item in the collection is 1 and the index for the last item is the value of the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-iactioncollection-get_count">Count</a> property of IActionCollection.
      * @param {VARIANT} index The index of the action to be removed. Use a LONG value for the index number.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-remove
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-remove
      */
     Remove(index) {
         result := ComCall(13, this, "ptr", index, "HRESULT")
@@ -206,8 +205,8 @@ class IActionCollection extends IDispatch{
 
     /**
      * Clears all the actions from the collection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-clear
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-clear
      */
     Clear() {
         result := ComCall(14, this, "HRESULT")
@@ -215,10 +214,10 @@ class IActionCollection extends IDispatch{
     }
 
     /**
-     * Gets or sets the identifier of the principal for the task.
+     * Gets or sets the identifier of the principal for the task. (Get)
      * @param {Pointer<BSTR>} pContext 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-get_context
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-get_context
      */
     get_Context(pContext) {
         result := ComCall(15, this, "ptr", pContext, "HRESULT")
@@ -226,10 +225,10 @@ class IActionCollection extends IDispatch{
     }
 
     /**
-     * Gets or sets the identifier of the principal for the task.
+     * Gets or sets the identifier of the principal for the task. (Put)
      * @param {BSTR} context 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iactioncollection-put_context
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iactioncollection-put_context
      */
     put_Context(context) {
         context := context is String ? BSTR.Alloc(context).Value : context

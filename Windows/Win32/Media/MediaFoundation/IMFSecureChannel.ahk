@@ -5,7 +5,7 @@
 
 /**
  * Establishes a one-way secure channel between two objects.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsecurechannel
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsecurechannel
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -53,7 +53,7 @@ class IMFSecureChannel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsecurechannel-getcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsecurechannel-getcertificate
      */
     GetCertificate(ppCert, pcbCert) {
         ppCertMarshal := ppCert is VarRef ? "ptr*" : "ptr"
@@ -86,7 +86,7 @@ class IMFSecureChannel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsecurechannel-setupsession
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsecurechannel-setupsession
      */
     SetupSession(pbEncryptedSessionKey, cbSessionKey) {
         result := ComCall(4, this, "ptr", pbEncryptedSessionKey, "uint", cbSessionKey, "HRESULT")

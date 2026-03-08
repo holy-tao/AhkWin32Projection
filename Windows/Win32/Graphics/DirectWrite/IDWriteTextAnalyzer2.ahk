@@ -6,7 +6,7 @@
 
 /**
  * Analyzes various text properties for complex script processing.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritetextanalyzer2
+ * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextanalyzer2
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
     static VTableNames => ["GetGlyphOrientationTransform", "GetTypographicFeatures", "CheckTypographicFeature"]
 
     /**
-     * Returns 2x3 transform matrix for the respective angle to draw the glyph run.
+     * Returns 2x3 transform matrix for the respective angle to draw the glyph run. (IDWriteTextAnalyzer2.GetGlyphOrientationTransform)
      * @param {Integer} glyphOrientationAngle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a></b>
      * 
      * A <a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_glyph_orientation_angle">DWRITE_GLYPH_ORIENTATION_ANGLE</a>-typed value that specifies the angle that was reported into
@@ -49,7 +49,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
      * @returns {DWRITE_MATRIX} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
      * 
      * Returned transform.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextanalyzer2-getglyphorientationtransform
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextanalyzer2-getglyphorientationtransform
      */
     GetGlyphOrientationTransform(glyphOrientationAngle, isSideways, originX, originY) {
         transform := DWRITE_MATRIX()
@@ -79,8 +79,8 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
      * An array of OpenType font feature tags.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextanalyzer2-gettypographicfeatures
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextanalyzer2-gettypographicfeatures
      */
     GetTypographicFeatures(fontFace, scriptAnalysis, localeName, maxTagCount, actualTagCount, tags) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
@@ -101,7 +101,7 @@ class IDWriteTextAnalyzer2 extends IDWriteTextAnalyzer1{
      * @param {Integer} glyphCount The number of glyphs to check.
      * @param {Pointer<Integer>} glyphIndices An array of glyph indices to check.
      * @returns {Integer} An array of integers that indicate whether or not the font feature applies to each glyph specified.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextanalyzer2-checktypographicfeature
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextanalyzer2-checktypographicfeature
      */
     CheckTypographicFeature(fontFace, scriptAnalysis, localeName, featureTag, glyphCount, glyphIndices) {
         localeName := localeName is String ? StrPtr(localeName) : localeName

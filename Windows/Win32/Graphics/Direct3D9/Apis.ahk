@@ -3643,11 +3643,7 @@ class Direct3D9 {
      * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-direct3dcreate9ex
      */
     static Direct3DCreate9Ex(SDKVersion) {
-        result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", &param1 := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("d3d9.dll\Direct3DCreate9Ex", "uint", SDKVersion, "ptr*", &param1 := 0, "HRESULT")
         return IDirect3D9Ex(param1)
     }
 

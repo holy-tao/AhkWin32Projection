@@ -9,7 +9,6 @@
 /**
  * Represents a Relationships part as an unordered set of IOpcRelationship interface pointers to relationship objects.
  * @remarks
- * 
  * When a relationship object is created and a pointer to it is added to the set, the relationship it represents is saved when the package is saved.
  * 
  * When an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointer is deleted from the set, the relationship it represents is not saved when the package is saved.
@@ -21,10 +20,7 @@
  * For more information about relationships, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
  * 
  * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface provides access to relationship properties. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/relationships-overview">Relationships Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a>.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcrelationshipset
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcrelationshipset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -51,9 +47,11 @@ class IOpcRelationshipSet extends IUnknown{
 
     /**
      * Gets a relationship object from the set that represents a specified relationship.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface provides access to relationship properties. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/relationships-overview">Relationships Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a>.
      * @param {PWSTR} relationshipIdentifier The unique identifier of a relationship.
      * @returns {IOpcRelationship} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface of the relationship object that represents the relationship that has the  specified identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipset-getrelationship
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getrelationship
      */
     GetRelationship(relationshipIdentifier) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
@@ -64,6 +62,10 @@ class IOpcRelationshipSet extends IUnknown{
 
     /**
      * Creates a relationship object that represents a specified relationship, then adds to the set a pointer to the object's IOpcRelationship interface.
+     * @remarks
+     * When a relationship object is created and a pointer to it is added to the set, the relationship it represents is saved when the package is saved.
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface provides access to relationship properties. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/relationships-overview">Relationships Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a>.
      * @param {PWSTR} relationshipIdentifier A unique identifier of the relationship to be represented as the relationship object. To use a randomly generated identifier, pass <b>NULL</b> to this parameter.
      * 
      * Valid identifiers conform to the restrictions for <b>xsd:ID</b>, which are  documented in section 3.3.8 ID of the <a href="https://www.w3.org/TR/xmlschema-2/#ID">W3C Recommendation, XML Schema Part 2: Datatypes Second Edition</a> (http://www.w3.org/TR/xmlschema-2/#ID).
@@ -79,7 +81,7 @@ class IOpcRelationshipSet extends IUnknown{
      * @returns {IOpcRelationship} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface  of the relationship object that represents the relationship. 
      * 
      * This parameter can be <b>NULL</b> if a pointer to the  new object is not needed.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipset-createrelationship
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-createrelationship
      */
     CreateRelationship(relationshipIdentifier, relationshipType, targetUri, targetMode) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
@@ -91,6 +93,8 @@ class IOpcRelationshipSet extends IUnknown{
 
     /**
      * Deletes a specified IOpcRelationship interface pointer from the set.
+     * @remarks
+     * When an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointer is deleted from the set, the relationship it represents is not saved when the package is saved.
      * @param {PWSTR} relationshipIdentifier The unique   identifier of a relationship.
      * 
      * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointer to be deleted is the pointer to the relationship object that represents the relationship the  specified identifier.
@@ -142,7 +146,7 @@ class IOpcRelationshipSet extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * An <b>HRESULT</b> error code from the <a href="/previous-versions/windows/desktop/opc/package-consumption-error-group">Package Consumption Error Group</a>. 
+     * An <b>HRESULT</b> error code from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/package-consumption-error-group">Package Consumption Error Group</a>. 
      * 
      * </td>
      * </tr>
@@ -153,12 +157,12 @@ class IOpcRelationshipSet extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * An <b>HRESULT</b> error code from the <a href="/previous-versions/windows/desktop/opc/part-uri-error-group">Part URI Error Group</a>. 
+     * An <b>HRESULT</b> error code from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/part-uri-error-group">Part URI Error Group</a>. 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipset-deleterelationship
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-deleterelationship
      */
     DeleteRelationship(relationshipIdentifier) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
@@ -169,9 +173,11 @@ class IOpcRelationshipSet extends IUnknown{
 
     /**
      * Gets a value that indicates whether a specified relationship is represented as a relationship object in the set.
+     * @remarks
+     * If a relationship is represented in the set, the relationship is stored in the Relationships part represented by that set.
      * @param {PWSTR} relationshipIdentifier The unique identifier of a relationship.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipset-relationshipexists
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-relationshipexists
      */
     RelationshipExists(relationshipIdentifier) {
         relationshipIdentifier := relationshipIdentifier is String ? StrPtr(relationshipIdentifier) : relationshipIdentifier
@@ -183,7 +189,7 @@ class IOpcRelationshipSet extends IUnknown{
     /**
      * Gets an enumerator of IOpcRelationship interface pointers in the set.
      * @returns {IOpcRelationshipEnumerator} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipenumerator">IOpcRelationshipEnumerator</a> interface of the enumerator of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointers in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipset-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(7, this, "ptr*", &relationshipEnumerator := 0, "HRESULT")
@@ -192,9 +198,15 @@ class IOpcRelationshipSet extends IUnknown{
 
     /**
      * Gets an enumerator of the IOpcRelationship interface pointers in the set that point to representations of relationships that have a specified relationship type.
+     * @remarks
+     * For information about forming the part name for the target of a relationship, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> topic.
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface provides access to relationship properties. For details about these properties, see the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/relationships-overview">Relationships Overview</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a>.
+     * 
+     * For more information about relationships, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/opc/open-packaging-conventions-overview">Open Packaging Conventions Fundamentals</a> and the <i>ECMA-376 OpenXML, 1st Edition, Part 2: Open Packaging Conventions (OPC)</i>.
      * @param {PWSTR} relationshipType The relationship type used to identify <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointers to be enumerated.
      * @returns {IOpcRelationshipEnumerator} A pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationshipenumerator">IOpcRelationshipEnumerator</a> interface of the  enumerator of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcrelationship">IOpcRelationship</a> interface pointers in the set that point to representations of relationships  that have a specified relationship type.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipset-getenumeratorfortype
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getenumeratorfortype
      */
     GetEnumeratorForType(relationshipType) {
         relationshipType := relationshipType is String ? StrPtr(relationshipType) : relationshipType
@@ -205,10 +217,14 @@ class IOpcRelationshipSet extends IUnknown{
 
     /**
      * Gets a read-only stream that contains the part content of the Relationships part represented by the set.
+     * @remarks
+     * Calling this method will parse and validate all the relationships in the relationships markup. If the Relationships part contains invalid relationships markup, the markup cannot be retrieved by this method.
+     * 
+     * For more information about markup compatibility and packages, see Part 5: Markup Compatibility in <a href="https://www.ecma-international.org/publications/standards/Ecma-376.htm">ECMA-376 OpenXML</a> (http://www.ecma-international.org/publications/standards/Ecma-376.htm).
      * @returns {IStream} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a> interface of the read-only  stream that contains the part content of the Relationships part represented by the set.
      * 
      * If  the relationships stored in the  Relationships part  have not been  modified, part content can include markup compatibility data that is not otherwise accessible through the relationship objects in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcrelationshipset-getrelationshipscontentstream
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcrelationshipset-getrelationshipscontentstream
      */
     GetRelationshipsContentStream() {
         result := ComCall(9, this, "ptr*", &contents := 0, "HRESULT")

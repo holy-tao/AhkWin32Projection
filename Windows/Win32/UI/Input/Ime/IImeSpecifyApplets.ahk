@@ -5,7 +5,7 @@
 
 /**
  * The IImeSpecifyApplets interface specifies methods called from the IImePad interface object to emulate the IImePadApplet interface.
- * @see https://docs.microsoft.com/windows/win32/api//imepad/nn-imepad-iimespecifyapplets
+ * @see https://learn.microsoft.com/windows/win32/api/imepad/nn-imepad-iimespecifyapplets
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IImeSpecifyApplets extends IUnknown{
      * @param {Pointer<Guid>} refiid IID of the <a href="https://docs.microsoft.com/windows/desktop/api/imepad/nn-imepad-iimepadapplet">IImePadApplet</a> interface. This IID is defined in Imepad.h as <b>IID_IImePadApplet</b>. This is for <b>IImePadApplet</b>'s future enhancement
      * @param {Pointer<APPLETIDLIST>} lpIIDList Pointer to a APPLETIIDLIST structure. Sets the applet's IID list and count.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//imepad/nf-imepad-iimespecifyapplets-getappletiidlist
+     * @see https://learn.microsoft.com/windows/win32/api/imepad/nf-imepad-iimespecifyapplets-getappletiidlist
      */
     GetAppletIIDList(refiid, lpIIDList) {
         result := ComCall(3, this, "ptr", refiid, "ptr", lpIIDList, "HRESULT")

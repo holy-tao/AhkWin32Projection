@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The OSUpdateAssessment structure defines how up-to-date the OS on a targeted device is.
+ * @see https://learn.microsoft.com/windows/win32/api/waasapitypes/ns-waasapitypes-osupdateassessment
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */

@@ -6,7 +6,7 @@
 
 /**
  * The IWMSInternalAdminNetSource2 interface provides improved methods for password caching.
- * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
      * @param {BOOL} fPersist Boolean value that is True if these credentials should be permanently saved. If you set this to False, the credentials will only be persisted for the current session.
      * @param {BOOL} fConfirmedGood Boolean value that is True if the server has confirmed the password as correct. You can cache the password before receiving verification from the server, in which case you should set this to False.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-setcredentialsex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-setcredentialsex
      */
     SetCredentialsEx(bstrRealm, bstrUrl, fProxy, bstrName, bstrPassword, fPersist, fConfirmedGood) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
@@ -67,7 +67,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
      * @param {Pointer<BSTR>} pbstrPassword Pointer to a string containing the password.
      * @param {Pointer<BOOL>} pfConfirmedGood Boolean value that is True if the password was cached after it was confirmed as correct by the server.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-getcredentialsex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-getcredentialsex
      */
     GetCredentialsEx(bstrRealm, bstrUrl, fProxy, pdwUrlPolicy, pbstrName, pbstrPassword, pfConfirmedGood) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
@@ -86,7 +86,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
      * @param {BSTR} bstrUrl String containing the URL to which the credentials apply.
      * @param {BOOL} fProxy Boolean value that is True if the password applies when using a proxy server to access the site specified by <i>bstrUrl</i>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-deletecredentialsex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource2-deletecredentialsex
      */
     DeleteCredentialsEx(bstrRealm, bstrUrl, fProxy) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
@@ -97,7 +97,7 @@ class IWMSInternalAdminNetSource2 extends IUnknown{
     }
 
     /**
-     * 
+     * The IWMSInternalAdminNetSource2 interface provides improved methods for password caching.
      * @param {BSTR} bstrProtocol 
      * @param {BSTR} bstrHost 
      * @param {BSTR} bstrUrl 

@@ -5,7 +5,7 @@
 
 /**
  * The IDVEnc interface sets and retrieves properties on the DV Video Encoder filter.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-idvenc
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-idvenc
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IDVEnc extends IUnknown{
      * @param {Integer} fDVInfo Boolean value specifying whether to retrieve the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-dvinfo">DVINFO</a> structure that specifies the stream format. If <b>TRUE</b>, the stream format is returned in the <i>sDVInfo</i> parameter.
      * @param {Pointer<DVINFO>} sDVInfo Pointer to a variable that receives a <b>DVINFO</b> structure containing the stream format. If <i>fDVInfo</i> is <b>FALSE</b>, this parameter is ignored.
      * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns E_FAIL or another error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvenc-get_iformatresolution
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvenc-get_iformatresolution
      */
     get_IFormatResolution(VideoFormat, DVFormat, Resolution, fDVInfo, sDVInfo) {
         VideoFormatMarshal := VideoFormat is VarRef ? "int*" : "ptr"
@@ -57,7 +57,7 @@ class IDVEnc extends IUnknown{
      * @param {Integer} fDVInfo Boolean value specifying whether the <i>sDVInfo</i> parameter contains a valid <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-dvinfo">DVINFO</a> structure. To set the stream format, set this parameter to <b>TRUE</b> and specify the format chunk with the <i>sDVInfo</i> parameter.
      * @param {Pointer<DVINFO>} sDVInfo If <i>fDVInfo</i> is <b>TRUE</b>, must point to a <b>DVINFO</b> structure that describes the stream format.
      * @returns {HRESULT} Returns S_OK if successful. Otherwise, returns E_FAIL or another error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-idvenc-put_iformatresolution
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-idvenc-put_iformatresolution
      */
     put_IFormatResolution(VideoFormat, DVFormat, Resolution, fDVInfo, sDVInfo) {
         result := ComCall(4, this, "int", VideoFormat, "int", DVFormat, "int", Resolution, "char", fDVInfo, "ptr", sDVInfo, "HRESULT")

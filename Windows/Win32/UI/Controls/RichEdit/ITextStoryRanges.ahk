@@ -8,12 +8,8 @@
 /**
  * The purpose of the ITextStoryRanges interface is to enumerate the stories in an ITextDocument.
  * @remarks
- * 
- *  
  * You get a pointer to an <b>ITextStoryRanges</b> collection by calling the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-getstoryranges">GetStoryRanges</a> method. Each story obtained from this collection is represented by an <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> object that covers the whole story. Text Object Model (TOM) engines that only have a single story do not need to implement an <b>ITextStoryRanges</b> interface. Your code should only get a stories collection if <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-getstorycount">GetStoryCount</a> returns a story count greater than one.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextstoryranges
+ * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstoryranges
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -40,10 +36,27 @@ class ITextStoryRanges extends IDispatch{
 
     /**
      * Retrieves an IEnumVARIANT enumerator interface for this collection of stories.
+     * @remarks
+     * This definition together with the implementation of 
+     * 				<b>IEnumVARIANT</b>, enables one to support the following Microsoft Visual Basic for Applications (VBA) code.
+     * 
+     * 
+     * ```
+     *     Dim t As ITextDocument
+     *     Dim c As ITextStoryRanges
+     *     Dim r As ITextRange
+     * 
+     *     Set t = gObj
+     *     Set c = t.StoryRanges
+     * 
+     *     For Each r In c
+     *         Debug.Print r.Text
+     *     Next
+     * ```
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * The pointer to the enumerator interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges-_newenum
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-_newenum
      */
     _NewEnum() {
         result := ComCall(7, this, "ptr*", &ppunkEnum := 0, "HRESULT")
@@ -59,7 +72,7 @@ class ITextStoryRanges extends IDispatch{
      * @returns {ITextRange} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a>**</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange">ITextRange</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges-item
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-item
      */
     Item(Index) {
         result := ComCall(8, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")
@@ -71,7 +84,7 @@ class ITextStoryRanges extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The count of stories.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges-getcount
      */
     GetCount() {
         result := ComCall(9, this, "int*", &pCount := 0, "HRESULT")

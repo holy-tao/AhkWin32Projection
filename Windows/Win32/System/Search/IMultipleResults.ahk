@@ -29,13 +29,76 @@ class IMultipleResults extends IUnknown{
     static VTableNames => ["GetResult"]
 
     /**
-     * 
+     * Retrieves a list of properties the recognizer can return for a result range.
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer} lResultFlag 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<Pointer>} pcRowsAffected 
      * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function can return one of these values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>S_OK</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Success.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_POINTER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * One of the parameters is an invalid pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>TPC_E_INSUFFICIENT_BUFFER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The <i>pPropertyGuid</i> buffer is too small.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_FAIL</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An unspecified error occurred.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>E_INVALIDARG</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid argument was received.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getresultpropertylist
      */
     GetResult(pUnkOuter, lResultFlag, riid, pcRowsAffected, ppRowset) {
         pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"

@@ -6,10 +6,8 @@
 /**
  * Enables specification of information for a compute-shader rendering pass.
  * @remarks
- * 
  * The transform changes the state on this render information to specify the compute shader and its dependent resources.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1computeinfo
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1computeinfo
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,21 +34,19 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
 
     /**
      * Establishes or changes the constant buffer data for this transform.
-     * @param {Pointer<Integer>} buffer Type: <b>const BYTE*</b>
-     * 
-     * The data applied to the constant buffer.
+     * @param {Pointer<Integer>} buffer_R 
      * @param {Integer} bufferCount Type: <b>UINT32</b>
      * 
      * The number of bytes of data in the constant buffer.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshaderconstantbuffer
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshaderconstantbuffer
      */
-    SetComputeShaderConstantBuffer(buffer, bufferCount) {
-        bufferMarshal := buffer is VarRef ? "char*" : "ptr"
+    SetComputeShaderConstantBuffer(buffer_R, bufferCount) {
+        buffer_RMarshal := buffer_R is VarRef ? "char*" : "ptr"
 
-        result := ComCall(7, this, bufferMarshal, buffer, "uint", bufferCount, "HRESULT")
+        result := ComCall(7, this, buffer_RMarshal, buffer_R, "uint", bufferCount, "HRESULT")
         return result
     }
 
@@ -81,7 +77,7 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
      * <td>An invalid parameter was passed to the returning function.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshader
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setcomputeshader
      */
     SetComputeShader(shaderId) {
         result := ComCall(8, this, "ptr", shaderId, "HRESULT")
@@ -118,7 +114,7 @@ class ID2D1ComputeInfo extends ID2D1RenderInfo{
      * <td>An invalid parameter was passed to the returning function.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setresourcetexture
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1computeinfo-setresourcetexture
      */
     SetResourceTexture(textureIndex, resourceTexture) {
         result := ComCall(9, this, "uint", textureIndex, "ptr", resourceTexture, "HRESULT")

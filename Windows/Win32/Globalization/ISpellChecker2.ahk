@@ -5,7 +5,7 @@
 
 /**
  * Represents a particular spell checker for a particular language, with the added ability to remove words from the added words dictionary, or from the ignore list.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nn-spellcheck-ispellchecker2
+ * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nn-spellcheck-ispellchecker2
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -74,7 +74,7 @@ class ISpellChecker2 extends ISpellChecker{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheck/nf-spellcheck-ispellchecker2-remove
+     * @see https://learn.microsoft.com/windows/win32/api/spellcheck/nf-spellcheck-ispellchecker2-remove
      */
     Remove(word) {
         word := word is String ? StrPtr(word) : word

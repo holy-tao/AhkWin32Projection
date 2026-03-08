@@ -6,7 +6,7 @@
 
 /**
  * The ISensLogon2 interface handles logon events fired by SENS.
- * @see https://docs.microsoft.com/windows/win32/api//sensevts/nn-sensevts-isenslogon2
+ * @see https://learn.microsoft.com/windows/win32/api/sensevts/nn-sensevts-isenslogon2
  * @namespace Windows.Win32.System.EventNotificationService
  * @version v4.0.30319
  */
@@ -32,7 +32,9 @@ class ISensLogon2 extends IDispatch{
     static VTableNames => ["Logon", "Logoff", "SessionDisconnect", "SessionReconnect", "PostShell"]
 
     /**
-     * The Logon method notifies an application that a user is logged on.
+     * The Logon method notifies an application that a user is logged on. (ISensLogon2.Logon)
+     * @remarks
+     * SENS calls this method to notify an application that a user is logged on.
      * @param {BSTR} bstrUserName The name of a user who is logged on.
      * @param {Integer} dwSessionId The session identifier of a session.
      * @returns {HRESULT} This method can return one of these values.
@@ -54,7 +56,7 @@ class ISensLogon2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon2-logon
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon2-logon
      */
     Logon(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -64,7 +66,9 @@ class ISensLogon2 extends IDispatch{
     }
 
     /**
-     * The Logoff method notifies an application that a user is logged off.
+     * The Logoff method notifies an application that a user is logged off. (ISensLogon2.Logoff)
+     * @remarks
+     * SENS calls this method to notify an application that a user is logged off.
      * @param {BSTR} bstrUserName The name of a user who logs off.
      * @param {Integer} dwSessionId The session identifier of a session.
      * @returns {HRESULT} This method can return one of these values.
@@ -86,7 +90,7 @@ class ISensLogon2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon2-logoff
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon2-logoff
      */
     Logoff(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -97,6 +101,8 @@ class ISensLogon2 extends IDispatch{
 
     /**
      * The SessionDisconnect method is used to disconnect from a Fast User Switching session or a Remote Desktop Connection. This is different from logging off from a session, because when you use this method the session is disconnected.
+     * @remarks
+     * SENS calls this method to notify an application that a session is disconnected.
      * @param {BSTR} bstrUserName The name of a current user.
      * @param {Integer} dwSessionId The session identifier of a session.
      * @returns {HRESULT} This method can return one of these values.
@@ -118,7 +124,7 @@ class ISensLogon2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon2-sessiondisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon2-sessiondisconnect
      */
     SessionDisconnect(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -129,6 +135,8 @@ class ISensLogon2 extends IDispatch{
 
     /**
      * The session was reconnected. The SessionReconnect method is used when you reconnect to a Fast User Switching session or a Remote Desktop Connection. This is different from logging on to a new session.
+     * @remarks
+     * SENS calls this method to notify your application that the session was reconnected.
      * @param {BSTR} bstrUserName Name of the current user.
      * @param {Integer} dwSessionId The session identifier of the session.
      * @returns {HRESULT} This method can return one of these values.
@@ -150,7 +158,7 @@ class ISensLogon2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon2-sessionreconnect
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon2-sessionreconnect
      */
     SessionReconnect(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName
@@ -161,6 +169,8 @@ class ISensLogon2 extends IDispatch{
 
     /**
      * Use the PostShell method when a user has logged on and Windows Explorer is running. This method is different from the Logon method because Logon is called after logon when the Shell may not yet be running.
+     * @remarks
+     * SENS calls this method to notify your application that a user has logged on and the Windows Explorer (Shell) is running.
      * @param {BSTR} bstrUserName Name of the current user.
      * @param {Integer} dwSessionId The session identifier of the session.
      * @returns {HRESULT} This method can return one of these values.
@@ -182,7 +192,7 @@ class ISensLogon2 extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sensevts/nf-sensevts-isenslogon2-postshell
+     * @see https://learn.microsoft.com/windows/win32/api/sensevts/nf-sensevts-isenslogon2-postshell
      */
     PostShell(bstrUserName, dwSessionId) {
         bstrUserName := bstrUserName is String ? BSTR.Alloc(bstrUserName).Value : bstrUserName

@@ -6,11 +6,8 @@
 /**
  * Exposes methods for handling INameSpaceTreeControl events.
  * @remarks
- * 
  * This interface is implemented by a client of namespace control (CLSID_NameSpaceTreeControl) to be advised of namespace control events so that the client may process these events and if not, allow the namespace control to process them.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-inamespacetreecontrolevents
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-inamespacetreecontrolevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
 
     /**
      * Called when the user clicks a button on the mouse.
+     * @remarks
+     * If this method fails, the event is processed by both <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol">INameSpaceTreeControl</a> and TreeView. If it returns S_OK, then only <b>INameSpaceTreeControl</b> will process the event.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that was clicked.
@@ -44,8 +43,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @param {Integer} nstceClickType Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcstyle">NSTCSTYLE</a></b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemclick
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemclick
      */
     OnItemClick(psi, nstceHitTest, nstceClickType) {
         result := ComCall(3, this, "ptr", psi, "uint", nstceHitTest, "uint", nstceClickType, "HRESULT")
@@ -53,14 +52,14 @@ class INameSpaceTreeControlEvents extends IUnknown{
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (INameSpaceTreeControlEvents.OnPropertyItemCommit)
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Not used.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onpropertyitemcommit
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onpropertyitemcommit
      */
     OnPropertyItemCommit(psi) {
         result := ComCall(4, this, "ptr", psi, "HRESULT")
@@ -80,8 +79,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * One or more values from the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcitemstate">NSTCITEMSTATE</a> enumeration that indicate the values that are to be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemstatechanging
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemstatechanging
      */
     OnItemStateChanging(psi, nstcisMask, nstcisState) {
         result := ComCall(5, this, "ptr", psi, "uint", nstcisMask, "uint", nstcisState, "HRESULT")
@@ -89,7 +88,7 @@ class INameSpaceTreeControlEvents extends IUnknown{
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (INameSpaceTreeControlEvents.OnItemStateChanged)
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the shell item for which the state has changed.
@@ -101,8 +100,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * One or more values from the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_nstcitemstate">NSTCITEMSTATE</a> enumeration that indicates the values that are to be set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemstatechanged
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemstatechanged
      */
     OnItemStateChanged(psi, nstcisMask, nstcisState) {
         result := ComCall(6, this, "ptr", psi, "uint", nstcisMask, "uint", nstcisState, "HRESULT")
@@ -116,8 +115,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * An array of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> objects that contains the new selection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onselectionchanged
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onselectionchanged
      */
     OnSelectionChanged(psiaSelection) {
         result := ComCall(7, this, "ptr", psiaSelection, "HRESULT")
@@ -126,6 +125,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
 
     /**
      * Called when the user presses a key on the keyboard.
+     * @remarks
+     * This method receives its message directly from WndProc. When this returns S_OK, the message was not consumed and the namespace tree control is allowed to process the message. Otherwise this message was handled, with no further action required.
      * @param {Integer} uMsg Type: <b>UINT</b>
      * 
      * The message value.
@@ -137,8 +138,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * Specifies the LParam parameters of the message.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onkeyboardinput
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onkeyboardinput
      */
     OnKeyboardInput(uMsg, wParam, lParam) {
         result := ComCall(8, this, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
@@ -152,8 +153,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that is to be expanded.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforeexpand
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforeexpand
      */
     OnBeforeExpand(psi) {
         result := ComCall(9, this, "ptr", psi, "HRESULT")
@@ -167,8 +168,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that was expanded.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onafterexpand
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onafterexpand
      */
     OnAfterExpand(psi) {
         result := ComCall(10, this, "ptr", psi, "HRESULT")
@@ -177,13 +178,15 @@ class INameSpaceTreeControlEvents extends IUnknown{
 
     /**
      * Called before the IShellItem goes into edit mode.
+     * @remarks
+     * If this method fails, the transition to edit mode is not canceled.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> for which the text is to be edited.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeginlabeledit
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeginlabeledit
      */
     OnBeginLabelEdit(psi) {
         result := ComCall(11, this, "ptr", psi, "HRESULT")
@@ -197,8 +200,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> for which the text was edited.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onendlabeledit
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onendlabeledit
      */
     OnEndLabelEdit(psi) {
         result := ComCall(12, this, "ptr", psi, "HRESULT")
@@ -207,6 +210,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
 
     /**
      * Enables you to provide a tooltip.
+     * @remarks
+     * If this method returns S_OK, the client provides its own tooltip. Otherwise the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacetreecontrol">INameSpaceTreeControl</a> will extract one.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that contains the tooltip.
@@ -218,8 +223,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * The size of the tooltip in characters.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-ongettooltip
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-ongettooltip
      */
     OnGetToolTip(psi, pszTip, cchTip) {
         pszTip := pszTip is String ? StrPtr(pszTip) : pszTip
@@ -230,13 +235,15 @@ class INameSpaceTreeControlEvents extends IUnknown{
 
     /**
      * Called before an IShellItem and all of its children are deleted.
+     * @remarks
+     * If this method fails, the given <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> and its children are still deleted.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that is to be deleted.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforeitemdelete
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforeitemdelete
      */
     OnBeforeItemDelete(psi) {
         result := ComCall(14, this, "ptr", psi, "HRESULT")
@@ -253,8 +260,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * Specifies whether the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that was added is a root.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemadded
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemadded
      */
     OnItemAdded(psi, fIsRoot) {
         result := ComCall(15, this, "ptr", psi, "int", fIsRoot, "HRESULT")
@@ -271,8 +278,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * Specifies whether the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> that was deleted is a root.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemdeleted
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onitemdeleted
      */
     OnItemDeleted(psi, fIsRoot) {
         result := ComCall(16, this, "ptr", psi, "int", fIsRoot, "HRESULT")
@@ -290,7 +297,7 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this methods returns, contains the address of a pointer to the interface specified by <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforecontextmenu
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforecontextmenu
      */
     OnBeforeContextMenu(psi, riid) {
         result := ComCall(17, this, "ptr", psi, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -299,6 +306,8 @@ class INameSpaceTreeControlEvents extends IUnknown{
 
     /**
      * Called after a context menu is displayed.
+     * @remarks
+     * This method allows client to completely replace the context menu. This method will allow the client to use the context menu returned by <i>ppv</i> and not necessarily the one specified in <i>pcmIn</i>.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> from which the context menu is generated. This value can be <b>NULL</b> only if the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-nstcstyle2">NSTCS2_SHOWNULLSPACEMENU</a> flag is set.
@@ -311,7 +320,7 @@ class INameSpaceTreeControlEvents extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the address of a pointer to the interface specified in <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onaftercontextmenu
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onaftercontextmenu
      */
     OnAfterContextMenu(psi, pcmIn, riid) {
         result := ComCall(18, this, "ptr", psi, "ptr", pcmIn, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -320,13 +329,15 @@ class INameSpaceTreeControlEvents extends IUnknown{
 
     /**
      * Called before the state icon of the given IShellItem is changed.
+     * @remarks
+     * If this method returns S_OK, the client has processed the event and no further action is required of the namespace control. Otherwise the event will need to be processed, in this case the default action is to go to the next image in the list.
      * @param {IShellItem} psi Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>*</b>
      * 
      * Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> in which the state image is changing.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforestateimagechange
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-inamespacetreecontrolevents-onbeforestateimagechange
      */
     OnBeforeStateImageChange(psi) {
         result := ComCall(19, this, "ptr", psi, "HRESULT")

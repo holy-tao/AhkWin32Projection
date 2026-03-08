@@ -5,7 +5,7 @@
 
 /**
  * This interface allows a custom IDD driver to be loaded in a remote session.
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwrdswddmiddprops
+ * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdswddmiddprops
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IWRdsWddmIddProps extends IUnknown{
      * @param {PWSTR} pDisplayDriverHardwareId Pointer to an array that contains the hardware ID.
      * @param {Integer} Count Size in elements of the hardware ID string.
      * @returns {HRESULT} S_OK or error code
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-gethardwareid
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-gethardwareid
      */
     GetHardwareId(pDisplayDriverHardwareId, Count) {
         pDisplayDriverHardwareId := pDisplayDriverHardwareId is String ? StrPtr(pDisplayDriverHardwareId) : pDisplayDriverHardwareId
@@ -49,7 +49,7 @@ class IWRdsWddmIddProps extends IUnknown{
      * @param {Integer} SessionId ID of the session that the driver is loaded for.
      * @param {HANDLE_PTR} DriverHandle Opened handle of the WDDM ID driver.
      * @returns {HRESULT} S_OK or error code
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-ondriverload
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-ondriverload
      */
     OnDriverLoad(SessionId, DriverHandle) {
         result := ComCall(4, this, "uint", SessionId, "ptr", DriverHandle, "HRESULT")
@@ -60,7 +60,7 @@ class IWRdsWddmIddProps extends IUnknown{
      * Termsrv uses this method to tell the protocol stack that PnP unloaded the WDDM ID driver.
      * @param {Integer} SessionId ID of a session driver is unloaded from.
      * @returns {HRESULT} Returns S_OK or error code
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-ondriverunload
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-ondriverunload
      */
     OnDriverUnload(SessionId) {
         result := ComCall(5, this, "uint", SessionId, "HRESULT")
@@ -71,7 +71,7 @@ class IWRdsWddmIddProps extends IUnknown{
      * Termsrv uses this method to tell protocol stack which mode it is operating.
      * @param {BOOL} Enabled Boolean flag that instructs protocol stack that termsrv supports WDDM IDD mode.
      * @returns {HRESULT} S_OK or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-enablewddmidd
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdswddmiddprops-enablewddmidd
      */
     EnableWddmIdd(Enabled) {
         result := ComCall(6, this, "int", Enabled, "HRESULT")

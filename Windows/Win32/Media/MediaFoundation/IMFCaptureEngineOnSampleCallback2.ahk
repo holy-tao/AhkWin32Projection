@@ -5,7 +5,7 @@
 
 /**
  * Extensions for the IMFCaptureEngineOnSampleCallback callback interface that is used to receive data from the capture engine.
- * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback2
+ * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nn-mfcaptureengine-imfcaptureengineonsamplecallback2
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IMFCaptureEngineOnSampleCallback2 extends IMFCaptureEngineOnSampleCallback
 
     /**
      * Called by the capture sink when the format of the sample is changed.
+     * @remarks
+     * The return value is ignored.
      * @param {IMFMediaEvent} pEvent The new media type.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfcaptureengine/nf-mfcaptureengine-imfcaptureengineonsamplecallback2-onsynchronizedevent
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfcaptureengine/nf-mfcaptureengine-imfcaptureengineonsamplecallback2-onsynchronizedevent
      */
     OnSynchronizedEvent(pEvent) {
         result := ComCall(4, this, "ptr", pEvent, "HRESULT")

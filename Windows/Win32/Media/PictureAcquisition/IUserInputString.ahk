@@ -6,7 +6,7 @@
 
 /**
  * The IUserInputString interface represents the object created when asking the user for a string�for example, when obtaining the name of a tag.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iuserinputstring
+ * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iuserinputstring
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IUserInputString extends IUnknown{
     /**
      * The GetSubmitButtonText method retrieves the text for the submit button.
      * @returns {BSTR} Pointer to a string containing the submit button text.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getsubmitbuttontext
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getsubmitbuttontext
      */
     GetSubmitButtonText() {
         pbstrSubmitButtonText := BSTR()
@@ -45,7 +45,7 @@ class IUserInputString extends IUnknown{
     /**
      * The GetPrompt method retrieves the title of a prompt if the prompt is a modal dialog box.
      * @returns {BSTR} Pointer to a string containing the title of the prompt.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getprompt
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getprompt
      */
     GetPrompt() {
         pbstrPromptTitle := BSTR()
@@ -56,7 +56,7 @@ class IUserInputString extends IUnknown{
     /**
      * The GetStringId method retrieves the unlocalized canonical name for the requested string. For example, when requesting a tag name, the canonical name might be &quot;TagName&quot;.
      * @returns {BSTR} Pointer to a string containing the string identifier (ID).
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getstringid
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getstringid
      */
     GetStringId() {
         pbstrStringId := BSTR()
@@ -84,7 +84,7 @@ class IUserInputString extends IUnknown{
      * <td>Specifies that the string will not accept characters that are illegal in file or directory names (such as * or /).</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getstringtype
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getstringtype
      */
     GetStringType() {
         result := ComCall(6, this, "int*", &pnStringType := 0, "HRESULT")
@@ -94,7 +94,7 @@ class IUserInputString extends IUnknown{
     /**
      * The GetTooltipText method retrieves the tooltip text displayed for a control.
      * @returns {BSTR} Pointer to a string containing the tooltip text.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-gettooltiptext
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-gettooltiptext
      */
     GetTooltipText() {
         pbstrTooltipText := BSTR()
@@ -105,7 +105,7 @@ class IUserInputString extends IUnknown{
     /**
      * The GetMaxLength method retrieves the maximum string length the user interface (UI) should allow.
      * @returns {Integer} Pointer to the size of the maximum string length in characters.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getmaxlength
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmaxlength
      */
     GetMaxLength() {
         result := ComCall(8, this, "uint*", &pcchMaxLength := 0, "HRESULT")
@@ -115,7 +115,7 @@ class IUserInputString extends IUnknown{
     /**
      * The GetDefault method retrieves the default string used to initialize an edit control (or equivalent).
      * @returns {BSTR} Pointer to a string containing the default value used to initialize the edit control.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getdefault
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getdefault
      */
     GetDefault() {
         pbstrDefault := BSTR()
@@ -125,8 +125,10 @@ class IUserInputString extends IUnknown{
 
     /**
      * The GetMruCount method retrieves the number of items in the list of most recently used items.
+     * @remarks
+     * If an error occurs, <i>pnMruCount</i> will be set to 0.
      * @returns {Integer} Pointer to an integer value containing the number of items in the list of most recently used items.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getmrucount
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmrucount
      */
     GetMruCount() {
         result := ComCall(10, this, "uint*", &pnMruCount := 0, "HRESULT")
@@ -137,7 +139,7 @@ class IUserInputString extends IUnknown{
      * The GetMruEntryAt method retrieves the entry at the given index in the most recently used list.
      * @param {Integer} nIndex Integer containing the index at which to retrieve the entry.
      * @returns {BSTR} Pointer to a string containing the most recently used entry.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getmruentryat
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getmruentryat
      */
     GetMruEntryAt(nIndex) {
         pbstrMruEntry := BSTR()
@@ -180,7 +182,7 @@ class IUserInputString extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iuserinputstring-getimage
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iuserinputstring-getimage
      */
     GetImage(nSize, phBitmap, phIcon) {
         result := ComCall(12, this, "uint", nSize, "ptr", phBitmap, "ptr", phIcon, "HRESULT")

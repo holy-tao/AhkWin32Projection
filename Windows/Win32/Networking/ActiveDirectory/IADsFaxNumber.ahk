@@ -7,7 +7,7 @@
 
 /**
  * The IADsFaxNumber interface provides methods for an ADSI client to access the Facsimile Telephone Number attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsfaxnumber
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsfaxnumber
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

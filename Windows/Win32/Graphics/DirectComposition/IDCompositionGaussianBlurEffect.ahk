@@ -5,7 +5,7 @@
 
 /**
  * The Gaussian blur effect is used to blur an image by a Gaussian function, typically to reduce image noise and reduce detail.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiongaussianblureffect
+ * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiongaussianblureffect
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -31,9 +31,11 @@ class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect{
     static VTableNames => ["SetStandardDeviation", "SetStandardDeviation1", "SetBorderMode"]
 
     /**
-     * 
+     * The IDCompositionGaussianBlurEffect::SetStandardDeviation(float) method sets the amount of blur to be applied to the image.
      * @param {IDCompositionAnimation} animation 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiongaussianblureffect-setstandarddeviation(float)
      */
     SetStandardDeviation(animation) {
@@ -42,9 +44,14 @@ class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect{
     }
 
     /**
+     * The IDCompositionGaussianBlurEffect::SetStandardDeviation(float) method sets the amount of blur to be applied to the image.
+     * @param {Float} amount Type: <b>float</b>
      * 
-     * @param {Float} amount 
-     * @returns {HRESULT} 
+     * The amount of blur to be applied to the image. You can compute the blur radius of the kernel by multiplying the standard deviation by 3.
+     *             The units of both the standard deviation and blur radius are DIPs. A value of zero DIPs disables this effect entirely.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiongaussianblureffect-setstandarddeviation(float)
      */
     SetStandardDeviation1(amount) {
@@ -57,10 +64,10 @@ class IDCompositionGaussianBlurEffect extends IDCompositionFilterEffect{
      * @param {Integer} mode Type: <b><a href="https://docs.microsoft.com/windows/desktop/Direct2D/gaussian-blur">D2D1_BORDER_MODE</a></b>
      * 
      * The mode used to calculate the border of the image.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiongaussianblureffect-setbordermode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiongaussianblureffect-setbordermode
      */
     SetBorderMode(mode) {
         result := ComCall(6, this, "int", mode, "HRESULT")

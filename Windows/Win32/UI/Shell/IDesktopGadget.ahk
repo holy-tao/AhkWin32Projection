@@ -6,15 +6,12 @@
 /**
  * Exposes a method that allows the programmatic addition of an installed gadget to the user's desktop.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * An implementation of this interface is supplied in Windows as CLSID_DesktopGadget. Third parties do not provide a implementation.
  * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * Use this interface to run a gadget. A running gadget is displayed on the desktop. This action is often taken at the end of a gadget or application's installation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-idesktopgadget
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-idesktopgadget
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -47,6 +44,18 @@ class IDesktopGadget extends IUnknown{
 
     /**
      * Adds an installed gadget to the desktop.
+     * @remarks
+     * "Running" a gadget here means that the gadget is added to the desktop.
+     * 
+     * <b>RunGadget</b> can only be called on a gadget that has already been installed to the system. It cannot be called on a gadget that is already running—only one instance of a gadget can be run at any given time through this method.
+     * 
+     * Because gadget installation has no UI of its own, this method is often run as the last step in the installation process or as part of the first launch of an application that the gadget is associated with. Installation of the gadget to %ProgramFiles%\Windows Sidebar\Shared Gadgets requires administrative privileges. Therefore it is recommended that the installation of the gadget be performed as part of a Microsoft Installer (MSI) installation.
+     * 
+     * <div class="alert"><b>Important</b>  Applications should not call <b>RunGadget</b> without first asking the user for permission. If the choice is given to the user as a check box, that check box should be unselected by default.</div>
+     * <div> </div>
+     * The gadget is added to the desktop at a position determined by the system. The caller cannot specify location.
+     * 
+     * Per-user applications should install their gadgets per-user. Per-machine applications should install their gadgets per-machine. This ensures a unified experience to the user.
      * @param {PWSTR} gadgetPath Type: <b>LPCWSTR</b>
      * 
      * Pointer to the full (absolute) path of a .gadget folder. A gadget that is not packaged with Windows can only be run from one of the two following locations. Installation of the gadget in any other location will cause this method to fail with an access denied error.
@@ -87,7 +96,7 @@ class IDesktopGadget extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-idesktopgadget-rungadget
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-idesktopgadget-rungadget
      */
     RunGadget(gadgetPath) {
         gadgetPath := gadgetPath is String ? StrPtr(gadgetPath) : gadgetPath

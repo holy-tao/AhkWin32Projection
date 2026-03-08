@@ -29,9 +29,20 @@ class IMethodMalloc extends IUnknown{
     static VTableNames => ["Alloc"]
 
     /**
+     * Allocates a block of memory of the specified size.
+     * @remarks
+     * The memory block returned by <b>AllocADsMem</b> is initialized to zero.
      * 
-     * @param {Integer} cb 
-     * @returns {Pointer<Void>} 
+     * For more information and a code example that shows how to use the <b>AllocADsMem</b> function, see <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-reallocadsmem">ReallocADsMem</a>.
+     * @param {Integer} cb Type: <b>DWORD</b>
+     * 
+     * Contains the size, in bytes, to be allocated.
+     * @returns {Pointer<Void>} Type: <b>LPVOID</b>
+     * 
+     * When successful, the function returns a non-<b>NULL</b> pointer to the allocated memory. The caller must free this memory when it is no longer required by passing the returned pointer to <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-freeadsmem">FreeADsMem</a>.
+     * 
+     * Returns <b>NULL</b> if not successful. Call  <a href="https://docs.microsoft.com/windows/desktop/api/adshlp/nf-adshlp-adsgetlasterror">ADsGetLastError</a> to obtain extended error status. For more information about error code values, see  <a href="https://docs.microsoft.com/windows/desktop/ADSI/adsi-error-codes">ADSI Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/adshlp/nf-adshlp-allocadsmem
      */
     Alloc(cb) {
         result := ComCall(3, this, "uint", cb, "ptr")

@@ -6,7 +6,7 @@
 
 /**
  * Represents a change to a change unit that is contained in an item.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncchangeunit
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncchangeunit
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class ISyncChangeUnit extends IUnknown{
     /**
      * Gets the item change that contains this change unit change.
      * @returns {ISyncChange} Returns the item change that contains this change unit change.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangeunit-getitemchange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getitemchange
      */
     GetItemChange() {
         result := ComCall(3, this, "ptr*", &ppSyncChange := 0, "HRESULT")
@@ -86,7 +86,7 @@ class ISyncChangeUnit extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangeunit-getchangeunitid
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitid
      */
     GetChangeUnitId(pbChangeUnitId, pcbIdSize) {
         pbChangeUnitIdMarshal := pbChangeUnitId is VarRef ? "char*" : "ptr"
@@ -141,7 +141,7 @@ class ISyncChangeUnit extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncchangeunit-getchangeunitversion
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncchangeunit-getchangeunitversion
      */
     GetChangeUnitVersion(pbCurrentReplicaId, pVersion) {
         pbCurrentReplicaIdMarshal := pbCurrentReplicaId is VarRef ? "char*" : "ptr"

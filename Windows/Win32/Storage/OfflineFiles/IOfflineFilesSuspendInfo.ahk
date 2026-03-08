@@ -5,7 +5,7 @@
 
 /**
  * Determines whether an item is suspended or not and, if so, if it is a suspended root or not.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilessuspendinfo
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessuspendinfo
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IOfflineFilesSuspendInfo extends IUnknown{
      * @param {Pointer<BOOL>} pbSuspended Receives <b>TRUE</b> if the item is suspended, or <b>FALSE</b> otherwise.
      * @param {Pointer<BOOL>} pbSuspendedRoot Receives <b>TRUE</b> if the item is a suspended root, or <b>FALSE</b> otherwise.  If the item is not suspended, this value is always <b>FALSE</b>.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessuspendinfo-issuspended
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessuspendinfo-issuspended
      */
     IsSuspended(pbSuspended, pbSuspendedRoot) {
         pbSuspendedMarshal := pbSuspended is VarRef ? "int*" : "ptr"

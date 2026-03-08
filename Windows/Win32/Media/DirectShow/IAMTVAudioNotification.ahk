@@ -5,7 +5,7 @@
 
 /**
  * Note  This callback interface has been deprecated, because the TV Audio filter does not implement the callback mechanism. .
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtvaudionotification
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtvaudionotification
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAMTVAudioNotification extends IUnknown{
      * Note  The IAMTVAudioNotification interface is deprecated. The OnEvent method handles events from a TV tuner card controlled by the IAMTVAudio interface.
      * @param {Integer} Event Flag identifying the type of event. The only value currently defined is AMTVAUDIO_EVENT_CHANGED.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvaudionotification-onevent
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvaudionotification-onevent
      */
     OnEvent(Event) {
         result := ComCall(3, this, "int", Event, "HRESULT")

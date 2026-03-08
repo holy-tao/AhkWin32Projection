@@ -30,13 +30,16 @@ class IHTMLPainter extends IUnknown{
     static VTableNames => ["Draw", "OnResize", "GetPainterInfo", "HitTestPoint"]
 
     /**
-     * 
+     * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
      * @param {RECT} rcBounds 
      * @param {RECT} rcUpdate 
      * @param {Integer} lDrawFlags 
      * @param {HDC} hdc 
      * @param {Pointer<Void>} pvDrawObject 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
      */
     Draw(rcBounds, rcUpdate, lDrawFlags, hdc, pvDrawObject) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc

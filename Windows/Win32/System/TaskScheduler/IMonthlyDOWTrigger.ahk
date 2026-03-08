@@ -7,13 +7,10 @@
 /**
  * Represents a trigger that starts a task on a monthly day-of-week schedule.
  * @remarks
- * 
  * The time of day that the task is started is set by the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itrigger-get_startboundary">StartBoundary</a> property.
  * 
  * When reading or writing  XML for a task, a monthly day-of-week trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-schedulebymonthdayofweek-calendartriggertype-element">ScheduleByMonthDayOfWeek</a> element of the Task Scheduler schema.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-imonthlydowtrigger
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-imonthlydowtrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -74,9 +71,8 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the days of the week during which the task runs.
+     * Gets or sets the days of the week during which the task runs. (Get)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property.<table>
      * <tr>
      * <th>Day of Week</th>
@@ -124,11 +120,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * 
      * 
      * When reading or writing XML for a task, the days of the week of a monthly day-of-week calendar are specified by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-daysofweek-monthlydayofweekscheduletype-element">DaysOfWeek</a> element.
-     * 
-     * 
      * @param {Pointer<Integer>} pDays 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-get_daysofweek
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_daysofweek
      */
     get_DaysOfWeek(pDays) {
         pDaysMarshal := pDays is VarRef ? "short*" : "ptr"
@@ -138,9 +132,8 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the days of the week during which the task runs.
+     * Gets or sets the days of the week during which the task runs. (Put)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property.<table>
      * <tr>
      * <th>Day of Week</th>
@@ -188,11 +181,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * 
      * 
      * When reading or writing XML for a task, the days of the week of a monthly day-of-week calendar are specified by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-daysofweek-monthlydayofweekscheduletype-element">DaysOfWeek</a> element.
-     * 
-     * 
      * @param {Integer} days 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-put_daysofweek
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_daysofweek
      */
     put_DaysOfWeek(days) {
         result := ComCall(21, this, "short", days, "HRESULT")
@@ -200,9 +191,8 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the weeks of the month during which the task runs.
+     * Gets or sets the weeks of the month during which the task runs. (Get)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property. Note that you can explicitly specify the last week of the month, regardless  of what week it is, by specifying 0X10 (16).<table>
      * <tr>
      * <th>Week</th>
@@ -240,11 +230,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * 
      * 
      * When reading or writing XML for a task, the weeks of the month of a monthly day-of-week calendar are specified by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-weeks-monthlydayofweekscheduletype-element">Weeks</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<Integer>} pWeeks 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-get_weeksofmonth
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_weeksofmonth
      */
     get_WeeksOfMonth(pWeeks) {
         pWeeksMarshal := pWeeks is VarRef ? "short*" : "ptr"
@@ -254,9 +242,8 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the weeks of the month during which the task runs.
+     * Gets or sets the weeks of the month during which the task runs. (Put)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property. Note that you can explicitly specify the last week of the month, regardless  of what week it is, by specifying 0X10 (16).<table>
      * <tr>
      * <th>Week</th>
@@ -294,11 +281,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * 
      * 
      * When reading or writing XML for a task, the weeks of the month of a monthly day-of-week calendar are specified by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-weeks-monthlydayofweekscheduletype-element">Weeks</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Integer} weeks 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-put_weeksofmonth
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_weeksofmonth
      */
     put_WeeksOfMonth(weeks) {
         result := ComCall(23, this, "short", weeks, "HRESULT")
@@ -306,9 +291,8 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the months of the year during which the task runs.
+     * Gets or sets the months of the year during which the task runs. (IMonthlyDOWTrigger.get_MonthsOfYear)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property.<table>
      * <tr>
      * <th>Month</th>
@@ -381,11 +365,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * 
      * 
      * When reading or writing XML for a task, the months of the year of a monthly day-of-week calendar are specified by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-months-monthlydayofweekscheduletype-element">Months</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<Integer>} pMonths 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-get_monthsofyear
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_monthsofyear
      */
     get_MonthsOfYear(pMonths) {
         pMonthsMarshal := pMonths is VarRef ? "short*" : "ptr"
@@ -395,9 +377,8 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets the months of the year during which the task runs.
+     * Gets or sets the months of the year during which the task runs. (IMonthlyDOWTrigger.put_MonthsOfYear)
      * @remarks
-     * 
      * The following table shows the mapping of the bitwise mask used by this property.<table>
      * <tr>
      * <th>Month</th>
@@ -470,11 +451,9 @@ class IMonthlyDOWTrigger extends ITrigger{
      * 
      * 
      * When reading or writing XML for a task, the months of the year of a monthly day-of-week calendar are specified by the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-months-monthlydayofweekscheduletype-element">Months</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Integer} months 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-put_monthsofyear
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_monthsofyear
      */
     put_MonthsOfYear(months) {
         result := ComCall(25, this, "short", months, "HRESULT")
@@ -482,10 +461,10 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a Boolean value that indicates that the task runs on the last week of the month.
+     * Gets or sets a Boolean value that indicates that the task runs on the last week of the month. (Get)
      * @param {Pointer<VARIANT_BOOL>} pLastWeek 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-get_runonlastweekofmonth
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_runonlastweekofmonth
      */
     get_RunOnLastWeekOfMonth(pLastWeek) {
         pLastWeekMarshal := pLastWeek is VarRef ? "short*" : "ptr"
@@ -495,10 +474,10 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a Boolean value that indicates that the task runs on the last week of the month.
+     * Gets or sets a Boolean value that indicates that the task runs on the last week of the month. (Put)
      * @param {VARIANT_BOOL} lastWeek 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-put_runonlastweekofmonth
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_runonlastweekofmonth
      */
     put_RunOnLastWeekOfMonth(lastWeek) {
         result := ComCall(27, this, "short", lastWeek, "HRESULT")
@@ -506,10 +485,10 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a delay time that is randomly added to the start time of the trigger.
+     * Gets or sets a delay time that is randomly added to the start time of the trigger. (IMonthlyDOWTrigger.get_RandomDelay)
      * @param {Pointer<BSTR>} pRandomDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-get_randomdelay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-get_randomdelay
      */
     get_RandomDelay(pRandomDelay) {
         result := ComCall(28, this, "ptr", pRandomDelay, "HRESULT")
@@ -517,10 +496,10 @@ class IMonthlyDOWTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a delay time that is randomly added to the start time of the trigger.
+     * Gets or sets a delay time that is randomly added to the start time of the trigger. (IMonthlyDOWTrigger.put_RandomDelay)
      * @param {BSTR} randomDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-imonthlydowtrigger-put_randomdelay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-imonthlydowtrigger-put_randomdelay
      */
     put_RandomDelay(randomDelay) {
         randomDelay := randomDelay is String ? BSTR.Alloc(randomDelay).Value : randomDelay

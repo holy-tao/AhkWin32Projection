@@ -7,11 +7,8 @@
 /**
  * The IMSVidStreamBufferSource2 interface represents the Stream Buffer Source filter within the Video Control.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSource2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersource2
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersource2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -87,7 +84,7 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-put_rateex
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-put_rateex
      */
     put_RateEx(dwRate, dwFramesPerSecond) {
         result := ComCall(41, this, "double", dwRate, "uint", dwFramesPerSecond, "HRESULT")
@@ -97,7 +94,7 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_audiocounter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_audiocounter
      */
     get_AudioCounter() {
         result := ComCall(42, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -106,8 +103,10 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @remarks
+     * Returns counter interface for the video path
      * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_videocounter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_videocounter
      */
     get_VideoCounter() {
         result := ComCall(43, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -117,7 +116,7 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_cccounter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_cccounter
      */
     get_CCCounter() {
         result := ComCall(44, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -127,7 +126,7 @@ class IMSVidStreamBufferSource2 extends IMSVidStreamBufferSource{
     /**
      * The get_WSTCounter method enables the caller to get performance statistics from the Stream Buffer Source for the World Standard Teletext (WST) stream.
      * @returns {IUnknown} Receives a pointer to the <b>IUnknown</b> interface. Query this pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/sbe/nn-sbe-istreambufferdatacounters">IStreamBufferDataCounters</a> interface. The caller must release the <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource2-get_wstcounter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource2-get_wstcounter
      */
     get_WSTCounter() {
         result := ComCall(45, this, "ptr*", &ppUnk := 0, "HRESULT")

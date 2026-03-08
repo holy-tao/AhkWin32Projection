@@ -7,11 +7,8 @@
 /**
  * Provides functionality required for all Windows Runtime classes.
  * @remarks
- * 
  * <b>IInspectable</b> methods have no effect on COM apartments and are safe to call from user interface threads.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//inspectable/nn-inspectable-iinspectable
+ * @see https://learn.microsoft.com/windows/win32/api/inspectable/nn-inspectable-iinspectable
  * @namespace Windows.Win32.System.WinRT
  * @version v4.0.30319
  */
@@ -38,6 +35,12 @@ class IInspectable extends IUnknown{
 
     /**
      * Gets the interfaces that are implemented by the current Windows Runtime class.
+     * @remarks
+     * Use the <b>GetIids</b> method to discover the interfaces that are implemented by a Windows Runtime object.
+     * 
+     * A <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> call on any IID in the <i>iids</i> array must succeed.
+     * 
+     * The caller is responsible for freeing the IID array by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {Pointer<Integer>} iidCount Type: <b>ULONG*</b>
      * 
      * The number of interfaces that are implemented by the current Windows Runtime object, excluding the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> and <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a> implementations.
@@ -60,7 +63,7 @@ class IInspectable extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The  <a href="/windows/desktop/WinRT/hstring">HSTRING</a> was created successfully.
+     * The  <a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a> was created successfully.
      * 
      * </td>
      * </tr>
@@ -76,7 +79,7 @@ class IInspectable extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-iinspectable-getiids
+     * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-getiids
      */
     GetIids(iidCount, iids) {
         iidCountMarshal := iidCount is VarRef ? "uint*" : "ptr"
@@ -88,10 +91,47 @@ class IInspectable extends IUnknown{
 
     /**
      * Gets the fully qualified name of the current Windows Runtime object.
+     * @remarks
+     * Use the <b>GetRuntimeClassName</b> method to retrieve the namespace-qualified name of a Windows Runtime object.
+     * 
+     * The caller is responsible for freeing the <i>className</i> string by using the <a href="https://docs.microsoft.com/windows/desktop/api/winstring/nf-winstring-windowsdeletestring">WindowsDeleteString</a> function.   
+     * 
+     * The following table shows example class name strings that could be returned by the <b>GetRuntimeClassName</b> method.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Example Class Name</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>Fabrikam.Kitchen.IToaster</td>
+     * <td>An interface in the Fabrikam.Kitchen namespace. </td>
+     * </tr>
+     * <tr>
+     * <td>Fabrikam.Kitchen.Chef</td>
+     * <td>An class in the Fabrikam.Kitchen namespace. </td>
+     * </tr>
+     * <tr>
+     * <td>Windows.Foundation.Collections.IVector`1&lt;TailspinToys.IStore&gt;</td>
+     * <td>A vector of TailspinToys.IStore interfaces. </td>
+     * </tr>
+     * <tr>
+     * <td>Windows.Foundation.Collections.IVector`1&lt;Windows.Foundation.Collections.IMap`2&lt;String, TailspinToys.IStore&gt;&gt;</td>
+     * <td>A vector of maps of strings to TailspinToys.IStore interfaces. </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * 
+     * 
+     * The <b>GetRuntimeClassName</b> method provides the most specific type information that the server object guarantees that it implements. The type name may be a runtime class name, interface group name, interface name, or parameterized interface name. 
+     * 
+     * The <b>GetRuntimeClassName</b> method returns <b>E_ILLEGAL_METHOD_CALL</b> if the class name refers to a class factory or a static interface.
      * @returns {HSTRING} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinRT/hstring">HSTRING</a>*</b>
      * 
      * The fully qualified name of the current Windows Runtime object.
-     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-iinspectable-getruntimeclassname
+     * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-getruntimeclassname
      */
     GetRuntimeClassName() {
         className := HSTRING()
@@ -104,7 +144,7 @@ class IInspectable extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/inspectable/ne-inspectable-trustlevel">TrustLevel</a>*</b>
      * 
      * The trust level of the current Windows Runtime object. The default is <b>BaseLevel</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//inspectable/nf-inspectable-iinspectable-gettrustlevel
+     * @see https://learn.microsoft.com/windows/win32/api/inspectable/nf-inspectable-iinspectable-gettrustlevel
      */
     GetTrustLevel() {
         result := ComCall(5, this, "int*", &trustLevel := 0, "HRESULT")

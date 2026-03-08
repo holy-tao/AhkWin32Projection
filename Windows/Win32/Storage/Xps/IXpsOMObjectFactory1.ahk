@@ -10,14 +10,11 @@
 /**
  * Inherits from IXpsOMObjectFactory.
  * @remarks
- * 
  * <h3><a id="Additional_References"></a><a id="additional_references"></a><a id="ADDITIONAL_REFERENCES"></a>Additional References</h3>
  * The base interface is defined and documented in Windows 7 SDK.
  * 
  * [IXpsOMObjectFactory interface](/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomobjectfactory)
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsomobjectfactory1
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsomobjectfactory1
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -44,9 +41,11 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Detects the type of XPS document that is stored in the specified file.
+     * @remarks
+     * This method only parses the data enough to detect the document type. It does not validate the content. A return value of S_OK does not, therefore, imply that the file contains a valid document.
      * @param {PWSTR} filename [in] The name of the  XPS file from which to get the type.
      * @returns {Integer} [out, retval] The document type.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromfile
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromfile
      */
     GetDocumentTypeFromFile(filename) {
         filename := filename is String ? StrPtr(filename) : filename
@@ -57,9 +56,11 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Detects the type of XPS document that is stored in the specified stream.
+     * @remarks
+     * This method only parses the data enough to detect the document type. It does not validate the content. A return value of S_OK does not, therefore, imply that the stream contains a valid document.
      * @param {IStream} xpsDocumentStream [in] A stream that contains XPS OM data. The stream must support sequential reading and the read position of the stream must be set to the beginning of the XPS data.
      * @returns {Integer} [out, retval] The document type of the XPS data found in the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromstream
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-getdocumenttypefromstream
      */
     GetDocumentTypeFromStream(xpsDocumentStream) {
         result := ComCall(41, this, "ptr", xpsDocumentStream, "int*", &documentType := 0, "HRESULT")
@@ -68,6 +69,8 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Converts an image resource from an HD Photo to a JpegXR.
+     * @remarks
+     * This image referenced by imageResource is changed from an XPS_IMAGE_TYPE_WDP image type to an XPS_IMAGE_TYPE_JPEGXR image type. This method converts the data stream of the image resource;, however, the part name of the resource remains the same.
      * @param {IXpsOMImageResource} imageResource [in, out] The image resource to convert. 
      * 
      * When the method returns, the converted image resource.
@@ -78,7 +81,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * XPS_E_INVALID_CONTENT_TYPE: The image type is not XPS_IMAGE_TYPE_WDP.
      * 
      *  E_INVALIDARG: The image resource is not recognized by the WDP decoder or another general error occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-converthdphototojpegxr
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-converthdphototojpegxr
      */
     ConvertHDPhotoToJpegXR(imageResource) {
         result := ComCall(42, this, "ptr", imageResource, "HRESULT")
@@ -87,6 +90,8 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Converts an image resource from a JpegXR to an HD Photo.
+     * @remarks
+     * This image referenced by imageResource is changed from an XPS_IMAGE_TYPE_JPEGXR image type to an XPS_IMAGE_TYPE_WDP image type. This method converts the data stream of the image resource;, however, the part name of the resource remains the same.
      * @param {IXpsOMImageResource} imageResource [in, out] The image resource to convert. 
      * 
      * When the method returns, the converted image resource.
@@ -97,7 +102,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * XPS_E_INVALID_CONTENT_TYPE: The image type is not XPS_IMAGE_TYPE_JXR.
      * 
      * E_INVALIDARG if data is not recognized by WDP decoder or another error occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-convertjpegxrtohdphoto
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-convertjpegxrtohdphoto
      */
     ConvertJpegXRToHDPhoto(imageResource) {
         result := ComCall(43, this, "ptr", imageResource, "HRESULT")
@@ -106,6 +111,11 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Opens a file for writing the contents of an XPS OM to an XPS package of a specified type. This method produces a package writer for either an MSXPS document or an OpenXPS document.
+     * @remarks
+     * Use this method to produce a package writer for either an MSXPS document or an OpenXPS document. <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagewriteronfile">CreatePackageWriterOnFile</a>,  released in Windows 7, only creates XPS document files in the MSXPS format.
+     * 
+     * <h3><a id="Additional_References"></a><a id="additional_references"></a><a id="ADDITIONAL_REFERENCES"></a>Additional References</h3>
+     * Additional References: Legacy method description
      * @param {PWSTR} fileName [in] The name of the file to be created.
      * @param {Pointer<SECURITY_ATTRIBUTES>} securityAttributes [in, unique]    The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa379560(v=vs.85)">SECURITY_ATTRIBUTES</a> structure, which contains two separate but related  members:
      * 
@@ -155,7 +165,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @param {IOpcPartUri} discardControlPartName [in] The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the discard control part. This parameter can be set to <b>NULL</b>.
      * @param {Integer} documentType [in] Specifies the document type of the package writer. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * @returns {IXpsOMPackageWriter} [out, retval]    A pointer to the new  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter">IXpsOMPackageWriter</a> interface created by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronfile1
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronfile1
      */
     CreatePackageWriterOnFile1(fileName, securityAttributes, flagsAndAttributes, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType) {
         fileName := fileName is String ? StrPtr(fileName) : fileName
@@ -166,6 +176,8 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Opens a stream for writing the contents of an XPS OM to an XPS package of a specified type.
+     * @remarks
+     * Use this method to produce a package writer for either an MSXPS document or an OpenXPS document. <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagewriteronstream">CreatePackageWriterOnStream</a>,  released in Windows 7, only creates XPS document files in the MSXPS format.
      * @param {ISequentialStream} outputStream [in] The stream to be used for writing.
      * @param {BOOL} optimizeMarkupSize A Boolean value that  indicates whether the document markup will be optimized for size when the document is written to the stream.
      * 
@@ -203,7 +215,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * @param {IOpcPartUri} discardControlPartName [in] The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopcparturi">IOpcPartUri</a> interface that contains the name of the discard control part.  This parameter can be set to <b>NULL</b>.
      * @param {Integer} documentType [in] The document type of the package writer. The value of this parameter cannot be XPS_DOCUMENT_TYPE_UNSPECIFIED.
      * @returns {IXpsOMPackageWriter} [out, retval]    A pointer to the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompackagewriter">IXpsOMPackageWriter</a> interface created by this method.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronstream1
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagewriteronstream1
      */
     CreatePackageWriterOnStream1(outputStream, optimizeMarkupSize, interleaving, documentSequencePartName, coreProperties, packageThumbnail, documentSequencePrintTicket, discardControlPartName, documentType) {
         result := ComCall(45, this, "ptr", outputStream, "int", optimizeMarkupSize, "int", interleaving, "ptr", documentSequencePartName, "ptr", coreProperties, "ptr", packageThumbnail, "ptr", documentSequencePrintTicket, "ptr", discardControlPartName, "int", documentType, "ptr*", &packageWriter := 0, "HRESULT")
@@ -221,6 +233,8 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Opens a stream that contains an XPS package and returns an instantiated XPS document object tree.
+     * @remarks
+     * Use this method to read a stream that contains an XPS document that could be of type XPS_DOCUMENT_TYPE_ XPS or XPS_DOCUMENT_TYPE_ OPENXPS.   <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagefromstream">CreatePackageFromStream</a>, released in Windows 7, only opens streams that contain an XPS document of type XPS_DOCUMENT_TYPE_ XPS.
      * @param {IStream} stream [in] The stream that contains an XPS package.
      * @param {BOOL} reuseObjects [in]            The Boolean value that indicates that the software is to attempt to optimize the document object tree by sharing objects that are identical in all properties and children. 
      * 
@@ -228,7 +242,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * 
      * FALSE: The software will not attempt to optimize the object tree.
      * @returns {IXpsOMPackage1} [out, retval]   A pointer to the new IXpsOMPackage1 interface that contains the resulting XPS document object tree.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagefromstream1
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagefromstream1
      */
     CreatePackageFromStream1(stream, reuseObjects) {
         result := ComCall(47, this, "ptr", stream, "int", reuseObjects, "ptr*", &package := 0, "HRESULT")
@@ -237,6 +251,8 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Opens an XPS package file and returns an instantiated XPS document object tree. This method will read a file that contains an XPS document that is of type XPS_DOCUMENT_TYPE_ XPS or XPS_DOCUMENT_TYPE_ OPENXPS.
+     * @remarks
+     * Use this method to read a file that contains an XPS document that could be of type XPS_DOCUMENT_TYPE_ XPS or XPS_DOCUMENT_TYPE_ OPENXPS.   <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomobjectfactory-createpackagefromfile">CreatePackageFromFile</a>, released in Windows 7, only opens files that contain an XPS document of type XPS_DOCUMENT_TYPE_ XPS.
      * @param {PWSTR} filename [in, string] The name of the XPS package file.
      * @param {BOOL} reuseObjects [in]            The Boolean value that indicates that the software is to attempt to optimize the document object tree by sharing objects that are identical in all properties and children. 
      * 
@@ -244,7 +260,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * 
      * FALSE: The software will not attempt to optimize the object tree.
      * @returns {IXpsOMPackage1} [out, retval]   A pointer to the new IXpsOMPackage1 interface that contains the XPS document object tree that was read from filename.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagefromfile1
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpackagefromfile1
      */
     CreatePackageFromFile1(filename, reuseObjects) {
         filename := filename is String ? StrPtr(filename) : filename
@@ -269,6 +285,10 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Reads the page markup from the specified stream to create and populate an IXpsOMPage1 interface.
+     * @remarks
+     * The IXpsOMPage1 interface returned by this method provides a GetDocumentType method that can be used to identify the XPS document type of the source XML markup in the stream. XPS document type determination is based on the XML namespaces that are used in source markup.
+     * 
+     * An IXpsOMPage1 interface that contains a document type of XPS_DOCUMENT_TYPE_ OPENXPS can be serialized as a document type of XPS_DOCUMENT_TYPE_ XPS if all of its image resources are compatible with the XPS_DOCUMENT_TYPE_ XPS document format.
      * @param {IStream} pageMarkupStream [in]            The stream that contains the page markup.
      * @param {IOpcPartUri} partUri [in]            The IOpcPartUri interface that contains the page's URI.
      * @param {IXpsOMPartResources} resources [in]            The IXpsOMPartResources interface that contains the resources used by the page.
@@ -278,7 +298,7 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
      * 
      * FALSE: The software will not attempt to optimize the object tree.
      * @returns {IXpsOMPage1} [out, retval]   A pointer to the new IXpsOMPage1 interface created by this method. -
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpagefromstream1
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createpagefromstream1
      */
     CreatePageFromStream1(pageMarkupStream, partUri, resources, reuseObjects) {
         result := ComCall(50, this, "ptr", pageMarkupStream, "ptr", partUri, "ptr", resources, "int", reuseObjects, "ptr*", &page := 0, "HRESULT")
@@ -287,11 +307,13 @@ class IXpsOMObjectFactory1 extends IXpsOMObjectFactory{
 
     /**
      * Loads the remote resource dictionary markup into an unrooted IXpsOMRemoteDictionaryResource interface. The dictionary referenced by the dictionaryMarkupStream parameter can contain markup from either the OpenXPS or the MSXPS namespace.
+     * @remarks
+     * Use this method to create a remote dictionary from a stream whose contents could be of type XPS_DOCUMENT_TYPE_ XPS or XPS_DOCUMENT_TYPE_ OPENXPS.   CreateRemoteDictionaryResourceFromStream, released in Windows 7, only reads streams of type XPS_DOCUMENT_TYPE_ XPS.
      * @param {IStream} dictionaryMarkupStream [in]            The IStream interface that contains the remote resource dictionary markup.
      * @param {IOpcPartUri} partUri [in]            The IOpcPartUri interface that contains the part name to be assigned to this resource.
      * @param {IXpsOMPartResources} resources The IXpsOMPartResources interface for the part resources of the dictionary resource objects that have streams.
      * @returns {IXpsOMRemoteDictionaryResource} [in]            A pointer to the new IXpsOMRemoteDictionaryResource interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createremotedictionaryresourcefromstream1
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nf-xpsobjectmodel_1-ixpsomobjectfactory1-createremotedictionaryresourcefromstream1
      */
     CreateRemoteDictionaryResourceFromStream1(dictionaryMarkupStream, partUri, resources) {
         result := ComCall(51, this, "ptr", dictionaryMarkupStream, "ptr", partUri, "ptr", resources, "ptr*", &dictionaryResource := 0, "HRESULT")

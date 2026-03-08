@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Exposes methods that create and destroy bands and specifiy their availability.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-ibandhost
+ * Exposes methods that create and destroy bands and specify their availability.
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-ibandhost
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -47,7 +47,7 @@ class IBandHost extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Contains the address of a pointer to a band specified by <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ibandhost-createband
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-createband
      */
     CreateBand(rclsidBand, fAvailable, fVisible, riid) {
         result := ComCall(3, this, "ptr", rclsidBand, "int", fAvailable, "int", fVisible, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -64,8 +64,8 @@ class IBandHost extends IUnknown{
      * Specifies band availability.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ibandhost-setbandavailability
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-setbandavailability
      */
     SetBandAvailability(rclsidBand, fAvailable) {
         result := ComCall(4, this, "ptr", rclsidBand, "int", fAvailable, "HRESULT")
@@ -79,8 +79,8 @@ class IBandHost extends IUnknown{
      * A reference to the CLSID of a band.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-ibandhost-destroyband
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-ibandhost-destroyband
      */
     DestroyBand(rclsidBand) {
         result := ComCall(5, this, "ptr", rclsidBand, "HRESULT")

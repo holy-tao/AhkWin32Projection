@@ -6,7 +6,7 @@
 
 /**
  * Provides methods to interface with the local initiator service, including the ability to set CHAP security settings and to log into targets.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsserviceiscsi
+ * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsserviceiscsi
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IVdsServiceIscsi extends IUnknown{
      * @returns {PWSTR} The address of a pointer to a string. VDS will put a pointer to an initialized string at this location. 
      *       Callers must free the string by using the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceiscsi-getinitiatorname
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-getinitiatorname
      */
     GetInitiatorName() {
         result := ComCall(3, this, "ptr*", &ppwszIscsiName := 0, "HRESULT")
@@ -46,7 +46,7 @@ class IVdsServiceIscsi extends IUnknown{
     /**
      * Returns an object that enumerates the iSCSI initiator adapters of the initiator.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the  initiator adapters  as <a href="https://docs.microsoft.com/windows/desktop/VDS/startup-and-service-objects">initiator adapter objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the initiator adapter objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceiscsi-queryinitiatoradapters
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-queryinitiatoradapters
      */
     QueryInitiatorAdapters() {
         result := ComCall(4, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -54,7 +54,7 @@ class IVdsServiceIscsi extends IUnknown{
     }
 
     /**
-     * Not supported.This method is reserved for future use.
+     * Not supported.This method is reserved for future use. (IVdsServiceIscsi.SetIpsecGroupPresharedKey)
      * @param {Pointer<VDS_ISCSI_IPSEC_KEY>} pIpsecKey Reserved for future use.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -75,7 +75,7 @@ class IVdsServiceIscsi extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceiscsi-setipsecgrouppresharedkey
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-setipsecgrouppresharedkey
      */
     SetIpsecGroupPresharedKey(pIpsecKey) {
         result := ComCall(5, this, "ptr", pIpsecKey, "HRESULT")
@@ -83,7 +83,7 @@ class IVdsServiceIscsi extends IUnknown{
     }
 
     /**
-     * Not supported.This method is reserved for future use.
+     * Not supported.This method is reserved for future use. (IVdsServiceIscsi.SetAllIpsecTunnelAddresses)
      * @param {Pointer<VDS_IPADDRESS>} pTunnelAddress Reserved for future use.
      * @param {Pointer<VDS_IPADDRESS>} pDestinationAddress Reserved for future use.
      * @returns {HRESULT} This method can return one of these values.
@@ -105,7 +105,7 @@ class IVdsServiceIscsi extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceiscsi-setallipsectunneladdresses
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-setallipsectunneladdresses
      */
     SetAllIpsecTunnelAddresses(pTunnelAddress, pDestinationAddress) {
         result := ComCall(6, this, "ptr", pTunnelAddress, "ptr", pDestinationAddress, "HRESULT")
@@ -113,7 +113,7 @@ class IVdsServiceIscsi extends IUnknown{
     }
 
     /**
-     * Not supported.
+     * Not supported. (IVdsServiceIscsi.SetAllIpsecSecurity)
      * @param {Guid} targetPortalId Reserved for future use.
      * @param {Integer} ullSecurityFlags Reserved for future use.
      * @param {Pointer<VDS_ISCSI_IPSEC_KEY>} pIpsecKey Reserved for future use.
@@ -136,7 +136,7 @@ class IVdsServiceIscsi extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceiscsi-setallipsecsecurity
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-setallipsecsecurity
      */
     SetAllIpsecSecurity(targetPortalId, ullSecurityFlags, pIpsecKey) {
         result := ComCall(7, this, "ptr", targetPortalId, "uint", ullSecurityFlags, "ptr", pIpsecKey, "HRESULT")
@@ -145,12 +145,18 @@ class IVdsServiceIscsi extends IUnknown{
 
     /**
      * Sets the initiator CHAP shared secret that is used for mutual CHAP authentication when the initiator authenticates the target.
+     * @remarks
+     * An initiator may support setting a different CHAP shared secret for each target.
+     * 
+     * There is no way to determine programmatically whether an initiator   supports target-specific secrets. If the call to <b>SetInitiatorSharedSecret</b> returns VDS_E_TARGET_SPECIFIC_NOT_SUPPORTED, call the method again, setting the <i>targetId</i> parameter to GUID_NULL.
+     * 
+     * The Microsoft iSCSI Software Initiator does not support setting target-specific secrets.
      * @param {Pointer<VDS_ISCSI_SHARED_SECRET>} pInitiatorSharedSecret The address of a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_iscsi_shared_secret">VDS_ISCSI_SHARED_SECRET</a> 
      *       structure that contains the shared secret. If the <b>pSharedSecret</b> member  is <b>NULL</b> and the <b>ulSharedSecretSize</b> is zero, the <b>SetInitiatorSharedSecret</b> method  clears   any existing secret. If this parameter is <b>NULL</b> and the <i>targetId</i> 
      *       parameter is not <b>GUID_NULL</b>, <b>SetInitiatorSharedSecret</b> clears the association between the initiator and the target.
      * @param {Guid} targetId The <b>VDS_OBJECT_ID</b> of the target. This parameter is set to 
      *       <b>GUID_NULL</b> if the shared secret is not to be target-specific.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -194,7 +200,7 @@ class IVdsServiceIscsi extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceiscsi-setinitiatorsharedsecret
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-setinitiatorsharedsecret
      */
     SetInitiatorSharedSecret(pInitiatorSharedSecret, targetId) {
         result := ComCall(8, this, "ptr", pInitiatorSharedSecret, "ptr", targetId, "HRESULT")
@@ -206,7 +212,7 @@ class IVdsServiceIscsi extends IUnknown{
      * @param {Guid} targetId The <b>VDS_OBJECT_ID</b> of the target that has the specified shared secret. This parameter is required and cannot be GUID_NULL.
      * @param {Pointer<VDS_ISCSI_SHARED_SECRET>} pTargetSharedSecret The address of a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_iscsi_shared_secret">VDS_ISCSI_SHARED_SECRET</a> structure 
      *       that contains the CHAP shared secret.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -238,7 +244,7 @@ class IVdsServiceIscsi extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsserviceiscsi-remembertargetsharedsecret
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsserviceiscsi-remembertargetsharedsecret
      */
     RememberTargetSharedSecret(targetId, pTargetSharedSecret) {
         result := ComCall(9, this, "ptr", targetId, "ptr", pTargetSharedSecret, "HRESULT")

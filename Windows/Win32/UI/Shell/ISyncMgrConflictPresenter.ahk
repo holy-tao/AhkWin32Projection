@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that presents a conflict to the user.
- * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nn-syncmgr-isyncmgrconflictpresenter
+ * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nn-syncmgr-isyncmgrconflictpresenter
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class ISyncMgrConflictPresenter extends IUnknown{
      * @param {ISyncMgrConflictResolveInfo} pResolveInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/syncmgr/nn-syncmgr-isyncmgrconflictresolveinfo">ISyncMgrConflictResolveInfo</a>*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//syncmgr/nf-syncmgr-isyncmgrconflictpresenter-presentconflict
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/syncmgr/nf-syncmgr-isyncmgrconflictpresenter-presentconflict
      */
     PresentConflict(pConflict, pResolveInfo) {
         result := ComCall(3, this, "ptr", pConflict, "ptr", pResolveInfo, "HRESULT")

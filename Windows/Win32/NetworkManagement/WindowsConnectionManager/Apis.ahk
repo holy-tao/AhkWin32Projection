@@ -276,11 +276,7 @@ class WindowsConnectionManager {
     static OnDemandGetRoutingHint(destinationHostName) {
         destinationHostName := destinationHostName is String ? StrPtr(destinationHostName) : destinationHostName
 
-        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "uint*", &interfaceIndex := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandGetRoutingHint", "ptr", destinationHostName, "uint*", &interfaceIndex := 0, "HRESULT")
         return interfaceIndex
     }
 
@@ -303,11 +299,7 @@ class WindowsConnectionManager {
         callbackContextMarshal := callbackContext is VarRef ? "ptr" : "ptr"
 
         registrationHandle := HANDLE()
-        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, "ptr", registrationHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandRegisterNotification", "ptr", callback, callbackContextMarshal, callbackContext, "ptr", registrationHandle, "HRESULT")
         return registrationHandle
     }
 
@@ -321,11 +313,7 @@ class WindowsConnectionManager {
     static OnDemandUnRegisterNotification(registrationHandle) {
         registrationHandle := registrationHandle is Win32Handle ? NumGet(registrationHandle, "ptr") : registrationHandle
 
-        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandUnRegisterNotification", "ptr", registrationHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OnDemandConnRouteHelper.dll\OnDemandUnRegisterNotification", "ptr", registrationHandle, "HRESULT")
         return result
     }
 
@@ -362,11 +350,7 @@ class WindowsConnectionManager {
         HostName := HostName is String ? StrPtr(HostName) : HostName
         ProxyName := ProxyName is String ? StrPtr(ProxyName) : ProxyName
 
-        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OnDemandConnRouteHelper.dll\GetInterfaceContextTableForHostName", "ptr", HostName, "ptr", ProxyName, "uint", Flags, "ptr", ConnectionProfileFilterRawData, "uint", ConnectionProfileFilterRawDataSize, "ptr*", &InterfaceContextTable := 0, "HRESULT")
         return InterfaceContextTable
     }
 

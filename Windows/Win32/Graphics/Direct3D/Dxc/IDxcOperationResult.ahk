@@ -40,8 +40,9 @@ class IDxcOperationResult extends IUnknown{
     }
 
     /**
-     * 
+     * Retrieves a list of properties the recognizer can return for a result range.
      * @returns {IDxcBlob} 
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getresultpropertylist
      */
     GetResult() {
         result := ComCall(4, this, "ptr*", &ppResult := 0, "HRESULT")

@@ -74,14 +74,33 @@ class IRowsetUpdate extends IRowsetChange{
     }
 
     /**
-     * 
+     * Restore the active configuration of the collector from the previous backup file (determined by going back from the current original timestamp).
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
      * @param {Pointer<Pointer>} pcRowsUndone 
      * @param {Pointer<Pointer<Pointer>>} prgRowsUndone 
      * @param {Pointer<Pointer<Integer>>} prgRowStatus 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} <dl> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 0
+     * 
+     * Failure
+     * 
+     * </dd> <dt>
+     * 
+     * 
+     * </dt> <dd>
+     * 
+     * 1
+     * 
+     * Success
+     * 
+     * </dd> </dl>
+     * @see https://learn.microsoft.com/windows/win32/BEvtColProv/control-undo
      */
     Undo(hReserved, cRows, rghRows, pcRowsUndone, prgRowsUndone, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"
@@ -94,7 +113,7 @@ class IRowsetUpdate extends IRowsetChange{
     }
 
     /**
-     * 
+     * Learn more about: Update constructor
      * @param {Pointer} hReserved 
      * @param {Pointer} cRows 
      * @param {Pointer<Pointer>} rghRows 
@@ -102,6 +121,7 @@ class IRowsetUpdate extends IRowsetChange{
      * @param {Pointer<Pointer<Pointer>>} prgRows 
      * @param {Pointer<Pointer<Integer>>} prgRowStatus 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/update-constructor
      */
     Update(hReserved, cRows, rghRows, pcRows, prgRows, prgRowStatus) {
         rghRowsMarshal := rghRows is VarRef ? "ptr*" : "ptr"

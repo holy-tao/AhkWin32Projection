@@ -4,8 +4,8 @@
 #Include .\IDWriteFontSetBuilder.ahk
 
 /**
- * Contains methods for building a font set.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontsetbuilder1
+ * Contains methods for building a font set. (IDWriteFontSetBuilder1)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontsetbuilder1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -35,10 +35,10 @@ class IDWriteFontSetBuilder1 extends IDWriteFontSetBuilder{
      * @param {IDWriteFontFile} fontFile Type: <b>IDWriteFontFile*</b>
      * 
      * Font file reference object to add to the set. If the file is not a supported OpenType font file, then a DWRITE_E_FILEFORMAT error will be returned.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontsetbuilder1-addfontfile
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontsetbuilder1-addfontfile
      */
     AddFontFile(fontFile) {
         result := ComCall(7, this, "ptr", fontFile, "HRESULT")

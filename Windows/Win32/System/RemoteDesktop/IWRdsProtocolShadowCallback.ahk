@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods called by the protocol to notify the Remote Desktop Services service to start or stop the target side of a shadow.
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwrdsprotocolshadowcallback
+ * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwrdsprotocolshadowcallback
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -34,8 +34,8 @@ class IWRdsProtocolShadowCallback extends IUnknown{
      * Instructs the Remote Desktop Services service to stop shadowing a target.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-stopshadow
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-stopshadow
      */
     StopShadow() {
         result := ComCall(3, this, "HRESULT")
@@ -44,6 +44,8 @@ class IWRdsProtocolShadowCallback extends IUnknown{
 
     /**
      * Instructs the Remote Desktop Services service to begin the target side of the shadow and passes any information that must be exchanged between the client and the target.
+     * @remarks
+     * The four parameters <i>pParam1</i>, <i>pParam2</i>, <i>pParam3</i>, and <i>pParam4</i> can contain any information that must be exchanged between the shadow client and the shadow target. The Remote Desktop Services service passes the information without modification.
      * @param {PWSTR} pTargetServerName A pointer to a string that contains the name of the shadow target server.
      * @param {Integer} TargetSessionId An integer that specifies the ID of the target session to shadow.
      * @param {Pointer<Integer>} pParam1 A pointer to a buffer that contains an arbitrary parameter.
@@ -57,8 +59,8 @@ class IWRdsProtocolShadowCallback extends IUnknown{
      * @param {PWSTR} pClientName A pointer to a string that contains the name of the shadow client.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-invoketargetshadow
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following list. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwrdsprotocolshadowcallback-invoketargetshadow
      */
     InvokeTargetShadow(pTargetServerName, TargetSessionId, pParam1, Param1Size, pParam2, Param2Size, pParam3, Param3Size, pParam4, Param4Size, pClientName) {
         pTargetServerName := pTargetServerName is String ? StrPtr(pTargetServerName) : pTargetServerName

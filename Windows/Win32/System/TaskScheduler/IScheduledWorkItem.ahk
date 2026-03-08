@@ -8,15 +8,11 @@
 /**
  * Provides the methods for managing specific work items.
  * @remarks
- * 
  * The <b>IScheduledWorkItem</b> interface is the base interface for the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a> interface. All methods provided by 
  * <b>IScheduledWorkItem</b> are inherited by the 
  * <b>ITask</b> interface and are typically called through that interface.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstask/nn-mstask-ischeduledworkitem
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-ischeduledworkitem
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -43,6 +39,14 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Creates a trigger for the work item.
+     * @remarks
+     * You use the trigger index returned by <i>piNewTrigger</i> when you are either retrieving or  deleting triggers. However, the trigger index is not an identifier. It indicates only the new trigger's position relative to the other current triggers associated with the work item.
+     * 
+     * To set the criteria for the new trigger, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itasktrigger-settrigger">ITaskTrigger::SetTrigger</a>.
+     * 
+     * After creating a new trigger for a work item, applications must call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a> method to save the new trigger to disk.
      * @param {Pointer<Integer>} piNewTrigger A pointer to the returned trigger index value of the new trigger. The trigger index for the first trigger associated with a work item is "0". See Remarks for other uses of the trigger index.
      * @param {Pointer<ITaskTrigger>} ppTrigger A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itasktrigger">ITaskTrigger</a> interface. Currently, the only supported work items are <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/t">tasks</a>.
@@ -88,7 +92,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-createtrigger
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-createtrigger
      */
     CreateTrigger(piNewTrigger, ppTrigger) {
         piNewTriggerMarshal := piNewTrigger is VarRef ? "ushort*" : "ptr"
@@ -99,6 +103,14 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Deletes a trigger from a work item.
+     * @remarks
+     * A trigger index is created for each trigger when the trigger is created. However, it is not a unique identifier for a specific trigger. For example, if you create four triggers, they will be numbered 0 through 3. But if the second trigger is deleted, the remaining triggers will be numbered 0 through 2. Note that the index of the first trigger is always 0, and the index of the last trigger is one less than the total number of triggers for the work item (TriggerCount -1).
+     * 
+     * You can retrieve the trigger count using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-gettriggercount">IScheduledWorkItem::GetTriggerCount</a>.
+     * 
+     * To complete the deletion of the trigger, programs must call the <b>IPersistFile::Save</b> method after calling 
+     * <b>DeleteTrigger</b>. Calling <b>IPersistFile::Save</b> saves the changes to disk.
      * @param {Integer} iTrigger A trigger index value that specifies the trigger to be deleted. For more information, see Remarks.
      * @returns {HRESULT} The 
      * <b>DeleteTrigger</b> method returns one of the following values.
@@ -142,7 +154,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-deletetrigger
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-deletetrigger
      */
     DeleteTrigger(iTrigger) {
         result := ComCall(4, this, "ushort", iTrigger, "HRESULT")
@@ -152,7 +164,7 @@ class IScheduledWorkItem extends IUnknown{
     /**
      * Retrieves the number of triggers for the current work item.
      * @returns {Integer} A pointer to a <b>WORD</b> that will contain the number of triggers associated with the work item.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-gettriggercount
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggercount
      */
     GetTriggerCount() {
         result := ComCall(5, this, "ushort*", &pwCount := 0, "HRESULT")
@@ -164,7 +176,7 @@ class IScheduledWorkItem extends IUnknown{
      * @param {Integer} iTrigger The index of the trigger to retrieve.
      * @returns {ITaskTrigger} A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itasktrigger">ITaskTrigger</a> interface for the retrieved trigger.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-gettrigger
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettrigger
      */
     GetTrigger(iTrigger) {
         result := ComCall(6, this, "ushort", iTrigger, "ptr*", &ppTrigger := 0, "HRESULT")
@@ -173,9 +185,14 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves a string that describes the work item trigger.
+     * @remarks
+     * A trigger index is not an identifier. It only indicates the trigger's position relative to the current triggers associated with the work item. For example, if you create four triggers, they will be numbered 0 through 3. But if the second trigger is deleted, the remaining triggers will be numbered 0 through 2. Note that the index of the first trigger is always 0, and the index of the last trigger is one less than the total number of triggers for the work item (TriggerCount -1).
+     * 
+     * You can retrieve the trigger count using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-gettriggercount">IScheduledWorkItem::GetTriggerCount</a>.
      * @param {Integer} iTrigger The index of the trigger to be retrieved. The first trigger is always referenced by 0. For more information, see Remarks.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the retrieved trigger description. Note that this string must be release by a call to <b>CoTaskMemFree</b> after the string is no longer needed.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-gettriggerstring
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-gettriggerstring
      */
     GetTriggerString(iTrigger) {
         result := ComCall(7, this, "ushort", iTrigger, "ptr*", &ppwszTrigger := 0, "HRESULT")
@@ -195,7 +212,7 @@ class IScheduledWorkItem extends IUnknown{
      * 
      * On output, this parameter contains the number of run times retrieved.
      * @returns {Pointer<SYSTEMTIME>} A pointer to an array of <b>SYSTEMTIME</b> structures. A <b>NULL</b> LPSYSTEMTIME object should be passed into this parameter. On return, this array contains <i>pCount</i> run times. You must free this array by a calling the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getruntimes
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getruntimes
      */
     GetRunTimes(pstBegin, pstEnd, pCount) {
         pCountMarshal := pCount is VarRef ? "ushort*" : "ptr"
@@ -260,7 +277,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getnextruntime
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getnextruntime
      */
     GetNextRunTime(pstNextRun) {
         result := ComCall(9, this, "ptr", pstNextRun, "HRESULT")
@@ -269,11 +286,22 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sets the minutes that the system must be idle before the work item can run.
+     * @remarks
+     * The idle time specified here is used in conjunction with <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/i">idle triggers</a> and <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/i">idle conditions</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/task-idle-conditions">Task Idle Conditions</a>. Idle triggers are event-based triggers that are not associated with a scheduled time. Idle conditions, in contrast, are associated with the scheduled start time for the task.
+     * 
+     * You specify idle triggers by setting the TASK_TRIGGER_TYPE member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> to TASK_EVENT_TRIGGER_ON_IDLE. The idle trigger is fired when the system becomes idle for the amount of time specified by <i>wIdleMinutes</i>.
+     * 
+     * You set idle conditions by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-setflags">IScheduledWorkItem::SetFlags</a>. If the TASK_FLAG_START_ONLY_IF_IDLE flag is set, the work item runs at its scheduled time only if the system becomes idle for the amount of time specified by <i>wIdleMinutes</i>. The Task Scheduler service will wait up to the number of minutes specified in <i>wDeadlineMinutes</i> past the scheduled start time to see if the system becomes idle.
+     * 
+     * Applications must call the <b>IPersistFile::Save</b> method after calling 
+     * <b>SetIdleWait</b> to update the idle wait interval.
      * @param {Integer} wIdleMinutes A value that specifies how long, in minutes, the system must remain idle before the work item can run.
      * @param {Integer} wDeadlineMinutes A value that specifies the maximum number of minutes that the Task Scheduler will wait for the idle-time period returned in <i>pwIdleMinutes</i>.
      * @returns {HRESULT} The 
      * <b>SetIdleWait</b> method returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-setidlewait
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setidlewait
      */
     SetIdleWait(wIdleMinutes, wDeadlineMinutes) {
         result := ComCall(10, this, "ushort", wIdleMinutes, "ushort", wDeadlineMinutes, "HRESULT")
@@ -282,6 +310,15 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves the idle wait time for the work item.
+     * @remarks
+     * The idle time returned here is used in conjunction with <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/i">idle triggers</a> and <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/i">idle conditions</a>. Idle triggers are event-based triggers that are not associated with a scheduled time. Idle conditions are associated with the scheduled start time for the task.
+     * 
+     * Idle triggers are specified by setting the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ne-mstask-task_trigger_type">TASK_TRIGGER_TYPE</a> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/ns-mstask-task_trigger">TASK_TRIGGER</a> structure to the value TASK_EVENT_TRIGGER_ON_IDLE. The idle trigger is fired when the system becomes idle for the amount of time returned in <i>pwIdleMinutes</i>.
+     * 
+     * You can set idle conditions by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-setflags">IScheduledWorkItem::SetFlags</a>. If the TASK_FLAG_START_ONLY_IF_IDLE flag is set, the work item runs at its scheduled time only if the system becomes idle for the amount of time returned in <i>pwIdleMinutes</i>. The Task Scheduler service will wait up to <i>pwDeadlineMinutes</i> past the scheduled start time to see if the system becomes idle.
      * @param {Pointer<Integer>} pwIdleMinutes A pointer to a <b>WORD</b> that contains the idle wait time for the current work item, in minutes.
      * @param {Pointer<Integer>} pwDeadlineMinutes A pointer to a <b>WORD</b> that specifies the maximum number of minutes that the Task Scheduler will wait for the idle-time period returned in <i>pwIdleMinutes</i>.
      * @returns {HRESULT} The 
@@ -315,7 +352,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getidlewait
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getidlewait
      */
     GetIdleWait(pwIdleMinutes, pwDeadlineMinutes) {
         pwIdleMinutesMarshal := pwIdleMinutes is VarRef ? "ushort*" : "ptr"
@@ -327,6 +364,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sends a request to the Task Scheduler service to run the work item.
+     * @remarks
+     * <b>Run</b> is an asynchronous operation. A return code of S_OK means that the request to run the work item has been made; it does not mean that the work item has started running. There may be a delay of a few seconds after 
+     * <b>Run</b> returns before the work item actually starts running.
+     * 
+     * To determine whether the work item is running, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-getstatus">IScheduledWorkItem::GetStatus</a>.
      * @returns {HRESULT} The 
      * <b>Run</b> method returns one of the following values.
      * 
@@ -369,7 +412,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-run
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-run
      */
     Run() {
         result := ComCall(12, this, "HRESULT")
@@ -378,6 +421,11 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * This method ends the execution of the work item.
+     * @remarks
+     * The 
+     * <b>Terminate</b> method operates asynchronously. It does not wait for the task to terminate before returning a return value.
+     * 
+     * If the WM_CLOSE message cannot be sent (for example, the application has no windows) or the application has not exited within three minutes of the receiving WM_CLOSE, the Task Scheduler terminates the application using <b>TerminateProcess</b>.
      * @returns {HRESULT} The 
      * <b>Terminate</b> method returns one of the following values.
      * 
@@ -420,7 +468,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-terminate
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-terminate
      */
     Terminate() {
         result := ComCall(13, this, "HRESULT")
@@ -484,7 +532,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-editworkitem
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-editworkitem
      */
     EditWorkItem(hParent, dwReserved) {
         hParent := hParent is Win32Handle ? NumGet(hParent, "ptr") : hParent
@@ -496,7 +544,7 @@ class IScheduledWorkItem extends IUnknown{
     /**
      * Retrieves the most recent time the work item began running.
      * @returns {SYSTEMTIME} A pointer to a <b>SYSTEMTIME</b> structure that contains the most recent time the current work item ran.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getmostrecentruntime
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getmostrecentruntime
      */
     GetMostRecentRunTime() {
         pstLastRun := SYSTEMTIME()
@@ -506,8 +554,16 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves the status of the work item.
+     * @remarks
+     * The methods of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ischeduledworkitem">IScheduledWorkItem</a> interface are inherited by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a> interface. Consequently, 
+     * <b>IScheduledWorkItem::GetStatus</b> is typically called through the 
+     * <b>ITask</b> interface.
+     * 
+     * <b>IScheduledWorkItem::GetStatus</b> does not obtain the status of the task dynamically. <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> should be called to obtain a new <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ischeduledworkitem">IScheduledWorkItem</a> interface, which is used to get an updated status. For more information, see the example for <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a>.
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getstatus
      */
     GetStatus() {
         result := ComCall(16, this, "int*", &phrStatus := 0, "HRESULT")
@@ -516,8 +572,17 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves the last exit code returned by the executable associated with the work item on its last run. The method also returns the exit code returned to Task Scheduler when it last attempted to run the work item.
+     * @remarks
+     * This method can  return the following two pieces of information:
+     * 
+     * <ul>
+     * <li>The error or exit code that is returned by the executable that is being scheduled is returned in the <i>pdwExitCode</i> parameter.</li>
+     * <li>The error code that the Task Scheduler received when it tried to start the job is returned in the 
+     * <b>GetExitCode</b> method call itself.</li>
+     * </ul>
+     * To obtain an updated error code, always call  <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> first to obtain a new <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ischeduledworkitem">IScheduledWorkItem</a> interface, which can then be used to obtain the updated error codes.
      * @returns {Integer} A pointer to a <b>DWORD</b> value that is set to the last exit code for the work item. This is the exit code that the work item returned when it last stopped running. If the work item has never been started, 0 is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getexitcode
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getexitcode
      */
     GetExitCode() {
         result := ComCall(17, this, "uint*", &pdwExitCode := 0, "HRESULT")
@@ -526,6 +591,8 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sets the comment for the work item.
+     * @remarks
+     * After setting the comment of a work item, be sure to call <b>IPersistFile::Save</b> to save the modified work item object to disk.
      * @param {PWSTR} pwszComment A null-terminated string that specifies the comment for the current work item.
      * @returns {HRESULT} The 
      * <b>SetComment</b> method returns one of the following values.
@@ -569,7 +636,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-setcomment
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setcomment
      */
     SetComment(pwszComment) {
         pwszComment := pwszComment is String ? StrPtr(pwszComment) : pwszComment
@@ -581,7 +648,7 @@ class IScheduledWorkItem extends IUnknown{
     /**
      * Retrieves the comment for the work item.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the retrieved comment for the current work item.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getcomment
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getcomment
      */
     GetComment() {
         result := ComCall(19, this, "ptr*", &ppwszComment := 0, "HRESULT")
@@ -590,6 +657,8 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sets the name of the work item's creator.
+     * @remarks
+     * Programs must call the <b>IPersistFile::Save</b> method after calling <b>SetCreator</b> to update the creator.
      * @param {PWSTR} pwszCreator A null-terminated string that contains the name of the work item's creator.
      * @returns {HRESULT} The 
      * <b>SetCreator</b> method returns one of the following values.
@@ -633,7 +702,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-setcreator
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setcreator
      */
     SetCreator(pwszCreator) {
         pwszCreator := pwszCreator is String ? StrPtr(pwszCreator) : pwszCreator
@@ -646,7 +715,7 @@ class IScheduledWorkItem extends IUnknown{
      * Retrieves the name of the creator of the work item.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the name of the creator of the current work item. The application that invokes 
      * <b>GetCreator</b> is responsible for freeing this string using the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getcreator
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getcreator
      */
     GetCreator() {
         result := ComCall(21, this, "ptr*", &ppwszCreator := 0, "HRESULT")
@@ -655,6 +724,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * This method stores application-defined data associated with the work item.
+     * @remarks
+     * You can retrieve data by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-getworkitemdata">IScheduledWorkItem::GetWorkItemData</a>.
+     * 
+     * Programs must call the <b>IPersistFile::Save</b> method after calling 
+     * <b>SetWorkItemData</b> to update the work item data.
      * @param {Integer} cbData The number of bytes in the data buffer. The caller allocates and frees this memory.
      * @param {Pointer<Integer>} rgbData The data to copy.
      * @returns {HRESULT} The 
@@ -699,7 +774,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-setworkitemdata
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setworkitemdata
      */
     SetWorkItemData(cbData, rgbData) {
         rgbDataMarshal := rgbData is VarRef ? "char*" : "ptr"
@@ -710,6 +785,8 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves application-defined data associated with the work item.
+     * @remarks
+     * Retrieving the data of a work item does not affect the operation of the work item in any way.
      * @param {Pointer<Integer>} pcbData A pointer to the number of bytes copied.
      * @param {Pointer<Pointer<Integer>>} prgbData A pointer to a pointer to a BYTE that contains user-defined data for the current work item. The method that invokes 
      * <b>GetWorkItemData</b> is responsible for freeing this memory by using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
@@ -755,7 +832,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getworkitemdata
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getworkitemdata
      */
     GetWorkItemData(pcbData, prgbData) {
         pcbDataMarshal := pcbData is VarRef ? "ushort*" : "ptr"
@@ -767,6 +844,9 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sets the number of times Task Scheduler will try to run the work item again if an error occurs. This method is not implemented.
+     * @remarks
+     * Programs must call the <b>IPersistFile::Save</b> method after calling 
+     * <b>SetErrorRetryCount</b> to update the error retry count.
      * @param {Integer} wRetryCount A value that specifies the number of error retries for the current work item.
      * @returns {HRESULT} The 
      * <b>SetErrorRetryCount</b> method returns one of the following values.
@@ -821,7 +901,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-seterrorretrycount
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-seterrorretrycount
      */
     SetErrorRetryCount(wRetryCount) {
         result := ComCall(24, this, "ushort", wRetryCount, "HRESULT")
@@ -831,7 +911,7 @@ class IScheduledWorkItem extends IUnknown{
     /**
      * Retrieves the number of times that the Task Scheduler will retry an operation when an error occurs. This method is not implemented.
      * @returns {Integer} A pointer to a <b>WORD</b> that contains the number of times to retry.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-geterrorretrycount
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-geterrorretrycount
      */
     GetErrorRetryCount() {
         result := ComCall(25, this, "ushort*", &pwRetryCount := 0, "HRESULT")
@@ -840,6 +920,9 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sets the time interval, in minutes, between Task Scheduler's attempts to run a work item after an error occurs. This method is not implemented.
+     * @remarks
+     * Programs must call the <b>IPersistFile::Save</b> method after calling 
+     * <b>SetErrorRetryInterval</b> to update the error retry interval.
      * @param {Integer} wRetryInterval A value that specifies the interval between error retries for the current work item, in minutes.
      * @returns {HRESULT} The 
      * <b>SetErrorRetryInterval</b> method returns one of the following values.
@@ -894,7 +977,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-seterrorretryinterval
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-seterrorretryinterval
      */
     SetErrorRetryInterval(wRetryInterval) {
         result := ComCall(26, this, "ushort", wRetryInterval, "HRESULT")
@@ -904,7 +987,7 @@ class IScheduledWorkItem extends IUnknown{
     /**
      * Retrieves the time interval, in minutes, between Task Scheduler's attempts to run a work item if an error occurs. This method is not implemented.
      * @returns {Integer} A pointer to a <b>WORD</b> value that contains the time interval between retries of the current work item.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-geterrorretryinterval
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-geterrorretryinterval
      */
     GetErrorRetryInterval() {
         result := ComCall(27, this, "ushort*", &pwRetryInterval := 0, "HRESULT")
@@ -913,6 +996,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sets the flags that modify the behavior of any type of work item.
+     * @remarks
+     * Programs must call the <b>IPersistFile::Save</b> method after calling 
+     * <b>SetFlags</b> to update the flags.
+     * 
+     * This method is used to set those flags used by any type of scheduled work item. In contrast, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itask-settaskflags">ITask::SetTaskFlags</a> is used only to set flags used by scheduled tasks.
      * @param {Integer} dwFlags A value that specifies a combination of one or more of the following flags:
      * @returns {HRESULT} The 
      * <b>SetFlags</b> method returns one of the following values.
@@ -956,7 +1045,7 @@ class IScheduledWorkItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setflags
      */
     SetFlags(dwFlags) {
         result := ComCall(28, this, "uint", dwFlags, "HRESULT")
@@ -965,9 +1054,12 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves the flags that modify the behavior of any type of work item.
+     * @remarks
+     * This method is used to get those flags used by any type of scheduled work item. In contrast, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itask-gettaskflags">ITask::GetTaskFlags</a> is used only to get flags used by scheduled tasks.
      * @returns {Integer} A pointer to a <b>DWORD</b> that contains the flags for the work item. For a list of these flags, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-setflags">SetFlags</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getflags
      */
     GetFlags() {
         result := ComCall(29, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -976,6 +1068,29 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Sets the account name and password used to run the work item.
+     * @remarks
+     * This method is for the Windows Server 2003, Windows XP, and Windows 2000.
+     * 
+     * If <i>pwszAccountName</i> specifies the local system account, the caller must be an administrator on the local computer or an application running in the local system account. If not, this method will fail.
+     * 
+     * The password specified in <i>pwszPassword</i> is used to log on to the account when the work item is run. An incorrect password will result in an error when the work item is run. In the Windows Server 2003, however,  Task Scheduler validates the password at the time the job is created (during a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a>).
+     * 
+     * Typically, passwords have an expiration date. If you schedule tasks that run indefinitely, you must update the task to reflect the new password.
+     * 
+     *  Note that errors can be returned by the initial call to 
+     * <b>SetAccountInformation</b> or the subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a>.
+     * 
+     * The Task Scheduler service must be running for this call to succeed. (<b>SetAccountInformation</b> results in a remote procedure call (RPC) to the Task Scheduler service, but the RPC call is not made until <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a> is called.)
+     * 
+     * The E_ACCESSDENIED return code is returned under the following conditions:
+     * 
+     * <ul>
+     * <li>The caller does not have write access to the file that represents the scheduled work item.</li>
+     * <li>The local account was specified (<i>pwszAccountName</i> was set to L""), but the caller is neither an administrator on the local computer nor an application running in the local system account.</li>
+     * <li>A <b>NULL</b> password was specified in <i>pwszPassword</i>, but the caller is neither an administrator on the local computer, nor is running in the local system account.</li>
+     * <li>The application is running under a different user name than the user named specified in the <i>pwszAccountName</i> parameter.</li>
+     * </ul>
+     * After setting the account information for a work item, be sure to call <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a> to save the modified work item object to disk.
      * @param {PWSTR} pwszAccountName A string that contains the <b>null</b>-terminated name of the user account in which the work item will run. To specify the local system account, use the empty string, L"". Do not use any other string to specify the local system account. For more information, see Remarks.
      * @param {PWSTR} pwszPassword A string that contains the password for the account specified in <i>pwszAccountName</i>. 
      * 
@@ -988,7 +1103,7 @@ class IScheduledWorkItem extends IUnknown{
      * 
      * When you have finished using the password, clear the password information by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa366877(v=vs.85)">SecureZeroMemory</a> function. For more information about protecting passwords, see <a href="https://docs.microsoft.com/windows/desktop/SecBP/handling-passwords">Handling Passwords</a>.
      * @returns {HRESULT} The 
-     * <b>SetAccountInformation</b> method returns one of the following values. Note that errors from this call may also be returned by the subsequent call to <a href="/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a>.
+     * <b>SetAccountInformation</b> method returns one of the following values. Note that errors from this call may also be returned by the subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a>.
      * 
      * <table>
      * <tr>
@@ -1068,12 +1183,12 @@ class IScheduledWorkItem extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <i>pwszPassword</i> parameter was incorrect.  In the Windows Server 2003, Task Scheduler validates the password at the time the job is created (during a call to <a href="/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a>). Be aware that if this error occurs, the job file will still be created.
+     * The <i>pwszPassword</i> parameter was incorrect.  In the Windows Server 2003, Task Scheduler validates the password at the time the job is created (during a call to <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a>). Be aware that if this error occurs, the job file will still be created.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-setaccountinformation
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-setaccountinformation
      */
     SetAccountInformation(pwszAccountName, pwszPassword) {
         pwszAccountName := pwszAccountName is String ? StrPtr(pwszAccountName) : pwszAccountName
@@ -1085,13 +1200,16 @@ class IScheduledWorkItem extends IUnknown{
 
     /**
      * Retrieves the account name for the work item.
+     * @remarks
+     * The 
+     * <b>GetAccountInformation</b> method is for the Windows Server 2003, Windows XP, and Windows 2000 operating systems.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the account name for the current work item. The empty string, L"", is returned for the local system account. 
      * 
      * 
      * 
      * 
      * After processing the account name, be sure to call <b>CoTaskMemFree</b> to free the string.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-ischeduledworkitem-getaccountinformation
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-ischeduledworkitem-getaccountinformation
      */
     GetAccountInformation() {
         result := ComCall(31, this, "ptr*", &ppwszAccountName := 0, "HRESULT")

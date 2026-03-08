@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that enables a client application to create a helper object in the server context.
- * @see https://docs.microsoft.com/windows/win32/api//msaatext/nn-msaatext-icocreatelocally
+ * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-icocreatelocally
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -53,7 +53,7 @@ class ICoCreateLocally extends IUnknown{
      * @returns {IUnknown} Type: <b>IUnknown*</b>
      * 
      * Interface pointer to the desired interface identifier (from <i>riid</i>).
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-icocreatelocally-cocreatelocally
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-icocreatelocally-cocreatelocally
      */
     CoCreateLocally(rclsid, dwClsContext, riid, riidParam, punkParam, varParam) {
         result := ComCall(3, this, "ptr", rclsid, "uint", dwClsContext, "ptr", riid, "ptr*", &punk := 0, "ptr", riidParam, "ptr", punkParam, "ptr", varParam, "HRESULT")

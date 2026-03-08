@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Note  This interface has been deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamphysicalpininfo
+ * Note  This interface has been deprecated. (IAMPhysicalPinInfo)
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamphysicalpininfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IAMPhysicalPinInfo extends IUnknown{
      * @param {Pointer<Integer>} pType Pointer to a variable that receives a value indicating the pin's type. The [PhysicalConnectorType](/windows/desktop/api/strmif/ne-strmif-physicalconnectortype) enumeration defines the pin type values.
      * @param {Pointer<PWSTR>} ppszType Address of a pointer to a buffer that receives a human-readable string identifying the pin type.
      * @returns {HRESULT} Returns S_OK if a valid physical pin value is found. Otherwise, returns VFW_E_NO_ACCEPTABLE_TYPES.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamphysicalpininfo-getphysicaltype
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamphysicalpininfo-getphysicaltype
      */
     GetPhysicalType(pType, ppszType) {
         pTypeMarshal := pType is VarRef ? "int*" : "ptr"

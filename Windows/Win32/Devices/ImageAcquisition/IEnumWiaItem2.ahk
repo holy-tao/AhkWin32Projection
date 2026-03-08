@@ -6,7 +6,7 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * Used by applications to enumerate IWiaItem2 objects in the item tree's current folder.
  * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
@@ -33,10 +33,24 @@ class IEnumWiaItem2 extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
 
     /**
+     * Fills an array of pointers to IWiaItem2 interfaces.
+     * @remarks
+     * The Windows Image Acquisition (WIA) 2.0 run-time system represents WIA 2.0 hardware devices as a hierarchical tree of [**IWiaItem2**](-wia-iwiaitem2.md) objects. Applications use the **IEnumWiaItem2::Next** method to obtain an **IWiaItem2** interface pointer for each item in the current folder of a hardware device's **IWiaItem2** object tree.
      * 
-     * @param {Integer} cElt 
-     * @param {Pointer<Integer>} pcEltFetched 
-     * @returns {IWiaItem2} 
+     * To obtain the list of pointers, the application passes an array of [**IWiaItem2**](-wia-iwiaitem2.md) interface pointers that it allocates. It also passes the number of array elements in the parameter *cElt*. The **IEnumWiaItem2::Next** method fills the array with pointers to **IWiaItem2** interfaces.
+     * 
+     * Until the enumeration process completes, the **IEnumWiaItem2::Next** method returns S\_OK. Each time it does, it sets the value pointed to by *pcEltFetched* to the number of items it inserted into the array. When **IEnumWiaItem2::Next** finishes the process of enumerating [**IWiaItem2**](-wia-iwiaitem2.md) objects, it returns S\_FALSE and sets the memory location pointed to by *pcEltFetched* to zero.
+     * 
+     * Applications must call the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method on the interface pointers they receive through the *ppIWiaItem2* parameter.
+     * @param {Integer} cElt Type: **ULONG**
+     * 
+     * Specifies the number of array elements in the array indicated by the *ppIWiaItem2* parameter.
+     * @param {Pointer<Integer>} pcEltFetched Type: **ULONG\***
+     * 
+     * On output, this parameter receives the number of interface pointers actually stored in the array indicated by the *ppIWiaItem2* parameter. When the enumeration is complete, this parameter contains zero.
+     * @returns {IWiaItem2} Type: **[**IWiaItem2**](-wia-iwiaitem2.md)\*\***
+     * 
+     * Receives the address of an array of [**IWiaItem2**](-wia-iwiaitem2.md) interface pointers. **IEnumWiaItem2::Next** fills this array with interface pointers.
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-next
      */
     Next(cElt, pcEltFetched) {
@@ -47,9 +61,13 @@ class IEnumWiaItem2 extends IUnknown{
     }
 
     /**
+     * Skips the specified number of items during an enumeration of available IWiaItem2 objects.
+     * @param {Integer} cElt Type: **ULONG**
      * 
-     * @param {Integer} cElt 
-     * @returns {HRESULT} 
+     * Specifies the number of items to skip.
+     * @returns {HRESULT} Type: **HRESULT**
+     * 
+     * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-skip
      */
     Skip(cElt) {
@@ -58,8 +76,13 @@ class IEnumWiaItem2 extends IUnknown{
     }
 
     /**
+     * Resets the enumeration reference to the first IWiaItem2 object.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * Type: **HRESULT**
+     * 
+     * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-reset
      */
     Reset() {
@@ -68,8 +91,12 @@ class IEnumWiaItem2 extends IUnknown{
     }
 
     /**
+     * Creates an additional instance of the IEnumWiaItem2 interface and sends back a pointer to it.
+     * @remarks
+     * Applications must call the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method on the interface pointers they receive through the *ppIEnum* parameter.
+     * @returns {IEnumWiaItem2} Type: **[**IEnumWiaItem2**](-wia-ienumwiaitem2.md)\*\***
      * 
-     * @returns {IEnumWiaItem2} 
+     * Receives the address of the [**IEnumWiaItem2**](-wia-ienumwiaitem2.md) interface instance that **IEnumWiaItem2::Clone** creates.
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-clone
      */
     Clone() {
@@ -78,8 +105,10 @@ class IEnumWiaItem2 extends IUnknown{
     }
 
     /**
+     * Returns the number of elements stored by this enumerator.
+     * @returns {Integer} Type: **ULONG\***
      * 
-     * @returns {Integer} 
+     * Receives a pointer to a **ULONG** that receives the number of elements in the enumeration.
      * @see https://learn.microsoft.com/windows/win32/wia/-wia-ienumwiaitem2-getcount
      */
     GetCount() {

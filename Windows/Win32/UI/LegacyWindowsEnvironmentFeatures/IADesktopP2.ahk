@@ -6,11 +6,8 @@
 /**
  * Provides methods to manage the Windows Desktop.
  * @remarks
- * 
  * Despite its name, this interface does not inherit from <a href="https://docs.microsoft.com/windows/desktop/api/shlobj/nn-shlobj-iactivedesktopp">IActiveDesktopP</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-iadesktopp2
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-iadesktopp2
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319
  */
@@ -59,7 +56,7 @@ class IADesktopP2 extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-iadesktopp2-updatealldesktopsubscriptions
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-iadesktopp2-updatealldesktopsubscriptions
      */
     UpdateAllDesktopSubscriptions() {
         result := ComCall(5, this, "HRESULT")

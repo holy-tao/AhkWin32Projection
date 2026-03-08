@@ -74,10 +74,11 @@ class IMLangStringBufA extends IUnknown{
     }
 
     /**
-     * 
+     * Inserts a file into the cache.
      * @param {Integer} cchOffset 
      * @param {Integer} cchMaxInsert 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-insertfile
      */
     Insert(cchOffset, cchMaxInsert) {
         result := ComCall(6, this, "int", cchOffset, "int", cchMaxInsert, "int*", &pcchActual := 0, "HRESULT")
@@ -85,10 +86,19 @@ class IMLangStringBufA extends IUnknown{
     }
 
     /**
-     * 
+     * Deletes an access control entry (ACE) from an access control list (ACL).
+     * @remarks
+     * An application can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
      * @param {Integer} cchOffset 
      * @param {Integer} cchDelete 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
      */
     Delete(cchOffset, cchDelete) {
         result := ComCall(7, this, "int", cchOffset, "int", cchDelete, "HRESULT")

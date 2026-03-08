@@ -7,10 +7,8 @@
 /**
  * The ITfFnReconversion interface is implemented by a text service and is used by the TSF manager or a client to support reconversion of text provided by the text service.
  * @remarks
- * 
  * When a text service must interpret text before it is inserted into a context, there might be more than one possible interpretation of the text. Speech input is an example of this. If the spoken word is "there", other possible interpretations might be "their" or "they're". The text service will insert the most appropriate text, but there is still some chance of error involved. Text reconversion is the process of allowing the user to select alternate text for the inserted text.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itffnreconversion
+ * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itffnreconversion
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -44,7 +42,7 @@ class ITfFnReconversion extends ITfFunction{
      * 
      * When the TSF manager implementation of this method is called, this parameter is not optional and cannot be NULL.
      * @returns {BOOL} Pointer to a <b>BOOL</b> value that receives zero if none of the text covered by <i>pRange</i> can be reconverted or nonzero otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnreconversion-queryrange
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnreconversion-queryrange
      */
     QueryRange(pRange, ppNewRange) {
         result := ComCall(4, this, "ptr", pRange, "ptr*", ppNewRange, "int*", &pfConvertable := 0, "HRESULT")
@@ -55,7 +53,7 @@ class ITfFnReconversion extends ITfFunction{
      * ITfFnReconversion::GetReconversion method
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers the text to be reconverted. This range object is obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnreconversion-queryrange">ITfFnReconversion::QueryRange</a>.
      * @returns {ITfCandidateList} Pointer to an <b>ITfCandidateList</b> pointer that receives the candidate list object.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnreconversion-getreconversion
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnreconversion-getreconversion
      */
     GetReconversion(pRange) {
         result := ComCall(5, this, "ptr", pRange, "ptr*", &ppCandList := 0, "HRESULT")
@@ -64,6 +62,8 @@ class ITfFnReconversion extends ITfFunction{
 
     /**
      * ITfFnReconversion::Reconvert method
+     * @remarks
+     * If this method causes some type of user interface to be displayed, such as a dialog box, this method must not wait for the UI to be dismissed before returning.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that covers the text to be reconverted. To obtain this range object call <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nf-ctffunc-itffnreconversion-queryrange">ITfFnReconversion::QueryRange</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -117,7 +117,7 @@ class ITfFnReconversion extends ITfFunction{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itffnreconversion-reconvert
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itffnreconversion-reconvert
      */
     Reconvert(pRange) {
         result := ComCall(6, this, "ptr", pRange, "HRESULT")

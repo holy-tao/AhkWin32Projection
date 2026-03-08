@@ -7,7 +7,7 @@
 
 /**
  * Defines a low-level operation supported by an application.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazoperation
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazoperation
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -72,14 +72,11 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the operation.
+     * Sets or retrieves the name of the operation. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -88,15 +85,12 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the operation.
+     * Sets or retrieves the name of the operation. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-put_name
      */
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -106,14 +100,11 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * The Description property of IAzOperation sets or retrieves a comment that describes the operation.
+     * The Description property of IAzOperation sets or retrieves a comment that describes the operation. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-get_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
@@ -122,15 +113,12 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * The Description property of IAzOperation sets or retrieves a comment that describes the operation.
+     * The Description property of IAzOperation sets or retrieves a comment that describes the operation. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-put_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-put_description
      */
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -140,15 +128,12 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * The ApplicationData property of IAzOperation sets or retrieves an opaque field that can be used by the application to store information.
+     * The ApplicationData property of IAzOperation sets or retrieves an opaque field that can be used by the application to store information. (Get)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-get_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_applicationdata
      */
     get_ApplicationData() {
         pbstrApplicationData := BSTR()
@@ -157,16 +142,13 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * The ApplicationData property of IAzOperation sets or retrieves an opaque field that can be used by the application to store information.
+     * The ApplicationData property of IAzOperation sets or retrieves an opaque field that can be used by the application to store information. (Put)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @param {BSTR} bstrApplicationData 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-put_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-put_applicationdata
      */
     put_ApplicationData(bstrApplicationData) {
         bstrApplicationData := bstrApplicationData is String ? BSTR.Alloc(bstrApplicationData).Value : bstrApplicationData
@@ -176,9 +158,9 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * Sets or retrieves an application-specific value that uniquely identifies the operation within the application.
+     * Sets or retrieves an application-specific value that uniquely identifies the operation within the application. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-get_operationid
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_operationid
      */
     get_OperationID() {
         result := ComCall(13, this, "int*", &plProp := 0, "HRESULT")
@@ -186,10 +168,10 @@ class IAzOperation extends IDispatch{
     }
 
     /**
-     * Sets or retrieves an application-specific value that uniquely identifies the operation within the application.
+     * Sets or retrieves an application-specific value that uniquely identifies the operation within the application. (Put)
      * @param {Integer} lProp 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-put_operationid
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-put_operationid
      */
     put_OperationID(lProp) {
         result := ComCall(14, this, "int", lProp, "HRESULT")
@@ -199,7 +181,7 @@ class IAzOperation extends IDispatch{
     /**
      * Retrieves a value that indicates whether the operation can be modified by the user context that initialized it.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-get_writable
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-get_writable
      */
     get_Writable() {
         result := ComCall(15, this, "int*", &pfProp := 0, "HRESULT")
@@ -278,7 +260,7 @@ class IAzOperation extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {VARIANT} A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object property.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-getproperty
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
@@ -288,6 +270,8 @@ class IAzOperation extends IDispatch{
 
     /**
      * Sets the specified value to the IAzOperation object property with the specified property ID.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazoperation-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object property  to set. The following table shows the possible values.
      * 
      * <table>
@@ -390,7 +374,7 @@ class IAzOperation extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Any other value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
         result := ComCall(17, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -400,13 +384,11 @@ class IAzOperation extends IDispatch{
     /**
      * Persists changes made to the IAzOperation object.
      * @remarks
-     * 
-     * Any additions or modifications to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object are not persisted until the <b>Submit</b> method is called.
-     * 
-     * @param {Integer} lFlags Flags that modify the behavior of the <b>Submit</b> method. The default value is zero. If the AZ_SUBMIT_FLAG_ABORT flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
+     * Any additions or modifications to an [IAzOperation](nn-azroles-iazoperation.md) object are not persisted until the **Submit** method is called.
+     * @param {Integer} lFlags Flags that modify the behavior of the **Submit** method. The default value is zero. If the **AZ_SUBMIT_FLAG_ABORT** flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazoperation-submit
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazoperation-submit
      */
     Submit(lFlags, varReserved) {
         result := ComCall(18, this, "int", lFlags, "ptr", varReserved, "HRESULT")

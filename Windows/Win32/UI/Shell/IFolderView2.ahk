@@ -7,12 +7,10 @@
 #Include .\IFolderView.ahk
 
 /**
- * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode.
+ * Exposes methods that retrieve information about a folder's display options, select specified items in that folder, and set the folder's view mode. (IFolderView2)
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ifolderview">IFolderView</a> interface, from which it inherits.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ifolderview2
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ifolderview2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -47,8 +45,8 @@ class IFolderView2 extends IFolderView{
      * A value of type <b>BOOL</b> to indicate sort order of the groups.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setgroupby
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setgroupby
      */
     SetGroupBy(key, fAscending) {
         result := ComCall(17, this, "ptr", key, "int", fAscending, "HRESULT")
@@ -95,7 +93,7 @@ class IFolderView2 extends IFolderView{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupby
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupby
      */
     GetGroupBy(pkey, pfAscending) {
         pfAscendingMarshal := pfAscending is VarRef ? "int*" : "ptr"
@@ -106,6 +104,8 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Caches a property for an item in the view's property cache.
+     * @remarks
+     * The property is displayed in the view, but not written to the underlying item.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A PIDL that identifies the item.
@@ -118,7 +118,7 @@ class IFolderView2 extends IFolderView{
      * @returns {HRESULT} Type: <b>DEPRECATED_HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setviewproperty
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setviewproperty
      * @deprecated 
      */
     SetViewProperty(pidl, propkey, propvar) {
@@ -137,7 +137,7 @@ class IFolderView2 extends IFolderView{
      * @returns {PROPVARIANT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> structure in which the <a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a> is stored.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getviewproperty
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getviewproperty
      * @deprecated 
      */
     GetViewProperty(pidl, propkey) {
@@ -148,6 +148,8 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Set the list of tile properties for an item.
+     * @remarks
+     * The <i>pszPropList</i> parameter must be of the form "prop:&lt;canonical-property-name&gt;;&lt;canonical-property-name&gt;" where "&lt;canonical-property-name&gt;" is replaced by an actual canonical property name. The parameter can contain one or more properties delimited by semicolons.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an item identifier list (PIDL).
@@ -157,7 +159,7 @@ class IFolderView2 extends IFolderView{
      * @returns {HRESULT} Type: <b>DEPRECATED_HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-settileviewproperties
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-settileviewproperties
      * @deprecated 
      */
     SetTileViewProperties(pidl, pszPropList) {
@@ -169,6 +171,8 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Sets the list of extended tile properties for an item.
+     * @remarks
+     * The <i>pszPropList</i> parameter must be of the form "prop:&lt;canonical-property-name&gt;;&lt;canonical-property-name&gt;" where "&lt;canonical-property-name&gt;" is an actual canonical property name.  It can contain one or more properties delimited by semicolons.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * A pointer to an item identifier list (PIDL).
@@ -178,7 +182,7 @@ class IFolderView2 extends IFolderView{
      * @returns {HRESULT} Type: <b>DEPRECATED_HRESULT</b>
      * 
      * Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setextendedtileviewproperties
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setextendedtileviewproperties
      * @deprecated 
      */
     SetExtendedTileViewProperties(pidl, pszPropList) {
@@ -198,8 +202,8 @@ class IFolderView2 extends IFolderView{
      * A pointer to a Unicode string that contains the text to be used.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-settext
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-settext
      */
     SetText(iType, pwszText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
@@ -210,6 +214,8 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Sets and applies specified folder flags.
+     * @remarks
+     * <b>For Windows 7 or later:</b> This method must be used in combination with the <i>FVO_CUSTOMPOSITION</i> flag from the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl/ne-shobjidl-folderviewoptions">FOLDERVIEWOPTIONS</a> enumeration.
      * @param {Integer} dwMask Type: <b>DWORD</b>
      * 
      * The value of type <b>DWORD</b> that specifies the bitmask indicating which items in the structure are desired or valid.
@@ -218,8 +224,8 @@ class IFolderView2 extends IFolderView{
      * The value of type <b>DWORD</b> that contains one or more <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setcurrentfolderflags
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setcurrentfolderflags
      */
     SetCurrentFolderFlags(dwMask, dwFlags) {
         result := ComCall(24, this, "uint", dwMask, "uint", dwFlags, "HRESULT")
@@ -231,7 +237,7 @@ class IFolderView2 extends IFolderView{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a <b>DWORD</b> with any <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderflags">FOLDERFLAGS</a> that have been applied to the folder.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getcurrentfolderflags
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getcurrentfolderflags
      */
     GetCurrentFolderFlags() {
         result := ComCall(25, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -240,10 +246,12 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Gets the count of sort columns currently applied to the view.
+     * @remarks
+     * Returns E_INVALIDARG if the column count provided does not equal the count of sort columns in the view.
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to an <b>int</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getsortcolumncount
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getsortcolumncount
      */
     GetSortColumnCount() {
         result := ComCall(26, this, "int*", &pcColumns := 0, "HRESULT")
@@ -260,8 +268,8 @@ class IFolderView2 extends IFolderView{
      * The count of columns to sort by.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setsortcolumns
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setsortcolumns
      */
     SetSortColumns(rgSortColumns, cColumns) {
         result := ComCall(27, this, "ptr", rgSortColumns, "int", cColumns, "HRESULT")
@@ -276,7 +284,7 @@ class IFolderView2 extends IFolderView{
      * @returns {SORTCOLUMN} Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-sortcolumn">SORTCOLUMN</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ns-shobjidl_core-sortcolumn">SORTCOLUMN</a> structure. The size of this structure is determined by <i>cColumns</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getsortcolumns
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getsortcolumns
      */
     GetSortColumns(cColumns) {
         rgSortColumns := SORTCOLUMN()
@@ -295,7 +303,7 @@ class IFolderView2 extends IFolderView{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * When this method returns, contains the interface pointer requested in <i>riid</i>. This is typically <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getitem
      */
     GetItem(iItem, riid) {
         result := ComCall(29, this, "int", iItem, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -313,7 +321,7 @@ class IFolderView2 extends IFolderView{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * When this method returns, contains a pointer to a value that receives the index of the visible item in the view.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getvisibleitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getvisibleitem
      */
     GetVisibleItem(iStart, fPrevious) {
         result := ComCall(30, this, "int", iStart, "int", fPrevious, "int*", &piItem := 0, "HRESULT")
@@ -328,7 +336,7 @@ class IFolderView2 extends IFolderView{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to a value that receives the index of the item in the view.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getselecteditem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselecteditem
      */
     GetSelectedItem(iStart) {
         result := ComCall(31, this, "int", iStart, "int*", &piItem := 0, "HRESULT")
@@ -343,7 +351,7 @@ class IFolderView2 extends IFolderView{
      * @returns {IShellItemArray} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>**</b>
      * 
      * The address of a pointer to an IShellItemArray.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getselection
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselection
      */
     GetSelection(fNoneImpliesFolder) {
         result := ComCall(32, this, "int", fNoneImpliesFolder, "ptr*", &ppsia := 0, "HRESULT")
@@ -358,7 +366,7 @@ class IFolderView2 extends IFolderView{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Zero or one of the following <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_svsif">_SVSIF</a> constants that specify the current type of selection: <b>SVSI_FOCUSED</b>, <b>SVSI_SELECT</b>, <b>SVSI_CHECK</b>, or <b>SVSI_CHECK2</b>. Other <b>_SVSIF</b> constants are not returned by this API.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getselectionstate
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getselectionstate
      */
     GetSelectionState(pidl) {
         result := ComCall(33, this, "ptr", pidl, "uint*", &pdwFlags := 0, "HRESULT")
@@ -367,13 +375,15 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Invokes the given verb on the current selection.
+     * @remarks
+     * If <i>pszVerb</i> is <b>NULL</b>, then the default verb is invoked on the selection.
      * @param {PSTR} pszVerb Type: <b>LPCSTR</b>
      * 
      * A pointer to a Unicode string containing a verb.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-invokeverbonselection
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-invokeverbonselection
      */
     InvokeVerbOnSelection(pszVerb) {
         pszVerb := pszVerb is String ? StrPtr(pszVerb) : pszVerb
@@ -384,6 +394,8 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Sets and applies the view mode and image size.
+     * @remarks
+     * If <i>iImageSize</i> is -1 then the current default icon size for the view mode is used.
      * @param {Integer} uViewMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a></b>
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-folderviewmode">FOLDERVIEWMODE</a> to be applied.
@@ -392,8 +404,8 @@ class IFolderView2 extends IFolderView{
      * The size of the image in pixels.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setviewmodeandiconsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setviewmodeandiconsize
      */
     SetViewModeAndIconSize(uViewMode, iImageSize) {
         result := ComCall(35, this, "int", uViewMode, "int", iImageSize, "HRESULT")
@@ -410,8 +422,8 @@ class IFolderView2 extends IFolderView{
      * A pointer to the size of the icon in pixels.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getviewmodeandiconsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getviewmodeandiconsize
      */
     GetViewModeAndIconSize(puViewMode, piImageSize) {
         puViewModeMarshal := puViewMode is VarRef ? "int*" : "ptr"
@@ -423,13 +435,15 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Turns on group subsetting and sets the number of visible rows of items in each group.
+     * @remarks
+     * If <i>cVisibleRows</i> is zero, subsetting is turned off.
      * @param {Integer} cVisibleRows Type: <b>UINT</b>
      * 
      * The number of rows to be visible.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setgroupsubsetcount
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setgroupsubsetcount
      */
     SetGroupSubsetCount(cVisibleRows) {
         result := ComCall(37, this, "uint", cVisibleRows, "HRESULT")
@@ -438,10 +452,12 @@ class IFolderView2 extends IFolderView{
 
     /**
      * Gets the count of visible rows displayed for a group's subset.
+     * @remarks
+     * If group subsetting is disabled the number of rows is zero.
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The number of rows currently visible.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupsubsetcount
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-getgroupsubsetcount
      */
     GetGroupSubsetCount() {
         result := ComCall(38, this, "uint*", &pcVisibleRows := 0, "HRESULT")
@@ -455,8 +471,8 @@ class IFolderView2 extends IFolderView{
      * a <b>BOOL</b> value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-setredraw
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-setredraw
      */
     SetRedraw(fRedrawOn) {
         result := ComCall(39, this, "int", fRedrawOn, "HRESULT")
@@ -467,8 +483,8 @@ class IFolderView2 extends IFolderView{
      * Checks to see if this view sourced the current drag-and-drop or cut-and-paste operation (used by drop target objects).
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-ismoveinsamefolder
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-ismoveinsamefolder
      */
     IsMoveInSameFolder() {
         result := ComCall(40, this, "HRESULT")
@@ -479,8 +495,8 @@ class IFolderView2 extends IFolderView{
      * Starts a rename operation on the current selection.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ifolderview2-dorename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ifolderview2-dorename
      */
     DoRename() {
         result := ComCall(41, this, "HRESULT")

@@ -6,7 +6,6 @@
 /**
  * Applications use the methods of the IDirectDrawClipper interface to manage clip lists. This section is a reference to the methods of this interface.
  * @remarks
- * 
  * The methods of the <b>IDirectDrawClipper</b> interface can be organized into the following groups:<table>
  * <tr>
  * <th>Group</th>
@@ -45,8 +44,7 @@
  * typedef struct IDirectDrawClipper    FAR *LPDIRECTDRAWCLIPPER;
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/nn-ddraw-idirectdrawclipper
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/nn-ddraw-idirectdrawclipper
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -90,7 +88,7 @@ class IDirectDrawClipper extends IUnknown{
      * <li>DDERR_NOCLIPLIST</li>
      * <li>DDERR_REGIONTOOSMALL</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-getcliplist
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-getcliplist
      */
     GetClipList(param0, param1, param2) {
         param2Marshal := param2 is VarRef ? "uint*" : "ptr"
@@ -112,7 +110,7 @@ class IDirectDrawClipper extends IUnknown{
      * <li>DDERR_INVALIDOBJECT</li>
      * <li>DDERR_INVALIDPARAMS</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-gethwnd
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-gethwnd
      */
     GetHWnd(param0) {
         result := ComCall(4, this, "ptr", param0, "HRESULT")
@@ -121,6 +119,8 @@ class IDirectDrawClipper extends IUnknown{
 
     /**
      * Initializes a DirectDrawClipper object that was created by using the CoCreateInstance COM function.
+     * @remarks
+     * The <b>IDirectDrawClipper::Initialize</b> method is provided for compliance with the Component Object Model (COM). If you used the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-directdrawcreateclipper">DirectDrawCreateClipper</a> function or the <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdraw7-createclipper">IDirectDraw7::CreateClipper</a> method to create the DirectDrawClipper object, the <b>IDirectDrawClipper::Initialize</b> method returns DDERR_ALREADYINITIALIZED.
      * @param {IDirectDraw} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
@@ -133,7 +133,7 @@ class IDirectDrawClipper extends IUnknown{
      * <li>DDERR_ALREADYINITIALIZED</li>
      * <li>DDERR_INVALIDPARAMS</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-initialize
      */
     Initialize(param0, param1) {
         result := ComCall(5, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -151,7 +151,7 @@ class IDirectDrawClipper extends IUnknown{
      * <li>DDERR_INVALIDOBJECT</li>
      * <li>DDERR_INVALIDPARAMS</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-iscliplistchanged
      */
     IsClipListChanged(param0) {
         param0Marshal := param0 is VarRef ? "int*" : "ptr"
@@ -162,6 +162,10 @@ class IDirectDrawClipper extends IUnknown{
 
     /**
      * Sets or deletes the clip list that is used by the IDirectDrawSurface7::Blt, IDirectDrawSurface7::BltBatch, and IDirectDrawSurface7::UpdateOverlay methods on surfaces to which the parent DirectDrawClipper object is attached.
+     * @remarks
+     * You cannot set the clip list if a window handle is already associated with the DirectDrawClipper object. 
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/ddraw/nf-ddraw-idirectdrawsurface7-bltfast">IDirectDrawSurface7::BltFast</a> method cannot clip. If you call <b>IDirectDrawSurface7::BltFast</b> on a surface with an attached clipper, it returns DDERR_UNSUPPORTED.
      * @param {Pointer<RGNDATA>} param0 
      * @param {Integer} param1 
      * @returns {HRESULT} If the method succeeds, the return value is DD_OK.
@@ -177,7 +181,7 @@ class IDirectDrawClipper extends IUnknown{
      * <li>DDERR_INVALIDPARAMS</li>
      * <li>DDERR_OUTOFMEMORY</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-setcliplist
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-setcliplist
      */
     SetClipList(param0, param1) {
         result := ComCall(7, this, "ptr", param0, "uint", param1, "HRESULT")
@@ -200,7 +204,7 @@ class IDirectDrawClipper extends IUnknown{
      * <li>DDERR_INVALIDPARAMS</li>
      * <li>DDERR_OUTOFMEMORY</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawclipper-sethwnd
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawclipper-sethwnd
      */
     SetHWnd(param0, param1) {
         param1 := param1 is Win32Handle ? NumGet(param1, "ptr") : param1

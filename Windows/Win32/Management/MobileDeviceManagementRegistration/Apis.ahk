@@ -357,11 +357,7 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static GetDeviceRegistrationInfo(DeviceInformationClass) {
-        result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, "ptr*", &ppDeviceRegistrationInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\GetDeviceRegistrationInfo", "int", DeviceInformationClass, "ptr*", &ppDeviceRegistrationInfo := 0, "HRESULT")
         return ppDeviceRegistrationInfo
     }
 
@@ -381,11 +377,7 @@ class MobileDeviceManagementRegistration {
     static IsDeviceRegisteredWithManagement(cchUPN, pszUPN) {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
-        result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", "int*", &pfIsDeviceRegisteredWithManagement := 0, "uint", cchUPN, "ptr", pszUPN, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\IsDeviceRegisteredWithManagement", "int*", &pfIsDeviceRegisteredWithManagement := 0, "uint", cchUPN, "ptr", pszUPN, "HRESULT")
         return pfIsDeviceRegisteredWithManagement
     }
 
@@ -398,11 +390,7 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static IsManagementRegistrationAllowed() {
-        result := DllCall("MDMRegistration.dll\IsManagementRegistrationAllowed", "int*", &pfIsManagementRegistrationAllowed := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\IsManagementRegistrationAllowed", "int*", &pfIsManagementRegistrationAllowed := 0, "HRESULT")
         return pfIsManagementRegistrationAllowed
     }
 
@@ -411,11 +399,7 @@ class MobileDeviceManagementRegistration {
      * @returns {BOOL} 
      */
     static IsMdmUxWithoutAadAllowed() {
-        result := DllCall("MDMRegistration.dll\IsMdmUxWithoutAadAllowed", "int*", &isEnrollmentAllowed := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\IsMdmUxWithoutAadAllowed", "int*", &isEnrollmentAllowed := 0, "HRESULT")
         return isEnrollmentAllowed
     }
 
@@ -432,11 +416,7 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static SetManagedExternally(IsManagedExternally) {
-        result := DllCall("MDMRegistration.dll\SetManagedExternally", "int", IsManagedExternally, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\SetManagedExternally", "int", IsManagedExternally, "HRESULT")
         return result
     }
 
@@ -454,11 +434,7 @@ class MobileDeviceManagementRegistration {
     static DiscoverManagementService(pszUPN) {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
 
-        result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr*", &ppMgmtInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\DiscoverManagementService", "ptr", pszUPN, "ptr*", &ppMgmtInfo := 0, "HRESULT")
         return ppMgmtInfo
     }
 
@@ -476,11 +452,7 @@ class MobileDeviceManagementRegistration {
     static RegisterDeviceWithManagementUsingAADCredentials(UserToken) {
         UserToken := UserToken is Win32Handle ? NumGet(UserToken, "ptr") : UserToken
 
-        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADCredentials", "ptr", UserToken, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADCredentials", "ptr", UserToken, "HRESULT")
         return result
     }
 
@@ -493,11 +465,7 @@ class MobileDeviceManagementRegistration {
      * @since windows8.1
      */
     static RegisterDeviceWithManagementUsingAADDeviceCredentials() {
-        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials", "HRESULT")
         return result
     }
 
@@ -509,11 +477,7 @@ class MobileDeviceManagementRegistration {
     static RegisterDeviceWithManagementUsingAADDeviceCredentials2(MDMApplicationID) {
         MDMApplicationID := MDMApplicationID is String ? StrPtr(MDMApplicationID) : MDMApplicationID
 
-        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials2", "ptr", MDMApplicationID, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagementUsingAADDeviceCredentials2", "ptr", MDMApplicationID, "HRESULT")
         return result
     }
 
@@ -540,11 +504,7 @@ class MobileDeviceManagementRegistration {
         ppszMDMServiceUri := ppszMDMServiceUri is String ? StrPtr(ppszMDMServiceUri) : ppszMDMServiceUri
         ppzsAccessToken := ppzsAccessToken is String ? StrPtr(ppzsAccessToken) : ppzsAccessToken
 
-        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagement", "ptr", pszUPN, "ptr", ppszMDMServiceUri, "ptr", ppzsAccessToken, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\RegisterDeviceWithManagement", "ptr", pszUPN, "ptr", ppszMDMServiceUri, "ptr", ppzsAccessToken, "HRESULT")
         return result
     }
 
@@ -563,11 +523,7 @@ class MobileDeviceManagementRegistration {
     static UnregisterDeviceWithManagement(enrollmentID) {
         enrollmentID := enrollmentID is String ? StrPtr(enrollmentID) : enrollmentID
 
-        result := DllCall("MDMRegistration.dll\UnregisterDeviceWithManagement", "ptr", enrollmentID, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\UnregisterDeviceWithManagement", "ptr", enrollmentID, "HRESULT")
         return result
     }
 
@@ -595,11 +551,7 @@ class MobileDeviceManagementRegistration {
 
         configStringBufferLengthMarshal := configStringBufferLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, configStringBufferLengthMarshal, configStringBufferLength, "ptr", configString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\GetDeviceManagementConfigInfo", "ptr", providerID, configStringBufferLengthMarshal, configStringBufferLength, "ptr", configString, "HRESULT")
         return result
     }
 
@@ -620,11 +572,7 @@ class MobileDeviceManagementRegistration {
         providerID := providerID is String ? StrPtr(providerID) : providerID
         configString := configString is String ? StrPtr(configString) : configString
 
-        result := DllCall("MDMRegistration.dll\SetDeviceManagementConfigInfo", "ptr", providerID, "ptr", configString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\SetDeviceManagementConfigInfo", "ptr", providerID, "ptr", configString, "HRESULT")
         return result
     }
 
@@ -645,11 +593,7 @@ class MobileDeviceManagementRegistration {
     static GetManagementAppHyperlink(cchHyperlink, pszHyperlink) {
         pszHyperlink := pszHyperlink is String ? StrPtr(pszHyperlink) : pszHyperlink
 
-        result := DllCall("MDMRegistration.dll\GetManagementAppHyperlink", "uint", cchHyperlink, "ptr", pszHyperlink, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\GetManagementAppHyperlink", "uint", cchHyperlink, "ptr", pszHyperlink, "HRESULT")
         return result
     }
 
@@ -672,11 +616,7 @@ class MobileDeviceManagementRegistration {
         pszUPN := pszUPN is String ? StrPtr(pszUPN) : pszUPN
         pszDiscoveryServiceCandidate := pszDiscoveryServiceCandidate is String ? StrPtr(pszDiscoveryServiceCandidate) : pszDiscoveryServiceCandidate
 
-        result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr*", &ppMgmtInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMRegistration.dll\DiscoverManagementServiceEx", "ptr", pszUPN, "ptr", pszDiscoveryServiceCandidate, "ptr*", &ppMgmtInfo := 0, "HRESULT")
         return ppMgmtInfo
     }
 
@@ -685,11 +625,7 @@ class MobileDeviceManagementRegistration {
      * @returns {BOOL} 
      */
     static RegisterDeviceWithLocalManagement() {
-        result := DllCall("MDMLocalManagement.dll\RegisterDeviceWithLocalManagement", "int*", &alreadyRegistered := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMLocalManagement.dll\RegisterDeviceWithLocalManagement", "int*", &alreadyRegistered := 0, "HRESULT")
         return alreadyRegistered
     }
 
@@ -701,11 +637,7 @@ class MobileDeviceManagementRegistration {
     static ApplyLocalManagementSyncML(syncMLRequest) {
         syncMLRequest := syncMLRequest is String ? StrPtr(syncMLRequest) : syncMLRequest
 
-        result := DllCall("MDMLocalManagement.dll\ApplyLocalManagementSyncML", "ptr", syncMLRequest, "ptr*", &syncMLResult := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMLocalManagement.dll\ApplyLocalManagementSyncML", "ptr", syncMLRequest, "ptr*", &syncMLResult := 0, "HRESULT")
         return syncMLResult
     }
 
@@ -714,11 +646,7 @@ class MobileDeviceManagementRegistration {
      * @returns {HRESULT} 
      */
     static UnregisterDeviceWithLocalManagement() {
-        result := DllCall("MDMLocalManagement.dll\UnregisterDeviceWithLocalManagement", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MDMLocalManagement.dll\UnregisterDeviceWithLocalManagement", "HRESULT")
         return result
     }
 

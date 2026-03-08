@@ -6,7 +6,7 @@
 
 /**
  * The IADsNamespaces interface is implemented by the ADs provider and is used for managing namespace objects.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsnamespaces
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsnamespaces
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

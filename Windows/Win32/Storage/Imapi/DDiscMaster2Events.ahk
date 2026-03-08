@@ -6,7 +6,7 @@
 
 /**
  * Implement this interface to receive notification when a CD or DVD device is added to or removed from the computer.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-ddiscmaster2events
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-ddiscmaster2events
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -39,33 +39,29 @@ class DDiscMaster2Events extends IDispatch{
 
     /**
      * Receives notification when an optical media device is added to the computer.
-     * @param {IDispatch} object An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscmaster2">IDiscMaster2</a> interface that you can use to enumerate the devices on the computer. 
-     * 
-     * This parameter is a <b>MsftDiscMaster2</b> object in script.
+     * @param {IDispatch} object_R 
      * @param {BSTR} uniqueId String that contains an identifier that uniquely identifies the optical media device that was added to the computer.
      * @returns {HRESULT} Return values are ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscmaster2events-notifydeviceadded
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscmaster2events-notifydeviceadded
      */
-    NotifyDeviceAdded(object, uniqueId) {
+    NotifyDeviceAdded(object_R, uniqueId) {
         uniqueId := uniqueId is String ? BSTR.Alloc(uniqueId).Value : uniqueId
 
-        result := ComCall(7, this, "ptr", object, "ptr", uniqueId, "HRESULT")
+        result := ComCall(7, this, "ptr", object_R, "ptr", uniqueId, "HRESULT")
         return result
     }
 
     /**
      * Receives notification when an optical media device is removed from the computer.
-     * @param {IDispatch} object An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscmaster2">IDiscMaster2</a> interface that you can use to enumerate the devices on the computer. 
-     * 
-     * This parameter is a <b>MsftDiscMaster2</b> object in script.
+     * @param {IDispatch} object_R 
      * @param {BSTR} uniqueId String that contains an identifier that uniquely identifies the optical media device that was added to the computer.
      * @returns {HRESULT} Return values are ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscmaster2events-notifydeviceremoved
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscmaster2events-notifydeviceremoved
      */
-    NotifyDeviceRemoved(object, uniqueId) {
+    NotifyDeviceRemoved(object_R, uniqueId) {
         uniqueId := uniqueId is String ? BSTR.Alloc(uniqueId).Value : uniqueId
 
-        result := ComCall(8, this, "ptr", object, "ptr", uniqueId, "HRESULT")
+        result := ComCall(8, this, "ptr", object_R, "ptr", uniqueId, "HRESULT")
         return result
     }
 }

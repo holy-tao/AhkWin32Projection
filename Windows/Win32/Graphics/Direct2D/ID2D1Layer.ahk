@@ -6,7 +6,6 @@
 /**
  * Represents the backing store required to render a layer.
  * @remarks
- * 
  * To create a layer, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createlayer(d2d1_size_f_id2d1layer)">CreateLayer</a> method of the render target where the layer will be used. To draw to a layer, push the layer to the render target stack by calling the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-pushlayer(constd2d1_layer_parameters__id2d1layer)">PushLayer</a> method. After you have finished drawing to the layer, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-poplayer">PopLayer</a> method.
  * 
  * Between  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-pushlayer(constd2d1_layer_parameters__id2d1layer)">PushLayer</a> and <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-poplayer">PopLayer</a> calls, the layer is in use and cannot be used by another render target. 
@@ -19,10 +18,7 @@
  * To create a layer, call the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-createlayer(d2d1_size_f_id2d1layer)">CreateLayer</a> method of the render target where the layer will be used.
  * 
  * A layer is a device-dependent resource: your application should create layers after it initializes the render target with which the layers will be used, and recreate the layers whenever the render target needs recreated. (For more information about resources, see <a href="https://docs.microsoft.com/windows/win32/Direct2D/resources-and-resource-domains">Resources Overview</a>.)
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1layer
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1layer
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -49,10 +45,10 @@ class ID2D1Layer extends ID2D1Resource{
 
     /**
      * Gets the size of the layer in device-independent pixels.
-     * @returns {D2D_SIZE_F} Type: <b><a href="/windows/win32/Direct2D/d2d1-size-f">D2D1_SIZE_F</a></b>
+     * @returns {D2D_SIZE_F} Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-size-f">D2D1_SIZE_F</a></b>
      * 
      * The size of the layer in device-independent pixels.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1layer-getsize
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1layer-getsize
      */
     GetSize() {
         result := ComCall(4, this, "ptr")

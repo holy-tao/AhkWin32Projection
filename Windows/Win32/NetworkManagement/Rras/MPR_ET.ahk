@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Do not use encryption.
+ * @see https://learn.microsoft.com/windows/win32/api/mprapi/ns-mprapi-mpr_interface_2
  * @namespace Windows.Win32.NetworkManagement.Rras
  * @version v4.0.30319
  */

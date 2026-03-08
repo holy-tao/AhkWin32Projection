@@ -6,11 +6,8 @@
 /**
  * Extends INamespaceWalkCB with a method that is required in order to complete a namespace walk. This method removes data collected during the walk.
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb">INamespaceWalkCB</a> interface, from which it inherits.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-inamespacewalkcb2
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb2
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,7 +40,7 @@ class INamespaceWalkCB2 extends INamespaceWalkCB{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalkcb2-walkcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb2-walkcomplete
      */
     WalkComplete(hr) {
         result := ComCall(7, this, "int", hr, "HRESULT")

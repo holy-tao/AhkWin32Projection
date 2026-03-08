@@ -97,11 +97,7 @@ class WindowsFirewall {
 
         binariesMarshal := binaries is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, binariesMarshal, binaries, "uint", binariesCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-net-isolation-l1-1-0.dll\NetworkIsolationSetupAppContainerBinaries", "ptr", applicationContainerSid, "ptr", packageFullName, "ptr", packageFolder, "ptr", displayName, "int", bBinariesFullyComputed, binariesMarshal, binaries, "uint", binariesCount, "HRESULT")
         return result
     }
 
@@ -210,11 +206,7 @@ class WindowsFirewall {
      * @since windows8.0
      */
     static NetworkIsolationEnumerateAppContainerRules() {
-        result := DllCall("Firewallapi.dll\NetworkIsolationEnumerateAppContainerRules", "ptr*", &newEnum := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Firewallapi.dll\NetworkIsolationEnumerateAppContainerRules", "ptr*", &newEnum := 0, "HRESULT")
         return IEnumVARIANT(newEnum)
     }
 

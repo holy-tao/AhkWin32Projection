@@ -12094,7 +12094,7 @@ class NetManagement {
 
         result := DllCall("NETAPI32.dll\NetUserChangePassword", "ptr", domainname, "ptr", username, "ptr", oldpassword, "ptr", newpassword, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -21031,11 +21031,7 @@ class NetManagement {
     static NetGetAadJoinInformation(pcszTenantId) {
         pcszTenantId := pcszTenantId is String ? StrPtr(pcszTenantId) : pcszTenantId
 
-        result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr*", &ppJoinInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("NETAPI32.dll\NetGetAadJoinInformation", "ptr", pcszTenantId, "ptr*", &ppJoinInfo := 0, "HRESULT")
         return ppJoinInfo
     }
 
@@ -21114,11 +21110,7 @@ class NetManagement {
         pwszServerName := pwszServerName is String ? StrPtr(pwszServerName) : pwszServerName
         wszAccount := wszAccount is String ? StrPtr(wszAccount) : wszAccount
 
-        result := DllCall("mstask.dll\GetNetScheduleAccountInformation", "ptr", pwszServerName, "uint", ccAccount, "ptr", wszAccount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mstask.dll\GetNetScheduleAccountInformation", "ptr", pwszServerName, "uint", ccAccount, "ptr", wszAccount, "HRESULT")
         return result
     }
 
@@ -21183,11 +21175,7 @@ class NetManagement {
         pwszAccount := pwszAccount is String ? StrPtr(pwszAccount) : pwszAccount
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        result := DllCall("mstask.dll\SetNetScheduleAccountInformation", "ptr", pwszServerName, "ptr", pwszAccount, "ptr", pwszPassword, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mstask.dll\SetNetScheduleAccountInformation", "ptr", pwszServerName, "ptr", pwszAccount, "ptr", pwszPassword, "HRESULT")
         return result
     }
 

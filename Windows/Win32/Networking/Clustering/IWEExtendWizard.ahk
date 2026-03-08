@@ -6,12 +6,9 @@
 /**
  * Implement the IWEExtendWizard interface to add wizard pages to Failover Cluster Administrator's New Resource Wizard or Cluster Application Wizard.
  * @remarks
- * 
  * To support Wizard97 wizards and wizard pages, implement the 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-iweextendwizard97">IWEExtendWizard97</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iweextendwizard
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iweextendwizard
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -38,6 +35,37 @@ class IWEExtendWizard extends IUnknown{
 
     /**
      * Allows you to create wizard pages and add them to Failover Cluster Administrator's New Resource Wizard or Cluster Application Wizard.
+     * @remarks
+     * To add Wizard97 wizard pages, use the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendwizard97-createwizard97pages">IWEExtendWizard97::CreateWizard97Pages</a> 
+     *      method.
+     * 
+     * <h3><a id="Notes_to_Implementers"></a><a id="notes_to_implementers"></a><a id="NOTES_TO_IMPLEMENTERS"></a>Notes to Implementers</h3>
+     * <p class="proch"><b>For each property page to be added</b>
+     * 
+     * <ol>
+     * <li>Use <i>piData</i> to call 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> and retrieve an interface 
+     *        pointer for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-objects">cluster object</a> associated with the new 
+     *        page. For example, if you are adding a property page for a resource, you want to retrieve a pointer to the 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nn-cluadmex-igetclusterresourceinfo">IGetClusterResourceInfo</a> interface. 
+     *        Although it is possible to successfully query for interfaces that retrieve data unrelated to the object being 
+     *        extended, you should expect to receive errors when you attempt to call the methods.</li>
+     * <li>
+     * To create the page, call the function 
+     *        <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a>. To produce pages 
+     *        that look like the pages provided by Cluster Administrator, each new property page should be no larger than 252 
+     *        dialog units wide and 218 dialog units high, and should contain two standard controls:
+     * 
+     * <ul>
+     * <li>For the object icon, an icon control positioned at (8,7) with a size of (18,20).</li>
+     * <li>For the object name, a static control positioned at (38,12) with a size of (247,10).</li>
+     * </ul>
+     * </li>
+     * <li>To add the page to a Cluster Administrator Wizard, call 
+     *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iwcwizardcallback-addwizardpage">IWCWizardCallback::AddWizardPage</a> 
+     *        using the <i>piCallback</i> pointer.</li>
+     * </ol>
      * @param {IUnknown} piData <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer for retrieving information 
      *        relating to the wizard pages to be added. By calling 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IUnknown::QueryInterface</a> with the 
@@ -122,7 +150,7 @@ class IWEExtendWizard extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iweextendwizard-createwizardpages
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iweextendwizard-createwizardpages
      */
     CreateWizardPages(piData, piCallback) {
         result := ComCall(3, this, "ptr", piData, "ptr", piCallback, "HRESULT")

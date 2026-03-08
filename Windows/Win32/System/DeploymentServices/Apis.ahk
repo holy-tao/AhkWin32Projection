@@ -1009,11 +1009,7 @@ class DeploymentServices {
     static WdsCliClose(Handle) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliClose", "ptr", Handle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliClose", "ptr", Handle, "HRESULT")
         return result
     }
 
@@ -1025,11 +1021,7 @@ class DeploymentServices {
      * @since windows6.0.6000
      */
     static WdsCliRegisterTrace(pfn) {
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", "ptr", pfn, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliRegisterTrace", "ptr", pfn, "HRESULT")
         return result
     }
 
@@ -1044,11 +1036,7 @@ class DeploymentServices {
     static WdsCliFreeStringArray(ppwszArray, ulCount) {
         ppwszArrayMarshal := ppwszArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliFreeStringArray", ppwszArrayMarshal, ppwszArray, "uint", ulCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliFreeStringArray", ppwszArrayMarshal, ppwszArray, "uint", ulCount, "HRESULT")
         return result
     }
 
@@ -1072,11 +1060,7 @@ class DeploymentServices {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
         phFindHandle := HANDLE()
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliFindFirstImage", "ptr", hSession, "ptr", phFindHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliFindFirstImage", "ptr", hSession, "ptr", phFindHandle, "HRESULT")
         return phFindHandle
     }
 
@@ -1095,11 +1079,7 @@ class DeploymentServices {
     static WdsCliFindNextImage(Handle) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliFindNextImage", "ptr", Handle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliFindNextImage", "ptr", Handle, "HRESULT")
         return result
     }
 
@@ -1136,11 +1116,7 @@ class DeploymentServices {
     static WdsCliGetEnumerationFlags(Handle) {
         Handle := Handle is Win32Handle ? NumGet(Handle, "ptr") : Handle
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, "uint*", &pdwFlags := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetEnumerationFlags", "ptr", Handle, "uint*", &pdwFlags := 0, "HRESULT")
         return pdwFlags
     }
 
@@ -1157,11 +1133,7 @@ class DeploymentServices {
         FindHandle := FindHandle is Win32Handle ? NumGet(FindHandle, "ptr") : FindHandle
 
         phImageHandle := HANDLE()
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromFindHandle", "ptr", FindHandle, "ptr", phImageHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromFindHandle", "ptr", FindHandle, "ptr", phImageHandle, "HRESULT")
         return phImageHandle
     }
 
@@ -1180,11 +1152,7 @@ class DeploymentServices {
         hTransfer := hTransfer is Win32Handle ? NumGet(hTransfer, "ptr") : hTransfer
 
         phImageHandle := HANDLE()
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromTransferHandle", "ptr", hTransfer, "ptr", phImageHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHandleFromTransferHandle", "ptr", hTransfer, "ptr", phImageHandle, "HRESULT")
         return phImageHandle
     }
 
@@ -1206,9 +1174,9 @@ class DeploymentServices {
         A_LastError := 0
 
         phSession := HANDLE()
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliCreateSession", "ptr", pwszServer, "ptr", pCred, "ptr", phSession, "int")
-        if(A_LastError || result != 0) {
-            throw OSError(A_LastError || result)
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliCreateSession", "ptr", pwszServer, "ptr", pCred, "ptr", phSession, "HRESULT")
+        if(A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return phSession
@@ -1227,11 +1195,7 @@ class DeploymentServices {
     static WdsCliAuthorizeSession(hSession, pCred) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliAuthorizeSession", "ptr", hSession, "ptr", pCred, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliAuthorizeSession", "ptr", hSession, "ptr", pCred, "HRESULT")
         return result
     }
 
@@ -1255,11 +1219,7 @@ class DeploymentServices {
         pwszClientId := pwszClientId is String ? StrPtr(pwszClientId) : pwszClientId
         pwszClientAddress := pwszClientAddress is String ? StrPtr(pwszClientAddress) : pwszClientAddress
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliInitializeLog", "ptr", hSession, "uint", ulClientArchitecture, "ptr", pwszClientId, "ptr", pwszClientAddress, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliInitializeLog", "ptr", hSession, "uint", ulClientArchitecture, "ptr", pwszClientId, "ptr", pwszClientAddress, "HRESULT")
         return result
     }
 
@@ -1376,11 +1336,7 @@ class DeploymentServices {
     static WdsCliLog(hSession, ulLogLevel, ulMessageCode) {
         hSession := hSession is Win32Handle ? NumGet(hSession, "ptr") : hSession
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliLog", "ptr", hSession, "uint", ulLogLevel, "uint", ulMessageCode, "CDecl int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliLog", "ptr", hSession, "uint", ulLogLevel, "uint", ulMessageCode, "CDecl HRESULT")
         return result
     }
 
@@ -1401,11 +1357,7 @@ class DeploymentServices {
     static WdsCliGetImageName(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageName", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageName", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1426,11 +1378,7 @@ class DeploymentServices {
     static WdsCliGetImageDescription(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageDescription", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageDescription", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1442,11 +1390,7 @@ class DeploymentServices {
     static WdsCliGetImageType(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageType", "ptr", hIfh, "int*", &pImageType := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageType", "ptr", hIfh, "int*", &pImageType := 0, "HRESULT")
         return pImageType
     }
 
@@ -1463,11 +1407,7 @@ class DeploymentServices {
         pppwszFilesMarshal := pppwszFiles is VarRef ? "ptr*" : "ptr"
         pdwCountMarshal := pdwCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, pppwszFilesMarshal, pppwszFiles, pdwCountMarshal, pdwCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageFiles", "ptr", hIfh, pppwszFilesMarshal, pppwszFiles, pdwCountMarshal, pdwCount, "HRESULT")
         return result
     }
 
@@ -1488,11 +1428,7 @@ class DeploymentServices {
     static WdsCliGetImageLanguage(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguage", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguage", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1519,11 +1455,7 @@ class DeploymentServices {
         pppszValuesMarshal := pppszValues is VarRef ? "ptr*" : "ptr"
         pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, pppszValuesMarshal, pppszValues, pdwNumValuesMarshal, pdwNumValues, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLanguages", "ptr", hIfh, pppszValuesMarshal, pppszValues, pdwNumValuesMarshal, pdwNumValues, "HRESULT")
         return result
     }
 
@@ -1543,11 +1475,7 @@ class DeploymentServices {
     static WdsCliGetImageVersion(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageVersion", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageVersion", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1570,11 +1498,7 @@ class DeploymentServices {
     static WdsCliGetImagePath(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImagePath", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImagePath", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1595,11 +1519,7 @@ class DeploymentServices {
     static WdsCliGetImageIndex(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageIndex", "ptr", hIfh, "uint*", &pdwValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageIndex", "ptr", hIfh, "uint*", &pdwValue := 0, "HRESULT")
         return pdwValue
     }
 
@@ -1619,11 +1539,7 @@ class DeploymentServices {
     static WdsCliGetImageArchitecture(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageArchitecture", "ptr", hIfh, "uint*", &pdwValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageArchitecture", "ptr", hIfh, "uint*", &pdwValue := 0, "HRESULT")
         return pdwValue
     }
 
@@ -1643,11 +1559,7 @@ class DeploymentServices {
     static WdsCliGetImageLastModifiedTime(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLastModifiedTime", "ptr", hIfh, "ptr*", &ppSysTimeValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageLastModifiedTime", "ptr", hIfh, "ptr*", &ppSysTimeValue := 0, "HRESULT")
         return ppSysTimeValue
     }
 
@@ -1667,11 +1579,7 @@ class DeploymentServices {
     static WdsCliGetImageSize(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageSize", "ptr", hIfh, "uint*", &pullValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageSize", "ptr", hIfh, "uint*", &pullValue := 0, "HRESULT")
         return pullValue
     }
 
@@ -1692,11 +1600,7 @@ class DeploymentServices {
     static WdsCliGetImageHalName(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHalName", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageHalName", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1717,11 +1621,7 @@ class DeploymentServices {
     static WdsCliGetImageGroup(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageGroup", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageGroup", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1742,11 +1642,7 @@ class DeploymentServices {
     static WdsCliGetImageNamespace(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageNamespace", "ptr", hIfh, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageNamespace", "ptr", hIfh, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -1761,11 +1657,7 @@ class DeploymentServices {
     static WdsCliGetImageParameter(hIfh, ParamType, pResponse, uResponseLen) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageParameter", "ptr", hIfh, "int", ParamType, "ptr", pResponse, "uint", uResponseLen, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetImageParameter", "ptr", hIfh, "int", ParamType, "ptr", pResponse, "uint", uResponseLen, "HRESULT")
         return result
     }
 
@@ -1785,11 +1677,7 @@ class DeploymentServices {
     static WdsCliGetTransferSize(hIfh) {
         hIfh := hIfh is Win32Handle ? NumGet(hIfh, "ptr") : hIfh
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetTransferSize", "ptr", hIfh, "uint*", &pullValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetTransferSize", "ptr", hIfh, "uint*", &pullValue := 0, "HRESULT")
         return pullValue
     }
 
@@ -1840,11 +1728,7 @@ class DeploymentServices {
         pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
         phTransfer := HANDLE()
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferImage", "ptr", hImage, "ptr", pwszLocalPath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "HRESULT")
         return phTransfer
     }
 
@@ -1890,11 +1774,7 @@ class DeploymentServices {
         pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
         phTransfer := HANDLE()
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliTransferFile", "ptr", pwszServer, "ptr", pwszNamespace, "ptr", pwszRemoteFilePath, "ptr", pwszLocalFilePath, "uint", dwFlags, "uint", dwReserved, "ptr", pfnWdsCliCallback, pvUserDataMarshal, pvUserData, "ptr", phTransfer, "HRESULT")
         return phTransfer
     }
 
@@ -1910,11 +1790,7 @@ class DeploymentServices {
     static WdsCliCancelTransfer(hTransfer) {
         hTransfer := hTransfer is Win32Handle ? NumGet(hTransfer, "ptr") : hTransfer
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliCancelTransfer", "ptr", hTransfer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliCancelTransfer", "ptr", hTransfer, "HRESULT")
         return result
     }
 
@@ -1930,11 +1806,7 @@ class DeploymentServices {
     static WdsCliWaitForTransfer(hTransfer) {
         hTransfer := hTransfer is Win32Handle ? NumGet(hTransfer, "ptr") : hTransfer
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliWaitForTransfer", "ptr", hTransfer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliWaitForTransfer", "ptr", hTransfer, "HRESULT")
         return result
     }
 
@@ -1957,11 +1829,7 @@ class DeploymentServices {
         pppwszDriverPackagesMarshal := pppwszDriverPackages is VarRef ? "ptr*" : "ptr"
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, ppwszServerNameMarshal, ppwszServerName, pppwszDriverPackagesMarshal, pppwszDriverPackages, pulCountMarshal, pulCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackages", "ptr", hImage, ppwszServerNameMarshal, ppwszServerName, pppwszDriverPackagesMarshal, pppwszDriverPackages, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 
@@ -1984,11 +1852,7 @@ class DeploymentServices {
         pppwszDriverPackagesMarshal := pppwszDriverPackages is VarRef ? "ptr*" : "ptr"
         pulCountMarshal := pulCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, ppwszServerNameMarshal, ppwszServerName, pppwszDriverPackagesMarshal, pppwszDriverPackages, pulCountMarshal, pulCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliObtainDriverPackagesEx", "ptr", hSession, "ptr", pwszMachineInfo, ppwszServerNameMarshal, ppwszServerName, pppwszDriverPackagesMarshal, pppwszDriverPackages, pulCountMarshal, pulCount, "HRESULT")
         return result
     }
 
@@ -2002,11 +1866,7 @@ class DeploymentServices {
     static WdsCliGetDriverQueryXml(pwszWinDirPath) {
         pwszWinDirPath := pwszWinDirPath is String ? StrPtr(pwszWinDirPath) : pwszWinDirPath
 
-        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetDriverQueryXml", "ptr", pwszWinDirPath, "ptr*", &ppwszDriverQuery := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSCLIENTAPI.dll\WdsCliGetDriverQueryXml", "ptr", pwszWinDirPath, "ptr*", &ppwszDriverQuery := 0, "HRESULT")
         return ppwszDriverQuery
     }
 
@@ -2461,7 +2321,7 @@ class DeploymentServices {
 
         result := DllCall("WDSPXE.dll\PxePacketAllocate", "ptr", hProvider, "ptr", hClientRequest, "uint", uSize, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3298,11 +3158,7 @@ class DeploymentServices {
 
         pfnCallbackMarshal := pfnCallback is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerRegisterCallback", "ptr", hProvider, "int", CallbackId, pfnCallbackMarshal, pfnCallback, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSMC.dll\WdsTransportServerRegisterCallback", "ptr", hProvider, "int", CallbackId, pfnCallbackMarshal, pfnCallback, "HRESULT")
         return result
     }
 
@@ -3321,11 +3177,7 @@ class DeploymentServices {
 
         pvUserDataMarshal := pvUserData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerCompleteRead", "ptr", hProvider, "uint", ulBytesRead, pvUserDataMarshal, pvUserData, "int", hReadResult, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSMC.dll\WdsTransportServerCompleteRead", "ptr", hProvider, "uint", ulBytesRead, pvUserDataMarshal, pvUserData, "int", hReadResult, "HRESULT")
         return result
     }
 
@@ -3342,11 +3194,7 @@ class DeploymentServices {
         hProvider := hProvider is Win32Handle ? NumGet(hProvider, "ptr") : hProvider
         pwszFormat := pwszFormat is String ? StrPtr(pwszFormat) : pwszFormat
 
-        result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSMC.dll\WdsTransportServerTrace", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, "CDecl HRESULT")
         return result
     }
 
@@ -3366,11 +3214,7 @@ class DeploymentServices {
 
         ParamsMarshal := Params is VarRef ? "char*" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, ParamsMarshal, Params, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSMC.dll\WdsTransportServerTraceV", "ptr", hProvider, "uint", Severity, "ptr", pwszFormat, ParamsMarshal, Params, "HRESULT")
         return result
     }
 
@@ -3402,11 +3246,7 @@ class DeploymentServices {
 
         pvBufferMarshal := pvBuffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("WDSMC.dll\WdsTransportServerFreeBuffer", "ptr", hProvider, pvBufferMarshal, pvBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WDSMC.dll\WdsTransportServerFreeBuffer", "ptr", hProvider, pvBufferMarshal, pvBuffer, "HRESULT")
         return result
     }
 

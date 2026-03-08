@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that define an effect output pin.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectconnector
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectconnector
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IMILBitmapEffectConnector extends IMILBitmapEffectConnectorInfo{
      * @returns {VARIANT_BOOL} Type: <b>VARIANT_BOOL*</b>
      * 
      * A pointer that receives <c>TRUE</code> if the connector is connected to an effect; otherwise, <code>FALSE</c>.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnector-isconnected
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnector-isconnected
      */
     IsConnected() {
         result := ComCall(7, this, "short*", &pfConnected := 0, "HRESULT")
@@ -48,7 +48,7 @@ class IMILBitmapEffectConnector extends IMILBitmapEffectConnectorInfo{
      * @returns {IMILBitmapEffect} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffect">IMILBitmapEffect</a>**</b>
      * 
      * A pointer that receives a pointer to the bitmap effect.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnector-getbitmapeffect
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnector-getbitmapeffect
      */
     GetBitmapEffect() {
         result := ComCall(8, this, "ptr*", &ppEffect := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Represents information about the current synchronization session.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncsessionstate
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncsessionstate
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -63,7 +63,7 @@ class ISyncSessionState extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate-iscanceled
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-iscanceled
      */
     IsCanceled(pfIsCanceled) {
         pfIsCanceledMarshal := pfIsCanceled is VarRef ? "int*" : "ptr"
@@ -125,7 +125,7 @@ class ISyncSessionState extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate-getinfoforchangeapplication
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getinfoforchangeapplication
      */
     GetInfoForChangeApplication(pbChangeApplierInfo, pcbChangeApplierInfo) {
         pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : "ptr"
@@ -191,7 +191,7 @@ class ISyncSessionState extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate-loadinfofromchangeapplication
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-loadinfofromchangeapplication
      */
     LoadInfoFromChangeApplication(pbChangeApplierInfo, cbChangeApplierInfo) {
         pbChangeApplierInfoMarshal := pbChangeApplierInfo is VarRef ? "char*" : "ptr"
@@ -245,7 +245,7 @@ class ISyncSessionState extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangestart
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangestart
      */
     GetForgottenKnowledgeRecoveryRangeStart(pbRangeStart, pcbRangeStart) {
         pbRangeStartMarshal := pbRangeStart is VarRef ? "char*" : "ptr"
@@ -300,7 +300,7 @@ class ISyncSessionState extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangeend
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-getforgottenknowledgerecoveryrangeend
      */
     GetForgottenKnowledgeRecoveryRangeEnd(pbRangeEnd, pcbRangeEnd) {
         pbRangeEndMarshal := pbRangeEnd is VarRef ? "char*" : "ptr"
@@ -362,7 +362,7 @@ class ISyncSessionState extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate-setforgottenknowledgerecoveryrange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-setforgottenknowledgerecoveryrange
      */
     SetForgottenKnowledgeRecoveryRange(pRange) {
         result := ComCall(8, this, "ptr", pRange, "HRESULT")
@@ -371,6 +371,8 @@ class ISyncSessionState extends IUnknown{
 
     /**
      * Reports synchronization progress to the application.
+     * @remarks
+     * This method can be used to report custom progress to the application. When a provider calls this method, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-isynccallback-onprogress">ISyncCallback::OnProgress</a> event is raised.
      * @param {Integer} provider The role of the provider that is sending this event.
      * @param {Integer} syncStage The current stage of the synchronization session.
      * @param {Integer} dwCompletedWork The amount of work that is currently completed in the session. This value is interpreted as being a part of <i>dwTotalWork</i>.
@@ -405,7 +407,7 @@ class ISyncSessionState extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncsessionstate-onprogress
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncsessionstate-onprogress
      */
     OnProgress(provider, syncStage, dwCompletedWork, dwTotalWork) {
         result := ComCall(9, this, "int", provider, "int", syncStage, "uint", dwCompletedWork, "uint", dwTotalWork, "HRESULT")

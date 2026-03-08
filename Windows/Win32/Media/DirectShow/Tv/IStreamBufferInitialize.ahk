@@ -6,11 +6,8 @@
 /**
  * The IStreamBufferInitialize interface is used to configure the stream buffer filters. The Stream Buffer Source filter, Stream Buffer Sink filter, and StreamBufferConfig object all expose this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferInitialize)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferinitialize
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferinitialize
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,6 +34,24 @@ class IStreamBufferInitialize extends IUnknown{
 
     /**
      * The SetHKEY method sets the registry key where the stream buffer object stores its configuration information.
+     * @remarks
+     * This method enables an application to specify a registry key where the stream buffer objects will save configuration information, including the location of the backing files, the number of backing files, and their size.
+     * 
+     * You must call this method before the object is initialized, either explicitly or implicitly. For the Stream Buffer Sink filter, call the method before the profile is locked. For the Stream Buffer Source filter, call the method before setting the source file name.
+     * 
+     * To use this method, do the following:
+     * 
+     * <ol>
+     * <li>Create a new registry key or open an existing key.</li>
+     * <li>Create an instance of the <b>StreamBufferConfig</b> object.</li>
+     * <li>Query the <b>StreamBufferConfig</b> object for the <b>IStreamBufferInitialize</b> interface.</li>
+     * <li>Call <b>SetHKey</b> on the <b>StreamBufferConfig</b> object, with a handle to the registry key.</li>
+     * <li>Optionally, call <b>IStreamBufferConfigure</b> methods to modify the configuration information that will be stored in the registry key.</li>
+     * <li>Call <b>SetHKey</b> on the Stream Buffer Source filter and the Stream Buffer Sink filter, using the same registry key.</li>
+     * </ol>
+     * The application is responsible for ensuring that the user has read/write permissions for the registry key.
+     * 
+     * The caller may release the registry key handle after calling this method.
      * @param {HKEY} hkeyRoot Handle to the registry key.
      * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -68,7 +83,7 @@ class IStreamBufferInitialize extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferinitialize-sethkey
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferinitialize-sethkey
      */
     SetHKEY(hkeyRoot) {
         hkeyRoot := hkeyRoot is Win32Handle ? NumGet(hkeyRoot, "ptr") : hkeyRoot
@@ -79,6 +94,18 @@ class IStreamBufferInitialize extends IUnknown{
 
     /**
      * The SetSIDs method sets the security identifiers (SIDs) that are used to protect access to the backing files.
+     * @remarks
+     * At run time, the Stream Buffer Source and Sink filters create various Win32 objects, such as mutexes, so that access to the backing files is synchronized across threads. Each of the filters maintains a list of SIDs that are used to protect these objects. By default, the filters inherit their SIDs from the hosting process. An application can use the <b>SetSIDs</b> method to override the default SIDs.
+     * 
+     * If you call this method, do so before locking the sink filter or loading a file in the source filter. It is recommended that all of the filters be given the same SIDs.
+     * 
+     * <ul>
+     * <li>
+     * <div class="alert"><b>Important</b>  Setting less-privileged SIDs can create a security issue.</div>
+     * <div> </div>
+     * </li>
+     * </ul>
+     * Note that this method does not apply to content recording files, which are protected by the discretionary access-control lists (DACLs) of the directory structure.
      * @param {Integer} cSIDs Specifies the size of the array given in the <i>ppSID</i> parameter.
      * @param {Pointer<PSID>} ppSID Pointer to an array of <b>SID</b> structures, of size <i>cSIDs</i>.
      * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include those in the following table.
@@ -122,7 +149,7 @@ class IStreamBufferInitialize extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferinitialize-setsids
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferinitialize-setsids
      */
     SetSIDs(cSIDs, ppSID) {
         ppSIDMarshal := ppSID is VarRef ? "ptr*" : "ptr"

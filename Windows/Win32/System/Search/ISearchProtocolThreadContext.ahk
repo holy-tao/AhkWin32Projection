@@ -5,7 +5,7 @@
 
 /**
  * This optional interface enables the protocol handler to perform an action on the thread used for filtering in the protocol host.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchprotocolthreadcontext
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchprotocolthreadcontext
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class ISearchProtocolThreadContext extends IUnknown{
 
     /**
      * Initializes communication between the protocol handler and the protocol host.
+     * @remarks
+     * After being created by the protocol host, a thread calls this method on the protocol handler to initialize communication between the protocol handler and its host. Depending on the protocol handler, the host might need to provide some per-thread context (for example, a logon session).
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchprotocolthreadcontext-threadinit
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocolthreadcontext-threadinit
      */
     ThreadInit() {
         result := ComCall(3, this, "HRESULT")
@@ -44,10 +46,12 @@ class ISearchProtocolThreadContext extends IUnknown{
 
     /**
      * Notifies the protocol handler that the thread is being shut down.
+     * @remarks
+     * When the protocol host is shut down, it calls this method as the last operation before terminating the filtering thread. Depending on the protocol handler, there might be some per-thread context, such as a logon session, that the protocol handler needs to clean up.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchprotocolthreadcontext-threadshutdown
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocolthreadcontext-threadshutdown
      */
     ThreadShutdown() {
         result := ComCall(4, this, "HRESULT")
@@ -56,13 +60,15 @@ class ISearchProtocolThreadContext extends IUnknown{
 
     /**
      * Notifies the protocol handler that the filtering thread is idle, so that the protocol handler can clean up any cache it might have built up.
+     * @remarks
+     * This method is called when the filtering thread is waiting for new requests from the indexer service so the protocol handler can use this idle time to clean up.
      * @param {Integer} dwTimeElaspedSinceLastCallInMS Type: <b>DWORD</b>
      * 
      * Passes the idle time, in milliseconds, to the protocol handler.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchprotocolthreadcontext-threadidle
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchprotocolthreadcontext-threadidle
      */
     ThreadIdle(dwTimeElaspedSinceLastCallInMS) {
         result := ComCall(5, this, "uint", dwTimeElaspedSinceLastCallInMS, "HRESULT")

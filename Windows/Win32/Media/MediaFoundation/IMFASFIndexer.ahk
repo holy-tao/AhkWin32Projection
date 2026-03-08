@@ -6,7 +6,6 @@
 /**
  * Provides methods to work with indexes in Systems Format (ASF) files.
  * @remarks
- * 
  * You can use the indexer object to read an existing ASF index or write a new index. The index object has two mutually exclusive modes: read mode and write mode. To set the mode, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-setflags">SetFlags</a>. 
  * 
  * Use the following methods to configure the indexer object  (both modes):
@@ -60,9 +59,7 @@
  * <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexstatus">SetIndexStatus</a>
  * </li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nn-wmcontainer-imfasfindexer
+ * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nn-wmcontainer-imfasfindexer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -89,6 +86,8 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Sets indexer options.
+     * @remarks
+     * <b>IMFASFIndexer::SetFlags</b> must be called before <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-initialize">IMFASFIndexer::Initialize</a>. Attempting to call <b>SetFlags</b> after <b>Initialize</b> will return MF_E_INVALIDREQUEST as a result.
      * @param {Integer} dwFlags Bitwise OR of zero or more flags from the [MFASF_INDEXER_FLAGS](./ne-wmcontainer-mfasf_indexer_flags.md) enumeration specifying the indexer options to use.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -120,7 +119,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-setflags
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setflags
      */
     SetFlags(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")
@@ -129,8 +128,10 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Retrieves the flags that indicate the selected indexer options.
+     * @remarks
+     * You must call this method before initializing the indexer object with <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-initialize">IMFASFIndexer::Initialize</a>.
      * @returns {Integer} Receives a bitwise OR of zero or more flags from the [MFASF_INDEXER_FLAGS](./ne-wmcontainer-mfasf_indexer_flags.md) enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getflags
      */
     GetFlags() {
         result := ComCall(4, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -139,6 +140,10 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Initializes the indexer object.
+     * @remarks
+     * The indexer needs to examine the data in the ContentInfo object to properly write or read the index for the content. The indexer will not make changes to the content information and will not hold any references to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface.
+     * 
+     * In the ASF header, the maximum data-packet size must equal the minimum data-packet size. Otherwise, the method returns <b>MF_E_UNEXPECTED</b>.
      * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object describing the content with which to use the indexer.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -182,7 +187,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-initialize
      */
     Initialize(pIContentInfo) {
         result := ComCall(5, this, "ptr", pIContentInfo, "HRESULT")
@@ -191,9 +196,15 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Retrieves the offset of the index object from the start of the content.
+     * @remarks
+     * The index continues from the offset retrieved by this method to the end of the file.
+     * 
+     * You must call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-initialize">IMFASFIndexer::Initialize</a> to set up the indexer before calling this method.
+     * 
+     * If the index is retrieved by using more than one call to <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex">IMFASFIndexer::GetCompletedIndex</a>, the position of individual index portions is equal to the index offset plus the offset of the portion within the index.
      * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object that describes the content.
      * @returns {Integer} Receives the offset of the index relative to the beginning of the content described by the ContentInfo object. This is the position relative to the beginning of the ASF file.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexposition
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexposition
      */
     GetIndexPosition(pIContentInfo) {
         result := ComCall(6, this, "ptr", pIContentInfo, "uint*", &pcbIndexOffset := 0, "HRESULT")
@@ -202,6 +213,8 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Adds byte streams to be indexed.
+     * @remarks
+     * For a reading scenario, only one byte stream should be used by the indexer object. For an index generating scenario, it depends how many index objects are needed to be generated.
      * @param {Pointer<IMFByteStream>} ppIByteStreams An array of <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfbytestream">IMFByteStream</a> interface pointers. To get the byte stream, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-mfcreateasfindexerbytestream">MFCreateASFIndexerByteStream</a>.
      * @param {Integer} cByteStreams The number of pointers in the <i>ppIByteStreams</i> array.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -234,7 +247,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-setindexbytestreams
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexbytestreams
      */
     SetIndexByteStreams(ppIByteStreams, cByteStreams) {
         result := ComCall(7, this, "ptr*", ppIByteStreams, "uint", cByteStreams, "HRESULT")
@@ -244,7 +257,7 @@ class IMFASFIndexer extends IUnknown{
     /**
      * Retrieves the number of byte streams that are in use by the indexer object.
      * @returns {Integer} Receives the number of byte streams that are  in use by the indexer object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexbytestreamcount
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexbytestreamcount
      */
     GetIndexByteStreamCount() {
         result := ComCall(8, this, "uint*", &pcByteStreams := 0, "HRESULT")
@@ -253,6 +266,12 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Retrieves the index settings for a specified stream and index type.
+     * @remarks
+     * To read an existing ASF index, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexbytestreams">IMFASFIndexer::SetIndexByteStreams</a> before calling this method.
+     * 
+     * If an index exists for the stream and the value passed into <i>pcbIndexDescriptor</i> is smaller than the required size of the <i>pbIndexDescriptor</i> buffer, the method returns MF_E_BUFFERTOOSMALL. The required buffer size is returned in the <i>pcbIndexDescriptor</i> parameter.
+     * 
+     * If there is no index for the specified stream, the method returns <b>FALSE</b> in the <i>pfIsIndexed</i> parameter.
      * @param {Pointer<ASF_INDEX_IDENTIFIER>} pIndexIdentifier Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_identifier">ASF_INDEX_IDENTIFIER</a> structure that contains the stream number and index type for which to get the status.
      * @param {Pointer<BOOL>} pfIsIndexed A variable that retrieves a Boolean value specifying whether the index described by <i>pIndexIdentifier</i> has been created.
      * @param {Pointer<Integer>} pbIndexDescriptor A buffer that receives the index descriptor. The index descriptor consists of an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_descriptor">ASF_INDEX_DESCRIPTOR</a> structure, optionally followed by index-specific data.
@@ -287,7 +306,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexstatus
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexstatus
      */
     GetIndexStatus(pIndexIdentifier, pfIsIndexed, pbIndexDescriptor, pcbIndexDescriptor) {
         pfIsIndexedMarshal := pfIsIndexed is VarRef ? "int*" : "ptr"
@@ -300,6 +319,12 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Configures the index for a stream.
+     * @remarks
+     * You must make all calls to <b>SetIndexStatus</b> before making any calls to <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-generateindexentries">IMFASFIndexer::GenerateIndexEntries</a>.
+     * 
+     * The indexer object is configured to create temporal indexes for each stream by default. Call this method only if you want to override the default settings.
+     * 
+     * You cannot use this method in an index reading scenario.  You can only use this method when writing indexes.
      * @param {Pointer<Integer>} pbIndexDescriptor The index descriptor to set. The index descriptor is an <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/ns-wmcontainer-asf_index_descriptor">ASF_INDEX_DESCRIPTOR</a> structure, optionally followed by index-specific data.
      * @param {Integer} cbIndexDescriptor The size, in bytes, of the index descriptor.
      * @param {BOOL} fGenerateIndex A Boolean value. Set to <b>TRUE</b> to have the indexer create an index of the type specified for the stream specified in the index descriptor.
@@ -333,7 +358,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-setindexstatus
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-setindexstatus
      */
     SetIndexStatus(pbIndexDescriptor, cbIndexDescriptor, fGenerateIndex) {
         pbIndexDescriptorMarshal := pbIndexDescriptor is VarRef ? "char*" : "ptr"
@@ -361,7 +386,7 @@ class IMFASFIndexer extends IUnknown{
      *           
      * 
      * For reverse playback, if no key frame exists after the desired seek position, this parameter receives the value <b>MFASFINDEXER_READ_FOR_REVERSEPLAYBACK_OUTOFDATASEGMENT</b>. In that case, the seek position should be 1 byte pass the end of the data segment.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getseekpositionforvalue
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getseekpositionforvalue
      */
     GetSeekPositionForValue(pvarValue, pIndexIdentifier, phnsApproxTime, pdwPayloadNumberOfStreamWithinPacket) {
         phnsApproxTimeMarshal := phnsApproxTime is VarRef ? "int64*" : "ptr"
@@ -373,6 +398,15 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Accepts an ASF packet for the file and creates index entries for them.
+     * @remarks
+     * The ASF indexer creates indexes for a file internally. You can get the completed index for all data packets sent to the indexer by committing the index with <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-commitindex">IMFASFIndexer::CommitIndex</a> and then calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex">IMFASFIndexer::GetCompletedIndex</a> to write the index entries into a media buffer. To determine the size of the index so you can allocate a buffer large enough to hold the index, call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexwritespace">IMFASFIndexer::GetIndexWriteSpace</a>.
+     * 
+     * When this method creates index entries, they are immediately available for use by <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getseekpositionforvalue">IMFASFIndexer::GetSeekPositionForValue</a>.
+     *       
+     * 
+     * The media sample specified in   <i>pIASFPacketSample</i> must hold a buffer that contains a single ASF packet. Get the sample from the  ASF multiplexer by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfmultiplexer-getnextpacket">IMFASFMultiplexer::GetNextPacket</a> method. 
+     * 
+     * You cannot use this method while reading an index, only when writing an index.
      * @param {IMFSample} pIASFPacketSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of a media sample that contains the ASF packet.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
@@ -417,7 +451,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-generateindexentries
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-generateindexentries
      */
     GenerateIndexEntries(pIASFPacketSample) {
         result := ComCall(12, this, "ptr", pIASFPacketSample, "HRESULT")
@@ -426,6 +460,12 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Adds information about a new index to the ContentInfo object associated with ASF content. You must call this method before copying the index to the content so that the index will be readable by the indexer later.
+     * @remarks
+     * For the index to function properly, you must call this method after all ASF packets in the file have been passed to the indexer by using the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-generateindexentries">IMFASFIndexer::GenerateIndexEntries</a> method. After you call this method, you must retrieve the indexes by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex">GetCompletedIndex</a> and write them to the appropriate location in the file. Finally, you must generate a new ASF header by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-generateheader">IMFASFContentInfo::GenerateHeader</a> method of the ASF ContentInfo object.
+     * 
+     *  An application must use the <b>CommitIndex</b> method only when writing a new index otherwise <b>CommitIndex</b> may return MF_E_INVALIDREQUEST as a result. For example, MF_E_INVALIDREQUEST is returned if the application has flags other than MFASF_INDEXER_WRITE_NEW_INDEX  set on the indexer object. <b>CommitIndex</b> can also return MFASF_INDEXER_WRITE_NEW_INDEX if the index entries have already been committed through an earlier <b>CommitIndex</b> call.
+     * 
+     * You cannot use this method in an index reading scenario.  You can only use this method when writing indexes.
      * @param {IMFASFContentInfo} pIContentInfo Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nn-wmcontainer-imfasfcontentinfo">IMFASFContentInfo</a> interface of the ContentInfo object that describes the content.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -457,7 +497,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-commitindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-commitindex
      */
     CommitIndex(pIContentInfo) {
         result := ComCall(13, this, "ptr", pIContentInfo, "HRESULT")
@@ -466,8 +506,16 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Retrieves the size, in bytes, of the buffer required to store the completed index.
+     * @remarks
+     * Use this method to get the size of the index and then allocate a buffer big enough to hold it. 
+     * 
+     * The index must be committed with a call to<a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-commitindex">IMFASFIndexer::CommitIndex</a> before calling <b>IMFASFIndexer::GetIndexWriteSpace</b>.  If the index is not committed before <b>GetIndexWriteSpace</b> is called, then MF_E_INDEX_NOT_COMMITTED will be returned as a result. 
+     * 
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex">IMFASFIndexer::GetCompletedIndex</a> to write the completed index into a media buffer.
+     * 
+     * You cannot use this method in a reading scenario.  You can only use this method when writing indexes.
      * @returns {Integer} Receives the size of the index, in bytes
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getindexwritespace
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexwritespace
      */
     GetIndexWriteSpace() {
         result := ComCall(14, this, "uint*", &pcbIndexWriteSpace := 0, "HRESULT")
@@ -476,6 +524,16 @@ class IMFASFIndexer extends IUnknown{
 
     /**
      * Retrieves the completed index from the ASF indexer object.
+     * @remarks
+     * This method uses as much of the buffer as possible, and updates the length of the buffer appropriately.
+     * 
+     * If <i>pIIndexBuffer</i> is large enough to contain the entire buffer, <i>cbOffsetWithinIndex</i> should be 0, and the call needs to be made only once. Otherwise, there should be no gaps between successive buffers.
+     * 
+     * The user must write this data to the content at <i>cbOffsetFromIndexStart</i> bytes after the end of the ASF data object. You can call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-getindexposition">IMFASFIndexer::GetIndexPosition</a> to determine the start position of the ASF index.
+     * 
+     * This call will not succeed unless <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfindexer-commitindex">IMFASFIndexer::CommitIndex</a> has been called. After calling <b>GetCompletedIndex</b>, the caller must call <a href="https://docs.microsoft.com/windows/desktop/api/wmcontainer/nf-wmcontainer-imfasfcontentinfo-generateheader">IMFASFContentInfo::GenerateHeader</a> and overwrite the existing ASF header with the new header; otherwise, the ASF header will not match the content, and the file is not guaranteed to play correctly.
+     * 
+     * You cannot use this method in an index reading scenario.  You can only use this method when writing indexes.
      * @param {IMFMediaBuffer} pIIndexBuffer Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediabuffer">IMFMediaBuffer</a> interface of a media buffer that receives the index data.
      * @param {Integer} cbOffsetWithinIndex The offset of the data to be retrieved, in bytes from the start of the index data. Set to 0 for the first call. If subsequent calls are needed (the buffer is not large enough to hold the entire index), set to the byte following the last one retrieved.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -508,7 +566,7 @@ class IMFASFIndexer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmcontainer/nf-wmcontainer-imfasfindexer-getcompletedindex
      */
     GetCompletedIndex(pIIndexBuffer, cbOffsetWithinIndex) {
         result := ComCall(15, this, "ptr", pIIndexBuffer, "uint", cbOffsetWithinIndex, "HRESULT")

@@ -7,7 +7,6 @@
 /**
  * Renders drawing instructions to a window.
  * @remarks
- * 
  * As is the case with other render targets, you must call <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-begindraw">BeginDraw</a>  before issuing drawing commands. After you've finished drawing, call <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">EndDraw</a> to indicate that drawing is finished and to release access to the buffer backing the render target.
  * 
  * For <b>ID2D1HwndRenderTarget</b>, the only side effect of <b>BeginDraw</b> is changing the state of the render target to allow drawing commands to be issued.
@@ -33,10 +32,7 @@
  * To create an <b>ID2D1HwndRenderTarget</b>, use the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1factory-createhwndrendertarget(constd2d1_render_target_properties_constd2d1_hwnd_render_target_properties_id2d1hwndrendertarget)">ID2D1Factory::CreateHwndRenderTarget</a> method.
  * 
  * Your application should create render targets once and hold onto them for the life of the application or until the render target's  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">EndDraw</a> method returns the <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-error-codes">D2DERR_RECREATE_TARGET</a>  error. When you receive this error, you need to recreate the render target (and any resources it created).
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1/nn-d2d1-id2d1hwndrendertarget
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1hwndrendertarget
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -63,10 +59,13 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
 
     /**
      * Indicates whether the HWND associated with this render target is occluded.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/d2d1/ne-d2d1-d2d1_window_state">D2D1_WINDOW_STATE</a></b>
+     * @remarks
+     * <div class="alert"><b>Note</b>  If the window was occluded the last time  that <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">EndDraw</a> was called, the next time that the render target calls <b>CheckWindowState</b>, it will return <a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_window_state">D2D1_WINDOW_STATE_OCCLUDED</a> regardless of the current window state. If you want to use <b>CheckWindowState</b> to determine the current window state, you should call <b>CheckWindowState</b> after every <b>EndDraw</b> call and ignore its return value. This call will ensure that your next call to <b>CheckWindowState</b> state will return the actual window state.</div>
+     * <div> </div>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/d2d1/ne-d2d1-d2d1_window_state">D2D1_WINDOW_STATE</a></b>
      * 
      * A value that indicates whether the HWND associated with this render target is occluded.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1hwndrendertarget-checkwindowstate
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-checkwindowstate
      */
     CheckWindowState() {
         result := ComCall(57, this, "int")
@@ -74,7 +73,9 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
     }
 
     /**
-     * 
+     * Changes the size of the render target to the specified pixel size.
+     * @remarks
+     * After this method is called, the contents of the render target's back-buffer are not defined, even if the [**D2D1\_PRESENT\_OPTIONS\_RETAIN\_CONTENTS**](/windows/win32/api/d2d1/ne-d2d1-d2d1_present_options) option was specified when the render target was created.
      * @param {Pointer<D2D_SIZE_U>} pixelSize 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/Direct2D/id2d1hwndrendertarget-resize
@@ -89,10 +90,11 @@ class ID2D1HwndRenderTarget extends ID2D1RenderTarget{
      * @returns {HWND} Type: <b>HWND</b>
      * 
      * The HWND associated with this render target.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1/nf-d2d1-id2d1hwndrendertarget-gethwnd
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1hwndrendertarget-gethwnd
      */
     GetHwnd() {
         result := ComCall(59, this, "ptr")
-        return HWND({Value: result}, True)
+        resultHandle := HWND({Value: result}, True)
+        return resultHandle
     }
 }

@@ -8,11 +8,8 @@
 /**
  * Provides access to a media key system.
  * @remarks
- * 
  * **IMFContentDecryptionModuleAccess** is based on the Encrypted Media Extension specification's [MediaKeySystemAccess](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#mediakeysystemaccess-interface).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess
+ * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nn-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -38,9 +35,16 @@ class IMFContentDecryptionModuleAccess extends IUnknown{
     static VTableNames => ["CreateContentDecryptionModule", "GetConfiguration", "GetKeySystem"]
 
     /**
+     * The IMFContentDecryptionModuleAccess::CreateContentDecryptionModule function creates a IMFContentDecryptionModule that represents a Content Decryption Module (CDM) for a DRM key system.
+     * @remarks
+     * The following properties are supported for the *contentDecryptionModuleProperties* parameter.
      * 
-     * @param {IPropertyStore} contentDecryptionModuleProperties 
-     * @returns {IMFContentDecryptionModule} 
+     * | Property                                      |Description
+     * |-----------------------------------------------|---------------------------------------------------------------|
+     * | [MF_CONTENTDECRYPTIONMODULE_INPRIVATESTOREPATH](/windows/win32/medfound/mf-contentdecryptionmodule-inprivatestorepath) | A file path representing a storage location the Content Decryption Module (CDM) can use for content-specific data.|
+     * | [MF_CONTENTDECRYPTIONMODULE_STOREPATH](/windows/win32/medfound/mf-contentdecryptionmodule-storepath) | A file path representing a storage location the Content Decryption Module (CDM) can use for initialization. The path specified with this property will also be used for content-specific data if the **MF_CONTENTDECRYPTIONMODULE_INPRIVATESTOREPATH** property isn't set. |
+     * @param {IPropertyStore} contentDecryptionModuleProperties An [IPropertyStore](../propsys/nn-propsys-ipropertystore.md) object containing the properties for the CDM.
+     * @returns {IMFContentDecryptionModule} Receives the created **IMFContentDecryptionModule** object.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess-createcontentdecryptionmodule
      */
     CreateContentDecryptionModule(contentDecryptionModuleProperties) {
@@ -49,8 +53,10 @@ class IMFContentDecryptionModuleAccess extends IUnknown{
     }
 
     /**
-     * 
-     * @returns {IPropertyStore} 
+     * Returns the supported combination of configuration options.
+     * @remarks
+     * **GetConfiguration** is based on the Encrypted Media Extension specification's [MediaKeySystemAccess.keySystem](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysystemaccess-getconfiguration).
+     * @returns {IPropertyStore} Receives a reference to an [IPropertyStore](../propsys/nn-propsys-ipropertystore.md) object containing the configuration options for the CDM.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess-getconfiguration
      */
     GetConfiguration() {
@@ -59,8 +65,12 @@ class IMFContentDecryptionModuleAccess extends IUnknown{
     }
 
     /**
+     * Gets a string identifying the Key System being used by the Content Decryption Module (CDM).
+     * @remarks
+     * The *keySystem* memory must be allocated and freed using [CoTaskMem](../combaseapi/nf-combaseapi-cotaskmemalloc.md).
      * 
-     * @returns {PWSTR} 
+     * **GetKeySystem** is based on the Encrypted Media Extension specification's [MediaKeySystemAccess.getConfiguration](https://www.w3.org/TR/2017/REC-encrypted-media-20170918/#dom-mediakeysystemaccess-keysystem).
+     * @returns {PWSTR} Receives a pointer to an **LPWSTR** identifying the Key System.
      * @see https://learn.microsoft.com/windows/win32/api/mfcontentdecryptionmodule/nf-mfcontentdecryptionmodule-imfcontentdecryptionmoduleaccess-getkeysystem
      */
     GetKeySystem() {

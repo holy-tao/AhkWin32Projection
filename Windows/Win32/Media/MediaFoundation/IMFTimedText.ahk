@@ -7,7 +7,7 @@
 
 /**
  * A timed-text object represents a component of timed text.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imftimedtext
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtext
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,8 +39,8 @@ class IMFTimedText extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextnotify">IMFTimedTextNotify</a> interface for the timed-text notify object to register.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-registernotifications
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-registernotifications
      */
     RegisterNotifications(notify) {
         result := ComCall(3, this, "ptr", notify, "HRESULT")
@@ -57,8 +57,8 @@ class IMFTimedText extends IUnknown{
      * Specifies whether to select or deselect a track of text. Specify <b>TRUE</b> to select the track or <b>FALSE</b> to deselect the track.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-selecttrack
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-selecttrack
      */
     SelectTrack(trackId, selected) {
         result := ComCall(4, this, "uint", trackId, "int", selected, "HRESULT")
@@ -85,7 +85,7 @@ class IMFTimedText extends IUnknown{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Receives a pointer to the unique identifier for the added track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-adddatasource
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-adddatasource
      */
     AddDataSource(byteStream, label, language, kind, isDefault) {
         label := label is String ? StrPtr(label) : label
@@ -115,7 +115,7 @@ class IMFTimedText extends IUnknown{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * Receives a pointer to the unique identifier for the added track.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-adddatasourcefromurl
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-adddatasourcefromurl
      */
     AddDataSourceFromUrl(url, label, language, kind, isDefault) {
         url := url is String ? StrPtr(url) : url
@@ -143,13 +143,17 @@ class IMFTimedText extends IUnknown{
 
     /**
      * Removes the timed-text track with the specified identifier.
+     * @remarks
+     * Get the identifier for a track by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nf-mfmediaengine-imftimedtexttrack-getid">GetId</a>. 
+     * 
+     * When a track is removed, all buffered data from the track is also removed.
      * @param {IMFTimedTextTrack} track Type: <b>DWORD</b>
      * 
      * The identifier of the track to remove.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-removetrack
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-removetrack
      */
     RemoveTrack(track) {
         result := ComCall(8, this, "ptr", track, "HRESULT")
@@ -161,7 +165,7 @@ class IMFTimedText extends IUnknown{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer to a variable that receives the offset to the cue time.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-getcuetimeoffset
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-getcuetimeoffset
      */
     GetCueTimeOffset() {
         result := ComCall(9, this, "double*", &offset := 0, "HRESULT")
@@ -175,8 +179,8 @@ class IMFTimedText extends IUnknown{
      * The offset to the cue time.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-setcuetimeoffset
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-setcuetimeoffset
      */
     SetCueTimeOffset(offset) {
         result := ComCall(10, this, "double", offset, "HRESULT")
@@ -188,7 +192,7 @@ class IMFTimedText extends IUnknown{
      * @returns {IMFTimedTextTrackList} Type: <b>IMFTimedTextTrackList**</b>
      * 
      * Receives a pointer to track list.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-gettracks
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-gettracks
      */
     GetTracks() {
         result := ComCall(11, this, "ptr*", &tracks := 0, "HRESULT")
@@ -200,7 +204,7 @@ class IMFTimedText extends IUnknown{
      * @returns {IMFTimedTextTrackList} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttracklist">IMFTimedTextTrackList</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttracklist">IMFTimedTextTrackList</a> interface that can enumerate the list of active timed-text tracks.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-getactivetracks
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-getactivetracks
      */
     GetActiveTracks() {
         result := ComCall(12, this, "ptr*", &activeTracks := 0, "HRESULT")
@@ -212,7 +216,7 @@ class IMFTimedText extends IUnknown{
      * @returns {IMFTimedTextTrackList} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttracklist">IMFTimedTextTrackList</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttracklist">IMFTimedTextTrackList</a> interface that can enumerate the list of all of the timed-text tracks.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-gettexttracks
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-gettexttracks
      */
     GetTextTracks() {
         result := ComCall(13, this, "ptr*", &textTracks := 0, "HRESULT")
@@ -224,7 +228,7 @@ class IMFTimedText extends IUnknown{
      * @returns {IMFTimedTextTrackList} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttracklist">IMFTimedTextTrackList</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtexttracklist">IMFTimedTextTrackList</a> interface that can enumerate the list of the timed-metadata tracks.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-getmetadatatracks
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-getmetadatatracks
      */
     GetMetadataTracks() {
         result := ComCall(14, this, "ptr*", &metadataTracks := 0, "HRESULT")
@@ -238,8 +242,8 @@ class IMFTimedText extends IUnknown{
      * Specifies whether inband mode is enabled. If <b>TRUE</b>, inband mode is enabled. If <b>FALSE</b>, inband mode is disabled.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-setinbandenabled
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-setinbandenabled
      */
     SetInBandEnabled(enabled) {
         result := ComCall(15, this, "int", enabled, "HRESULT")
@@ -251,7 +255,7 @@ class IMFTimedText extends IUnknown{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns whether inband mode is enabled. If <b>TRUE</b>, inband mode is enabled. If <b>FALSE</b>, inband mode is disabled.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtext-isinbandenabled
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtext-isinbandenabled
      */
     IsInBandEnabled() {
         result := ComCall(16, this, "int")

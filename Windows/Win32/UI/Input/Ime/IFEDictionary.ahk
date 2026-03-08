@@ -6,10 +6,8 @@
 /**
  * The IFEDictionary interface allows clients to access a Microsoft IME user dictionary.
  * @remarks
- * 
  * Create an instance of this interface with the <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-createifedictionaryinstance">CreateIFEDictionaryInstance</a> function.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msime/nn-msime-ifedictionary
+ * @see https://learn.microsoft.com/windows/win32/api/msime/nn-msime-ifedictionary
  * @namespace Windows.Win32.UI.Input.Ime
  * @version v4.0.30319
  */
@@ -48,7 +46,7 @@ class IFEDictionary extends IUnknown{
      * <li><b>IFED_E_OPEN_FAILED</b></li>
      * <li><b>E_FAIL</b></li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-open
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-open
      */
     Open(pchDictPath, pshf) {
         pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
@@ -60,7 +58,7 @@ class IFEDictionary extends IUnknown{
     /**
      * Closes a dictionary file.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-close
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")
@@ -157,7 +155,7 @@ class IFEDictionary extends IUnknown{
      * <li><b>IFED_E_INVALID_FORMAT</b></li>
      * <li><b>E_FAIL</b></li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-getheader
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getheader
      */
     GetHeader(pchDictPath, pshf, pjfmt, pulType) {
         pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
@@ -172,8 +170,8 @@ class IFEDictionary extends IUnknown{
     /**
      * This method is obsolete starting with Windows 8, and is no longer supported.
      * @param {HWND} hwnd The parent window handle.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-displayproperty
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-displayproperty
      */
     DisplayProperty(hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
@@ -187,7 +185,7 @@ class IFEDictionary extends IUnknown{
      * @param {Pointer<Pointer<POSTBL>>} prgPosTbl Pointer to the array of <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-postbl">POSTBL</a> structures.
      * @param {Pointer<Integer>} pcPosTbl Pointer to the number of <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-postbl">POSTBL</a> structures in the returned array. Can be <b>NULL</b>.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-getpostable
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getpostable
      */
     GetPosTable(prgPosTbl, pcPosTbl) {
         prgPosTblMarshal := prgPosTbl is VarRef ? "ptr*" : "ptr"
@@ -334,7 +332,7 @@ class IFEDictionary extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The client must call <a href="/windows/desktop/api/msime/nf-msime-ifedictionary-nextwords">NextWords</a> to get additional <a href="/windows/desktop/api/msime/ns-msime-imewrd">IMEWRD</a> structures.
+     * The client must call <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-ifedictionary-nextwords">NextWords</a> to get additional <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-imewrd">IMEWRD</a> structures.
      * 
      * </td>
      * </tr>
@@ -363,7 +361,7 @@ class IFEDictionary extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-getwords
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-getwords
      */
     GetWords(pwchFirst, pwchLast, pwchDisplay, ulPos, ulSelect, ulWordSrc, pchBuffer, cbBuffer, pcWrd) {
         pwchFirst := pwchFirst is String ? StrPtr(pwchFirst) : pwchFirst
@@ -404,7 +402,7 @@ class IFEDictionary extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The client must call <a href="/windows/desktop/api/msime/nf-msime-ifedictionary-nextwords">NextWords</a> to get additional <a href="/windows/desktop/api/msime/ns-msime-imewrd">IMEWRD</a> structures.
+     * The client must call <a href="https://docs.microsoft.com/windows/desktop/api/msime/nf-msime-ifedictionary-nextwords">NextWords</a> to get additional <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-imewrd">IMEWRD</a> structures.
      * 
      * </td>
      * </tr>
@@ -417,7 +415,7 @@ class IFEDictionary extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-nextwords
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-nextwords
      */
     NextWords(pchBuffer, cbBuffer, pcWrd) {
         pchBufferMarshal := pchBuffer is VarRef ? "char*" : "ptr"
@@ -439,7 +437,7 @@ class IFEDictionary extends IUnknown{
      * <li><b>E_OUTOFMEMORY</b></li>
      * <li><b>E_FAIL</b></li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-create
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-create
      */
     Create(pchDictPath, pshf) {
         pchDictPath := pchDictPath is String ? StrPtr(pchDictPath) : pchDictPath
@@ -452,7 +450,7 @@ class IFEDictionary extends IUnknown{
      * Sets a dictionary header in a dictionary file.
      * @param {Pointer<IMESHF>} pshf The <a href="https://docs.microsoft.com/windows/desktop/api/msime/ns-msime-imeshf">IMESHF</a> header to set.
      * @returns {HRESULT} <b>S_OK</b> if successful, otherwise <b>E_FAIL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-setheader
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-setheader
      */
     SetHeader(pshf) {
         result := ComCall(11, this, "ptr", pshf, "HRESULT")
@@ -503,7 +501,7 @@ class IFEDictionary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-existword
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-existword
      */
     ExistWord(pwrd) {
         result := ComCall(12, this, "ptr", pwrd, "int")
@@ -549,7 +547,7 @@ class IFEDictionary extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This <a href="/windows/desktop/api/msime/nn-msime-ifedictionary">IFEDictionary</a> object is not a user dictionary.
+     * This <a href="https://docs.microsoft.com/windows/desktop/api/msime/nn-msime-ifedictionary">IFEDictionary</a> object is not a user dictionary.
      * 
      * </td>
      * </tr>
@@ -598,7 +596,7 @@ class IFEDictionary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msime/nf-msime-ifedictionary-registerword
+     * @see https://learn.microsoft.com/windows/win32/api/msime/nf-msime-ifedictionary-registerword
      */
     RegisterWord(reg, pwrd) {
         result := ComCall(14, this, "int", reg, "ptr", pwrd, "HRESULT")

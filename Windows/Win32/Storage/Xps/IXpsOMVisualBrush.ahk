@@ -8,7 +8,6 @@
 /**
  * A brush that uses a visual element as a source.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -57,9 +56,7 @@
  * 
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisualbrush
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisualbrush
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -86,6 +83,10 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * Gets a pointer to the interface of the resolved visual to be used as the source for the brush.
+     * @remarks
+     * This method returns an  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a> interface pointer. However, the  
+     * 	 interface that is returned can be any interface that inherits from   <b>IXpsOMVisual</b>, such as  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcanvas">IXpsOMCanvas</a>, <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompath">IXpsOMPath</a>, 
+     * 	  and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomglyphs">IXpsOMGlyphs</a>.
      * @returns {IXpsOMVisual} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a> interface of the resolved visual object used as the source for the brush. If a visual has not been set, a <b>NULL</b> pointer is returned.
      * 
      * The value that is returned in this parameter depends on which method has most recently  been called to set the visual object.
@@ -130,7 +131,7 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisual
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisual
      */
     GetVisual() {
         result := ComCall(18, this, "ptr*", &visual := 0, "HRESULT")
@@ -139,6 +140,9 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * Gets a pointer to the interface of the local, unshared visual used as the source for the brush.
+     * @remarks
+     * This method returns an  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a> interface pointer. However, the interface  that is returned can be any interface that inherits from   <b>IXpsOMVisual</b>, such as  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomcanvas">IXpsOMCanvas</a>, <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompath">IXpsOMPath</a>, 
+     * 	  or <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomglyphs">IXpsOMGlyphs</a>.
      * @returns {IXpsOMVisual} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a> interface of the local, unshared visual  used as the source for the brush. If a local visual object has not been set or if a visual lookup key has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -181,7 +185,7 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallocal
      */
     GetVisualLocal() {
         result := ComCall(19, this, "ptr*", &visual := 0, "HRESULT")
@@ -190,8 +194,79 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * Sets the interface pointer of the local, unshared visual used as the source for the brush.
+     * @remarks
+     * After you call <b>SetVisualLocal</b>, the visual lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallookup">GetVisualLookup</a> returns a <b>NULL</b> pointer in the <i>lookup</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned  in <i>visual</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisual">GetVisual</a>
+     * </th>
+     * <th>Object that is returned  in <i>visual</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallocal">GetVisualLocal</a>
+     * </th>
+     * <th>String that is returned  in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallookup">GetVisualLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetVisualLocal</b> (this method).
+     * 
+     * </td>
+     * <td>
+     * The visual  that is set by <b>SetVisualLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The visual  that is set by <b>SetVisualLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallookup">SetVisualLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The visual that is retrieved, with a lookup key that matches the key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallookup">SetVisualLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallookup">SetVisualLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetVisualLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallookup">SetVisualLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMVisual} visual A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a> interface to be set as the visual for the brush. If a local visual has been set, passing a  <b>NULL</b> pointer will release it.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -221,7 +296,7 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallocal
      */
     SetVisualLocal(visual) {
         result := ComCall(20, this, "ptr", visual, "HRESULT")
@@ -230,6 +305,8 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * Gets the lookup key name of a visual in a resource dictionary; the visual is to be used as the source for the brush.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>lookup</i>.  If <i>lookup</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The key name of a visual in a resource dictionary; the visual is  to be used as the source for the brush. If a visual's lookup key has not been set, or if a local visual has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -272,7 +349,7 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallookup
      */
     GetVisualLookup() {
         result := ComCall(21, this, "ptr*", &lookup := 0, "HRESULT")
@@ -281,8 +358,79 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
 
     /**
      * Sets the lookup key name of the shared visual, which is stored in a resource dictionary, to be used as the source for the brush.
+     * @remarks
+     * After you call <b>SetVisualLookup</b>, the local visual is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallocal">GetVisualLocal</a> returns a <b>NULL</b> pointer in the <i>visual</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned  in <i>visual</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisual">GetVisual</a>
+     * </th>
+     * <th>Object that is returned  in <i>visual</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallocal">GetVisualLocal</a>
+     * </th>
+     * <th>String that is returned  in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-getvisuallookup">GetVisualLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallocal">SetVisualLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The visual  that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallocal">SetVisualLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The visual  that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallocal">SetVisualLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetVisualLookup</b> (this method).
+     * 
+     * </td>
+     * <td>
+     * The visual  that is retrieved, with a lookup key that matches the key set by <b>SetVisualLookup</b>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetVisualLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallocal">SetVisualLocal</a> nor <b>SetVisualLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} lookup The lookup key name of the shared visual to be used as the source for the brush. If a lookup key has already been set, a <b>NULL</b> pointer will clear it.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -334,7 +482,7 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-setvisuallookup
      */
     SetVisualLookup(lookup) {
         lookup := lookup is String ? StrPtr(lookup) : lookup
@@ -344,9 +492,11 @@ class IXpsOMVisualBrush extends IXpsOMTileBrush{
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMVisualBrush.Clone)
+     * @remarks
+     * This method does not update the resource pointers in the new <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisualbrush">IXpsOMVisualBrush</a>  interface.
      * @returns {IXpsOMVisualBrush} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-clone
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomvisualbrush-clone
      */
     Clone() {
         result := ComCall(23, this, "ptr*", &visualBrush := 0, "HRESULT")

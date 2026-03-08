@@ -7,7 +7,7 @@
 
 /**
  * The ITocParser interface represents a TOC Parser object. It provides methods for storing tables of contents in a video file and retrieving tables of contents from a video file.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-itocparser
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itocparser
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,6 +34,10 @@ class ITocParser extends IUnknown{
 
     /**
      * The Init method initializes the TOC Parser object and associates it with a media file.
+     * @remarks
+     * The path that you pass in <i>pwszFileName</i> must be a long Universal Naming Convention (UNC) file path. A long UNC file path begins with "\\?\". The following line of code shows how to set the path for the file c:\experiment\seattle.wmv.
+     * 
+     * <c>pTocParser-&gt;Init(L"\\\\?\\c:\\experiment\\seattle.wmv");</c>
      * @param {PWSTR} pwszFileName Pointer to a NULL-terminated wide-character string that specifies the path of the media file. See Remarks.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -54,7 +58,7 @@ class ITocParser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-init
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-init
      */
     Init(pwszFileName) {
         pwszFileName := pwszFileName is String ? StrPtr(pwszFileName) : pwszFileName
@@ -86,7 +90,7 @@ class ITocParser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-gettoccount
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettoccount
      */
     GetTocCount(enumTocPosType, pdwTocCount) {
         pdwTocCountMarshal := pdwTocCount is VarRef ? "uint*" : "ptr"
@@ -100,7 +104,7 @@ class ITocParser extends IUnknown{
      * @param {Integer} enumTocPosType 
      * @param {Integer} dwTocIndex The index of the table of contents to be retrieved.
      * @returns {IToc} Pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itoc">IToc</a> interface that represents the retrieved table of contents.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbyindex
      */
     GetTocByIndex(enumTocPosType, dwTocIndex) {
         result := ComCall(5, this, "int", enumTocPosType, "uint", dwTocIndex, "ptr*", &ppToc := 0, "HRESULT")
@@ -109,10 +113,12 @@ class ITocParser extends IUnknown{
 
     /**
      * The GetTocByType retrieves all tables of contents of a specified type from the TOC Parser object.
+     * @remarks
+     * You might want to design several different type of tables of contents. In that case, you can distinguish between types by creating a <b>GUID</b> that represents each type. You can identify a table of contents as a particular type by setting the <b>guidType</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ns-wmcodecdsp-toc_descriptor">TOC_DESCRIPTOR</a> structure and then passing the <b>TOC_DESCRIPTOR</b> structure to <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor">IToc::SetDescriptor</a>.
      * @param {Integer} enumTocPosType 
      * @param {Guid} guidTocType A globally unique identifier (<b>GUID</b>) that specifies the type of table of contents to retrieve. See Remarks.
-     * @returns {ITocCollection} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itoccollection">ITocCollection</a> interface that represents the colleciton of retrieved tables of contents.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbytype
+     * @returns {ITocCollection} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itoccollection">ITocCollection</a> interface that represents the collection of retrieved tables of contents.
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-gettocbytype
      */
     GetTocByType(enumTocPosType, guidTocType) {
         result := ComCall(6, this, "int", enumTocPosType, "ptr", guidTocType, "ptr*", &ppTocs := 0, "HRESULT")
@@ -143,7 +149,7 @@ class ITocParser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-addtoc
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-addtoc
      */
     AddToc(enumTocPosType, pToc, pdwTocIndex) {
         pdwTocIndexMarshal := pdwTocIndex is VarRef ? "uint*" : "ptr"
@@ -175,7 +181,7 @@ class ITocParser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-removetocbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-removetocbyindex
      */
     RemoveTocByIndex(enumTocPosType, dwTocIndex) {
         result := ComCall(8, this, "int", enumTocPosType, "uint", dwTocIndex, "HRESULT")
@@ -184,6 +190,8 @@ class ITocParser extends IUnknown{
 
     /**
      * The RemoveTocByType method removes all tables of contents of a specified type from the TOC Parser object.
+     * @remarks
+     * You might want to design several different type of tables of contents. In that case, you can distinguish between types by creating a <b>GUID</b> that represents each type. You can identify a table of contents as a particular type by setting the <b>guidType</b> member of a <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/ns-wmcodecdsp-toc_descriptor">TOC_DESCRIPTOR</a> structure and then passing the <b>TOC_DESCRIPTOR</b> structure to <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itoc-setdescriptor">IToc::SetDescriptor</a>.
      * @param {Integer} enumTocPosType 
      * @param {Guid} guidTocType A globally unique identifier (<b>GUID</b>) that specifies the type of table of contents to removed. See Remarks.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -205,7 +213,7 @@ class ITocParser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-removetocbytype
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-removetocbytype
      */
     RemoveTocByType(enumTocPosType, guidTocType) {
         result := ComCall(9, this, "int", enumTocPosType, "ptr", guidTocType, "HRESULT")
@@ -214,6 +222,8 @@ class ITocParser extends IUnknown{
 
     /**
      * The Commit method stores the current state of the TOC Parser object in its associated media file.
+     * @remarks
+     * You can associate a TOC Parser object with a media file by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nf-wmcodecdsp-itocparser-init">ITocParser::Init</a>. As you add, modify, or remove tables of contents from the TOC Parser object, those changes are made only to the TOC Parser object in memory, not to the media file. To store your changes in the media file, you must call <b>ITocParser::Commit</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -233,7 +243,7 @@ class ITocParser extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocparser-commit
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocparser-commit
      */
     Commit() {
         result := ComCall(10, this, "HRESULT")

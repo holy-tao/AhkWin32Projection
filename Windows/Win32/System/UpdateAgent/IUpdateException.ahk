@@ -7,11 +7,8 @@
 /**
  * Represents info about the aspects of search results returned in the ISearchResult object that were incomplete.
  * @remarks
- * 
  * The <b>IUpdateException</b> object is returned as part of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-isearchresult-get_warnings">ISearchResult::Warnings</a> property when a search succeeds but can't return complete results. For example, Windows Update might not have been able to retrieve all of the update metadata for a given update from the server. In this situation, the search results returned in the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-isearchresult">ISearchResult</a> object are usable, but they aren't necessarily complete. The properties of the <b>IUpdateException</b> objects that are returned by the <b>ISearchResult::Warnings</b> property contain info about the  aspects of the search that were incomplete. This info is unlikely to be useful programmatically, but can sometimes be useful for debugging.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateexception
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateexception
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -60,7 +57,7 @@ class IUpdateException extends IDispatch{
     /**
      * Gets a message that describes the search results.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateexception-get_message
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_message
      */
     get_Message() {
         retval := BSTR()
@@ -71,7 +68,7 @@ class IUpdateException extends IDispatch{
     /**
      * Gets the Windows-based HRESULT code for the search results.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateexception-get_hresult
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_hresult
      */
     get_HResult() {
         result := ComCall(8, this, "int*", &retval := 0, "HRESULT")
@@ -81,7 +78,7 @@ class IUpdateException extends IDispatch{
     /**
      * Gets the context of search results.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateexception-get_context
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateexception-get_context
      */
     get_Context() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")

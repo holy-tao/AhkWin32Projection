@@ -35,8 +35,8 @@ class IDebugSymbolGroup2 extends IUnknown{
      * @returns {Integer} 
      */
     GetNumberSymbols() {
-        result := ComCall(3, this, "uint*", &Number := 0, "HRESULT")
-        return Number
+        result := ComCall(3, this, "uint*", &Number_R := 0, "HRESULT")
+        return Number_R
     }
 
     /**
@@ -79,14 +79,14 @@ class IDebugSymbolGroup2 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolName(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolName(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(7, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(7, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -182,14 +182,14 @@ class IDebugSymbolGroup2 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolNameWide(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolNameWide(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(15, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(15, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -222,28 +222,28 @@ class IDebugSymbolGroup2 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolTypeName(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolTypeName(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(18, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(18, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolTypeNameWide(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolTypeNameWide(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(19, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(19, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -280,28 +280,28 @@ class IDebugSymbolGroup2 extends IUnknown{
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolValueText(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolValueText(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(23, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(23, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolValueTextWide(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolValueTextWide(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(24, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(24, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 

@@ -31,8 +31,15 @@ class IDataModelManager extends IUnknown{
     static VTableNames => ["Close", "CreateNoValue", "CreateErrorObject", "CreateTypedObject", "CreateTypedObjectReference", "CreateSyntheticObject", "CreateDataModelObject", "CreateIntrinsicObject", "CreateTypedIntrinsicObject", "GetModelForTypeSignature", "GetModelForType", "RegisterModelForTypeSignature", "UnregisterModelForTypeSignature", "RegisterExtensionForTypeSignature", "UnregisterExtensionForTypeSignature", "CreateMetadataStore", "GetRootNamespace", "RegisterNamedModel", "UnregisterNamedModel", "AcquireNamedModel"]
 
     /**
+     * Use the Close-Session packet to tell the BITS server that file upload is complete and to end the session.
+     * @remarks
+     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
      * 
+     * For upload-reply jobs, you must download the reply before sending **Close-Session**. Otherwise, the reply is lost.
+     * 
+     * If you send this packet before uploading all fragments, the upload file is deleted; you cannot upload a partial file.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Bits/close-session
      */
     Close() {
         result := ComCall(3, this, "HRESULT")
@@ -44,8 +51,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateNoValue() {
-        result := ComCall(4, this, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(4, this, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**
@@ -57,8 +64,8 @@ class IDataModelManager extends IUnknown{
     CreateErrorObject(hrError, pwszMessage) {
         pwszMessage := pwszMessage is String ? StrPtr(pwszMessage) : pwszMessage
 
-        result := ComCall(5, this, "int", hrError, "ptr", pwszMessage, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(5, this, "int", hrError, "ptr", pwszMessage, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**
@@ -69,8 +76,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateTypedObject(context, objectLocation, objectType) {
-        result := ComCall(6, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(6, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**
@@ -81,8 +88,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateTypedObjectReference(context, objectLocation, objectType) {
-        result := ComCall(7, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(7, this, "ptr", context, "ptr", objectLocation, "ptr", objectType, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**
@@ -91,8 +98,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateSyntheticObject(context) {
-        result := ComCall(8, this, "ptr", context, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(8, this, "ptr", context, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**
@@ -101,8 +108,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateDataModelObject(dataModel) {
-        result := ComCall(9, this, "ptr", dataModel, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(9, this, "ptr", dataModel, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**
@@ -112,8 +119,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateIntrinsicObject(objectKind, intrinsicData) {
-        result := ComCall(10, this, "int", objectKind, "ptr", intrinsicData, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(10, this, "int", objectKind, "ptr", intrinsicData, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**
@@ -123,8 +130,8 @@ class IDataModelManager extends IUnknown{
      * @returns {IModelObject} 
      */
     CreateTypedIntrinsicObject(intrinsicData, type) {
-        result := ComCall(11, this, "ptr", intrinsicData, "ptr", type, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(11, this, "ptr", intrinsicData, "ptr", type, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 
     /**

@@ -10,7 +10,7 @@
 
 /**
  * Performs operations to set, retrieve, and validate settings, and save changes for a namespace instance.
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nn-wcmconfig-isettingsnamespace
+ * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsnamespace
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class ISettingsNamespace extends IUnknown{
     /**
      * Gets the identity of the namespace.
      * @returns {ISettingsIdentity} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsidentity">ISettingsIdentity</a> object that represents the namespace identity.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsnamespace-getidentity
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getidentity
      */
     GetIdentity() {
         result := ComCall(3, this, "ptr*", &SettingsID := 0, "HRESULT")
@@ -48,7 +48,7 @@ class ISettingsNamespace extends IUnknown{
     /**
      * Retrieves an enumerator for the top-level settings for the namespace.
      * @returns {IItemEnumerator} A pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> object that provides methods to access all the settings for this namespace.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsnamespace-settings
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-settings
      */
     Settings() {
         result := ComCall(4, this, "ptr*", &Settings := 0, "HRESULT")
@@ -59,7 +59,7 @@ class ISettingsNamespace extends IUnknown{
      * Updates the settings namespace to persistent and visible.
      * @param {BOOL} PushSettings Not used. A flag that controls whether to transfer settings to the registry or to an initialization file.
      * @returns {ISettingsResult} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsresult">ISettingsResult</a> object that contains any error that may have occurred while saving the namespace.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsnamespace-save
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-save
      */
     Save(PushSettings) {
         result := ComCall(5, this, "int", PushSettings, "ptr*", &Result := 0, "HRESULT")
@@ -70,7 +70,7 @@ class ISettingsNamespace extends IUnknown{
      * Gets the setting object specified by a path.
      * @param {PWSTR} Path The path of the object.
      * @returns {ISettingsItem} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> object that represents the retrieved object.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsnamespace-getsettingbypath
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getsettingbypath
      */
     GetSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
@@ -84,7 +84,7 @@ class ISettingsNamespace extends IUnknown{
      * @param {PWSTR} Path The path of the setting object.
      * @returns {ISettingsItem} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> object that represents 
      *       the created setting.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsnamespace-createsettingbypath
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-createsettingbypath
      */
     CreateSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
@@ -181,7 +181,7 @@ class ISettingsNamespace extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsnamespace-removesettingbypath
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-removesettingbypath
      */
     RemoveSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
@@ -194,7 +194,7 @@ class ISettingsNamespace extends IUnknown{
      * Gets the value of an attribute of the namespace.
      * @param {PWSTR} Name The name of the attribute.
      * @returns {VARIANT} The value of the attribute.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsnamespace-getattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsnamespace-getattribute
      */
     GetAttribute(Name) {
         Name := Name is String ? StrPtr(Name) : Name

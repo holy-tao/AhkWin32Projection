@@ -5,8 +5,8 @@
 #Include .\IDWriteTextFormat.ahk
 
 /**
- * Describes the font and paragraph properties used to format text, and it describes locale information.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritetextformat1
+ * Describes the font and paragraph properties used to format text, and it describes locale information. | IDWriteTextFormat1 interface
+ * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextformat1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
      * The orientation to apply to the text format.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-setverticalglyphorientation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setverticalglyphorientation
      */
     SetVerticalGlyphOrientation(glyphOrientation) {
         result := ComCall(28, this, "int", glyphOrientation, "HRESULT")
@@ -47,11 +47,11 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
     }
 
     /**
-     * Get the preferred orientation of glyphs when using a vertical reading direction.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a></b>
+     * Get the preferred orientation of glyphs when using a vertical reading direction. (IDWriteTextFormat1.GetVerticalGlyphOrientation)
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/ne-dwrite_1-dwrite_vertical_glyph_orientation">DWRITE_VERTICAL_GLYPH_ORIENTATION</a></b>
      * 
      * The preferred orientation of glyphs when using a vertical reading direction.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-getverticalglyphorientation
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getverticalglyphorientation
      */
     GetVerticalGlyphOrientation() {
         result := ComCall(29, this, "int")
@@ -67,8 +67,8 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
      * The last line is wrapped by default.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-setlastlinewrapping
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setlastlinewrapping
      */
     SetLastLineWrapping(isLastLineWrappingEnabled) {
         result := ComCall(30, this, "int", isLastLineWrappingEnabled, "HRESULT")
@@ -80,7 +80,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns FALSE if the last line is not wrapped; TRUE if the last line is wrapped.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-getlastlinewrapping
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getlastlinewrapping
      */
     GetLastLineWrapping() {
         result := ComCall(31, this, "int")
@@ -90,8 +90,8 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
     /**
      * Sets the optical margin alignment for the text format.
      * @param {Integer} opticalAlignment The optical alignment to set.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-setopticalalignment
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setopticalalignment
      */
     SetOpticalAlignment(opticalAlignment) {
         result := ComCall(32, this, "int", opticalAlignment, "HRESULT")
@@ -101,7 +101,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
     /**
      * Gets the optical margin alignment for the text format.
      * @returns {Integer} The optical alignment.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-getopticalalignment
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getopticalalignment
      */
     GetOpticalAlignment() {
         result := ComCall(33, this, "int")
@@ -115,8 +115,8 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
      * The font fallback to apply to the layout.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-setfontfallback
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-setfontfallback
      */
     SetFontFallback(fontFallback) {
         result := ComCall(34, this, "ptr", fontFallback, "HRESULT")
@@ -128,7 +128,7 @@ class IDWriteTextFormat1 extends IDWriteTextFormat{
      * @returns {IDWriteFontFallback} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/nn-dwrite_2-idwritefontfallback">IDWriteFontFallback</a>**</b>
      * 
      * Contains an address of a pointer to the the current font fallback object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritetextformat1-getfontfallback
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritetextformat1-getfontfallback
      */
     GetFontFallback() {
         result := ComCall(35, this, "ptr*", &fontFallback := 0, "HRESULT")

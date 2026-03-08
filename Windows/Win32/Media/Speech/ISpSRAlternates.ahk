@@ -44,12 +44,20 @@ class ISpSRAlternates extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
      * @param {Pointer<SPPHRASEALTREQUEST>} pAltRequest 
      * @param {Pointer<SPPHRASEALT>} pAlt 
      * @param {Pointer<Pointer<Void>>} ppvResultExtra 
      * @param {Pointer<Integer>} pcbResultExtra 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
+     * 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit(pAltRequest, pAlt, ppvResultExtra, pcbResultExtra) {
         ppvResultExtraMarshal := ppvResultExtra is VarRef ? "ptr*" : "ptr"

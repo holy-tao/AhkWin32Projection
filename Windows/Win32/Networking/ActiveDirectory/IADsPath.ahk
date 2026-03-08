@@ -6,7 +6,7 @@
 
 /**
  * The IADsPath interface provides methods for an ADSI client to access the Path attribute.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadspath
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspath
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

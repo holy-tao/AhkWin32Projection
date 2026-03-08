@@ -6,11 +6,8 @@
 /**
  * The IStreamBufferRecordControl interface is used to control stream buffer Recording objects.Use the IStreamBufferSink::CreateRecorder method on the Stream Buffer Sink filter to create new Recording objects.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IStreamBufferRecordControl)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbe/nn-sbe-istreambufferrecordcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/sbe/nn-sbe-istreambufferrecordcontrol
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IStreamBufferRecordControl extends IUnknown{
 
     /**
      * The Start method starts the recording.
+     * @remarks
+     * The start time must be less than or equal to the stop time.
      * @param {Pointer<Integer>} prtStart Pointer to a variable that contains the start time. The time is relative to the current stream time, in 100-nanosecond units. The value zero represents now; negative values are in the past; and positive values are in the future.
      * 
      * For content recordings, the time must be a value between 0 and 5 seconds (50000000), inclusive. Negative times are not valid.
@@ -83,7 +82,7 @@ class IStreamBufferRecordControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordcontrol-start
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-start
      */
     Start(prtStart) {
         prtStartMarshal := prtStart is VarRef ? "int64*" : "ptr"
@@ -94,6 +93,8 @@ class IStreamBufferRecordControl extends IUnknown{
 
     /**
      * The Stop method stops the recording and closes the file.
+     * @remarks
+     * The stop time must be greater than or equal to the start time.
      * @param {Integer} rtStop Specifies when the recording stops. The time is relative to the current stream time, in 100-nanosecond units. The value zero represents now; negative values are in the past; and positive values are in the future.
      * 
      * For content recordings, the valid range is from 0 to 5 seconds (50000000), inclusive. Negative times are not valid.
@@ -118,7 +119,7 @@ class IStreamBufferRecordControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordcontrol-stop
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-stop
      */
     Stop(rtStop) {
         result := ComCall(4, this, "int64", rtStop, "HRESULT")
@@ -127,6 +128,8 @@ class IStreamBufferRecordControl extends IUnknown{
 
     /**
      * The GetRecordingStatus method retrieves the status of the recording.
+     * @remarks
+     * This method reports the status of the <b>Start</b> and <b>Stop</b> methods, which themselves are asynchronous.
      * @param {Pointer<HRESULT>} phResult Pointer to a variable that receives an <b>HRESULT</b> value. The <b>HRESULT</b> value indicates the current status of writing or closing the file. This parameter can be <b>NULL</b>.
      * @param {Pointer<BOOL>} pbStarted Pointer to a variable that receives a Boolean value, indicating whether the recording has started,
      * 
@@ -189,7 +192,7 @@ class IStreamBufferRecordControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//sbe/nf-sbe-istreambufferrecordcontrol-getrecordingstatus
+     * @see https://learn.microsoft.com/windows/win32/api/sbe/nf-sbe-istreambufferrecordcontrol-getrecordingstatus
      */
     GetRecordingStatus(phResult, pbStarted, pbStopped) {
         phResultMarshal := phResult is VarRef ? "int*" : "ptr"

@@ -26,11 +26,7 @@ class HostComputeNetwork {
         NetworksMarshal := Networks is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnEnumerateNetworks", "ptr", Query, NetworksMarshal, Networks, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnEnumerateNetworks", "ptr", Query, NetworksMarshal, Networks, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -49,11 +45,7 @@ class HostComputeNetwork {
         NetworkMarshal := Network is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCreateNetwork", "ptr", Id, "ptr", Settings, NetworkMarshal, Network, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCreateNetwork", "ptr", Id, "ptr", Settings, NetworkMarshal, Network, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -69,11 +61,7 @@ class HostComputeNetwork {
         NetworkMarshal := Network is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnOpenNetwork", "ptr", Id, NetworkMarshal, Network, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnOpenNetwork", "ptr", Id, NetworkMarshal, Network, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -89,11 +77,7 @@ class HostComputeNetwork {
 
         NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnModifyNetwork", NetworkMarshal, Network, "ptr", Settings, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnModifyNetwork", NetworkMarshal, Network, "ptr", Settings, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -113,11 +97,7 @@ class HostComputeNetwork {
         PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryNetworkProperties", NetworkMarshal, Network, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnQueryNetworkProperties", NetworkMarshal, Network, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -128,11 +108,7 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteNetwork
      */
     static HcnDeleteNetwork(Id) {
-        result := DllCall("computenetwork.dll\HcnDeleteNetwork", "ptr", Id, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnDeleteNetwork", "ptr", Id, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -145,11 +121,7 @@ class HostComputeNetwork {
     static HcnCloseNetwork(Network) {
         NetworkMarshal := Network is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCloseNetwork", NetworkMarshal, Network, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCloseNetwork", NetworkMarshal, Network, "HRESULT")
         return result
     }
 
@@ -167,11 +139,7 @@ class HostComputeNetwork {
         NamespacesMarshal := Namespaces is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnEnumerateNamespaces", "ptr", Query, NamespacesMarshal, Namespaces, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnEnumerateNamespaces", "ptr", Query, NamespacesMarshal, Namespaces, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -190,11 +158,7 @@ class HostComputeNetwork {
         NamespaceMarshal := Namespace is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCreateNamespace", "ptr", Id, "ptr", Settings, NamespaceMarshal, Namespace, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCreateNamespace", "ptr", Id, "ptr", Settings, NamespaceMarshal, Namespace, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -210,11 +174,7 @@ class HostComputeNetwork {
         NamespaceMarshal := Namespace is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnOpenNamespace", "ptr", Id, NamespaceMarshal, Namespace, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnOpenNamespace", "ptr", Id, NamespaceMarshal, Namespace, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -230,11 +190,7 @@ class HostComputeNetwork {
 
         NamespaceMarshal := Namespace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnModifyNamespace", NamespaceMarshal, Namespace, "ptr", Settings, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnModifyNamespace", NamespaceMarshal, Namespace, "ptr", Settings, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -254,11 +210,7 @@ class HostComputeNetwork {
         PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryNamespaceProperties", NamespaceMarshal, Namespace, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnQueryNamespaceProperties", NamespaceMarshal, Namespace, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -269,11 +221,7 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteNamespace
      */
     static HcnDeleteNamespace(Id) {
-        result := DllCall("computenetwork.dll\HcnDeleteNamespace", "ptr", Id, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnDeleteNamespace", "ptr", Id, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -286,11 +234,7 @@ class HostComputeNetwork {
     static HcnCloseNamespace(Namespace) {
         NamespaceMarshal := Namespace is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCloseNamespace", NamespaceMarshal, Namespace, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCloseNamespace", NamespaceMarshal, Namespace, "HRESULT")
         return result
     }
 
@@ -308,11 +252,7 @@ class HostComputeNetwork {
         EndpointsMarshal := Endpoints is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnEnumerateEndpoints", "ptr", Query, EndpointsMarshal, Endpoints, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnEnumerateEndpoints", "ptr", Query, EndpointsMarshal, Endpoints, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -333,11 +273,7 @@ class HostComputeNetwork {
         EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCreateEndpoint", NetworkMarshal, Network, "ptr", Id, "ptr", Settings, EndpointMarshal, Endpoint, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCreateEndpoint", NetworkMarshal, Network, "ptr", Id, "ptr", Settings, EndpointMarshal, Endpoint, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -353,11 +289,7 @@ class HostComputeNetwork {
         EndpointMarshal := Endpoint is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnOpenEndpoint", "ptr", Id, EndpointMarshal, Endpoint, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnOpenEndpoint", "ptr", Id, EndpointMarshal, Endpoint, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -373,11 +305,7 @@ class HostComputeNetwork {
 
         EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnModifyEndpoint", EndpointMarshal, Endpoint, "ptr", Settings, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnModifyEndpoint", EndpointMarshal, Endpoint, "ptr", Settings, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -397,11 +325,7 @@ class HostComputeNetwork {
         PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryEndpointProperties", EndpointMarshal, Endpoint, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnQueryEndpointProperties", EndpointMarshal, Endpoint, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -412,11 +336,7 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteEndpoint
      */
     static HcnDeleteEndpoint(Id) {
-        result := DllCall("computenetwork.dll\HcnDeleteEndpoint", "ptr", Id, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnDeleteEndpoint", "ptr", Id, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -429,11 +349,7 @@ class HostComputeNetwork {
     static HcnCloseEndpoint(Endpoint) {
         EndpointMarshal := Endpoint is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCloseEndpoint", EndpointMarshal, Endpoint, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCloseEndpoint", EndpointMarshal, Endpoint, "HRESULT")
         return result
     }
 
@@ -451,11 +367,7 @@ class HostComputeNetwork {
         LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnEnumerateLoadBalancers", "ptr", Query, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnEnumerateLoadBalancers", "ptr", Query, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -474,11 +386,7 @@ class HostComputeNetwork {
         LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCreateLoadBalancer", "ptr", Id, "ptr", Settings, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCreateLoadBalancer", "ptr", Id, "ptr", Settings, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -494,11 +402,7 @@ class HostComputeNetwork {
         LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnOpenLoadBalancer", "ptr", Id, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnOpenLoadBalancer", "ptr", Id, LoadBalancerMarshal, LoadBalancer, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -514,11 +418,7 @@ class HostComputeNetwork {
 
         LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnModifyLoadBalancer", LoadBalancerMarshal, LoadBalancer, "ptr", Settings, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnModifyLoadBalancer", LoadBalancerMarshal, LoadBalancer, "ptr", Settings, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -538,11 +438,7 @@ class HostComputeNetwork {
         PropertiesMarshal := Properties is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryLoadBalancerProperties", LoadBalancerMarshal, LoadBalancer, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnQueryLoadBalancerProperties", LoadBalancerMarshal, LoadBalancer, "ptr", Query, PropertiesMarshal, Properties, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -553,11 +449,7 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteLoadBalancer
      */
     static HcnDeleteLoadBalancer(Id) {
-        result := DllCall("computenetwork.dll\HcnDeleteLoadBalancer", "ptr", Id, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnDeleteLoadBalancer", "ptr", Id, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -570,11 +462,7 @@ class HostComputeNetwork {
     static HcnCloseLoadBalancer(LoadBalancer) {
         LoadBalancerMarshal := LoadBalancer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCloseLoadBalancer", LoadBalancerMarshal, LoadBalancer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCloseLoadBalancer", LoadBalancerMarshal, LoadBalancer, "HRESULT")
         return result
     }
 
@@ -588,11 +476,7 @@ class HostComputeNetwork {
     static HcnRegisterServiceCallback(Callback, Context) {
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", "ptr", Callback, ContextMarshal, Context, "ptr*", &CallbackHandle := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnRegisterServiceCallback", "ptr", Callback, ContextMarshal, Context, "ptr*", &CallbackHandle := 0, "HRESULT")
         return CallbackHandle
     }
 
@@ -605,11 +489,7 @@ class HostComputeNetwork {
     static HcnUnregisterServiceCallback(CallbackHandle) {
         CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnUnregisterServiceCallback", CallbackHandleMarshal, CallbackHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnUnregisterServiceCallback", CallbackHandleMarshal, CallbackHandle, "HRESULT")
         return result
     }
 
@@ -625,11 +505,7 @@ class HostComputeNetwork {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
         ContextMarshal := Context is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Callback, ContextMarshal, Context, "ptr*", &CallbackHandle := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnRegisterGuestNetworkServiceCallback", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Callback, ContextMarshal, Context, "ptr*", &CallbackHandle := 0, "HRESULT")
         return CallbackHandle
     }
 
@@ -642,11 +518,7 @@ class HostComputeNetwork {
     static HcnUnregisterGuestNetworkServiceCallback(CallbackHandle) {
         CallbackHandleMarshal := CallbackHandle is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnUnregisterGuestNetworkServiceCallback", CallbackHandleMarshal, CallbackHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnUnregisterGuestNetworkServiceCallback", CallbackHandleMarshal, CallbackHandle, "HRESULT")
         return result
     }
 
@@ -665,11 +537,7 @@ class HostComputeNetwork {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCreateGuestNetworkService", "ptr", Id, "ptr", Settings, GuestNetworkServiceMarshal, GuestNetworkService, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCreateGuestNetworkService", "ptr", Id, "ptr", Settings, GuestNetworkServiceMarshal, GuestNetworkService, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -682,11 +550,7 @@ class HostComputeNetwork {
     static HcnCloseGuestNetworkService(GuestNetworkService) {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnCloseGuestNetworkService", GuestNetworkServiceMarshal, GuestNetworkService, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnCloseGuestNetworkService", GuestNetworkServiceMarshal, GuestNetworkService, "HRESULT")
         return result
     }
 
@@ -702,11 +566,7 @@ class HostComputeNetwork {
 
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnModifyGuestNetworkService", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Settings, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnModifyGuestNetworkService", GuestNetworkServiceMarshal, GuestNetworkService, "ptr", Settings, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -717,11 +577,7 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnDeleteGuestNetworkService
      */
     static HcnDeleteGuestNetworkService(Id) {
-        result := DllCall("computenetwork.dll\HcnDeleteGuestNetworkService", "ptr", Id, "ptr*", &ErrorRecord := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnDeleteGuestNetworkService", "ptr", Id, "ptr*", &ErrorRecord := 0, "HRESULT")
         return ErrorRecord
     }
 
@@ -738,11 +594,7 @@ class HostComputeNetwork {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
         PortReservationHandle := HANDLE()
-        result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePort", GuestNetworkServiceMarshal, GuestNetworkService, "int", Protocol, "int", Access, "ushort", Port, "ptr", PortReservationHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePort", GuestNetworkServiceMarshal, GuestNetworkService, "int", Protocol, "int", Access, "ushort", Port, "ptr", PortReservationHandle, "HRESULT")
         return PortReservationHandle
     }
 
@@ -758,11 +610,7 @@ class HostComputeNetwork {
         GuestNetworkServiceMarshal := GuestNetworkService is VarRef ? "ptr" : "ptr"
 
         PortReservationHandle := HANDLE()
-        result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePortRange", GuestNetworkServiceMarshal, GuestNetworkService, "ushort", PortCount, "ptr", PortRangeReservation, "ptr", PortReservationHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnReserveGuestNetworkServicePortRange", GuestNetworkServiceMarshal, GuestNetworkService, "ushort", PortCount, "ptr", PortRangeReservation, "ptr", PortReservationHandle, "HRESULT")
         return PortReservationHandle
     }
 
@@ -775,11 +623,7 @@ class HostComputeNetwork {
     static HcnReleaseGuestNetworkServicePortReservationHandle(PortReservationHandle) {
         PortReservationHandle := PortReservationHandle is Win32Handle ? NumGet(PortReservationHandle, "ptr") : PortReservationHandle
 
-        result := DllCall("computenetwork.dll\HcnReleaseGuestNetworkServicePortReservationHandle", "ptr", PortReservationHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnReleaseGuestNetworkServicePortReservationHandle", "ptr", PortReservationHandle, "HRESULT")
         return result
     }
 
@@ -790,11 +634,7 @@ class HostComputeNetwork {
      * @see https://learn.microsoft.com/virtualization/api/hcn/Reference/HcnEnumerateGuestNetworkPortReservations
      */
     static HcnEnumerateGuestNetworkPortReservations(PortEntries) {
-        result := DllCall("computenetwork.dll\HcnEnumerateGuestNetworkPortReservations", "uint*", &ReturnCount := 0, "ptr", PortEntries, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnEnumerateGuestNetworkPortReservations", "uint*", &ReturnCount := 0, "ptr", PortEntries, "HRESULT")
         return ReturnCount
     }
 
@@ -823,11 +663,7 @@ class HostComputeNetwork {
         StatsMarshal := Stats is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryEndpointStats", EndpointMarshal, Endpoint, "ptr", Query, StatsMarshal, Stats, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnQueryEndpointStats", EndpointMarshal, Endpoint, "ptr", Query, StatsMarshal, Stats, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 
@@ -846,11 +682,7 @@ class HostComputeNetwork {
         AddressesMarshal := Addresses is VarRef ? "ptr*" : "ptr"
         ErrorRecordMarshal := ErrorRecord is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("computenetwork.dll\HcnQueryEndpointAddresses", EndpointMarshal, Endpoint, "ptr", Query, AddressesMarshal, Addresses, ErrorRecordMarshal, ErrorRecord, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("computenetwork.dll\HcnQueryEndpointAddresses", EndpointMarshal, Endpoint, "ptr", Query, AddressesMarshal, Addresses, ErrorRecordMarshal, ErrorRecord, "HRESULT")
         return result
     }
 

@@ -7,13 +7,10 @@
 /**
  * Represents an action that fires a handler.
  * @remarks
- * 
  * COM handlers must implement the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskhandler">ITaskHandler</a> interface for the Task Scheduler to start and stop the handler. In turn, the COM handler uses the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskhandlerstatus">ITaskHandlerStatus</a> interface to communicate the status back to the Task Scheduler.
  * 
  * When reading or writing XML, a COM handler action is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-comhandler-actiongroup-element">ComHandler</a> element of the Task Scheduler schema.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-icomhandleraction
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-icomhandleraction
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -53,15 +50,12 @@ class IComHandlerAction extends IAction{
     }
 
     /**
-     * Gets or sets the identifier of the handler class.
+     * Gets or sets the identifier of the handler class. (Get)
      * @remarks
-     * 
      * When reading or writing XML, the class of a COM handler is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-classid-comhandlertype-element">ClassId</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pClsid 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-icomhandleraction-get_classid
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-icomhandleraction-get_classid
      */
     get_ClassId(pClsid) {
         result := ComCall(10, this, "ptr", pClsid, "HRESULT")
@@ -69,15 +63,12 @@ class IComHandlerAction extends IAction{
     }
 
     /**
-     * Gets or sets the identifier of the handler class.
+     * Gets or sets the identifier of the handler class. (Put)
      * @remarks
-     * 
      * When reading or writing XML, the class of a COM handler is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-classid-comhandlertype-element">ClassId</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} clsid 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-icomhandleraction-put_classid
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-icomhandleraction-put_classid
      */
     put_ClassId(clsid) {
         clsid := clsid is String ? BSTR.Alloc(clsid).Value : clsid
@@ -87,15 +78,12 @@ class IComHandlerAction extends IAction{
     }
 
     /**
-     * Gets or sets additional data that is associated with the handler.
+     * Gets or sets additional data that is associated with the handler. (Get)
      * @remarks
-     * 
      * When reading or writing XML, the data of a COM handler is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-data-comhandlertype-element">Data</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pData 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-icomhandleraction-get_data
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-icomhandleraction-get_data
      */
     get_Data(pData) {
         result := ComCall(12, this, "ptr", pData, "HRESULT")
@@ -103,15 +91,12 @@ class IComHandlerAction extends IAction{
     }
 
     /**
-     * Gets or sets additional data that is associated with the handler.
+     * Gets or sets additional data that is associated with the handler. (Put)
      * @remarks
-     * 
      * When reading or writing XML, the data of a COM handler is specified in the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-data-comhandlertype-element">Data</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} data 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-icomhandleraction-put_data
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-icomhandleraction-put_data
      */
     put_Data(data) {
         data := data is String ? BSTR.Alloc(data).Value : data

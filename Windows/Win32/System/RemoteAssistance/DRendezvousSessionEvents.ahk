@@ -5,7 +5,7 @@
 
 /**
  * Handles events that are generated or received by a IRendezvousSession object.
- * @see https://docs.microsoft.com/windows/win32/api//rendezvoussession/nn-rendezvoussession-drendezvoussessionevents
+ * @see https://learn.microsoft.com/windows/win32/api/rendezvoussession/nn-rendezvoussession-drendezvoussessionevents
  * @namespace Windows.Win32.System.RemoteAssistance
  * @version v4.0.30319
  */

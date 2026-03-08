@@ -6,8 +6,8 @@
 #Include .\IDWriteFactory3.ahk
 
 /**
- * The root factory interface for all DirectWrite objects.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefactory4
+ * The root factory interface for all DirectWrite objects. (IDWriteFactory4)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefactory4
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -34,6 +34,9 @@ class IDWriteFactory4 extends IDWriteFactory3{
 
     /**
      * Translates a glyph run to a sequence of color glyph runs, which can be rendered to produce a color representation of the original &quot;base&quot; run.
+     * @remarks
+     * Calling <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritefactory2-translatecolorglyphrun">IDWriteFactory2::TranslateColorGlyphRun</a> is equivalent 
+     *         to calling <b>IDWriteFactory4::TranslateColorGlyph</b> run with the following formats specified: DWRITE_GLYPH_IMAGE_FORMATS_TRUETYPE|DWRITE_GLYPH_IMAGE_FORMATS_CFF|DWRITE_GLYPH_IMAGE_FORMATS_COLR.
      * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
      * 
      * Horizontal and vertical origin of the base glyph run in pre-transform coordinates.
@@ -61,7 +64,7 @@ class IDWriteFactory4 extends IDWriteFactory3{
      * 
      * If the function succeeds, receives a pointer to an enumerator object that can be used to obtain the color glyph runs.
      *           If the base run has no color glyphs, then the output pointer is NULL and the method returns DWRITE_E_NOCOLOR.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-translatecolorglyphrun
      */
     TranslateColorGlyphRun(baselineOrigin, glyphRun, glyphRunDescription, desiredGlyphImageFormats, measuringMode, worldAndDpiTransform, colorPaletteIndex) {
         result := ComCall(40, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", glyphRunDescription, "int", desiredGlyphImageFormats, "int", measuringMode, "ptr", worldAndDpiTransform, "uint", colorPaletteIndex, "ptr*", &colorLayers := 0, "HRESULT")
@@ -69,10 +72,18 @@ class IDWriteFactory4 extends IDWriteFactory3{
     }
 
     /**
+     * Converts glyph run placements to glyph origins. (overload 1/2)
+     * @remarks
+     * The transform and DPI have no effect on the origin scaling. They are solely used to compute glyph advances when not supplied and align glyphs in pixel aligned measuring modes.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
      * 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
-     * @param {D2D_POINT_2F} baselineOrigin 
-     * @returns {D2D_POINT_2F} 
+     * Structure containing the properties of the glyph run.
+     * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
+     * 
+     * The position of the baseline origin, in DIPs, relative to the upper-left corner of the DIB.
+     * @returns {D2D_POINT_2F} Type: [out] <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
+     * 
+     * On return contains the glyph origins for the glyphrun.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-computeglyphorigins(dwrite_glyph_runconst_dwrite_measuring_mode_d2d1_point_2f_dwrite_matrixconst_d2d1_point_2f)
      */
     ComputeGlyphOrigins(glyphRun, baselineOrigin) {
@@ -82,12 +93,20 @@ class IDWriteFactory4 extends IDWriteFactory3{
     }
 
     /**
+     * Converts glyph run placements to glyph origins. (overload 1/2)
+     * @remarks
+     * The transform and DPI have no effect on the origin scaling. They are solely used to compute glyph advances when not supplied and align glyphs in pixel aligned measuring modes.
+     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_run">DWRITE_GLYPH_RUN</a></b>
      * 
-     * @param {Pointer<DWRITE_GLYPH_RUN>} glyphRun 
+     * Structure containing the properties of the glyph run.
      * @param {Integer} measuringMode 
-     * @param {D2D_POINT_2F} baselineOrigin 
+     * @param {D2D_POINT_2F} baselineOrigin Type: <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a></b>
+     * 
+     * The position of the baseline origin, in DIPs, relative to the upper-left corner of the DIB.
      * @param {Pointer<DWRITE_MATRIX>} worldAndDpiTransform 
-     * @returns {D2D_POINT_2F} 
+     * @returns {D2D_POINT_2F} Type: [out] <b><a href="https://docs.microsoft.com/windows/win32/Direct2D/d2d1-point-2f">D2D1_POINT_2F</a>*</b>
+     * 
+     * On return contains the glyph origins for the glyphrun.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefactory4-computeglyphorigins(dwrite_glyph_runconst_dwrite_measuring_mode_d2d1_point_2f_dwrite_matrixconst_d2d1_point_2f)
      */
     ComputeGlyphOrigins1(glyphRun, measuringMode, baselineOrigin, worldAndDpiTransform) {

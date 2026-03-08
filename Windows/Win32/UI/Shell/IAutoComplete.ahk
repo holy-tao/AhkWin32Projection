@@ -6,7 +6,6 @@
 /**
  * Exposed by the autocomplete object (CLSID_AutoComplete). This interface allows applications to initialize, enable, and disable the object.
  * @remarks
- * 
  * Autocompletion expands strings that have been partially entered in an <a href="https://docs.microsoft.com/windows/desktop/Controls/edit-controls">edit control</a> into complete strings. For example, when a user starts to type a URL in the Address edit control that is embedded in the Windows Internet Explorer toolbar, autocompletion expands the string into one or more complete URLs that are consistent with the existing partial string. A partial URL string such as "mic" might be expanded to "http://www.microsoft.com" or "http://www.microsoft.com/windows". Autocompletion is typically used with edit controls or with controls that have an embedded edit control such as the <a href="https://docs.microsoft.com/windows/desktop/Controls/comboboxex-control-reference">comboboxex control</a>.
  * 
  * Autocompletion has two modes for displaying the completed string. The modes are independent, so you can enable either or both. To specify the mode, call <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nf-shldisp-iautocomplete2-setoptions">IAutoComplete2::SetOptions</a>. The modes are as follows:
@@ -35,9 +34,7 @@
  * <li>If the user accepts an autocompleted string, the edit control behaves as if the string had been entered manually.</li>
  * </ol>
  * Autocompletion is enabled by default. Applications need only to call <a href="https://docs.microsoft.com/windows/desktop/api/shldisp/nf-shldisp-iautocomplete-enable">IAutoComplete::Enable</a> to disable autocompletion or to reenable it if it has been disabled.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shldisp/nn-shldisp-iautocomplete
+ * @see https://learn.microsoft.com/windows/win32/api/shldisp/nn-shldisp-iautocomplete
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -78,8 +75,8 @@ class IAutoComplete extends IUnknown{
      * A pointer to an optional null-terminated Unicode string that specifies the format to be used if the user enters text and presses CTRL+ENTER. Set this parameter to <b>NULL</b> to disable quick completion. Otherwise, the autocomplete object treats <i>pwszQuickComplete</i> as a <a href="https://docs.microsoft.com/windows/desktop/api/strsafe/nf-strsafe-stringcchprintfa">StringCchPrintf</a> format string and the text in the edit box as its associated argument, to produce a new string. For example, set <i>pwszQuickComplete</i> to "http://www.%s.com/". When a user enters "MyURL" into the edit box and presses CTRL+ENTER, the text in the edit box is updated to "http://www.MyURL.com/".
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-iautocomplete-init
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete-init
      */
     Init(hwndEdit, punkACL, pwszRegKeyPath, pwszQuickComplete) {
         hwndEdit := hwndEdit is Win32Handle ? NumGet(hwndEdit, "ptr") : hwndEdit
@@ -92,13 +89,15 @@ class IAutoComplete extends IUnknown{
 
     /**
      * Enables or disables autocompletion.
+     * @remarks
+     * Autocompletion is enabled by default. Applications need only to call this method to disable autocompletion or to reenable it if it has been disabled.
      * @param {BOOL} fEnable Type: <b>BOOL</b>
      * 
      * A value that is set to <b>TRUE</b> to enable autocompletion, or <b>FALSE</b> to disable it.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or a COM error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shldisp/nf-shldisp-iautocomplete-enable
+     * @see https://learn.microsoft.com/windows/win32/api/shldisp/nf-shldisp-iautocomplete-enable
      */
     Enable(fEnable) {
         result := ComCall(4, this, "int", fEnable, "HRESULT")

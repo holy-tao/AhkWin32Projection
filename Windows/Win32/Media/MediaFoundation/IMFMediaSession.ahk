@@ -7,7 +7,7 @@
 
 /**
  * Provides playback controls for protected and unprotected content.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmediasession
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmediasession
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,6 +34,20 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Sets a topology on the Media Session.
+     * @remarks
+     * If <i>pTopology</i> is a full topology, set the <b>MFSESSION_SETTOPOLOGY_NORESOLUTION</b> flag in the <i>dwSetTopologyFlags</i> parameter. Otherwise, the topology is assumed to be a partial topology. The Media Session uses the topology loader to resolve a partial topology into a full topology.
+     * 
+     * If the Media Session is currently paused or stopped, the <b>SetTopology</b> method does not take effect until the next call to <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-start">IMFMediaSession::Start</a>.
+     * 
+     * If the Media Session is currently running, or on the next call to <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-start">Start</a>, the <b>SetTopology</b> method does the following:
+     * 
+     * <ul>
+     * <li>If the <b>MFSESSION_SETTOPOLOGY_IMMEDIATE</b> flag is set in <i>dwSetTopologyFlags</i>, the Media Session ends the current presentation immediately, clears all pending topologies, and uses <i>pTopology</i> to start a new presentation.</li>
+     * <li>Otherwise, the Media Session queues <i>pTopology</i> and starts the new presentation when the current presentation has completed. If there is no current presentation, the new presentation starts immediately.</li>
+     * <li>Starting in Windows 7, you can also specify the <b>MFSESSION_SETTOPOLOGY_CLEAR_CURRENT</b>  flag to clear the current topology but leave any other pending topologies on the queue.</li>
+     * </ul>
+     * This method is asynchronous. If the method returns S_OK, the Media Session sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessiontopologyset">MESessionTopologySet</a> event when the operation completes.
+     *       If the Media Session is currently paused to stopped, the Media Session does not send the MESessionTopologySet event until the next call to <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-start">IMFMediaSession::Start</a>
      * @param {Integer} dwSetTopologyFlags Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfsession_settopology_flags">MFSESSION_SETTOPOLOGY_FLAGS</a> enumeration.
      * @param {IMFTopology} pTopology Pointer to the topology object's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -91,16 +105,16 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * 
      * <ul>
      * <li>
-     * <a href="/windows/desktop/medfound/mf-toponode-mediastart-attribute">MF_TOPONODE_MEDIASTART</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-mediastart-attribute">MF_TOPONODE_MEDIASTART</a>
      * </li>
      * <li>
-     * <a href="/windows/desktop/medfound/mf-toponode-mediastop-attribute">MF_TOPONODE_MEDIASTOP</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-toponode-mediastop-attribute">MF_TOPONODE_MEDIASTOP</a>
      * </li>
      * <li>
-     * <a href="/windows/desktop/medfound/mf-topology-projectstart-attribute">MF_TOPOLOGY_PROJECTSTART</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-topology-projectstart-attribute">MF_TOPOLOGY_PROJECTSTART</a>
      * </li>
      * <li>
-     * <a href="/windows/desktop/medfound/mf-topology-projectstop-attribute">MF_TOPOLOGY_PROJECTSTOP</a>
+     * <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-topology-projectstop-attribute">MF_TOPOLOGY_PROJECTSTOP</a>
      * </li>
      * </ul>
      * </td>
@@ -118,7 +132,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-settopology
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-settopology
      */
     SetTopology(dwSetTopologyFlags, pTopology) {
         result := ComCall(7, this, "uint", dwSetTopologyFlags, "ptr", pTopology, "HRESULT")
@@ -127,6 +141,10 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Clears all of the presentations that are queued for playback in the Media Session.
+     * @remarks
+     * This method is asynchronous. When the operation completes, the Media Session sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessiontopologiescleared">MESessionTopologiesCleared</a> event.
+     * 
+     * This method does not clear the current topology; it only removes topologies that are placed in the queue, waiting for playback. To remove the current topology, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-settopology">IMFMediaSession::SetTopology</a> with the <b>MFSESSION_SETTOPOLOGY_CLEAR_CURRENT</b> flag.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -171,7 +189,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-cleartopologies
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-cleartopologies
      */
     ClearTopologies() {
         result := ComCall(8, this, "HRESULT")
@@ -180,6 +198,10 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Starts the Media Session.
+     * @remarks
+     * When this method is called, the Media Session starts the presentation clock and begins to process media samples.
+     * 
+     * This method is asynchronous. When the method completes, the Media Session sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessionstarted">MESessionStarted</a> event.
      * @param {Pointer<Guid>} pguidTimeFormat Pointer to a GUID that specifies the time format for the <i>pvarStartPosition</i> parameter. This parameter can be <b>NULL</b>. The value <b>NULL</b> is equivalent to passing in <b>GUID_NULL</b>.
      * 
      * The following time format GUIDs are defined:
@@ -283,7 +305,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-start
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-start
      */
     Start(pguidTimeFormat, pvarStartPosition) {
         result := ComCall(9, this, "ptr", pguidTimeFormat, "ptr", pvarStartPosition, "HRESULT")
@@ -292,6 +314,12 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Pauses the Media Session.
+     * @remarks
+     * This method pauses the presentation clock.
+     * 
+     * This method is asynchronous. When the operation completes, the Media Session sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessionpaused">MESessionPaused</a> event.
+     * 
+     * This method fails if the Media Session is stopped.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -344,7 +372,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-pause
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-pause
      */
     Pause() {
         result := ComCall(10, this, "HRESULT")
@@ -353,6 +381,8 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Stops the Media Session.
+     * @remarks
+     * This method is asynchronous. When the operation completes, the Media Session sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessionstopped">MESessionStopped</a> event.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -394,7 +424,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-stop
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-stop
      */
     Stop() {
         result := ComCall(11, this, "HRESULT")
@@ -403,6 +433,38 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Closes the Media Session and releases all of the resources it is using.
+     * @remarks
+     * This method is asynchronous. When the operation completes, the Media Session sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mesessionclosed">MESessionClosed</a> event.
+     * 
+     * After the <b>Close</b> method is called, the only valid methods on the Media Session are the following:
+     * 
+     * <ul>
+     * <li>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-getclock">IMFMediaSession::GetClock</a>
+     * 
+     * 
+     * </li>
+     * <li>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-getfulltopology">IMFMediaSession::GetFullTopology</a>
+     * 
+     * 
+     * </li>
+     * <li>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-getsessioncapabilities">IMFMediaSession::GetSessionCapabilities</a>
+     * 
+     * 
+     * </li>
+     * <li>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-shutdown">IMFMediaSession::Shutdown</a>
+     * 
+     * 
+     * </li>
+     * </ul>
+     * All other methods return MF_E_INVALIDREQUEST, or else queue an event with that error code.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -433,7 +495,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-close
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-close
      */
     Close() {
         result := ComCall(12, this, "HRESULT")
@@ -442,6 +504,10 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Shuts down the Media Session and releases all the resources used by the Media Session.
+     * @remarks
+     * Call this method when you are done using the Media Session, before the final call to <b>IUnknown::Release</b>. Otherwise, your application will leak memory.
+     * 
+     * After this method is called, other <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasession">IMFMediaSession</a> methods return MF_E_SHUTDOWN.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -461,7 +527,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-shutdown
      */
     Shutdown() {
         result := ComCall(13, this, "HRESULT")
@@ -470,8 +536,10 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Retrieves the Media Session's presentation clock.
+     * @remarks
+     * The application can query the returned <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfclock">IMFClock</a> pointer for the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfpresentationclock">IMFPresentationClock</a> interface. However, the application should not use this interface to control the state of the presentation clock. Instead, the application should always call the transport control methods on the Media Session's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmediasession">IMFMediaSession</a> interface, such as <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-start">Start</a>, <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-stop">Stop</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasession-pause">Pause</a>.
      * @returns {IMFClock} Receives a pointer to the presentation clock's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfclock">IMFClock</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-getclock
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getclock
      */
     GetClock() {
         result := ComCall(14, this, "ptr*", &ppClock := 0, "HRESULT")
@@ -538,7 +606,7 @@ class IMFMediaSession extends IMFMediaEventGenerator{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-getsessioncapabilities
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getsessioncapabilities
      */
     GetSessionCapabilities() {
         result := ComCall(15, this, "uint*", &pdwCaps := 0, "HRESULT")
@@ -547,10 +615,18 @@ class IMFMediaSession extends IMFMediaEventGenerator{
 
     /**
      * Gets a topology from the Media Session.
+     * @remarks
+     * If the <b>MFSESSION_GETFULLTOPOLOGY_CURRENT</b> flag is specified in the <i>dwGetFullTopologyFlags</i> parameter, the method returns the topology for the current presentation. Otherwise, the method searches all of the queued topologies for one that matches the identifier given in the <i>TopoId</i> parameter.
+     *       
+     * 
+     * This method can be used to retrieve the topology for the current presentation or any pending presentations. It cannot be used to retrieve a topology that has already ended.
+     *       
+     * 
+     * The topology returned in <i>ppFullTopo</i> is a full topology, not a partial topology.
      * @param {Integer} dwGetFullTopologyFlags Bitwise <b>OR</b> of zero or more flags from the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfsession_getfulltopology_flags">MFSESSION_GETFULLTOPOLOGY_FLAGS</a> enumeration.
      * @param {Integer} TopoId The identifier of the topology. This parameter is ignored if the <i>dwGetFullTopologyFlags</i> parameter contains the <b>MFSESSION_GETFULLTOPOLOGY_CURRENT</b> flag. To get the identifier of a topology, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftopology-gettopologyid">IMFTopology::GetTopologyID</a>.
      * @returns {IMFTopology} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the topology. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmediasession-getfulltopology
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmediasession-getfulltopology
      */
     GetFullTopology(dwGetFullTopologyFlags, TopoId) {
         result := ComCall(16, this, "uint", dwGetFullTopologyFlags, "uint", TopoId, "ptr*", &ppFullTopology := 0, "HRESULT")

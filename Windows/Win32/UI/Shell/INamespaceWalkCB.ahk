@@ -6,10 +6,8 @@
 /**
  * A callback interface exposing methods used with INamespaceWalk.
  * @remarks
- * 
  * The IID for this interface is IID_INamespaceWalkCB.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-inamespacewalkcb
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inamespacewalkcb
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,8 +42,8 @@ class INamespaceWalkCB extends IUnknown{
      * The item's PIDL, relative to <i>psf</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalkcb-founditem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-founditem
      */
     FoundItem(psf, pidl) {
         result := ComCall(3, this, "ptr", psf, "ptr", pidl, "HRESULT")
@@ -62,8 +60,8 @@ class INamespaceWalkCB extends IUnknown{
      * The PIDL, relative to <i>psf</i>, of the folder being entered.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalkcb-enterfolder
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-enterfolder
      */
     EnterFolder(psf, pidl) {
         result := ComCall(4, this, "ptr", psf, "ptr", pidl, "HRESULT")
@@ -80,8 +78,8 @@ class INamespaceWalkCB extends IUnknown{
      * A PIDL, relative to <i>psf</i>, of the folder being exited.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalkcb-leavefolder
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-leavefolder
      */
     LeaveFolder(psf, pidl) {
         result := ComCall(5, this, "ptr", psf, "ptr", pidl, "HRESULT")
@@ -98,8 +96,8 @@ class INamespaceWalkCB extends IUnknown{
      * When this method returns, contains a pointer to a null-terminated string that contains the text displayed on the button that cancels the namespace walk.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inamespacewalkcb-initializeprogressdialog
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inamespacewalkcb-initializeprogressdialog
      */
     InitializeProgressDialog(ppszTitle, ppszCancel) {
         ppszTitleMarshal := ppszTitle is VarRef ? "ptr*" : "ptr"

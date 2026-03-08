@@ -5,7 +5,7 @@
 
 /**
  * The IAudioLoudness interface provides access to a &quot;loudness&quot; compensation control.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-iaudioloudness
+ * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudioloudness
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IAudioLoudness extends IUnknown{
     /**
      * The GetEnabled method gets the current state (enabled or disabled) of the loudness control.
      * @returns {BOOL} Pointer to a <b>BOOL</b> variable into which the method writes the current loudness state. If the state is <b>TRUE</b>, loudness is enabled. If <b>FALSE</b>, loudness is disabled.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudioloudness-getenabled
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudioloudness-getenabled
      */
     GetEnabled() {
         result := ComCall(3, this, "int*", &pbEnabled := 0, "HRESULT")
@@ -63,7 +63,7 @@ class IAudioLoudness extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudioloudness-setenabled
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudioloudness-setenabled
      */
     SetEnabled(bEnable, pguidEventContext) {
         result := ComCall(4, this, "int", bEnable, "ptr", pguidEventContext, "HRESULT")

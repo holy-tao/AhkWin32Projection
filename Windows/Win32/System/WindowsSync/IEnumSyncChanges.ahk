@@ -7,7 +7,7 @@
 
 /**
  * Enumerates a list of item changes.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ienumsyncchanges
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumsyncchanges
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IEnumSyncChanges extends IUnknown{
      * @param {Integer} cChanges The number of changes to fetch. The only valid value is 1.
      * @param {Pointer<Integer>} pcFetched Returns the number of changes that are fetched.
      * @returns {ISyncChange} Returns the next item change.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-next
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-next
      */
     Next(cChanges, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -47,7 +47,7 @@ class IEnumSyncChanges extends IUnknown{
     }
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (IEnumSyncChanges.Skip)
      * @param {Integer} cChanges The number of changes to skip.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -65,7 +65,7 @@ class IEnumSyncChanges extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-skip
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-skip
      */
     Skip(cChanges) {
         result := ComCall(4, this, "uint", cChanges, "HRESULT")
@@ -73,7 +73,7 @@ class IEnumSyncChanges extends IUnknown{
     }
 
     /**
-     * Resets the enumerator to the beginning of the list.
+     * Resets the enumerator to the beginning of the list. (IEnumSyncChanges.Reset)
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -93,7 +93,7 @@ class IEnumSyncChanges extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-reset
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -101,9 +101,9 @@ class IEnumSyncChanges extends IUnknown{
     }
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (IEnumSyncChanges.Clone)
      * @returns {IEnumSyncChanges} Returns the cloned enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumsyncchanges-clone
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumsyncchanges-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

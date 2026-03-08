@@ -23,10 +23,11 @@ class ISpTask extends Win32ComInterface{
     static VTableNames => ["Execute"]
 
     /**
-     * 
+     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
      * @param {Pointer<Void>} pvTaskData 
      * @param {Pointer<Integer>} pfContinueProcessing 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
      */
     Execute(pvTaskData, pfContinueProcessing) {
         pvTaskDataMarshal := pvTaskData is VarRef ? "ptr" : "ptr"

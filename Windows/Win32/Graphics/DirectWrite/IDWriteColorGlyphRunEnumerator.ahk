@@ -5,7 +5,7 @@
 
 /**
  * This interface allows the application to enumerate through the color glyph runs.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwritecolorglyphrunenumerator
+ * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritecolorglyphrunenumerator
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,10 +32,8 @@ class IDWriteColorGlyphRunEnumerator extends IUnknown{
 
     /**
      * Move to the next glyph run in the enumerator.
-     * @returns {BOOL} Type: <b>BOOL*</b>
-     * 
-     * Returns <b>TRUE</b> if there is a next glyph run.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritecolorglyphrunenumerator-movenext
+     * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritecolorglyphrunenumerator-movenext
      */
     MoveNext() {
         result := ComCall(3, this, "int*", &hasRun := 0, "HRESULT")
@@ -47,7 +45,7 @@ class IDWriteColorGlyphRunEnumerator extends IUnknown{
      * @returns {Pointer<DWRITE_COLOR_GLYPH_RUN>} Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ns-dwrite_2-dwrite_color_glyph_run">DWRITE_COLOR_GLYPH_RUN</a>**</b>
      * 
      * A pointer to the current glyph run.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwritecolorglyphrunenumerator-getcurrentrun
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwritecolorglyphrunenumerator-getcurrentrun
      */
     GetCurrentRun() {
         result := ComCall(4, this, "ptr*", &colorGlyphRun := 0, "HRESULT")

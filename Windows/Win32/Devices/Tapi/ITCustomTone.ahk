@@ -5,7 +5,7 @@
 
 /**
  * The ITCustomTone interface exposes methods that allow detailed control over the custom tones that are available with some phone sets.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcustomtone
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcustomtone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -65,7 +65,7 @@ class ITCustomTone extends IDispatch{
     /**
      * The get_Frequency method retrieves the frequency of the tone component to generate.
      * @returns {Integer} Pointer to a value to receive the frequency, in hertz, of the tone component.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-get_frequency
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_frequency
      */
     get_Frequency() {
         result := ComCall(7, this, "int*", &plFrequency := 0, "HRESULT")
@@ -94,7 +94,7 @@ class ITCustomTone extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-put_frequency
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_frequency
      */
     put_Frequency(lFrequency) {
         result := ComCall(8, this, "int", lFrequency, "HRESULT")
@@ -104,7 +104,7 @@ class ITCustomTone extends IDispatch{
     /**
      * The get_CadenceOn method retrieves the &quot;on&quot; duration of the cadence of the custom tone to generate.
      * @returns {Integer} Pointer to a value to receive the "on" duration, in milliseconds, of the cadence of the custom tone. Zero means no tone is generated.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-get_cadenceon
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_cadenceon
      */
     get_CadenceOn() {
         result := ComCall(9, this, "int*", &plCadenceOn := 0, "HRESULT")
@@ -133,7 +133,7 @@ class ITCustomTone extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-put_cadenceon
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_cadenceon
      */
     put_CadenceOn(CadenceOn) {
         result := ComCall(10, this, "int", CadenceOn, "HRESULT")
@@ -143,7 +143,7 @@ class ITCustomTone extends IDispatch{
     /**
      * The get_CadenceOff method retrieves the &quot;off&quot; duration of the cadence of the custom tone to generate.
      * @returns {Integer} Pointer to a value to receive the "off" duration, in milliseconds, of the cadence of the custom tone. Zero means no off time, that is, a constant tone.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-get_cadenceoff
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_cadenceoff
      */
     get_CadenceOff() {
         result := ComCall(11, this, "int*", &plCadenceOff := 0, "HRESULT")
@@ -172,7 +172,7 @@ class ITCustomTone extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-put_cadenceoff
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_cadenceoff
      */
     put_CadenceOff(lCadenceOff) {
         result := ComCall(12, this, "int", lCadenceOff, "HRESULT")
@@ -182,7 +182,7 @@ class ITCustomTone extends IDispatch{
     /**
      * The get_Volume method retrieves the volume level at which to generate the tone.
      * @returns {Integer} Pointer to a value to receive the volume level. A value of 0x0000FFFF represents full volume; a value of 0x00000000 represents silence.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-get_volume
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-get_volume
      */
     get_Volume() {
         result := ComCall(13, this, "int*", &plVolume := 0, "HRESULT")
@@ -211,7 +211,7 @@ class ITCustomTone extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcustomtone-put_volume
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcustomtone-put_volume
      */
     put_Volume(lVolume) {
         result := ComCall(14, this, "int", lVolume, "HRESULT")

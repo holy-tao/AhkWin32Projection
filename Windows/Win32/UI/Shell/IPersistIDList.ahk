@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that are used to persist item identifier lists.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ipersistidlist
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipersistidlist
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,8 +37,8 @@ class IPersistIDList extends IPersist{
      * A pointer to the item identifier list to set.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipersistidlist-setidlist
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistidlist-setidlist
      */
     SetIDList(pidl) {
         result := ComCall(4, this, "ptr", pidl, "HRESULT")
@@ -50,7 +50,7 @@ class IPersistIDList extends IPersist{
      * @returns {Pointer<ITEMIDLIST>} Type: <b>LPITEMIDLIST*</b>
      * 
      * The address of a pointer to the item identifier list to get.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipersistidlist-getidlist
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipersistidlist-getidlist
      */
     GetIDList() {
         result := ComCall(5, this, "ptr*", &ppidl := 0, "HRESULT")

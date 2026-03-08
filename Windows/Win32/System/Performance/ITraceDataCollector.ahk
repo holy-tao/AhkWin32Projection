@@ -8,12 +8,11 @@
 /**
  * Collects trace events from registered providers.This interface defines the trace session.
  * @remarks
- * 
  * The following example shows the XML that you can use to initialize this object if you call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollectorcollection-createdatacollectorfromxml">IDataCollectorCollection::CreateDataCollectorFromXml</a> method to create it. <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-idatacollector-get_xml">The IDataCollector::Xml</a> property also returns this XML.
  * 
  * 
  * ```xml
- * <TraceDataCollector>
+ * <tr>
  *     <BufferSize/>
  *     <BuffersLost/>  <!-- Output only -->
  *     <BuffersWritten/>  <!-- Output only -->
@@ -34,7 +33,7 @@
  *     <SessionName/>
  *     <SessionThreadId/>  <!-- Output only -->
  *     <StreamMode/>
- *     <TraceDataProvider>  <!-- Specify for each provider -->
+ *     <tr>  <!-- Specify for each provider -->
  *         <DisplayName/>
  *         <FilterData/>
  *         <FilterType/>
@@ -63,9 +62,7 @@
  * Note that the example does not show the property elements inherited from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a> that you also need to specify.
  * 
  * When you specify the XML to create the collector, you can specify only the elements for the properties that you want to set. If you do not specify a property, PLA provides a default value. When you retrieve the XML for the collector, the XML provides all elements, including those from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nn-pla-idatacollector">IDataCollector</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pla/nn-pla-itracedatacollector
+ * @see https://learn.microsoft.com/windows/win32/api/pla/nn-pla-itracedatacollector
  * @namespace Windows.Win32.System.Performance
  * @version v4.0.30319
  */
@@ -257,9 +254,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the suggested buffer size for each buffer in the event tracing session.
+     * Retrieves or sets the suggested buffer size for each buffer in the event tracing session. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_buffersize
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_buffersize
      */
     get_BufferSize() {
         result := ComCall(32, this, "uint*", &size := 0, "HRESULT")
@@ -267,10 +264,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the suggested buffer size for each buffer in the event tracing session.
+     * Retrieves or sets the suggested buffer size for each buffer in the event tracing session. (Put)
      * @param {Integer} size 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_buffersize
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_buffersize
      */
     put_BufferSize(size) {
         result := ComCall(33, this, "uint", size, "HRESULT")
@@ -280,7 +277,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the number of buffers that were not written to the log file.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_bufferslost
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_bufferslost
      */
     get_BuffersLost() {
         result := ComCall(34, this, "uint*", &buffers := 0, "HRESULT")
@@ -300,7 +297,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the number of buffers written to the log file.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_bufferswritten
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_bufferswritten
      */
     get_BuffersWritten() {
         result := ComCall(36, this, "uint*", &buffers := 0, "HRESULT")
@@ -318,9 +315,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the clock resolution to use when logging the time stamp for each event.
+     * Retrieves or sets the clock resolution to use when logging the time stamp for each event. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_clocktype
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_clocktype
      */
     get_ClockType() {
         result := ComCall(38, this, "int*", &clock := 0, "HRESULT")
@@ -328,10 +325,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the clock resolution to use when logging the time stamp for each event.
+     * Retrieves or sets the clock resolution to use when logging the time stamp for each event. (Put)
      * @param {Integer} clock 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_clocktype
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_clocktype
      */
     put_ClockType(clock) {
         result := ComCall(39, this, "int", clock, "HRESULT")
@@ -341,7 +338,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the number of events that were not written to the buffer.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_eventslost
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_eventslost
      */
     get_EventsLost() {
         result := ComCall(40, this, "uint*", &events := 0, "HRESULT")
@@ -359,10 +356,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the extended log file modes.
+     * Retrieves or sets the extended log file modes. (Get)
      * @remarks
-     * 
-     *  Use this property to set the following log file modes:
+     * Use this property to set the following log file modes:
      * 
      * <ul>
      * <li>EVENT_TRACE_PRIVATE_IN_PROC</li>
@@ -418,10 +414,8 @@ class ITraceDataCollector extends IDataCollector{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-itracedatacollector-get_streammode">ITraceDataProvider::StreamMode</a> is set to <b>plaRealTime</b>.</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_extendedmodes
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_extendedmodes
      */
     get_ExtendedModes() {
         result := ComCall(42, this, "uint*", &mode := 0, "HRESULT")
@@ -429,10 +423,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the extended log file modes.
+     * Retrieves or sets the extended log file modes. (Put)
      * @remarks
-     * 
-     *  Use this property to set the following log file modes:
+     * Use this property to set the following log file modes:
      * 
      * <ul>
      * <li>EVENT_TRACE_PRIVATE_IN_PROC</li>
@@ -488,11 +481,9 @@ class ITraceDataCollector extends IDataCollector{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/pla/nf-pla-itracedatacollector-get_streammode">ITraceDataProvider::StreamMode</a> is set to <b>plaRealTime</b>.</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {Integer} mode 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_extendedmodes
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_extendedmodes
      */
     put_ExtendedModes(mode) {
         result := ComCall(43, this, "uint", mode, "HRESULT")
@@ -500,9 +491,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the time to wait before flushing buffers.
+     * Retrieves or sets the time to wait before flushing buffers. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_flushtimer
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_flushtimer
      */
     get_FlushTimer() {
         result := ComCall(44, this, "uint*", &seconds := 0, "HRESULT")
@@ -510,10 +501,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the time to wait before flushing buffers.
+     * Retrieves or sets the time to wait before flushing buffers. (Put)
      * @param {Integer} seconds 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_flushtimer
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_flushtimer
      */
     put_FlushTimer(seconds) {
         result := ComCall(45, this, "uint", seconds, "HRESULT")
@@ -523,7 +514,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the number of buffers that are allocated but unused in the event tracing session's buffer pool.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_freebuffers
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_freebuffers
      */
     get_FreeBuffers() {
         result := ComCall(46, this, "uint*", &buffers := 0, "HRESULT")
@@ -541,9 +532,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the session GUID.
+     * Retrieves or sets the session GUID. (Get)
      * @returns {Guid} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_guid
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_guid
      */
     get_Guid() {
         guid := Guid()
@@ -552,10 +543,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the session GUID.
+     * Retrieves or sets the session GUID. (Put)
      * @param {Guid} guid 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_guid
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_guid
      */
     put_Guid(guid) {
         result := ComCall(49, this, "ptr", guid, "HRESULT")
@@ -565,7 +556,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves a value that indicates whether the trace contains kernel providers.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_iskerneltrace
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_iskerneltrace
      */
     get_IsKernelTrace() {
         result := ComCall(50, this, "short*", &kernel := 0, "HRESULT")
@@ -573,9 +564,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the maximum number of buffers allocated for the event tracing session's buffer pool.
+     * Retrieves or sets the maximum number of buffers allocated for the event tracing session's buffer pool. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_maximumbuffers
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_maximumbuffers
      */
     get_MaximumBuffers() {
         result := ComCall(51, this, "uint*", &buffers := 0, "HRESULT")
@@ -583,10 +574,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the maximum number of buffers allocated for the event tracing session's buffer pool.
+     * Retrieves or sets the maximum number of buffers allocated for the event tracing session's buffer pool. (Put)
      * @param {Integer} buffers 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_maximumbuffers
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_maximumbuffers
      */
     put_MaximumBuffers(buffers) {
         result := ComCall(52, this, "uint", buffers, "HRESULT")
@@ -594,9 +585,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the minimum number of buffers allocated for the event tracing session's buffer pool.
+     * Retrieves or sets the minimum number of buffers allocated for the event tracing session's buffer pool. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_minimumbuffers
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_minimumbuffers
      */
     get_MinimumBuffers() {
         result := ComCall(53, this, "uint*", &buffers := 0, "HRESULT")
@@ -604,10 +595,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the minimum number of buffers allocated for the event tracing session's buffer pool.
+     * Retrieves or sets the minimum number of buffers allocated for the event tracing session's buffer pool. (Put)
      * @param {Integer} buffers 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_minimumbuffers
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_minimumbuffers
      */
     put_MinimumBuffers(buffers) {
         result := ComCall(54, this, "uint", buffers, "HRESULT")
@@ -615,9 +606,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the suggested number of buffers to use for logging.
+     * Retrieves or sets the suggested number of buffers to use for logging. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_numberofbuffers
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_numberofbuffers
      */
     get_NumberOfBuffers() {
         result := ComCall(55, this, "uint*", &buffers := 0, "HRESULT")
@@ -625,10 +616,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the suggested number of buffers to use for logging.
+     * Retrieves or sets the suggested number of buffers to use for logging. (Put)
      * @param {Integer} buffers 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_numberofbuffers
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_numberofbuffers
      */
     put_NumberOfBuffers(buffers) {
         result := ComCall(56, this, "uint", buffers, "HRESULT")
@@ -636,9 +627,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets a value that indicates whether PLA should allocate the entire log file size before logging.
+     * Retrieves or sets a value that indicates whether PLA should allocate the entire log file size before logging. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_preallocatefile
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_preallocatefile
      */
     get_PreallocateFile() {
         result := ComCall(57, this, "short*", &allocate := 0, "HRESULT")
@@ -646,10 +637,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets a value that indicates whether PLA should allocate the entire log file size before logging.
+     * Retrieves or sets a value that indicates whether PLA should allocate the entire log file size before logging. (Put)
      * @param {VARIANT_BOOL} allocate 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_preallocatefile
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_preallocatefile
      */
     put_PreallocateFile(allocate) {
         result := ComCall(58, this, "short", allocate, "HRESULT")
@@ -657,14 +648,11 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets a value that indicates whether the session is a private, in-process session.
+     * Retrieves or sets a value that indicates whether the session is a private, in-process session. (Get)
      * @remarks
-     * 
      * A private event tracing session is a user-mode event tracing session that runs in the same process as its event trace providers—the registered providers that the private session enables and the private session must all be in the same process.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_processmode
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_processmode
      */
     get_ProcessMode() {
         result := ComCall(59, this, "short*", &process := 0, "HRESULT")
@@ -672,15 +660,12 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets a value that indicates whether the session is a private, in-process session.
+     * Retrieves or sets a value that indicates whether the session is a private, in-process session. (Put)
      * @remarks
-     * 
      * A private event tracing session is a user-mode event tracing session that runs in the same process as its event trace providers—the registered providers that the private session enables and the private session must all be in the same process.
-     * 
-     * 
      * @param {VARIANT_BOOL} process 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_processmode
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_processmode
      */
     put_ProcessMode(process) {
         result := ComCall(60, this, "short", process, "HRESULT")
@@ -690,7 +675,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the number of buffers that were not delivered in real time to the consumer.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_realtimebufferslost
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_realtimebufferslost
      */
     get_RealTimeBuffersLost() {
         result := ComCall(61, this, "uint*", &buffers := 0, "HRESULT")
@@ -710,7 +695,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the session identifier.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_sessionid
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionid
      */
     get_SessionId() {
         result := ComCall(63, this, "uint*", &id := 0, "HRESULT")
@@ -728,9 +713,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the name of the session.
+     * Retrieves or sets the name of the session. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_sessionname
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionname
      */
     get_SessionName() {
         name := BSTR()
@@ -739,10 +724,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the name of the session.
+     * Retrieves or sets the name of the session. (Put)
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_sessionname
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_sessionname
      */
     put_SessionName(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -754,7 +739,7 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the current thread of the log session, if the thread is running.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_sessionthreadid
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_sessionthreadid
      */
     get_SessionThreadId() {
         result := ComCall(67, this, "uint*", &tid := 0, "HRESULT")
@@ -772,9 +757,9 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the logging mode of the trace session.
+     * Retrieves or sets the logging mode of the trace session. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_streammode
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_streammode
      */
     get_StreamMode() {
         result := ComCall(69, this, "int*", &mode := 0, "HRESULT")
@@ -782,10 +767,10 @@ class ITraceDataCollector extends IDataCollector{
     }
 
     /**
-     * Retrieves or sets the logging mode of the trace session.
+     * Retrieves or sets the logging mode of the trace session. (Put)
      * @param {Integer} mode 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-put_streammode
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-put_streammode
      */
     put_StreamMode(mode) {
         result := ComCall(70, this, "int", mode, "HRESULT")
@@ -795,12 +780,9 @@ class ITraceDataCollector extends IDataCollector{
     /**
      * Retrieves the list of providers enabled for this trace session.
      * @remarks
-     * 
      * If the collection contains a kernel provider, all the providers in the collection must be kernel providers.
-     * 
-     * 
      * @returns {ITraceDataProviderCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//pla/nf-pla-itracedatacollector-get_tracedataproviders
+     * @see https://learn.microsoft.com/windows/win32/api/pla/nf-pla-itracedatacollector-get_tracedataproviders
      */
     get_TraceDataProviders() {
         result := ComCall(71, this, "ptr*", &providers := 0, "HRESULT")

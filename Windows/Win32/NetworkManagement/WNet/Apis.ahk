@@ -6679,7 +6679,7 @@ class WNet {
 
         result := DllCall("MPR.dll\WNetGetLastErrorA", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -6728,7 +6728,7 @@ class WNet {
 
         result := DllCall("MPR.dll\WNetGetLastErrorW", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", nErrorBufSize, "ptr", lpNameBuf, "uint", nNameBufSize, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result

@@ -10,7 +10,7 @@
 
 /**
  * The IPortableDeviceContent interface provides methods to create, enumerate, examine, and delete content on a device. To get this interface, call IPortableDevice::Content.
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledevicecontent
+ * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicecontent
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IPortableDeviceContent extends IUnknown{
      * @param {PWSTR} pszParentObjectID Pointer to a null-terminated string that specifies the ID of the parent. This can be an empty string (but not a <b>NULL</b> pointer) or the defined constant <b>WPD_DEVICE_OBJECT_ID</b> to indicate the device root.
      * @param {IPortableDeviceValues} pFilter This parameter is ignored and should be set to <b>NULL</b>.
      * @returns {IEnumPortableDeviceObjectIDs} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-ienumportabledeviceobjectids">IEnumPortableDeviceObjectIDs</a> interface that is used to enumerate the objects that are found. The caller must release this interface when it is done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-enumobjects
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-enumobjects
      */
     EnumObjects(dwFlags, pszParentObjectID, pFilter) {
         pszParentObjectID := pszParentObjectID is String ? StrPtr(pszParentObjectID) : pszParentObjectID
@@ -52,8 +52,10 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The Properties method retrieves the interface that is required to get or set properties on an object on the device.
+     * @remarks
+     * The retrieved interface is not specific to a particular object on the device; it is specific only to the device. You must specify the ID of the object you want when requesting or setting properties.
      * @returns {IPortableDeviceProperties} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceproperties">IPortableDeviceProperties</a> interface that is used to get or set object properties. The caller must release this interface when it is done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-properties
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-properties
      */
     Properties() {
         result := ComCall(4, this, "ptr*", &ppProperties := 0, "HRESULT")
@@ -62,8 +64,10 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The Transfer method retrieves an interface that is used to read from or write to the content data of an existing object resource.
+     * @remarks
+     * This method is typically used to read from an existing object.
      * @returns {IPortableDeviceResources} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceresources">IPortableDeviceResources</a> interface that is used to modify an object's resources. The caller must release this interface when it is done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-transfer
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-transfer
      */
     Transfer() {
         result := ComCall(5, this, "ptr*", &ppResources := 0, "HRESULT")
@@ -72,6 +76,17 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The CreateObjectWithPropertiesOnly method creates an object with only properties on the device.
+     * @remarks
+     * Some objects are only a collection of properties—such as a folder, which is only a collection of pointers to other objects—while other objects are both properties and data—such as an audio file, which contains all the properties and the actual music bits. This method is used to create an object that contains only properties. To create an object with both properties and data, use <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesanddata">CreateObjectWithPropertiesAndData</a>.
+     *       
+     * 
+     * This method is synchronous; when it returns, the new object should be present on the device.
+     *       
+     * 
+     * The object that the driver actually creates might be a properties-and-data object, depending on what type of object is most convenient for the driver. To check what kind of object the driver has created, request the <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/object-properties">WPD_OBJECT_FORMAT</a> property of the new object.
+     *       
+     * 
+     * The object will be created on the device when this method returns.
      * @param {IPortableDeviceValues} pValues An IPortableDeviceValues collection of properties to assign to the object. For a list of required and optional properties for an object, see <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/requirements-for-objects">Requirements for Objects</a>.
      * @param {Pointer<PWSTR>} ppszObjectID An optional string pointer to receive the name of the new object. Can be <b>NULL</b>, if not needed. Windows Portable Devices defines the constant WPD_DEVICE_OBJECT_ID to represent a device. The SDK allocates this memory; the caller must release it using <b>CoTaskMemFree</b>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -105,7 +120,7 @@ class IPortableDeviceContent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesonly
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesonly
      */
     CreateObjectWithPropertiesOnly(pValues, ppszObjectID) {
         ppszObjectIDMarshal := ppszObjectID is VarRef ? "ptr*" : "ptr"
@@ -116,11 +131,19 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The CreateObjectWithPropertiesAndData method creates an object with both properties and data on the device.
+     * @remarks
+     * Some objects are only a collection of properties—such as a folder, which is only a collection of pointers to other objects—while other objects are both properties and data—such as an audio file, which contains all the properties and the actual music bits. This method is used to create an object that requires both properties and data. To create a properties-only object, call <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesonly">CreateObjectWithPropertiesOnly</a>.
+     *       
+     * 
+     * Because the object is not created until the application calls <b>Commit</b> on the retrieved <b>IStream</b> <i>ppData</i>, the object will not have an ID until <b>Commit</b> is called on it. <b>Commit</b> is synchronous, so when that method returns successfully, the object will exist on the device.
+     *       
+     * 
+     * After calling <b>Commit</b> to create the object, call <b>QueryInterface</b> on <i>ppData</i> for <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicedatastream">IPortableDeviceDataStream</a>, and then call <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-getobjectid">IPortableDeviceDataStream::GetObjectID</a> to get the ID of the newly created object.
      * @param {IPortableDeviceValues} pValues An <b>IPortableDeviceValues</b> collection of properties to assign to the object. For a list of required and optional properties for an object, see <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/requirements-for-objects">Requirements for Objects</a>.
      * @param {Pointer<Integer>} pdwOptimalWriteBufferSize An optional <b>DWORD</b> pointer that specifies the optimal buffer size for the application to use when writing the data to <i>ppData</i>. The application can specify <b>TRUE</b> to ignore this.
      * @param {Pointer<PWSTR>} ppszCookie An optional unique, null-terminated string ID that is used to identify this creation request in the application's implementation of <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceeventcallback">IPortableDeviceEventCallback</a> (if implemented). When the device finishes creating the object, it will send this identifier to the callback function. This identifier allows an application to monitor object creation in a different thread from the one that called <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesonly">CreateObjectWithPropertiesOnly</a>. The SDK allocates this memory, and the caller must release it using <b>CoTaskMemFree</b>.
      * @returns {IStream} Address of a variable that receives a pointer to an <b>IStream</b> interface that the application uses to send the object data to the device. The object will not be created on the device until the application sends the data by calling <i>ppData</i>-&gt;<b>Commit</b>. To abandon a data transfer in progress, you can call <i>ppData</i> -&gt; <b>Revert</b>. The caller must release this interface when it is done with it. The underlying object extends both <b>IStream</b> and <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicedatastream">IPortableDeviceDataStream</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesanddata
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesanddata
      */
     CreateObjectWithPropertiesAndData(pValues, pdwOptimalWriteBufferSize, ppszCookie) {
         pdwOptimalWriteBufferSizeMarshal := pdwOptimalWriteBufferSize is VarRef ? "uint*" : "ptr"
@@ -132,6 +155,11 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The Delete method deletes one or more objects from the device.
+     * @remarks
+     * To see if recursive deletion is supported, call <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecapabilities-getcommandoptions">IPortableDeviceCapabilities::GetCommandOptions</a>. If the retrieved <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface contains a property value called WPD_OPTION_OBJECT_MANAGEMENT_RECURSIVE_DELETE_SUPPORTED with a <i>boolVal</i> value of True, the device supports recursive deletion.
+     *       
+     * 
+     * The following table lists the possible return codes that may appear in the collection at which <i>ppResults</i> points.
      * @param {Integer} dwOptions One of the <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/delete-object-options">DELETE_OBJECT_OPTIONS</a> enumerators.
      * @param {IPortableDevicePropVariantCollection} pObjectIDs Pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicepropvariantcollection">IPortableDevicePropVariantCollection</a> interface that holds one or more null-terminated strings (type VT_LPWSTR) specifying the object IDs of the objects to delete.
      * @param {Pointer<IPortableDevicePropVariantCollection>} ppResults Optional. On return, this parameter contains a collection of VT_ERROR values indicating the success or failure of the operation. The first element returned in <i>ppResults</i> corresponds to the first object in the <i>pObjectIDs</i> collection, the second element returned in <i>ppResults</i> corresponds to the second object in the <i>pObjectIDs</i> collection, and so on. This parameter can be <b>NULL</b> if the application is not concerned with the results.
@@ -232,7 +260,7 @@ class IPortableDeviceContent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-delete
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-delete
      */
     Delete(dwOptions, pObjectIDs, ppResults) {
         result := ComCall(8, this, "uint", dwOptions, "ptr", pObjectIDs, "ptr*", ppResults, "HRESULT")
@@ -241,9 +269,14 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The GetObjectIDsFromPersistentUniqueIDs method retrieves the current object ID of one or more objects, given their persistent unique IDs (PUIDs).
+     * @remarks
+     * Windows Portable Devices Object IDs are unique across the device, but may be different across sessions. An Object ID can change when the application reconnects to the device.
+     *       
+     * 
+     * Certain applications, such as synchronization engines, require a way to identify the object across connection sessions. Every object has a WPD_OBJECT_PERSISTENT_UNIQUE_ID property, which indicates an identifier that is persistent across sessions. Applications can read and save this property in their initial session, by calling the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-properties">Properties</a> method.
      * @param {IPortableDevicePropVariantCollection} pPersistentUniqueIDs Pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicepropvariantcollection">IPortableDevicePropVariantCollection</a> interface that contains one or more persistent unique ID (PUID) string values (type VT_LPWSTR).
      * @returns {IPortableDevicePropVariantCollection} Pointer to an <b>IPortableDevicePropVariantCollection</b> interface pointer that contains the retrieved object IDs, as type <b>VT_LPWSTR</b>. The retrieved IDs will be in the same order as the submitted PUIDs; if a value could not be found, it is indicated by an empty string. The caller must release this interface when it is done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-getobjectidsfrompersistentuniqueids
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-getobjectidsfrompersistentuniqueids
      */
     GetObjectIDsFromPersistentUniqueIDs(pPersistentUniqueIDs) {
         result := ComCall(9, this, "ptr", pPersistentUniqueIDs, "ptr*", &ppObjectIDs := 0, "HRESULT")
@@ -252,6 +285,8 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The Cancel method cancels a pending operation called on this interface.
+     * @remarks
+     * This method cancels all pending operations on the current device handle, which corresponds to a session associated with an <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledevice">IPortableDevice</a> interface. The Windows Portable Devices (WPD) API does not support targeted cancellation of specific operations.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
@@ -272,7 +307,7 @@ class IPortableDeviceContent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-cancel
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-cancel
      */
     Cancel() {
         result := ComCall(10, this, "HRESULT")
@@ -281,6 +316,8 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The Move method moves one or more objects from one location on the device to another.
+     * @remarks
+     * If the specified device supports move operations on a functional storage, the <i>pszDestinationFolderObjectID</i> parameter may specify the identifier for a functional storage.
      * @param {IPortableDevicePropVariantCollection} pObjectIDs Pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicepropvariantcollection">IPortableDevicePropVariantCollection</a> interface that holds one or more null-terminated strings (type VT_LPWSTR) specifying the object IDs of the objects to be moved.
      * @param {PWSTR} pszDestinationFolderObjectID Pointer to a null-terminated string that specifies the ID of the destination.
      * @param {Pointer<IPortableDevicePropVariantCollection>} ppResults Optional. On return, this parameter contains a collection of VT_ERROR values indicating the success or failure of the operation. The first element returned in <i>ppResults</i> corresponds to the first object in the <i>pObjectIDs</i> collection, the second element returned in <i>ppResults</i> corresponds to the second object in the <i>pObjectIDs</i> collection, and so on. This parameter can be <b>NULL</b> if the application is not concerned with the results.
@@ -337,7 +374,7 @@ class IPortableDeviceContent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-move
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-move
      */
     Move(pObjectIDs, pszDestinationFolderObjectID, ppResults) {
         pszDestinationFolderObjectID := pszDestinationFolderObjectID is String ? StrPtr(pszDestinationFolderObjectID) : pszDestinationFolderObjectID
@@ -348,6 +385,8 @@ class IPortableDeviceContent extends IUnknown{
 
     /**
      * The Copy method copies objects from one location on a device to another.
+     * @remarks
+     * If the specified device supports copy operations to a functional storage, the <i>pszDestinationFolderObjectID</i> parameter may specify the identifier for a functional storage.
      * @param {IPortableDevicePropVariantCollection} pObjectIDs A collection of object identifiers for the objects that this method will copy.
      * @param {PWSTR} pszDestinationFolderObjectID An object identifier for the destination folder (or functional storage) into which this method will copy the specified objects.
      * @param {Pointer<IPortableDevicePropVariantCollection>} ppResults A collection of VT_ERROR values indicating the success or failure of copying a particular element. The first error value corresponds to the first object in the collection of object identifiers, the second to the second element, and so on. This argument can be <b>NULL</b>.
@@ -393,7 +432,7 @@ class IPortableDeviceContent extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-copy
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-copy
      */
     Copy(pObjectIDs, pszDestinationFolderObjectID, ppResults) {
         pszDestinationFolderObjectID := pszDestinationFolderObjectID is String ? StrPtr(pszDestinationFolderObjectID) : pszDestinationFolderObjectID

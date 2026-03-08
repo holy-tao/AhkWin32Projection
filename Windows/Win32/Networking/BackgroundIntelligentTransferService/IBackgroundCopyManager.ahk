@@ -3,16 +3,14 @@
 #Include ..\..\..\..\Guid.ahk
 #Include .\IBackgroundCopyJob.ahk
 #Include .\IEnumBackgroundCopyJobs.ahk
+#Include ..\..\System\Com\Apis.ahk
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
  * Creates transfer jobs, retrieves an enumerator object that contains the jobs in the queue, and retrieves individual jobs from the queue.
  * @remarks
- * 
  * <b>Windows Vista and later:  </b>When an ActiveX control tries to instantiate this interface from an Internet Explorer process, the call will fail with access denied. This is because COM does not allow lower-integrity clients to bind to class instances at higher integrity levels. For details, see <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/">Understanding and Working in Protected Mode Internet Explorer</a> and <a href="https://docs.microsoft.com/previous-versions/dotnet/articles/bb625962(v=msdn.10)">How the Integrity Mechanism Is Implemented in Windows Vista</a>. A user can workaround the issue by adding the website to the Trusted site zone.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bits/nn-bits-ibackgroundcopymanager
+ * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ibackgroundcopymanager
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -45,6 +43,14 @@ class IBackgroundCopyManager extends IUnknown{
 
     /**
      * Creates a job.
+     * @remarks
+     * Only the user who creates the job or a user with administrator privileges can <a href="https://docs.microsoft.com/windows/desktop/Bits/adding-files-to-a-job">add files to the job</a> and <a href="https://docs.microsoft.com/windows/desktop/Bits/setting-and-retrieving-the-properties-of-a-job">change the job's properties</a>.
+     * 
+     * By default, BITS supports a maximum of 300 jobs at one time. A single user can create a maximum of 60 jobs at one time. The user limit does not apply to administrators or service accounts. To change these defaults, set the <b>MaxJobsPerMachine</b> and <b>MaxJobsPerUser</b> group policies, respectively.
+     * 
+     * <b>Prior to Windows Vista:  </b>There is no limit on the number of jobs that BITS supports or that a user can create.
+     * 
+     * For scalability concerns, see <a href="https://docs.microsoft.com/windows/desktop/Bits/best-practices-when-using-bits">Best Practices When Using BITS</a>.
      * @param {PWSTR} DisplayName Null-terminated string that contains a display name for the job. Typically, the display name is used to identify the job in a user interface. Note that more than one job may have the same display name. Must not be <b>NULL</b>. The name is limited to 256 characters, not including the null terminator.
      * @param {Integer} Type Type of transfer job, such as BG_JOB_TYPE_DOWNLOAD. For a list of transfer types, see the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/ne-bits-bg_job_type">BG_JOB_TYPE</a> enumeration.
@@ -105,7 +111,7 @@ class IBackgroundCopyManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopymanager-createjob
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-createjob
      */
     CreateJob(DisplayName, Type, pJobId, ppJob) {
         DisplayName := DisplayName is String ? StrPtr(DisplayName) : DisplayName
@@ -120,7 +126,7 @@ class IBackgroundCopyManager extends IUnknown{
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopymanager-createjob">CreateJob</a> method returns the job identifier.
      * @returns {IBackgroundCopyJob} An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob</a> interface pointer to the job specified by <i>JobID</i>. When done, release <i>ppJob</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopymanager-getjob
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-getjob
      */
     GetJob(jobID) {
         result := ComCall(4, this, "ptr", jobID, "ptr*", &ppJob := 0, "HRESULT")
@@ -151,7 +157,7 @@ class IBackgroundCopyManager extends IUnknown{
      * </table>
      * @returns {IEnumBackgroundCopyJobs} An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ienumbackgroundcopyjobs">IEnumBackgroundCopyJobs</a> interface pointer that you use to enumerate the jobs in the transfer queue. The contents of the enumerator depend on the value of <i>dwFlags</i>. Release <i>ppEnumJobs</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopymanager-enumjobs
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-enumjobs
      */
     EnumJobs(dwFlags) {
         result := ComCall(5, this, "uint", dwFlags, "ptr*", &ppEnum := 0, "HRESULT")
@@ -160,6 +166,10 @@ class IBackgroundCopyManager extends IUnknown{
 
     /**
      * Retrieves a description for the specified error code.
+     * @remarks
+     * Descriptions for HTTP errors are  localized.
+     * 
+     * <b>Windows XP/2000:  </b>Descriptions for HTTP errors are not localized.
      * @param {HRESULT} hResult Error code from a previous call to a BITS method.
      * @param {Integer} LanguageId Identifies the language identifier to use to generate the description. To create the language identifier, use the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/nf-winnt-makelangid">MAKELANGID</a> macro. For example, to specify U.S. English, use the following code sample. 
@@ -174,10 +184,15 @@ class IBackgroundCopyManager extends IUnknown{
      * <c>LANGIDFROMLCID(GetThreadLocale())</c>
      * @returns {PWSTR} Null-terminated string that contains a description of the error. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppErrorDescription</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ibackgroundcopymanager-geterrordescription
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ibackgroundcopymanager-geterrordescription
      */
     GetErrorDescription(hResult, LanguageId) {
-        result := ComCall(6, this, "int", hResult, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "HRESULT")
+        result := ComCall(6, this, "int", hResult, "uint", LanguageId, "ptr*", &pErrorDescription := 0, "int")
+        if(result != 0) {
+            Com.CoTaskMemFree(pErrorDescription)
+            throw OSError(result)
+        }
+
         return pErrorDescription
     }
 }

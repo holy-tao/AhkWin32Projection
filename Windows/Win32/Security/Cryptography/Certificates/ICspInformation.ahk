@@ -8,7 +8,7 @@
 
 /**
  * Provides access to general information about a cryptographic provider.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icspinformation
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspinformation
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -126,10 +126,55 @@ class ICspInformation extends IDispatch{
 
     /**
      * Initializes the object from a string that contains a provider name.
+     * @remarks
+     * The <b>InitializeFromName</b> method opens the named provider and queries it to set the following property values on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> object:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_cspalgorithms">CspAlgorithms</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_hashardwarerandomnumbergenerator">HasHardwareRandomNumberGenerator</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice">IsHardwareDevice</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_isremovable">IsRemovable</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issmartcard">IsSmartCard</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice">IsSoftwareDevice</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_keyspec">KeySpec</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_legacycsp">LegacyCsp</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_maxkeycontainernamelength">MaxKeyContainerNameLength</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_name">Name</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_type">Type</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_valid">Valid</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_version">Version</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * The method adds the available algorithms to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithms">ICspAlgorithms</a> collection returned by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_cspalgorithms">CspAlgorithms</a> property. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-initializefromtype">InitializeFromType</a> method to initialize the object from a provider type.
      * @param {BSTR} strName A <b>BSTR</b> variable that contains the name.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -149,7 +194,7 @@ class ICspInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-initializefromname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-initializefromname
      */
     InitializeFromName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -160,6 +205,48 @@ class ICspInformation extends IDispatch{
 
     /**
      * Initializes the object from the default cryptographic provider.
+     * @remarks
+     * The <b>InitializeFromType</b> method validates the specified type and saves it in the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_type">Type</a> property, retrieves the default provider, and sets the following property values on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> object:<ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_cspalgorithms">CspAlgorithms</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_hashardwarerandomnumbergenerator">HasHardwareRandomNumberGenerator</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice">IsHardwareDevice</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_isremovable">IsRemovable</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issmartcard">IsSmartCard</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice">IsSoftwareDevice</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_keyspec">KeySpec</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_legacycsp">LegacyCsp</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_maxkeycontainernamelength">MaxKeyContainerNameLength</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_name">Name</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_valid">Valid</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_version">Version</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * The method adds the available algorithms to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithms">ICspAlgorithms</a> collection returned by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_cspalgorithms">CspAlgorithms</a> property. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-initializefromname">InitializeFromName</a> method to initialize the object from a CSP name.
      * @param {Integer} Type An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-x509providertype">X509ProviderType</a> enumeration value that defines the provider type.
      * 
      * <ul>
@@ -170,7 +257,7 @@ class ICspInformation extends IDispatch{
      * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> variable that indicates whether to use the computer or user context to determine the default provider for the specified provider type. Specify <b>VARIANT_TRUE</b> for the computer and <b>VARIANT_FALSE</b> for the user.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -190,7 +277,7 @@ class ICspInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-initializefromtype
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-initializefromtype
      */
     InitializeFromType(Type, pAlgorithm, MachineContext) {
         result := ComCall(8, this, "int", Type, "ptr", pAlgorithm, "short", MachineContext, "HRESULT")
@@ -200,12 +287,9 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a collection of ICspAlgorithm interfaces that contain information about the algorithms supported by the provider.
      * @remarks
-     * 
      * An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithm">ICspAlgorithm</a> object contains information about the cryptographic algorithms supported by the provider. This includes the algorithm <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifier</a> (OID), the permitted key lengths and incremental lengths, the algorithm name and abbreviated name, and a Boolean value that specifies whether the algorithm OID object is valid.
-     * 
-     * 
      * @returns {ICspAlgorithms} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_cspalgorithms
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_cspalgorithms
      */
     get_CspAlgorithms() {
         result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -215,12 +299,9 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a Boolean value that specifies whether the provider supports a hardware random number generator that can be used to create random bytes for cryptographic operations.
      * @remarks
-     * 
      * There are currently no Microsoft cryptographic providers that support this feature.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_hashardwarerandomnumbergenerator
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_hashardwarerandomnumbergenerator
      */
     get_HasHardwareRandomNumberGenerator() {
         result := ComCall(10, this, "short*", &pValue := 0, "HRESULT")
@@ -230,7 +311,6 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a Boolean value that determines whether the provider is implemented in a hardware device.
      * @remarks
-     * 
      * This property only specifies whether a provider is implemented in hardware. Because a provider can be implemented in both hardware and software, you cannot assume that a value of true for this property  indicates that there is no software component. You must also examine the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice">IsSoftwareDevice</a> property. The following providers return true for the <b>IsHardwareDevice</b> property:<ul>
      * <li>Microsoft Smart Card Key Storage Provider</li>
      * <li>Microsoft Base Smart Card Crypto Provider</li>
@@ -238,10 +318,8 @@ class ICspInformation extends IDispatch{
      * 
      * 
      * Both of these providers also return true for the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice">IsSoftwareDevice</a> property. The Certificate Enrollment service assumes that a provider is a smart card provider if both the <b>IsHardwareDevice</b> and <b>IsSoftwareDevice</b> properties are set, or if the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_isremovable">IsRemovable</a> property is set.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_ishardwaredevice
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice
      */
     get_IsHardwareDevice() {
         result := ComCall(11, this, "short*", &pValue := 0, "HRESULT")
@@ -251,7 +329,6 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a Boolean value that specifies whether the token that contains the key can be removed.
      * @remarks
-     * 
      * Operator cards and  smart cards are examples of removable tokens that can contain keys. For example, the following providers return true for this property value:<ul>
      * <li>Microsoft Smart Card Key Storage Provider</li>
      * <li>Microsoft Base Smart Card Crypto Provider</li>
@@ -259,10 +336,8 @@ class ICspInformation extends IDispatch{
      * 
      * 
      * The Certificate Enrollment service assumes that a provider is a smart card provider if both the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice">IsHardwareDevice</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice">IsSoftwareDevice</a> properties are set, or if the <b>IsRemovable</b> property is set.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_isremovable
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_isremovable
      */
     get_IsRemovable() {
         result := ComCall(12, this, "short*", &pValue := 0, "HRESULT")
@@ -272,7 +347,6 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a Boolean value that specifies whether the provider is implemented in software.
      * @remarks
-     * 
      * This property only specifies whether a provider is implemented in software. Because a provider can be implemented in both hardware and software, you cannot assume that a value of true for the <b>IsSoftwareDevice</b> property indicates that there is no hardware component. You must also examine the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice">IsHardwareDevice</a> property. The following Microsoft providers return true for the <b>IsSoftwareDevice</b> property:<ul>
      * <li>Microsoft Software Key Storage Provider</li>
      * <li>Microsoft Smart Card Key Storage Provider</li>
@@ -290,10 +364,8 @@ class ICspInformation extends IDispatch{
      * 
      * 
      * The Microsoft Smart Card Key Storage Provider and the Microsoft Base Smart Card Crypto Provider also return true for the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice">IsHardwareDevice</a> property. The Certificate Enrollment service assumes a smart card provider if both the <b>IsHardwareDevice</b> and <b>IsSoftwareDevice</b> properties are set, or if the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_isremovable">IsRemovable</a> property is set.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_issoftwaredevice
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice
      */
     get_IsSoftwareDevice() {
         result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
@@ -303,12 +375,9 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a Boolean value that specifies whether the provider is installed on the client computer.
      * @remarks
-     * 
      * The <b>Valid</b> property is typically set by the Certificate Enrollment Control when it processes the list of providers identified in a template-based certificate request. If a provider listed in the template is not installed on the client, the control creates an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> object and sets the value of this property to false. You can use this property value in a user interface to indicate whether a provider is available. If a provider is not installed, only the <b>Valid</b> property and the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_name">Name</a> property provide meaningful information.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_valid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_valid
      */
     get_Valid() {
         result := ComCall(14, this, "short*", &pValue := 0, "HRESULT")
@@ -318,7 +387,6 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves the maximum supported length for the name of the private key container associated with the provider.
      * @remarks
-     * 
      * The key container name can be specified and retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509privatekey-get_containername">ContainerName</a> property on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> interface. The values associated with the providers distributed by Microsoft are listed in the following table. Some of these providers may not be included on all operating systems and others may be included instead.<table>
      * <tr>
      * <th>Provider</th>
@@ -373,10 +441,8 @@ class ICspInformation extends IDispatch{
      * <td>261</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_maxkeycontainernamelength
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_maxkeycontainernamelength
      */
     get_MaxKeyContainerNameLength() {
         result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
@@ -386,7 +452,6 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves the name.
      * @remarks
-     * 
      * The following list shows the names of some of the Microsoft providers installed on Windows Vista and later. This list is not inclusive:
      * 
      * <ul>
@@ -403,10 +468,8 @@ class ICspInformation extends IDispatch{
      * <li>Microsoft RSA Schannel Cryptographic Provider</li>
      * <li>Microsoft Strong Cryptographic Provider</li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_name
      */
     get_Name() {
         pValue := BSTR()
@@ -417,7 +480,6 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves the type of the provider.
      * @remarks
-     * 
      * The values associated with the providers distributed by Microsoft are listed in the following table. Some of these providers may not be included on all operating systems and others may be included instead.
      * 
      * <table>
@@ -474,10 +536,8 @@ class ICspInformation extends IDispatch{
      * <td>CN_PROV_RSA_FULL (1)</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_type
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_type
      */
     get_Type() {
         result := ComCall(17, this, "int*", &pValue := 0, "HRESULT")
@@ -487,7 +547,7 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves the version number of the provider.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_version
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_version
      */
     get_Version() {
         result := ComCall(18, this, "int*", &pValue := 0, "HRESULT")
@@ -497,7 +557,6 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a value that specifies the intended use of the algorithms supported by the provider.
      * @remarks
-     * 
      * The value retrieved can be 0, 1, 2, or 3. If the value is 0 (XCN_AT_NONE), the provider is a Cryptography API: Next Generation (CNG) provider. The values associated with the providers distributed by Microsoft are listed in the following table. Some of these providers may not be included on all operating systems and others may be included instead.<table>
      * <tr>
      * <th>Provider</th>
@@ -624,10 +683,8 @@ class ICspInformation extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_keyspec
      */
     get_KeySpec() {
         result := ComCall(19, this, "int*", &pValue := 0, "HRESULT")
@@ -637,12 +694,9 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a Boolean value that specifies whether the provider is a smart card provider.
      * @remarks
-     * 
      * A smart card provider is typically identified by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_ishardwaredevice">IsHardwareDevice</a> property and the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_issoftwaredevice">IsSoftwareDevice</a> property being set or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_isremovable">IsRemovable</a> property being set.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_issmartcard
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_issmartcard
      */
     get_IsSmartCard() {
         result := ComCall(20, this, "short*", &pValue := 0, "HRESULT")
@@ -651,9 +705,21 @@ class ICspInformation extends IDispatch{
 
     /**
      * Retrieves the default private key security descriptor.
+     * @remarks
+     * To use the security descriptor, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/sddl/nf-sddl-convertstringsecuritydescriptortosecuritydescriptora">ConvertStringSecurityDescriptorToSecurityDescriptor</a> function included with the Microsoft Authorization API and specify the string returned by the <b>GetDefaultSecurityDescriptor</b> method. The function returns a pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-security_descriptor">SECURITY_DESCRIPTOR</a> structure.
+     * 
+     * The default security descriptor is used to define access to private keys for the computer and user in the following manner:<ul>
+     * <li>By default, only local administrators and services running under the LocalSystem account can access private keys associated with the computer account.</li>
+     * <li>When a provider stores the private key of a user in an encrypted file in the user profile, it uses a security descriptor to set access permissions to the file.</li>
+     * </ul>
+     * 
+     * 
+     * This method retrieves the default security descriptor that will be associated with the specified <i>MachineContext</i> parameter and the current provider if a new private key is created.  You can use the default descriptor to create a custom descriptor. Custom descriptors are typically created when a private key associated with a computer context certificate must be used by a service running under an account other than the LocalSystem account.
+     * 
+     * Some cryptographic providers do not support security descriptors. Examples include smart card and hardware security module (HSM) providers.
      * @param {VARIANT_BOOL} MachineContext A <b>VARIANT_BOOL</b> variable that indicates whether to retrieve the security descriptor for the computer or the user. Specify <b>VARIANT_TRUE</b> for the computer and <b>VARIANT_FALSE</b> for the user.
      * @returns {BSTR} Pointer to a  <b>BSTR</b> variable that contains the security descriptor.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-getdefaultsecuritydescriptor
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getdefaultsecuritydescriptor
      */
     GetDefaultSecurityDescriptor(MachineContext) {
         pValue := BSTR()
@@ -664,7 +730,7 @@ class ICspInformation extends IDispatch{
     /**
      * Retrieves a Boolean value that specifies whether the provider is a Cryptography API:\_Next Generation (CNG) provider or a CryptoAPI (legacy) CSP.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-get_legacycsp
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-get_legacycsp
      */
     get_LegacyCsp() {
         result := ComCall(22, this, "short*", &pValue := 0, "HRESULT")
@@ -673,6 +739,8 @@ class ICspInformation extends IDispatch{
 
     /**
      * Creates an ICspStatus object for the first supported algorithm that is consistent with the specified signature, encryption, hashing, or cipher operation.
+     * @remarks
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> object contains status information about a cryptographic provider. Each object is initialized for a specific algorithm supported by the provider. If you do not specify an algorithm in the <i>pAlgorithm</i> parameter, the first supported algorithm that is consistent with the permitted operations is chosen to create the <b>ICspStatus</b> object.
      * @param {IObjectId} pAlgorithm Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that represents an algorithm OID. This parameter is optional and can be <b>NULL</b>.   
      * 
      * <ul>
@@ -682,7 +750,7 @@ class ICspInformation extends IDispatch{
      * </ul>
      * @param {Integer} Operations 
      * @returns {ICspStatus} Address of a variable that receives a pointer to an  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspinformation-getcspstatusfromoperations
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspinformation-getcspstatusfromoperations
      */
     GetCspStatusFromOperations(pAlgorithm, Operations) {
         result := ComCall(23, this, "ptr", pAlgorithm, "int", Operations, "ptr*", &ppValue := 0, "HRESULT")

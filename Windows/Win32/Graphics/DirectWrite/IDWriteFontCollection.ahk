@@ -6,9 +6,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory.
+ * An object that encapsulates a set of fonts, such as the set of fonts installed on the system, or the set of fonts in a particular directory. (IDWriteFontCollection)
  * @remarks
- * 
  * The <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-getsystemfontcollection">IDWriteFactory::GetSystemFontCollection</a> method will give you an <b>IDWriteFontCollection</b> object, which encapsulates the set of fonts installed on the system, as shown in the following code example.
  * 
  * 
@@ -31,9 +30,7 @@
  * 
  * 
  * ```cpp
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontcollection
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -63,7 +60,7 @@ class IDWriteFontCollection extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The number of font families in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontcollection-getfontfamilycount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfamilycount
      */
     GetFontFamilyCount() {
         result := ComCall(3, this, "uint")
@@ -78,7 +75,7 @@ class IDWriteFontCollection extends IUnknown{
      * @returns {IDWriteFontFamily} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfamily">IDWriteFontFamily</a>**</b>
      * 
      * When this method returns, contains the address of   a pointer to the newly created font family object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontcollection-getfontfamily
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfamily
      */
     GetFontFamily(index) {
         result := ComCall(4, this, "uint", index, "ptr*", &fontFamily := 0, "HRESULT")
@@ -98,8 +95,8 @@ class IDWriteFontCollection extends IUnknown{
      * When this method returns, <b>TRUE</b> if the family name exists; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontcollection-findfamilyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-findfamilyname
      */
     FindFamilyName(familyName, index, exists) {
         familyName := familyName is String ? StrPtr(familyName) : familyName
@@ -119,7 +116,7 @@ class IDWriteFontCollection extends IUnknown{
      * @returns {IDWriteFont} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefont">IDWriteFont</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the newly created font object if successful; otherwise, <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontcollection-getfontfromfontface
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontcollection-getfontfromfontface
      */
     GetFontFromFontFace(fontFace) {
         result := ComCall(6, this, "ptr", fontFace, "ptr*", &font := 0, "HRESULT")

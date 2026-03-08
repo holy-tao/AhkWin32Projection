@@ -6,7 +6,7 @@
 
 /**
  * Contains a method to retrieves a column mapper object.
- * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nn-indexsrv-icolumnmappercreator
+ * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nn-indexsrv-icolumnmappercreator
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IColumnMapperCreator extends IUnknown{
      * @param {PWSTR} wcsMachineName Machine on which the catalog exists.
      * @param {PWSTR} wcsCatalogName Catalog for which column mapper is requested.
      * @returns {IColumnMapper} Stores the outgoing column mapper pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//indexsrv/nf-indexsrv-icolumnmappercreator-getcolumnmapper
+     * @see https://learn.microsoft.com/windows/win32/api/indexsrv/nf-indexsrv-icolumnmappercreator-getcolumnmapper
      */
     GetColumnMapper(wcsMachineName, wcsCatalogName) {
         wcsMachineName := wcsMachineName is String ? StrPtr(wcsMachineName) : wcsMachineName

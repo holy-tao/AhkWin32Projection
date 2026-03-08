@@ -7,16 +7,12 @@
 /**
  * Used to log an event to the Windows Application event log in response to a quota, file screen, or file management job event.
  * @remarks
- * 
  * For most events, the event identifier is 12325. However, for events that a file management job logs, the event 
  *     identifier is 8244.
  * 
  * You must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext">MessageText</a> 
  *     property; the other property is optional.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrm/nn-fsrm-ifsrmactioneventlog
+ * @see https://learn.microsoft.com/windows/win32/api/fsrm/nn-fsrm-ifsrmactioneventlog
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -58,9 +54,9 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the type of event that the action logs when it runs.
+     * Retrieves or sets the type of event that the action logs when it runs. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_eventtype
      */
     get_EventType() {
         result := ComCall(12, this, "int*", &eventType := 0, "HRESULT")
@@ -68,10 +64,10 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the type of event that the action logs when it runs.
+     * Retrieves or sets the type of event that the action logs when it runs. (Put)
      * @param {Integer} eventType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-put_eventtype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-put_eventtype
      */
     put_EventType(eventType) {
         result := ComCall(13, this, "int", eventType, "HRESULT")
@@ -79,9 +75,9 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the event text that is logged when the action runs.
+     * Retrieves or sets the event text that is logged when the action runs. (IFsrmActionEventLog.get_MessageText)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-get_messagetext
      */
     get_MessageText() {
         messageText := BSTR()
@@ -90,10 +86,10 @@ class IFsrmActionEventLog extends IFsrmAction{
     }
 
     /**
-     * Retrieves or sets the event text that is logged when the action runs.
+     * Retrieves or sets the event text that is logged when the action runs. (IFsrmActionEventLog.put_MessageText)
      * @param {BSTR} messageText 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrm/nf-fsrm-ifsrmactioneventlog-put_messagetext
+     * @see https://learn.microsoft.com/windows/win32/api/fsrm/nf-fsrm-ifsrmactioneventlog-put_messagetext
      */
     put_MessageText(messageText) {
         messageText := messageText is String ? BSTR.Alloc(messageText).Value : messageText

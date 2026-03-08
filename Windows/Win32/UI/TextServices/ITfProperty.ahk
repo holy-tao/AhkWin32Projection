@@ -7,11 +7,8 @@
 /**
  * The ITfProperty interface is implemented by the TSF manager and used by a client (application or text service) to modify a property value.
  * @remarks
- * 
  * An instance of this interface is obtained in various ways, such as <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontext-getproperty">ITfContext::GetProperty</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-ienumtfproperties-next">IEnumTfProperties::Next</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfproperty
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfproperty
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -38,11 +35,31 @@ class ITfProperty extends ITfReadOnlyProperty{
 
     /**
      * ITfProperty::FindRange method
+     * @remarks
+     * This method obtains a range of text that contains a non-empty value for the property. If the property has no value at the specified point, <i>ppRange</i> receives <b>NULL</b> and the method returns S_FALSE. In the following example, if <i>aPos</i> contains TF_ANCHOR_START, the returned range would contain "is". If <i>aPos</i> contains TF_ANCHOR_END, the method would return S_FALSE because the property does not exist at the end point of the range.
+     * 
+     * 
+     * ``` syntax
+     * 
+     * COLOR: RRRRR   RR          GGGGGGGG
+     * TEXT:  this &lt;a&gt;is som&lt;/a&gt;e colored text
+     * 
+     * ```
+     * 
+     * If <i>aPos</i> contains TF_ANCHOR_START, this method ignores property ranges that end immediately before the start anchor. Likewise, if <i>aPos</i> contains TF_ANCHOR_END, this method ignores property ranges that start immediately after the end anchor. In the following example, if <i>aPos</i> contains TF_ANCHOR_START, the returned range would contain "colored " and not "some " because the R value property ends at the start anchor point and the G value property begins at the start anchor. If <i>aPos</i> contains TF_ANCHOR_END, the returned range would contain "colored " and not "text".
+     * 
+     * 
+     * ``` syntax
+     * 
+     * COLOR:         RRRRR   GGGGGGGG    BBBB
+     * TEXT:  this is some &lt;a&gt;colored &lt;/a&gt;text
+     * 
+     * ```
      * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the point to obtain the property range for. The point will either be the start anchor or end anchor of this range, based upon the value of <i>aPos</i>.
      * @param {Integer} aPos Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/msctf/ne-msctf-tfanchor">TfAnchor</a> values which specifies which anchor of <i>pRange</i> is used as the point to obtain the property range for.
      * @returns {ITfRange} Pointer to an <b>ITfRange</b> interface pointer that receives the requested range object.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-findrange
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-findrange
      */
     FindRange(ec, pRange, aPos) {
         result := ComCall(7, this, "uint", ec, "ptr", pRange, "ptr*", &ppRange := 0, "int", aPos, "HRESULT")
@@ -51,6 +68,12 @@ class ITfProperty extends ITfReadOnlyProperty{
 
     /**
      * ITfProperty::SetValueStore method
+     * @remarks
+     * Property values set with <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfproperty-setvalue">ITfProperty::SetValue</a> will be discarded when the text that the property value covers is modified. To gain control over what happens to a property value when the text is modified, use <b>ITfProperty::SetValueStore</b> .
+     * 
+     * Values set with <b>ITfProperty::SetValue</b> will be serialized, except for values of type VT_UNKNOWN, which are not serialized. If a property value of type VT_UNKNOWN must be serialized, use <b>ITfProperty::SetValueStore</b> instead.
+     * 
+     * Overlapping property values of the same type are unsupported.
      * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the range that the property value is set for. This parameter cannot be <b>NULL</b>. This method fails if <i>pRange</i> is empty.
      * @param {ITfPropertyStore} pPropStore Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfpropertystore">ITfPropertyStore</a> interface that obtains the property data.
@@ -106,7 +129,7 @@ class ITfProperty extends ITfReadOnlyProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-setvaluestore
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-setvaluestore
      */
     SetValueStore(ec, pRange, pPropStore) {
         result := ComCall(8, this, "uint", ec, "ptr", pRange, "ptr", pPropStore, "HRESULT")
@@ -115,6 +138,12 @@ class ITfProperty extends ITfReadOnlyProperty{
 
     /**
      * ITfProperty::SetValue method
+     * @remarks
+     * Property values set with this method will be discarded when the text that the property value covers is modified. To gain custom control over a value response to text edits, use <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfproperty-setvaluestore">ITfProperty::SetValueStore</a>.
+     * 
+     * Values set with this method are serialized, except for values of type VT_UNKNOWN, which are not serialized. If a property value of type VT_UNKNOWN must be serialized, use <b>ITfProperty::SetValueStore</b> instead.
+     * 
+     * Overlapping property values of the same type are unsupported.
      * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the range that the property value is set for. This parameter cannot be <b>NULL</b>. This method will fail if <i>pRange</i> is empty.
      * @param {Pointer<VARIANT>} pvarValue Pointer to a <b>VARIANT</b> structure that contains the new property value. Only values of type VT_I4, VT_UNKNOWN, VT_BSTR and VT_EMPTY are supported.
@@ -203,7 +232,7 @@ class ITfProperty extends ITfReadOnlyProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-setvalue
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-setvalue
      */
     SetValue(ec, pRange, pvarValue) {
         result := ComCall(9, this, "uint", ec, "ptr", pRange, "ptr", pvarValue, "HRESULT")
@@ -212,6 +241,8 @@ class ITfProperty extends ITfReadOnlyProperty{
 
     /**
      * ITfProperty::Clear method
+     * @remarks
+     * It is not necessary to call this method when a context is about to be destroyed. The TSF manager will clear all properties when the context is removed from the context stack.
      * @param {Integer} ec Contains an edit cookie that identifies the edit context. This is obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfdocumentmgr-createcontext">ITfDocumentMgr::CreateContext</a> or <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pRange Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> interface that contains the range that the property is cleared for. If this parameter is <b>NULL</b>, all values for this property over the entire edit context are cleared.
      * @returns {HRESULT} This method can return one of these values.
@@ -277,7 +308,7 @@ class ITfProperty extends ITfReadOnlyProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfproperty-clear
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfproperty-clear
      */
     Clear(ec, pRange) {
         result := ComCall(10, this, "uint", ec, "ptr", pRange, "HRESULT")

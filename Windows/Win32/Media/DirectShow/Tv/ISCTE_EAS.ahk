@@ -7,7 +7,7 @@
 
 /**
  * The ISCTE_EAS interface enables the client to get data from an ATSC emergency alert message (EAS) table.
- * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nn-atscpsipparser-iscte_eas
+ * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nn-atscpsipparser-iscte_eas
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -88,7 +88,7 @@ class ISCTE_EAS extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-initialize
      */
     Initialize(pSectionList, pMPEGData) {
         result := ComCall(3, this, "ptr", pSectionList, "ptr", pMPEGData, "HRESULT")
@@ -98,7 +98,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetVersionNumber method returns the version number for the EAS table.
      * @returns {Integer} Receives the version_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getversionnumber
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getversionnumber
      */
     GetVersionNumber() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -108,7 +108,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetSequencyNumbermethod returns the sequence number.
      * @returns {Integer} Receives the sequence_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getsequencynumber
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getsequencynumber
      */
     GetSequencyNumber() {
         result := ComCall(5, this, "char*", &pbVal := 0, "HRESULT")
@@ -118,7 +118,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetProtocolVersion method returns the protocol version of the EAS table.
      * @returns {Integer} Receives the protocol_version field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getprotocolversion
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getprotocolversion
      */
     GetProtocolVersion() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -128,7 +128,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetEASEventID method returns the identifier of this emergency event.
      * @returns {Integer} Receives the EAS_Event_ID field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventid
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventid
      */
     GetEASEventID() {
         result := ComCall(7, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -138,7 +138,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetOriginatorCode method returns the EAS originator code.
      * @returns {Integer} Receives the EAS_originator_code field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getoriginatorcode
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getoriginatorcode
      */
     GetOriginatorCode() {
         result := ComCall(8, this, "char*", &pbVal := 0, "HRESULT")
@@ -148,7 +148,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetEASEventCodeLen method returns the size of the EAS event code.
      * @returns {Integer} Receives the size of the EAS event code, in bytes. To get the event code, allocate a buffer of this size and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcode">ISCTE_EAS::GetEASEventCode</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcodelen
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcodelen
      */
     GetEASEventCodeLen() {
         result := ComCall(9, this, "char*", &pbVal := 0, "HRESULT")
@@ -158,7 +158,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetEASEventCode method returns the EAS event code.
      * @returns {Integer} A pointer to a buffer that receives the EAS_event_code field. The caller must allocate the buffer, which must be large enough to hold the event code. To get the required size of the buffer, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcodelen">ISCTE_EAS::GetEASEventCodeLen</a>. The event code consists of ASCII characters.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcode
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-geteaseventcode
      */
     GetEASEventCode() {
         result := ComCall(10, this, "char*", &pbVal := 0, "HRESULT")
@@ -168,7 +168,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * Gets the length of the nature_of_activation_text field.
      * @returns {Integer} Receives the size of the nature_of_activation_text field, in bytes. To get the value of the field, allocate a buffer of this size and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtext">ISCTE_EAS::GetRawNatureOfActivationText</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtextlen
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtextlen
      */
     GetRawNatureOfActivationTextLen() {
         result := ComCall(11, this, "char*", &pbVal := 0, "HRESULT")
@@ -177,8 +177,10 @@ class ISCTE_EAS extends IUnknown{
 
     /**
      * Gets the raw nature_of_activation_text field from the EAS table.
+     * @remarks
+     * To get the text for a specific language, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getnatureofactivationtext">ISCTE_EAS::GetNatureOfActivationText</a>.
      * @returns {Integer} A pointer to a buffer that receives the nature_of_activation_text field. The caller must allocate the buffer. To get the required size of the buffer, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtextlen">ISCTE_EAS::GetRawNatureOfActivationTextLen</a>. The text is formatted as a Multiple String Structure as defined by ATSC PSIP Standard A/65.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtext
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawnatureofactivationtext
      */
     GetRawNatureOfActivationText() {
         result := ComCall(12, this, "char*", &pbVal := 0, "HRESULT")
@@ -187,9 +189,14 @@ class ISCTE_EAS extends IUnknown{
 
     /**
      * The GetNatureOfActivationText method gets a textual representation of the alert for a specified ISO 639 language code.
+     * @remarks
+     * The returned string is taken from the nature_of_activation_text field, as defined by ANSI-J-STD-042-A.
+     * 
+     * <div class="alert"><b>Note</b>  An earlier version of the documentation gave an incorrect signature for this method.</div>
+     * <div> </div>
      * @param {BSTR} bstrIS0639code The ISO 639 language code.
      * @returns {BSTR} Receives the text as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getnatureofactivationtext
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getnatureofactivationtext
      */
     GetNatureOfActivationText(bstrIS0639code) {
         bstrIS0639code := bstrIS0639code is String ? BSTR.Alloc(bstrIS0639code).Value : bstrIS0639code
@@ -202,7 +209,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetTimeRemaining method returns the time that remains in the alert message.
      * @returns {Integer} Receives the alert_message_time_remaining field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-gettimeremaining
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-gettimeremaining
      */
     GetTimeRemaining() {
         result := ComCall(14, this, "char*", &pbVal := 0, "HRESULT")
@@ -212,7 +219,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetStartTime method returns the starting time of the alert.
      * @returns {Integer} Receives the event_start_time field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getstarttime
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getstarttime
      */
     GetStartTime() {
         result := ComCall(15, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -222,7 +229,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetDuration method returns the expected duration of the alert.
      * @returns {Integer} Receives the event_duration field. The value of the field is the expected duration in minutes, most significant bit first.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getduration
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getduration
      */
     GetDuration() {
         result := ComCall(16, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -232,7 +239,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetAlertPriority method returns the alert priority.
      * @returns {Integer} Receives the alert_priority field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getalertpriority
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getalertpriority
      */
     GetAlertPriority() {
         result := ComCall(17, this, "char*", &pbVal := 0, "HRESULT")
@@ -242,7 +249,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetDetailsOOBSourceID method returns the source identifier of the virtual details channel for the emergency alert.
      * @returns {Integer} Receives the details_OOB_source_ID field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsoobsourceid
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsoobsourceid
      */
     GetDetailsOOBSourceID() {
         result := ComCall(18, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -252,7 +259,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetDetailsMajor method returns the major channel number for the details channel.
      * @returns {Integer} Receives the details_major_channel_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsmajor
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsmajor
      */
     GetDetailsMajor() {
         result := ComCall(19, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -262,7 +269,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetDetailsMinor method returns the minor channel number for the details channel.
      * @returns {Integer} Receives the details_minor_channel_number field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsminor
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsminor
      */
     GetDetailsMinor() {
         result := ComCall(20, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -272,7 +279,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetDetailsAudioOOBSourceID method returns the source identifier of the virtual audio channel for the emergency alert.
      * @returns {Integer} Receives the audio_OOB_source_ID field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsaudiooobsourceid
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getdetailsaudiooobsourceid
      */
     GetDetailsAudioOOBSourceID() {
         result := ComCall(21, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -281,9 +288,14 @@ class ISCTE_EAS extends IUnknown{
 
     /**
      * The GetAlertText method gets the alert text for a specified ISO 639 language code.
+     * @remarks
+     * The returned string is taken from the alert_text field, as defined by ANSI-J-STD-042-A.
+     * 
+     * <div class="alert"><b>Note</b>  An earlier version of the documentation gave an incorrect signature for this method.</div>
+     * <div> </div>
      * @param {BSTR} bstrIS0639code The ISO 639 language code.
      * @returns {BSTR} Receives the alert text as a <b>BSTR</b>. The caller must free the string by calling <b>SysFreeString</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getalerttext
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getalerttext
      */
     GetAlertText(bstrIS0639code) {
         bstrIS0639code := bstrIS0639code is String ? BSTR.Alloc(bstrIS0639code).Value : bstrIS0639code
@@ -296,7 +308,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * Gets the length of the alert_text field.
      * @returns {Integer} Receives the size of the alert_text field, in bytes. To get the value of the field, allocate a buffer of this size and call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttext">ISCTE_EAS::GetRawAlertText</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttextlen
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttextlen
      */
     GetRawAlertTextLen() {
         result := ComCall(23, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -305,8 +317,10 @@ class ISCTE_EAS extends IUnknown{
 
     /**
      * Gets the raw alert_text field from the EAS table.
+     * @remarks
+     * To get the alert text for a specific language, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getalerttext">ISCTE_EAS::GetAlertText</a>.
      * @returns {Integer} A pointer to a buffer that receives the alert_text field. The caller must allocate the buffer. To get the required size of the buffer, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttextlen">ISCTE_EAS::GetRawAlertTextLen</a>. The text is formatted as a Multiple String Structure as defined by ATSC PSIP Standard A/65.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttext
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getrawalerttext
      */
     GetRawAlertText() {
         result := ComCall(24, this, "char*", &pbVal := 0, "HRESULT")
@@ -316,7 +330,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetLocationCount method returns the number of locations in the EAS table.
      * @returns {Integer} Receives the location_code_count field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getlocationcount
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getlocationcount
      */
     GetLocationCount() {
         result := ComCall(25, this, "char*", &pbVal := 0, "HRESULT")
@@ -355,7 +369,7 @@ class ISCTE_EAS extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-initialize">ISCTE_EAS::Initialize</a> method was not called.
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-initialize">ISCTE_EAS::Initialize</a> method was not called.
      * 
      * </td>
      * </tr>
@@ -371,7 +385,7 @@ class ISCTE_EAS extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getlocationcodes
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getlocationcodes
      */
     GetLocationCodes(bIndex, pbState, pbCountySubdivision, pwCounty) {
         pbStateMarshal := pbState is VarRef ? "char*" : "ptr"
@@ -385,7 +399,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetExceptionCount method returns the number of exception services.
      * @returns {Integer} Receives the exception_count field.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getexceptioncount
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getexceptioncount
      */
     GetExceptionCount() {
         result := ComCall(27, this, "char*", &pbVal := 0, "HRESULT")
@@ -424,7 +438,7 @@ class ISCTE_EAS extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-initialize">ISCTE_EAS::Initialize</a> method was not called.
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-initialize">ISCTE_EAS::Initialize</a> method was not called.
      * 
      * </td>
      * </tr>
@@ -440,7 +454,7 @@ class ISCTE_EAS extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getexceptionservice
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getexceptionservice
      */
     GetExceptionService(bIndex, pbIBRef, pwFirst, pwSecond) {
         pbIBRefMarshal := pbIBRef is VarRef ? "char*" : "ptr"
@@ -454,7 +468,7 @@ class ISCTE_EAS extends IUnknown{
     /**
      * The GetCountOfTableDescriptors method returns the number of descriptors in the EAS table.
      * @returns {Integer} Receives the number of descriptors.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-getcountoftabledescriptors
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getcountoftabledescriptors
      */
     GetCountOfTableDescriptors() {
         result := ComCall(29, this, "uint*", &pdwVal := 0, "HRESULT")
@@ -465,7 +479,7 @@ class ISCTE_EAS extends IUnknown{
      * The GetTableDescriptorByIndex method returns a descriptor for the EAS table.
      * @param {Integer} dwIndex The zero-based index of the descriptor to retrieve. Call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/atscpsipparser/nf-atscpsipparser-iscte_eas-getcountoftabledescriptors">ISCTE_EAS::GetCountOfTableDescriptors</a> method to get the number of table descriptors.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-gettabledescriptorbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-gettabledescriptorbyindex
      */
     GetTableDescriptorByIndex(dwIndex) {
         result := ComCall(30, this, "uint", dwIndex, "ptr*", &ppDescriptor := 0, "HRESULT")
@@ -477,7 +491,7 @@ class ISCTE_EAS extends IUnknown{
      * @param {Integer} bTag The descriptor tag to search for.
      * @param {Pointer<Integer>} pdwCookie A pointer to a variable that specifies the start position in the descriptor list. This parameter can be <b>NULL</b>. If the value is <b>NULL</b>, the search starts from the first descriptor in the list. Otherwise, the search starts from the position given in *<i>pdwCookie</i>. When the method returns, the <i>pdwCookie</i> parameter contains the position of the next matching descriptor, if any. You can use this parameter to iterate through the descriptor list, looking for every instance of a particular descriptor tag.
      * @returns {IGenericDescriptor} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mpeg2psiparser/nn-mpeg2psiparser-igenericdescriptor">IGenericDescriptor</a> interface. Use this interface to retrieve the information in the descriptor. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//atscpsipparser/nf-atscpsipparser-iscte_eas-gettabledescriptorbytag
+     * @see https://learn.microsoft.com/windows/win32/api/atscpsipparser/nf-atscpsipparser-iscte_eas-gettabledescriptorbytag
      */
     GetTableDescriptorByTag(bTag, pdwCookie) {
         pdwCookieMarshal := pdwCookie is VarRef ? "uint*" : "ptr"

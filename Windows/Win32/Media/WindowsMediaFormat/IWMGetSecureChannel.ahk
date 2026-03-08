@@ -6,7 +6,7 @@
 
 /**
  * The IWMGetSecureChannel interface is used by one communication party to get the other party's IWMSecureChannel interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nn-wmsecure-iwmgetsecurechannel
+ * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nn-wmsecure-iwmgetsecurechannel
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IWMGetSecureChannel extends IUnknown{
     /**
      * The GetPeerSecureChannelInterface method gets the IWMSecureChannel interface from the other communication party.
      * @returns {IWMSecureChannel} An address of a pointer to the other communication party's <a href="https://docs.microsoft.com/windows/desktop/api/wmsecure/nn-wmsecure-iwmsecurechannel">IWMSecureChannel</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsecure/nf-wmsecure-iwmgetsecurechannel-getpeersecurechannelinterface
+     * @see https://learn.microsoft.com/windows/win32/api/wmsecure/nf-wmsecure-iwmgetsecurechannel-getpeersecurechannelinterface
      */
     GetPeerSecureChannelInterface() {
         result := ComCall(3, this, "ptr*", &ppPeer := 0, "HRESULT")

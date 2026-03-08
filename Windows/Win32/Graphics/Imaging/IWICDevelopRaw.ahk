@@ -5,8 +5,8 @@
 #Include .\IWICBitmapFrameDecode.ahk
 
 /**
- * Exposes methods that provide access to the capabilites of a raw codec format.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicdevelopraw
+ * Exposes methods that provide access to the capabilities of a raw codec format.
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicdevelopraw
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -33,13 +33,15 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Retrieves information about which capabilities are supported for a raw image.
+     * @remarks
+     * It is recommended that a codec report that a capability is supported even if the results at the outer range limits are not of perfect quality.
      * @param {Pointer<WICRawCapabilitiesInfo>} pInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrawcapabilitiesinfo">WICRawCapabilitiesInfo</a>*</b>
      * 
      * A pointer that receives <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ns-wincodec-wicrawcapabilitiesinfo">WICRawCapabilitiesInfo</a> that provides the capabilities supported by the raw image.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-queryrawcapabilitiesinfo
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-queryrawcapabilitiesinfo
      */
     QueryRawCapabilitiesInfo(pInfo) {
         result := ComCall(11, this, "ptr", pInfo, "HRESULT")
@@ -53,8 +55,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * The desired <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawparameterset">WICRawParameterSet</a> option.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-loadparameterset
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-loadparameterset
      */
     LoadParameterSet(ParameterSet) {
         result := ComCall(12, this, "int", ParameterSet, "HRESULT")
@@ -66,7 +68,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {IPropertyBag2} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa768192(v=vs.85)">IPropertyBag2</a>**</b>
      * 
      * A pointer that receives a pointer to the current set of parameters.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getcurrentparameterset
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getcurrentparameterset
      */
     GetCurrentParameterSet() {
         result := ComCall(13, this, "ptr*", &ppCurrentParameterSet := 0, "HRESULT")
@@ -75,13 +77,15 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the exposure compensation stop value.
+     * @remarks
+     * It is recommended that a codec report that this method is supported even if the results at the outer range limits are not of perfect quality.
      * @param {Float} ev Type: <b>double</b>
      * 
      * The exposure compensation value. The value range for exposure compensation is -5.0 through +5.0, which equates to 10 full stops.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setexposurecompensation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setexposurecompensation
      */
     SetExposureCompensation(ev) {
         result := ComCall(14, this, "double", ev, "HRESULT")
@@ -93,7 +97,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the exposure compensation stop value. The default is the "as-shot" setting.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getexposurecompensation
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getexposurecompensation
      */
     GetExposureCompensation() {
         result := ComCall(15, this, "double*", &pEV := 0, "HRESULT")
@@ -102,6 +106,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the white point RGB values.
+     * @remarks
+     * Due to other white point setting methods (e.g. <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointkelvin">SetWhitePointKelvin</a>), care must be taken by codec implementers to ensure proper interoperability. For instance, if the caller sets via a named white point then the codec implementer may wish to disable reading back the corresponding Kelvin temperature. In specific cases where the codec implementer wishes to deny a given action because of previous calls, <b>WINCODEC_ERR_WRONGSTATE</b> should be returned.
      * @param {Integer} Red Type: <b>UINT</b>
      * 
      * The red white point value.
@@ -113,8 +119,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * The blue white point value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setwhitepointrgb
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointrgb
      */
     SetWhitePointRGB(Red, Green, Blue) {
         result := ComCall(16, this, "uint", Red, "uint", Green, "uint", Blue, "HRESULT")
@@ -134,8 +140,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * A pointer that receives the blue white point value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getwhitepointrgb
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getwhitepointrgb
      */
     GetWhitePointRGB(pRed, pGreen, pBlue) {
         pRedMarshal := pRed is VarRef ? "uint*" : "ptr"
@@ -148,13 +154,21 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the named white point of the raw file.
+     * @remarks
+     * If the named white points are not supported by the raw image or the raw file contains named white points that are not supported by this API, the codec implementer should still mark this capability as supported.
+     * 
+     * If the named white points are not supported by the raw image, a best effort should be made to adjust the image to the named white point even when it isn't a pre-defined white point of the raw file.
+     * 
+     * If the raw file contains named white points not supported by this API, the codec implementer should support the named white points in the API.
+     * 
+     * Due to other white point setting methods (e.g. <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointkelvin">SetWhitePointKelvin</a>), care must be taken by codec implementers to ensure proper interoperability. For instance, if the caller sets via a named white point then the codec implementer may wish to disable reading back the corresponding Kelvin temperature. In specific cases where the codec implementer wishes to deny a given action because of previous calls, <b>WINCODEC_ERR_WRONGSTATE</b> should be returned.
      * @param {Integer} WhitePoint Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a></b>
      * 
      * A bitwise combination of the enumeration values.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setnamedwhitepoint
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setnamedwhitepoint
      */
     SetNamedWhitePoint(WhitePoint) {
         result := ComCall(18, this, "int", WhitePoint, "HRESULT")
@@ -163,10 +177,16 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Gets the named white point of the raw image.
+     * @remarks
+     * If the named white points are not supported by the raw image or the raw file contains named white points that are not supported by this API, the codec implementer should still mark this capability as supported.
+     * 
+     * If the named white points are not supported by the raw image, a best effort should be made to adjust the image to the named white point even when it isn't a pre-defined white point of the raw file.
+     * 
+     * If the raw file contains named white points not supported by this API, the codec implementer should support the named white points in <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a>.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicnamedwhitepoint">WICNamedWhitePoint</a>*</b>
      * 
      * A pointer that receives the bitwise combination of the enumeration values.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getnamedwhitepoint
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getnamedwhitepoint
      */
     GetNamedWhitePoint() {
         result := ComCall(19, this, "int*", &pWhitePoint := 0, "HRESULT")
@@ -175,13 +195,19 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the white point Kelvin value.
+     * @remarks
+     * Codec implementers should faithfully adjust the color temperature within the range supported natively by the raw image. For values outside the native support range, the codec implementer should provide a best effort representation of the image at that color temperature.
+     * 
+     * Codec implementers should return <b>WINCODEC_ERR_VALUEOUTOFRANGE</b> if the value is out of defined acceptable range.
+     * 
+     * Codec implementers must ensure proper interoperability with other white point setting methods such as <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointrgb">SetWhitePointRGB</a>. For example, if the caller sets the white point via <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicdevelopraw-setnamedwhitepoint">SetNamedWhitePoint</a> then the codec implementer may want to disable reading back the corresponding Kelvin temperature. In specific cases where the codec implementer wants to deny a given action because of previous calls, <b>WINCODEC_ERR_WRONGSTATE</b> should be returned.
      * @param {Integer} WhitePointKelvin Type: <b>UINT</b>
      * 
      * The white point Kelvin value. Acceptable Kelvin values are 1,500 through 30,000.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setwhitepointkelvin
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setwhitepointkelvin
      */
     SetWhitePointKelvin(WhitePointKelvin) {
         result := ComCall(20, this, "uint", WhitePointKelvin, "HRESULT")
@@ -193,7 +219,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * A pointer that receives the white point Kelvin temperature of the raw image. The default is the "as-shot" setting value.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getwhitepointkelvin
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getwhitepointkelvin
      */
     GetWhitePointKelvin() {
         result := ComCall(21, this, "uint*", &pWhitePointKelvin := 0, "HRESULT")
@@ -213,8 +239,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * A pointer that receives the Kelvin step value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getkelvinrangeinfo
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getkelvinrangeinfo
      */
     GetKelvinRangeInfo(pMinKelvinTemp, pMaxKelvinTemp, pKelvinTempStepValue) {
         pMinKelvinTempMarshal := pMinKelvinTemp is VarRef ? "uint*" : "ptr"
@@ -227,13 +253,15 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the contrast value of the raw image.
+     * @remarks
+     * The codec implementer must determine what the upper range value represents and must determine how to map the value to their image processing routines.
      * @param {Float} Contrast Type: <b>double</b>
      * 
      * The contrast value of the raw image.  The default value is the "as-shot" setting. The value range for contrast is 0.0 through 1.0. The 0.0 lower limit represents no contrast applied to the image, while the 1.0 upper limit represents the highest amount of contrast that can be applied.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setcontrast
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setcontrast
      */
     SetContrast(Contrast) {
         result := ComCall(23, this, "double", Contrast, "HRESULT")
@@ -245,7 +273,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the contrast value of the raw image. The default value is the "as-shot" setting. The value range for contrast is 0.0 through 1.0. The 0.0 lower limit represents no contrast applied to the image, while the 1.0 upper limit represents the highest amount of contrast that can be applied.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getcontrast
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getcontrast
      */
     GetContrast() {
         result := ComCall(24, this, "double*", &pContrast := 0, "HRESULT")
@@ -259,8 +287,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * The desired gamma value.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setgamma
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setgamma
      */
     SetGamma(Gamma) {
         result := ComCall(25, this, "double", Gamma, "HRESULT")
@@ -272,7 +300,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the current gamma setting.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getgamma
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getgamma
      */
     GetGamma() {
         result := ComCall(26, this, "double*", &pGamma := 0, "HRESULT")
@@ -281,13 +309,15 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the sharpness value of the raw image.
+     * @remarks
+     * The codec implementer must determine what the upper range value represents and must determine how to map the value to their image processing routines.
      * @param {Float} Sharpness Type: <b>double</b>
      * 
      * The sharpness value of the raw image. The default value is the "as-shot" setting. The value range for sharpness is 0.0 through 1.0. The 0.0 lower limit represents no sharpening applied to the image, while the 1.0 upper limit represents the highest amount of sharpness that can be applied.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setsharpness
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setsharpness
      */
     SetSharpness(Sharpness) {
         result := ComCall(27, this, "double", Sharpness, "HRESULT")
@@ -299,7 +329,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the sharpness value of the raw image. The default value is the "as-shot" setting. The value range for sharpness is 0.0 through 1.0. The 0.0 lower limit represents no sharpening applied to the image, while the 1.0 upper limit represents the highest amount of sharpness that can be applied.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getsharpness
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getsharpness
      */
     GetSharpness() {
         result := ComCall(28, this, "double*", &pSharpness := 0, "HRESULT")
@@ -308,13 +338,15 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the saturation value of the raw image.
+     * @remarks
+     * The codec implementer must determine what the upper range value represents and must determine how to map the value to their image processing routines.
      * @param {Float} Saturation Type: <b>double</b>
      * 
      * The saturation value of the raw image. The value range for saturation is 0.0 through 1.0. A value of 0.0 represents an image with a fully de-saturated image, while a value of 1.0 represents the highest amount of saturation that can be applied.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setsaturation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setsaturation
      */
     SetSaturation(Saturation) {
         result := ComCall(29, this, "double", Saturation, "HRESULT")
@@ -326,7 +358,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the saturation value of the raw image. The default value is the "as-shot" setting. The value range for saturation is 0.0 through 1.0. A value of 0.0 represents an image with a fully de-saturated image, while a value of 1.0 represents the highest amount of saturation that can be applied.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getsaturation
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getsaturation
      */
     GetSaturation() {
         result := ComCall(30, this, "double*", &pSaturation := 0, "HRESULT")
@@ -335,13 +367,15 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the tint value of the raw image.
+     * @remarks
+     * The codec implementer must determine what the outer range values represent and must determine how to map the values to their image processing routines.
      * @param {Float} Tint Type: <b>double</b>
      * 
      * The tint value of the raw image. The default value is the "as-shot" setting if it exists or 0.0. The value range for sharpness is -1.0 through +1.0. The -1.0 lower limit represents a full green bias to the image, while the 1.0 upper limit represents a full magenta bias.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-settint
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-settint
      */
     SetTint(Tint) {
         result := ComCall(31, this, "double", Tint, "HRESULT")
@@ -353,7 +387,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the tint value of the raw image. The default value is the "as-shot" setting if it exists or 0.0. The value range for sharpness is -1.0 through +1.0. The -1.0 lower limit represents a full green bias to the image, while the 1.0 upper limit represents a full magenta bias.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-gettint
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-gettint
      */
     GetTint() {
         result := ComCall(32, this, "double*", &pTint := 0, "HRESULT")
@@ -362,13 +396,15 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
 
     /**
      * Sets the noise reduction value of the raw image.
+     * @remarks
+     * The codec implementer must determine what the upper range value represents and must determine how to map the value to their image processing routines.
      * @param {Float} NoiseReduction Type: <b>double</b>
      * 
      * The noise reduction value of the raw image.  The default value is the "as-shot" setting if it exists or 0.0. The value range for noise reduction is 0.0 through 1.0. The 0.0 lower limit represents no noise reduction applied to the image, while the 1.0 upper limit represents highest noise reduction amount that can be applied.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setnoisereduction
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setnoisereduction
      */
     SetNoiseReduction(NoiseReduction) {
         result := ComCall(33, this, "double", NoiseReduction, "HRESULT")
@@ -380,7 +416,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the noise reduction value of the raw image.  The default value is the "as-shot" setting if it exists or 0.0. The value range for noise reduction is 0.0 through 1.0. The 0.0 lower limit represents no noise reduction applied to the image, while the 1.0 upper limit represents full highest noise reduction amount that can be applied.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getnoisereduction
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getnoisereduction
      */
     GetNoiseReduction() {
         result := ComCall(34, this, "double*", &pNoiseReduction := 0, "HRESULT")
@@ -394,8 +430,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * The destination color context.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setdestinationcolorcontext
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setdestinationcolorcontext
      */
     SetDestinationColorContext(pColorContext) {
         result := ComCall(35, this, "ptr", pColorContext, "HRESULT")
@@ -412,8 +448,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * The desired tone curve.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-settonecurve
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-settonecurve
      */
     SetToneCurve(cbToneCurveSize, pToneCurve) {
         result := ComCall(36, this, "uint", cbToneCurveSize, "ptr", pToneCurve, "HRESULT")
@@ -433,8 +469,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * A pointer that receives the size needed to obtain the tone curve structure.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-gettonecurve
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-gettonecurve
      */
     GetToneCurve(cbToneCurveBufferSize, pToneCurve, pcbActualToneCurveBufferSize) {
         pcbActualToneCurveBufferSizeMarshal := pcbActualToneCurveBufferSize is VarRef ? "uint*" : "ptr"
@@ -450,8 +486,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * The desired rotation angle.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setrotation
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setrotation
      */
     SetRotation(Rotation) {
         result := ComCall(38, this, "double", Rotation, "HRESULT")
@@ -463,7 +499,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Float} Type: <b>double*</b>
      * 
      * A pointer that receives the current rotation angle.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getrotation
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getrotation
      */
     GetRotation() {
         result := ComCall(39, this, "double*", &pRotation := 0, "HRESULT")
@@ -477,8 +513,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * The render mode to use.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setrendermode
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setrendermode
      */
     SetRenderMode(RenderMode) {
         result := ComCall(40, this, "int", RenderMode, "HRESULT")
@@ -490,7 +526,7 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a>*</b>
      * 
      * A pointer that receives the current <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/ne-wincodec-wicrawrendermode">WICRawRenderMode</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-getrendermode
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-getrendermode
      */
     GetRenderMode() {
         result := ComCall(41, this, "int*", &pRenderMode := 0, "HRESULT")
@@ -504,8 +540,8 @@ class IWICDevelopRaw extends IWICBitmapFrameDecode{
      * Pointer to the notification callback method.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicdevelopraw-setnotificationcallback
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicdevelopraw-setnotificationcallback
      */
     SetNotificationCallback(pCallback) {
         result := ComCall(42, this, "ptr", pCallback, "HRESULT")

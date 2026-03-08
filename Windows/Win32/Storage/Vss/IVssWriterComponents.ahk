@@ -5,7 +5,7 @@
 
 /**
  * Contains methods used to obtain and modify component information.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivsswritercomponents
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsswritercomponents
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -69,7 +69,7 @@ class IVssWriterComponents extends Win32ComInterface{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsswritercomponents-getcomponentcount
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponentcount
      */
     GetComponentCount(pcComponents) {
         pcComponentsMarshal := pcComponents is VarRef ? "uint*" : "ptr"
@@ -130,12 +130,12 @@ class IVssWriterComponents extends Win32ComInterface{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsswritercomponents-getwriterinfo
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getwriterinfo
      */
     GetWriterInfo(pidInstance, pidWriter) {
         result := ComCall(1, this, "ptr", pidInstance, "ptr", pidWriter, "HRESULT")
@@ -144,12 +144,15 @@ class IVssWriterComponents extends Win32ComInterface{
 
     /**
      * The GetComponent method returns an IVssComponent interface to one of a given writer's components explicitly stored in the Backup Components Document.
+     * @remarks
+     * The caller is responsible for calling <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> to release system resources held by the returned 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> object.
      * @param {Integer} iComponent Number of the component. The value of this parameter is an integer from 0 
      *       to <i>n</i>–1 inclusive, where <i>n</i> is the total number of components returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponentcount">IVssWriterComponents::GetComponentCount</a>.
      * @returns {IVssComponent} Doubly indirect pointer to an instance of the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nl-vswriter-ivsscomponent">IVssComponent</a> object that contains component information.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsswritercomponents-getcomponent
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsswritercomponents-getcomponent
      */
     GetComponent(iComponent) {
         result := ComCall(2, this, "uint", iComponent, "ptr*", &ppComponent := 0, "HRESULT")

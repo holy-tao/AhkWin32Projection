@@ -5,7 +5,7 @@
 
 /**
  * Exposed by objects that act as a proxy for a remote object.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfremoteproxy
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfremoteproxy
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IMFRemoteProxy extends IUnknown{
      * Retrieves a pointer to the remote object for which this object is a proxy.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the requested interface.
      * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfremoteproxy-getremoteobject
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfremoteproxy-getremoteobject
      */
     GetRemoteObject(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
@@ -45,7 +45,7 @@ class IMFRemoteProxy extends IUnknown{
      * Retrieves a pointer to the object that is hosting this proxy.
      * @param {Pointer<Guid>} riid Interface identifier (IID) of the requested interface.
      * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfremoteproxy-getremotehost
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfremoteproxy-getremotehost
      */
     GetRemoteHost(riid) {
         result := ComCall(4, this, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

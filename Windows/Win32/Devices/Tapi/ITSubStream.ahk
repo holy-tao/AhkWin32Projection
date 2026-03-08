@@ -8,7 +8,7 @@
 
 /**
  * An ITSubStream is a component of an ITStream, and gives an application finer control over the media streaming.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itsubstream
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itsubstream
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -101,7 +101,7 @@ class ITSubStream extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-startsubstream
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-startsubstream
      */
     StartSubStream() {
         result := ComCall(7, this, "HRESULT")
@@ -110,6 +110,17 @@ class ITSubStream extends IDispatch{
 
     /**
      * The PauseSubStream method pauses the substream.
+     * @remarks
+     * The difference between pausing and stopping a stream depends on the type of transport.
+     * 
+     * If the substream pauses successfully, the application receives a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_media_event">CALL_MEDIA_EVENT</a> with a value of CME_STREAM_INACTIVE and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_media_event_cause">CALL_MEDIA_EVENT_CAUSE</a> equaling CMC_LOCAL_REQUEST.
+     * 
+     * If the substream fails to pause, the event will be CME_STREAM_FAIL with cause CMC_LOCAL_REQUEST.
+     * 
+     * A call to 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itsubstream-startsubstream">StartSubStream</a> restarts the substream.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -140,7 +151,7 @@ class ITSubStream extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-pausesubstream
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-pausesubstream
      */
     PauseSubStream() {
         result := ComCall(8, this, "HRESULT")
@@ -179,7 +190,7 @@ class ITSubStream extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-stopsubstream
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-stopsubstream
      */
     StopSubStream() {
         result := ComCall(9, this, "HRESULT")
@@ -253,7 +264,7 @@ class ITSubStream extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-selectterminal
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-selectterminal
      */
     SelectTerminal(pTerminal) {
         result := ComCall(10, this, "ptr", pTerminal, "HRESULT")
@@ -262,6 +273,10 @@ class ITSubStream extends IDispatch{
 
     /**
      * The UnselectTerminal method unselects the terminal from the substream.
+     * @remarks
+     * Some stream events may be received after streaming has been stopped due to delayed transmission.
+     * 
+     * Successfully unselecting the last terminal from a substream effectively ceases any existing streaming for this particular substream. Subsequently selecting the same terminal or another terminal restarts such interrupted streaming.
      * @param {ITTerminal} pTerminal Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface terminal to remove from stream.
      * @returns {HRESULT} This method can return one of these values.
@@ -327,7 +342,7 @@ class ITSubStream extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-unselectterminal
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-unselectterminal
      */
     UnselectTerminal(pTerminal) {
         result := ComCall(11, this, "ptr", pTerminal, "HRESULT")
@@ -336,9 +351,15 @@ class ITSubStream extends IDispatch{
 
     /**
      * The EnumerateTerminals method enumerates terminals selected on the substream. Provided for C and C++ applications. Automation client applications such as Visual Basic must use the get_Terminals method.
+     * @remarks
+     * This method returns only the terminals selected on the substream. Other terminals may be selected on the stream or on other substreams within the stream; those terminals are not returned.
+     * 
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumterminal">IEnumTerminal</a> interface returned by <b>ITSubStream::EnumerateTerminals</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumTerminal</b> interface to free resources associated with it.
      * @returns {IEnumTerminal} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumterminal">IEnumTerminal</a> terminal enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-enumerateterminals
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-enumerateterminals
      */
     EnumerateTerminals() {
         result := ComCall(12, this, "ptr*", &ppEnumTerminal := 0, "HRESULT")
@@ -347,10 +368,16 @@ class ITSubStream extends IDispatch{
 
     /**
      * The get_Terminals method creates a collection of terminals associated with the current substream. Provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateTerminals method.
+     * @remarks
+     * This method returns only the terminals selected on the substream. Other terminals may be selected on the stream or on other substreams within the stream; those terminals are not returned.
+     * 
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface returned by <b>ITSubStream::get_Terminals</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITTerminal</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itterminal">ITTerminal</a> interface pointers (terminal objects).
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-get_terminals
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-get_terminals
      */
     get_Terminals() {
         pTerminals := VARIANT()
@@ -360,9 +387,13 @@ class ITSubStream extends IDispatch{
 
     /**
      * The get_Stream method retrieves the pointer to the ITStream interface for the current substream.
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface returned by <b>ITSubStream::get_Stream</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface to free resources associated with it.
      * @returns {ITStream} Pointer to current 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itstream">ITStream</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itsubstream-get_stream
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itsubstream-get_stream
      */
     get_Stream() {
         result := ComCall(14, this, "ptr*", &ppITStream := 0, "HRESULT")

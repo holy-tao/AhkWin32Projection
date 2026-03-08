@@ -6,11 +6,8 @@
 /**
  * Contains methods that save and load the current location and state for DVD playback.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidWebDVD2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidwebdvd2
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidwebdvd2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -40,7 +37,7 @@ class IMSVidWebDVD2 extends IMSVidWebDVD{
      * @param {Pointer<Pointer<Integer>>} ppData 
      * @param {Pointer<Integer>} pDataLength 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidwebdvd2-get_bookmark
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidwebdvd2-get_bookmark
      */
     get_Bookmark(ppData, pDataLength) {
         ppDataMarshal := ppData is VarRef ? "ptr*" : "ptr"
@@ -55,7 +52,7 @@ class IMSVidWebDVD2 extends IMSVidWebDVD{
      * @param {Pointer<Integer>} pData 
      * @param {Integer} dwDataLength 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidwebdvd2-put_bookmark
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidwebdvd2-put_bookmark
      */
     put_Bookmark(pData, dwDataLength) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"

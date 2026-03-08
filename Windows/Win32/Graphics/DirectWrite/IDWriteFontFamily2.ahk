@@ -7,7 +7,7 @@
 
 /**
  * Represents a family of related fonts. **IDWriteFontFamily2** adds new facilities, including retrieving fonts by font axis values.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontfamily2
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfamily2
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,10 +33,16 @@ class IDWriteFontFamily2 extends IDWriteFontFamily1{
     static VTableNames => ["GetMatchingFonts", "GetFontSet"]
 
     /**
+     * Retrieves a list of fonts in the font family, ranked in order of how well they match the specified axis values.
+     * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues Type: **[DWRITE_FONT_AXIS_VALUE](./ns-dwrite_3-dwrite_font_axis_value.md) const \***
      * 
-     * @param {Pointer<DWRITE_FONT_AXIS_VALUE>} fontAxisValues 
-     * @param {Integer} fontAxisValueCount 
-     * @returns {IDWriteFontList2} 
+     * A pointer to an array containing a list of font axis values. The array should be the size (the number of elements) indicated by the *fontAxisValueCount* argument.
+     * @param {Integer} fontAxisValueCount Type: **[UINT32](/windows/win32/winprog/windows-data-types)**
+     * 
+     * The number of font axis values contained in the *fontAxisValues* array.
+     * @returns {IDWriteFontList2} Type: **[IDWriteFontList2](./nn-dwrite_3-idwritefontlist2.md)\*\***
+     * 
+     * The address of a pointer to an [IDWriteFontList2](./nn-dwrite_3-idwritefontlist2.md) interface. On successful completion, the function sets the pointer to a newly created font list object.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily2-getmatchingfonts
      */
     GetMatchingFonts(fontAxisValues, fontAxisValueCount) {
@@ -45,8 +51,10 @@ class IDWriteFontFamily2 extends IDWriteFontFamily1{
     }
 
     /**
+     * Retrieves the underlying font set used by this family.
+     * @returns {IDWriteFontSet1} Type: **[IDWriteFontSet1](./nn-dwrite_3-idwritefontset1.md)\*\***
      * 
-     * @returns {IDWriteFontSet1} 
+     * The address of a pointer to an [IDWriteFontSet1](./nn-dwrite_3-idwritefontset1.md) interface. On successful completion, the function sets the pointer to the font set used by the family.
      * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontfamily2-getfontset
      */
     GetFontSet() {

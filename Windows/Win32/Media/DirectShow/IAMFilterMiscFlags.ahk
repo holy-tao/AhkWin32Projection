@@ -5,7 +5,7 @@
 
 /**
  * The IAMFilterMiscFlags interface queries whether a filter is a source filter or a renderer.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamfiltermiscflags
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamfiltermiscflags
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,8 +32,8 @@ class IAMFilterMiscFlags extends IUnknown{
 
     /**
      * The GetMiscFlags method returns the filter's type, either source or renderer.
-     * @returns {Integer} This method returns a member of the <a href="/windows/desktop/api/strmif/ne-strmif-_am_filter_misc_flags">_AM_FILTER_MISC_FLAGS</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamfiltermiscflags-getmiscflags
+     * @returns {Integer} This method returns a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-_am_filter_misc_flags">_AM_FILTER_MISC_FLAGS</a> enumeration.
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamfiltermiscflags-getmiscflags
      */
     GetMiscFlags() {
         result := ComCall(3, this, "uint")

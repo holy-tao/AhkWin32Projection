@@ -6,7 +6,7 @@
 
 /**
  * Provides a mechanism for notifying the app about information regarding the media key session.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imfmediakeysessionnotify
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imfmediakeysessionnotify
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IMFMediaKeySessionNotify extends IUnknown{
      * @param {Pointer} message The message to send to the application.
      * @param {Integer} cb The length in bytes of <i>message</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keymessage
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keymessage
      */
     KeyMessage(destinationURL, message, cb) {
         destinationURL := destinationURL is String ? BSTR.Alloc(destinationURL).Value : destinationURL
@@ -48,12 +48,9 @@ class IMFMediaKeySessionNotify extends IUnknown{
     /**
      * Notifies the application that the key has been added.
      * @remarks
-     * 
      * <b>KeyAdded</b> can also be called if the keys requested for the session have already been acquired.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keyadded
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keyadded
      */
     KeyAdded() {
         ComCall(4, this)
@@ -64,7 +61,7 @@ class IMFMediaKeySessionNotify extends IUnknown{
      * @param {Integer} code 
      * @param {Integer} systemCode 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keyerror
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imfmediakeysessionnotify-keyerror
      */
     KeyError(code, systemCode) {
         ComCall(5, this, "ushort", code, "uint", systemCode)

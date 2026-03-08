@@ -5,7 +5,7 @@
 
 /**
  * Sets and retrieves user-name and password information for authentication purposes.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetcredential
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetcredential
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -54,7 +54,7 @@ class IMFNetCredential extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredential-setuser
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-setuser
      */
     SetUser(pbData, cbData, fDataIsEncrypted) {
         result := ComCall(3, this, "ptr", pbData, "uint", cbData, "int", fDataIsEncrypted, "HRESULT")
@@ -85,7 +85,7 @@ class IMFNetCredential extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredential-setpassword
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-setpassword
      */
     SetPassword(pbData, cbData, fDataIsEncrypted) {
         result := ComCall(4, this, "ptr", pbData, "uint", cbData, "int", fDataIsEncrypted, "HRESULT")
@@ -94,10 +94,12 @@ class IMFNetCredential extends IUnknown{
 
     /**
      * Retrieves the user name.
+     * @remarks
+     * If the user name is not available, the method might succeed and set *<i>pcbData</i> to zero.
      * @param {Pointer<Integer>} pcbData On input, specifies the size of the <i>pbData</i> buffer, in bytes. On output, receives the required buffer size. If <i>fEncryptData</i> is <b>FALSE</b>, the size includes the terminating null character.
      * @param {BOOL} fEncryptData If <b>TRUE</b>, the method returns an encrypted string. Otherwise, the method returns an unencrypted string.
      * @returns {Integer} Pointer to a buffer that receives the user name. To find the required buffer size, set this parameter to <b>NULL</b>. If <i>fEncryptData</i> is <b>FALSE</b>, the buffer contains a wide-character string. Otherwise, the buffer contains encrypted data.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredential-getuser
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getuser
      */
     GetUser(pcbData, fEncryptData) {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
@@ -108,10 +110,12 @@ class IMFNetCredential extends IUnknown{
 
     /**
      * Retrieves the password.
+     * @remarks
+     * If the password is not available, the method might succeed and set *<i>pcbData</i> to zero.
      * @param {Pointer<Integer>} pcbData On input, specifies the size of the <i>pbData</i> buffer, in bytes. On output, receives the required buffer size. If <i>fEncryptData</i> is <b>FALSE</b>, the size includes the terminating null character.
      * @param {BOOL} fEncryptData If <b>TRUE</b>, the method returns an encrypted string. Otherwise, the method returns an unencrypted string.
      * @returns {Integer} Pointer to a buffer that receives the password. To find the required buffer size, set this parameter to <b>NULL</b>. If <i>fEncryptData</i> is <b>FALSE</b>, the buffer contains a wide-character string. Otherwise, the buffer contains encrypted data.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredential-getpassword
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-getpassword
      */
     GetPassword(pcbData, fEncryptData) {
         pcbDataMarshal := pcbData is VarRef ? "uint*" : "ptr"
@@ -123,7 +127,7 @@ class IMFNetCredential extends IUnknown{
     /**
      * Queries whether logged-on credentials should be used.
      * @returns {BOOL} Receives a Boolean value. If logged-on credentials should be used, the value is <b>TRUE</b>. Otherwise, the value is <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetcredential-loggedonuser
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetcredential-loggedonuser
      */
     LoggedOnUser() {
         result := ComCall(7, this, "int*", &pfLoggedOnUser := 0, "HRESULT")

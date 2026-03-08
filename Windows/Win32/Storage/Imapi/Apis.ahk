@@ -1562,11 +1562,7 @@ class Imapi {
         lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
         lppPropAttrArrayMarshal := lppPropAttrArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTagArray, lppPropAttrArrayMarshal, lppPropAttrArray, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\GetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTagArray, lppPropAttrArrayMarshal, lppPropAttrArray, "HRESULT")
         return result
     }
 
@@ -1597,11 +1593,7 @@ class Imapi {
         lpObjectMarshal := lpObject is VarRef ? "ptr" : "ptr"
         lppPropProblemsMarshal := lppPropProblems is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, lppPropProblemsMarshal, lppPropProblems, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\SetAttribIMsgOnIStg", lpObjectMarshal, lpObject, "ptr", lpPropTags, "ptr", lpPropAttrs, lppPropProblemsMarshal, lppPropProblems, "HRESULT")
         return result
     }
 

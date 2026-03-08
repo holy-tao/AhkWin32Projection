@@ -8,11 +8,11 @@
 #Include ./YunitExtensions/BetterJUnit.ahk
 
 #Include ./Win32Struct.test.ahk
-#Include ./GeneratedStructSmokeTests.ahk
-#Include ./GeneratedApiSmokeTests.ahk
-#Include ./GeneratedComInterfaceSmokeTests.ahk
-#Include ./GeneratedConstantSmokeTests.ahk
-#Include ./CStyleArrayTests.ahk
+#Include ./GeneratedStructSmoke.test.ahk
+#Include ./GeneratedApiSmoke.test.ahk
+#Include ./GeneratedComInterfaceSmoke.test.ahk
+#Include ./GeneratedConstantSmoke.test.ahk
+#Include ./CStyleArray.test.ahk
 #Include ./Win32Handle.test.ahk
 #Include ./Win32ComInterface.test.ahk
 #Include ./Win32Enum.test.ahk

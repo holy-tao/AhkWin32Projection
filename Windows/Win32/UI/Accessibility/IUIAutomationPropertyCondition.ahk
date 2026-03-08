@@ -6,7 +6,7 @@
 
 /**
  * Represents a condition based on a property value that is used to find UI Automation elements.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationpropertycondition
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationpropertycondition
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -55,7 +55,7 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
     /**
      * Retrieves the identifier of the property on which this condition is based.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyid
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyid
      */
     get_PropertyId() {
         result := ComCall(3, this, "int*", &propertyId := 0, "HRESULT")
@@ -65,7 +65,7 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
     /**
      * Retrieves the property value that must be matched for the condition to be true.
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyvalue
      */
     get_PropertyValue() {
         propertyValue := VARIANT()
@@ -76,7 +76,7 @@ class IUIAutomationPropertyCondition extends IUIAutomationCondition{
     /**
      * Retrieves a set of flags that specify how the condition is applied.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyconditionflags
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationpropertycondition-get_propertyconditionflags
      */
     get_PropertyConditionFlags() {
         result := ComCall(5, this, "int*", &flags := 0, "HRESULT")

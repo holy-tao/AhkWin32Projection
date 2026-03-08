@@ -4,7 +4,9 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * Provides the camera occlusion state associated with a state change detected by an IMFCameraOcclusionStateMonitor.
+ * @remarks
+ * An instance of this class is passed into [IMFCameraOcclusionStateReportCallback::OnOcclusionStateReport](nf-mfidl-imfcameraocclusionstatereportcallback-onocclusionstatereport.md) callback. Register the callback interface when you create the camera occlusion state monitor with a call to [MFCreateCameraOcclusionStateMonitor](nf-mfidl-mfcreatecameraocclusionstatemonitor.md).
  * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfcameraocclusionstatereport
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
@@ -31,8 +33,8 @@ class IMFCameraOcclusionStateReport extends IUnknown{
     static VTableNames => ["GetOcclusionState"]
 
     /**
-     * 
-     * @returns {Integer} 
+     * The IMFCameraOcclusionStateReport::GetOcclusionState function gets the camera occlusion state associated with the occlusion state report.
+     * @returns {Integer} A **DWORD** output parameter containing a value from the [MFCameraOcclusionState](ne-mfidl-mfcameraocclusionstate.md) enumeration.
      * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfcameraocclusionstatereport-getocclusionstate
      */
     GetOcclusionState() {

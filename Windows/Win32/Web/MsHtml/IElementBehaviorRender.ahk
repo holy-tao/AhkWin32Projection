@@ -29,12 +29,15 @@ class IElementBehaviorRender extends IUnknown{
     static VTableNames => ["Draw", "GetRenderInfo", "HitTestPoint"]
 
     /**
-     * 
+     * Animates the caption of a window to indicate the opening of an icon or the minimizing or maximizing of a window.
      * @param {HDC} hdc 
      * @param {Integer} lLayer 
      * @param {Pointer<RECT>} pRect 
      * @param {IUnknown} pReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-drawanimatedrects
      */
     Draw(hdc, lLayer, pRect, pReserved) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc

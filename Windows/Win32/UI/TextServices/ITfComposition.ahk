@@ -6,7 +6,7 @@
 
 /**
  * The ITfComposition interface is implemented by the TSF manager and is used by a text service to obtain data about and terminate a composition. An instance of this interface is provided by the ITfContextComposition::StartComposition method.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcomposition
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcomposition
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class ITfComposition extends IUnknown{
     /**
      * ITfComposition::GetRange method
      * @returns {ITfRange} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcomposition">ITfRange</a> interface pointer that receives the range object. It is possible that the range will have zero length.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcomposition-getrange
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcomposition-getrange
      */
     GetRange() {
         result := ComCall(3, this, "ptr*", &ppRange := 0, "HRESULT")
@@ -43,6 +43,8 @@ class ITfComposition extends IUnknown{
 
     /**
      * ITfComposition::ShiftStart method
+     * @remarks
+     * This method causes the GUID_PROP_COMPOSING property to be removed from any text removed from the composition. Likewise, the GUID_PROP_COMPOSING property will also be added to any text added to the composition.
      * @param {Integer} ecWrite Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pNewStart Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that contains the new start anchor position. The start anchor of the context will be moved to the start anchor of this range. This method fails if the start anchor of this range is positioned beyond the end anchor of the composition.
      * @returns {HRESULT} This method can return one of these values.
@@ -108,7 +110,7 @@ class ITfComposition extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcomposition-shiftstart
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcomposition-shiftstart
      */
     ShiftStart(ecWrite, pNewStart) {
         result := ComCall(4, this, "uint", ecWrite, "ptr", pNewStart, "HRESULT")
@@ -117,6 +119,8 @@ class ITfComposition extends IUnknown{
 
     /**
      * ITfComposition::ShiftEnd method
+     * @remarks
+     * This method causes the GUID_PROP_COMPOSING property to be removed from any text removed from the composition. Likewise, the GUID_PROP_COMPOSING property is also added to any text added to the composition.
      * @param {Integer} ecWrite Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @param {ITfRange} pNewEnd Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfrange">ITfRange</a> object that contains the new end anchor position. The end anchor of the context will be moved to the end anchor of this range. This method fails if the end anchor of this range is positioned prior to the start anchor of the composition.
      * @returns {HRESULT} This method can return one of these values.
@@ -182,7 +186,7 @@ class ITfComposition extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcomposition-shiftend
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcomposition-shiftend
      */
     ShiftEnd(ecWrite, pNewEnd) {
         result := ComCall(5, this, "uint", ecWrite, "ptr", pNewEnd, "HRESULT")
@@ -191,6 +195,12 @@ class ITfComposition extends IUnknown{
 
     /**
      * ITfComposition::EndComposition method
+     * @remarks
+     * This method does not release the composition object, but the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcomposition">ITfComposition</a> methods will fail with E_UNEXPECTED after this method is called.
+     * 
+     * Context owners should use the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontextownercompositionservices-terminatecomposition">ITFContextOwnerCompositionServices::TerminateComposition</a> method to terminate a composition.
+     * 
+     * This method causes the GUID_PROP_COMPOSING property to be removed from the text covered by the composition.
      * @param {Integer} ecWrite Contains an edit cookie that identifies the edit context obtained from <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfeditsession-doeditsession">ITfEditSession::DoEditSession</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -238,7 +248,7 @@ class ITfComposition extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcomposition-endcomposition
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcomposition-endcomposition
      */
     EndComposition(ecWrite) {
         result := ComCall(6, this, "uint", ecWrite, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that return information about environments to Remote Desktop Connection Broker (RD Connection Broker).
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbplacementnotifysink
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbplacementnotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -33,8 +33,8 @@ class ITsSbPlacementNotifySink extends ITsSbBaseNotifySink{
     /**
      * Notifies Remote Desktop Connection Broker (RD Connection Broker) that the environment specified by the ITsSbClientConnection object is already hosting the correct target.
      * @param {ITsSbEnvironment} pEnvironment A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/sbtsv/nn-sbtsv-itssbenvironment">ITsSbEnvironment</a> environment object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbplacementnotifysink-onqueryenvironmentcompleted
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbplacementnotifysink-onqueryenvironmentcompleted
      */
     OnQueryEnvironmentCompleted(pEnvironment) {
         result := ComCall(5, this, "ptr", pEnvironment, "HRESULT")

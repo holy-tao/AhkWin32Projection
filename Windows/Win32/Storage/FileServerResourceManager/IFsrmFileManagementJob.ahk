@@ -11,7 +11,6 @@
 /**
  * Defines a file management job.
  * @remarks
- * 
  * When a file management job runs, it scans the files in the specified folders and if a file in the folder meets 
  *     the conditions specified by the job, FSRM moves the file to the specified expired files folder if the type is 
  *     expiration, or runs the custom action if defined. If notifications or actions are specified, FSRM sends the 
@@ -40,9 +39,7 @@
  * FSRM does not expire files in the system directories (for example, "\Windows", 
  *     "\System Volume Information", "$Event", and 
  *     "$Recycle").
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfilemanagementjob
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -245,9 +242,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The name of the file management job.
+     * The name of the file management job. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_name
      */
     get_Name() {
         name := BSTR()
@@ -256,10 +253,10 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The name of the file management job.
+     * The name of the file management job. (Put)
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -269,9 +266,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * An array of local directory paths that will be scanned when the file management job is run.
+     * An array of local directory paths that will be scanned when the file management job is run. (Get)
      * @remarks
-     * 
      * All subdirectories under each specified path are also scanned (recursively).
      * 
      * If you schedule this job, specify the same namespaces when calling the 
@@ -285,10 +281,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * 
      * Note that FSRM supports only NTFS file systems—you cannot specify paths on ReFS, FAT, 
      *     FAT32, UDF, or other non-NTFS file system.
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_namespaceroots
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_namespaceroots
      */
     get_NamespaceRoots() {
         result := ComCall(14, this, "ptr*", &namespaceRoots := 0, "HRESULT")
@@ -296,9 +290,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * An array of local directory paths that will be scanned when the file management job is run.
+     * An array of local directory paths that will be scanned when the file management job is run. (Put)
      * @remarks
-     * 
      * All subdirectories under each specified path are also scanned (recursively).
      * 
      * If you schedule this job, specify the same namespaces when calling the 
@@ -312,11 +305,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * 
      * Note that FSRM supports only NTFS file systems—you cannot specify paths on ReFS, FAT, 
      *     FAT32, UDF, or other non-NTFS file system.
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} namespaceRoots 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_namespaceroots
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_namespaceroots
      */
     put_NamespaceRoots(namespaceRoots) {
         result := ComCall(15, this, "ptr", namespaceRoots, "HRESULT")
@@ -324,9 +315,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * Indicates whether the job enabled (can run).
+     * Indicates whether the job enabled (can run). (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_enabled
      */
     get_Enabled() {
         result := ComCall(16, this, "short*", &enabled := 0, "HRESULT")
@@ -334,10 +325,10 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * Indicates whether the job enabled (can run).
+     * Indicates whether the job enabled (can run). (Put)
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_enabled
      */
     put_Enabled(enabled) {
         result := ComCall(17, this, "short", enabled, "HRESULT")
@@ -345,9 +336,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The type of file management job. The type determines the operation to perform on a file when all conditions are met.
+     * The type of file management job. The type determines the operation to perform on a file when all conditions are met. (Get)
      * @remarks
-     * 
      * If the type is <b>FsrmFileManagementType_Expiration</b>, FSRM moves the files that meet 
      *     all the file management job's conditions to the path specified by the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_expirationdirectory">ExpirationDirectory</a> property 
@@ -357,10 +347,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction">CustomAction</a> 
      *     property for every file that meets all the file management job's conditions when the file management job is 
      *     run.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype
      */
     get_OperationType() {
         result := ComCall(18, this, "int*", &operationType := 0, "HRESULT")
@@ -368,9 +356,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The type of file management job. The type determines the operation to perform on a file when all conditions are met.
+     * The type of file management job. The type determines the operation to perform on a file when all conditions are met. (Put)
      * @remarks
-     * 
      * If the type is <b>FsrmFileManagementType_Expiration</b>, FSRM moves the files that meet 
      *     all the file management job's conditions to the path specified by the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_expirationdirectory">ExpirationDirectory</a> property 
@@ -380,11 +367,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     specified in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction">CustomAction</a> 
      *     property for every file that meets all the file management job's conditions when the file management job is 
      *     run.
-     * 
-     * 
      * @param {Integer} operationType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_operationtype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_operationtype
      */
     put_OperationType(operationType) {
         result := ComCall(19, this, "int", operationType, "HRESULT")
@@ -392,9 +377,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The root directory that will contain the expired files.
+     * The root directory that will contain the expired files. (Get)
      * @remarks
-     * 
      * FSRM moves the files that meet all of the file management job's conditions to this directory when the job is 
      *     run, therefore the running process must have write permission. The directory must also be located on an NTFS 
      *     volume.
@@ -415,10 +399,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * 
      * Specify only if <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype">OperationType</a> 
      *     is <b>FsrmFileManagementType_Expiration</b>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_expirationdirectory
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_expirationdirectory
      */
     get_ExpirationDirectory() {
         expirationDirectory := BSTR()
@@ -427,9 +409,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The root directory that will contain the expired files.
+     * The root directory that will contain the expired files. (Put)
      * @remarks
-     * 
      * FSRM moves the files that meet all of the file management job's conditions to this directory when the job is 
      *     run, therefore the running process must have write permission. The directory must also be located on an NTFS 
      *     volume.
@@ -450,11 +431,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * 
      * Specify only if <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype">OperationType</a> 
      *     is <b>FsrmFileManagementType_Expiration</b>.
-     * 
-     * 
      * @param {BSTR} expirationDirectory 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_expirationdirectory
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_expirationdirectory
      */
     put_ExpirationDirectory(expirationDirectory) {
         expirationDirectory := expirationDirectory is String ? BSTR.Alloc(expirationDirectory).Value : expirationDirectory
@@ -466,7 +445,6 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * The action to execute when all the conditions are met.
      * @remarks
-     * 
      * To create the custom action, call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createcustomaction">IFsrmFileManagementJob::CreateCustomAction</a> 
      *     method.
@@ -476,10 +454,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     and 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariabledescriptions">IFsrmFileManagementJobManager::ActionVariableDescriptions</a> 
      *     properties.
-     * 
-     * 
      * @returns {IFsrmActionCommand} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction
      */
     get_CustomAction() {
         result := ComCall(22, this, "ptr*", &action := 0, "HRESULT")
@@ -489,7 +465,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * The list of notification periods defined for the job.
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_notifications
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_notifications
      */
     get_Notifications() {
         result := ComCall(23, this, "ptr*", &notifications := 0, "HRESULT")
@@ -497,9 +473,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The types of logging to perform.
+     * The types of logging to perform. (Get)
      * @remarks
-     * 
      * The log files are stored in the reports directory. The name of the 
      *     <b>FsrmFileManagementLoggingFlags_ClassificationsInLogFile</b> log file is 
      *     "FileManagement-<i>FsrmServerName(FQDN)</i>-<i>FileManagementJobName</i>-<i>NotificationPeriod</i>-<i>TimeStamp</i>.xml". 
@@ -512,10 +487,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * <li>Command parameters</li>
      * <li>Error value</li>
      * </ul>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_logging
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_logging
      */
     get_Logging() {
         result := ComCall(24, this, "int*", &loggingFlags := 0, "HRESULT")
@@ -523,9 +496,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The types of logging to perform.
+     * The types of logging to perform. (Put)
      * @remarks
-     * 
      * The log files are stored in the reports directory. The name of the 
      *     <b>FsrmFileManagementLoggingFlags_ClassificationsInLogFile</b> log file is 
      *     "FileManagement-<i>FsrmServerName(FQDN)</i>-<i>FileManagementJobName</i>-<i>NotificationPeriod</i>-<i>TimeStamp</i>.xml". 
@@ -538,11 +510,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * <li>Command parameters</li>
      * <li>Error value</li>
      * </ul>
-     * 
-     * 
      * @param {Integer} loggingFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_logging
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_logging
      */
     put_Logging(loggingFlags) {
         result := ComCall(25, this, "int", loggingFlags, "HRESULT")
@@ -550,19 +520,16 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * Indicates whether the job will generate a report when it runs.
+     * Indicates whether the job will generate a report when it runs. (Get)
      * @remarks
-     * 
      * The job generates a default report that it places in the folder associated with context specified when you run 
      *     the job.
      * 
      * Controls reporting regardless of whether the file management job was scheduled (using the Task Scheduler) or 
      *     run on demand (using 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run">IFsrmFileManagementJob::Run</a>).
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_reportenabled
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_reportenabled
      */
     get_ReportEnabled() {
         result := ComCall(26, this, "short*", &reportEnabled := 0, "HRESULT")
@@ -570,20 +537,17 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * Indicates whether the job will generate a report when it runs.
+     * Indicates whether the job will generate a report when it runs. (Put)
      * @remarks
-     * 
      * The job generates a default report that it places in the folder associated with context specified when you run 
      *     the job.
      * 
      * Controls reporting regardless of whether the file management job was scheduled (using the Task Scheduler) or 
      *     run on demand (using 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run">IFsrmFileManagementJob::Run</a>).
-     * 
-     * 
      * @param {VARIANT_BOOL} reportEnabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_reportenabled
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_reportenabled
      */
     put_ReportEnabled(reportEnabled) {
         result := ComCall(27, this, "short", reportEnabled, "HRESULT")
@@ -591,14 +555,11 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The formats of the report to generate when the job is run.
+     * The formats of the report to generate when the job is run. (Get)
      * @remarks
-     * 
      * The job generates the reports if <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_reportenabled">ReportEnabled</a> is <b>VARIANT_TRUE</b>.
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_formats
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_formats
      */
     get_Formats() {
         result := ComCall(28, this, "ptr*", &formats := 0, "HRESULT")
@@ -606,15 +567,12 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The formats of the report to generate when the job is run.
+     * The formats of the report to generate when the job is run. (Put)
      * @remarks
-     * 
      * The job generates the reports if <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_reportenabled">ReportEnabled</a> is <b>VARIANT_TRUE</b>.
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} formats 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_formats
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_formats
      */
     put_Formats(formats) {
         result := ComCall(29, this, "ptr", formats, "HRESULT")
@@ -622,9 +580,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The email addresses to which to send the reports, if any.
+     * The email addresses to which to send the reports, if any. (Get)
      * @remarks
-     * 
      * This property is optional.
      * 
      * The email message is sent only if the job finishes successfully. Email is not sent for 
@@ -632,10 +589,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     message. You can specify [Admin Email] to send notification to the administrator (if the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_adminemail">IFsrmSetting::AdminEmail</a> property is set). The 
      *     subject is "&lt;ReportType&gt;: &lt;ReportName&gt;". The body of the email message is empty.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_mailto
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_mailto
      */
     get_MailTo() {
         mailTo := BSTR()
@@ -644,9 +599,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The email addresses to which to send the reports, if any.
+     * The email addresses to which to send the reports, if any. (Put)
      * @remarks
-     * 
      * This property is optional.
      * 
      * The email message is sent only if the job finishes successfully. Email is not sent for 
@@ -654,11 +608,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     message. You can specify [Admin Email] to send notification to the administrator (if the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmsetting-get_adminemail">IFsrmSetting::AdminEmail</a> property is set). The 
      *     subject is "&lt;ReportType&gt;: &lt;ReportName&gt;". The body of the email message is empty.
-     * 
-     * 
      * @param {BSTR} mailTo 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_mailto
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_mailto
      */
     put_MailTo(mailTo) {
         mailTo := mailTo is String ? BSTR.Alloc(mailTo).Value : mailTo
@@ -668,17 +620,14 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The number of days that have elapsed since the file was created.
+     * The number of days that have elapsed since the file was created. (Get)
      * @remarks
-     * 
      * The value is FsrmDaysNotSpecified if not set.
      * 
      * The job considers this condition met for a file if the file's creation date minus the job's current run date 
      *     is less than the value of <i>daysSinceCreation</i>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilecreated
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilecreated
      */
     get_DaysSinceFileCreated() {
         result := ComCall(32, this, "int*", &daysSinceCreation := 0, "HRESULT")
@@ -686,18 +635,15 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The number of days that have elapsed since the file was created.
+     * The number of days that have elapsed since the file was created. (Put)
      * @remarks
-     * 
      * The value is FsrmDaysNotSpecified if not set.
      * 
      * The job considers this condition met for a file if the file's creation date minus the job's current run date 
      *     is less than the value of <i>daysSinceCreation</i>.
-     * 
-     * 
      * @param {Integer} daysSinceCreation 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilecreated
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilecreated
      */
     put_DaysSinceFileCreated(daysSinceCreation) {
         result := ComCall(33, this, "int", daysSinceCreation, "HRESULT")
@@ -705,17 +651,14 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The number of days that have elapsed since the file was last accessed.
+     * The number of days that have elapsed since the file was last accessed. (Get)
      * @remarks
-     * 
      * The value is FsrmDaysNotSpecified if not set.
      * 
      * The job considers this condition met for a file if the file's last accessed date minus the job's current run 
      *     date is less than the value of <i>daysSinceAccess</i>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastaccessed
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastaccessed
      */
     get_DaysSinceFileLastAccessed() {
         result := ComCall(34, this, "int*", &daysSinceAccess := 0, "HRESULT")
@@ -723,18 +666,15 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The number of days that have elapsed since the file was last accessed.
+     * The number of days that have elapsed since the file was last accessed. (Put)
      * @remarks
-     * 
      * The value is FsrmDaysNotSpecified if not set.
      * 
      * The job considers this condition met for a file if the file's last accessed date minus the job's current run 
      *     date is less than the value of <i>daysSinceAccess</i>.
-     * 
-     * 
      * @param {Integer} daysSinceAccess 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilelastaccessed
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilelastaccessed
      */
     put_DaysSinceFileLastAccessed(daysSinceAccess) {
         result := ComCall(35, this, "int", daysSinceAccess, "HRESULT")
@@ -742,17 +682,14 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The number of days that have elapsed since a file was last modified.
+     * The number of days that have elapsed since a file was last modified. (Get)
      * @remarks
-     * 
      * The value is FsrmDaysNotSpecified if not set.
      * 
      * The job considers this condition met for a file if the file's last modified date minus the job's current run 
      *     date is less than the value of <i>daysSinceModify</i>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastmodified
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastmodified
      */
     get_DaysSinceFileLastModified() {
         result := ComCall(36, this, "int*", &daysSinceModify := 0, "HRESULT")
@@ -760,18 +697,15 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The number of days that have elapsed since a file was last modified.
+     * The number of days that have elapsed since a file was last modified. (Put)
      * @remarks
-     * 
      * The value is FsrmDaysNotSpecified if not set.
      * 
      * The job considers this condition met for a file if the file's last modified date minus the job's current run 
      *     date is less than the value of <i>daysSinceModify</i>.
-     * 
-     * 
      * @param {Integer} daysSinceModify 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilelastmodified
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_dayssincefilelastmodified
      */
     put_DaysSinceFileLastModified(daysSinceModify) {
         result := ComCall(37, this, "int", daysSinceModify, "HRESULT")
@@ -781,14 +715,11 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * A list of property conditions specified for the job.
      * @remarks
-     * 
      * To specify a property condition for the job, call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createpropertycondition">IFsrmFileManagementJob::CreatePropertyCondition</a> 
      *     method.
-     * 
-     * 
      * @returns {IFsrmCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_propertyconditions
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_propertyconditions
      */
     get_PropertyConditions() {
         result := ComCall(38, this, "ptr*", &propertyConditions := 0, "HRESULT")
@@ -796,9 +727,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The date from which you want the file management job to begin expiring files (moving files to the expired files directory). This property also applies to custom commands for the file management job.
+     * The date from which you want the file management job to begin expiring files (moving files to the expired files directory). This property also applies to custom commands for the file management job. (Get)
      * @remarks
-     * 
      * The value is FsrmDateNotSpecified if not set.
      * 
      * The job expires the files if the <i>fromDate</i> value is earlier than the job's current 
@@ -809,10 +739,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     can be expired before notification is sent. For example, if you create job and run it the same day, it is possible 
      *     that one or more files will meet the expiration conditions set by the job and be expired without any notification. 
      *     You can create zero-day notification but the notification will be after the fact.
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_fromdate
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_fromdate
      */
     get_FromDate() {
         result := ComCall(39, this, "double*", &fromDate := 0, "HRESULT")
@@ -820,9 +748,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The date from which you want the file management job to begin expiring files (moving files to the expired files directory). This property also applies to custom commands for the file management job.
+     * The date from which you want the file management job to begin expiring files (moving files to the expired files directory). This property also applies to custom commands for the file management job. (Put)
      * @remarks
-     * 
      * The value is FsrmDateNotSpecified if not set.
      * 
      * The job expires the files if the <i>fromDate</i> value is earlier than the job's current 
@@ -833,11 +760,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     can be expired before notification is sent. For example, if you create job and run it the same day, it is possible 
      *     that one or more files will meet the expiration conditions set by the job and be expired without any notification. 
      *     You can create zero-day notification but the notification will be after the fact.
-     * 
-     * 
      * @param {Float} fromDate 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_fromdate
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_fromdate
      */
     put_FromDate(fromDate) {
         result := ComCall(40, this, "double", fromDate, "HRESULT")
@@ -845,9 +770,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The name of the scheduled task to associate with the job.
+     * The name of the scheduled task to associate with the job. (Get)
      * @remarks
-     * 
      * Typically, the name is the same name that you specify when you call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-createscheduletask">IFsrmReportScheduler::CreateScheduleTask</a> 
      *     method to create a scheduled task that runs the job.
@@ -856,10 +780,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     arguments that you specify for Storrept.exe are 
      *     "FileMgmt Run /Scheduled /Task:<i>taskname</i>", where 
      *     <i>taskname</i> is the value of this property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_task
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_task
      */
     get_Task() {
         taskName := BSTR()
@@ -868,9 +790,8 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The name of the scheduled task to associate with the job.
+     * The name of the scheduled task to associate with the job. (Put)
      * @remarks
-     * 
      * Typically, the name is the same name that you specify when you call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportscheduler-createscheduletask">IFsrmReportScheduler::CreateScheduleTask</a> 
      *     method to create a scheduled task that runs the job.
@@ -879,11 +800,9 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *     arguments that you specify for Storrept.exe are 
      *     "FileMgmt Run /Scheduled /Task:<i>taskname</i>", where 
      *     <i>taskname</i> is the value of this property.
-     * 
-     * 
      * @param {BSTR} taskName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_task
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_task
      */
     put_Task(taskName) {
         taskName := taskName is String ? BSTR.Alloc(taskName).Value : taskName
@@ -893,16 +812,13 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The parameters for the file management job.
+     * The parameters for the file management job. (Get)
      * @remarks
-     * 
      * There is no limit to the length of the parameter name or value, nor is there a limit to the number of 
      *     parameters that you can specify. Specifying a parameter without a value is valid (for example, 
      *     "parameter=").
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_parameters
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_parameters
      */
     get_Parameters() {
         result := ComCall(43, this, "ptr*", &parameters := 0, "HRESULT")
@@ -910,17 +826,14 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * The parameters for the file management job.
+     * The parameters for the file management job. (Put)
      * @remarks
-     * 
      * There is no limit to the length of the parameter name or value, nor is there a limit to the number of 
      *     parameters that you can specify. Specifying a parameter without a value is valid (for example, 
      *     "parameter=").
-     * 
-     * 
      * @param {Pointer<SAFEARRAY>} parameters 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_parameters
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_parameters
      */
     put_Parameters(parameters) {
         result := ComCall(44, this, "ptr", parameters, "HRESULT")
@@ -930,7 +843,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * The running status of the job.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_runningstatus
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_runningstatus
      */
     get_RunningStatus() {
         result := ComCall(45, this, "int*", &runningStatus := 0, "HRESULT")
@@ -940,7 +853,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * The error message from the last time the job was run.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lasterror
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lasterror
      */
     get_LastError() {
         lastError := BSTR()
@@ -951,13 +864,10 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * The local directory path where the reports were stored the last time the job ran.
      * @remarks
-     * 
      * If the job failed, this is the path where the reports would have been stored. The directory may contain 
      *     reports that completed successfully before the failure occurred.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastreportpathwithoutextension
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastreportpathwithoutextension
      */
     get_LastReportPathWithoutExtension() {
         path := BSTR()
@@ -968,7 +878,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
     /**
      * The last time the file management job was run.
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastrun
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lastrun
      */
     get_LastRun() {
         result := ComCall(48, this, "double*", &lastRun := 0, "HRESULT")
@@ -976,19 +886,16 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * A condition property:\_wildcard filter for names.
+     * A condition property:\_wildcard filter for names. (Get)
      * @remarks
-     * 
      * A file name pattern is a string expression that defines a set of file names. The expression may contain the 
      *     following wildcard characters: "*" and "?". The "*" wildcard 
      *     matches zero or more characters and the "?" wildcard  matches exactly 1 character. For example, 
      *     the file name "example.cpp" matches the pattern "e*.cpp", but not "e?.cpp". The file name "ex.cpp" would match 
      *     both patterns. Note that when the file name pattern is used to compare against a specific file name, the pattern 
      *     match is case-insensitive.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_filenamepattern
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_filenamepattern
      */
     get_FileNamePattern() {
         fileNamePattern := BSTR()
@@ -997,20 +904,17 @@ class IFsrmFileManagementJob extends IFsrmObject{
     }
 
     /**
-     * A condition property:\_wildcard filter for names.
+     * A condition property:\_wildcard filter for names. (Put)
      * @remarks
-     * 
      * A file name pattern is a string expression that defines a set of file names. The expression may contain the 
      *     following wildcard characters: "*" and "?". The "*" wildcard 
      *     matches zero or more characters and the "?" wildcard  matches exactly 1 character. For example, 
      *     the file name "example.cpp" matches the pattern "e*.cpp", but not "e?.cpp". The file name "ex.cpp" would match 
      *     both patterns. Note that when the file name pattern is used to compare against a specific file name, the pattern 
      *     match is case-insensitive.
-     * 
-     * 
      * @param {BSTR} fileNamePattern 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_filenamepattern
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-put_filenamepattern
      */
     put_FileNamePattern(fileNamePattern) {
         fileNamePattern := fileNamePattern is String ? BSTR.Alloc(fileNamePattern).Value : fileNamePattern
@@ -1021,11 +925,26 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Runs the job.
+     * @remarks
+     * Since the file management job consumes the results of classification, running the file management job also 
+     *     runs classification.
+     * 
+     * The jobs are run asynchronously. Jobs that run in the scheduled context remain in the queue for five minutes 
+     *     before they are run; jobs that run in the other contexts remain in the queue for 30 seconds. To block your code 
+     *     until the job completes, calling the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-waitforcompletion">IFsrmFileManagementJob::WaitForCompletion</a> 
+     *     method. Calling <b>WaitForCompletion</b> 
+     *     removes the job from the queue and runs it immediately.
+     * 
+     * If you call this method and the job is already queued or running, the method returns an error. To determine 
+     *     the status of the job, access the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmreportjob-get_runningstatus">IFsrmReportJob::RunningStatus</a> 
+     *     property.
      * @param {Integer} context Specifies to which subdirectory the reports or logging are written, if enabled. For possible values, see 
      *       the <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmreportgenerationcontext">FsrmReportGenerationContext</a> 
      *       enumeration.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run
      */
     Run(context) {
         result := ComCall(51, this, "int", context, "HRESULT")
@@ -1034,11 +953,21 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Waits for the specified period of time or until the job has finished running.
+     * @remarks
+     * To run the job, call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-run">IFsrmFileManagementJob::Run</a> method. Jobs run 
+     *      asynchronously, calling this method blocks your thread until the job completes or the timeout period 
+     *      expires.
+     * 
+     * After <b>WaitForCompletion</b> 
+     *      returns, access the 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_lasterror">IFsrmFileManagementJob::LastError</a> 
+     *      property to determine if the reports completed successfully.
      * @param {Integer} waitSeconds The number of seconds to wait for the job to complete. The method returns when the period expires or the 
      *       job complete. To wait indefinitely, set the value to –1.
      * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the job completed; otherwise, 
      *       <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-waitforcompletion
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-waitforcompletion
      */
     WaitForCompletion(waitSeconds) {
         result := ComCall(52, this, "int", waitSeconds, "short*", &completed := 0, "HRESULT")
@@ -1047,8 +976,13 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Cancels the job if it is running.
+     * @remarks
+     * Cancels the job if the value of its 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_runningstatus">RunningStatus</a> property is 
+     *     <b>FsrmReportRunningStatus_Queued</b> or 
+     *     <b>FsrmReportRunningStatus_Running</b>.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-cancel
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-cancel
      */
     Cancel() {
         result := ComCall(53, this, "HRESULT")
@@ -1057,9 +991,50 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Adds a new notification value (period) to the file management job's list of notifications.
+     * @remarks
+     * The <i>days</i> parameter specifies the number of days before the file is to expire. If the 
+     *     appropriate conditions set in the job are met, notification will be sent to the user to let them know that the 
+     *     file is about to expire. FSRM uses the actions associated with the notification value to determine how the user is 
+     *     notified.
+     * 
+     * Notification occurs when the job runs and the following conditions are met:
+     * 
+     * <ul>
+     * <li>Today is the day when notification should occur.</li>
+     * <li>The day when notification should occur is before the next scheduled run time.</li>
+     * </ul>
+     * Note that it is possible for the user to receive duplicate notifications. For example, the user can receive 
+     *     duplicate notifications if the job is run manually after the notification is sent but on or before the day when 
+     *     the notification should occur.
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_fromdate">FromDate</a> determines when the 
+     *     notification window begins. The following properties determine when the file is to expire:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilecreated">DaysSinceFileCreated</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastaccessed">DaysSinceFileLastAccessed</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_dayssincefilelastmodified">DaysSinceFileLastModified</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_propertyconditions">PropertyConditions</a> (use 
+     *       the 
+     *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createpropertycondition">CreatePropertyCondition</a> 
+     *       method to create the property condition)</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_filenamepattern">FileNamePattern</a>
+     * </li>
+     * </ul>
+     * To associate an action with the notification value, call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createnotificationaction">IFsrmFileManagementJob::CreateNotificationAction</a> 
+     *     method.
      * @param {Integer} days A unique notification value to add. The value cannot be less than zero.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-addnotification
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-addnotification
      */
     AddNotification(days) {
         result := ComCall(54, this, "int", days, "HRESULT")
@@ -1068,9 +1043,11 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Deletes a notification value from the file management job's list of notifications.
+     * @remarks
+     * Deleting the notification also deletes its associated actions.
      * @param {Integer} days The notification value to delete.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-deletenotification
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-deletenotification
      */
     DeleteNotification(days) {
         result := ComCall(55, this, "int", days, "HRESULT")
@@ -1082,7 +1059,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * @param {Integer} days The notification value to change.
      * @param {Integer} newDays The new notification value. The value must be unique and cannot be less than zero.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-modifynotification
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-modifynotification
      */
     ModifyNotification(days, newDays) {
         result := ComCall(56, this, "int", days, "int", newDays, "HRESULT")
@@ -1091,6 +1068,10 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Creates a notification action and associates it with the notification value.
+     * @remarks
+     * You can specify up to three unique actions for each notification value.
+     * 
+     * The action is deleted when the notification is deleted.
      * @param {Integer} days The notification value to associate with the action.
      * @param {Integer} actionType The action to perform when the notification period is reached, enumerated by the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/fsrmenums/ne-fsrmenums-fsrmactiontype">FsrmActionType</a> enumeration.
@@ -1101,7 +1082,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
      *       Query the interface for the action interface that you specified in the <i>actionType</i> 
      *       parameter. For example, if the action type is <b>FsrmActionType_Command</b>, query the 
      *       interface for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmactioncommand">IFsrmActionCommand</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createnotificationaction
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createnotificationaction
      */
     CreateNotificationAction(days, actionType) {
         result := ComCall(57, this, "int", days, "int", actionType, "ptr*", &action := 0, "HRESULT")
@@ -1112,7 +1093,7 @@ class IFsrmFileManagementJob extends IFsrmObject{
      * Enumerates the actions associated with a notification value.
      * @param {Integer} days The notification value that contains the actions that you want to enumerate.
      * @returns {IFsrmCollection} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmcollection">IFsrmCollection</a> interface that contains a  collection of actions. The variant type of each item in the collection is <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant to get an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmaction">IFsrmAction</a> interface. You can use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmaction-get_actiontype">IFsrmAction::ActionType</a> property to determine the actual action interface to query.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-enumnotificationactions
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-enumnotificationactions
      */
     EnumNotificationActions(days) {
         result := ComCall(58, this, "int", days, "ptr*", &actions := 0, "HRESULT")
@@ -1121,13 +1102,17 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Creates a new property condition and adds it to the collection of property conditions.
+     * @remarks
+     * To enumerate the collection of property conditions associated with the job, access the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_propertyconditions">PropertyConditions</a> 
+     *     property.
      * @param {BSTR} name The name of the property definition that the condition applies to. To enumerate the defined property 
      *       definitions, call the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmpipeline/nf-fsrmpipeline-ifsrmclassificationmanager-enumpropertydefinitions">IFsrmClassificationManager::EnumPropertyDefinitions</a> 
      *       method.
      * @returns {IFsrmPropertyCondition} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nn-fsrmreports-ifsrmpropertycondition">IFsrmPropertyCondition</a> interface that you 
      *       use to define the newly created property condition.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createpropertycondition
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createpropertycondition
      */
     CreatePropertyCondition(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -1138,9 +1123,22 @@ class IFsrmFileManagementJob extends IFsrmObject{
 
     /**
      * Creates a custom action object.
+     * @remarks
+     * To get the custom action, access the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_customaction">CustomAction</a> property.
+     * 
+     * Create a custom action only if the job's 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-get_operationtype">OperationType</a> is set to 
+     *     <b>FsrmFileManagementType_Custom</b>.
+     * 
+     * For a list of macros supported, perform a "get" operation on the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariables">IFsrmFileManagementJobManager::ActionVariables</a> 
+     *     and 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariabledescriptions">IFsrmFileManagementJobManager::ActionVariableDescriptions</a> 
+     *     properties.
      * @returns {IFsrmActionCommand} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmactioncommand">IFsrmActionCommand</a> interface that you can use 
      *       to specify a custom action to perform if the job's property conditions are met.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createcustomaction
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjob-createcustomaction
      */
     CreateCustomAction() {
         result := ComCall(60, this, "ptr*", &customAction := 0, "HRESULT")

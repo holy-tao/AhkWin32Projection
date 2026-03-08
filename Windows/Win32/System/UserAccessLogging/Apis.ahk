@@ -21,11 +21,7 @@ class UserAccessLogging {
      * @since windows8.0
      */
     static UalStart(Data) {
-        result := DllCall("ualapi.dll\UalStart", "ptr", Data, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ualapi.dll\UalStart", "ptr", Data, "HRESULT")
         return result
     }
 
@@ -39,11 +35,7 @@ class UserAccessLogging {
      * @since windows8.0
      */
     static UalStop(Data) {
-        result := DllCall("ualapi.dll\UalStop", "ptr", Data, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ualapi.dll\UalStop", "ptr", Data, "HRESULT")
         return result
     }
 
@@ -55,11 +47,7 @@ class UserAccessLogging {
      * @since windows8.0
      */
     static UalInstrument(Data) {
-        result := DllCall("ualapi.dll\UalInstrument", "ptr", Data, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ualapi.dll\UalInstrument", "ptr", Data, "HRESULT")
         return result
     }
 
@@ -77,11 +65,7 @@ class UserAccessLogging {
         wszRoleName := wszRoleName is String ? StrPtr(wszRoleName) : wszRoleName
         wszGuid := wszGuid is String ? StrPtr(wszGuid) : wszGuid
 
-        result := DllCall("ualapi.dll\UalRegisterProduct", "ptr", wszProductName, "ptr", wszRoleName, "ptr", wszGuid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ualapi.dll\UalRegisterProduct", "ptr", wszProductName, "ptr", wszRoleName, "ptr", wszGuid, "HRESULT")
         return result
     }
 

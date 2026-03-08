@@ -7,7 +7,7 @@
 
 /**
  * Enumerates range exceptions that are stored in a knowledge object.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ienumrangeexceptions
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumrangeexceptions
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -33,11 +33,11 @@ class IEnumRangeExceptions extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Returns the next elements in the change unit exception set, if they are available.
+     * Returns the next elements in the change unit exception set, if they are available. (IEnumRangeExceptions.Next)
      * @param {Integer} cExceptions The number of range exception elements to retrieve in the range from zero to 1000.
      * @param {Pointer<Integer>} pcFetched Returns the number of range exceptions returned. This value can be <b>NULL</b> only if <i>cExceptions</i> is 1.
      * @returns {IRangeException} Returns the next <i>pcFetched</i> range exceptions.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumrangeexceptions-next
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumrangeexceptions-next
      */
     Next(cExceptions, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -87,7 +87,7 @@ class IEnumRangeExceptions extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumrangeexceptions-skip
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumrangeexceptions-skip
      */
     Skip(cExceptions) {
         result := ComCall(4, this, "uint", cExceptions, "HRESULT")
@@ -115,7 +115,7 @@ class IEnumRangeExceptions extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumrangeexceptions-reset
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumrangeexceptions-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -123,9 +123,9 @@ class IEnumRangeExceptions extends IUnknown{
     }
 
     /**
-     * Clones the enumerator and returns a new enumerator that is in the same state as the current one.
+     * Clones the enumerator and returns a new enumerator that is in the same state as the current one. (IEnumRangeExceptions.Clone)
      * @returns {IEnumRangeExceptions} Returns the newly cloned enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumrangeexceptions-clone
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumrangeexceptions-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

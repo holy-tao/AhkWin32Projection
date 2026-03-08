@@ -5,7 +5,7 @@
 
 /**
  * The ITCollection2 interface is an extension of the ITCollection interface. ITCollection2 exposes additional methods for modifying the collection.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcollection2
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcollection2
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -86,7 +86,7 @@ class ITCollection2 extends ITCollection{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection2-add
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection2-add
      */
     Add(Index, pVariant) {
         result := ComCall(10, this, "int", Index, "ptr", pVariant, "HRESULT")
@@ -137,7 +137,7 @@ class ITCollection2 extends ITCollection{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection2-remove
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection2-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")

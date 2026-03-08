@@ -6,11 +6,8 @@
 /**
  * Represents a basic image-processing construct in Direct2D.
  * @remarks
- * 
  * An effect takes zero or more input images, and has an output image. The images that are input into and output from an effect are lazily evaluated. This definition is sufficient to allow an arbitrary graph of effects to be created from the application by feeding output images into the input image of the next effect in the chain.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nn-d2d1_1-id2d1effect
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nn-d2d1_1-id2d1effect
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -38,10 +35,7 @@ class ID2D1Effect extends ID2D1Properties{
     /**
      * Sets the given input image by index.
      * @remarks
-     * 
      * If the input index is out of range, the input image is ignored.
-     * 
-     * 
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * The index of the image to set.
@@ -52,7 +46,7 @@ class ID2D1Effect extends ID2D1Properties{
      * 
      * Whether to invalidate the graph at the location of the effect input
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1effect-setinput
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinput
      */
     SetInput(index, input, invalidate) {
         ComCall(14, this, "uint", index, "ptr", input, "int", invalidate)
@@ -60,6 +54,16 @@ class ID2D1Effect extends ID2D1Properties{
 
     /**
      * Allows the application to change the number of inputs to an effect.
+     * @remarks
+     * Most effects do not support a variable number of inputs. Use <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1properties-getvalue(uint32_byte_uint32)">ID2D1Properties::GetValue</a> with the <b>D2D1_PROPERTY_MIN_INPUTS</b> and <b>D2D1_PROPERTY_MAX_INPUTS</b> values to determine the number of inputs supported by an effect.
+     * 
+     * If the input count is less than the minimum or more than the maximum supported inputs, the call will fail.
+     * 
+     * If the input count is unchanged, the call will succeed with <b>S_OK</b>. 
+     * 
+     * Any inputs currently selected on the effect will be unaltered by this call unless the number of inputs is made smaller. If the number of inputs is made smaller, inputs beyond the selected range will be released.
+     * 
+     * If the method fails, the existing input and input count will remain unchanged.
      * @param {Integer} inputCount Type: <b>UINT32</b>
      * 
      * The number of inputs to the effect.
@@ -85,7 +89,7 @@ class ID2D1Effect extends ID2D1Properties{
      * <td>Failed to allocate necessary memory.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1effect-setinputcount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-setinputcount
      */
     SetInputCount(inputCount) {
         result := ComCall(15, this, "uint", inputCount, "HRESULT")
@@ -95,10 +99,7 @@ class ID2D1Effect extends ID2D1Properties{
     /**
      * Gets the given input image by index.
      * @remarks
-     * 
      * If the input index is out of range, the returned image will be <b>NULL</b>.
-     * 
-     * 
      * @param {Integer} index Type: <b>UINT32</b>
      * 
      * The index of the image to retrieve.
@@ -106,7 +107,7 @@ class ID2D1Effect extends ID2D1Properties{
      * 
      * When this method returns, contains the address of a pointer to the image that is identified by <i>Index</i>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1effect-getinput
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getinput
      */
     GetInput(index, input) {
         ComCall(16, this, "uint", index, "ptr*", input)
@@ -117,7 +118,7 @@ class ID2D1Effect extends ID2D1Properties{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * This method returns the number of inputs to the effect.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1effect-getinputcount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getinputcount
      */
     GetInputCount() {
         result := ComCall(17, this, "uint")
@@ -127,17 +128,14 @@ class ID2D1Effect extends ID2D1Properties{
     /**
      * Gets the output image from the effect.
      * @remarks
-     * 
      * The output image  can be set as an input to another effect, or can be directly passed into the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1devicecontext">ID2D1DeviceContext</a> in order to render the effect. 
      * 
      * It is  also possible to use <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> to retrieve the same output image.
-     * 
-     * 
      * @param {Pointer<ID2D1Image>} outputImage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the output image for the effect.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_1/nf-d2d1_1-id2d1effect-getoutput
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_1/nf-d2d1_1-id2d1effect-getoutput
      */
     GetOutput(outputImage) {
         ComCall(18, this, "ptr*", outputImage)

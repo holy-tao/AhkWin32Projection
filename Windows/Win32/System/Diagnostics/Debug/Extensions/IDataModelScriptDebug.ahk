@@ -41,11 +41,14 @@ class IDataModelScriptDebug extends IUnknown{
     }
 
     /**
-     * 
+     * The GetCurrentPositionEx function retrieves the current position in logical coordinates.
      * @param {Pointer<ScriptDebugPosition>} currentPosition 
      * @param {Pointer<ScriptDebugPosition>} positionSpanEnd 
      * @param {Pointer<BSTR>} lineText 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero.
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-getcurrentpositionex
      */
     GetCurrentPosition(currentPosition, positionSpanEnd, lineText) {
         result := ComCall(4, this, "ptr", currentPosition, "ptr", positionSpanEnd, "ptr", lineText, "HRESULT")

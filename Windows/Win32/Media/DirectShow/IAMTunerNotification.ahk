@@ -5,7 +5,7 @@
 
 /**
  * Note  This callback interface has been deprecated, because the TV Tuner filter does not implement the callback mechanism. .
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtunernotification
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtunernotification
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAMTunerNotification extends IUnknown{
      * Note  The IAMTunerNotification interface is deprecated. The OnEvent method handles events from the TV tuner card.
      * @param {Integer} Event Flag identifying the type of event. Currently, the only value defined is AMTUNER_EVENT_CHANGED.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtunernotification-onevent
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtunernotification-onevent
      */
     OnEvent(Event) {
         result := ComCall(3, this, "int", Event, "HRESULT")

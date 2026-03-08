@@ -5,7 +5,7 @@
 
 /**
  * This interface provides methods for reconnecting an input pin while the filter is still running.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ipinconnection
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ipinconnection
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IPinConnection extends IUnknown{
 
     /**
      * The DynamicQueryAccept method queries whether the pin can accept the specified media type while the graph is running with the current connection to this pin.
+     * @remarks
+     * If this method succeeds, the pin can accept the media type on the next sample or in a call to <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-receiveconnection">IPin::ReceiveConnection</a>.
+     * 
+     * An application or filter can call this method to determine whether the filter graph must be reconfigured. If the pin can accept the specified media type, there is no need to reconfigure the graph.
+     * 
+     * Although the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-queryaccept">IPin::QueryAccept</a> method also determines whether a pin can accept a format type, it does not guarantee that the pin can switch to that format while the filter is running. If you need to switch formats while the filter is running, call <c>DynamicQueryAccept</c> instead.
      * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the media type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -63,7 +69,7 @@ class IPinConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ipinconnection-dynamicqueryaccept
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipinconnection-dynamicqueryaccept
      */
     DynamicQueryAccept(pmt) {
         result := ComCall(3, this, "ptr", pmt, "HRESULT")
@@ -72,6 +78,23 @@ class IPinConnection extends IUnknown{
 
     /**
      * The NotifyEndOfStream method requests notification from the pin when the next end-of-stream condition occurs.
+     * @remarks
+     * This method enables the caller to push data through a portion of the filter graph ending with this pin.
+     * 
+     * For example, suppose the caller is pushing data from an output pin called "A" on one filter, to an input pin called "B" on another filter, possibly with intermediate filters connecting them. The following sequence of events would take place.
+     * 
+     * <ol>
+     * <li>The caller blocks the data flow at pin A.</li>
+     * <li>It calls <c>NotifyEndOfStream</c> on pin B.</li>
+     * <li>It calls <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ipin-endofstream">IPin::EndOfStream</a> on the input pin connected to pin A.</li>
+     * <li>As the remaining data travels downstream through any intermediate filters, those filters propagate the end-of-stream notification.</li>
+     * <li>When pin B receives the end-of-stream notification, it signals the event given in the <i>hNotifyEvent</i> parameter. At that point, the caller can safely reconfigure the graph between pin A and pin B.</li>
+     * </ol>
+     * Because the purpose of this method is to enable the caller to rebuild the graph dynamically and then restart the connection, the end-of-stream notification does not represent the actual end of the stream. Therefore, pin B does not propagate the end-of-stream condition or signal EC_COMPLETE. This is an exception to the usual rules for data flow in the filter graph.
+     * 
+     * It is the caller's responsibility to cancel notification by calling this method again with a <b>NULL</b> event handle.
+     * 
+     * The filter graph calls this method inside the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphconfig-reconnect">IGraphConfig::Reconnect</a> method. If an application or filter does any specialized dynamic reconfiguration to the graph (using the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphconfig-reconfigure">IGraphConfig::Reconfigure</a> method), it might call this method first in order to push data through the portion of the graph that is being reconfigured.
      * @param {HANDLE} hNotifyEvent Handle to an event object that the pin will signal.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -103,7 +126,7 @@ class IPinConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ipinconnection-notifyendofstream
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipinconnection-notifyendofstream
      */
     NotifyEndOfStream(hNotifyEvent) {
         hNotifyEvent := hNotifyEvent is Win32Handle ? NumGet(hNotifyEvent, "ptr") : hNotifyEvent
@@ -114,6 +137,10 @@ class IPinConnection extends IUnknown{
 
     /**
      * The IsEndPin method indicates whether a reconnection search should end at this pin.
+     * @remarks
+     * A filter or application can call this method to determine whether the pin is a candidate for dynamic reconnection.
+     * 
+     * Generally, a sink filter or a filter that splits or merges data should return S_OK. Other filters (for example, simple transform filters) should return S_FALSE.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
      * <table>
@@ -144,7 +171,7 @@ class IPinConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ipinconnection-isendpin
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipinconnection-isendpin
      */
     IsEndPin() {
         result := ComCall(5, this, "int")
@@ -183,7 +210,7 @@ class IPinConnection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ipinconnection-dynamicdisconnect
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ipinconnection-dynamicdisconnect
      */
     DynamicDisconnect() {
         result := ComCall(6, this, "HRESULT")

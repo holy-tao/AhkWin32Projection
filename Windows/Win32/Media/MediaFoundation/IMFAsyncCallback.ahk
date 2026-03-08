@@ -4,9 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Callback interface to notify the application when an asynchronous method completes.
+ * Callback interface to notify the application when an asynchronous method completes. (IMFAsyncCallback)
  * @remarks
- * 
  * For more information about asynchronous methods in Microsoft Media Foundation, see <a href="https://docs.microsoft.com/windows/desktop/medfound/asynchronous-callback-methods">Asynchronous Callback Methods</a>.
  *       
  * 
@@ -18,9 +17,7 @@
  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfasynccallback
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfasynccallback
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -46,7 +43,21 @@ class IMFAsyncCallback extends IUnknown{
     static VTableNames => ["GetParameters", "Invoke"]
 
     /**
-     * Provides configuration information to the dispatching thread for a callback.
+     * Provides configuration information to the dispatching thread for a callback. (IMFAsyncCallback.GetParameters)
+     * @remarks
+     * The <b>GetParameters</b> method returns information about the callback so that the dispatching thread can optimize the process that it uses to invoke the callback.
+     *       
+     * 
+     * If the method returns a value other than zero in the <i>pdwFlags</i> parameter, your <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">Invoke</a> method must meet the requirements described here. Otherwise, the callback might delay the pipeline.
+     * 
+     * If you want default values for both parameters, return <b>E_NOTIMPL</b>. The default values are given in the parameter descriptions on this page.
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {Pointer<Integer>} pdwFlags Receives a flag indicating the behavior of the callback object's <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfasynccallback-invoke">IMFAsyncCallback::Invoke</a> method. The following values are defined. The default value is zero.
      * 
      * <table>
@@ -155,7 +166,7 @@ class IMFAsyncCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfasynccallback-getparameters
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfasynccallback-getparameters
      */
     GetParameters(pdwFlags, pdwQueue) {
         pdwFlagsMarshal := pdwFlags is VarRef ? "uint*" : "ptr"
@@ -166,7 +177,16 @@ class IMFAsyncCallback extends IUnknown{
     }
 
     /**
-     * Called when an asynchronous operation is completed.
+     * Called when an asynchronous operation is completed. (IMFAsyncCallback.Invoke)
+     * @remarks
+     * Within your implementation of <b>Invoke</b>, call the corresponding <b>End...</b> method.
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {IMFAsyncResult} pAsyncResult Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfasyncresult">IMFAsyncResult</a> interface. Pass this pointer to the asynchronous <b>End...</b> method to complete the asynchronous call.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -187,7 +207,7 @@ class IMFAsyncCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfasynccallback-invoke
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfasynccallback-invoke
      */
     Invoke(pAsyncResult) {
         result := ComCall(4, this, "ptr", pAsyncResult, "HRESULT")

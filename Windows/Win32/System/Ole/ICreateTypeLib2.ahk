@@ -4,8 +4,8 @@
 #Include .\ICreateTypeLib.ahk
 
 /**
- * Provides the methods for creating and managing the component or file that contains type information.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-icreatetypelib2
+ * Provides the methods for creating and managing the component or file that contains type information. (ICreateTypeLib2)
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypelib2
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -76,7 +76,7 @@ class ICreateTypeLib2 extends ICreateTypeLib{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-deletetypeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-deletetypeinfo
      */
     DeleteTypeInfo(szName) {
         szName := szName is String ? StrPtr(szName) : szName
@@ -132,7 +132,7 @@ class ICreateTypeLib2 extends ICreateTypeLib{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-setcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-setcustdata
      */
     SetCustData(guid, pVarVal) {
         result := ComCall(14, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
@@ -185,7 +185,7 @@ class ICreateTypeLib2 extends ICreateTypeLib{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-sethelpstringcontext
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-sethelpstringcontext
      */
     SetHelpStringContext(dwHelpStringContext) {
         result := ComCall(15, this, "uint", dwHelpStringContext, "HRESULT")
@@ -238,7 +238,7 @@ class ICreateTypeLib2 extends ICreateTypeLib{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypelib2-sethelpstringdll
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypelib2-sethelpstringdll
      */
     SetHelpStringDll(szFileName) {
         szFileName := szFileName is String ? StrPtr(szFileName) : szFileName

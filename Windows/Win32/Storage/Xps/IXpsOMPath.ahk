@@ -10,7 +10,6 @@
 /**
  * Describes a non-text visual item.
  * @remarks
- * 
  * The code example that follows illustrates how to create an instance of  this interface.
  * 
  * 
@@ -47,9 +46,7 @@
  * }
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsompath
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsompath
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -120,7 +117,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometry
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometry
      */
     GetGeometry() {
         result := ComCall(30, this, "ptr*", &geometry := 0, "HRESULT")
@@ -171,7 +168,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylocal
      */
     GetGeometryLocal() {
         result := ComCall(31, this, "ptr*", &geometry := 0, "HRESULT")
@@ -180,8 +177,78 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the pointer to the local, unshared IXpsOMGeometry interface that contains the geometry of the resolved fill area to be set for this path.
+     * @remarks
+     * After you call <b>SetGeometryLocal</b>, the geometry lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylookup">GetGeometryLookup</a> returns a <b>NULL</b> pointer in the <i>lookup</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>geometry</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometry">GetGeometry</a>
+     * </th>
+     * <th>Object that is returned in <i>geometry</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylocal">GetGeometryLocal</a>
+     * </th>
+     * <th>String that is returned in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylookup">GetGeometryLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetGeometryLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local geometry that is set by <b>SetGeometryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local geometry that is set by <b>SetGeometryLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylookup">SetGeometryLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared geometry retrieved, with a lookup key that matches the key set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylookup">SetGeometryLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylookup">SetGeometryLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetGeometryLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylookup">SetGeometryLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMGeometry} geometry The pointer to the local, unshared <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomgeometry">IXpsOMGeometry</a> interface that contains the  geometry of the resolved fill area to be set for this path.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -211,7 +278,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylocal
      */
     SetGeometryLocal(geometry) {
         result := ComCall(32, this, "ptr", geometry, "HRESULT")
@@ -220,6 +287,8 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the lookup key of a shared geometry object that is stored in a resource dictionary and that describes the resolved fill area for this path.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>lookup</i>.  If <i>lookup</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The lookup key of the geometry object that describes the  resolved fill area for this path. If a geometry lookup key has not been set or if a local geometry has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -262,7 +331,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylookup
      */
     GetGeometryLookup() {
         result := ComCall(33, this, "ptr*", &lookup := 0, "HRESULT")
@@ -271,8 +340,78 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the lookup key name of a shared geometry in a resource dictionary.
+     * @remarks
+     * After you call <b>SetGeometryLookup</b>, the local geometry is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylocal">SetGeometryLocal</a> returns a <b>NULL</b> pointer in the <i>geometry</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>geometry</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometry">GetGeometry</a>
+     * </th>
+     * <th>Object that is returned in <i>geometry</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylocal">GetGeometryLocal</a>
+     * </th>
+     * <th>String that is returned in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getgeometrylookup">GetGeometryLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylocal">SetGeometryLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local geometry that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylocal">SetGeometryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local geometry that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylocal">SetGeometryLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetGeometryLookup</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared geometry retrieved, with a lookup key that matches the key that is set by <b>SetGeometryLookup</b>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetGeometryLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylocal">SetGeometryLocal</a> nor <b>SetGeometryLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} lookup The lookup key name of a shared geometry in a resource dictionary.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -324,7 +463,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setgeometrylookup
      */
     SetGeometryLookup(lookup) {
         lookup := lookup is String ? StrPtr(lookup) : lookup
@@ -335,8 +474,14 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the short textual description of the object's contents.
+     * @remarks
+     * The value that is returned in <i>shortDescription</i> is the value of the <b>AutomationProperties.Name</b> attribute of the <b>Path</b> element in the document markup.
+     * 
+     * 
+     * 
+     * This method allocates the memory used by the string that is returned in <i>shortDescription</i>.  If <i>shortDescription</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The short textual description of the object's contents. If this text has not been set, a <b>NULL</b> pointer will be returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilityshortdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilityshortdescription
      */
     GetAccessibilityShortDescription() {
         result := ComCall(35, this, "ptr*", &shortDescription := 0, "HRESULT")
@@ -344,10 +489,12 @@ class IXpsOMPath extends IXpsOMVisual{
     }
 
     /**
-     * Sets the short textual description of the object's contents.
+     * Sets the short textual description of the object's contents. (IXpsOMPath.SetAccessibilityShortDescription)
+     * @remarks
+     * In the document markup, the value that is set in <i>shortDescription</i> will be that of  the <b>AutomationProperties.Name</b> attribute of the  <b>Path</b> element.
      * @param {PWSTR} shortDescription The  short textual description of the object's contents.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setaccessibilityshortdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setaccessibilityshortdescription
      */
     SetAccessibilityShortDescription(shortDescription) {
         shortDescription := shortDescription is String ? StrPtr(shortDescription) : shortDescription
@@ -357,9 +504,13 @@ class IXpsOMPath extends IXpsOMVisual{
     }
 
     /**
-     * Gets the long (detailed) textual description of the object's contents.
+     * Gets the long (detailed) textual description of the object's contents. (IXpsOMPath.GetAccessibilityLongDescription)
+     * @remarks
+     * The value returned in <i>longDescription</i> is the value of the  <b>AutomationProperties.HelpText</b> attribute of the <b>Path</b> element in the document markup.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>longDescription</i>.  If <i>longDescription</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The detailed textual description of the object's contents. If this text has not been set, a <b>NULL</b> pointer will be returned.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilitylongdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getaccessibilitylongdescription
      */
     GetAccessibilityLongDescription() {
         result := ComCall(37, this, "ptr*", &longDescription := 0, "HRESULT")
@@ -367,10 +518,12 @@ class IXpsOMPath extends IXpsOMVisual{
     }
 
     /**
-     * Sets the long (detailed) textual description of the object's contents.
+     * Sets the long (detailed) textual description of the object's contents. (IXpsOMPath.SetAccessibilityLongDescription)
+     * @remarks
+     * In the document markup, the value that is set in <i>longDescription</i> will be that of  the <b>AutomationProperties.HelpText</b> attribute of the  <b>Path</b> element.
      * @param {PWSTR} longDescription The detailed textual description of the object's contents.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setaccessibilitylongdescription
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setaccessibilitylongdescription
      */
     SetAccessibilityLongDescription(longDescription) {
         longDescription := longDescription is String ? StrPtr(longDescription) : longDescription
@@ -381,6 +534,8 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets a Boolean value that indicates whether the path is to be snapped to device pixels when the path is rendered.
+     * @remarks
+     * The value returned by <b>GetSnapsToPixels</b> corresponds to the <b>SnapsToDevicePixels</b> element in the document markup.
      * @returns {BOOL} A Boolean value that indicates whether the path is to be snapped to device pixels when the path is rendered. The following table describes the values possible  for this parameter.
      * 
      * <table>
@@ -409,7 +564,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getsnapstopixels
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getsnapstopixels
      */
     GetSnapsToPixels() {
         result := ComCall(39, this, "int*", &snapsToPixels := 0, "HRESULT")
@@ -447,7 +602,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </tr>
      * </table>
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setsnapstopixels
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setsnapstopixels
      */
     SetSnapsToPixels(snapsToPixels) {
         result := ComCall(40, this, "int", snapsToPixels, "HRESULT")
@@ -500,7 +655,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrush
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrush
      */
     GetStrokeBrush() {
         result := ComCall(41, this, "ptr*", &brush := 0, "HRESULT")
@@ -553,7 +708,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlocal
      */
     GetStrokeBrushLocal() {
         result := ComCall(42, this, "ptr*", &brush := 0, "HRESULT")
@@ -562,8 +717,78 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets a pointer to a local, unshared IXpsOMBrush interface to be used as a stroke brush.
+     * @remarks
+     * After you call <b>SetStrokeBrushLocal</b>, the stroke brush lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlookup">GetStrokeBrushLookup</a> returns a <b>NULL</b> pointer in the <i>lookup</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>brush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrush">GetStrokeBrush</a>
+     * </th>
+     * <th>Object that is returned in <i>brush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlocal">GetStrokeBrushLocal</a>
+     * </th>
+     * <th>String that is returned in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlookup">GetStrokeBrushLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetStrokeBrushLocal</b>  (this method)
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <b>SetStrokeBrushLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <b>SetStrokeBrushLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlookup">SetStrokeBrushLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared brush retrieved, with a lookup key that matches the key set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlookup">SetStrokeBrushLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlookup">SetStrokeBrushLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetStrokeBrushLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlookup">SetStrokeBrushLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMBrush} brush A pointer to a local, unshared <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a> interface to be used as a stroke brush.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -593,7 +818,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlocal
      */
     SetStrokeBrushLocal(brush) {
         result := ComCall(43, this, "ptr", brush, "HRESULT")
@@ -602,6 +827,8 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the lookup key of the brush that is stored in a resource dictionary and is to be used as the stroke brush for the path.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>lookup</i>.  If <i>lookup</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The lookup key of a brush that is stored in a resource dictionary. If a stroke brush lookup key has not been set or if a local stroke brush has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -644,7 +871,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlookup
      */
     GetStrokeBrushLookup() {
         result := ComCall(44, this, "ptr*", &lookup := 0, "HRESULT")
@@ -653,8 +880,78 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the lookup key name of a shared brush to be used as the stroke brush.
+     * @remarks
+     * After you call <b>SetStrokeBrushLookup</b>, the local stroke brush is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlocal">GetStrokeBrushLocal</a> returns a <b>NULL</b> pointer in the <i>brush</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>brush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrush">GetStrokeBrush</a>
+     * </th>
+     * <th>Object that is returned in <i>brush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlocal">GetStrokeBrushLocal</a>
+     * </th>
+     * <th>String that is returned in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokebrushlookup">GetStrokeBrushLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlocal">SetStrokeBrushLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlocal">SetStrokeBrushLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlocal">SetStrokeBrushLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetStrokeBrushLookup</b>(this method)
+     * 
+     * </td>
+     * <td>
+     * The shared brush retrieved, with a lookup key that matches the key that is set by <b>SetStrokeBrushLookup</b>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetStrokeBrushLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlocal">SetStrokeBrushLocal</a> nor <b>SetStrokeBrushLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} lookup The lookup key name of a shared brush to be used as the  stroke brush for the path.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -706,7 +1003,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokebrushlookup
      */
     SetStrokeBrushLookup(lookup) {
         lookup := lookup is String ? StrPtr(lookup) : lookup
@@ -718,7 +1015,7 @@ class IXpsOMPath extends IXpsOMVisual{
     /**
      * Gets a pointer to the IXpsOMDashCollection interface that contains the XPS_DASH structures that define the dash pattern of the stroke.
      * @returns {IXpsOMDashCollection} A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">IXpsOMDashCollection</a> interface that contains the <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ns-xpsobjectmodel-xps_dash">XPS_DASH</a> structures that  define the dash pattern of the stroke.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashes
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashes
      */
     GetStrokeDashes() {
         result := ComCall(46, this, "ptr*", &strokeDashes := 0, "HRESULT")
@@ -727,8 +1024,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the style of the end cap to be used on the stroke dash.
+     * @remarks
+     * For more information about dash cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a>.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value that describes the  style of the end cap to be used on the stroke dash.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashcap
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashcap
      */
     GetStrokeDashCap() {
         result := ComCall(47, this, "int*", &strokeDashCap := 0, "HRESULT")
@@ -737,8 +1036,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the style of the stroke's dash cap.
+     * @remarks
+     * For more information about dash cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a>.
      * @param {Integer} strokeDashCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value to be set.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -763,12 +1064,12 @@ class IXpsOMPath extends IXpsOMVisual{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>strokeDashCap</i> was not a valid <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value.
+     * <i>strokeDashCap</i> was not a valid <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_dash_cap">XPS_DASH_CAP</a> value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokedashcap
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokedashcap
      */
     SetStrokeDashCap(strokeDashCap) {
         result := ComCall(48, this, "int", strokeDashCap, "HRESULT")
@@ -778,7 +1079,7 @@ class IXpsOMPath extends IXpsOMVisual{
     /**
      * Gets the offset from the origin of the stroke to the starting point of the dash array pattern.
      * @returns {Float} The offset value; specified in multiples of the stroke thickness.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashoffset
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokedashoffset
      */
     GetStrokeDashOffset() {
         result := ComCall(49, this, "float*", &strokeDashOffset := 0, "HRESULT")
@@ -787,8 +1088,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the offset from the origin of the stroke to the starting point of the dash array pattern.
+     * @remarks
+     * The  offset describes the distance from the origin of the stroke where the dash  starts, and  is specified in multiples of the stroke thickness.
      * @param {Float} strokeDashOffset The offset value to be set.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -818,7 +1121,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokedashoffset
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokedashoffset
      */
     SetStrokeDashOffset(strokeDashOffset) {
         result := ComCall(50, this, "float", strokeDashOffset, "HRESULT")
@@ -827,8 +1130,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the style of the line cap at the start of the stroke line.
+     * @remarks
+     * For more information about the shapes of line caps, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value that indicates the style of the  line cap at the start of the stroke line.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokestartlinecap
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokestartlinecap
      */
     GetStrokeStartLineCap() {
         result := ComCall(51, this, "int*", &strokeStartLineCap := 0, "HRESULT")
@@ -837,8 +1142,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the style of the stroke's line cap at the start of the stroke line.
+     * @remarks
+     * For more information about the line join styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
      * @param {Integer} strokeStartLineCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value to be set.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -863,12 +1170,12 @@ class IXpsOMPath extends IXpsOMVisual{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>strokeStartLineCap</i> is not a valid <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value.
+     * <i>strokeStartLineCap</i> is not a valid <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokestartlinecap
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokestartlinecap
      */
     SetStrokeStartLineCap(strokeStartLineCap) {
         result := ComCall(52, this, "int", strokeStartLineCap, "HRESULT")
@@ -877,8 +1184,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the style of the stroke line's end cap.
+     * @remarks
+     * For more information about line   end cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value that specifies the style of the stroke line's end cap.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokeendlinecap
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokeendlinecap
      */
     GetStrokeEndLineCap() {
         result := ComCall(53, this, "int*", &strokeEndLineCap := 0, "HRESULT")
@@ -887,8 +1196,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the style of the stroke line's end cap.
+     * @remarks
+     * For more information about dash cap styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a>.
      * @param {Integer} strokeEndLineCap The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value to be  set.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -913,12 +1224,12 @@ class IXpsOMPath extends IXpsOMVisual{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>strokeEndLineCap</i> is not a valid <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value.
+     * <i>strokeEndLineCap</i> is not a valid <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_cap">XPS_LINE_CAP</a> value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokeendlinecap
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokeendlinecap
      */
     SetStrokeEndLineCap(strokeEndLineCap) {
         result := ComCall(54, this, "int", strokeEndLineCap, "HRESULT")
@@ -927,8 +1238,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the style for joining stroke lines.
+     * @remarks
+     * For more information about the line join styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a>.
      * @returns {Integer} The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value of the line join style of the stroke.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokelinejoin
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokelinejoin
      */
     GetStrokeLineJoin() {
         result := ComCall(55, this, "int*", &strokeLineJoin := 0, "HRESULT")
@@ -937,8 +1250,10 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the style for joining stroke lines.
+     * @remarks
+     * For more information about the line join styles, see <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a>.
      * @param {Integer} strokeLineJoin The <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value to be set.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -963,12 +1278,12 @@ class IXpsOMPath extends IXpsOMVisual{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>strokeLineJoin</i> is not a valid <a href="/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value.
+     * <i>strokeLineJoin</i> is not a valid <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN</a> value.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokelinejoin
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokelinejoin
      */
     SetStrokeLineJoin(strokeLineJoin) {
         result := ComCall(56, this, "int", strokeLineJoin, "HRESULT")
@@ -977,8 +1292,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the miter limit value that is set for the stroke.
+     * @remarks
+     * The miter limit value is the ratio of the maximum miter length  to one-half of the stroke thickness.
+     * 
+     * The miter limit value describes how to render a mitered line join; this value applies only if the line join style value is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN_MITER</a>.
      * @returns {Float} The miter limit value that is set for the stroke.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokemiterlimit
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokemiterlimit
      */
     GetStrokeMiterLimit() {
         result := ComCall(57, this, "float*", &strokeMiterLimit := 0, "HRESULT")
@@ -987,8 +1306,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the miter limit of the path.
+     * @remarks
+     * The miter limit value is the ratio of the maximum miter length  to one-half of the stroke thickness.
+     * 
+     * The miter limit value describes how to render a mitered line join. This value applies only if the line join style value is <a href="https://docs.microsoft.com/windows/win32/api/xpsobjectmodel/ne-xpsobjectmodel-xps_line_join">XPS_LINE_JOIN_MITER</a>.
      * @param {Float} strokeMiterLimit The miter limit value to be set. The value must be 1.0 or greater.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -1018,7 +1341,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokemiterlimit
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokemiterlimit
      */
     SetStrokeMiterLimit(strokeMiterLimit) {
         result := ComCall(58, this, "float", strokeMiterLimit, "HRESULT")
@@ -1027,8 +1350,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the stroke thickness.
+     * @remarks
+     * The value returned in <i>strokeThickness</i> specifies the thickness of a stroke in units of the effective coordinate space. The units include the path's render transform.
+     * 
+     * The stroke is drawn on top of the boundary of the path's geometry, such that one half of the stroke's width extends outside of the path's specified geometry  and the other half falls inside of it.
      * @returns {Float} The stroke thickness value.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokethickness
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getstrokethickness
      */
     GetStrokeThickness() {
         result := ComCall(59, this, "float*", &strokeThickness := 0, "HRESULT")
@@ -1037,8 +1364,12 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the stroke thickness.
+     * @remarks
+     * The value returned in <i>strokeThickness</i> specifies  the thickness of a stroke in units of the effective coordinate space; the units include the path's render transform.
+     * 
+     * The stroke is drawn on top of the boundary of the path's geometry, such that one half of the stroke's width extends outside of the path's specified geometry  and the other half falls inside of it.
      * @param {Float} strokeThickness The stroke thickness value to be set; must be 0.0 or greater.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -1068,7 +1399,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokethickness
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setstrokethickness
      */
     SetStrokeThickness(strokeThickness) {
         result := ComCall(60, this, "float", strokeThickness, "HRESULT")
@@ -1121,7 +1452,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrush
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrush
      */
     GetFillBrush() {
         result := ComCall(61, this, "ptr*", &brush := 0, "HRESULT")
@@ -1174,7 +1505,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlocal
      */
     GetFillBrushLocal() {
         result := ComCall(62, this, "ptr*", &brush := 0, "HRESULT")
@@ -1183,8 +1514,78 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the pointer to the local, unshared IXpsOMBrush interface to be used as the fill brush.
+     * @remarks
+     * After you call <b>SetFillBrushLocal</b>, the fill brush lookup key is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlookup">GetFillBrushLookup</a> returns a <b>NULL</b> pointer in the <i>lookup</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>brush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrush">GetFillBrush</a>
+     * </th>
+     * <th>Object that is returned in <i>brush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlocal">GetFillBrushLocal</a>
+     * </th>
+     * <th>String that is returned in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlookup">GetFillBrushLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetFillBrushLocal</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <b>SetFillBrushLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <b>SetFillBrushLocal</b>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlookup">SetFillBrushLookup</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The shared brush retrieved, with a lookup key that matches the key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlookup">SetFillBrushLookup</a>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlookup">SetFillBrushLookup</a>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <b>SetFillBrushLocal</b> nor <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlookup">SetFillBrushLookup</a> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {IXpsOMBrush} brush A pointer to the local, unshared <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a> interface to be used as the fill brush.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -1214,7 +1615,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlocal
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlocal
      */
     SetFillBrushLocal(brush) {
         result := ComCall(63, this, "ptr", brush, "HRESULT")
@@ -1223,6 +1624,8 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Gets the lookup key of the brush that is stored in a resource dictionary and used as the fill brush for the path.
+     * @remarks
+     * This method allocates the memory used by the string that is returned in <i>lookup</i>.  If <i>lookup</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @returns {PWSTR} The lookup key for the fill brush that is stored in a resource dictionary. If the lookup key has not been set or if a local fill brush has been set, a <b>NULL</b> pointer is returned.
      * 
      * <table>
@@ -1265,7 +1668,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlookup
      */
     GetFillBrushLookup() {
         result := ComCall(64, this, "ptr*", &lookup := 0, "HRESULT")
@@ -1274,8 +1677,78 @@ class IXpsOMPath extends IXpsOMVisual{
 
     /**
      * Sets the lookup key name of a shared brush in a resource dictionary, to be used as the fill brush.
+     * @remarks
+     * After you call <b>SetFillBrushLookup</b>, the local fill brush is released and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlocal">GetFillBrushLocal</a> returns a <b>NULL</b> pointer in the <i>brush</i> parameter. The table that follows explains the relationship between the local and lookup values of this property.
+     * 
+     * <table>
+     * <tr>
+     * <th>Most recent method called</th>
+     * <th>Object that is returned in <i>brush</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrush">GetFillBrush</a>
+     * </th>
+     * <th>Object that is returned in <i>brush</i>  by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlocal">GetFillBrushLocal</a>
+     * </th>
+     * <th>String that is returned in <i>lookup</i> by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-getfillbrushlookup">GetFillBrushLookup</a>
+     * </th>
+     * </tr>
+     * <tr>
+     * <td>
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlocal">SetFillBrushLocal</a>
+     * 
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlocal">SetFillBrushLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * The local brush that is set by <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlocal">SetFillBrushLocal</a>.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * <b>SetFillBrushLookup</b> (this method)
+     * 
+     * </td>
+     * <td>
+     * The shared brush retrieved, with a lookup key that matches the key that is set by <b>SetFillBrushLookup</b>, from the resource directory.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * The lookup key that is set by <b>SetFillBrushLookup</b>.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td>
+     * Neither <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlocal">SetFillBrushLocal</a> nor <b>SetFillBrushLookup</b> has been called yet.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * <td>
+     * <b>NULL</b> pointer.
+     * 
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} lookup The key name of the brush in a resource dictionary, to be used as the fill brush.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -1327,7 +1800,7 @@ class IXpsOMPath extends IXpsOMVisual{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlookup
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-setfillbrushlookup
      */
     SetFillBrushLookup(lookup) {
         lookup := lookup is String ? StrPtr(lookup) : lookup
@@ -1337,9 +1810,9 @@ class IXpsOMPath extends IXpsOMVisual{
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMPath.Clone)
      * @returns {IXpsOMPath} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-clone
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsompath-clone
      */
     Clone() {
         result := ComCall(66, this, "ptr*", &path := 0, "HRESULT")

@@ -30,8 +30,9 @@ class ITransactionReceiverFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @returns {ITransactionReceiver} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create() {
         result := ComCall(3, this, "ptr*", &ppReceiver := 0, "HRESULT")

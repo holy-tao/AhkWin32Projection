@@ -4,7 +4,14 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * The IKsPin interface provides a method to retrieve the mediums supported by a pin on a kernel-mode filter. IKsPin has additional methods besides the one shown here, but they are not supported for DirectShow.
+ * @remarks
+ * The **IKsPin** interface inherits from the [**IUnknown**](/windows/win32/api/unknwn/nn-unknwn-iunknown) interface. **IKsPin** also has these types of members:
  * 
+ * -   [Methods](#methods)
+ * 
+ * 
+ * You must include Ks.h before Ksproxy.h.
  * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspin
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
@@ -31,7 +38,13 @@ class IKsPin extends IUnknown{
     static VTableNames => ["KsQueryMediums", "KsQueryInterfaces", "KsCreateSinkPinHandle", "KsGetCurrentCommunication", "KsPropagateAcquire", "KsDeliver", "KsMediaSamplesCompleted", "KsPeekAllocator", "KsReceiveAllocator", "KsRenegotiateAllocator", "KsIncrementPendingIoCount", "KsDecrementPendingIoCount", "KsQualityNotify"]
 
     /**
+     * The KsQueryMediums method retrieves the mediums supported by a pin.
+     * @remarks
+     * This method returns a task-allocated [**KSMULTIPLE\_ITEM**](ksmultiple-item.md) structure, which is followed by zero or more [**REGPINMEDIUM**](/windows/desktop/api/strmif/ns-strmif-regpinmedium) structures. The **Count** member of the **KSMULTIPLE\_ITEM** structure specifies the number of **REGPINMEDIUM** structures. Each **REGPINMEDIUM** structure defines a medium supported by the pin.
      * 
+     * The caller must free the returned structures, using the **CoTaskMemFree** function.
+     * 
+     * You must include Ks.h before Ksproxy.h.
      * @returns {Pointer<KSMULTIPLE_ITEM>} 
      * @see https://learn.microsoft.com/windows/win32/DirectShow/ikspin-ksquerymediums
      */

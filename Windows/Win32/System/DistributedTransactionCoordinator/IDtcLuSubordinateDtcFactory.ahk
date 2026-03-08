@@ -29,7 +29,7 @@ class IDtcLuSubordinateDtcFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @param {IUnknown} punkTransactionOuter 
@@ -42,6 +42,7 @@ class IDtcLuSubordinateDtcFactory extends IUnknown{
      * @param {IDtcLuSubordinateDtcSink} pSubordinateDtcSink 
      * @param {Pointer<IDtcLuSubordinateDtc>} ppSubordinateDtc 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pucLuPair, cbLuPair, punkTransactionOuter, isoLevel, isoFlags, pOptions, ppTransaction, pTransId, cbTransId, pSubordinateDtcSink, ppSubordinateDtc) {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"

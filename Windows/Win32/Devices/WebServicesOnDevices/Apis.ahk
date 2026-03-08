@@ -113,11 +113,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateUdpMessageParameters() {
-        result := DllCall("wsdapi.dll\WSDCreateUdpMessageParameters", "ptr*", &ppTxParams := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateUdpMessageParameters", "ptr*", &ppTxParams := 0, "HRESULT")
         return IWSDUdpMessageParameters(ppTxParams)
     }
 
@@ -128,11 +124,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateUdpAddress() {
-        result := DllCall("wsdapi.dll\WSDCreateUdpAddress", "ptr*", &ppAddress := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateUdpAddress", "ptr*", &ppAddress := 0, "HRESULT")
         return IWSDUdpAddress(ppAddress)
     }
 
@@ -143,11 +135,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateHttpMessageParameters() {
-        result := DllCall("wsdapi.dll\WSDCreateHttpMessageParameters", "ptr*", &ppTxParams := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateHttpMessageParameters", "ptr*", &ppTxParams := 0, "HRESULT")
         return IWSDHttpMessageParameters(ppTxParams)
     }
 
@@ -158,11 +146,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateHttpAddress() {
-        result := DllCall("wsdapi.dll\WSDCreateHttpAddress", "ptr*", &ppAddress := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateHttpAddress", "ptr*", &ppAddress := 0, "HRESULT")
         return IWSDHttpAddress(ppAddress)
     }
 
@@ -173,11 +157,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateOutboundAttachment() {
-        result := DllCall("wsdapi.dll\WSDCreateOutboundAttachment", "ptr*", &ppAttachment := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateOutboundAttachment", "ptr*", &ppAttachment := 0, "HRESULT")
         return IWSDOutboundAttachment(ppAttachment)
     }
 
@@ -193,11 +173,7 @@ class WebServicesOnDevices {
         pszNamespace := pszNamespace is String ? StrPtr(pszNamespace) : pszNamespace
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr*", &ppName := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDXMLGetNameFromBuiltinNamespace", "ptr", pszNamespace, "ptr", pszName, "ptr*", &ppName := 0, "HRESULT")
         return ppName
     }
 
@@ -210,11 +186,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLCreateContext() {
-        result := DllCall("wsdapi.dll\WSDXMLCreateContext", "ptr*", &ppContext := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDXMLCreateContext", "ptr*", &ppContext := 0, "HRESULT")
         return IWSDXMLContext(ppContext)
     }
 
@@ -228,11 +200,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDiscoveryProvider(pContext) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider", "ptr", pContext, "ptr*", &ppProvider := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider", "ptr", pContext, "ptr*", &ppProvider := 0, "HRESULT")
         return IWSDiscoveryProvider(ppProvider)
     }
 
@@ -248,11 +216,7 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDCreateDiscoveryProvider2(pContext, pConfigParams, dwConfigParamCount) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppProvider := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryProvider2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppProvider := 0, "HRESULT")
         return IWSDiscoveryProvider(ppProvider)
     }
 
@@ -266,11 +230,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDCreateDiscoveryPublisher(pContext) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher", "ptr", pContext, "ptr*", &ppPublisher := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher", "ptr", pContext, "ptr*", &ppPublisher := 0, "HRESULT")
         return IWSDiscoveryPublisher(ppPublisher)
     }
 
@@ -286,11 +246,7 @@ class WebServicesOnDevices {
      * @since windows6.1
      */
     static WSDCreateDiscoveryPublisher2(pContext, pConfigParams, dwConfigParamCount) {
-        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppPublisher := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDiscoveryPublisher2", "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppPublisher := 0, "HRESULT")
         return IWSDiscoveryPublisher(ppPublisher)
     }
 
@@ -319,11 +275,7 @@ class WebServicesOnDevices {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceProxy := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceProxy := 0, "HRESULT")
         return IWSDDeviceProxy(ppDeviceProxy)
     }
 
@@ -357,11 +309,7 @@ class WebServicesOnDevices {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceProxyAdvanced", "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceProxy := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDeviceProxyAdvanced", "ptr", pszDeviceId, "ptr", pDeviceAddress, "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceProxy := 0, "HRESULT")
         return IWSDDeviceProxy(ppDeviceProxy)
     }
 
@@ -392,11 +340,7 @@ class WebServicesOnDevices {
         pszDeviceId := pszDeviceId is String ? StrPtr(pszDeviceId) : pszDeviceId
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceProxy := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDeviceProxy2", "ptr", pszDeviceId, "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceProxy := 0, "HRESULT")
         return IWSDDeviceProxy(ppDeviceProxy)
     }
 
@@ -442,11 +386,7 @@ class WebServicesOnDevices {
     static WSDCreateDeviceHost(pszLocalId, pContext) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceHost", "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceHost := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDeviceHost", "ptr", pszLocalId, "ptr", pContext, "ptr*", &ppDeviceHost := 0, "HRESULT")
         return IWSDDeviceHost(ppDeviceHost)
     }
 
@@ -497,11 +437,7 @@ class WebServicesOnDevices {
     static WSDCreateDeviceHostAdvanced(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, "ptr*", ppHostAddresses, "uint", dwHostAddressCount, "ptr*", &ppDeviceHost := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDeviceHostAdvanced", "ptr", pszLocalId, "ptr", pContext, "ptr*", ppHostAddresses, "uint", dwHostAddressCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
         return IWSDDeviceHost(ppDeviceHost)
     }
 
@@ -547,11 +483,7 @@ class WebServicesOnDevices {
     static WSDCreateDeviceHost2(pszLocalId, pContext, pConfigParams, dwConfigParamCount) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
 
-        result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceHost := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDCreateDeviceHost2", "ptr", pszLocalId, "ptr", pContext, "ptr", pConfigParams, "uint", dwConfigParamCount, "ptr*", &ppDeviceHost := 0, "HRESULT")
         return IWSDDeviceHost(ppDeviceHost)
     }
 
@@ -612,11 +544,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDSetConfigurationOption(dwOption, pVoid, cbInBuffer) {
-        result := DllCall("wsdapi.dll\WSDSetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbInBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDSetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbInBuffer, "HRESULT")
         return result
     }
 
@@ -688,11 +616,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDGetConfigurationOption(dwOption, pVoid, cbOutBuffer) {
-        result := DllCall("wsdapi.dll\WSDGetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbOutBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDGetConfigurationOption", "uint", dwOption, "ptr", pVoid, "uint", cbOutBuffer, "HRESULT")
         return result
     }
 
@@ -777,11 +701,7 @@ class WebServicesOnDevices {
     static WSDXMLBuildAnyForSingleElement(pElementName, pszText) {
         pszText := pszText is String ? StrPtr(pszText) : pszText
 
-        result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr*", &ppAny := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDXMLBuildAnyForSingleElement", "ptr", pElementName, "ptr", pszText, "ptr*", &ppAny := 0, "HRESULT")
         return ppAny
     }
 
@@ -798,11 +718,7 @@ class WebServicesOnDevices {
         pszNamespace := pszNamespace is String ? StrPtr(pszNamespace) : pszNamespace
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("wsdapi.dll\WSDXMLGetValueFromAny", "ptr", pszNamespace, "ptr", pszName, "ptr", pAny, "ptr*", &ppszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDXMLGetValueFromAny", "ptr", pszNamespace, "ptr", pszName, "ptr", pAny, "ptr*", &ppszValue := 0, "HRESULT")
         return ppszValue
     }
 
@@ -844,11 +760,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLAddSibling(pFirst, pSecond) {
-        result := DllCall("wsdapi.dll\WSDXMLAddSibling", "ptr", pFirst, "ptr", pSecond, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDXMLAddSibling", "ptr", pFirst, "ptr", pSecond, "HRESULT")
         return result
     }
 
@@ -890,11 +802,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLAddChild(pParent, pChild) {
-        result := DllCall("wsdapi.dll\WSDXMLAddChild", "ptr", pParent, "ptr", pChild, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDXMLAddChild", "ptr", pParent, "ptr", pChild, "HRESULT")
         return result
     }
 
@@ -935,11 +843,7 @@ class WebServicesOnDevices {
      * @since windows6.0.6000
      */
     static WSDXMLCleanupElement(pAny) {
-        result := DllCall("wsdapi.dll\WSDXMLCleanupElement", "ptr", pAny, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDXMLCleanupElement", "ptr", pAny, "HRESULT")
         return result
     }
 
@@ -979,11 +883,7 @@ class WebServicesOnDevices {
         pszReason := pszReason is String ? StrPtr(pszReason) : pszReason
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-        result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr*", &ppFault := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDGenerateFault", "ptr", pszCode, "ptr", pszSubCode, "ptr", pszReason, "ptr", pszDetail, "ptr", pContext, "ptr*", &ppFault := 0, "HRESULT")
         return ppFault
     }
 
@@ -1021,11 +921,7 @@ class WebServicesOnDevices {
     static WSDGenerateFaultEx(pCode, pSubCode, pReasons, pszDetail) {
         pszDetail := pszDetail is String ? StrPtr(pszDetail) : pszDetail
 
-        result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr*", &ppFault := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDGenerateFaultEx", "ptr", pCode, "ptr", pSubCode, "ptr", pReasons, "ptr", pszDetail, "ptr*", &ppFault := 0, "HRESULT")
         return ppFault
     }
 
@@ -1100,11 +996,7 @@ class WebServicesOnDevices {
         destOutMarshal := destOut is VarRef ? "ptr*" : "ptr"
         cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDUriEncode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
         return result
     }
 
@@ -1177,11 +1069,7 @@ class WebServicesOnDevices {
         destOutMarshal := destOut is VarRef ? "ptr*" : "ptr"
         cchDestOutMarshal := cchDestOut is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("wsdapi.dll\WSDUriDecode", "ptr", source, "uint", cchSource, destOutMarshal, destOut, cchDestOutMarshal, cchDestOut, "HRESULT")
         return result
     }
 

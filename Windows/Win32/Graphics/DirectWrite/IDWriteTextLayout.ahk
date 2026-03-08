@@ -9,7 +9,6 @@
 /**
  * The IDWriteTextLayout interface represents a block of text after it has been fully analyzed and formatted.
  * @remarks
- * 
  * To get a reference to the <b>IDWriteTextLayout</b> interface, the application must call the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextlayout">IDWriteFactory::CreateTextLayout</a> method, as shown in the following code.  
  * 
  * 
@@ -83,9 +82,7 @@
  * <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextrenderer">IDWriteTextRenderer</a> declares methods for drawing a glyph run, underline, strikethrough and inline objects.  It is up to the application to implement these methods.  Creating a custom text renderer allows the application to apply additional effects when rendering text, such as a custom fill or outline.
  * 
  * Using a custom text renderer also enables you to render using another technology, such as GDI.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextlayout
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextlayout
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -117,8 +114,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * A value that indicates the maximum width of the layout box.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setmaxwidth
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setmaxwidth
      */
     SetMaxWidth(maxWidth) {
         result := ComCall(28, this, "float", maxWidth, "HRESULT")
@@ -132,8 +129,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * A value that indicates the maximum height of the layout box.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setmaxheight
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setmaxheight
      */
     SetMaxHeight(maxHeight) {
         result := ComCall(29, this, "float", maxHeight, "HRESULT")
@@ -150,8 +147,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setfontcollection
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontcollection
      */
     SetFontCollection(fontCollection, textRange) {
         result := ComCall(30, this, "ptr", fontCollection, "ptr", textRange, "HRESULT")
@@ -168,8 +165,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setfontfamilyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontfamilyname
      */
     SetFontFamilyName(fontFamilyName, textRange) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
@@ -180,6 +177,12 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Sets the font weight for text within a text range specified by a DWRITE_TEXT_RANGE structure.
+     * @remarks
+     * The font weight can be set to one of the predefined font weight values provided in the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a> enumeration or an integer from 1 to 999.  Values outside this range will cause the method to fail with an <b>E_INVALIDARG</b> return value.
+     * 
+     * The following illustration shows an example of Normal and UltraBold weights for the Palatino Linotype typeface.
+     * 
+     * <img alt='Illustration of the letter "W" in Normal and UltraBold weights' src="./images/FontWeight_for_Palatino.png"/>
      * @param {Integer} fontWeight Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * The font weight to be set for text within the range specified by <i>textRange</i>.
@@ -188,8 +191,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setfontweight
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontweight
      */
     SetFontWeight(fontWeight, textRange) {
         result := ComCall(32, this, "int", fontWeight, "ptr", textRange, "HRESULT")
@@ -198,6 +201,10 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Sets the font style for text within a text range specified by a DWRITE_TEXT_RANGE structure.
+     * @remarks
+     * The font style can be set to Normal, Italic or Oblique. The following illustration shows  three styles for the Palatino font.  For more information, see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a>.
+     * 
+     * <img alt="Illustration of normal, italic, and oblique font styles for the Palatino font" src="./images/FontStyle_for_Palatino.png"/>
      * @param {Integer} fontStyle Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * The  font style to be set   for text within a range specified by <i>textRange</i>.
@@ -206,8 +213,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setfontstyle
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontstyle
      */
     SetFontStyle(fontStyle, textRange) {
         result := ComCall(33, this, "int", fontStyle, "ptr", textRange, "HRESULT")
@@ -224,8 +231,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setfontstretch
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontstretch
      */
     SetFontStretch(fontStretch, textRange) {
         result := ComCall(34, this, "int", fontStretch, "ptr", textRange, "HRESULT")
@@ -242,8 +249,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setfontsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setfontsize
      */
     SetFontSize(fontSize, textRange) {
         result := ComCall(35, this, "float", fontSize, "ptr", textRange, "HRESULT")
@@ -260,8 +267,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setunderline
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setunderline
      */
     SetUnderline(hasUnderline, textRange) {
         result := ComCall(36, this, "int", hasUnderline, "ptr", textRange, "HRESULT")
@@ -278,8 +285,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setstrikethrough
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setstrikethrough
      */
     SetStrikethrough(hasStrikethrough, textRange) {
         result := ComCall(37, this, "int", hasStrikethrough, "ptr", textRange, "HRESULT")
@@ -288,6 +295,11 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Sets the application-defined drawing effect.
+     * @remarks
+     * An <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>, such as a color or gradient brush, can be set as a drawing effect if you are using the <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawtextlayout">ID2D1RenderTarget::DrawTextLayout</a> to draw text and that brush will be used to draw the specified range of text.
+     * 
+     *  This drawing effect is associated with the specified range and will be passed back
+     *      to the application by way of the callback when the range is drawn at drawing time.
      * @param {IUnknown} drawingEffect Type: <b>IUnknown*</b>
      * 
      * Application-defined drawing effects that apply to the range. This data object will be passed back to the application's drawing callbacks for final rendering.
@@ -296,8 +308,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setdrawingeffect
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setdrawingeffect
      */
     SetDrawingEffect(drawingEffect, textRange) {
         result := ComCall(38, this, "ptr", drawingEffect, "ptr", textRange, "HRESULT")
@@ -306,6 +318,12 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Sets the inline object.
+     * @remarks
+     * The application may call this function to specify the set of properties describing an application-defined inline object for specific range.
+     * 
+     *  This inline object applies to the specified range and will be passed back
+     *      to the application by way of the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextrenderer-drawinlineobject">DrawInlineObject</a> callback when the range is drawn.
+     *      Any text in that range will be suppressed.
      * @param {IDWriteInlineObject} inlineObject Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteinlineobject">IDWriteInlineObject</a>*</b>
      * 
      * An application-defined inline object.
@@ -314,8 +332,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setinlineobject
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setinlineobject
      */
     SetInlineObject(inlineObject, textRange) {
         result := ComCall(39, this, "ptr", inlineObject, "ptr", textRange, "HRESULT")
@@ -332,8 +350,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-settypography
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-settypography
      */
     SetTypography(typography, textRange) {
         result := ComCall(40, this, "ptr", typography, "ptr", textRange, "HRESULT")
@@ -350,8 +368,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Text range to which this change applies.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-setlocalename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-setlocalename
      */
     SetLocaleName(localeName, textRange) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
@@ -365,7 +383,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * Returns the layout maximum width.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getmaxwidth
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getmaxwidth
      */
     GetMaxWidth() {
         result := ComCall(42, this, "float")
@@ -377,7 +395,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The layout maximum height.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getmaxheight
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getmaxheight
      */
     GetMaxHeight() {
         result := ComCall(43, this, "float")
@@ -397,8 +415,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the underline.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getfontcollection
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontcollection
      */
     GetFontCollection(currentPosition, fontCollection, textRange) {
         result := ComCall(44, this, "uint", currentPosition, "ptr*", fontCollection, "ptr", textRange, "HRESULT")
@@ -418,8 +436,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font family.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getfontfamilynamelength
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontfamilynamelength
      */
     GetFontFamilyNameLength(currentPosition, nameLength, textRange) {
         nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
@@ -442,7 +460,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @returns {DWRITE_TEXT_RANGE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>
      * 
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font family name.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getfontfamilyname
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontfamilyname
      */
     GetFontFamilyName(currentPosition, fontFamilyName, nameSize) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
@@ -465,8 +483,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font weight.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getfontweight
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontweight
      */
     GetFontWeight(currentPosition, fontWeight, textRange) {
         fontWeightMarshal := fontWeight is VarRef ? "int*" : "ptr"
@@ -488,8 +506,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font style.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getfontstyle
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontstyle
      */
     GetFontStyle(currentPosition, fontStyle, textRange) {
         fontStyleMarshal := fontStyle is VarRef ? "int*" : "ptr"
@@ -511,8 +529,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font stretch.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getfontstretch
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontstretch
      */
     GetFontStretch(currentPosition, fontStretch, textRange) {
         fontStretchMarshal := fontStretch is VarRef ? "int*" : "ptr"
@@ -534,8 +552,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the font size.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getfontsize
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getfontsize
      */
     GetFontSize(currentPosition, fontSize, textRange) {
         fontSizeMarshal := fontSize is VarRef ? "float*" : "ptr"
@@ -557,8 +575,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the underline.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getunderline
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getunderline
      */
     GetUnderline(currentPosition, hasUnderline, textRange) {
         hasUnderlineMarshal := hasUnderline is VarRef ? "int*" : "ptr"
@@ -580,8 +598,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Contains the range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to strikethrough.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getstrikethrough
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getstrikethrough
      */
     GetStrikethrough(currentPosition, hasStrikethrough, textRange) {
         hasStrikethroughMarshal := hasStrikethrough is VarRef ? "int*" : "ptr"
@@ -603,8 +621,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Contains the range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the drawing effect.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getdrawingeffect
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getdrawingeffect
      */
     GetDrawingEffect(currentPosition, drawingEffect, textRange) {
         result := ComCall(53, this, "uint", currentPosition, "ptr*", drawingEffect, "ptr", textRange, "HRESULT")
@@ -624,8 +642,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the inline object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getinlineobject
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getinlineobject
      */
     GetInlineObject(currentPosition, inlineObject, textRange) {
         result := ComCall(54, this, "uint", currentPosition, "ptr*", inlineObject, "ptr", textRange, "HRESULT")
@@ -645,8 +663,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the typography.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-gettypography
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-gettypography
      */
     GetTypography(currentPosition, typography, textRange) {
         result := ComCall(55, this, "uint", currentPosition, "ptr*", typography, "ptr", textRange, "HRESULT")
@@ -666,8 +684,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the locale name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getlocalenamelength
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getlocalenamelength
      */
     GetLocaleNameLength(currentPosition, nameLength, textRange) {
         nameLengthMarshal := nameLength is VarRef ? "uint*" : "ptr"
@@ -690,7 +708,7 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * @returns {DWRITE_TEXT_RANGE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_range">DWRITE_TEXT_RANGE</a>*</b>
      * 
      * The range of text that has the same  formatting as the text at the position specified by <i>currentPosition</i>.  This means the run has the exact  formatting as the position specified, including but not limited to the locale name.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getlocalename
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getlocalename
      */
     GetLocaleName(currentPosition, localeName, nameSize) {
         localeName := localeName is String ? StrPtr(localeName) : localeName
@@ -702,6 +720,12 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Draws text using the specified client drawing context.
+     * @remarks
+     * To draw text with this method, a <i>textLayout</i> object needs to be created by the application using <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextlayout">IDWriteFactory::CreateTextLayout</a>. 
+     * 
+     * After the <i>textLayout</i> object is obtained, the application calls the  <b>IDWriteTextLayout::Draw</b> method  to draw the text, decorations, and inline objects. The actual drawing is done through the callback interface passed in as the <i>textRenderer</i> argument; there, the corresponding <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritebitmaprendertarget-drawglyphrun">DrawGlyphRun</a> API is called. 
+     * 
+     * If you set a vertical text reading direction on IDWriteTextLayout via SetReadingDirection with DWRITE_READING_DIRECTION_TOP_TO_BOTTOM (or bottom to top), then you must pass an interface that implements IDWriteTextRenderer1. Otherwise you get the error DWRITE_E_TEXTRENDERERINCOMPATIBLE because the original IDWriteTextRenderer interface only supported horizontal text.
      * @param {Pointer<Void>} clientDrawingContext Type: <b>void*</b>
      * 
      * An application-defined drawing context.
@@ -716,8 +740,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The y-coordinate of the layout's top side.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-draw
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-draw
      */
     Draw(clientDrawingContext, renderer, originX, originY) {
         clientDrawingContextMarshal := clientDrawingContext is VarRef ? "ptr" : "ptr"
@@ -728,6 +752,10 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Retrieves the information about each individual text line of the text string.
+     * @remarks
+     * If <i>maxLineCount</i> is not large enough E_NOT_SUFFICIENT_BUFFER, which is equivalent to HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER), is
+     *      returned and <i>*actualLineCount</i> is set to the number of lines
+     *      needed.
      * @param {Pointer<DWRITE_LINE_METRICS>} lineMetrics Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_line_metrics">DWRITE_LINE_METRICS</a>*</b>
      * 
      * When this method returns, contains a pointer to an array of structures containing various calculated length values of individual text lines.
@@ -736,11 +764,11 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * The maximum size of the <i>lineMetrics</i> array.
      * @param {Pointer<Integer>} actualLineCount Type: <b>UINT32*</b>
      * 
-     * When this method returns, contains the actual size of the <i>lineMetrics</i>array that is needed.
+     * When this method returns, contains the actual size of the <i>lineMetrics</i> array that is needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getlinemetrics
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getlinemetrics
      */
     GetLineMetrics(lineMetrics, maxLineCount, actualLineCount) {
         actualLineCountMarshal := actualLineCount is VarRef ? "uint*" : "ptr"
@@ -750,11 +778,11 @@ class IDWriteTextLayout extends IDWriteTextFormat{
     }
 
     /**
-     * Retrieves overall metrics for the formatted string.
+     * Retrieves overall metrics for the formatted string. (IDWriteTextLayout.GetMetrics)
      * @returns {DWRITE_TEXT_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_text_metrics">DWRITE_TEXT_METRICS</a>*</b>
      * 
      * When this method returns, contains the measured distances of text and associated content after being formatted.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getmetrics
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getmetrics
      */
     GetMetrics() {
         textMetrics := DWRITE_TEXT_METRICS()
@@ -764,10 +792,12 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Returns the overhangs (in DIPs) of the layout and all objects contained in it, including text glyphs and inline objects.
-     * @returns {DWRITE_OVERHANG_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_overhang_metrics">DWRITE_OVERHANG_METRICS</a>*</b>
+     * @remarks
+     * Underlines and strikethroughs do not contribute to the black box determination, since these are actually drawn by the renderer, which is allowed to draw them in any variety of styles.
+     * @returns {DWRITE_OVERHANG_METRICS} Type: **[**DWRITE\_OVERHANG\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_overhang_metrics)\***
      * 
      * Overshoots of visible extents (in DIPs) outside the layout.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getoverhangmetrics
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout-getoverhangmetrics
      */
     GetOverhangMetrics() {
         overhangs := DWRITE_OVERHANG_METRICS()
@@ -777,6 +807,10 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Retrieves logical properties and measurements of each glyph cluster.
+     * @remarks
+     * If <i>maxClusterCount</i> is not large enough, then E_NOT_SUFFICIENT_BUFFER, which is equivalent to HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER), is
+     *      returned and <i>actualClusterCount</i> is set to the number of clusters
+     *      needed.
      * @param {Pointer<DWRITE_CLUSTER_METRICS>} clusterMetrics Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_cluster_metrics">DWRITE_CLUSTER_METRICS</a>*</b>
      * 
      * When this method returns, contains metrics, such as line-break or total advance width, for a glyph cluster.
@@ -788,8 +822,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * When this method returns, contains the actual size of the <i>clusterMetrics</i> array that is needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-getclustermetrics
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-getclustermetrics
      */
     GetClusterMetrics(clusterMetrics, maxClusterCount, actualClusterCount) {
         actualClusterCountMarshal := actualClusterCount is VarRef ? "uint*" : "ptr"
@@ -800,10 +834,10 @@ class IDWriteTextLayout extends IDWriteTextFormat{
 
     /**
      * Determines the minimum possible width the layout can be set to without emergency breaking between the characters of whole words occurring.
-     * @returns {Float} Type: <b>FLOAT*</b>
+     * @returns {Float} Type: **FLOAT\***
      * 
      * Minimum width.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-determineminwidth
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextlayout-determineminwidth
      */
     DetermineMinWidth() {
         result := ComCall(63, this, "float*", &minWidth := 0, "HRESULT")
@@ -833,8 +867,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      *          is set to <b>FALSE</b>, this structure represents the geometry enclosing the edge closest to the hit-test location.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-hittestpoint
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-hittestpoint
      */
     HitTestPoint(pointX, pointY, isTrailingHit, isInside, hitTestMetrics) {
         isTrailingHitMarshal := isTrailingHit is VarRef ? "int*" : "ptr"
@@ -863,8 +897,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * When this method returns, contains the output geometry fully enclosing the specified text position.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-hittesttextposition
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-hittesttextposition
      */
     HitTestTextPosition(textPosition, isTrailingHit, pointX, pointY, hitTestMetrics) {
         pointXMarshal := pointX is VarRef ? "float*" : "ptr"
@@ -899,8 +933,8 @@ class IDWriteTextLayout extends IDWriteTextFormat{
      * Actual number of geometries <i>hitTestMetrics</i> holds in its buffer memory.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextlayout-hittesttextrange
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextlayout-hittesttextrange
      */
     HitTestTextRange(textPosition, textLength, originX, originY, hitTestMetrics, maxHitTestMetricsCount, actualHitTestMetricsCount) {
         actualHitTestMetricsCountMarshal := actualHitTestMetricsCount is VarRef ? "uint*" : "ptr"

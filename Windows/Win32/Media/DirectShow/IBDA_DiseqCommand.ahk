@@ -4,15 +4,13 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Controls cable television satelite equipment, using Digital Satellite Equipment Control (DiSEqC) commands.
+ * Controls cable television satellite equipment, using Digital Satellite Equipment Control (DiSEqC) commands.
  * @remarks
- * 
  * Depending on the cable television equipment in use, this interface can be used to select the LNB converter source, move a motor dish, or control radio frequency (RF) switching equipment.
  *       
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_DiseqCommand)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_diseqcommand
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_diseqcommand
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -67,9 +65,11 @@ class IBDA_DiseqCommand extends IUnknown{
 
     /**
      * Enables or disables the use of Digital Satellite Equipment Control (DiSEqC) commands.
+     * @remarks
+     * Depending on the satellite installation, DiSEqC commands might be required. However, enabling DiSEqC can result in the driver taking longer to switch transponders (typically by 100–300 milliseconds). Therefore, it is recommended to disable DiSEqC commands if they are not required.
      * @param {BOOLEAN} bEnable If <b>TRUE</b>, DiSEqC commands are enabled. Otherwise, DiSEqC commands are disabled.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_diseqcommand-put_enablediseqcommands
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_enablediseqcommands
      */
     put_EnableDiseqCommands(bEnable) {
         result := ComCall(3, this, "char", bEnable, "HRESULT")
@@ -126,8 +126,8 @@ class IBDA_DiseqCommand extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqlnbsource
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqlnbsource
      */
     put_DiseqLNBSource(ulLNBSource) {
         result := ComCall(4, this, "uint", ulLNBSource, "HRESULT")
@@ -136,9 +136,13 @@ class IBDA_DiseqCommand extends IUnknown{
 
     /**
      * Enables or disables Tone-Burst commands.
+     * @remarks
+     * The Tone-Burst command uses a 22-kHz carrier signal to select either source position A or source position B. 
+     * 
+     * Typically the driver enables or disables Tone-Burst as needed when the application calls <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqlnbsource">IBDA_DiseqCommand::put_DiseqLNBSource</a>. However, you can use  the <b>put_DiseqUseToneBurst</b> method to switch this mode on or off, either to improve channel switching or to maintain compatibility with particular equipment. Note that using Tone-Burst can increase  the amount of time required for tuning by about 40 milliseconds.
      * @param {BOOLEAN} bUseToneBurst If <b>TRUE</b>, Tone-Burst commands are enabled. Otherwise, Tone-Burst commands are disabled.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_diseqcommand-put_disequsetoneburst
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_disequsetoneburst
      */
     put_DiseqUseToneBurst(bUseToneBurst) {
         result := ComCall(5, this, "char", bUseToneBurst, "HRESULT")
@@ -147,9 +151,12 @@ class IBDA_DiseqCommand extends IUnknown{
 
     /**
      * Enables or disables repeated Digital Satellite Equipment Control (DiSEqC) commands.
+     * @remarks
+     * When two DiSEqC switches are cascaded, the tuner might have to repeat
+     * commands for the far device. However, repeated commands can increase  the amount of time required for tuning by about 100 milliseconds. Therefore, it is recommended to disable repeated commands if they are not required.
      * @param {Integer} ulRepeats The number of times to repeat each DiSEqC command. To disable repeated commands, set <i>ulRepeats</i> to 0.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqrepeats
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqrepeats
      */
     put_DiseqRepeats(ulRepeats) {
         result := ComCall(6, this, "uint", ulRepeats, "HRESULT")
@@ -158,11 +165,15 @@ class IBDA_DiseqCommand extends IUnknown{
 
     /**
      * Sends a Digital Satellite Equipment Control (DiSEqC) command.
+     * @remarks
+     * This method is required for version 1.2 and later of the DiSEqC command set.
+     * 
+     * To get the command response from the driver, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_diseqcommand-get_diseqresponse">IBDA_DiseqCommand::get_DiseqResponse</a>.
      * @param {Integer} ulRequestId An identifier for the command that is assigned by the application.
      * @param {Integer} ulcbCommandLen The size of the <i>pbCommand</i> array, in bytes.
      * @param {Pointer<Integer>} pbCommand Pointer to a byte array that contains the DiSEqC command, starting with the framing byte. The driver inserts the parity bits for the command.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqsendcommand
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-put_diseqsendcommand
      */
     put_DiseqSendCommand(ulRequestId, ulcbCommandLen, pbCommand) {
         pbCommandMarshal := pbCommand is VarRef ? "char*" : "ptr"
@@ -206,7 +217,7 @@ class IBDA_DiseqCommand extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_diseqcommand-get_diseqresponse
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_diseqcommand-get_diseqresponse
      */
     get_DiseqResponse(ulRequestId, pulcbResponseLen, pbResponse) {
         pulcbResponseLenMarshal := pulcbResponseLen is VarRef ? "uint*" : "ptr"

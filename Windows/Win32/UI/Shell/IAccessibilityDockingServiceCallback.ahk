@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Receives Acessibility Window Docking events.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iaccessibilitydockingservicecallback
+ * Receives Accessibility Window Docking events.
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iaccessibilitydockingservicecallback
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,8 +33,8 @@ class IAccessibilityDockingServiceCallback extends IUnknown{
     /**
      * Undocks the accessibility window so that it will not be automatically moved to its previous location.
      * @param {Integer} undockReason Specifies the reason why the accessibility application's window was undocked.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iaccessibilitydockingservicecallback-undocked
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iaccessibilitydockingservicecallback-undocked
      */
     Undocked(undockReason) {
         result := ComCall(3, this, "int", undockReason, "HRESULT")

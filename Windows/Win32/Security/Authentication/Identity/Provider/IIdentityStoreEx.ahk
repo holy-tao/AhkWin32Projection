@@ -44,10 +44,21 @@ class IIdentityStoreEx extends IUnknown{
     }
 
     /**
-     * 
+     * Deletes the user credential used for the connected identity.
      * @param {PWSTR} ConnectedName 
      * @param {Pointer<Guid>} ProviderGUID 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the function returns SEC\_E\_OK.
+     * 
+     * If the function fails, the function may return one of the following error codes.
+     * 
+     * 
+     * 
+     * | Return value                                                                                               | Description                                                                                                                                                 |
+     * |------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>STATUS\_INVALID\_PARAMETER</dt> </dl>      | A parameter is not valid.<br/>                                                                                                                        |
+     * | <dl> <dt>STATUS\_NO\_SUCH\_USER</dt> </dl>          | The user identified by *UserSid* does not exist, is not currently connected, or there is no identity whose user name matches *IdentityUserName*.<br/> |
+     * | <dl> <dt>STATUS\_INSUFFICIENT\_RESOURCES</dt> </dl> | There is not enough memory to process the request.<br/>                                                                                               |
+     * @see https://learn.microsoft.com/windows/win32/SecAuthN/deleteconnectedidentity
      */
     DeleteConnectedIdentity(ConnectedName, ProviderGUID) {
         ConnectedName := ConnectedName is String ? StrPtr(ConnectedName) : ConnectedName

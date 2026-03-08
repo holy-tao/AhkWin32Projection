@@ -8,7 +8,7 @@
 
 /**
  * The IGPMBackupDir interface supports methods that allow you to query GPMBackup and GPMBackupCollection objects when you use the Group Policy Management Console (GPMC) interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmbackupdir
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmbackupdir
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */
@@ -61,7 +61,7 @@ class IGPMBackupDir extends IDispatch{
      * @param {BSTR} bstrID ID of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> object to open.
      * @returns {IGPMBackup} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> interface for the specified ID.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmbackupdir-getbackup
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdir-getbackup
      */
     GetBackup(bstrID) {
         bstrID := bstrID is String ? BSTR.Alloc(bstrID).Value : bstrID
@@ -71,11 +71,14 @@ class IGPMBackupDir extends IDispatch{
     }
 
     /**
-     * Executes a search for the GPMBackup object according to the specified criteria, and returns an GPMBackupCollection object.
+     * Executes a search for the GPMBackup object according to the specified criteria, and returns a GPMBackupCollection object.
+     * @remarks
+     * An empty  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmsearchcriteria">GPMSearchCriteria</a> has had no criteria added to it. Passing in an empty <b>GPMSearchCriteria</b> will return all  
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">GPMBackup</a> objects.
      * @param {IGPMSearchCriteria} pIGPMSearchCriteria Pointer to the criteria to apply to the search.
      * @returns {IGPMBackupCollection} Address of a pointer to the 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackupcollection">IGPMBackupCollection</a> interface that represents the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/gpmgmt/nn-gpmgmt-igpmbackup">IGPMBackup</a> objects found by the search.
-     * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nf-gpmgmt-igpmbackupdir-searchbackups
+     * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nf-gpmgmt-igpmbackupdir-searchbackups
      */
     SearchBackups(pIGPMSearchCriteria) {
         result := ComCall(9, this, "ptr", pIGPMSearchCriteria, "ptr*", &ppIGPMBackupCollection := 0, "HRESULT")

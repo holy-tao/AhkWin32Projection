@@ -7,7 +7,7 @@
 
 /**
  * The IWbemConfigureRefresher interface is used by client code to add enumerators, objects, and nested refreshers into a refresher.
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemconfigurerefresher
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemconfigurerefresher
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -34,6 +34,12 @@ class IWbemConfigureRefresher extends IUnknown{
 
     /**
      * The IWbemConfigureRefresher::AddObjectByPath method adds an object to a refresher by specifying an object path.
+     * @remarks
+     * The supplied path must specify a valid object, which is provided by the High-Performance Provider. The returned object must not be touched by the client while a refresh operation is in process. The returned identifier can be used by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-remove">Remove</a> function to remove the object.
+     * 
+     * <div class="alert"><b>Note</b>  It is not necessary for the user to explicitly remove added objects. The client must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the returned object when it is no longer required.</div>
+     * <div> </div>
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back into Windows Management, which can service any request made by the provider. The provider should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on this pointer if it is going to call back into Windows Management during its execution.
      * @param {PWSTR} wszPath Constant, null-terminated string of 16-bit Unicode characters that contains the object path of the object you add to the refresher.
@@ -44,7 +50,7 @@ class IWbemConfigureRefresher extends IUnknown{
      * @param {Pointer<Integer>} plId Pointer to an integer returned by the provider that uniquely identifies the refreshable object.
      * @returns {IWbemClassObject} Pointer to hold the reference to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> object, which contains the refreshable instance object. The client must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the returned object when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbypath
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbypath
      */
     AddObjectByPath(pNamespace, wszPath, lFlags, pContext, plId) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
@@ -57,6 +63,11 @@ class IWbemConfigureRefresher extends IUnknown{
 
     /**
      * With the IWbemConfigureRefresher::AddObjectByTemplate method, you can add an object you want refreshed to a refresher by specifying an IWbemClassObject instance template.
+     * @remarks
+     * The supplied instance must specify a valid object, which is provided by the High-Performance Provider. The returned object must not be modified by the client while a refresh operation is in process. The returned identifier can be used by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-remove">Remove</a> function to remove the object.
+     * 
+     * It is not necessary for the user to explicitly remove added objects. The client must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the returned object when it is no longer required.
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back into Windows Management, which can service any request made by the provider. The provider should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on this pointer if it is going to call back into Windows Management during its execution.
      * @param {IWbemClassObject} pTemplate Pointer to a 
@@ -68,7 +79,7 @@ class IWbemConfigureRefresher extends IUnknown{
      * @param {Pointer<Integer>} plId Pointer to an integer returned by the provider that uniquely identifies this refreshable object.
      * @returns {IWbemClassObject} Pointer to hold the reference to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> object, which will contain the refreshable instance object. The client must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the returned object when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbytemplate
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addobjectbytemplate
      */
     AddObjectByTemplate(pNamespace, pTemplate, lFlags, pContext, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
@@ -79,12 +90,15 @@ class IWbemConfigureRefresher extends IUnknown{
 
     /**
      * The IWbemConfigureRefresher::AddRefresher method adds a refresher to a refresher.
+     * @remarks
+     * Users should not add recursively nested refreshers. The returned identifier can be used by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-remove">Remove</a> function to remove the refresher. Although it is not necessary for the client to explicitly remove added refreshers, the client must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the refreshers when they are no longer required.
      * @param {IWbemRefresher} pRefresher Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemrefresher">IWbemRefresher</a> object to nest in this refresher.
      * @param {Integer} lFlags Reserved. This parameter must be 0 (zero).
      * @param {Pointer<Integer>} plId Pointer to an integer returned by the provider that uniquely identifies the refreshable object.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemconfigurerefresher-addrefresher
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addrefresher
      */
     AddRefresher(pRefresher, lFlags, plId) {
         plIdMarshal := plId is VarRef ? "int*" : "ptr"
@@ -103,7 +117,7 @@ class IWbemConfigureRefresher extends IUnknown{
      * @param {Integer} lFlags Bitmask of flags that modify the behavior of the 
      * <b>Remove</b> method. If this parameter is set to. <b>WBEM_FLAG_REFRESH_AUTO_RECONNECT</b>, the refresher attempts to automatically reconnect to a remote provider if the connection is broken. This is default behavior for this method. Specify <b>WBEM_FLAG_REFRESH_NO_AUTO_RECONNECT</b> if you do not want the refresher to attempt to reconnect to a remote provider.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemconfigurerefresher-remove
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-remove
      */
     Remove(lId, lFlags) {
         result := ComCall(6, this, "int", lId, "int", lFlags, "HRESULT")
@@ -112,6 +126,10 @@ class IWbemConfigureRefresher extends IUnknown{
 
     /**
      * The IWbemConfigureRefresher::AddEnum method adds an enumerator to the requested refresher.
+     * @remarks
+     * The supplied class must specify a valid class, which is provided by the High-Performance Provider. All instances of the returned enumerator can be queried after calls. On each call to refresh, the number of instances in the enumerator can vary. Only instances of the specified class name are returned; subclasses of the specified class will not be enumerated because detailed enumeration is not supported. The returned enumerator must not be touched by the client while a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemrefresher-refresh">Refresh</a> operation is in process. The returned identifier can be used by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-remove">Remove</a> function to remove the object. Note that it is not necessary for the user to explicitly remove added enumerators. However, the client must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the returned enumerator when it is no longer required.
      * @param {IWbemServices} pNamespace An 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> pointer back into Windows Management, which can service any request made by the provider. If the method must call back into Windows Management during its execution, the provider should call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> with the <i>pNamespace</i> pointer.
      * @param {PWSTR} wszClassName Constant, null-terminated string of 16-bit Unicode characters containing the name of the class that is enumerated.
@@ -122,7 +140,7 @@ class IWbemConfigureRefresher extends IUnknown{
      * @param {Pointer<Integer>} plId Pointer to an integer returned by the provider that uniquely identifies the refreshable enumeration.
      * @returns {IWbemHiPerfEnum} Pointer that holds the reference to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemhiperfenum">IWbemHiPerfEnum</a> object, which will contain the enumeration. The client must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on this pointer when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemconfigurerefresher-addenum
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemconfigurerefresher-addenum
      */
     AddEnum(pNamespace, wszClassName, lFlags, pContext, plId) {
         wszClassName := wszClassName is String ? StrPtr(wszClassName) : wszClassName

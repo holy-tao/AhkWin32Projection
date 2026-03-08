@@ -8,7 +8,7 @@
 
 /**
  * The IPhotoAcquireSource interface is used for acquisition of items from a device.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoacquiresource
+ * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoacquiresource
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IPhotoAcquireSource extends IUnknown{
     /**
      * The GetFriendlyName method retrieves the name of the device, formatted for display.
      * @returns {BSTR} Pointer to a string containing the friendly name.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresource-getfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getfriendlyname
      */
     GetFriendlyName() {
         pbstrFriendlyName := BSTR()
@@ -79,7 +79,7 @@ class IPhotoAcquireSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceicons
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceicons
      */
     GetDeviceIcons(nSize, phLargeIcon, phSmallIcon) {
         result := ComCall(4, this, "uint", nSize, "ptr", phLargeIcon, "ptr", phSmallIcon, "HRESULT")
@@ -88,6 +88,10 @@ class IPhotoAcquireSource extends IUnknown{
 
     /**
      * The InitializeItemList method enumerates transferable items on the device and passes each item to the optional progress callback, if it is supplied.
+     * @remarks
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquire-acquire">IPhotoAcquire::Acquire</a> is called without first calling <c>InitializeItemList</c>, initialization of the item list is done implicitly.
+     * 
+     * The first time the item list is initialized—either implicitly through <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquire-acquire">IPhotoAcquire::Acquire</a> or explicitly by calling <c>InitializeItemList</code>—each item is enumerated. During enumeration, if an <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquireprogresscb">IPhotoAcquireProgressCB</a> object is passed to <code>InitializeItemList</c>, its implementation of <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-startenumeration">StartEnumeration</a>, <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-founditem">FoundItem</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-endenumeration">EndEnumeration</a> may be used to apply further filtering or control to the list of items to be transferred.
      * @param {BOOL} fForceEnumeration Flag that, if set to <b>TRUE</b>, indicates that enumeration will be repeated even if the item list has already been initialized. If set to <b>FALSE</b>, this flag indicates that repeated calls to <c>InitializeItemList</c> after the item list has already been initialized will not enumerate items again.
      * @param {IPhotoAcquireProgressCB} pPhotoAcquireProgressCB Optional. Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquireprogresscb">IPhotoAcquireProgressCB</a> object.
      * @param {Pointer<Integer>} pnItemCount Returns the number of items found.
@@ -121,7 +125,7 @@ class IPhotoAcquireSource extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresource-initializeitemlist
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-initializeitemlist
      */
     InitializeItemList(fForceEnumeration, pPhotoAcquireProgressCB, pnItemCount) {
         pnItemCountMarshal := pnItemCount is VarRef ? "uint*" : "ptr"
@@ -132,8 +136,10 @@ class IPhotoAcquireSource extends IUnknown{
 
     /**
      * The GetItemCount method retrieves the number of items found by the InitializeItemList method.
+     * @remarks
+     * Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiresource-initializeitemlist">InitializeItemList</a> to initialize the item list.
      * @returns {Integer} Pointer to an integer value containing the item count.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresource-getitemcount
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getitemcount
      */
     GetItemCount() {
         result := ComCall(6, this, "uint*", &pnItemCount := 0, "HRESULT")
@@ -142,9 +148,11 @@ class IPhotoAcquireSource extends IUnknown{
 
     /**
      * The GetItemAt method retrieves the IPhotoAcquireItem object at the given index in the list of items.
+     * @remarks
+     * Before calling this method, call <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquiresource-initializeitemlist">InitializeItemList</a> to initialize the item list.
      * @param {Integer} nIndex Integer value containing the index.
      * @returns {IPhotoAcquireItem} Pointer to the address of an <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iphotoacquireitem">IPhotoAcquireItem</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresource-getitemat
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getitemat
      */
     GetItemAt(nIndex) {
         result := ComCall(7, this, "uint", nIndex, "ptr*", &ppPhotoAcquireItem := 0, "HRESULT")
@@ -154,7 +162,7 @@ class IPhotoAcquireSource extends IUnknown{
     /**
      * The GetPhotoAcquireSettings method obtains an IPhotoAcquireSettings object for working with acquisition settings.
      * @returns {IPhotoAcquireSettings} Pointer to the address of a photo acquire settings object.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresource-getphotoacquiresettings
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getphotoacquiresettings
      */
     GetPhotoAcquireSettings() {
         result := ComCall(8, this, "ptr*", &ppPhotoAcquireSettings := 0, "HRESULT")
@@ -164,7 +172,7 @@ class IPhotoAcquireSource extends IUnknown{
     /**
      * The GetDeviceId method retrieves the identifier (ID) of the device.
      * @returns {BSTR} Pointer to a string containing the device ID.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceid
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoacquiresource-getdeviceid
      */
     GetDeviceId() {
         pbstrDeviceId := BSTR()

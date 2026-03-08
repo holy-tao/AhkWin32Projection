@@ -6,14 +6,10 @@
 /**
  * The ITfContextOwnerCompositionServices interface is implemented by the TSF manager and used by a context owner to manipulate compositions created by a text service.
  * @remarks
- * 
  * Normally, an application creates a context and is the context owner. On occasion a text service will create a context. In this case, the text service is the context owner. For more information, see <a href="https://docs.microsoft.com/windows/desktop/TSF/edit-contexts">Edit Contexts</a>.
  * 
  * Obtain this interface by calling <b>ITfContext::QueryInterface</b> with IID_ITfContextOwnerCompositionServices.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcontextownercompositionservices
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextownercompositionservices
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -40,6 +36,18 @@ class ITfContextOwnerCompositionServices extends ITfContextComposition{
 
     /**
      * ITfContextOwnerCompositionServices::TerminateComposition method
+     * @remarks
+     * A text service uses <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcomposition-endcomposition">ITfComposition::EndComposition</a> to terminate a composition that it created.
+     * 
+     * If the context owner implements the text store, the context owner must be able to grant a synchronous write lock before calling this method.
+     * 
+     * This method also does the following:
+     * 
+     * <ul>
+     * <li>For each composition terminated, <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcompositionsink-oncompositionterminated">ITfCompositionSink::OnCompositionTerminated</a> is called for all installed composition advise sinks.</li>
+     * <li>If the context owner installed a context owner composition advise sink, <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontextownercompositionsink-onendcomposition">ITfContextOwnerCompositionSink::OnEndComposition</a> is called for each terminated composition.</li>
+     * <li>The GUID_PROP_COMPOSING property will be cleared for the text covered by each terminated composition.</li>
+     * </ul>
      * @param {ITfCompositionView} pComposition Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcompositionview">ITfCompositionView</a> interface that represents the composition to terminate. If this value is <b>NULL</b>, all compositions in the context are terminated.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -104,7 +112,7 @@ class ITfContextOwnerCompositionServices extends ITfContextComposition{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextownercompositionservices-terminatecomposition
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextownercompositionservices-terminatecomposition
      */
     TerminateComposition(pComposition) {
         result := ComCall(7, this, "ptr", pComposition, "HRESULT")

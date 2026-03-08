@@ -29,10 +29,13 @@ class ISideShowBulkCapabilities extends ISideShowCapabilities{
     static VTableNames => ["GetCapabilities"]
 
     /**
-     * 
+     * Retrieves the length of a monitor's capabilities string.
+     * @remarks
+     * This function usually returns quickly, but sometimes it can take several seconds to complete.
      * @param {ISideShowKeyCollection} in_keyCollection 
      * @param {Pointer<ISideShowPropVariantCollection>} inout_pValues 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is <b>TRUE</b>. If the function fails, the return value is <b>FALSE</b>. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/lowlevelmonitorconfigurationapi/nf-lowlevelmonitorconfigurationapi-getcapabilitiesstringlength
      */
     GetCapabilities(in_keyCollection, inout_pValues) {
         result := ComCall(4, this, "ptr", in_keyCollection, "ptr*", inout_pValues, "HRESULT")

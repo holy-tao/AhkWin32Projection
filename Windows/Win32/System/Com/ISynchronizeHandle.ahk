@@ -5,8 +5,8 @@
 #Include .\IUnknown.ahk
 
 /**
- * Retrieves a handle associated with a synchronization object.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-isynchronizehandle
+ * The ISynchronizeHandle (objidlbase.h) interface retrieves a handle associated with a synchronization object.
+ * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isynchronizehandle
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -32,9 +32,9 @@ class ISynchronizeHandle extends IUnknown{
     static VTableNames => ["GetHandle"]
 
     /**
-     * Retrieves a handle to the synchronization object.
+     * The ISynchronizeHandle::GetHandle (objidlbase.h) method retrieves a handle to the synchronization object.
      * @returns {HANDLE} A pointer to the variable that receives a handle to the synchronization object.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronizehandle-gethandle
+     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizehandle-gethandle
      */
     GetHandle() {
         ph := HANDLE()

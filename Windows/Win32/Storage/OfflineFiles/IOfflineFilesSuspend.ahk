@@ -5,7 +5,7 @@
 
 /**
  * Suspends or releases a share root or directory tree in the Offline Files cache.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilessuspend
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilessuspend
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IOfflineFilesSuspend extends IUnknown{
 
     /**
      * Suspend or release a share root or directory tree.
+     * @remarks
+     * When a share root or directory tree is suspended, all directories and files contained in the share or directory or in any subfolders are suspended as well.  This means that both directories and files may be suspended. Note that a directory can be suspended directly (if it is the root of the share or directory tree) or indirectly (if it is one of the items contained in the share or directory tree).
      * @param {BOOL} bSuspend Specify <b>TRUE</b> to suspend, or <b>FALSE</b> to release.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilessuspend-suspendroot
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilessuspend-suspendroot
      */
     SuspendRoot(bSuspend) {
         result := ComCall(3, this, "int", bSuspend, "HRESULT")

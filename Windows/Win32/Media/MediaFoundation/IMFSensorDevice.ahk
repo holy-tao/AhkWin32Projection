@@ -6,7 +6,7 @@
 
 /**
  * Represents a sensor device that can belong to a sensor group, which is represented by the IMFSensorGroup interface. The term &quot;device&quot; in this context could refer to a physical device, a custom media source, or a frame provider.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsensordevice
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsensordevice
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IMFSensorDevice extends IUnknown{
     /**
      * Gets the unique identifier for the device. This value is currently unused.
      * @returns {Integer} The unique identifier for the device.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getdeviceid
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdeviceid
      */
     GetDeviceId() {
         result := ComCall(3, this, "uint*", &pDeviceId := 0, "HRESULT")
@@ -44,7 +44,7 @@ class IMFSensorDevice extends IUnknown{
     /**
      * Gets a value that specifies the type of sensor device represented by the object.
      * @returns {Integer} A value that specifies the type of sensor device represented by the object.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getdevicetype
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdevicetype
      */
     GetDeviceType() {
         result := ComCall(4, this, "int*", &pType := 0, "HRESULT")
@@ -53,8 +53,10 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Gets the flags set for the sensor device. This method is reserved for future use.
+     * @remarks
+     * This method is reserved for future use and should not be called.
      * @returns {Integer} The flags set for the sensor device.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getflags
      */
     GetFlags() {
         result := ComCall(5, this, "uint*", &pFlags := 0, "HRESULT")
@@ -63,10 +65,12 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Gets the symbolic link name of the sensor device.
+     * @remarks
+     * Depending on the type of device, which is defined by a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicetype">MFSensorDeviceType</a> enumeration and can be obtained by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsensordevice-getdevicetype">GetDeviceType</a>, the resulting symbolic name may be a valid device symbolic name or a provider URL.  The caller should not attempt to parse the name and should treat it as opaque data.
      * @param {PWSTR} SymbolicLink Buffer of <i>cchSymbolicLink</i> characters where the symbolic link name will be written.  The buffer must be large enough to account for the null terminator.
      * @param {Integer} cchSymbolicLink Number of characters available in <i>SymbolicLink</i> buffer.
      * @returns {Integer} Output parameter containing the number of characters written to <i>SymbolicLink</i>.  This includes the null terminator.  If <i>SymbolicLink</i> is null and <i>cchSymbolicLink</i> is 0, <i>pcchWritten</i> will contain the number of characters needed (including the null terminator) to store the symbolic link name.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getsymboliclink
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getsymboliclink
      */
     GetSymbolicLink(SymbolicLink, cchSymbolicLink) {
         SymbolicLink := SymbolicLink is String ? StrPtr(SymbolicLink) : SymbolicLink
@@ -77,8 +81,10 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Gets the IMFAttributes for the sensor group.
+     * @remarks
+     * The object returned is a copy of the internal attribute store and so changes made to the returned attributes have no effect on the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensordevice">IMFSensorDevice</a>.
      * @returns {IMFAttributes} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface representing the internal attribute store of the sensor device.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getdeviceattributes
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getdeviceattributes
      */
     GetDeviceAttributes() {
         result := ComCall(7, this, "ptr*", &ppAttributes := 0, "HRESULT")
@@ -87,9 +93,16 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Gets the count of stream attribute stores for the sensor device. This number represents the number of total streams available for the device because every valid stream must have an attribute store that contains at least the stream ID and stream category.
+     * @remarks
+     * The caller can use the number of stream attributes to indicate the number of streams provided by the sensor device.  
+     * 
+     * <div class="alert"><b>Note</b>  Depending on the sharing mode in which the sensor device was activated, not all streams may be present during runtime.  Streams marked as shared, i.e. with the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-devicestream-frameserver-shared">MF_DEVICESTREAM_FRAMESERVER_SHARED</a> attribute set to non-zero value, and streams with pins with the category <b>PINNAME_VIDEO_PREVIEW</b> will be present in devices that are set to used shared mode. Put a device in shared mode by passing <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode_Shared</a> into <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsensordevice-setsensordevicemode">SetSensorDeviceMode</a>.
+     * If no streams are marked as shared and no preview stream is available, the first capture stream, with the category <b>PINNAME_VIDEO_CAPTURE</b>,  will be shared.
+     * </div>
+     * <div> </div>
      * @param {Integer} eType A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype">MFSensorStreamType</a> enumeration specifying whether the attribute store count is being requested for an input or output stream.
      * @returns {Integer} The number of stream attributes available for this sensor device.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getstreamattributescount
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributescount
      */
     GetStreamAttributesCount(eType) {
         result := ComCall(8, this, "int", eType, "uint*", &pdwCount := 0, "HRESULT")
@@ -98,10 +111,12 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Gets the stream attribute store with the specified index.
+     * @remarks
+     * The object returned is a copy of the internal attribute store and so changes made to the returned attributes have no effect on the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfsensordevice">IMFSensorDevice</a>.
      * @param {Integer} eType A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensorstreamtype">MFSensorStreamType</a> enumeration specifying whether the attribute store is being requested for an input or output stream.
      * @param {Integer} dwIndex The 0-based index of the stream to be retrieved.  The index must be between 0 and the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributescount">GetStreamAttributesCount</a> - 1.
      * @returns {IMFAttributes} The <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfattributes">IMFAttributes</a> interface representing a copy internal attribute store of the stream.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getstreamattributes
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getstreamattributes
      */
     GetStreamAttributes(eType, dwIndex) {
         result := ComCall(9, this, "int", eType, "uint", dwIndex, "ptr*", &ppAttributes := 0, "HRESULT")
@@ -110,7 +125,7 @@ class IMFSensorDevice extends IUnknown{
 
     /**
      * Sets a value that specifies the sharing mode of the sensor device to either controller or shared.
-     * @param {Integer} eMode A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode</a> enumeration specifying wether the device is in shared or controller mode.
+     * @param {Integer} eMode A member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode</a> enumeration specifying whether the device is in shared or controller mode.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      *           
      * 
@@ -143,7 +158,7 @@ class IMFSensorDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-setsensordevicemode
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-setsensordevicemode
      */
     SetSensorDeviceMode(eMode) {
         result := ComCall(10, this, "int", eMode, "HRESULT")
@@ -153,7 +168,7 @@ class IMFSensorDevice extends IUnknown{
     /**
      * Gets a value that specifies the current sharing mode of the sensor device, which is either controller or shared.
      * @returns {Integer} If the call succeeds, receives a member of the <a href="https://docs.microsoft.com/windows/win32/api/mfidl/ne-mfidl-mfsensordevicemode">MFSensorDeviceMode</a>, specifying the current mode of the sendsor device.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsensordevice-getsensordevicemode
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsensordevice-getsensordevicemode
      */
     GetSensorDeviceMode() {
         result := ComCall(11, this, "int*", &peMode := 0, "HRESULT")

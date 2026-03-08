@@ -1785,11 +1785,7 @@ class WindowsMediaFormat {
 
         pfIsProtectedMarshal := pfIsProtected is VarRef ? "int*" : "ptr"
 
-        result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, pfIsProtectedMarshal, pfIsProtected, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMIsContentProtected", "ptr", pwszFileName, pfIsProtectedMarshal, pfIsProtected, "HRESULT")
         return result
     }
 
@@ -1801,11 +1797,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriter(pUnkCert) {
-        result := DllCall("WMVCore.dll\WMCreateWriter", "ptr", pUnkCert, "ptr*", &ppWriter := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateWriter", "ptr", pUnkCert, "ptr*", &ppWriter := 0, "HRESULT")
         return IWMWriter(ppWriter)
     }
 
@@ -1822,11 +1814,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateReader(pUnkCert, dwRights) {
-        result := DllCall("WMVCore.dll\WMCreateReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", &ppReader := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", &ppReader := 0, "HRESULT")
         return IWMReader(ppReader)
     }
 
@@ -1839,11 +1827,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateSyncReader(pUnkCert, dwRights) {
-        result := DllCall("WMVCore.dll\WMCreateSyncReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", &ppSyncReader := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateSyncReader", "ptr", pUnkCert, "uint", dwRights, "ptr*", &ppSyncReader := 0, "HRESULT")
         return IWMSyncReader(ppSyncReader)
     }
 
@@ -1854,11 +1838,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateEditor() {
-        result := DllCall("WMVCore.dll\WMCreateEditor", "ptr*", &ppEditor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateEditor", "ptr*", &ppEditor := 0, "HRESULT")
         return IWMMetadataEditor(ppEditor)
     }
 
@@ -1869,11 +1849,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateIndexer() {
-        result := DllCall("WMVCore.dll\WMCreateIndexer", "ptr*", &ppIndexer := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateIndexer", "ptr*", &ppIndexer := 0, "HRESULT")
         return IWMIndexer(ppIndexer)
     }
 
@@ -1887,11 +1863,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateBackupRestorer(pCallback) {
-        result := DllCall("WMVCore.dll\WMCreateBackupRestorer", "ptr", pCallback, "ptr*", &ppBackup := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateBackupRestorer", "ptr", pCallback, "ptr*", &ppBackup := 0, "HRESULT")
         return IWMLicenseBackup(ppBackup)
     }
 
@@ -1904,11 +1876,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateProfileManager() {
-        result := DllCall("WMVCore.dll\WMCreateProfileManager", "ptr*", &ppProfileManager := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateProfileManager", "ptr*", &ppProfileManager := 0, "HRESULT")
         return IWMProfileManager(ppProfileManager)
     }
 
@@ -1919,11 +1887,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriterFileSink() {
-        result := DllCall("WMVCore.dll\WMCreateWriterFileSink", "ptr*", &ppSink := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateWriterFileSink", "ptr*", &ppSink := 0, "HRESULT")
         return IWMWriterFileSink(ppSink)
     }
 
@@ -1934,11 +1898,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriterNetworkSink() {
-        result := DllCall("WMVCore.dll\WMCreateWriterNetworkSink", "ptr*", &ppSink := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateWriterNetworkSink", "ptr*", &ppSink := 0, "HRESULT")
         return IWMWriterNetworkSink(ppSink)
     }
 
@@ -1949,11 +1909,7 @@ class WindowsMediaFormat {
      * @since windows5.0
      */
     static WMCreateWriterPushSink() {
-        result := DllCall("WMVCore.dll\WMCreateWriterPushSink", "ptr*", &ppSink := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("WMVCore.dll\WMCreateWriterPushSink", "ptr*", &ppSink := 0, "HRESULT")
         return IWMWriterPushSink(ppSink)
     }
 

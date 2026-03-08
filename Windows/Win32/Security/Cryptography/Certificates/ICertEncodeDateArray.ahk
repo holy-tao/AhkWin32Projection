@@ -6,7 +6,7 @@
 
 /**
  * Provides methods for handling Date arrays used in certificate extensions.
- * @see https://docs.microsoft.com/windows/win32/api//certenc/nn-certenc-icertencodedatearray
+ * @see https://learn.microsoft.com/windows/win32/api/certenc/nn-certenc-icertencodedatearray
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,12 +33,14 @@ class ICertEncodeDateArray extends IDispatch{
 
     /**
      * Decodes an Abstract Syntax Notation One (ASN.1)-encoded date array and stores the resulting array of date values in the CertEncodeDateArray object.
+     * @remarks
+     * This method places the decoded contents of <i>strBinary</i> into the object's array of date values. If the object's array already contains date values, this existing content will be freed, and the array will be loaded with the decoded values.
      * @param {BSTR} strBinary An ASN.1-encoded <b>DATE</b> array.
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodedatearray-decode
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-decode
      */
     Decode(strBinary) {
         strBinary := strBinary is String ? BSTR.Alloc(strBinary).Value : strBinary
@@ -50,7 +52,7 @@ class ICertEncodeDateArray extends IDispatch{
     /**
      * Returns the number of DATE values in the object's DATE array.
      * @returns {Integer} A pointer to a <b>LONG</b> that receives the number of <b>DATE</b> values contained in the <b>DATE</b> array.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodedatearray-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-getcount
      */
     GetCount() {
         result := ComCall(8, this, "int*", &pCount := 0, "HRESULT")
@@ -61,7 +63,7 @@ class ICertEncodeDateArray extends IDispatch{
      * Returns the specified date from the DATE array.
      * @param {Integer} Index The zero-based index that specifies the date to retrieve.
      * @returns {Float} A pointer to a <b>DATE</b> variable that receives the date.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodedatearray-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-getvalue
      */
     GetValue(Index) {
         result := ComCall(9, this, "int", Index, "double*", &pValue := 0, "HRESULT")
@@ -74,8 +76,8 @@ class ICertEncodeDateArray extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodedatearray-reset
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-reset
      */
     Reset(Count) {
         result := ComCall(10, this, "int", Count, "HRESULT")
@@ -89,8 +91,8 @@ class ICertEncodeDateArray extends IDispatch{
      * @returns {HRESULT} <h3>VB</h3>
      *  If the method succeeds, the method returns S_OK.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodedatearray-setvalue
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-setvalue
      */
     SetValue(Index, Value) {
         result := ComCall(11, this, "int", Index, "double", Value, "HRESULT")
@@ -100,7 +102,7 @@ class ICertEncodeDateArray extends IDispatch{
     /**
      * Returns an Abstract Syntax Notation One (ASN.1)-encoded string of the date array stored in this object.
      * @returns {BSTR} A pointer to a <b>BSTR</b> that will contain the encoded <b>Date</b> array. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certenc/nf-certenc-icertencodedatearray-encode
+     * @see https://learn.microsoft.com/windows/win32/api/certenc/nf-certenc-icertencodedatearray-encode
      */
     Encode() {
         pstrBinary := BSTR()

@@ -6,11 +6,8 @@
 /**
  * The IVMRVideoStreamControl9 interface is implemented on each input pin of the Video Mixing Renderer Filter 9.
  * @remarks
- * 
  * Include DShow.h and D3d9.h before Vmr9.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrvideostreamcontrol9
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrvideostreamcontrol9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,9 +34,11 @@ class IVMRVideoStreamControl9 extends IUnknown{
 
     /**
      * The SetStreamActiveState method activates or inactivates an input stream.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {BOOL} fActive Specifies the state of the stream. <b>TRUE</b> means active; <b>FALSE</b> means inactive.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrvideostreamcontrol9-setstreamactivestate
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrvideostreamcontrol9-setstreamactivestate
      */
     SetStreamActiveState(fActive) {
         result := ComCall(3, this, "int", fActive, "HRESULT")
@@ -48,8 +47,10 @@ class IVMRVideoStreamControl9 extends IUnknown{
 
     /**
      * The GetStreamActiveState method retrieves the state of the stream.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {BOOL} Receives the current state of the stream. <b>TRUE</b> means the stream is active; <b>FALSE</b> means that it is inactive.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrvideostreamcontrol9-getstreamactivestate
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrvideostreamcontrol9-getstreamactivestate
      */
     GetStreamActiveState() {
         result := ComCall(4, this, "int*", &lpfActive := 0, "HRESULT")

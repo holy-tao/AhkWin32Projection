@@ -5,7 +5,7 @@
 
 /**
  * The INATNumberOfEntriesCallback interface provides a method that the system calls if the number of port mappings changes.
- * @see https://docs.microsoft.com/windows/win32/api//natupnp/nn-natupnp-inatnumberofentriescallback
+ * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-inatnumberofentriescallback
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class INATNumberOfEntriesCallback extends IUnknown{
 
     /**
      * The system calls the NewNumberOfEntries method if the total number of NAT port mappings changes.
+     * @remarks
+     * The system calls this method when the total number of port mappings changes. The change in the total number of port mappings may be the result of a change in the number of dynamic port mappings. In this case, the system calls this method even though the number of static port mappings has not changed.
      * @param {Integer} lNewNumberOfEntries Specifies a <b>long</b> variable that contains the new number of port mappings.
      * @returns {HRESULT} If the method succeeds the return value is S_OK.
      * 
@@ -131,7 +133,7 @@ class INATNumberOfEntriesCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-inatnumberofentriescallback-newnumberofentries
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-inatnumberofentriescallback-newnumberofentries
      */
     NewNumberOfEntries(lNewNumberOfEntries) {
         result := ComCall(3, this, "int", lNewNumberOfEntries, "HRESULT")

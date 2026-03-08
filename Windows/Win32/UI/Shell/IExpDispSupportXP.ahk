@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events.
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-iexpdispsupportxp
+ * Deprecated. Exposes methods that allow the retrieval of properties, translation of keyboard accelerators, and determination of a connection point for certain events. (IExpDispSupportXP)
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-iexpdispsupportxp
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IExpDispSupportXP extends IUnknown{
      * @returns {CIE4ConnectionPoint} Type: <b>CIE4ConnectionPoint**</b>
      * 
      * Receives the address of pointer to connection point.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupportxp-findcie4connectionpoint
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-findcie4connectionpoint
      */
     FindCIE4ConnectionPoint(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppccp := 0, "HRESULT")
@@ -47,7 +47,7 @@ class IExpDispSupportXP extends IUnknown{
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (IExpDispSupportXP.OnTranslateAccelerator)
      * @param {Pointer<MSG>} pMsg Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a>*</b>
      * 
      * Specifies a pointer to the MSG structure describing the keystroke to be processed.
@@ -57,7 +57,7 @@ class IExpDispSupportXP extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>E_NOTIMPL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupportxp-ontranslateaccelerator
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-ontranslateaccelerator
      */
     OnTranslateAccelerator(pMsg, grfModifiers) {
         result := ComCall(4, this, "ptr", pMsg, "uint", grfModifiers, "HRESULT")
@@ -65,7 +65,7 @@ class IExpDispSupportXP extends IUnknown{
     }
 
     /**
-     * Not implemented.
+     * Not implemented. (IExpDispSupportXP.OnInvoke)
      * @param {Integer} dispidMember Type: <b>DISPID</b>
      * 
      * Specifies a dispatch ID that identifies the member being invoked.
@@ -93,7 +93,7 @@ class IExpDispSupportXP extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-iexpdispsupportxp-oninvoke
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-iexpdispsupportxp-oninvoke
      */
     OnInvoke(dispidMember, iid, lcid, wFlags, pdispparams, pVarResult, pexcepinfo, puArgErr) {
         puArgErrMarshal := puArgErr is VarRef ? "uint*" : "ptr"

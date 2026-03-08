@@ -5,7 +5,7 @@
 
 /**
  * Provides access to rendering features that help with application debugging and performance tuning. This interface can be queried from the DirectComposition device interface.
- * @see https://docs.microsoft.com/windows/win32/api//dcomp/nn-dcomp-idcompositiondevicedebug
+ * @see https://learn.microsoft.com/windows/win32/api/dcomp/nn-dcomp-idcompositiondevicedebug
  * @namespace Windows.Win32.Graphics.DirectComposition
  * @version v4.0.30319
  */
@@ -32,8 +32,19 @@ class IDCompositionDeviceDebug extends IUnknown{
 
     /**
      * Enables display of performance debugging counters.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevicedebug-enabledebugcounters
+     * @remarks
+     * Performance counters are displayed on the top-right corner of the screen. From left to right, Microsoft DirectComposition displays the following information:
+     * 
+     * 
+     * 
+     * <ul>
+     * <li>The composition engine frame rate, in frames per second, averaged over the last 60 composition frames</li>
+     * <li>The overall CPU usage of the composition thread, in milliseconds
+     * </li>
+     * </ul>
+     * The DirectComposition composition engine operates on the entire desktop all at once, so the performance counters measure the total cost of desktop composition, not just the cost of any one particular application. If the application occupies the entire screen, however, it is reasonable to assume that all of the composition cost is due to that one application.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevicedebug-enabledebugcounters
      */
     EnableDebugCounters() {
         result := ComCall(3, this, "HRESULT")
@@ -42,8 +53,10 @@ class IDCompositionDeviceDebug extends IUnknown{
 
     /**
      * Disables display of performance debugging counters.
-     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//dcomp/nf-dcomp-idcompositiondevicedebug-disabledebugcounters
+     * @remarks
+     * Microsoft DirectComposition keeps a count of how many DirectComposition devices have performance counters enabled, for the entire desktop session. If the count is non-zero, the performance counters are displayed. Therefore, disabling the counters may not make them go away if another device is also requesting display of the counters.
+     * @returns {HRESULT} If the function succeeds, it returns S_OK. Otherwise, it returns an <b>HRESULT</b> error code. See <a href="https://docs.microsoft.com/windows/desktop/directcomp/directcomposition-error-codes">DirectComposition Error Codes</a>  for a list of error codes.
+     * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-idcompositiondevicedebug-disabledebugcounters
      */
     DisableDebugCounters() {
         result := ComCall(4, this, "HRESULT")

@@ -5,7 +5,19 @@
 #Include .\ISurfaceImageSourceNative.ahk
 
 /**
+ * Provides the implementation of a large (greater than the screen size) shared surface for DirectX drawing.
+ * @remarks
+ * This interface provides the native implementation of the <a href="https://docs.microsoft.com/uwp/api/windows.ui.xaml.media.imaging.virtualsurfaceimagesource">Windows::UI::Xaml::Media::Imaging::VirtualSurfaceImageSource</a> Windows runtime type. To obtain a pointer to <b>IVirtualSurfaceImageSourceNative</b>, you must cast a <b>VirtualSurfaceImageSource</b> instance to <a href="https://docs.microsoft.com/windows/desktop/api/inspectable/nn-inspectable-iinspectable">IInspectable</a> or <b>IUnknown</b>, and call <b>QueryInterface</b>.
  * 
+ * 
+ * ```cpp
+ * 
+ * Microsoft::WRL::ComPtr<IVirtualSurfaceImageSourceNative>	m_vsisNative;
+ * // ...
+ * IInspectable* vsisInspectable = (IInspectable*) reinterpret_cast<IInspectable*>(virtualSurfaceImageSource);
+ * vsisInspectable->QueryInterface(__uuidof(IVirtualSurfaceImageSourceNative), (void **)&m_vsisNative)
+ * 	
+ * ```
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative
  * @namespace Windows.Win32.System.WinRT.Xaml
  * @version v4.0.30319
@@ -32,9 +44,9 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
     static VTableNames => ["Invalidate", "GetUpdateRectCount", "GetUpdateRects", "GetVisibleBounds", "RegisterForUpdatesNeeded", "Resize"]
 
     /**
-     * 
-     * @param {RECT} updateRect 
-     * @returns {HRESULT} 
+     * Invalidates a specific region of the shared surface for drawing.
+     * @param {RECT} updateRect The region of the surface to invalidate.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-invalidate
      */
     Invalidate(updateRect) {
@@ -43,8 +55,8 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
     }
 
     /**
-     * 
-     * @returns {Integer} 
+     * Gets the total number of regions of the surface that must be updated.
+     * @returns {Integer} Receives the number of regions to update.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getupdaterectcount
      */
     GetUpdateRectCount() {
@@ -53,9 +65,9 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
     }
 
     /**
-     * 
-     * @param {Integer} count 
-     * @returns {RECT} 
+     * Gets the set of regions that must be updated on the shared surface.
+     * @param {Integer} count Receives a list of regions that must be updated.
+     * @returns {RECT} The number of regions that must be updated. You obtain this by calling <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getupdaterectcount">GetUpdateRectCount</a>.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getupdaterects
      */
     GetUpdateRects(count) {
@@ -65,8 +77,8 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
     }
 
     /**
-     * 
-     * @returns {RECT} 
+     * Gets the boundaries of the visible region of the shared surface.
+     * @returns {RECT} Receives a rectangle that specifies the visible region of the shared surface.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-getvisiblebounds
      */
     GetVisibleBounds() {
@@ -76,9 +88,9 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
     }
 
     /**
-     * 
-     * @param {IVirtualSurfaceUpdatesCallbackNative} callback 
-     * @returns {HRESULT} 
+     * Registers for the callback that will perform the drawing when an update to the shared surface is requested.
+     * @param {IVirtualSurfaceUpdatesCallbackNative} callback Pointer to an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.xaml.media.dxinterop/nn-windows-ui-xaml-media-dxinterop-ivirtualsurfaceupdatescallbacknative">IVirtualSurfaceUpdatesCallbackNative</a>.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-registerforupdatesneeded
      */
     RegisterForUpdatesNeeded(callback) {
@@ -87,10 +99,10 @@ class IVirtualSurfaceImageSourceNative extends ISurfaceImageSourceNative{
     }
 
     /**
-     * 
-     * @param {Integer} newWidth 
-     * @param {Integer} newHeight 
-     * @returns {HRESULT} 
+     * Resizes the surface.
+     * @param {Integer} newWidth The updated width of the surface.
+     * @param {Integer} newHeight The updated height of the surface.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.xaml.media.dxinterop/nf-windows-ui-xaml-media-dxinterop-ivirtualsurfaceimagesourcenative-resize
      */
     Resize(newWidth, newHeight) {

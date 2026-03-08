@@ -7,7 +7,7 @@
 
 /**
  * Represents a set of definitions that enable an Online Certificate Status Protocol (OCSP) service to respond to a certificate status request for a specific certification authority (CA).
- * @see https://docs.microsoft.com/windows/win32/api//certadm/nn-certadm-iocspcaconfiguration
+ * @see https://learn.microsoft.com/windows/win32/api/certadm/nn-certadm-iocspcaconfiguration
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -149,12 +149,9 @@ class IOCSPCAConfiguration extends IDispatch{
     /**
      * Gets a name for the certification authority (CA) configuration.
      * @remarks
-     * 
      * The name returned in <i>pVal</i> corresponds to the name used in the <i>bstrIdentifier</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration">CreateCAConfiguration</a> method.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_identifier
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_identifier
      */
     get_Identifier() {
         pVal := BSTR()
@@ -165,12 +162,9 @@ class IOCSPCAConfiguration extends IDispatch{
     /**
      * Gets an X.509 certificate that has been encoded by using Distinguished Encoding Rules (DER) and that is for a certification authority (CA).
      * @remarks
-     * 
      * The <i>pVal</i> certificate corresponds to the certificate used in the <i>varCACert</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfigurationcollection-createcaconfiguration">CreateCAConfiguration</a> method to create the configuration.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_cacertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_cacertificate
      */
     get_CACertificate() {
         pVal := VARIANT()
@@ -179,9 +173,9 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets an identifier for the hash algorithm used to sign a certificate.
+     * Gets or sets an identifier for the hash algorithm used to sign a certificate. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_hashalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_hashalgorithm
      */
     get_HashAlgorithm() {
         pVal := BSTR()
@@ -190,10 +184,10 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets an identifier for the hash algorithm used to sign a certificate.
+     * Gets or sets an identifier for the hash algorithm used to sign a certificate. (Put)
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_hashalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_hashalgorithm
      */
     put_HashAlgorithm(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
@@ -203,9 +197,8 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets a combination of flag values. These values specify the management of signing certificates that belong to a certification authority (CA) configuration.
+     * Gets or sets a combination of flag values. These values specify the management of signing certificates that belong to a certification authority (CA) configuration. (Get)
      * @remarks
-     * 
      * The following table lists bit flag values for 
      * <b>SigningFlags</b>.
      * 
@@ -271,10 +264,8 @@ class IOCSPCAConfiguration extends IDispatch{
      * When setting <b>SigningFlags</b>, you must specify one of the values <b>OCSP_SF_USE_CACERT</b>, <b>OCSP_SF_AUTODISCOVER_SIGNINGCERT</b>, or <b>OCSP_SF_MANUAL_ASSIGN_SIGNINGCERT</b>.
      * 
      * If you specify <b>OCSP_SF_ALLOW_SIGNINGCERT_AUTOENROLLMENT</b>, you must also specify <b>OCSP_SF_AUTODISCOVER_SIGNINGCERT</b>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_signingflags
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingflags
      */
     get_SigningFlags() {
         result := ComCall(11, this, "uint*", &pVal := 0, "HRESULT")
@@ -282,9 +273,8 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets a combination of flag values. These values specify the management of signing certificates that belong to a certification authority (CA) configuration.
+     * Gets or sets a combination of flag values. These values specify the management of signing certificates that belong to a certification authority (CA) configuration. (Put)
      * @remarks
-     * 
      * The following table lists bit flag values for 
      * <b>SigningFlags</b>.
      * 
@@ -350,11 +340,9 @@ class IOCSPCAConfiguration extends IDispatch{
      * When setting <b>SigningFlags</b>, you must specify one of the values <b>OCSP_SF_USE_CACERT</b>, <b>OCSP_SF_AUTODISCOVER_SIGNINGCERT</b>, or <b>OCSP_SF_MANUAL_ASSIGN_SIGNINGCERT</b>.
      * 
      * If you specify <b>OCSP_SF_ALLOW_SIGNINGCERT_AUTOENROLLMENT</b>, you must also specify <b>OCSP_SF_AUTODISCOVER_SIGNINGCERT</b>.
-     * 
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_signingflags
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_signingflags
      */
     put_SigningFlags(newVal) {
         result := ComCall(12, this, "uint", newVal, "HRESULT")
@@ -362,9 +350,9 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets a signing certificate that has been encoded by using Distinguished Encoding Rules (DER). An Online Certificate Status Protocol (OCSP) responder service uses this certificate to sign its responses to certificate status requests.
+     * Gets or sets a signing certificate that has been encoded by using Distinguished Encoding Rules (DER). An Online Certificate Status Protocol (OCSP) responder service uses this certificate to sign its responses to certificate status requests. (Get)
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_signingcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingcertificate
      */
     get_SigningCertificate() {
         pVal := VARIANT()
@@ -373,10 +361,10 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets a signing certificate that has been encoded by using Distinguished Encoding Rules (DER). An Online Certificate Status Protocol (OCSP) responder service uses this certificate to sign its responses to certificate status requests.
+     * Gets or sets a signing certificate that has been encoded by using Distinguished Encoding Rules (DER). An Online Certificate Status Protocol (OCSP) responder service uses this certificate to sign its responses to certificate status requests. (Put)
      * @param {VARIANT} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_signingcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_signingcertificate
      */
     put_SigningCertificate(newVal) {
         result := ComCall(14, this, "ptr", newVal, "HRESULT")
@@ -384,14 +372,11 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the percentage of a signing certificate lifetime after which a warning event is logged.
+     * Gets or sets the percentage of a signing certificate lifetime after which a warning event is logged. (Get)
      * @remarks
-     * 
      * Percentage values must be in the range 0 through 100; the default value is 90. An Online Certificate Status Protocol (OCSP) responder service includes a service-wide value having this default.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_reminderduration
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_reminderduration
      */
     get_ReminderDuration() {
         result := ComCall(15, this, "uint*", &pVal := 0, "HRESULT")
@@ -399,15 +384,12 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the percentage of a signing certificate lifetime after which a warning event is logged.
+     * Gets or sets the percentage of a signing certificate lifetime after which a warning event is logged. (Put)
      * @remarks
-     * 
      * Percentage values must be in the range 0 through 100; the default value is 90. An Online Certificate Status Protocol (OCSP) responder service includes a service-wide value having this default.
-     * 
-     * 
      * @param {Integer} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_reminderduration
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_reminderduration
      */
     put_ReminderDuration(newVal) {
         result := ComCall(16, this, "uint", newVal, "HRESULT")
@@ -417,14 +399,11 @@ class IOCSPCAConfiguration extends IDispatch{
     /**
      * Gets a code that identifies an error condition in a CA configuration.
      * @remarks
-     * 
      * The OCSP responder service returns an error code when it encounters a problem with a configuration. For the definition of a returned code, see Winerror.h in the Microsoft Windows Software Development Kit (SDK).
      * 
      * An <b>OCSPCAConfiguration</b> object internally stores the error code as an <b>HRESULT</b> with an initial value of <b>E_PENDING</b>. When <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspadmin-setconfiguration">IOCSPAdmin::SetConfiguration</a> is called, the error code is reset to <b>E_PENDING</b>.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_errorcode
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_errorcode
      */
     get_ErrorCode() {
         result := ComCall(17, this, "uint*", &pVal := 0, "HRESULT")
@@ -434,12 +413,9 @@ class IOCSPCAConfiguration extends IDispatch{
     /**
      * Gets a cryptographic service provider (CSP) or key storage provider (KSP) name.
      * @remarks
-     * 
      * The name returned in <i>pVal</i> corresponds to the CSP or KSP used for the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-iocspcaconfiguration-get_signingcertificate">SigningCertificate</a> property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_cspname
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_cspname
      */
     get_CSPName() {
         pVal := BSTR()
@@ -450,17 +426,14 @@ class IOCSPCAConfiguration extends IDispatch{
     /**
      * Gets a value that indicates whether the key bound to the configuration is used for encryption or for signing content.
      * @remarks
-     * 
      * For the Microsoft Base Cryptographic Provider, the <b>KeySpec</b> property has the value <b>AT_KEYEXCHANGE</b> for <a href="https://docs.microsoft.com/windows/desktop/SecGloss/e-gly">exchange keys</a> and the value <b>AT_SIGNATURE</b> for signature keys. The default value is <b>AT_SIGNATURE</b>.
      * 
      * For information about the other Microsoft CSPs, see 
      * <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/cryptographic-service-providers">Cryptographic Service Providers</a> in the CryptoAPI 2.0 documentation.
      * 
      * For information about a non-Microsoft CSP, see the documentation provided with that CSP.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_keyspec
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_keyspec
      */
     get_KeySpec() {
         result := ComCall(19, this, "uint*", &pVal := 0, "HRESULT")
@@ -468,9 +441,9 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the CLSID of the revocation information provider used by the CA configuration.
+     * Gets or sets the CLSID of the revocation information provider used by the CA configuration. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_providerclsid
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_providerclsid
      */
     get_ProviderCLSID() {
         pVal := BSTR()
@@ -479,10 +452,10 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the CLSID of the revocation information provider used by the CA configuration.
+     * Gets or sets the CLSID of the revocation information provider used by the CA configuration. (Put)
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_providerclsid
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_providerclsid
      */
     put_ProviderCLSID(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
@@ -492,10 +465,8 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets information that provides certificate status responses.
+     * Gets or sets information that provides certificate status responses. (Get)
      * @remarks
-     * 
-     * 
      * The <b>VARIANT</b> returned in <i>pVal</i> is a pointer to a safe array that contains the properties as name-value pairs.
      * 
      * 
@@ -539,17 +510,14 @@ class IOCSPCAConfiguration extends IDispatch{
      * <td>DWORD</td>
      * </tr>
      * <tr>
-     * <td>IssuedSerialNumberDirectories</td>
+     * <td>IssuedSerialNumbersDirectories</td>
      * <td>REG_MULTI_SZ</td>
      * </tr>
      * </table>
      * 
      * Note: IssuedSerialNumberDirectories is not supported on Windows Server 2008.
-     * 
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_providerproperties
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_providerproperties
      */
     get_ProviderProperties() {
         pVal := VARIANT()
@@ -558,9 +526,8 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets information that provides certificate status responses.
+     * Gets or sets information that provides certificate status responses. (Put)
      * @remarks
-     * 
      * The <b>VARIANT</b> returned in <i>pVal</i> is an <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nn-certadm-iocsppropertycollection">IOCSPPropertyCollection</a> interface.
      * 
      * To work with revocation-information provider properties:
@@ -606,11 +573,9 @@ class IOCSPCAConfiguration extends IDispatch{
      * <td>DWORD</td>
      * </tr>
      * </table>
-     * 
-     * 
      * @param {VARIANT} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_providerproperties
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_providerproperties
      */
     put_ProviderProperties(newVal) {
         result := ComCall(23, this, "ptr", newVal, "HRESULT")
@@ -620,7 +585,7 @@ class IOCSPCAConfiguration extends IDispatch{
     /**
      * Gets a value that indicates whether an OCSPCAConfiguration object has been modified since it was created.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_modified
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_modified
      */
     get_Modified() {
         result := ComCall(24, this, "short*", &pVal := 0, "HRESULT")
@@ -628,14 +593,11 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the certificate revocation list (CRL) of the local machine.
+     * Gets or sets the certificate revocation list (CRL) of the local machine. (Get)
      * @remarks
-     * 
      * The CRL used for the <b>LocalRevocationInformation</b> property can be signed or not signed. There is no signature verification for the CRL.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_localrevocationinformation
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_localrevocationinformation
      */
     get_LocalRevocationInformation() {
         pVal := VARIANT()
@@ -644,15 +606,12 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the certificate revocation list (CRL) of the local machine.
+     * Gets or sets the certificate revocation list (CRL) of the local machine. (Put)
      * @remarks
-     * 
      * The CRL used for the <b>LocalRevocationInformation</b> property can be signed or not signed. There is no signature verification for the CRL.
-     * 
-     * 
      * @param {VARIANT} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_localrevocationinformation
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_localrevocationinformation
      */
     put_LocalRevocationInformation(newVal) {
         result := ComCall(26, this, "ptr", newVal, "HRESULT")
@@ -660,9 +619,9 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the template name for a signing certificate.
+     * Gets or sets the template name for a signing certificate. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_signingcertificatetemplate
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_signingcertificatetemplate
      */
     get_SigningCertificateTemplate() {
         pVal := BSTR()
@@ -671,10 +630,10 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets the template name for a signing certificate.
+     * Gets or sets the template name for a signing certificate. (Put)
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_signingcertificatetemplate
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_signingcertificatetemplate
      */
     put_SigningCertificateTemplate(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
@@ -684,9 +643,9 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets a certification authority (CA) name with which a signing certificate must be signed.
+     * Gets or sets a certification authority (CA) name with which a signing certificate must be signed. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-get_caconfig
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-get_caconfig
      */
     get_CAConfig() {
         pVal := BSTR()
@@ -695,10 +654,10 @@ class IOCSPCAConfiguration extends IDispatch{
     }
 
     /**
-     * Gets or sets a certification authority (CA) name with which a signing certificate must be signed.
+     * Gets or sets a certification authority (CA) name with which a signing certificate must be signed. (Put)
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certadm/nf-certadm-iocspcaconfiguration-put_caconfig
+     * @see https://learn.microsoft.com/windows/win32/api/certadm/nf-certadm-iocspcaconfiguration-put_caconfig
      */
     put_CAConfig(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal

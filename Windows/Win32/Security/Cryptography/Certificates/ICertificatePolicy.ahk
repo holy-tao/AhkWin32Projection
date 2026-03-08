@@ -7,7 +7,7 @@
 
 /**
  * Can be used to specify a certificate policy that identifies a purpose for which the certificate can be used.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertificatepolicy
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertificatepolicy
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -48,10 +48,14 @@ class ICertificatePolicy extends IDispatch{
 
     /**
      * Initializes the object from an object identifier (OID).
+     * @remarks
+     * You must use an initialized <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object when calling this method. All of the  <b>IObjectId</b> initialization methods search  the registry and static memory on the local computer and Active Directory on the domain server for the first OID that matches the specified initialization parameters. You can retrieve the OID by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertificatepolicy-get_objectid">ObjectId</a> property.
+     * 
+     * When you call the <b>Initialize</b> method, an empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ipolicyqualifiers">IPolicyQualifiers</a> object is created. You can retrieve the object by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertificatepolicy-get_policyqualifiers">PolicyQualifiers</a> property. You can use the object to define policy qualifiers if you are creating a <b>CertificatePolicies</b> extension.
      * @param {IObjectId} pValue Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface that represents the OID.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -66,7 +70,7 @@ class ICertificatePolicy extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The pointer to the <a href="/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface is <b>NULL</b>.
+     * The pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> interface is <b>NULL</b>.
      * 
      * </td>
      * </tr>
@@ -83,7 +87,7 @@ class ICertificatePolicy extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificatepolicy-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificatepolicy-initialize
      */
     Initialize(pValue) {
         result := ComCall(7, this, "ptr", pValue, "HRESULT")
@@ -93,12 +97,9 @@ class ICertificatePolicy extends IDispatch{
     /**
      * Retrieves an object identifier (OID) for the policy object.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectid">IObjectId</a> object stores information about the OID internally in a CryptoAPI <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-crypt_oid_info">CRYPT_OID_INFO</a> structure. You cannot use this structure directly from the  Certificate Enrollment API, but you can use the  <b>IObjectId</b> interface to retrieve the display name or dotted decimal name of the OID, or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-certenroll_objectid">CERTENROLL_OBJECTID</a> value.
-     * 
-     * 
      * @returns {IObjectId} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificatepolicy-get_objectid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificatepolicy-get_objectid
      */
     get_ObjectId() {
         result := ComCall(8, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -108,12 +109,9 @@ class ICertificatePolicy extends IDispatch{
     /**
      * Retrieves a collection of optional policy qualifiers that can be applied to a certificate policy.
      * @remarks
-     * 
      * An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ipolicyqualifiers">IPolicyQualifiers</a> object is created when you call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertificatepolicy-initialize">Initialize</a> method. You can call the <b>PolicyQualifiers</b> property to retrieve this object and specify qualifying information for the policy. Policy qualifiers only apply if you are creating a <b>CertificatePolicies</b> extension. For more information, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509extensioncertificatepolicies">IX509ExtensionCertificatePolicies</a>.
-     * 
-     * 
      * @returns {IPolicyQualifiers} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificatepolicy-get_policyqualifiers
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificatepolicy-get_policyqualifiers
      */
     get_PolicyQualifiers() {
         result := ComCall(9, this, "ptr*", &ppValue := 0, "HRESULT")

@@ -48,11 +48,13 @@ class IDWritePaintReader extends IUnknown{
 
     /**
      * The SetTextColor function sets the text color for the specified device context to the specified color.
+     * @remarks
+     * The text color is used to draw the face of each character written by the <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-textouta">TextOut</a> and <a href="https://docs.microsoft.com/windows/desktop/api/wingdi/nf-wingdi-exttextouta">ExtTextOut</a> functions. The text color is also used in converting bitmaps from color to monochrome and vice versa.
      * @param {Pointer<DWRITE_COLOR_F>} textColor 
-     * @returns {HRESULT} If the function succeeds, the return value is a color reference for the previous text color as a <a href="/windows/desktop/gdi/colorref">COLORREF</a> value.
+     * @returns {HRESULT} If the function succeeds, the return value is a color reference for the previous text color as a <a href="https://docs.microsoft.com/windows/desktop/gdi/colorref">COLORREF</a> value.
      * 
      * If the function fails, the return value is CLR_INVALID.
-     * @see https://docs.microsoft.com/windows/win32/api//wingdi/nf-wingdi-settextcolor
+     * @see https://learn.microsoft.com/windows/win32/api/wingdi/nf-wingdi-settextcolor
      */
     SetTextColor(textColor) {
         result := ComCall(4, this, "ptr", textColor, "HRESULT")

@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * An enumerator interface for the invitation collection.
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiinvitationmanager-get__newenum
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */

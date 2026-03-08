@@ -5,7 +5,7 @@
 
 /**
  * Reads the signatures and the parameters used to generate the signatures.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdcsignaturereader
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcsignaturereader
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IRdcSignatureReader extends IUnknown{
      * Reads the signature header and returns a copy of the parameters used to generate the signatures.
      * @returns {Integer} Address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-rdc_errorcode">RDC_ErrorCode</a> enumeration that will 
      *       receive any RDC-specific error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcsignaturereader-readheader
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsignaturereader-readheader
      */
     ReadHeader() {
         result := ComCall(3, this, "int*", &rdc_ErrorCode := 0, "HRESULT")
@@ -58,7 +58,7 @@ class IRdcSignatureReader extends IUnknown{
      *       <b>m_Data</b> member.
      * @returns {BOOL} Address of a <b>BOOL</b> that is set to <b>TRUE</b> if the end of 
      *       the signatures has been read.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcsignaturereader-readsignatures
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcsignaturereader-readsignatures
      */
     ReadSignatures(rdcSignaturePointer) {
         result := ComCall(4, this, "ptr", rdcSignaturePointer, "int*", &endOfOutput := 0, "HRESULT")

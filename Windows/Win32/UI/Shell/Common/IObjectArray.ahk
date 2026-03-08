@@ -6,14 +6,12 @@
 /**
  * Exposes methods that enable clients to access items in a collection of objects that support IUnknown.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Clients do not need to implement this interface.
  * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * Use this interface to access generic objects in an array.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//objectarray/nn-objectarray-iobjectarray
+ * @see https://learn.microsoft.com/windows/win32/api/objectarray/nn-objectarray-iobjectarray
  * @namespace Windows.Win32.UI.Shell.Common
  * @version v4.0.30319
  */
@@ -43,7 +41,7 @@ class IObjectArray extends IUnknown{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The number of objects in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectarray-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pcObjects := 0, "HRESULT")
@@ -61,7 +59,7 @@ class IObjectArray extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * Receives the interface pointer requested in <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//objectarray/nf-objectarray-iobjectarray-getat
+     * @see https://learn.microsoft.com/windows/win32/api/objectarray/nf-objectarray-iobjectarray-getat
      */
     GetAt(uiIndex, riid) {
         result := ComCall(4, this, "uint", uiIndex, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

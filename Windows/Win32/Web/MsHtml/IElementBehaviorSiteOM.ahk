@@ -30,10 +30,16 @@ class IElementBehaviorSiteOM extends IUnknown{
     static VTableNames => ["RegisterEvent", "GetEventCookie", "FireEvent", "CreateEventObject", "RegisterName", "RegisterUrn"]
 
     /**
+     * Retrieves a registered handle to the specified event log. (ANSI)
+     * @remarks
+     * If the source name cannot be found, the event logging service uses the <b>Application</b> log. Although events will be reported , the events will not include descriptions because there are no message and category message files for looking up descriptions related to the event identifiers.
      * 
+     * To close the handle to the event log, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-deregistereventsource">DeregisterEventSource</a> function.
      * @param {PWSTR} pchEvent 
      * @param {Integer} lFlags 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-registereventsourcea
      */
     RegisterEvent(pchEvent, lFlags) {
         pchEvent := pchEvent is String ? StrPtr(pchEvent) : pchEvent

@@ -4,6 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * Supports the creation of proof-of-possession cookies, for a WebAccount.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/nn-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager2
  * @namespace Windows.Win32.Networking.WinInet
@@ -31,12 +33,12 @@ class IProofOfPossessionCookieInfoManager2 extends IUnknown{
     static VTableNames => ["GetCookieInfoWithUriForAccount"]
 
     /**
-     * 
-     * @param {IInspectable} webAccount 
-     * @param {PWSTR} uri 
-     * @param {Pointer<Integer>} cookieInfoCount 
-     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo 
-     * @returns {HRESULT} 
+     * Retrieves cookie information corresponding to the supplied WebAccount and URI.
+     * @param {IInspectable} webAccount A [WebAccount](/uwp/api/windows.security.credentials.webaccount) as **IInspectable**. You can obtain a **WebAccount** object by calling methods on [WebAuthenticationCoreManager](/uwp/api/windows.security.authentication.web.core.webauthenticationcoremanager) suchas **FindAccountAsync** and **FindAllAccountsAsync**.
+     * @param {PWSTR} uri The URI to retrieve cookie information for. The URI is case-sensitive.
+     * @param {Pointer<Integer>} cookieInfoCount The number of cookies found. `*cookieInfoCount` contains the number of elements in  *cookieInfo*.
+     * @param {Pointer<Pointer<ProofOfPossessionCookieInfo>>} cookieInfo A returned array of cookie information objects. You should free the returned array by using [FreeProofOfPossessionCookieInfoArray](./nf-proofofpossessioncookieinfo-freeproofofpossessioncookieinfoarray.md).
+     * @returns {HRESULT} If this method succeeds, it returns **S_OK**. Otherwise, it returns an **HRESULT** error code.
      * @see https://learn.microsoft.com/windows/win32/api/proofofpossessioncookieinfo/nf-proofofpossessioncookieinfo-iproofofpossessioncookieinfomanager2-getcookieinfowithuriforaccount
      */
     GetCookieInfoWithUriForAccount(webAccount, uri, cookieInfoCount, cookieInfo) {

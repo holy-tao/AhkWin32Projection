@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Returns the properties of a hardware or software provider.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsprovider
+ * The IVdsProvider interface (vdshwprv.h) returns the properties of a hardware or software provider.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsprovider
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,12 +32,12 @@ class IVdsProvider extends IUnknown{
     static VTableNames => ["GetProperties"]
 
     /**
-     * Returns the properties of a provider.
+     * The IVdsProvider::GetProperties (vdshwprv.h) method returns the properties of a provider.
      * @returns {VDS_PROVIDER_PROP} The address of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_provider_prop">VDS_PROVIDER_PROP</a> 
      *       structure allocated and passed in by the caller. VDS allocates memory for the 
      *       <b>pwszName</b> and <b>pwszVersion</b> member strings. Callers must free 
-     *       the strings by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsprovider-getproperties
+     *       the strings by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsprovider-getproperties
      */
     GetProperties() {
         pProviderProp := VDS_PROVIDER_PROP()

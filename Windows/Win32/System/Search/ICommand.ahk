@@ -4,6 +4,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * The ICommandTree interface is optional for providers that support commands. It contains methods for manipulating query trees. Providers that support command trees must also support specifying the same functionality through the ICommandText interface.
+ * @see https://learn.microsoft.com/windows/win32/api/cmdtree/nn-cmdtree-icommandtree
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -29,8 +31,15 @@ class ICommand extends IUnknown{
     static VTableNames => ["Cancel", "Execute", "GetDBSession"]
 
     /**
+     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
+     * @remarks
+     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
+     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
+     * 
+     * The BITS client sends this packet when the user cancels the job.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel() {
         result := ComCall(3, this, "HRESULT")
@@ -38,13 +47,14 @@ class ICommand extends IUnknown{
     }
 
     /**
-     * 
+     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<Guid>} riid 
      * @param {Pointer<DBPARAMS>} pParams 
      * @param {Pointer<Pointer>} pcRowsAffected 
      * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
      */
     Execute(pUnkOuter, riid, pParams, pcRowsAffected, ppRowset) {
         pcRowsAffectedMarshal := pcRowsAffected is VarRef ? "ptr*" : "ptr"

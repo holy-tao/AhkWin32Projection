@@ -4,6 +4,8 @@
 #Include ..\IInspectable.ahk
 
 /**
+ * The ICoreFrameworkInputViewInterop interface is to be determined.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.viewmanagement.core.coreframeworkinputviewinterop/nn-windows-ui-viewmanagement-core-coreframeworkinputviewinterop-icoreframeworkinputviewinterop
  * @namespace Windows.Win32.System.WinRT.CoreInputView
@@ -31,7 +33,7 @@ class ICoreFrameworkInputViewInterop extends IInspectable{
     static VTableNames => ["GetForWindow"]
 
     /**
-     * 
+     * The ICoreFrameworkInputViewInterop::GetForWindow function is to be determined.
      * @param {HWND} appWindow 
      * @param {Pointer<Guid>} riid 
      * @returns {Pointer<Void>} 

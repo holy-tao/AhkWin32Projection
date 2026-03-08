@@ -6,7 +6,7 @@
 
 /**
  * Used to manage quotas, extended version.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquotamanagerex
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotamanagerex
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IFsrmQuotaManagerEx extends IFsrmQuotaManager{
      * @returns {VARIANT_BOOL} Is <b>VARIANT_TRUE</b> if the path referred to by the 
      *      <i>path</i> parameter is subject to a quota, otherwise it is 
      *      <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotamanagerex-isaffectedbyquota
      */
     IsAffectedByQuota(path, options) {
         path := path is String ? BSTR.Alloc(path).Value : path

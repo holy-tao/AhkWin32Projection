@@ -7,7 +7,7 @@
 
 /**
  * The IADsO interface is a dual interface that inherits from IADs.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadso
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadso
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */

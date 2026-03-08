@@ -5,7 +5,7 @@
 
 /**
  * The IChannelAudioVolume interface enables a client to control and monitor the volume levels for all of the channels in the audio session that the stream belongs to.
- * @see https://docs.microsoft.com/windows/win32/api//audioclient/nn-audioclient-ichannelaudiovolume
+ * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-ichannelaudiovolume
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IChannelAudioVolume extends IUnknown{
 
     /**
      * The GetChannelCount method retrieves the number of channels in the stream format for the audio session.
+     * @remarks
+     * Call this method to get the number of channels in the audio session before calling any of the other methods in the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nn-audioclient-ichannelaudiovolume">IChannelAudioVolume</a> interface.
      * @returns {Integer} Pointer to a <b>UINT32</b> variable into which the method writes the channel count.
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-ichannelaudiovolume-getchannelcount
+     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-getchannelcount
      */
     GetChannelCount() {
         result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -42,6 +44,8 @@ class IChannelAudioVolume extends IUnknown{
 
     /**
      * The SetChannelVolume method sets the volume level for the specified channel in the audio session.
+     * @remarks
+     * This method, if it succeeds, generates a channel-volume-change event regardless of whether the new channel volume level differs in value from the previous channel volume level.
      * @param {Integer} dwIndex The channel number. If the stream format for the audio session has <i>N</i> channels, the channels are numbered from 0 to <i>N</i>– 1. To get the number of channels, call the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-getchannelcount">IChannelAudioVolume::GetChannelCount</a> method.
      * @param {Float} fLevel The volume level for the channel. Valid volume levels are in the range 0.0 to 1.0.
      * @param {Pointer<Guid>} EventContext Pointer to the event-context GUID. If a call to this method generates a channel-volume-change event, the session manager sends notifications to all clients that have registered <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionevents">IAudioSessionEvents</a> interfaces with the session manager. The session manager includes the <i>EventContext</i> pointer value with each notification. Upon receiving a notification, a client can determine whether it or another client is the source of the event by inspecting the <i>EventContext</i> value. This scheme depends on the client selecting a value for this parameter that is unique among all clients in the session. If the caller supplies a <b>NULL</b> pointer for this parameter, the client's notification method receives a <b>NULL</b> context pointer.
@@ -86,7 +90,7 @@ class IChannelAudioVolume extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-ichannelaudiovolume-setchannelvolume
+     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-setchannelvolume
      */
     SetChannelVolume(dwIndex, fLevel, EventContext) {
         result := ComCall(4, this, "uint", dwIndex, "float", fLevel, "ptr", EventContext, "HRESULT")
@@ -95,9 +99,11 @@ class IChannelAudioVolume extends IUnknown{
 
     /**
      * The GetChannelVolume method retrieves the volume level for the specified channel in the audio session.
+     * @remarks
+     * Clients can call the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-setallvolumes">IChannelAudioVolume::SetAllVolumes</a> or <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-setchannelvolume">IChannelAudioVolume::SetChannelVolume</a> method to set the per-channel volume levels in an audio session.
      * @param {Integer} dwIndex The channel number. If the stream format for the audio session has <i>N</i> channels, then the channels are numbered from 0 to <i>N</i>– 1. To get the number of channels, call the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-getchannelcount">IChannelAudioVolume::GetChannelCount</a> method.
      * @returns {Float} Pointer to a <b>float</b> variable into which the method writes the volume level of the specified channel. The volume level is in the range 0.0 to 1.0.
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-ichannelaudiovolume-getchannelvolume
+     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-getchannelvolume
      */
     GetChannelVolume(dwIndex) {
         result := ComCall(5, this, "uint", dwIndex, "float*", &pfLevel := 0, "HRESULT")
@@ -106,6 +112,8 @@ class IChannelAudioVolume extends IUnknown{
 
     /**
      * The SetAllVolumes method sets the individual volume levels for all the channels in the audio session.
+     * @remarks
+     * This method, if it succeeds, generates a channel-volume-change event regardless of whether any of the new channel volume levels differ in value from the previous channel volume levels.
      * @param {Integer} dwCount The number of elements in the <i>pfVolumes</i> array. This parameter must equal the number of channels in the stream format for the audio session. To get the number of channels, call the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-getchannelcount">IChannelAudioVolume::GetChannelCount</a> method.
      * @param {Pointer<Float>} pfVolumes Pointer to an array of volume levels for the channels in the audio session. The number of elements in the <i>pfVolumes</i> array is specified by the <i>dwCount</i> parameter. The caller writes the volume level for each channel to the array element whose index matches the channel number. If the stream format for the audio session has <i>N</i> channels, the channels are numbered from 0 to <i>N</i>– 1. Valid volume levels are in the range 0.0 to 1.0.
      * @param {Pointer<Guid>} EventContext Pointer to the event-context GUID. If a call to this method generates a channel-volume-change event, the session manager sends notifications to all clients that have registered <a href="https://docs.microsoft.com/windows/desktop/api/audiopolicy/nn-audiopolicy-iaudiosessionevents">IAudioSessionEvents</a> interfaces with the session manager. The session manager includes the <i>EventContext</i> pointer value with each notification. Upon receiving a notification, a client can determine whether it or another client is the source of the event by inspecting the <i>EventContext</i> value. This scheme depends on the client selecting a value for this parameter that is unique among all clients in the session. If the caller supplies a <b>NULL</b> pointer for this parameter, the client's notification method receives a <b>NULL</b> context pointer.
@@ -161,7 +169,7 @@ class IChannelAudioVolume extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-ichannelaudiovolume-setallvolumes
+     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-setallvolumes
      */
     SetAllVolumes(dwCount, pfVolumes, EventContext) {
         pfVolumesMarshal := pfVolumes is VarRef ? "float*" : "ptr"
@@ -172,9 +180,11 @@ class IChannelAudioVolume extends IUnknown{
 
     /**
      * The GetAllVolumes method retrieves the volume levels for all the channels in the audio session.
+     * @remarks
+     * Clients can call the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-setallvolumes">IChannelAudioVolume::SetAllVolumes</a> or <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-setchannelvolume">IChannelAudioVolume::SetChannelVolume</a> method to set the per-channel volume levels in an audio session.
      * @param {Integer} dwCount The number of elements in the <i>pfVolumes</i> array. The <i>dwCount</i> parameter must equal the number of channels in the stream format for the audio session. To get the number of channels, call the <a href="https://docs.microsoft.com/windows/desktop/api/audioclient/nf-audioclient-ichannelaudiovolume-getchannelcount">IChannelAudioVolume::GetChannelCount</a> method.
      * @returns {Float} Pointer to an array of volume levels for the channels in the audio session. This parameter points to a caller-allocated <b>float</b> array into which the method writes the volume levels for the individual channels. Volume levels are in the range 0.0 to 1.0.
-     * @see https://docs.microsoft.com/windows/win32/api//audioclient/nf-audioclient-ichannelaudiovolume-getallvolumes
+     * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-ichannelaudiovolume-getallvolumes
      */
     GetAllVolumes(dwCount) {
         result := ComCall(7, this, "uint", dwCount, "float*", &pfVolumes := 0, "HRESULT")

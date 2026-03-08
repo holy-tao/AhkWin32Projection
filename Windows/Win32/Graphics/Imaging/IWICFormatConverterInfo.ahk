@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that provide information about a pixel format converter.
- * @see https://docs.microsoft.com/windows/win32/api//wincodec/nn-wincodec-iwicformatconverterinfo
+ * @see https://learn.microsoft.com/windows/win32/api/wincodec/nn-wincodec-iwicformatconverterinfo
  * @namespace Windows.Win32.Graphics.Imaging
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IWICFormatConverterInfo extends IWICComponentInfo{
 
     /**
      * Retrieves a list of GUIDs that signify which pixel formats the converter supports.
+     * @remarks
+     * The format converter does not necessarily guarantee symmetricality with respect to conversion; that is, a converter may be able to convert FROM a particular format without actually being able to convert TO a particular format. In order to test symmetricality, use <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nf-wincodec-iwicformatconverter-canconvert">CanConvert</a>.
+     * 
+     * To determine the number of pixel formats a converter can handle, set <i>cFormats</i> to <c>0</code> and <i>pPixelFormatGUIDs</i> to <code>NULL</c>. The converter will fill <i>pcActual</i> with the number of formats supported by that converter.
      * @param {Integer} cFormats Type: <b>UINT</b>
      * 
      * The size of the <i>pPixelFormatGUIDs</i> array.
@@ -42,7 +46,7 @@ class IWICFormatConverterInfo extends IWICComponentInfo{
      * @returns {Integer} Type: <b>UINT*</b>
      * 
      * The actual array size needed to retrieve all pixel formats supported by the converter.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicformatconverterinfo-getpixelformats
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-getpixelformats
      */
     GetPixelFormats(cFormats, pPixelFormatGUIDs) {
         result := ComCall(11, this, "uint", cFormats, "ptr", pPixelFormatGUIDs, "uint*", &pcActual := 0, "HRESULT")
@@ -54,7 +58,7 @@ class IWICFormatConverterInfo extends IWICComponentInfo{
      * @returns {IWICFormatConverter} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicformatconverter">IWICFormatConverter</a>**</b>
      * 
      * A pointer that receives a new <a href="https://docs.microsoft.com/windows/desktop/api/wincodec/nn-wincodec-iwicformatconverter">IWICFormatConverter</a> instance.
-     * @see https://docs.microsoft.com/windows/win32/api//wincodec/nf-wincodec-iwicformatconverterinfo-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api/wincodec/nf-wincodec-iwicformatconverterinfo-createinstance
      */
     CreateInstance() {
         result := ComCall(12, this, "ptr*", &ppIConverter := 0, "HRESULT")

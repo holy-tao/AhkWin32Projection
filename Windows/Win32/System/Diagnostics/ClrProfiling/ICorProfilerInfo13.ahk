@@ -30,12 +30,12 @@ class ICorProfilerInfo13 extends ICorProfilerInfo12{
 
     /**
      * 
-     * @param {Pointer} object 
+     * @param {Pointer} object_R 
      * @param {Integer} type 
      * @returns {Pointer<Pointer<Void>>} 
      */
-    CreateHandle(object, type) {
-        result := ComCall(108, this, "ptr", object, "int", type, "ptr*", &pHandle := 0, "HRESULT")
+    CreateHandle(object_R, type) {
+        result := ComCall(108, this, "ptr", object_R, "int", type, "ptr*", &pHandle := 0, "HRESULT")
         return pHandle
     }
 

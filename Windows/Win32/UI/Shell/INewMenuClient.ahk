@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that allow manipulation of items in a Windows 7 menu.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-inewmenuclient
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-inewmenuclient
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class INewMenuClient extends IUnknown{
     /**
      * Allows the view to filter the items shown in the menu.
      * @returns {Integer} Type: <b>NMCII_FLAGS*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inewmenuclient-includeitems
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewmenuclient-includeitems
      */
     IncludeItems() {
         result := ComCall(3, this, "int*", &pflags := 0, "HRESULT")
@@ -46,8 +46,8 @@ class INewMenuClient extends IUnknown{
      * @param {Integer} flags Type: <b>NMCSAEI_FLAGS</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-inewmenuclient-selectandedititem
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-inewmenuclient-selectandedititem
      */
     SelectAndEditItem(pidlItem, flags) {
         result := ComCall(4, this, "ptr", pidlItem, "int", flags, "HRESULT")

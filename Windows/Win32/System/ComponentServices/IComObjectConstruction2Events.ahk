@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber if a constructed object is created.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomobjectconstruction2events
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomobjectconstruction2events
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -31,14 +31,14 @@ class IComObjectConstruction2Events extends IUnknown{
     static VTableNames => ["OnObjectConstruct2"]
 
     /**
-     * Generated when a constructed object is created.
+     * Generated when a constructed object is created. (IComObjectConstruction2Events.OnObjectConstruct2)
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Pointer<Guid>} guidObject The CLSID for the objects in the pool.
      * @param {PWSTR} sConstructString The object construction string.
      * @param {Integer} oid The unique constructed object identifier.
      * @param {Pointer<Guid>} guidPartition The partition identifier for which this instance is created.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomobjectconstruction2events-onobjectconstruct2
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomobjectconstruction2events-onobjectconstruct2
      */
     OnObjectConstruct2(pInfo, guidObject, sConstructString, oid, guidPartition) {
         sConstructString := sConstructString is String ? StrPtr(sConstructString) : sConstructString

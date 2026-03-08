@@ -4,8 +4,8 @@
 #Include .\IWindowsDriverUpdate2.ahk
 
 /**
- * Contains the properties and methods that are available only from a Windows driver update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iwindowsdriverupdate3
+ * Contains the properties and methods that are available only from a Windows driver update. (IWindowsDriverUpdate3)
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iwindowsdriverupdate3
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -38,9 +38,9 @@ class IWindowsDriverUpdate3 extends IWindowsDriverUpdate2{
     }
 
     /**
-     * Gets a Boolean value that indicates whether an update can be discovered only by browsing through the available updates.
+     * Gets a Boolean value that indicates whether an update can be discovered only by browsing through the available updates. (IWindowsDriverUpdate3.get_BrowseOnly)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iwindowsdriverupdate3-get_browseonly
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iwindowsdriverupdate3-get_browseonly
      */
     get_BrowseOnly() {
         result := ComCall(64, this, "short*", &retval := 0, "HRESULT")

@@ -8,7 +8,6 @@
 /**
  * Implemented by the Microsoft Media Foundation source reader object.
  * @remarks
- * 
  * To create the source reader, call one of the following functions:
  * 
  * <ul>
@@ -27,9 +26,7 @@
  * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
  * 
  * In Windows 8, this interface is extended with <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereaderex">IMFSourceReaderEx</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nn-mfreadwrite-imfsourcereader
+ * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nn-mfreadwrite-imfsourcereader
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -56,6 +53,8 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Queries whether a stream is selected.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream to query. The value can be any of the following.
      * 
      * <table>
@@ -98,7 +97,7 @@ class IMFSourceReader extends IUnknown{
      * </tr>
      * </table>
      * @returns {BOOL} Receives <b>TRUE</b> if the stream is selected and will generate data. Receives <b>FALSE</b> if the stream is not selected and will not generate data.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-getstreamselection
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getstreamselection
      */
     GetStreamSelection(dwStreamIndex) {
         result := ComCall(3, this, "uint", dwStreamIndex, "int*", &pfSelected := 0, "HRESULT")
@@ -107,6 +106,20 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Selects or deselects one or more streams.
+     * @remarks
+     * There are two common uses for this method:
+     * 
+     * <ul>
+     * <li>To change the default stream selection. Some media files contain multiple streams of the same type. For example, a file might include audio streams for multiple languages. You can use this method to change which of the streams is selected. To get information about each stream, call <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getpresentationattribute">IMFSourceReader::GetPresentationAttribute</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getnativemediatype">IMFSourceReader::GetNativeMediaType</a>.</li>
+     * <li>If you will not need data from one of the streams, it is a good idea to deselect that stream. If the stream is selected, the media source might hold onto a queue of unread data, and the queue might grow indefinitely, consuming memory. </li>
+     * </ul>
+     * For an example of deselecting a stream, see <a href="https://docs.microsoft.com/windows/desktop/medfound/tutorial--decoding-audio">Tutorial: Decoding Audio</a>.
+     * 
+     * If a stream is deselected, the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample">IMFSourceReader::ReadSample</a> method returns <b>MF_E_INVALIDREQUEST</b> for that stream. Other <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nn-mfreadwrite-imfsourcereader">IMFSourceReader</a> methods are valid for deselected streams.
+     * 
+     * Stream selection does not affect how the source reader loads or unloads decoders in memory. In particular, deselecting a stream does not force the source reader to unload the decoder for that stream.
+     * 
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream to set. The value can be any of the following.
      * 
      * <table>
@@ -160,8 +173,8 @@ class IMFSourceReader extends IUnknown{
      * </tr>
      * </table>
      * @param {BOOL} fSelected Specify <b>TRUE</b> to select streams or <b>FALSE</b> to deselect streams. If a stream is deselected, it will not generate data.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-setstreamselection
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setstreamselection
      */
     SetStreamSelection(dwStreamIndex, fSelected) {
         result := ComCall(4, this, "uint", dwStreamIndex, "int", fSelected, "HRESULT")
@@ -170,6 +183,14 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Gets a format that is supported natively by the media source.
+     * @remarks
+     * This method queries the underlying media source for its native output format. Potentially, each source stream can produce more than one output format. Use the <i>dwMediaTypeIndex</i> parameter to loop through the available formats. Generally, file sources offer just one format per stream, but capture devices might offer several formats.
+     * 
+     *  The method returns a copy of the media type, so it is safe to modify the object received in the <i> ppMediaType</i> parameter.
+     * 
+     * To set  the output type for a stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setcurrentmediatype">IMFSourceReader::SetCurrentMediaType</a> method.
+     * 
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex Specifies which stream to query. The value can be any of the following.
      * 
      * <table>
@@ -242,7 +263,7 @@ class IMFSourceReader extends IUnknown{
      * </tr>
      * </table>
      * @returns {IMFMediaType} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-getnativemediatype
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getnativemediatype
      */
     GetNativeMediaType(dwStreamIndex, dwMediaTypeIndex) {
         result := ComCall(5, this, "uint", dwStreamIndex, "uint", dwMediaTypeIndex, "ptr*", &ppMediaType := 0, "HRESULT")
@@ -251,6 +272,8 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Gets the current media type for a stream.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream to query. The value can be any of the following.
      * 
      * <table>
@@ -293,7 +316,7 @@ class IMFSourceReader extends IUnknown{
      * </tr>
      * </table>
      * @returns {IMFMediaType} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-getcurrentmediatype
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getcurrentmediatype
      */
     GetCurrentMediaType(dwStreamIndex) {
         result := ComCall(6, this, "uint", dwStreamIndex, "ptr*", &ppMediaType := 0, "HRESULT")
@@ -302,6 +325,18 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Sets the media type for a stream.
+     * @remarks
+     * For each stream, you can set the media type to any of the following:
+     * 
+     * <ul>
+     * <li>One of the native types offered by the media source. To enumerate the native types, call <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getnativemediatype">IMFSourceReader::GetNativeMediaType</a>.</li>
+     * <li>If the native media type is compressed, you can specify a corresponding uncompressed format. The Source Reader will search for a decoder that can decode from the native format to the specified uncompressed format.</li>
+     * </ul>
+     * Audio resampling support was added to the source reader with Windows 8.  In versions of Windows prior to  Windows 8, the source reader does not support audio resampling. If you need to resample the audio in versions of Windows earlier than Windows 8, you can use the <a href="https://docs.microsoft.com/windows/desktop/medfound/audioresampler">Audio Resampler DSP</a>.
+     * 
+     * If you set the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-source-reader-enable-video-processing">MF_SOURCE_READER_ENABLE_VIDEO_PROCESSING</a> attribute to <b>TRUE</b> when you create the Source Reader, the Source Reader will convert YUV video to RGB-32. This conversion is not optimized for real-time video playback.
+     * 
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream to configure. The value can be any of the following.
      * 
      * <table>
@@ -407,7 +442,7 @@ class IMFSourceReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-setcurrentmediatype
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setcurrentmediatype
      */
     SetCurrentMediaType(dwStreamIndex, pMediaType) {
         static pdwReserved := 0 ;Reserved parameters must always be NULL
@@ -418,6 +453,12 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Seeks to a new position in the media source.
+     * @remarks
+     * The <b>SetCurrentPosition</b> method does not guarantee exact seeking. The accuracy of the seek depends on the media content. If the media content contains a video stream, the <b>SetCurrentPosition</b> method typically seeks to the nearest key frame before the desired position. The distance between key frames depends on several factors, including the encoder implementation, the video content, and the particular encoding settings used to encode the content. The distance between key frame can vary within a single video file (for example, depending on scene complexity).
+     * 
+     * After seeking, the application should call <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample">IMFSourceReader::ReadSample</a> and advance to the desired position. 
+     * 
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Pointer<Guid>} guidTimeFormat A GUID that specifies the <i>time format</i>. The time format defines the units for the <i>varPosition</i> parameter. The following value is defined for all media sources:
      * 
      * <table>
@@ -470,7 +511,7 @@ class IMFSourceReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-setcurrentposition
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setcurrentposition
      */
     SetCurrentPosition(guidTimeFormat, varPosition) {
         result := ComCall(8, this, "ptr", guidTimeFormat, "ptr", varPosition, "HRESULT")
@@ -479,6 +520,35 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Reads the next sample from the media source.
+     * @remarks
+     * If the requested stream is not selected, the return code is <b>MF_E_INVALIDREQUEST</b>. See <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-setstreamselection">IMFSourceReader::SetStreamSelection</a>.
+     * 
+     *  This method can complete synchronously or asynchronously. If you provide a callback pointer when you create the source reader, the method is asynchronous. Otherwise, the method is synchronous. For more information about setting the callback pointer, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-source-reader-async-callback">MF_SOURCE_READER_ASYNC_CALLBACK</a>.
+     * 
+     * <h3><a id="Asynchronous_Mode"></a><a id="asynchronous_mode"></a><a id="ASYNCHRONOUS_MODE"></a>Asynchronous Mode</h3>
+     * In asynchronous mode:
+     * 
+     * <ul>
+     * <li>All of the <c>[out]</c> parameters must be <b>NULL</b>. Otherwise, the method returns <b>E_INVALIDARG</b>.</li>
+     * <li>The method returns immediately.</li>
+     * <li>When the operation completes, the application's <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onreadsample">IMFSourceReaderCallback::OnReadSample</a> method is called.</li>
+     * <li>If an error occurs, the method can fail either synchronously or asynchronously. Check the return value of <b>ReadSample</b>, and also check the <i>hrStatus</i> parameter of <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onreadsample">IMFSourceReaderCallback::OnReadSample</a>.</li>
+     * </ul>
+     * <h3><a id="Synchronous_Mode"></a><a id="synchronous_mode"></a><a id="SYNCHRONOUS_MODE"></a>Synchronous Mode</h3>
+     * In synchronous mode:
+     * 
+     * <ul>
+     * <li>The <i>pdwStreamFlags</i> and <i>ppSample</i> parameters cannot be <b>NULL</b>. Otherwise, the method returns <b>E_POINTER</b>.</li>
+     * <li>The <i>pdwActualStreamIndex</i> and <i>pllTimestamp</i> parameters can be <b>NULL</b>.</li>
+     * <li>The method blocks until the next sample is available.</li>
+     * </ul>
+     * In synchronous mode, if the <i>dwStreamIndex</i> parameter is <b>MF_SOURCE_READER_ANY_STREAM</b>, you should pass a non-<b>NULL</b> value for <i>pdwActualStreamIndex</i>, so that you know which stream delivered the sample.
+     * 
+     * This method can return flags in the <i>pdwStreamFlags</i> parameter without returning a media sample in <i>ppSample</i>. Therefore, the <i>ppSample</i> parameter can receive a <b>NULL</b> pointer even when the method succeeds. For example, when the source reader reaches the end of the stream, it returns the <b>MF_SOURCE_READERF_ENDOFSTREAM</b> flag in <i>pdwStreamFlags</i> and sets <i>ppSample</i> to <b>NULL</b>.
+     * 
+     * If there is a gap in the stream, <i>pdwStreamFlags</i> receives the MF_SOURCE_READERF_STREAMTICK flag, <i>ppSample</i> is <b>NULL</b>, and <i>pllTimestamp</i> indicates the time when the gap occurred. 
+     * 
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream to pull data from. The value can be any of the following.
      * 
      * <table>
@@ -583,7 +653,7 @@ class IMFSourceReader extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * A flush operation is pending. See <a href="/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-flush">IMFSourceReader::Flush</a>.
+     * A flush operation is pending. See <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-flush">IMFSourceReader::Flush</a>.
      * 
      * </td>
      * </tr>
@@ -599,7 +669,7 @@ class IMFSourceReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample
      */
     ReadSample(dwStreamIndex, dwControlFlags, pdwActualStreamIndex, pdwStreamFlags, pllTimestamp, ppSample) {
         pdwActualStreamIndexMarshal := pdwActualStreamIndex is VarRef ? "uint*" : "ptr"
@@ -611,7 +681,21 @@ class IMFSourceReader extends IUnknown{
     }
 
     /**
-     * Flushes one or more streams.
+     * Flushes one or more streams. (IMFSourceReader.Flush)
+     * @remarks
+     * The <b>Flush</b> method discards all queued samples and cancels all pending sample requests.
+     * 
+     * This method can complete either synchronously or asynchronously.
+     * 
+     * If you provide a callback pointer when you create the source reader, the method is asynchronous. Otherwise, the method is synchronous. For more information about the setting the callback pointer, see <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-source-reader-async-callback">MF_SOURCE_READER_ASYNC_CALLBACK</a>.
+     * 
+     * In synchronous mode, the method blocks until the operation is complete.
+     * 
+     * In asynchronous mode, the application's <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onflush">IMFSourceReaderCallback::OnFlush</a> method is called when the flush operation completes. While a flush operation is pending, the <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-readsample">IMFSourceReader::ReadSample</a> method returns <b>MF_E_NOTACCEPTING</b>.
+     * 
+     * <div class="alert"><b>Note</b>  In Windows 7, there was a bug in the implementation of this method, which causes <a href="https://docs.microsoft.com/windows/desktop/api/mfreadwrite/nf-mfreadwrite-imfsourcereadercallback-onflush">OnFlush</a> to be called before the flush operation completes. A hotfix used to be available that fixed that bug.</div>
+     * <div> </div>
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream to flush. The value can be any of the following.
      * 
      * <table>
@@ -664,8 +748,8 @@ class IMFSourceReader extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-flush
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-flush
      */
     Flush(dwStreamIndex) {
         result := ComCall(10, this, "uint", dwStreamIndex, "HRESULT")
@@ -674,6 +758,8 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Queries the underlying media source or decoder for an interface.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream or object to query. If the value is <b>MF_SOURCE_READER_MEDIASOURCE</b>, the method queries the media source. Otherwise, it queries the decoder that is associated with the specified stream. The following values are possible.
      * 
      * <table>
@@ -730,7 +816,7 @@ class IMFSourceReader extends IUnknown{
      * @param {Pointer<Guid>} guidService A service identifier GUID.  If the value is <b>GUID_NULL</b>, the method calls <b>QueryInterface</b> to get the requested interface. Otherwise, the method calls the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfgetservice-getservice">IMFGetService::GetService</a> method. For a list of service identifiers, see <a href="https://docs.microsoft.com/windows/desktop/medfound/service-interfaces">Service Interfaces</a>.
      * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @returns {Pointer<Void>} Receives a pointer to the requested interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-getserviceforstream
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getserviceforstream
      */
     GetServiceForStream(dwStreamIndex, guidService, riid) {
         result := ComCall(11, this, "uint", dwStreamIndex, "ptr", guidService, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
@@ -739,6 +825,8 @@ class IMFSourceReader extends IUnknown{
 
     /**
      * Gets an attribute from the underlying media source.
+     * @remarks
+     * This interface is available on Windows Vista if Platform Update Supplement for Windows Vista is installed.
      * @param {Integer} dwStreamIndex The stream or object to query. The value can be any of the following.
      * 
      * <table>
@@ -801,7 +889,7 @@ class IMFSourceReader extends IUnknown{
      * </ul>
      * Otherwise, if the <i>dwStreamIndex</i> parameter specifies a stream, <i>guidAttribute</i> specifies a stream descriptor attribute. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/stream-descriptor-attributes">Stream Descriptor Attributes</a>.
      * @returns {PROPVARIANT} A pointer to a <b>PROPVARIANT</b> that receives the value of the attribute. Call the <b>PropVariantClear</b> function to free the <b>PROPVARIANT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfreadwrite/nf-mfreadwrite-imfsourcereader-getpresentationattribute
+     * @see https://learn.microsoft.com/windows/win32/api/mfreadwrite/nf-mfreadwrite-imfsourcereader-getpresentationattribute
      */
     GetPresentationAttribute(dwStreamIndex, guidAttribute) {
         pvarAttribute := PROPVARIANT()

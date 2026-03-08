@@ -6,15 +6,12 @@
 /**
  * Provides a method, SetDuckingOptionsForCurrentStream, that allows an app to specify that the system shouldn't duck the audio of other streams when the app's audio render stream is active.
  * @remarks
- * 
  * Get an instance of the [IAudioClientDuckingControl](nn-audioclient-iaudioclientduckingcontrol.md) interface by calling [IAudioClient::GetService](nf-audioclient-iaudioclient-getservice.md), passing in the interface ID constant **IID_IAudioClientDuckingControl**.
  * 
  * **IAudioClientDuckingControl** only controls the ducking caused by the audio stream (**IAudioClient**) that the interface is obtained from. 
  * 
  * Audio from applications could continue to be ducked if there are other concurrent applications with streams that cause ducking.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioclient/nn-audioclient-iaudioclientduckingcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/audioclient/nn-audioclient-iaudioclientduckingcontrol
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -40,9 +37,15 @@ class IAudioClientDuckingControl extends IUnknown{
     static VTableNames => ["SetDuckingOptionsForCurrentStream"]
 
     /**
+     * Sets the audio ducking options for an audio render stream.
+     * @remarks
+     * Get an instance of the [IAudioClientDuckingControl](nn-audioclient-iaudioclientduckingcontrol.md) interface by calling [IAudioClient::GetService](nf-audioclient-iaudioclient-getservice.md), passing in the interface ID constant **IID_IAudioClientDuckingControl**.
      * 
-     * @param {Integer} options 
-     * @returns {HRESULT} 
+     * **IAudioClientDuckingControl** only controls the ducking caused by the audio stream (**IAudioClient**) that the interface is obtained from. 
+     * 
+     * Audio from applications could continue to be ducked if there are other concurrent applications with streams that cause ducking.
+     * @param {Integer} options A value from the [AUDIO_DUCKING_OPTIONS](ne-audioclient-audio_ducking_options.md) enumeration specifying the requested ducking behavior.
+     * @returns {HRESULT} On successful completion, returns S_OK.
      * @see https://learn.microsoft.com/windows/win32/api/audioclient/nf-audioclient-iaudioclientduckingcontrol-setduckingoptionsforcurrentstream
      */
     SetDuckingOptionsForCurrentStream(options) {

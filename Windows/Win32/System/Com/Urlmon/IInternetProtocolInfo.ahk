@@ -81,7 +81,14 @@ class IInternetProtocolInfo extends IUnknown{
     }
 
     /**
+     * Retrieves limit and job state information from the job object.
+     * @remarks
+     * Use 
+     * <b>QueryInformationJobObject</b> to obtain the current limits and modify them. Use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/jobapi2/nf-jobapi2-setinformationjobobject">SetInformationJobObject</a> function to set new limits.
      * 
+     * To compile an application that uses this function, define <b>_WIN32_WINNT</b> as 0x0500 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {PWSTR} pwzUrl 
      * @param {Integer} OueryOption 
      * @param {Integer} dwQueryFlags 
@@ -89,7 +96,11 @@ class IInternetProtocolInfo extends IUnknown{
      * @param {Integer} cbBuffer 
      * @param {Pointer<Integer>} pcbBuf 
      * @param {Integer} dwReserved 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/jobapi2/nf-jobapi2-queryinformationjobobject
      */
     QueryInfo(pwzUrl, OueryOption, dwQueryFlags, pBuffer, cbBuffer, pcbBuf, dwReserved) {
         pwzUrl := pwzUrl is String ? StrPtr(pwzUrl) : pwzUrl

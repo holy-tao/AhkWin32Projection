@@ -5,7 +5,7 @@
 
 /**
  * The WDS transport server can create, start, and end multicast sessions that are hosted by a namespace object of this interface.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespaceautocast
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportnamespaceautocast
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */

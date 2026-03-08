@@ -5,7 +5,7 @@
 
 /**
  * Represents the diagnostics policy part of the WDS transport server's configuration.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportdiagnosticspolicy
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportdiagnosticspolicy
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -53,9 +53,9 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * Receives or sets a value that enables a WDS client to configure diagnostic logging on the server.
+     * Receives or sets a value that enables a WDS client to configure diagnostic logging on the server. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_enabled
      */
     get_Enabled() {
         result := ComCall(11, this, "short*", &pbEnabled := 0, "HRESULT")
@@ -63,10 +63,10 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * Receives or sets a value that enables a WDS client to configure diagnostic logging on the server.
+     * Receives or sets a value that enables a WDS client to configure diagnostic logging on the server. (Put)
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_enabled
      */
     put_Enabled(bEnabled) {
         result := ComCall(12, this, "short", bEnabled, "HRESULT")
@@ -74,9 +74,9 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * Enables a WDS client to configure which WDS transport components have event logging.
+     * Enables a WDS client to configure which WDS transport components have event logging. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_components
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-get_components
      */
     get_Components() {
         result := ComCall(13, this, "uint*", &pulComponents := 0, "HRESULT")
@@ -84,10 +84,10 @@ class IWdsTransportDiagnosticsPolicy extends IWdsTransportCacheable{
     }
 
     /**
-     * Enables a WDS client to configure which WDS transport components have event logging.
+     * Enables a WDS client to configure which WDS transport components have event logging. (Put)
      * @param {Integer} ulComponents 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_components
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportdiagnosticspolicy-put_components
      */
     put_Components(ulComponents) {
         result := ComCall(14, this, "uint", ulComponents, "HRESULT")

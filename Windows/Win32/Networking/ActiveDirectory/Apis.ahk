@@ -3564,11 +3564,7 @@ class ActiveDirectory {
 
         ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, ppObjectMarshal, ppObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsGetObject", "ptr", lpszPathName, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
         return result
     }
 
@@ -3595,11 +3591,7 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static ADsBuildEnumerator(pADsContainer) {
-        result := DllCall("ACTIVEDS.dll\ADsBuildEnumerator", "ptr", pADsContainer, "ptr*", &ppEnumVariant := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsBuildEnumerator", "ptr", pADsContainer, "ptr*", &ppEnumVariant := 0, "HRESULT")
         return IEnumVARIANT(ppEnumVariant)
     }
 
@@ -3627,11 +3619,7 @@ class ActiveDirectory {
      * @since windows6.0.6000
      */
     static ADsFreeEnumerator(pEnumVariant) {
-        result := DllCall("ACTIVEDS.dll\ADsFreeEnumerator", "ptr", pEnumVariant, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsFreeEnumerator", "ptr", pEnumVariant, "HRESULT")
         return result
     }
 
@@ -3672,11 +3660,7 @@ class ActiveDirectory {
     static ADsEnumerateNext(pEnumVariant, cElements, pvar, pcElementsFetched) {
         pcElementsFetchedMarshal := pcElementsFetched is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsEnumerateNext", "ptr", pEnumVariant, "uint", cElements, "ptr", pvar, pcElementsFetchedMarshal, pcElementsFetched, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsEnumerateNext", "ptr", pEnumVariant, "uint", cElements, "ptr", pvar, pcElementsFetchedMarshal, pcElementsFetched, "HRESULT")
         return result
     }
 
@@ -3704,11 +3688,7 @@ class ActiveDirectory {
     static ADsBuildVarArrayStr(lppPathNames, dwPathNames, pVar) {
         lppPathNamesMarshal := lppPathNames is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayStr", lppPathNamesMarshal, lppPathNames, "uint", dwPathNames, "ptr", pVar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayStr", lppPathNamesMarshal, lppPathNames, "uint", dwPathNames, "ptr", pVar, "HRESULT")
         return result
     }
 
@@ -3748,11 +3728,7 @@ class ActiveDirectory {
     static ADsBuildVarArrayInt(lpdwObjectTypes, dwObjectTypes, pVar) {
         lpdwObjectTypesMarshal := lpdwObjectTypes is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayInt", lpdwObjectTypesMarshal, lpdwObjectTypes, "uint", dwObjectTypes, "ptr", pVar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsBuildVarArrayInt", lpdwObjectTypesMarshal, lpdwObjectTypes, "uint", dwObjectTypes, "ptr", pVar, "HRESULT")
         return result
     }
 
@@ -3852,11 +3828,7 @@ class ActiveDirectory {
 
         ppObjectMarshal := ppObject is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, ppObjectMarshal, ppObject, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsOpenObject", "ptr", lpszPathName, "ptr", lpszUserName, "ptr", lpszPassword, "uint", dwReserved, "ptr", riid, ppObjectMarshal, ppObject, "HRESULT")
         return result
     }
 
@@ -3941,9 +3913,9 @@ class ActiveDirectory {
 
         A_LastError := 0
 
-        result := DllCall("ACTIVEDS.dll\ADsGetLastError", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", dwErrorBufLen, "ptr", lpNameBuf, "uint", dwNameBufLen, "int")
-        if(A_LastError || result != 0) {
-            throw OSError(A_LastError || result)
+        result := DllCall("ACTIVEDS.dll\ADsGetLastError", lpErrorMarshal, lpError, "ptr", lpErrorBuf, "uint", dwErrorBufLen, "ptr", lpNameBuf, "uint", dwNameBufLen, "HRESULT")
+        if(A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -4192,11 +4164,7 @@ class ActiveDirectory {
     static ADsEncodeBinaryData(pbSrcData, dwSrcLen) {
         pbSrcDataMarshal := pbSrcData is VarRef ? "char*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsEncodeBinaryData", pbSrcDataMarshal, pbSrcData, "uint", dwSrcLen, "ptr*", &ppszDestData := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsEncodeBinaryData", pbSrcDataMarshal, pbSrcData, "uint", dwSrcLen, "ptr*", &ppszDestData := 0, "HRESULT")
         return ppszDestData
     }
 
@@ -4213,11 +4181,7 @@ class ActiveDirectory {
         ppbDestDataMarshal := ppbDestData is VarRef ? "ptr*" : "ptr"
         pdwDestLenMarshal := pdwDestLen is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, ppbDestDataMarshal, ppbDestData, pdwDestLenMarshal, pdwDestLen, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\ADsDecodeBinaryData", "ptr", szSrcData, ppbDestDataMarshal, ppbDestData, pdwDestLenMarshal, pdwDestLen, "HRESULT")
         return result
     }
 
@@ -4233,11 +4197,7 @@ class ActiveDirectory {
         ppAdsValuesMarshal := ppAdsValues is VarRef ? "ptr*" : "ptr"
         pdwNumValuesMarshal := pdwNumValues is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, ppAdsValuesMarshal, ppAdsValues, pdwNumValuesMarshal, pdwNumValues, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\PropVariantToAdsType", "ptr", pVariant, "uint", dwNumVariant, ppAdsValuesMarshal, ppAdsValues, pdwNumValuesMarshal, pdwNumValues, "HRESULT")
         return result
     }
 
@@ -4249,11 +4209,7 @@ class ActiveDirectory {
      * @returns {HRESULT} 
      */
     static AdsTypeToPropVariant(pAdsValues, dwNumValues, pVariant) {
-        result := DllCall("ACTIVEDS.dll\AdsTypeToPropVariant", "ptr", pAdsValues, "uint", dwNumValues, "ptr", pVariant, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\AdsTypeToPropVariant", "ptr", pAdsValues, "uint", dwNumValues, "ptr", pVariant, "HRESULT")
         return result
     }
 
@@ -4303,11 +4259,7 @@ class ActiveDirectory {
         userName := userName is String ? StrPtr(userName) : userName
         passWord := passWord is String ? StrPtr(passWord) : passWord
 
-        result := DllCall("ACTIVEDS.dll\BinarySDToSecurityDescriptor", "ptr", pSecurityDescriptor, "ptr", pVarsec, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\BinarySDToSecurityDescriptor", "ptr", pSecurityDescriptor, "ptr", pVarsec, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -4349,11 +4301,7 @@ class ActiveDirectory {
 
         pdwSDLengthMarshal := pdwSDLength is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("ACTIVEDS.dll\SecurityDescriptorToBinarySD", "ptr", vVarSecDes, "ptr", ppSecurityDescriptor, pdwSDLengthMarshal, pdwSDLength, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("ACTIVEDS.dll\SecurityDescriptorToBinarySD", "ptr", vVarSecDes, "ptr", ppSecurityDescriptor, pdwSDLengthMarshal, pdwSDLength, "ptr", pszServerName, "ptr", userName, "ptr", passWord, "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -4450,11 +4398,7 @@ class ActiveDirectory {
         pszObjectClass := pszObjectClass is String ? StrPtr(pszObjectClass) : pszObjectClass
         pszBuffer := pszBuffer is String ? StrPtr(pszBuffer) : pszBuffer
 
-        result := DllCall("dsuiext.dll\DsGetFriendlyClassName", "ptr", pszObjectClass, "ptr", pszBuffer, "uint", cchBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dsuiext.dll\DsGetFriendlyClassName", "ptr", pszObjectClass, "ptr", pszBuffer, "uint", cchBuffer, "HRESULT")
         return result
     }
 
@@ -4474,11 +4418,7 @@ class ActiveDirectory {
     static ADsPropCreateNotifyObj(pAppThdDataObj, pwzADsObjName, phNotifyObj) {
         pwzADsObjName := pwzADsObjName is String ? StrPtr(pwzADsObjName) : pwzADsObjName
 
-        result := DllCall("dsprop.dll\ADsPropCreateNotifyObj", "ptr", pAppThdDataObj, "ptr", pwzADsObjName, "ptr", phNotifyObj, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dsprop.dll\ADsPropCreateNotifyObj", "ptr", pAppThdDataObj, "ptr", pwzADsObjName, "ptr", phNotifyObj, "HRESULT")
         return result
     }
 

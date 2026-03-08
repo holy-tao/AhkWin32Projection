@@ -30,7 +30,7 @@ class IDtcLuRmEnlistmentFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @param {ITransaction} pITransaction 
@@ -38,6 +38,7 @@ class IDtcLuRmEnlistmentFactory extends IUnknown{
      * @param {Integer} cbTransId 
      * @param {IDtcLuRmEnlistmentSink} pRmEnlistmentSink 
      * @returns {IDtcLuRmEnlistment} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pucLuPair, cbLuPair, pITransaction, pTransId, cbTransId, pRmEnlistmentSink) {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"

@@ -5,7 +5,7 @@
 
 /**
  * The IAudioMute interface provides access to a hardware mute control.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-iaudiomute
+ * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iaudiomute
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -53,7 +53,7 @@ class IAudioMute extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudiomute-setmute
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiomute-setmute
      */
     SetMute(bMuted, pguidEventContext) {
         result := ComCall(3, this, "int", bMuted, "ptr", pguidEventContext, "HRESULT")
@@ -63,7 +63,7 @@ class IAudioMute extends IUnknown{
     /**
      * The GetMute method gets the current state (enabled or disabled) of the mute control.
      * @returns {BOOL} Pointer to a <b>BOOL</b> variable into which the method writes the current state of the mute control. If the state is <b>TRUE</b>, muting is enabled. If <b>FALSE</b>, it is disabled.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iaudiomute-getmute
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iaudiomute-getmute
      */
     GetMute() {
         result := ComCall(4, this, "int*", &pbMuted := 0, "HRESULT")

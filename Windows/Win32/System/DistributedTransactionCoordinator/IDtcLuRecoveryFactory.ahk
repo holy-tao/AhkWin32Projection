@@ -30,10 +30,11 @@ class IDtcLuRecoveryFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {Pointer<Integer>} pucLuPair 
      * @param {Integer} cbLuPair 
      * @returns {IDtcLuRecovery} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pucLuPair, cbLuPair) {
         pucLuPairMarshal := pucLuPair is VarRef ? "char*" : "ptr"

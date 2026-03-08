@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that provides a simple, standard mechanism for objects to query a client for permission to continue an operation.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iquerycontinue
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iquerycontinue
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IQueryContinue extends IUnknown{
 
     /**
      * Returns S_OK if the operation associated with the current instance of this interface should continue.
+     * @remarks
+     * In typical usage, a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iquerycontinue">IQueryContinue</a> interface is passed to a method of another object.	That object, in turn, runs this method periodically to determine whether to continue its actions. For example, if a user clicks a cancel button, this method will start returning <b>S_FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if the calling application should continue, <b>S_FALSE</b> if not.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iquerycontinue-querycontinue
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iquerycontinue-querycontinue
      */
     QueryContinue() {
         result := ComCall(3, this, "HRESULT")

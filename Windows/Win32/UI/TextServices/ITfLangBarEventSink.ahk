@@ -6,7 +6,7 @@
 
 /**
  * The ITfLangBarEventSink interface is implemented by an application or text service and used by the language bar to supply notifications of certain events that occur in the language bar.
- * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nn-ctfutb-itflangbareventsink
+ * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nn-ctfutb-itflangbareventsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,8 +34,8 @@ class ITfLangBarEventSink extends IUnknown{
     /**
      * ITfLangBarEventSink::OnSetFocus method
      * @param {Integer} dwThreadId Contains the current thread identifier. This is the same value returned from <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadid">GetCurrentThreadId</a>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbareventsink-onsetfocus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onsetfocus
      */
     OnSetFocus(dwThreadId) {
         result := ComCall(3, this, "uint", dwThreadId, "HRESULT")
@@ -45,8 +45,8 @@ class ITfLangBarEventSink extends IUnknown{
     /**
      * ITfLangBarEventSink::OnThreadTerminate method
      * @param {Integer} dwThreadId Not currently used.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbareventsink-onthreadterminate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onthreadterminate
      */
     OnThreadTerminate(dwThreadId) {
         result := ComCall(4, this, "uint", dwThreadId, "HRESULT")
@@ -56,8 +56,8 @@ class ITfLangBarEventSink extends IUnknown{
     /**
      * ITfLangBarEventSink::OnThreadItemChange method
      * @param {Integer} dwThreadId Contains the current thread identifier. This is the same value returned from <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getcurrentthreadid">GetCurrentThreadId</a>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbareventsink-onthreaditemchange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onthreaditemchange
      */
     OnThreadItemChange(dwThreadId) {
         result := ComCall(5, this, "uint", dwThreadId, "HRESULT")
@@ -70,8 +70,8 @@ class ITfLangBarEventSink extends IUnknown{
      * @param {Integer} uMsg Not currently used.
      * @param {WPARAM} wParam Not currently used.
      * @param {LPARAM} lParam Not currently used.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbareventsink-onmodalinput
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-onmodalinput
      */
     OnModalInput(dwThreadId, uMsg, wParam, lParam) {
         result := ComCall(6, this, "uint", dwThreadId, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")
@@ -81,8 +81,8 @@ class ITfLangBarEventSink extends IUnknown{
     /**
      * ITfLangBarEventSink::ShowFloating method
      * @param {Integer} dwFlags Contains the <a href="https://docs.microsoft.com/windows/desktop/TSF/tf-sft--constants">TF_SFT_*</a> values passed to <b>ITfLangBarMgr::ShowFloating</b>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbareventsink-showfloating
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-showfloating
      */
     ShowFloating(dwFlags) {
         result := ComCall(7, this, "uint", dwFlags, "HRESULT")
@@ -94,7 +94,7 @@ class ITfLangBarEventSink extends IUnknown{
      * @param {Integer} dwThreadId Not currently used.
      * @param {Pointer<Guid>} rguid Not currently used.
      * @returns {RECT} Not currently used.
-     * @see https://docs.microsoft.com/windows/win32/api//ctfutb/nf-ctfutb-itflangbareventsink-getitemfloatingrect
+     * @see https://learn.microsoft.com/windows/win32/api/ctfutb/nf-ctfutb-itflangbareventsink-getitemfloatingrect
      */
     GetItemFloatingRect(dwThreadId, rguid) {
         prc := RECT()

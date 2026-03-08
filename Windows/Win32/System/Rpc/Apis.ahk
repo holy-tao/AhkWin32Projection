@@ -1182,11 +1182,7 @@ class Rpc {
      * @since windows5.0
      */
     static IUnknown_QueryInterface_Proxy(This_R, riid) {
-        result := DllCall("RPCRT4.dll\IUnknown_QueryInterface_Proxy", "ptr", This_R, "ptr", riid, "ptr*", &ppvObject := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("RPCRT4.dll\IUnknown_QueryInterface_Proxy", "ptr", This_R, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
         return ppvObject
     }
 
@@ -23898,11 +23894,7 @@ class Rpc {
      * @returns {HRESULT} 
      */
     static NdrGetDcomProtocolVersion(pStubMsg, pVersion) {
-        result := DllCall("RPCRT4.dll\NdrGetDcomProtocolVersion", "ptr", pStubMsg, "ptr", pVersion, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("RPCRT4.dll\NdrGetDcomProtocolVersion", "ptr", pStubMsg, "ptr", pVersion, "HRESULT")
         return result
     }
 
@@ -26061,11 +26053,12 @@ class Rpc {
     }
 
     /**
-     * 
-     * @param {Pointer<Void>} Handle 
-     * @param {Pointer<MIDL_STUB_DESC>} pStubDesc 
-     * @param {Pointer<Integer>} pFormatString 
+     * NdrMesProcEncodeDecode2 may be altered or unavailable.
+     * @param {Pointer<Void>} Handle Reserved.
+     * @param {Pointer<MIDL_STUB_DESC>} pStubDesc Reserved.
+     * @param {Pointer<Integer>} pFormatString Reserved.
      * @returns {String} Nothing - always returns an empty string
+     * @see https://learn.microsoft.com/windows/win32/api/midles/nf-midles-ndrmesprocencodedecode2
      */
     static NdrMesProcEncodeDecode(Handle, pStubDesc, pFormatString) {
         HandleMarshal := Handle is VarRef ? "ptr" : "ptr"

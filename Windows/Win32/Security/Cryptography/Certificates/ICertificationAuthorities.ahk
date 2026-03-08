@@ -8,7 +8,7 @@
 
 /**
  * The ICertificationAuthorities interface defines the following methods and properties that manage a collection of ICertificationAuthority objects.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertificationauthorities
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertificationauthorities
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -51,7 +51,7 @@ class ICertificationAuthorities extends IDispatch{
      * Retrieves an ICertificationAuthority object from the collection by index number.
      * @param {Integer} Index 
      * @returns {ICertificationAuthority} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-get_itembyindex
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -61,7 +61,7 @@ class ICertificationAuthorities extends IDispatch{
     /**
      * Retrieves the number of ICertificationAuthority objects in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -69,9 +69,9 @@ class ICertificationAuthorities extends IDispatch{
     }
 
     /**
-     * Retrieves the enumerator for the collection.
+     * Retrieves the enumerator for the collection. (ICertificationAuthorities.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -83,8 +83,8 @@ class ICertificationAuthorities extends IDispatch{
      * @param {ICertificationAuthority} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icertificationauthority">ICertificationAuthority</a> object to add to the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -96,8 +96,8 @@ class ICertificationAuthorities extends IDispatch{
      * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -108,8 +108,8 @@ class ICertificationAuthorities extends IDispatch{
      * Removes all ICertificationAuthority objects from the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -120,8 +120,8 @@ class ICertificationAuthorities extends IDispatch{
      * Is not currently used.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-computesitecosts
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-computesitecosts
      */
     ComputeSiteCosts() {
         result := ComCall(13, this, "HRESULT")
@@ -132,7 +132,7 @@ class ICertificationAuthorities extends IDispatch{
      * Retrieves an ICertificationAuthority object from the collection by certification authority name.
      * @param {BSTR} strName 
      * @returns {ICertificationAuthority} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertificationauthorities-get_itembyname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertificationauthorities-get_itembyname
      */
     get_ItemByName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName

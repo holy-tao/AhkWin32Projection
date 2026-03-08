@@ -6,7 +6,7 @@
 
 /**
  * The IWMPMedia2 interface provides a method that supplements the IWMPMedia interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpmedia2
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpmedia2
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -40,8 +40,10 @@ class IWMPMedia2 extends IWMPMedia{
 
     /**
      * The get_error method retrieves a pointer to an IWMPErrorItem interface if the media item has an error condition.
+     * @remarks
+     * If the media item cannot be played, this property retrieves an <b>IWMPErrorItem</b> interface that contains information about the problem encountered.
      * @returns {IWMPErrorItem} Pointer to a pointer to an <b>IWMPErrorItem</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpmedia2-get_error
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpmedia2-get_error
      */
     get_error() {
         result := ComCall(25, this, "ptr*", &ppIWMPErrorItem := 0, "HRESULT")

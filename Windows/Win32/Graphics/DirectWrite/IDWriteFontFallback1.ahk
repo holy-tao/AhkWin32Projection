@@ -4,6 +4,8 @@
 #Include .\IDWriteFontFallback.ahk
 
 /**
+ * Allows you to access fallback fonts from the font list.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfallback1
  * @namespace Windows.Win32.Graphics.DirectWrite

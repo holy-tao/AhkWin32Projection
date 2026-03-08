@@ -36,11 +36,18 @@ class IComponentUtil extends IDispatch{
     static VTableNames => ["InstallComponent", "ImportComponent", "ImportComponentByName", "GetCLSIDs"]
 
     /**
+     * Installs an exception package.
+     * @remarks
+     * Exception packages are Windows system files that are released outside of a full package Windows release and that update operating-system files. Exception packages are authored only by operating-system teams that have been granted authorization to update Windows system files.
      * 
+     * To install and uninstall files that are not protected by Windows File Protection, use the functions documented in [General Setup Functions](https://msdn.microsoft.com/library/ms794585.aspx). To install device drivers, venders should use functions documented in [Device Installation Functions](https://msdn.microsoft.com/library/ms792954.aspx) and [PnP Configuration Manager Functions](https://msdn.microsoft.com/library/ms790838.aspx).
+     * 
+     * This function has no associated import library or header file; you must call it by using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {BSTR} bstrDLLFile 
      * @param {BSTR} bstrTypelibFile 
      * @param {BSTR} bstrProxyStubDLLFile 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function returns an **HRESULT** value (S\_OK or a failure code). A failure code can be checked against a value of 0x20000100 to determine whether the failure is because a reboot is required.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/installcomponentw
      */
     InstallComponent(bstrDLLFile, bstrTypelibFile, bstrProxyStubDLLFile) {
         bstrDLLFile := bstrDLLFile is String ? BSTR.Alloc(bstrDLLFile).Value : bstrDLLFile

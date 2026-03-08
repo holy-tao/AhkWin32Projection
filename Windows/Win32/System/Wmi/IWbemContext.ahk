@@ -8,7 +8,6 @@
 /**
  * The IWbemContext interface is optionally used to communicate additional context information to providers when submitting IWbemServices calls to WMI. All primary calls in IWbemServices take an optional parameter pointing to an object of this type.
  * @remarks
- * 
  * Often, dynamic providers require more information than is specified in the normal parameters of an 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> method. For example, to manipulate any WMI schema objects that it provides, a provider may need to know a Simple Network Management Protocol (SNMP) community name, or a Structured Query Language (SQL) database and table name. A client can add this information to an 
  * <b>IWbemContext</b> object and send the 
@@ -24,7 +23,7 @@
  * <li><b>VT_R8</b></li>
  * <li><b>VT_BOOL</b></li>
  * <li><b>VT_BSTR</b></li>
- * <li><b>VT_UNKNOW</b>N</li>
+ * <li><b>VT_UNKNOWN</b></li>
  * <li>Any of the above combined with <b>VT_ARRAY</b></li>
  * </ul>
  * <div class="alert"><b>Note</b>  Only objects that support 
@@ -43,9 +42,7 @@
  * The client application calls <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cocreateinstanceex">CoCreateInstanceEx</a> to create a single context object. Then, it calls 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemcontext-setvalue">SetValue</a> one or more times to set up context values for the provider. Finally, it submits the object to one of the 
  * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemservices">IWbemServices</a> methods, which immediately calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the context object after the call has returned. The other methods are for use primarily by providers that receive the context object and have to extract information.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nn-wbemcli-iwbemcontext
+ * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nn-wbemcli-iwbemcontext
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -79,7 +76,7 @@ class IWbemContext extends IUnknown{
     /**
      * The IWbemContext::Clone method makes a logical copy of the current IWbemContext object. This method can be useful when many calls must be made which have largely identical IWbemContext objects.
      * @returns {IWbemContext} Must point to <b>NULL</b> on entry. It receives a pointer to the new object containing the clone of the current object. The returned pointer has a positive reference count. The caller must call <b>IWbemServices::Release</b> on this pointer when it is no longer needed. On error, this pointer is left unmodified, and a new object is not returned.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-clone
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-clone
      */
     Clone() {
         result := ComCall(3, this, "ptr*", &ppNewCopy := 0, "HRESULT")
@@ -88,12 +85,15 @@ class IWbemContext extends IUnknown{
 
     /**
      * The IWbemContext::GetNames method returns a SAFEARRAY structure of all of the names of the named context values.
+     * @remarks
+     * For more information about using <b>SAFEARRAY</b> structures of <b>BSTR</b> values, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/retrieving-part-of-an-instance">Retrieving Part of a WMI Instance</a>.
      * @param {Integer} lFlags Reserved. This parameter must be 0.
      * @returns {Pointer<SAFEARRAY>} This parameter cannot be <b>NULL</b>, but on entry it must point to <b>NULL</b>. If no error is returned, on exit <i>pstrNames</i> receives a pointer to a new <b>SAFEARRAY</b> structure of type VT_BSTR containing all the context value names. The caller must call <b>SafeArrayDestroy</b> on the returned pointer when the array is no longer required. If an error code is returned, the pointer is left unmodified.
      * 
      * <div class="alert"><b>Note</b>  If there are no named values in the object, the call succeeds and returns an array of length 0.</div>
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-getnames
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-getnames
      */
     GetNames(lFlags) {
         result := ComCall(4, this, "int", lFlags, "ptr*", &pNames := 0, "HRESULT")
@@ -103,8 +103,8 @@ class IWbemContext extends IUnknown{
     /**
      * The IWbemContext::BeginEnumeration method resets the enumeration of all the context values in the object.
      * @param {Integer} lFlags Reserved. This parameter must be 0.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b>HRESULT indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>HRESULT.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-beginenumeration
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-beginenumeration
      */
     BeginEnumeration(lFlags) {
         result := ComCall(5, this, "int", lFlags, "HRESULT")
@@ -128,7 +128,7 @@ class IWbemContext extends IUnknown{
      * <div class="alert"><b>Note</b>  At the end of the enumeration, <b>WBEM_S_NO_MORE_DATA</b> is returned. The returned <b>VARIANT</b> is of type <b>VT_NULL</b>, and the returned <i>pstrName</i> is <b>NULL</b>.</div>
      * <div> </div>
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-next
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-next
      */
     Next(lFlags, pstrName, pValue) {
         result := ComCall(6, this, "int", lFlags, "ptr", pstrName, "ptr", pValue, "HRESULT")
@@ -137,8 +137,8 @@ class IWbemContext extends IUnknown{
 
     /**
      * The IWbemContext::EndEnumeration method ends an enumeration sequence that begins with IWbemContext::BeginEnumeration. This call is not required, but it releases as early as possible any system resources associated with the enumeration.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b>HRESULT indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>HRESULT.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-endenumeration
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-endenumeration
      */
     EndEnumeration() {
         result := ComCall(7, this, "HRESULT")
@@ -156,7 +156,7 @@ class IWbemContext extends IUnknown{
      * If <i>pValue</i> is to contain an embedded 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> object, the caller must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">IWbemClassObject::QueryInterface</a> for <b>IID_IUnknown</b> and place the resulting pointer in the <b>VARIANT</b> by using a type of <b>VT_UNKNOWN</b>. The original embedded object is copied during the write operation, and so cannot be modified by the operation.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> that indicates the status of a method call. The following list lists and describes the values contained in an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-setvalue
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-setvalue
      */
     SetValue(wszName, lFlags, pValue) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -174,7 +174,7 @@ class IWbemContext extends IUnknown{
      * It is possible that an entire 
      * <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nn-wbemcli-iwbemclassobject">IWbemClassObject</a> object can be returned inside the <b>VARIANT</b>. If that is the case, then <b>VT_UNKNOWN</b> is the <b>VARIANT</b> type. The caller can take the <b>IUnknown</b> pointer and execute <b>QueryInterface</b> to obtain the 
      * <b>IWbemClassObject</b> pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-getvalue
      */
     GetValue(wszName, lFlags) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -188,8 +188,8 @@ class IWbemContext extends IUnknown{
      * The IWbemContext::DeleteValue method deletes a named context value created by IWbemContext::SetValue.
      * @param {PWSTR} wszName Pointer to a valid <b>BSTR</b> containing the named context value to delete. The pointer is treated as read-only.
      * @param {Integer} lFlags Reserved. This parameter must be 0.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b>HRESULT indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>HRESULT.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-deletevalue
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-deletevalue
      */
     DeleteValue(wszName, lFlags) {
         wszName := wszName is String ? StrPtr(wszName) : wszName
@@ -200,8 +200,8 @@ class IWbemContext extends IUnknown{
 
     /**
      * The IWbemContext::DeleteAll method removes all named context values from the current object, thus emptying the object.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b>HRESULT indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>HRESULT.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemcli/nf-wbemcli-iwbemcontext-deleteall
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemcli/nf-wbemcli-iwbemcontext-deleteall
      */
     DeleteAll() {
         result := ComCall(11, this, "HRESULT")

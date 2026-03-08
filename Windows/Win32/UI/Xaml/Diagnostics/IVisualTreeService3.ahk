@@ -5,7 +5,7 @@
 
 /**
  * Represents additional capabilities of an IVisualTreeService2 object.
- * @see https://docs.microsoft.com/windows/win32/api//xamlom/nn-xamlom-ivisualtreeservice3
+ * @see https://learn.microsoft.com/windows/win32/api/xamlom/nn-xamlom-ivisualtreeservice3
  * @namespace Windows.Win32.UI.Xaml.Diagnostics
  * @version v4.0.30319
  */
@@ -32,12 +32,16 @@ class IVisualTreeService3 extends IVisualTreeService2{
 
     /**
      * Resolves a resource for an element in the tree and applies the resource to the property provided by the specified property index.
+     * @remarks
+     * If no resource was found, or the resource type was invalid, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nn-xamlom-ivisualtreeservicecallback2">IVisualTreeServiceCallback2</a>  will be notified.
+     * 
+     * Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nf-xamlom-ivisualtreeservice3-getdictionaryitem">GetDictionaryItem</a> to get a <i>resourceContext</i> and give better resolution context for <b>ResolveResource</b>.
      * @param {Integer} resourceContext The context of the resource.
      * @param {PWSTR} resourceName The name of the resource.
      * @param {Integer} resourceType The type of the resource.
      * @param {Integer} propertyIndex The index of the property to apply the resource to.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice3-resolveresource
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-resolveresource
      */
     ResolveResource(resourceContext, resourceName, resourceType, propertyIndex) {
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
@@ -52,7 +56,7 @@ class IVisualTreeService3 extends IVisualTreeService2{
      * @param {PWSTR} resourceName The name of the resource to get.
      * @param {BOOL} resourceIsImplicitStyle <b>true</b> if the resource is an implicit style; otherwise, <b>false</b>.
      * @returns {Integer} The resource that was retrieved.
-     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice3-getdictionaryitem
+     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-getdictionaryitem
      */
     GetDictionaryItem(dictionaryHandle, resourceName, resourceIsImplicitStyle) {
         resourceName := resourceName is String ? StrPtr(resourceName) : resourceName
@@ -63,11 +67,13 @@ class IVisualTreeService3 extends IVisualTreeService2{
 
     /**
      * Adds an item to a ResourceDictionary, and re-resolves all elements in the tree that reference a resource with the specified key.
+     * @remarks
+     * Any invalid resource references will result in the value being cleared, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nn-xamlom-ivisualtreeservicecallback2">IVisualTreeServiceCallback2</a>  will be notified.
      * @param {Integer} dictionaryHandle The dictionary to add the resource to.
      * @param {Integer} resourceKey The key of the resource to add.
      * @param {Integer} resourceHandle The resource to add.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice3-adddictionaryitem
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-adddictionaryitem
      */
     AddDictionaryItem(dictionaryHandle, resourceKey, resourceHandle) {
         result := ComCall(21, this, "uint", dictionaryHandle, "uint", resourceKey, "uint", resourceHandle, "HRESULT")
@@ -76,10 +82,12 @@ class IVisualTreeService3 extends IVisualTreeService2{
 
     /**
      * Removes an item from a ResourceDictionary, and re-resolves all elements in the tree that reference a resource with the specified key.
+     * @remarks
+     * Any invalid resource references will result in the value being cleared, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/xamlom/nn-xamlom-ivisualtreeservicecallback2">IVisualTreeServiceCallback2</a>  will be notified.
      * @param {Integer} dictionaryHandle The dictionary to remove the resource from.
      * @param {Integer} resourceKey The key of the resource to remove.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xamlom/nf-xamlom-ivisualtreeservice3-removedictionaryitem
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/xamlom/nf-xamlom-ivisualtreeservice3-removedictionaryitem
      */
     RemoveDictionaryItem(dictionaryHandle, resourceKey) {
         result := ComCall(22, this, "uint", dictionaryHandle, "uint", resourceKey, "HRESULT")

@@ -6,11 +6,8 @@
 /**
  * Adjusts playback quality. This interface is exposed by the quality manager.
  * @remarks
- * 
  * Media Foundation provides a default quality manager that is tuned for playback. Applications can provide a custom quality manager to the Media Session by setting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-session-quality-manager-attribute">MF_SESSION_QUALITY_MANAGER</a> attribute when creating the Media Session.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfqualitymanager
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfqualitymanager
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,6 +34,24 @@ class IMFQualityManager extends IUnknown{
 
     /**
      * Called when the Media Session is about to start playing a new topology.
+     * @remarks
+     * In a typical quality manager this method does the following:
+     * 
+     * <ol>
+     * <li>
+     * Enumerates the nodes in the topology.
+     * 
+     * </li>
+     * <li>
+     * Calls <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imftopologynode-getobject">IMFTopologyNode::GetObject</a> to get the node's underlying object.
+     * 
+     * </li>
+     * <li>
+     * Queries for the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a> interface.
+     * 
+     * </li>
+     * </ol>
+     * The quality manager can then use the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfqualityadvise">IMFQualityAdvise</a> pointers to adjust audio-video quality as needed.
      * @param {IMFTopology} pTopology Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopology">IMFTopology</a> interface of the new topology. If this parameter is <b>NULL</b>, the quality manager should release any references to the previous topology.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -57,7 +72,7 @@ class IMFQualityManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualitymanager-notifytopology
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-notifytopology
      */
     NotifyTopology(pTopology) {
         result := ComCall(3, this, "ptr", pTopology, "HRESULT")
@@ -86,7 +101,7 @@ class IMFQualityManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualitymanager-notifypresentationclock
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-notifypresentationclock
      */
     NotifyPresentationClock(pClock) {
         result := ComCall(4, this, "ptr", pClock, "HRESULT")
@@ -95,6 +110,8 @@ class IMFQualityManager extends IUnknown{
 
     /**
      * Called when the media processor is about to deliver an input sample to a pipeline component.
+     * @remarks
+     * This method is called for every sample passing through every pipeline component. Therefore, the method must return quickly to avoid introducing too much latency into the pipeline.
      * @param {IMFTopologyNode} pNode Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface of the topology node that represents the pipeline component.
      * @param {Integer} lInputIndex Index of the input stream on the topology node.
      * @param {IMFSample} pSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the input sample.
@@ -117,7 +134,7 @@ class IMFQualityManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualitymanager-notifyprocessinput
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-notifyprocessinput
      */
     NotifyProcessInput(pNode, lInputIndex, pSample) {
         result := ComCall(5, this, "ptr", pNode, "int", lInputIndex, "ptr", pSample, "HRESULT")
@@ -126,6 +143,8 @@ class IMFQualityManager extends IUnknown{
 
     /**
      * Called after the media processor gets an output sample from a pipeline component.
+     * @remarks
+     * This method is called for every sample passing through every pipeline component. Therefore, the method must return quickly to avoid introducing too much latency into the pipeline.
      * @param {IMFTopologyNode} pNode Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imftopologynode">IMFTopologyNode</a> interface of the topology node that represents the pipeline component.
      * @param {Integer} lOutputIndex Index of the output stream on the topology node.
      * @param {IMFSample} pSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfsample">IMFSample</a> interface of the output sample.
@@ -148,7 +167,7 @@ class IMFQualityManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualitymanager-notifyprocessoutput
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-notifyprocessoutput
      */
     NotifyProcessOutput(pNode, lOutputIndex, pSample) {
         result := ComCall(6, this, "ptr", pNode, "int", lOutputIndex, "ptr", pSample, "HRESULT")
@@ -178,7 +197,7 @@ class IMFQualityManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualitymanager-notifyqualityevent
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-notifyqualityevent
      */
     NotifyQualityEvent(pObject, pEvent) {
         result := ComCall(7, this, "ptr", pObject, "ptr", pEvent, "HRESULT")
@@ -187,6 +206,8 @@ class IMFQualityManager extends IUnknown{
 
     /**
      * Called when the Media Session is shutting down.
+     * @remarks
+     * The quality manager should release all references to the Media Session when this method is called.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -206,7 +227,7 @@ class IMFQualityManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfqualitymanager-shutdown
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfqualitymanager-shutdown
      */
     Shutdown() {
         result := ComCall(8, this, "HRESULT")

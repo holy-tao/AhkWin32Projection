@@ -7,7 +7,6 @@
 /**
  * Exposes methods that simplify the process of retrieving information stored in the registry in association with defining a file type or protocol and associating it with an application.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * This interface is exposed by the Shell or by namespace extensions to simplify handling file and protocol associations. You should not implement this interface.
  * 
@@ -21,9 +20,7 @@
  * To use this interface, you must first retrieve a pointer to it. Typically, you retrieve an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> pointer by calling a Shell object's <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellfolder-getuiobjectof">IShellFolder::GetUIObjectOf</a> method. You can also retrieve an interface pointer by calling <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-assoccreate">AssocCreate</a> (set <i>clsid</i> to CLSID_QueryAssociations). Initialize the interface with <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nf-shlwapi-iqueryassociations-init">IQueryAssociations::Init</a>. This method sets the root key that will be used when you call any of the remaining three methods to retrieve information from the registry. They will look only below the root key. You must release the interface when you no longer need it.
  * 
  * The <b>IQueryAssociations</b> interface is useful if you need to repeatedly query the registry for information. Once the interface is initialized, the overhead of calling the various methods is relatively small. There are also several related functions, listed in the See Also section, that allow you to retrieve the same information from the registry with a single function call. While they are simpler to use, they cause the overhead of creating and initializing <b>IQueryAssociations</b> each time they are called. Because of this, they are best suited for single use.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nn-shlwapi-iqueryassociations
+ * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nn-shlwapi-iqueryassociations
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -50,6 +47,8 @@ class IQueryAssociations extends IUnknown{
 
     /**
      * Initializes the IQueryAssociations interface and sets the root key to the appropriate ProgID.
+     * @remarks
+     * This method initializes the interface, and is also called each time you need to specify a new root key. You can use <i>pwszAssoc</i> to specify a string, such as a file name extension or its associated ProgID, that identifies the root key. You can also specify the root key's HKEY value. <b>Init</b> will then use this information to locate the root key in the registry. Subsequent calls to the other <a href="https://docs.microsoft.com/windows/desktop/api/shlwapi/nn-shlwapi-iqueryassociations">IQueryAssociations</a> methods will use it as their starting point and search for the information in the root key's subkeys.
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF</a></b>
      * 
      * A flag that specifies how the search is to be initialized. It is typically set to zero, but it can also take one of the following <a href="https://docs.microsoft.com/windows/win32/api/shlwapi/ne-shlwapi-url_scheme">ASSOCF</a> values. 
@@ -76,8 +75,8 @@ class IQueryAssociations extends IUnknown{
      * @param {HWND} hwnd Type: <b>HWND</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-init
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-init
      */
     Init(flags, pszAssoc, hkProgid, hwnd) {
         pszAssoc := pszAssoc is String ? StrPtr(pszAssoc) : pszAssoc
@@ -89,7 +88,7 @@ class IQueryAssociations extends IUnknown{
     }
 
     /**
-     * Searches for and retrieves a file or protocol association-related string from the registry.
+     * Searches for and retrieves a file or protocol association-related string from the registry. (IQueryAssociations.GetString)
      * @param {Integer} flags Type: <b><a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a></b>
      * 
      * A flag that can be used to control the search. It can be any combination of the following <a href="https://docs.microsoft.com/windows/win32/shell/assocf_str">ASSOCF</a> values. 
@@ -156,7 +155,7 @@ class IQueryAssociations extends IUnknown{
      * <td><i>pwszOut</i> is <b>NULL</b>. <i>pcchOut</i> contains the required buffer size.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getstring
+     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getstring
      */
     GetString(flags, str, pszExtra, pszOut, pcchOut) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
@@ -182,7 +181,7 @@ class IQueryAssociations extends IUnknown{
      * @returns {HKEY} Type: <b>HKEY*</b>
      * 
      * A pointer to the key's HKEY value.
-     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getkey
+     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getkey
      */
     GetKey(flags, key, pszExtra) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
@@ -211,8 +210,8 @@ class IQueryAssociations extends IUnknown{
      * A pointer to a value that, when this method is called, holds the size of <i>pvOut</i>, in bytes. When this method returns successfully, the value contains the size of the data actually retrieved.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getdata
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getdata
      */
     GetData(flags, data, pszExtra, pvOut, pcbOut) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra
@@ -224,13 +223,13 @@ class IQueryAssociations extends IUnknown{
     }
 
     /**
-     * This method is not implemented.
+     * This method is not implemented. (IQueryAssociations.GetEnum)
      * @param {Integer} flags TBD
      * @param {Integer} assocenum TBD
      * @param {PWSTR} pszExtra TBD
      * @param {Pointer<Guid>} riid TBD
      * @returns {Pointer<Void>} TBD
-     * @see https://docs.microsoft.com/windows/win32/api//shlwapi/nf-shlwapi-iqueryassociations-getenum
+     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-iqueryassociations-getenum
      */
     GetEnum(flags, assocenum, pszExtra, riid) {
         pszExtra := pszExtra is String ? StrPtr(pszExtra) : pszExtra

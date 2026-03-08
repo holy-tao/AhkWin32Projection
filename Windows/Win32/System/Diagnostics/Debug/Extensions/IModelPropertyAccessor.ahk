@@ -30,10 +30,11 @@ class IModelPropertyAccessor extends IUnknown{
     static VTableNames => ["GetValue", "SetValue"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {PWSTR} key 
      * @param {IModelObject} contextObject 
      * @returns {IModelObject} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(key, contextObject) {
         key := key is String ? StrPtr(key) : key

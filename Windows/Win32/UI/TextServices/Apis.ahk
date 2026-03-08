@@ -2280,11 +2280,7 @@ class TextServices {
      * @since windows6.0.6000
      */
     static InitLocalMsCtfMonitor(dwFlags) {
-        result := DllCall("MsCtfMonitor.dll\InitLocalMsCtfMonitor", "uint", dwFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MsCtfMonitor.dll\InitLocalMsCtfMonitor", "uint", dwFlags, "HRESULT")
         return result
     }
 
@@ -2304,11 +2300,7 @@ class TextServices {
      * @since windows6.0.6000
      */
     static UninitLocalMsCtfMonitor() {
-        result := DllCall("MsCtfMonitor.dll\UninitLocalMsCtfMonitor", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MsCtfMonitor.dll\UninitLocalMsCtfMonitor", "HRESULT")
         return result
     }
 

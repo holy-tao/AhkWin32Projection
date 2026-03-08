@@ -5,7 +5,7 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * The IWpdSerializer interface is used by the device driver to serialize IPortableDeviceValues interfaces to and from the raw data buffers used to communicate with the application.Applications do not need to use this interface, because the data is serialized and deserialized automatically when calling IPortableDevice::SendCommand.To get this interface, call CoCreateInstance and pass in IID\_IWpdSerializer.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
@@ -38,10 +38,10 @@ class IWpdSerializer extends IUnknown{
     static VTableNames => ["GetIPortableDeviceValuesFromBuffer", "WriteIPortableDeviceValuesToBuffer", "GetBufferFromIPortableDeviceValues", "GetSerializedSize"]
 
     /**
-     * 
-     * @param {Pointer<Integer>} pBuffer 
+     * The GetIPortableDeviceValuesFromBuffer method deserializes a byte array to an IPortableDeviceValues interface.
+     * @param {Pointer<Integer>} pBuffer Pointer to the buffer to deserialize.
      * @param {Integer} dwInputBufferLength 
-     * @returns {IPortableDeviceValues} 
+     * @returns {IPortableDeviceValues} Address of a variable that receives a pointer to an [**IPortableDeviceValues**](iportabledevicevalues.md) interface created from the buffer. The application is responsible for calling **Release** on the interface.
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getiportabledevicevaluesfrombuffer
      */
     GetIPortableDeviceValuesFromBuffer(pBuffer, dwInputBufferLength) {
@@ -52,12 +52,22 @@ class IWpdSerializer extends IUnknown{
     }
 
     /**
-     * 
+     * The WriteIPortableDeviceValuesToBuffer method serializes an IPortableDeviceValues interface to a caller-allocated byte array.
+     * @remarks
+     * This method copies an **IPortableDeviceValues** interface into an existing buffer. If you want to allocate a new buffer, use [**GetBufferFromIPortableDeviceValues**](iwpdserializer-getbufferfromiportabledevicevalues.md).
      * @param {Integer} dwOutputBufferLength 
-     * @param {IPortableDeviceValues} pResults 
-     * @param {Pointer<Integer>} pBuffer 
-     * @param {Pointer<Integer>} pdwBytesWritten 
-     * @returns {HRESULT} 
+     * @param {IPortableDeviceValues} pResults Pointer to an [**IPortableDeviceValues**](iportabledevicevalues.md) interface to serialize.
+     * @param {Pointer<Integer>} pBuffer Pointer to a caller-allocated buffer. To learn the size of the required buffer, call **GetSerializedSize**.
+     * @param {Pointer<Integer>} pdwBytesWritten Pointer to a **DWORD** that indicates the number of bytes that was actually written to the caller-allocated buffer.
+     * @returns {HRESULT} The method returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
+     * 
+     * 
+     * 
+     * | Return code                                                                                   | Description                                               |
+     * |-----------------------------------------------------------------------------------------------|-----------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl>          | The method succeeded.<br/>                          |
+     * | <dl> <dt>**E\_POINTER**</dt> </dl>     | A required pointer argument was **NULL**.<br/>      |
+     * | <dl> <dt>**E\_OUTOFMEMORY**</dt> </dl> | The caller-provided buffer was not big enough.<br/> |
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-writeiportabledevicevaluestobuffer
      */
     WriteIPortableDeviceValuesToBuffer(dwOutputBufferLength, pResults, pBuffer, pdwBytesWritten) {
@@ -69,11 +79,19 @@ class IWpdSerializer extends IUnknown{
     }
 
     /**
+     * The GetBufferFromIPortableDeviceValues method serializes a submitted IPortableDeviceValues interface to an allocated byte array. The byte array returned is allocated for the caller and should be freed by the caller using CoTaskMemFree.
+     * @param {IPortableDeviceValues} pSource Pointer to an [**IPortableDeviceValues**](iportabledevicevalues.md) interface to serialize.
+     * @param {Pointer<Pointer<Integer>>} ppBuffer Pointer to a **BYTE\*** that contains the serialized data. Windows Portable Devices allocates this memory; the caller must free it by calling **CoTaskMemFree**.
+     * @param {Pointer<Integer>} pdwBufferSize Pointer to a **DWORD** that specifies the size of allocated buffer, in bytes.
+     * @returns {HRESULT} The method returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
      * 
-     * @param {IPortableDeviceValues} pSource 
-     * @param {Pointer<Pointer<Integer>>} ppBuffer 
-     * @param {Pointer<Integer>} pdwBufferSize 
-     * @returns {HRESULT} 
+     * 
+     * 
+     * | Return code                                                                                   | Description                                                            |
+     * |-----------------------------------------------------------------------------------------------|------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl>          | The method succeeded.<br/>                                       |
+     * | <dl> <dt>**E\_POINTER**</dt> </dl>     | A required pointer argument was **NULL**.<br/>                   |
+     * | <dl> <dt>**E\_OUTOFMEMORY**</dt> </dl> | There was not enough memory available to create the buffer.<br/> |
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getbufferfromiportabledevicevalues
      */
     GetBufferFromIPortableDeviceValues(pSource, ppBuffer, pdwBufferSize) {
@@ -85,9 +103,9 @@ class IWpdSerializer extends IUnknown{
     }
 
     /**
-     * 
-     * @param {IPortableDeviceValues} pSource 
-     * @returns {Integer} 
+     * The GetSerializedSize method calculates the buffer size that is required to hold a serialized IPortableDeviceValues interface.
+     * @param {IPortableDeviceValues} pSource Pointer to an [**IPortableDeviceValues**](iportabledevicevalues.md) interface whose size you want to request.
+     * @returns {Integer} Pointer to a **DWORD** that indicates the buffer size that is required to serialize *pSource*, in bytes.
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iwpdserializer-getserializedsize
      */
     GetSerializedSize(pSource) {

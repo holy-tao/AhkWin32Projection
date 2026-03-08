@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Documentation varies per use. Refer to each: <see href="https://learn.microsoft.com/windows/win32/api/http/nf-http-httpinitialize">HttpInitialize</see>, <see href="https://learn.microsoft.com/windows/win32/api/http/nf-http-httpterminate">HttpTerminate</see>.
+ * @see 
  * @namespace Windows.Win32.Networking.HttpServer
  * @version v4.0.30319
  */

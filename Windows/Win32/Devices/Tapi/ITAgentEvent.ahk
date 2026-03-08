@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * The ITAgentEvent interface contains methods that retrieve the description of agent events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-itagentevent
+ * The ITAgentEvent interface (tapi3cc.h) contains methods that retrieve the description of agent events.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-itagentevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -46,10 +46,14 @@ class ITAgentEvent extends IDispatch{
     }
 
     /**
-     * The get_Agent method gets the interface for the agent on which the event occurred.
+     * The ITAgentEvent::get_Agent method (tapi3cc.h) gets the interface for the agent on which the event occurred.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagent">ITAgent</a> interface returned by <b>ITAgentEvent::get_Agent</b>. The application must call <b>Release</b> on the 
+     * <b>ITAgent</b> interface to free resources associated with it.
      * @returns {ITAgent} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itagent">ITAgent</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagentevent-get_agent
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentevent-get_agent
      */
     get_Agent() {
         result := ComCall(7, this, "ptr*", &ppAgent := 0, "HRESULT")
@@ -57,10 +61,10 @@ class ITAgentEvent extends IDispatch{
     }
 
     /**
-     * Gets an AGENT_EVENT descriptor of the event that occurred.
+     * The ITAgentEvent::get_Event method (tapi3cc.h) gets an AGENT_EVENT descriptor of the event that occurred.
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/ne-tapi3-agent_event">AGENT_EVENT</a> descriptor of event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-itagentevent-get_event
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-itagentevent-get_event
      */
     get_Event() {
         result := ComCall(8, this, "int*", &pEvent := 0, "HRESULT")

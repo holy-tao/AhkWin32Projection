@@ -29,11 +29,12 @@ class ICLRProbingAssemblyEnum extends IUnknown{
     static VTableNames => ["Get"]
 
     /**
-     * 
+     * Get started learning the basics of building great desktop apps in this section.
      * @param {Integer} dwIndex 
      * @param {PWSTR} pwzBuffer 
      * @param {Pointer<Integer>} pcchBufferSize 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/desktop-programming
      */
     Get(dwIndex, pwzBuffer, pcchBufferSize) {
         pwzBuffer := pwzBuffer is String ? StrPtr(pwzBuffer) : pwzBuffer

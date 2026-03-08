@@ -6,7 +6,6 @@
 /**
  * The IDigitalCableTuningSpace interface is implemented on the DigitalTuningSpace object and provides methods for working with tuning spaces that have a digital cable network type.
  * @remarks
- * 
  * To set minimum and maximum values for the virtual channel number, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ianalogtvtuningspace-put_minchannel">IAnalogTVTuningSpace::put_MinChannel</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ianalogtvtuningspace-put_maxchannel">IAnalogTVTuningSpace::put_MaxChannel</a> methods. (This interface inherits <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ianalogtvtuningspace">IAnalogTVTuningSpace</a> through <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-iatsctuningspace">IATSCTuningSpace</a>.)
  *       
  * 
@@ -14,9 +13,7 @@
  *       
  * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IDigitalCableTuningSpace)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-idigitalcabletuningspace
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-idigitalcabletuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -82,7 +79,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
     /**
      * The get_MinMajorChannel method retrieves the lowest major channel number for this tuning space.
      * @returns {Integer} Receives the lowest major channel number.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-get_minmajorchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_minmajorchannel
      */
     get_MinMajorChannel() {
         result := ComCall(42, this, "int*", &MinMajorChannelVal := 0, "HRESULT")
@@ -93,7 +90,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * The put_MinMajorChannel method sets the lowest major channel number for this tuning space.
      * @param {Integer} NewMinMajorChannelVal Specifies the lowest major channel number.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-put_minmajorchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_minmajorchannel
      */
     put_MinMajorChannel(NewMinMajorChannelVal) {
         result := ComCall(43, this, "int", NewMinMajorChannelVal, "HRESULT")
@@ -103,7 +100,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
     /**
      * The get_MaxMajorChannel method retrieves the highest major channel number for this tuning space.
      * @returns {Integer} Receives the highest major channel number.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-get_maxmajorchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_maxmajorchannel
      */
     get_MaxMajorChannel() {
         result := ComCall(44, this, "int*", &MaxMajorChannelVal := 0, "HRESULT")
@@ -114,7 +111,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * The put_MaxMajorChannel method sets the highest major channel number for this tuning space.
      * @param {Integer} NewMaxMajorChannelVal Specifies the highest major channel number.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-put_maxmajorchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_maxmajorchannel
      */
     put_MaxMajorChannel(NewMaxMajorChannelVal) {
         result := ComCall(45, this, "int", NewMaxMajorChannelVal, "HRESULT")
@@ -124,7 +121,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
     /**
      * The get_MinSourceID method retrieves the lowest source identifier for this tuning space.
      * @returns {Integer} Receives the lowest source identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-get_minsourceid
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_minsourceid
      */
     get_MinSourceID() {
         result := ComCall(46, this, "int*", &MinSourceIDVal := 0, "HRESULT")
@@ -135,7 +132,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * The put_MinSourceID method sets the lowest source identifier for this tuning space.
      * @param {Integer} NewMinSourceIDVal Specifies the lowest source identifier.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-put_minsourceid
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_minsourceid
      */
     put_MinSourceID(NewMinSourceIDVal) {
         result := ComCall(47, this, "int", NewMinSourceIDVal, "HRESULT")
@@ -145,7 +142,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
     /**
      * The get_MaxSourceID method retrieves the highest source identifier for this tuning space.
      * @returns {Integer} Receives the highest source identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-get_maxsourceid
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-get_maxsourceid
      */
     get_MaxSourceID() {
         result := ComCall(48, this, "int*", &MaxSourceIDVal := 0, "HRESULT")
@@ -156,7 +153,7 @@ class IDigitalCableTuningSpace extends IATSCTuningSpace{
      * The put_MaxSourceID method sets the highest source identifier for this tuning space.
      * @param {Integer} NewMaxSourceIDVal Specifies the highest source identifier.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-idigitalcabletuningspace-put_maxsourceid
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-idigitalcabletuningspace-put_maxsourceid
      */
     put_MaxSourceID(NewMaxSourceIDVal) {
         result := ComCall(49, this, "int", NewMaxSourceIDVal, "HRESULT")

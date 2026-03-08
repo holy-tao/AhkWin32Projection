@@ -5,7 +5,7 @@
 
 /**
  * Used to control the channel state, and writes on the channel.
- * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannel
+ * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nn-tsvirtualchannels-iwtsvirtualchannel
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IWTSVirtualChannel extends IUnknown{
      * @param {Pointer<Integer>} pBuffer A pointer to a buffer on the channel to which to write the data. You can reuse this buffer as soon as the call returns.
      * @param {IUnknown} pReserved Reserved for future use. The value must be <b>NULL</b>.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write
+     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-write
      */
     Write(cbSize, pBuffer, pReserved) {
         pBufferMarshal := pBuffer is VarRef ? "char*" : "ptr"
@@ -46,9 +46,9 @@ class IWTSVirtualChannel extends IUnknown{
     }
 
     /**
-     * Closes the channel.
+     * Closes the channel. (IWTSVirtualChannel.Close)
      * @returns {HRESULT} Returns <b>S_OK</b> if successful.
-     * @see https://docs.microsoft.com/windows/win32/api//tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-close
+     * @see https://learn.microsoft.com/windows/win32/api/tsvirtualchannels/nf-tsvirtualchannels-iwtsvirtualchannel-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")

@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
+ * Extends the ShellLinkObject object and supports one additional property.
+ * @see https://learn.microsoft.com/windows/win32/shell/ishelllinkdual2-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -204,9 +206,10 @@ class IShellLinkDual extends IDispatch{
     }
 
     /**
-     * 
+     * Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation.
      * @param {Integer} fFlags 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} The address of the import, or the failure stub for it.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/resolvedelayloadedapi
      */
     Resolve(fFlags) {
         result := ComCall(19, this, "int", fFlags, "HRESULT")
@@ -237,9 +240,12 @@ class IShellLinkDual extends IDispatch{
     }
 
     /**
-     * 
+     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
+     * @remarks
+     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
      * @param {VARIANT} vWhere 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
      */
     Save(vWhere) {
         result := ComCall(22, this, "ptr", vWhere, "HRESULT")

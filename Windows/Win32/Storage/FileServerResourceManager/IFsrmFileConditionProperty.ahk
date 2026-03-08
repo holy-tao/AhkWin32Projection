@@ -7,7 +7,7 @@
 
 /**
  * Defines a file condition property.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nn-fsrmreports-ifsrmfileconditionproperty
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nn-fsrmreports-ifsrmfileconditionproperty
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -73,9 +73,9 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the name of the file condition property.
+     * Specifies the name of the file condition property. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_propertyname
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_propertyname
      */
     get_PropertyName() {
         pVal := BSTR()
@@ -84,10 +84,10 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the name of the file condition property.
+     * Specifies the name of the file condition property. (Put)
      * @param {BSTR} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_propertyname
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_propertyname
      */
     put_PropertyName(newVal) {
         newVal := newVal is String ? BSTR.Alloc(newVal).Value : newVal
@@ -97,9 +97,9 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the predefined file property, as enumerated by the FsrmFileSystemPropertyId enumeration.
+     * Specifies the predefined file property, as enumerated by the FsrmFileSystemPropertyId enumeration. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_propertyid
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_propertyid
      */
     get_PropertyId() {
         result := ComCall(11, this, "int*", &pVal := 0, "HRESULT")
@@ -107,10 +107,10 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the predefined file property, as enumerated by the FsrmFileSystemPropertyId enumeration.
+     * Specifies the predefined file property, as enumerated by the FsrmFileSystemPropertyId enumeration. (Put)
      * @param {Integer} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_propertyid
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_propertyid
      */
     put_PropertyId(newVal) {
         result := ComCall(12, this, "int", newVal, "HRESULT")
@@ -118,9 +118,9 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the comparison operator, as enumerated by the FsrmPropertyConditionType enumeration.
+     * Specifies the comparison operator, as enumerated by the FsrmPropertyConditionType enumeration. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_operator
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_operator
      */
     get_Operator() {
         result := ComCall(13, this, "int*", &pVal := 0, "HRESULT")
@@ -128,10 +128,10 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the comparison operator, as enumerated by the FsrmPropertyConditionType enumeration.
+     * Specifies the comparison operator, as enumerated by the FsrmPropertyConditionType enumeration. (Put)
      * @param {Integer} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_operator
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_operator
      */
     put_Operator(newVal) {
         result := ComCall(14, this, "int", newVal, "HRESULT")
@@ -139,9 +139,9 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the type of the file condition property value, as enumerated by the FsrmPropertyValueType enumeration.
+     * Specifies the type of the file condition property value, as enumerated by the FsrmPropertyValueType enumeration. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_valuetype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_valuetype
      */
     get_ValueType() {
         result := ComCall(15, this, "int*", &pVal := 0, "HRESULT")
@@ -149,10 +149,10 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the type of the file condition property value, as enumerated by the FsrmPropertyValueType enumeration.
+     * Specifies the type of the file condition property value, as enumerated by the FsrmPropertyValueType enumeration. (Put)
      * @param {Integer} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_valuetype
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_valuetype
      */
     put_ValueType(newVal) {
         result := ComCall(16, this, "int", newVal, "HRESULT")
@@ -160,9 +160,9 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the file condition property value.
+     * Specifies the file condition property value. (Get)
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_value
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-get_value
      */
     get_Value() {
         pVal := VARIANT()
@@ -171,10 +171,10 @@ class IFsrmFileConditionProperty extends IFsrmFileCondition{
     }
 
     /**
-     * Specifies the file condition property value.
+     * Specifies the file condition property value. (Put)
      * @param {VARIANT} newVal 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_value
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfileconditionproperty-put_value
      */
     put_Value(newVal) {
         result := ComCall(18, this, "ptr", newVal, "HRESULT")

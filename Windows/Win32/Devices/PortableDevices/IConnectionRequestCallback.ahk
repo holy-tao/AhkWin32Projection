@@ -4,7 +4,7 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * Defines a single callback method.
  * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iconnectionrequestcallback
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
@@ -31,9 +31,19 @@ class IConnectionRequestCallback extends IUnknown{
     static VTableNames => ["OnComplete"]
 
     /**
+     * Notifies an application that a previously scheduled Connect or Disconnect request to the MTP/Bluetooth device has completed.
+     * @remarks
+     * An application implements the [**IConnectionRequestCallback**](iconnectionrequestcallback.md) interface to receive notifications about completed requests and to cancel pending requests.
      * 
-     * @param {HRESULT} hrStatus 
-     * @returns {HRESULT} 
+     * Windows Portable Devices (WPD) calls this method to notify an application that a previously scheduled request has completed. Each request can be tracked and canceled by its application-supplied callback. Therefore, if the application needs to send multiple requests at the same time using the same [**IPortableDeviceConnector**](/windows/desktop/api/portabledeviceconnectapi/nn-portabledeviceconnectapi-iportabledeviceconnector) object, each request should be passed a unique [**IConnectionRequestCallback**](iconnectionrequestcallback.md) object as the input parameter to the [**IPortableDeviceConnector::Connect**](/windows/desktop/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-connect) and [**IPortableDeviceConnector::Disconnect**](/windows/desktop/api/portabledeviceconnectapi/nf-portabledeviceconnectapi-iportabledeviceconnector-disconnect) methods.
+     * @param {HRESULT} hrStatus The status of the request to connect or disconnect a given device.
+     * @returns {HRESULT} The method returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
+     * 
+     * 
+     * 
+     * | Return code                                                                          | Description                      |
+     * |--------------------------------------------------------------------------------------|----------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl> | The method succeeded.<br/> |
      * @see https://learn.microsoft.com/windows/win32/wpd_sdk/iconnectionrequestcallback-oncomplete
      */
     OnComplete(hrStatus) {

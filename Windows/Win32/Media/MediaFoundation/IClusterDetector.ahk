@@ -31,6 +31,19 @@ class IClusterDetector extends IUnknown{
 
     /**
      * Initializes a thread to use Windows Runtime APIs.
+     * @remarks
+     * <b>Windows::Foundation::Initialize</b> is changed to create 
+     *     ASTAs instead of classic STAs for the <a href="https://docs.microsoft.com/windows/desktop/api/roapi/ne-roapi-ro_init_type">RO_INIT_TYPE</a> 
+     *     value <b>RO_INIT_SINGLETHREADED</b>. 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_SINGLETHREADED</b>) 
+     *     is not supported for desktop applications and will return <b>CO_E_NOTSUPPORTED</b> if called 
+     *     from a process other than a Windows Store app.
+     * 
+     * For Microsoft DirectX applications, you must initialize the initial thread by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
+     * 
+     * For an out-of-process EXE server,  you must initialize the initial thread of the server by using 
+     *     <b>Windows::Foundation::Initialize</b>(<b>RO_INIT_MULTITHREADED</b>).
      * @param {Integer} wBaseEntryLevel 
      * @param {Integer} wClusterEntryLevel 
      * @returns {HRESULT} <ul>
@@ -44,7 +57,7 @@ class IClusterDetector extends IUnknown{
      * <li><b>RPC_E_CHANGED_MODE</b> - The current thread is already initialized for a different 
      *         apartment type from what is specified.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//roapi/nf-roapi-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/roapi/nf-roapi-initialize
      */
     Initialize(wBaseEntryLevel, wClusterEntryLevel) {
         result := ComCall(3, this, "ushort", wBaseEntryLevel, "ushort", wClusterEntryLevel, "HRESULT")
@@ -52,12 +65,16 @@ class IClusterDetector extends IUnknown{
     }
 
     /**
-     * 
+     * The DetectAutoProxyUrl function (wininet.h) attempts to determine the location of a WPAD autoproxy script.
+     * @remarks
+     * <div class="alert"><b>Note</b>  WinINet does not support server implementations. In addition, it should not be used from a service.  For server implementations or services use <a href="https://docs.microsoft.com/windows/desktop/WinHttp/winhttp-start-page">Microsoft Windows HTTP Services (WinHTTP)</a>.</div>
+     * <div> </div>
      * @param {Integer} dwMaxNumClusters 
      * @param {Float} fMinClusterDuration 
      * @param {Float} fMaxClusterDuration 
      * @param {IToc} pSrcToc 
      * @returns {IToc} 
+     * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-detectautoproxyurl
      */
     Detect(dwMaxNumClusters, fMinClusterDuration, fMaxClusterDuration, pSrcToc) {
         result := ComCall(4, this, "uint", dwMaxNumClusters, "float", fMinClusterDuration, "float", fMaxClusterDuration, "ptr", pSrcToc, "ptr*", &ppDstToc := 0, "HRESULT")

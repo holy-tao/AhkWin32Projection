@@ -8,10 +8,8 @@
 /**
  * The ITfUIElementMgr interface is implemented by TSF manager and used by an application or a text service. An application and a text service can obtain this interface by ITfThreadMgr::QueryInterface with IID_ITfUIElementMgr.
  * @remarks
- * 
  * A text service that supports UIElement must call <b>ITfUIElementMgr</b> whenever the UI is shown, updated or hidden. Then the application can control the visibility of the UI.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfuielementmgr
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfuielementmgr
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -41,7 +39,7 @@ class ITfUIElementMgr extends IUnknown{
      * @param {ITfUIElement} pElement [in] A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfuielement">ITfUIElement</a> interface of the UIElement object.
      * @param {Pointer<BOOL>} pbShow [in, out] If false is returned, the application may draw the UI by itself and a text service does not show its own UI for this UI element.
      * @returns {Integer} [out] A pointer to receive the ID of this UI element.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementmgr-beginuielement
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-beginuielement
      */
     BeginUIElement(pElement, pbShow) {
         pbShowMarshal := pbShow is VarRef ? "int*" : "ptr"
@@ -100,12 +98,12 @@ class ITfUIElementMgr extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Recursion call of <a href="/windows/desktop/api/msctf/nn-msctf-itfuielementmgr">ITfUIElementMgr</a> interface happened.
+     * Recursion call of <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfuielementmgr">ITfUIElementMgr</a> interface happened.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementmgr-updateuielement
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-updateuielement
      */
     UpdateUIElement(dwUIElementId) {
         result := ComCall(4, this, "uint", dwUIElementId, "HRESULT")
@@ -162,12 +160,12 @@ class ITfUIElementMgr extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Recursion call of <a href="/windows/desktop/api/msctf/nn-msctf-itfuielementmgr">ITfUIElementMgr</a> interface happened.
+     * Recursion call of <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfuielementmgr">ITfUIElementMgr</a> interface happened.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementmgr-enduielement
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-enduielement
      */
     EndUIElement(dwUIElementId) {
         result := ComCall(5, this, "uint", dwUIElementId, "HRESULT")
@@ -178,7 +176,7 @@ class ITfUIElementMgr extends IUnknown{
      * The ITfUIElementMgr::GetUIElement method gets the ITfUIElement interface of the element id.
      * @param {Integer} dwUIELementId [in] The element id to get the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfuielement">ITfUIElement</a> interface.
      * @returns {ITfUIElement} [out] A pointer to receive <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfuielement">ITfUIElement</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementmgr-getuielement
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-getuielement
      */
     GetUIElement(dwUIELementId) {
         result := ComCall(6, this, "uint", dwUIELementId, "ptr*", &ppElement := 0, "HRESULT")
@@ -188,7 +186,7 @@ class ITfUIElementMgr extends IUnknown{
     /**
      * The ITfUIElementMgr::EnumUIElements method returns IEnumTfUIElements interface pointer to enumerate the ITfUIElement.
      * @returns {IEnumTfUIElements} [in] A pointer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-ienumtfuielements">IEnumTfUIElements</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielementmgr-enumuielements
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielementmgr-enumuielements
      */
     EnumUIElements() {
         result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")

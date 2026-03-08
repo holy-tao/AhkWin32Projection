@@ -9,14 +9,11 @@
 /**
  * Used to manage quota templates.
  * @remarks
- * 
  * Note that a new installation of the operating system includes FSRM-defined templates.
  * 
  * To create this object from a script, use the "Fsrm.FsrmQuotaTemplateManager" program 
  *     identifier.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquotatemplatemanager
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplatemanager
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -52,7 +49,7 @@ class IFsrmQuotaTemplateManager extends IDispatch{
      * @returns {IFsrmQuotaTemplate} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplate">IFsrmQuotaTemplate</a> interface to the newly 
      *       create template. To add the template to FSRM, call 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmQuotaTemplate::Commit</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-createtemplate
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-createtemplate
      */
     CreateTemplate() {
         result := ComCall(7, this, "ptr*", &quotaTemplate := 0, "HRESULT")
@@ -64,7 +61,7 @@ class IFsrmQuotaTemplateManager extends IDispatch{
      * @param {BSTR} name The name of the quota template to retrieve. The string is limited to 4,000 characters.
      * @returns {IFsrmQuotaTemplate} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplate">IFsrmQuotaTemplate</a> interface to the retrieved 
      *       template object.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-gettemplate
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-gettemplate
      */
     GetTemplate(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -83,7 +80,7 @@ class IFsrmQuotaTemplateManager extends IDispatch{
      * Each item of the collection is a <b>VARIANT</b> of type 
      *        <b>VT_DISPATCH</b>. Query the <b>pdispVal</b> member of the variant for 
      *        the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nn-fsrmquota-ifsrmquotatemplate">IFsrmQuotaTemplate</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-enumtemplates
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-enumtemplates
      */
     EnumTemplates(options) {
         result := ComCall(9, this, "int", options, "ptr*", &quotaTemplates := 0, "HRESULT")
@@ -92,10 +89,15 @@ class IFsrmQuotaTemplateManager extends IDispatch{
 
     /**
      * Exports the quota templates as an XML string.
+     * @remarks
+     * Typically, you use this method to save the templates to a file. You can then copy the file to another computer 
+     *     and call the 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-importtemplates">IFsrmQuotaTemplateManager::ImportTemplates</a> 
+     *     method to import the templates.
      * @param {Pointer<VARIANT>} quotaTemplateNamesArray A variant that contains the names of the quota templates to export. If 
      *       <b>NULL</b>, the method exports all quotas.
      * @returns {BSTR} The specified templates in XML format.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-exporttemplates
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-exporttemplates
      */
     ExportTemplates(quotaTemplateNamesArray) {
         serializedQuotaTemplates := BSTR()
@@ -121,7 +123,7 @@ class IFsrmQuotaTemplateManager extends IDispatch{
      *        call the 
      *        <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmscreen/nf-fsrmscreen-ifsrmfilescreentemplate-commitandupdatederived">IFsrmFileScreenTemplateImported::CommitAndUpdateDerived</a> 
      *        method on each item in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-importtemplates
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotatemplatemanager-importtemplates
      */
     ImportTemplates(serializedQuotaTemplates, quotaTemplateNamesArray) {
         serializedQuotaTemplates := serializedQuotaTemplates is String ? BSTR.Alloc(serializedQuotaTemplates).Value : serializedQuotaTemplates

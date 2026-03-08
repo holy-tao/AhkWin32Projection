@@ -5,7 +5,7 @@
 
 /**
  * Implement this interface to receive notifications of the current raw-image write operation.
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-ddiscformat2rawcdevents
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-ddiscformat2rawcdevents
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -38,17 +38,19 @@ class DDiscFormat2RawCDEvents extends IDispatch{
 
     /**
      * Implement this method to receive progress notification of the current raw-image write operation.
-     * @param {IDispatch} object The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2rawcd">IDiscFormat2RawCD</a> interface that initiated the write operation. 
+     * @remarks
+     * Notifications are sent in response to calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2rawcd-writemedia">IDiscFormat2RawCD::WriteMedia</a> or <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2rawcd-writemedia2">IDiscFormat2RawCD::WriteMedia2</a> method.
      * 
-     * This parameter is a <b>MsftDiscFormat2RawCD</b> object in script.
+     * To stop the write process, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2rawcd-cancelwrite">IDiscFormat2RawCD::CancelWrite</a> method.
+     * @param {IDispatch} object_R 
      * @param {IDispatch} progress An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2rawcdeventargs">IDiscFormat2RawCDEventArgs</a> interface that you use to determine the progress of the write operation. 
      * 
      * This parameter is a <b>MsftDiscFormat2RawCD</b> object in script.
      * @returns {HRESULT} Return values are ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-ddiscformat2rawcdevents-update
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-ddiscformat2rawcdevents-update
      */
-    Update(object, progress) {
-        result := ComCall(7, this, "ptr", object, "ptr", progress, "HRESULT")
+    Update(object_R, progress) {
+        result := ComCall(7, this, "ptr", object_R, "ptr", progress, "HRESULT")
         return result
     }
 }

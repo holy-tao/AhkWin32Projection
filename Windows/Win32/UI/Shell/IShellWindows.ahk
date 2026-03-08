@@ -7,7 +7,6 @@
 /**
  * Provides access to the collection of open Shell windows.
  * @remarks
- * 
  * A <i>Shell window</i> is a window that has been registered by calling <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-register">IShellWindows::Register</a> or <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-registerpending">IShellWindows::RegisterPending</a>. Upon registration, the specified window is added to the collection of Shell windows, and granted a cookie that uniquely identifies the window within the collection. A window can be un-registered by calling <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-revoke">IShellWindows::Revoke</a>.
  * 
  * The Shell windows collection includes file explorer windows and web browser windows Internet Explorer and 3rd-party web browsers). Normally each Shell window implements <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>; <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-item">IShellWindows::Item</a> and <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-findwindowsw">IShellWindows::FindWindowSW</a> provide ways to access a Shell window's <b>IDispatch</b> interface. For more information, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/dispatch-interfaces">Dispatch Interface and Automation Functions</a>.
@@ -31,8 +30,7 @@
  * 
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//exdisp/nn-exdisp-ishellwindows
+ * @see https://learn.microsoft.com/windows/win32/api/exdisp/nn-exdisp-ishellwindows
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -75,7 +73,7 @@ class IShellWindows extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The number of windows in the Shell windows collection.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &Count := 0, "HRESULT")
@@ -90,7 +88,7 @@ class IShellWindows extends IDispatch{
      * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
      * 
      * A reference to the window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface, or <b>NULL</b> if the specified window was not found.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-item
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-item
      */
     Item(index) {
         result := ComCall(8, this, "ptr", index, "ptr*", &Folder := 0, "HRESULT")
@@ -102,7 +100,7 @@ class IShellWindows extends IDispatch{
      * @returns {IUnknown} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>**</b>
      * 
      * When this method returns, contains an interface pointer to an object that implements the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-_newenum
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-_newenum
      */
     _NewEnum() {
         result := ComCall(9, this, "ptr*", &ppunk := 0, "HRESULT")
@@ -111,6 +109,10 @@ class IShellWindows extends IDispatch{
 
     /**
      * Registers an open window as a Shell window; the window is specified by handle.
+     * @remarks
+     * In the context of the Shell windows collection, a <i>cookie</i> is a token that uniquely identifies a registered Shell window.
+     * 
+     * Use this method to register an open window; if the window is pending open, use <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-registerpending">IShellWindows::RegisterPending</a> instead.
      * @param {IDispatch} pid Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>*</b>
      * 
      * The window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface.
@@ -123,7 +125,7 @@ class IShellWindows extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The window's cookie.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-register
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-register
      */
     Register(pid, hwnd, swClass) {
         result := ComCall(10, this, "ptr", pid, "int", hwnd, "int", swClass, "int*", &plCookie := 0, "HRESULT")
@@ -132,6 +134,10 @@ class IShellWindows extends IDispatch{
 
     /**
      * Registers a pending window as a Shell window; the window is specified by an absolute PIDL.
+     * @remarks
+     * In the context of the Shell windows collection, a <i>cookie</i> is a token that uniquely identifies a registered Shell window.
+     * 
+     * Use this method to register a window that is pending open; if the window is already open, use <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-register">IShellWindows::Register</a> instead. Use <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-revoke">IShellWindows::Revoke</a> to un-register a window.
      * @param {Integer} lThreadId A thread ID.
      * @param {Pointer<VARIANT>} pvarloc Type: <b>VARIANT*</b>
      * 
@@ -145,7 +151,7 @@ class IShellWindows extends IDispatch{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The window's cookie.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-registerpending
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-registerpending
      */
     RegisterPending(lThreadId, pvarloc, pvarlocRoot, swClass) {
         result := ComCall(11, this, "int", lThreadId, "ptr", pvarloc, "ptr", pvarlocRoot, "int", swClass, "int*", &plCookie := 0, "HRESULT")
@@ -154,13 +160,17 @@ class IShellWindows extends IDispatch{
 
     /**
      * Revokes a Shell window's registration and removes the window from the Shell windows collection.
+     * @remarks
+     * In the context of the Shell windows collection, a <i>cookie</i> is a token that uniquely identifies a registered Shell window.
+     * 
+     * Use the <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-register">IShellWindows::Register</a> method to register an open window by handle. Use the <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-registerpending">IShellWindows::RegisterPending</a> method to register a pending-open window by absolute PIDL.
      * @param {Integer} lCookie Type: <b>long*</b>
      * 
      * The cookie that identifies the window to un-register.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-revoke
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-revoke
      */
     Revoke(lCookie) {
         result := ComCall(12, this, "int", lCookie, "HRESULT")
@@ -169,6 +179,8 @@ class IShellWindows extends IDispatch{
 
     /**
      * Occurs when a Shell window is navigated to a new location.
+     * @remarks
+     * A window is granted a cookie when it is registered as a Shell window. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-register">IShellWindows::Register</a>.
      * @param {Integer} lCookie Type: <b>long</b>
      * 
      * The cookie that identifies the window.
@@ -177,8 +189,8 @@ class IShellWindows extends IDispatch{
      * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_VARIANT | VT_BYREF. Set the value of <i>pvarLoc</i> to an absolute <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">PIDL</a> (PIDLIST_ABSOLUTE) that specifies the new location.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-onnavigate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onnavigate
      */
     OnNavigate(lCookie, pvarLoc) {
         result := ComCall(13, this, "int", lCookie, "ptr", pvarLoc, "HRESULT")
@@ -187,6 +199,8 @@ class IShellWindows extends IDispatch{
 
     /**
      * Occurs when a Shell window's activation state changes.
+     * @remarks
+     * A window is granted a cookie when it is registered as a Shell window. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-register">IShellWindows::Register</a>.
      * @param {Integer} lCookie Type: <b>long</b>
      * 
      * The cookie that identifies the window.
@@ -195,8 +209,8 @@ class IShellWindows extends IDispatch{
      * <b>TRUE</b> if the window is being activated; <b>FALSE</b> if the window is being deactivated.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-onactivated
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-onactivated
      */
     OnActivated(lCookie, fActive) {
         result := ComCall(14, this, "int", lCookie, "short", fActive, "HRESULT")
@@ -205,6 +219,8 @@ class IShellWindows extends IDispatch{
 
     /**
      * Finds a window in the Shell windows collection and returns the window's handle and IDispatch interface.
+     * @remarks
+     * If the <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/ne-exdisp-shellwindowfindwindowoptions">SWFO_COOKIEPASSED</a> flag is set, <i>pvarLoc</i> is interpreted as a cookie instead of a PIDL.
      * @param {Pointer<VARIANT>} pvarLoc Type: <b>VARIANT*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a> of type VT_VARIANT | VT_BYREF. Set the value of <i>pvarLoc</i> to an absolute <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">PIDL</a> (PIDLIST_ABSOLUTE) that specifies the window to find. (See remarks.)
@@ -223,7 +239,7 @@ class IShellWindows extends IDispatch{
      * @returns {IDispatch} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a>**</b>
      * 
      * A reference to the window's <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface, or <b>NULL</b> if no such window was found.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-findwindowsw
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-findwindowsw
      */
     FindWindowSW(pvarLoc, pvarLocRoot, swClass, phwnd, swfwOptions) {
         phwndMarshal := phwnd is VarRef ? "int*" : "ptr"
@@ -234,6 +250,8 @@ class IShellWindows extends IDispatch{
 
     /**
      * Occurs when a new Shell window is created for a frame.
+     * @remarks
+     * A window is granted a cookie when it is registered as a Shell window. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/exdisp/nf-exdisp-ishellwindows-register">IShellWindows::Register</a>.
      * @param {Integer} lCookie Type: <b>long</b>
      * 
      * The cookie that identifies the window.
@@ -242,8 +260,8 @@ class IShellWindows extends IDispatch{
      * The address of the new window's <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-oncreated
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-oncreated
      */
     OnCreated(lCookie, punk) {
         result := ComCall(16, this, "int", lCookie, "ptr", punk, "HRESULT")
@@ -258,7 +276,7 @@ class IShellWindows extends IDispatch{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//exdisp/nf-exdisp-ishellwindows-processattachdetach
+     * @see https://learn.microsoft.com/windows/win32/api/exdisp/nf-exdisp-ishellwindows-processattachdetach
      */
     ProcessAttachDetach(fAttach) {
         result := ComCall(17, this, "short", fAttach, "HRESULT")

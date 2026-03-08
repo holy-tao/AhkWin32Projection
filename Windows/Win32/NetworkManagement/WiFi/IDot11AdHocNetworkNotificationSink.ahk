@@ -5,7 +5,7 @@
 
 /**
  * Defines the notifications supported by the IDot11AdHocNetwork interface.
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-idot11adhocnetworknotificationsink
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocnetworknotificationsink
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IDot11AdHocNetworkNotificationSink extends IUnknown{
 
     /**
      * Notifies the client that the connection status of the network has changed.
+     * @remarks
+     * This notification is triggered when the connection status changes as a result of connection and disconnection requests issued by the current application. It is also triggered when other applications issue successful connection  and disconnection requests using the <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-idot11adhocnetwork">IDot11AdHocNetwork</a> methods or the <a href="https://docs.microsoft.com/windows/desktop/NativeWiFi/native-wifi-functions">Native Wifi functions</a>. Connection and disconnection requests triggered by the user interface will also trigger the <b>OnStatusChange</b> notification.
      * @param {Integer} eStatus A <a href="https://docs.microsoft.com/windows/win32/api/adhoc/ne-adhoc-dot11_adhoc_network_connection_status">DOT11_ADHOC_NETWORK_CONNECTION_STATUS</a> value that specifies the updated connection status.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -63,7 +65,7 @@ class IDot11AdHocNetworkNotificationSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetworknotificationsink-onstatuschange
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetworknotificationsink-onstatuschange
      */
     OnStatusChange(eStatus) {
         result := ComCall(3, this, "int", eStatus, "HRESULT")
@@ -103,7 +105,7 @@ class IDot11AdHocNetworkNotificationSink extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocnetworknotificationsink-onconnectfail
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocnetworknotificationsink-onconnectfail
      */
     OnConnectFail(eFailReason) {
         result := ComCall(4, this, "int", eFailReason, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Use this interface for opening and closing the database object, and for instantiating objects stored in the database.
- * @see https://docs.microsoft.com/windows/win32/api//infotech/nn-infotech-iitdatabase
+ * @see https://learn.microsoft.com/windows/win32/api/infotech/nn-infotech-iitdatabase
  * @namespace Windows.Win32.Data.HtmlHelp
  * @version v4.0.30319
  */
@@ -65,14 +65,14 @@ class IITDatabase extends IUnknown{
      * </td>
      * <td width="60%">
      * 
-     * <a href="/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface errors that can occur as storage is opened.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istorage">IStorage</a> interface errors that can occur as storage is opened.
      * 
      * 
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-open
+     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-open
      */
     Open(lpszHost, lpszMoniker, dwFlags) {
         lpszHost := lpszHost is String ? StrPtr(lpszHost) : lpszHost
@@ -105,7 +105,7 @@ class IITDatabase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-close
+     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-close
      */
     Close() {
         result := ComCall(4, this, "HRESULT")
@@ -170,7 +170,7 @@ class IITDatabase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-createobject
+     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-createobject
      */
     CreateObject(rclsid, pdwObjInstance) {
         pdwObjInstanceMarshal := pdwObjInstance is VarRef ? "uint*" : "ptr"
@@ -240,7 +240,7 @@ class IITDatabase extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//infotech/nf-infotech-iitdatabase-getobject
+     * @see https://learn.microsoft.com/windows/win32/api/infotech/nf-infotech-iitdatabase-getobject
      */
     GetObject(dwObjInstance, riid, ppvObj) {
         ppvObjMarshal := ppvObj is VarRef ? "ptr*" : "ptr"

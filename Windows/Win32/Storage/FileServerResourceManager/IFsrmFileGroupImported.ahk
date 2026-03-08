@@ -5,7 +5,7 @@
 
 /**
  * Used to configure imported file group objects.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nn-fsrmscreen-ifsrmfilegroupimported
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nn-fsrmscreen-ifsrmfilegroupimported
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -39,9 +39,9 @@ class IFsrmFileGroupImported extends IFsrmFileGroup{
     }
 
     /**
-     * Retrieves or sets a value that determines whether a file group is overwritten if it exists.
+     * Retrieves or sets a value that determines whether a file group is overwritten if it exists. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-get_overwriteoncommit
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-get_overwriteoncommit
      */
     get_OverwriteOnCommit() {
         result := ComCall(18, this, "short*", &overwrite := 0, "HRESULT")
@@ -49,10 +49,10 @@ class IFsrmFileGroupImported extends IFsrmFileGroup{
     }
 
     /**
-     * Retrieves or sets a value that determines whether a file group is overwritten if it exists.
+     * Retrieves or sets a value that determines whether a file group is overwritten if it exists. (Put)
      * @param {VARIANT_BOOL} overwrite 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-put_overwriteoncommit
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmscreen/nf-fsrmscreen-ifsrmfilegroupimported-put_overwriteoncommit
      */
     put_OverwriteOnCommit(overwrite) {
         result := ComCall(19, this, "short", overwrite, "HRESULT")

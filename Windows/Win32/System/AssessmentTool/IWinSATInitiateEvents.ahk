@@ -5,7 +5,7 @@
 
 /**
  * Implement this interface to receive notifications when an assessment is complete or making progress.
- * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nn-winsatcominterfacei-iwinsatinitiateevents
+ * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iwinsatinitiateevents
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */
@@ -119,7 +119,7 @@ class IWinSATInitiateEvents extends IUnknown{
      * </table>
      * @param {PWSTR} strDescription The description of the completion status. This string is valid during the life of this callback. Copy the string if you need it after the callback returns.
      * @returns {HRESULT} This method should return  S_OK; the value is ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete
      */
     WinSATComplete(hresult, strDescription) {
         strDescription := strDescription is String ? StrPtr(strDescription) : strDescription
@@ -130,11 +130,20 @@ class IWinSATInitiateEvents extends IUnknown{
 
     /**
      * Receives notification when an assessment is making progress.
+     * @remarks
+     * You can use this method to determine the progress of a formal assessment.  
+     * 
+     * <div class="alert"><b>Note</b>  You can use the <i>uCurrentTick</i> and <i>uTickTotal</i> values to mark progress for formal assessments only; the values are zero for all other assessments.</div>
+     * <div> </div>
+     * You should keep your implementation short so you do not miss subsequent updates; you will not get new updates until the method returns.
+     * 
+     * <div class="alert"><b>Note</b>  If an instance of WinSAT is already running, it is possible that you could receive one or more update callbacks for the currently running assessment.</div>
+     * <div> </div>
      * @param {Integer} uCurrentTick The current progress tick of the assessment.
      * @param {Integer} uTickTotal The total number of progress ticks for the assessment.
      * @param {PWSTR} strCurrentState A string that contains the current state of the assessment. This string is valid during the life of this callback. Copy the string if you need it after the callback returns.
      * @returns {HRESULT} This method should return  S_OK; the value is ignored.
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatupdate
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatupdate
      */
     WinSATUpdate(uCurrentTick, uTickTotal, strCurrentState) {
         strCurrentState := strCurrentState is String ? StrPtr(strCurrentState) : strCurrentState

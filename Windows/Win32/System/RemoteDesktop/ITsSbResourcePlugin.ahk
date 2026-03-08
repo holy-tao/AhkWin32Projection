@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that extend the capabilities of Remote Desktop Connection Broker (RD Connection Broker).
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbresourceplugin
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbresourceplugin
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

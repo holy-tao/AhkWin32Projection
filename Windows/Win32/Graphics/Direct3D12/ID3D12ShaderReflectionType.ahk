@@ -4,13 +4,10 @@
 #Include .\D3D12_SHADER_TYPE_DESC.ahk
 
 /**
- * This shader-reflection interface provides access to variable type.
+ * This shader-reflection interface provides access to variable type. (ID3D12ShaderReflectionType)
  * @remarks
- * 
  * The get a shader-reflection-type interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectionvariable-gettype">ID3D12ShaderReflectionVariable::GetType</a>. This isn't a COM interface, so you don't need to worry about reference counts or releasing the interface when you're done with it.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -37,10 +34,12 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
 
     /**
      * Gets the description of a shader-reflection-variable type.
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @returns {D3D12_SHADER_TYPE_DESC} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_shader_type_desc">D3D12_SHADER_TYPE_DESC</a>*</b>
      * 
      * A pointer to a shader-type description (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/ns-d3d12shader-d3d12_shader_type_desc">D3D12_SHADER_TYPE_DESC</a>).
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getdesc
      */
     GetDesc() {
         pDesc := D3D12_SHADER_TYPE_DESC()
@@ -50,13 +49,15 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
 
     /**
      * Gets a shader-reflection-variable type by index.
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Zero-based index.
-     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
+     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
-     * A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypebyindex
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypebyindex
      */
     GetMemberTypeByIndex(Index) {
         result := ComCall(1, this, "uint", Index, "ptr")
@@ -65,13 +66,15 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
 
     /**
      * Gets a shader-reflection-variable type by name.
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @param {PSTR} Name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * Member name.
-     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
+     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
-     * A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypebyname
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypebyname
      */
     GetMemberTypeByName(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -82,28 +85,37 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
 
     /**
      * Gets a shader-reflection-variable type.
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @param {Integer} Index Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Zero-based index.
-     * @returns {PSTR} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
+     * @returns {PSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCSTR</a></b>
      * 
      * The variable type.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypename
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getmembertypename
      */
     GetMemberTypeName(Index) {
-        result := ComCall(3, this, "uint", Index, "char*")
+        result := ComCall(3, this, "uint", Index, "ptr")
         return result
     }
 
     /**
      * Indicates whether two ID3D12ShaderReflectionType Interface pointers have the same underlying type.
+     * @remarks
+     * IsEqual indicates whether the sources of the <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a> pointers have the same underlying type.
+     *         For example, if two <b>ID3D12ShaderReflectionType Interface</b> pointers were retrieved from variables, IsEqual can be used to see if
+     *         the variables have the same type.
+     *       
+     * 
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @param {ID3D12ShaderReflectionType} pType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK if the pointers have the same underlying type; otherwise returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-isequal
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-isequal
      */
     IsEqual(pType) {
         result := ComCall(4, this, "ptr", pType, "HRESULT")
@@ -111,12 +123,14 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
     }
 
     /**
-     * Gets the base class of a class.
-     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
+     * Gets the base class of a class. (ID3D12ShaderReflectionType.GetSubType)
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
+     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
-     * Returns a pointer to an <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a> containing the base class type.
+     * Returns a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a> containing the base class type.
      *             Returns <b>NULL</b> if the class does not have a base class.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getsubtype
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getsubtype
      */
     GetSubType() {
         result := ComCall(5, this, "ptr")
@@ -125,10 +139,12 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
 
     /**
      * Gets an ID3D12ShaderReflectionType Interface interface containing the variable base class type.
-     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
+     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
-     * Returns A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getbaseclass
+     * Returns A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getbaseclass
      */
     GetBaseClass() {
         result := ComCall(6, this, "ptr")
@@ -136,11 +152,13 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
     }
 
     /**
-     * Gets the number of interfaces.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * Gets the number of interfaces. (ID3D12ShaderReflectionType.GetNumInterfaces)
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Returns the number of interfaces.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getnuminterfaces
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getnuminterfaces
      */
     GetNumInterfaces() {
         result := ComCall(7, this, "uint")
@@ -149,13 +167,15 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
 
     /**
      * Gets an interface by index.
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @param {Integer} uIndex Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Zero-based index.
-     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
+     * @returns {ID3D12ShaderReflectionType} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
-     * A pointer to a <a href="/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getinterfacebyindex
+     * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-getinterfacebyindex
      */
     GetInterfaceByIndex(uIndex) {
         result := ComCall(8, this, "uint", uIndex, "ptr")
@@ -163,14 +183,16 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
     }
 
     /**
-     * Indicates whether a variable is of the specified type.
+     * Indicates whether a variable is of the specified type. (ID3D12ShaderReflectionType.IsOfType)
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @param {ID3D12ShaderReflectionType} pType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK if object being queried is equal to or inherits from the type in the <i>pType</i> parameter; otherwise returns S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-isoftype
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-isoftype
      */
     IsOfType(pType) {
         result := ComCall(9, this, "ptr", pType, "HRESULT")
@@ -178,14 +200,16 @@ class ID3D12ShaderReflectionType extends Win32ComInterface{
     }
 
     /**
-     * Indicates whether a class type implements an interface.
+     * Indicates whether a class type implements an interface. (ID3D12ShaderReflectionType.ImplementsInterface)
+     * @remarks
+     * This method's interface is hosted in the out-of-box DLL D3DCompiler_xx.dll.
      * @param {ID3D12ShaderReflectionType} pBase Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d12shader/nn-d3d12shader-id3d12shaderreflectiontype">ID3D12ShaderReflectionType Interface</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * Returns S_OK if the interface is implemented; otherwise return S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-implementsinterface
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12shader/nf-d3d12shader-id3d12shaderreflectiontype-implementsinterface
      */
     ImplementsInterface(pBase) {
         result := ComCall(10, this, "ptr", pBase, "HRESULT")

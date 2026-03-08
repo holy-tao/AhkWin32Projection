@@ -6,11 +6,8 @@
 /**
  * This topic applies to Windows XP Service Pack 1 or later.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSourceEvent)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersourceevent
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersourceevent
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,7 +35,7 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-certificatefailure
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-certificatefailure
      */
     CertificateFailure() {
         result := ComCall(8, this, "HRESULT")
@@ -48,7 +45,7 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-certificatesuccess
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-certificatesuccess
      */
     CertificateSuccess() {
         result := ComCall(9, this, "HRESULT")
@@ -58,7 +55,7 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-ratingsblocked
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-ratingsblocked
      */
     RatingsBlocked() {
         result := ComCall(10, this, "HRESULT")
@@ -68,7 +65,7 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-ratingsunblocked
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-ratingsunblocked
      */
     RatingsUnblocked() {
         result := ComCall(11, this, "HRESULT")
@@ -78,7 +75,7 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-ratingschanged
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-ratingschanged
      */
     RatingsChanged() {
         result := ComCall(12, this, "HRESULT")
@@ -87,10 +84,12 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
 
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
+     * @remarks
+     * This event corresponds to the STREAMBUFFER_EC_TIMEHOLE event in the Stream Buffer Engine. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/stream-buffer-engine-codes">Stream Buffer Engine Event Codes</a>.
      * @param {Integer} StreamOffsetMS Specifies the start of the gap, in milliseconds, relative to the content start.
      * @param {Integer} SizeMS Specifies the length of the gap, in milliseconds.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-timehole
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-timehole
      */
     TimeHole(StreamOffsetMS, SizeMS) {
         result := ComCall(13, this, "int", StreamOffsetMS, "int", SizeMS, "HRESULT")
@@ -99,8 +98,10 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
 
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
+     * @remarks
+     * This event corresponds to the STREAMBUFFER_EC_STALE_DATA_READ event in the Stream Buffer Engine. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/stream-buffer-engine-codes">Stream Buffer Engine Event Codes</a>.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-staledataread
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-staledataread
      */
     StaleDataRead() {
         result := ComCall(14, this, "HRESULT")
@@ -109,8 +110,10 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
 
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
+     * @remarks
+     * This event corresponds to the STREAMBUFFER_EC_CONTENT_BECOMING_STALE event in the Stream Buffer Engine. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/stream-buffer-engine-codes">Stream Buffer Engine Event Codes</a>.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-contentbecomingstale
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-contentbecomingstale
      */
     ContentBecomingStale() {
         result := ComCall(15, this, "HRESULT")
@@ -119,8 +122,10 @@ class IMSVidStreamBufferSourceEvent extends IMSVidFilePlaybackEvent{
 
     /**
      * This topic applies to Windows XP Service Pack 1 or later.
+     * @remarks
+     * This event corresponds to the STREAMBUFFER_EC_STALE_FILE_DELETED event in the Stream Buffer Engine. See <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/stream-buffer-engine-codes">Stream Buffer Engine Event Codes</a>.
      * @returns {HRESULT} Return S_OK or an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent-stalefiledeleted
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent-stalefiledeleted
      */
     StaleFileDeleted() {
         result := ComCall(16, this, "HRESULT")

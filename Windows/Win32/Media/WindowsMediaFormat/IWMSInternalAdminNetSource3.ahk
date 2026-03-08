@@ -7,7 +7,7 @@
 
 /**
  * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
- * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
+ * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
     static VTableNames => ["GetNetSourceCreator2", "FindProxyForURLEx2", "RegisterProxyFailure2", "ShutdownProxyContext2", "IsUsingIE2", "SetCredentialsEx2", "GetCredentialsEx2"]
 
     /**
-     * 
+     * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
      * @returns {IUnknown} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
      */
@@ -83,7 +83,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-findproxyforurlex2
+     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-findproxyforurlex2
      */
     FindProxyForURLEx2(bstrProtocol, bstrHost, bstrUrl, pfProxyEnabled, pbstrProxyServer, pdwProxyPort, pqwProxyContext) {
         bstrProtocol := bstrProtocol is String ? BSTR.Alloc(bstrProtocol).Value : bstrProtocol
@@ -99,7 +99,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
     }
 
     /**
-     * 
+     * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
      * @param {HRESULT} hrParam 
      * @param {Integer} qwProxyContext 
      * @returns {HRESULT} 
@@ -114,7 +114,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * The ShutdownProxyContext2 method releases the internal resources used by IWMSInternalAdminNetSource3::FindProxyForURLEx2. To avoid memory leaks, you must call this method after you are finished making calls to FindProxyForURLEx2.
      * @param {Integer} qwProxyContext <b>QWORD</b> containing the proxy context. Set this to the last proxy context received from <b>FindProxyForURLEx2</b>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-shutdownproxycontext2
+     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-shutdownproxycontext2
      */
     ShutdownProxyContext2(qwProxyContext) {
         result := ComCall(10, this, "uint", qwProxyContext, "HRESULT")
@@ -122,7 +122,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
     }
 
     /**
-     * 
+     * The IWMSInternalAdminNetSource3 interface provides improved methods to find proxy servers.To obtain a pointer to an instance of this interface, call the QueryInterface method of the IDispatch method retrieved by INSNetSourceCreator::GetNetSourceAdminInterface.
      * @param {Integer} qwProxyContext 
      * @returns {BOOL} 
      * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nn-wmsinternaladminnetsource-iwmsinternaladminnetsource3
@@ -145,7 +145,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * @param {BOOL} fConfirmedGood Boolean value that is True if the server has confirmed the password as correct. You can cache the password before receiving verification from the server, in which case you should set this to False.
      * @param {BOOL} fClearTextAuthentication Boolean value that is True if the credentials were obtained using an authentication scheme where credentials are sent over the network in an unencrypted form (such as HTTP Basic authentication).
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-setcredentialsex2
+     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-setcredentialsex2
      */
     SetCredentialsEx2(bstrRealm, bstrUrl, fProxy, bstrName, bstrPassword, fPersist, fConfirmedGood, fClearTextAuthentication) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm
@@ -170,7 +170,7 @@ class IWMSInternalAdminNetSource3 extends IWMSInternalAdminNetSource2{
      * @param {Pointer<BSTR>} pbstrPassword Pointer to a string containing the password.
      * @param {Pointer<BOOL>} pfConfirmedGood Boolean value that is True if the password was cached after it was confirmed as correct by the server.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-getcredentialsex2
+     * @see https://learn.microsoft.com/windows/win32/api/wmsinternaladminnetsource/nf-wmsinternaladminnetsource-iwmsinternaladminnetsource3-getcredentialsex2
      */
     GetCredentialsEx2(bstrRealm, bstrUrl, fProxy, fClearTextAuthentication, pdwUrlPolicy, pbstrName, pbstrPassword, pfConfirmedGood) {
         bstrRealm := bstrRealm is String ? BSTR.Alloc(bstrRealm).Value : bstrRealm

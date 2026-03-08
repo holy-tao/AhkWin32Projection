@@ -6,7 +6,7 @@
 
 /**
  * Adds members to the InkRecognizerContext Class.
- * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nn-msinkaut-iinkrecognizercontext2
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nn-msinkaut-iinkrecognizercontext2
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */
@@ -40,16 +40,13 @@ class IInkRecognizerContext2 extends IDispatch{
     }
 
     /**
-     * Gets or sets a set of one or more Unicode ranges that the recognizer context will support.
+     * Gets or sets a set of one or more Unicode ranges that the recognizer context will support. (Get)
      * @remarks
-     * 
      * Use this method to specify a sub-set of Unicode character ranges that the recognizer should use during recognition. This is particularly useful when working with Asian character set where only a sub-set of the characters are commonly used.
      * 
      * Your application should check whether all input ranges are supported by the recognizer. TPC_S_TRUNCATED is returned to indicate that the Unicode ranges passed in were accepted, with the exception of those which were not valid. You can call <b>get_EnabledUnicodeRanges</b> to determine the ranges that were accepted.
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizercontext2-get_enabledunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext2-get_enabledunicoderanges
      */
     get_EnabledUnicodeRanges() {
         UnicodeRanges := VARIANT()
@@ -58,17 +55,14 @@ class IInkRecognizerContext2 extends IDispatch{
     }
 
     /**
-     * Gets or sets a set of one or more Unicode ranges that the recognizer context will support.
+     * Gets or sets a set of one or more Unicode ranges that the recognizer context will support. (Put)
      * @remarks
-     * 
      * Use this method to specify a sub-set of Unicode character ranges that the recognizer should use during recognition. This is particularly useful when working with Asian character set where only a sub-set of the characters are commonly used.
      * 
      * Your application should check whether all input ranges are supported by the recognizer. TPC_S_TRUNCATED is returned to indicate that the Unicode ranges passed in were accepted, with the exception of those which were not valid. You can call <b>get_EnabledUnicodeRanges</b> to determine the ranges that were accepted.
-     * 
-     * 
      * @param {VARIANT} UnicodeRanges 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//msinkaut/nf-msinkaut-iinkrecognizercontext2-put_enabledunicoderanges
+     * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizercontext2-put_enabledunicoderanges
      */
     put_EnabledUnicodeRanges(UnicodeRanges) {
         result := ComCall(8, this, "ptr", UnicodeRanges, "HRESULT")

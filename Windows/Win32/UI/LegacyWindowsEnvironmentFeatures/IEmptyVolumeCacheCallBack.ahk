@@ -6,10 +6,8 @@
 /**
  * Exposes methods that are used by a disk cleanup handler to communicate with the disk cleanup manager.
  * @remarks
- * 
  * A disk cleanup handler uses this interface to report to the disk cleanup manager on the progress either of deleting files or of scanning for deletable files. It also provides a way to query the manager, to find out if the user has canceled the operation. The handler receives a pointer to this interface when the manager calls the <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-getspaceused">IEmptyVolumeCache::GetSpaceUsed</a> or <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-purge">IEmptyVolumeCache::Purge</a> methods.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nn-emptyvc-iemptyvolumecachecallback
+ * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nn-emptyvc-iemptyvolumecachecallback
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319
  */
@@ -36,6 +34,8 @@ class IEmptyVolumeCacheCallBack extends IUnknown{
 
     /**
      * Called by a disk cleanup handler to update the disk cleanup manager on the progress of a scan for deletable files.
+     * @remarks
+     * This method is typically called by the handler's <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-getspaceused">GetSpaceUsed</a> method while the handler is scanning for deletable files.
      * @param {Integer} dwlSpaceUsed Type: <b>DWORDLONG</b>
      * 
      * The amount of disk space that the handler can free at this point in the scan.
@@ -77,7 +77,7 @@ class IEmptyVolumeCacheCallBack extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecachecallback-scanprogress
+     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecachecallback-scanprogress
      */
     ScanProgress(dwlSpaceUsed, dwFlags, pcwszStatus) {
         pcwszStatus := pcwszStatus is String ? StrPtr(pcwszStatus) : pcwszStatus
@@ -88,6 +88,8 @@ class IEmptyVolumeCacheCallBack extends IUnknown{
 
     /**
      * Called periodically by a disk cleanup handler to update the disk cleanup manager on the progress of a purge of deletable files.
+     * @remarks
+     * This method is typically called by the handler's <a href="https://docs.microsoft.com/windows/desktop/api/emptyvc/nf-emptyvc-iemptyvolumecache-purge">Purge</a> method while the handler is purging deletable files. Handlers should call <b>PurgeProgress</b> periodically to keep the user informed of progress, especially if the purge will take a long time. Calling this method frequently also allows the handler to shut down promptly if a user cancels a purge.
      * @param {Integer} dwlSpaceFreed Type: <b>DWORDLONG</b>
      * 
      * The amount of disk space, in bytes, that has been freed at this point in the purge. The disk cleanup manager uses this value to update its progress bar.
@@ -132,7 +134,7 @@ class IEmptyVolumeCacheCallBack extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//emptyvc/nf-emptyvc-iemptyvolumecachecallback-purgeprogress
+     * @see https://learn.microsoft.com/windows/win32/api/emptyvc/nf-emptyvc-iemptyvolumecachecallback-purgeprogress
      */
     PurgeProgress(dwlSpaceFreed, dwlSpaceToFree, dwFlags, pcwszStatus) {
         pcwszStatus := pcwszStatus is String ? StrPtr(pcwszStatus) : pcwszStatus

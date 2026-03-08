@@ -4,7 +4,9 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * Describes the base representation of all presentation content.
+ * @remarks
+ * All types of presentation content derive from this interface.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-ipresentationcontent
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
@@ -31,8 +33,10 @@ class IPresentationContent extends IUnknown{
     static VTableNames => ["SetTag"]
 
     /**
+     * Sets a user-defined tag to associate with this content. This tag is how the content is referenced in statistics.
+     * @param {Pointer} tag Type: **[UINT_PTR](/windows/win32/winprog/windows-data-types)**
      * 
-     * @param {Pointer} tag 
+     * The tag to associate with this content.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-ipresentationcontent-settag
      */

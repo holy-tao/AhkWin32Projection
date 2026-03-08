@@ -7,11 +7,8 @@
 /**
  * Exposes methods that enumerate published applications to Add/Remove Programs in the Control Panel. The object exposing this interface is requested through IAppPublisher::EnumApps.
  * @remarks
- * 
  * To publish applications to Add/Remove Programs in the Control Panel, you must support <b>IEnumPublishedApps</b>, <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-iapppublisher">IAppPublisher</a> and <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nn-shappmgr-ienumpublishedapps
+ * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nn-shappmgr-ienumpublishedapps
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,10 +35,14 @@ class IEnumPublishedApps extends IUnknown{
 
     /**
      * Gets the next IPublishedApp object in the enumeration.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ienumpublishedapps">IEnumPublishedApps</a> is not a standard enumeration interface. It does not support a Skip method, nor does its Next method support retrieval of multiple items.
+     *         </div>
+     * <div> </div>
      * @returns {IPublishedApp} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a>**</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ipublishedapp">IPublishedApp</a> interface reference variable that returns the next application object. Note that the category of the application object returned must match that passed into <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nf-shappmgr-iapppublisher-enumapps">EnumApps</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ienumpublishedapps-next
+     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ienumpublishedapps-next
      */
     Next() {
         result := ComCall(3, this, "ptr*", &pia := 0, "HRESULT")
@@ -50,6 +51,10 @@ class IEnumPublishedApps extends IUnknown{
 
     /**
      * Resets the enumeration of IPublishedApp objects to the first item.
+     * @remarks
+     * <div class="alert"><b>Note</b>  <a href="https://docs.microsoft.com/windows/desktop/api/shappmgr/nn-shappmgr-ienumpublishedapps">IEnumPublishedApps</a> is not a standard enumeration interface.</div>
+     * <div> </div>
+     *  It does not support a Skip method nor does its Next method support retrieval of multiple items.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns the following value.
@@ -71,7 +76,7 @@ class IEnumPublishedApps extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shappmgr/nf-shappmgr-ienumpublishedapps-reset
+     * @see https://learn.microsoft.com/windows/win32/api/shappmgr/nf-shappmgr-ienumpublishedapps-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")

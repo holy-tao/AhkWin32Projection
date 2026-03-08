@@ -72,9 +72,15 @@ class ISpeechGrammarRules extends IDispatch{
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {Integer} Index 
      * @returns {ISpeechGrammarRule} 
+     * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(Index) {
         result := ComCall(9, this, "int", Index, "ptr*", &Rule := 0, "HRESULT")
@@ -100,11 +106,19 @@ class ISpeechGrammarRules extends IDispatch{
     }
 
     /**
+     * Adds an access-allowed access control entry (ACE) to an access control list (ACL). The access is granted to a specified security identifier (SID).
+     * @remarks
+     * The addition of an access-allowed ACE to an ACL is the most common form of ACL modification.
      * 
+     * The <b>AddAccessAllowedAce</b> and <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-addaccessdeniedace">AddAccessDeniedAce</a> functions add a new ACE to the end of the list of ACEs for the ACL. These functions do not automatically place the new ACE in the proper canonical order. It is the caller's responsibility to ensure that the ACL is in canonical order by adding ACEs in the proper sequence.
+     * 
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-ace_header">ACE_HEADER</a> structure placed in the ACE by the <b>AddAccessAllowedAce</b> function specifies a type and size, but provides no inheritance and no ACE flags.
      * @param {BSTR} RuleName 
      * @param {Integer} Attributes 
      * @param {Integer} RuleId 
      * @returns {ISpeechGrammarRule} 
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-addaccessallowedace
      */
     Add(RuleName, Attributes, RuleId) {
         RuleName := RuleName is String ? BSTR.Alloc(RuleName).Value : RuleName
@@ -114,8 +128,16 @@ class ISpeechGrammarRules extends IDispatch{
     }
 
     /**
+     * Indicates that a resource manager (RM) has finished committing a transaction that was requested by the transaction manager (TM).
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero. 
      * 
-     * @returns {HRESULT} 
+     * 
+     *   
+     * 
+     * If the function fails, the return value is zero (0). To get extended error information, call the <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a> function.
+     * 
+     *  The following list identifies the possible error codes:
+     * @see https://learn.microsoft.com/windows/win32/api/ktmw32/nf-ktmw32-commitcomplete
      */
     Commit() {
         result := ComCall(13, this, "HRESULT")

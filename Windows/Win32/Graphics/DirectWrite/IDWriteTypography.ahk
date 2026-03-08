@@ -6,7 +6,7 @@
 
 /**
  * Represents a font typography setting.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetypography
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetypography
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class IDWriteTypography extends IUnknown{
      * A structure that contains the OpenType name identifier and the execution parameter for the font feature being added.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetypography-addfontfeature
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-addfontfeature
      */
     AddFontFeature(fontFeature) {
         result := ComCall(3, this, "ptr", fontFeature, "HRESULT")
@@ -48,10 +48,12 @@ class IDWriteTypography extends IUnknown{
 
     /**
      * Gets the number of OpenType font features for the current font.
+     * @remarks
+     * A single run of text can be associated with more than one typographic feature. The <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetypography">IDWriteTypography</a> object holds a list of these font features.
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The number of font features for the current text format.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetypography-getfontfeaturecount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-getfontfeaturecount
      */
     GetFontFeatureCount() {
         result := ComCall(4, this, "uint")
@@ -60,13 +62,15 @@ class IDWriteTypography extends IUnknown{
 
     /**
      * Gets the font feature at the specified index.
+     * @remarks
+     * A single run of text can be associated with more than one typographic feature. The <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetypography">IDWriteTypography</a> object holds a list of these font features.
      * @param {Integer} fontFeatureIndex Type: <b>UINT32</b>
      * 
      * The zero-based index of the font feature to retrieve.
      * @returns {DWRITE_FONT_FEATURE} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_feature">DWRITE_FONT_FEATURE</a>*</b>
      * 
      * When this method returns, contains the font feature which is at the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetypography-getfontfeature
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetypography-getfontfeature
      */
     GetFontFeature(fontFeatureIndex) {
         fontFeature := DWRITE_FONT_FEATURE()

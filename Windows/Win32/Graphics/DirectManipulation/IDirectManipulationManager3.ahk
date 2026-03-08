@@ -5,7 +5,7 @@
 
 /**
  * Extends the IDirectManipulationManager2 interface that provides access to all the Direct Manipulation features and APIs available to the client application.
- * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nn-directmanipulation-idirectmanipulationmanager3
+ * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nn-directmanipulation-idirectmanipulationmanager3
  * @namespace Windows.Win32.Graphics.DirectManipulation
  * @version v4.0.30319
  */
@@ -34,11 +34,11 @@ class IDirectManipulationManager3 extends IDirectManipulationManager2{
      * Retrieves an IDirectManipulationDeferContactService object.
      * @param {Pointer<Guid>} clsid The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice">IDirectManipulationDeferContactService</a> CLSID.
      * @param {Pointer<Guid>} riid The IID of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice">IDirectManipulationDeferContactService</a> to retrieve.
-     * @returns {Pointer<Void>} The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/directmanipulation/nn-directmanipulation-idirectmanipulationdefercontactservice">IDirectManipulationDeferContactService</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//directmanipulation/nf-directmanipulation-idirectmanipulationmanager3-getservice
+     * @returns {Pointer<Void>} 
+     * @see https://learn.microsoft.com/windows/win32/api/directmanipulation/nf-directmanipulation-idirectmanipulationmanager3-getservice
      */
     GetService(clsid, riid) {
-        result := ComCall(11, this, "ptr", clsid, "ptr", riid, "ptr*", &object := 0, "HRESULT")
-        return object
+        result := ComCall(11, this, "ptr", clsid, "ptr", riid, "ptr*", &object_R := 0, "HRESULT")
+        return object_R
     }
 }

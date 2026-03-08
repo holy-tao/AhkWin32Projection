@@ -6,7 +6,6 @@
 /**
  * Represents a DPWS-compliant device.
  * @remarks
- * 
  * After retrieving this interface, the application would then:
  * 
  * <ol>
@@ -25,9 +24,7 @@
  * 
  * 
  * An <b>IWSDDeviceHost</b> object can provide an object for a service on demand (using a notification callback) when calling the host receives a request message directed at that service.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nn-wsdhost-iwsddevicehost
+ * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nn-wsdhost-iwsddevicehost
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -54,6 +51,8 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Initializes an instance of an IWSDDeviceHost object.
+     * @remarks
+     * This method is called by <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-wsdcreatedevicehost">WSDCreateDeviceHost</a> and need not normally be called directly by your code.
      * @param {PWSTR} pszLocalId The logical or physical address of the device. A logical address is of the form <c>urn:uuid:{guid}</c>. If <i>pszLocalId</i> is a logical address, the host will announce the logical address and then convert the address to a physical address when it receives Resolve or Probe messages.
      * 
      * 
@@ -150,7 +149,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-init
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-init
      */
     Init(pszLocalId, pContext, ppHostAddresses, dwHostAddressCount) {
         pszLocalId := pszLocalId is String ? StrPtr(pszLocalId) : pszLocalId
@@ -203,7 +202,7 @@ class IWSDDeviceHost extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The method failed. It may have failed because the host has not been initialized. Call <a href="/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
+     * The method failed. It may have failed because the host has not been initialized. Call <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
      * 
      * </td>
      * </tr>
@@ -219,7 +218,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-start
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-start
      */
     Start(ullInstanceId, pScopeList, pNotificationSink) {
         result := ComCall(4, this, "uint", ullInstanceId, "ptr", pScopeList, "ptr", pNotificationSink, "HRESULT")
@@ -228,6 +227,10 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Sends a WS-Discovery Bye message and stops the host.
+     * @remarks
+     * When a device host is stopped using this method, all services remain attached but no inbound messages are processed or otherwise handled. 
+     * 
+     * Calling <b>Stop</b> is not necessary if the host has not been started.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
@@ -269,7 +272,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-stop
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-stop
      */
     Stop() {
         result := ComCall(5, this, "HRESULT")
@@ -278,6 +281,12 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Terminates the host and releases any attached services.
+     * @remarks
+     * Services and notification sinks will not receive messages after the <b>Terminate</b> method has completed.
+     * 
+     * If this device host was started by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-start">IWSDDeviceHost::Start</a>, it must first be stopped by calling <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-stop">IWSDDeviceHost::Stop</a> before <b>Terminate</b> can be called.
+     * 
+     * <b>Terminate</b> must be called before releasing the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nn-wsdhost-iwsddevicehost">IWSDDeviceHost</a>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
      * <table>
@@ -308,7 +317,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-terminate
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-terminate
      */
     Terminate() {
         result := ComCall(6, this, "HRESULT")
@@ -359,7 +368,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-registerporttype
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-registerporttype
      */
     RegisterPortType(pPortType) {
         result := ComCall(7, this, "ptr", pPortType, "HRESULT")
@@ -368,6 +377,13 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Sets the metadata for a device, excluding user-defined service metadata.
+     * @remarks
+     * This method must be called at least once prior to starting any device host which was registered with <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-registerservice">RegisterService</a>. It may be called after the device is started to update the metadata, in which case WS-Discovery Hello messages are issued indicating the new metadata version. 
+     * 
+     * <div class="alert"><b>Note</b>  The update feature has not yet been implemented.
+     * 
+     * </div>
+     * <div> </div>
      * @param {Pointer<WSD_THIS_MODEL_METADATA>} pThisModelMetadata Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_this_model_metadata">WSD_THIS_MODEL_METADATA</a> structure which specifies metadata that is common to all instances of the model of this device. 
      * The <b>Manufacturer</b>, <b>ModelNames</b>, and <b>ModelNumber</b> members of the structure must contain non-<b>NULL</b>, non-blank entries.
      * @param {Pointer<WSD_THIS_DEVICE_METADATA>} pThisDeviceMetadata Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_this_device_metadata">WSD_THIS_DEVICE_METADATA</a> structure which specifies metadata unique to this device. The <b>FriendlyName</b>, <b>FirmwareVersion</b>, and <b>SerialNumber</b> members of this structure must contain non-<b>NULL</b>, non-blank entries.
@@ -414,7 +430,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-setmetadata
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-setmetadata
      */
     SetMetadata(pThisModelMetadata, pThisDeviceMetadata, pHostMetadata, pCustomMetadata) {
         result := ComCall(8, this, "ptr", pThisModelMetadata, "ptr", pThisDeviceMetadata, "ptr", pHostMetadata, "ptr", pCustomMetadata, "HRESULT")
@@ -455,7 +471,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-registerservice
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-registerservice
      */
     RegisterService(pszServiceId, pService) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
@@ -466,6 +482,8 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Unregisters a service object that was registered using RegisterService and removes the service from the device host metadata.
+     * @remarks
+     * The device host releases its reference to the service object after the service is unregistered. The service object will not receive callbacks after <b>RetireService</b> has completed.
      * @param {PWSTR} pszServiceId The ID of the service to be removed.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -514,12 +532,12 @@ class IWSDDeviceHost extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The method failed. It may have failed because the host has not been initialized. Call <a href="/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
+     * The method failed. It may have failed because the host has not been initialized. Call <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-retireservice
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-retireservice
      */
     RetireService(pszServiceId) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
@@ -530,6 +548,8 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Registers a service object for incoming requests, but does not add the service to the device host metadata. This is used for transient (dynamic) services.
+     * @remarks
+     * When this method is called, the device adds a reference to the service object and calls its methods in response to request messages addressed to the service. Call the <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-removedynamicservice">RemoveDynamicService</a> method on the device host to release its reference to the service and stop calling methods on the service.
      * @param {PWSTR} pszServiceId The ID for the dynamic service. The service ID must be distinct from all the service IDs in the service host metadata and from any other registered dynamic service. The <i>pszServiceId</i> must be a URI.
      * @param {PWSTR} pszEndpointAddress An optional URI to use as the endpoint address for this service. If none is specified, the device host will assume the service should be available on all local transport addresses.
      * @param {Pointer<WSD_PORT_TYPE>} pPortType Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_port_type">WSD_PORT_TYPE</a> structure that specifies the port type. 
@@ -584,7 +604,7 @@ class IWSDDeviceHost extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The method failed. It may have failed because the host has not been initialized, or the service specified by <i>pszServiceId</i> could not be found. Call <a href="/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
+     * The method failed. It may have failed because the host has not been initialized, or the service specified by <i>pszServiceId</i> could not be found. Call <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
      * 
      * </td>
      * </tr>
@@ -600,7 +620,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-adddynamicservice
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-adddynamicservice
      */
     AddDynamicService(pszServiceId, pszEndpointAddress, pPortType, pPortName, pAny, pService) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
@@ -612,6 +632,8 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Unregisters a service object that was registered using AddDynamicService.
+     * @remarks
+     * The device host releases its reference to the service object after the service is unregistered. The service object will not receive callbacks after <b>RemoveDynamicService</b> has completed.
      * @param {PWSTR} pszServiceId The ID for the dynamic service to be removed.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
      * 
@@ -649,12 +671,12 @@ class IWSDDeviceHost extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The method failed. It may have failed because the host has not been initialized. Call <a href="/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
+     * The method failed. It may have failed because the host has not been initialized. Call <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-init">Init</a> to initialize a device host.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-removedynamicservice
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-removedynamicservice
      */
     RemoveDynamicService(pszServiceId) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
@@ -703,7 +725,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-setservicediscoverable
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-setservicediscoverable
      */
     SetServiceDiscoverable(pszServiceId, fDiscoverable) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId
@@ -714,6 +736,8 @@ class IWSDDeviceHost extends IUnknown{
 
     /**
      * Notifies all subscribed clients that an event has occurred.
+     * @remarks
+     * <b>SignalEvent</b> blocks until the event is sent to all clients. Since clients are contacted sequentially, it is possible that <b>SignalEvent</b> will block for a long time if any client responds slowly or is unreachable.
      * @param {PWSTR} pszServiceId The ID of the service that generates the event.
      * @param {Pointer<Void>} pBody The body of the event.
      * @param {Pointer<WSD_OPERATION>} pOperation Reference to a <a href="https://docs.microsoft.com/windows/desktop/api/wsdtypes/ns-wsdtypes-wsd_operation">WSD_OPERATION</a> structure that specifies the operation.
@@ -742,7 +766,7 @@ class IWSDDeviceHost extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The host is not started. Call <a href="/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-start">Start</a> to start the device host.
+     * The host is not started. Call <a href="https://docs.microsoft.com/windows/desktop/api/wsdhost/nf-wsdhost-iwsddevicehost-start">Start</a> to start the device host.
      * 
      * </td>
      * </tr>
@@ -758,7 +782,7 @@ class IWSDDeviceHost extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdhost/nf-wsdhost-iwsddevicehost-signalevent
+     * @see https://learn.microsoft.com/windows/win32/api/wsdhost/nf-wsdhost-iwsddevicehost-signalevent
      */
     SignalEvent(pszServiceId, pBody, pOperation) {
         pszServiceId := pszServiceId is String ? StrPtr(pszServiceId) : pszServiceId

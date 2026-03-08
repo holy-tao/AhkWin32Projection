@@ -1154,11 +1154,7 @@ class XAudio2 {
      * @see https://learn.microsoft.com/windows/win32/api/xapofx/nf-xapofx-createfx
      */
     static CreateFX(clsid, pInitDat, InitDataByteSize) {
-        result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr*", &pEffect := 0, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("XAudio2_8.dll\CreateFX", "ptr", clsid, "ptr*", &pEffect := 0, "ptr", pInitDat, "uint", InitDataByteSize, "CDecl HRESULT")
         return IUnknown(pEffect)
     }
 
@@ -1170,11 +1166,7 @@ class XAudio2 {
      * @returns {IXAudio2} 
      */
     static XAudio2CreateWithVersionInfo(Flags, XAudio2Processor, ntddiVersion) {
-        result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr*", &ppXAudio2 := 0, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("XAudio2_8.dll\XAudio2CreateWithVersionInfo", "ptr*", &ppXAudio2 := 0, "uint", Flags, "uint", XAudio2Processor, "uint", ntddiVersion, "HRESULT")
         return IXAudio2(ppXAudio2)
     }
 
@@ -1183,11 +1175,7 @@ class XAudio2 {
      * @returns {IUnknown} 
      */
     static CreateAudioVolumeMeter() {
-        result := DllCall("XAudio2_8.dll\CreateAudioVolumeMeter", "ptr*", &ppApo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("XAudio2_8.dll\CreateAudioVolumeMeter", "ptr*", &ppApo := 0, "HRESULT")
         return IUnknown(ppApo)
     }
 
@@ -1196,11 +1184,7 @@ class XAudio2 {
      * @returns {IUnknown} 
      */
     static CreateAudioReverb() {
-        result := DllCall("XAudio2_8.dll\CreateAudioReverb", "ptr*", &ppApo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("XAudio2_8.dll\CreateAudioReverb", "ptr*", &ppApo := 0, "HRESULT")
         return IUnknown(ppApo)
     }
 
@@ -1224,11 +1208,7 @@ class XAudio2 {
      * @see https://learn.microsoft.com/windows/win32/api/hrtfapoapi/nf-hrtfapoapi-createhrtfapo
      */
     static CreateHrtfApo(init) {
-        result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr*", &xApo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("HrtfApo.dll\CreateHrtfApo", "ptr", init, "ptr*", &xApo := 0, "HRESULT")
         return IXAPO(xApo)
     }
 

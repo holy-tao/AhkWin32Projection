@@ -6,7 +6,7 @@
 
 /**
  * Represents a certificate property that contains a SHA-1 hash of the certificate.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertysha1hash
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertysha1hash
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -33,11 +33,13 @@ class ICertPropertySHA1Hash extends ICertProperty{
 
     /**
      * Initializes the object from the SHA-1 hash of a certificate.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertysha1hash-get_sha1hash">SHA1Hash</a> property to retrieve the hash value.
      * @param {Integer} Encoding An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-encodingtype">EncodingType</a> enumeration value that specifies the type of Unicode encoding applied to the input string that contains the certificate hash.
      * @param {BSTR} strRenewalValue A <b>BSTR</b> variable that contains the hash.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -57,7 +59,7 @@ class ICertPropertySHA1Hash extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertysha1hash-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertysha1hash-initialize
      */
     Initialize(Encoding, strRenewalValue) {
         strRenewalValue := strRenewalValue is String ? BSTR.Alloc(strRenewalValue).Value : strRenewalValue
@@ -69,13 +71,10 @@ class ICertPropertySHA1Hash extends ICertProperty{
     /**
      * Retrieves the SHA-1 hash of a certificate.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertysha1hash-initialize">Initialize</a> method to specify a value for the <b>SHA1Hash</b> property.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertysha1hash-get_sha1hash
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertysha1hash-get_sha1hash
      */
     get_SHA1Hash(Encoding) {
         pValue := BSTR()

@@ -5,7 +5,7 @@
 
 /**
  * The IAMOpenProgress interface reports the progress of a file-open operation and enables the application to cancel the operation.Filters that open files over a network can expose this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamopenprogress
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamopenprogress
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -75,7 +75,7 @@ class IAMOpenProgress extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamopenprogress-queryprogress
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamopenprogress-queryprogress
      */
     QueryProgress(pllTotal, pllCurrent) {
         pllTotalMarshal := pllTotal is VarRef ? "int64*" : "ptr"
@@ -88,7 +88,7 @@ class IAMOpenProgress extends IUnknown{
     /**
      * The AbortOperation method cancels the file-open operation.
      * @returns {HRESULT} Returns S_OK if successful, or an <b>HRESULT</b> value indicating the cause of the error.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamopenprogress-abortoperation
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamopenprogress-abortoperation
      */
     AbortOperation() {
         result := ComCall(4, this, "HRESULT")

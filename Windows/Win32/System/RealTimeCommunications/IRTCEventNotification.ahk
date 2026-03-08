@@ -29,10 +29,13 @@ class IRTCEventNotification extends IUnknown{
     static VTableNames => ["Event"]
 
     /**
-     * 
+     * The Event attribute is a string that specifies the event (or album) associated with a given photo.
+     * @remarks
+     * To determine whether you can change the value of this attribute, use the [Media.isReadOnlyItem](media-isreadonlyitem.md) method.
      * @param {Integer} RTCEvent 
      * @param {IDispatch} pEvent 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/event-attribute
      */
     Event(RTCEvent, pEvent) {
         result := ComCall(3, this, "int", RTCEvent, "ptr", pEvent, "HRESULT")

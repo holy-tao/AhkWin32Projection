@@ -5,7 +5,7 @@
 
 /**
  * Exposes provider state methods that are implemented by third parties.
- * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nn-wpcapi-iwpcproviderstate
+ * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nn-wpcapi-iwpcproviderstate
  * @namespace Windows.Win32.System.ParentalControls
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IWPCProviderState extends IUnknown{
 
     /**
      * Notifies the third-party application that it has been selected as the new current provider.
+     * @remarks
+     * This method is called when the current provider is changed through the drop-down list in the Parental Controls Control Panel.
      * @returns {HRESULT} If the method succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderstate-enable
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderstate-enable
      */
     Enable() {
         result := ComCall(3, this, "HRESULT")
@@ -44,10 +46,12 @@ class IWPCProviderState extends IUnknown{
 
     /**
      * Notifies the third-party application that it is not the current provider.
+     * @remarks
+     * This method is called for every registered provider when the current provider changes. This means that the <b>Disable</b> method may be called for a provider that has already been disabled.
      * @returns {HRESULT} If the method succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wpcapi/nf-wpcapi-iwpcproviderstate-disable
+     * If the method fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wpcapi/nf-wpcapi-iwpcproviderstate-disable
      */
     Disable() {
         result := ComCall(4, this, "HRESULT")

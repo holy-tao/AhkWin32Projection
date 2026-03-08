@@ -448,10 +448,11 @@ class IMSMQQueueInfo3 extends IDispatch{
     }
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {Pointer<VARIANT>} IsTransactional 
      * @param {Pointer<VARIANT>} IsWorldReadable 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(IsTransactional, IsWorldReadable) {
         result := ComCall(32, this, "ptr", IsTransactional, "ptr", IsWorldReadable, "HRESULT")
@@ -459,8 +460,17 @@ class IMSMQQueueInfo3 extends IDispatch{
     }
 
     /**
+     * Deletes an access control entry (ACE) from an access control list (ACL).
+     * @remarks
+     * An application can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
+     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
      * 
-     * @returns {HRESULT} 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
      */
     Delete() {
         result := ComCall(33, this, "HRESULT")
@@ -468,10 +478,22 @@ class IMSMQQueueInfo3 extends IDispatch{
     }
 
     /**
+     * Opens a handle to a backup event log created by the BackupEventLog function. (ANSI)
+     * @remarks
+     * If the backup filename specifies a remote server, the <i>lpUNCServerName</i> parameter must be <b>NULL</b>.
      * 
+     * When this function is used on Windows Vista and later computers, only backup event logs that were saved with the <b>BackupEventLog</b> function on Windows Vista and later computers can be opened.
+     * 
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winbase.h header defines OpenBackupEventLog as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {Integer} Access 
      * @param {Integer} ShareMode 
      * @returns {IMSMQQueue3} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-openbackupeventloga
      */
     Open(Access, ShareMode) {
         result := ComCall(34, this, "int", Access, "int", ShareMode, "ptr*", &ppq := 0, "HRESULT")
@@ -479,8 +501,12 @@ class IMSMQQueueInfo3 extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * RefreshIscsiSendTargetPortal function instructs the iSCSI initiator service to establish a discovery session with the indicated target portal and transmit a SendTargets request to refresh the list of discovered targets for the iSCSI initiator service. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The iscsidsc.h header defines RefreshIScsiSendTargetPortal as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * @returns {HRESULT} Returns ERROR_SUCCESS if the operation succeeds. Otherwise, it returns the appropriate Win32 or iSCSI error code.
+     * @see https://learn.microsoft.com/windows/win32/api/iscsidsc/nf-iscsidsc-refreshiscsisendtargetportala
      */
     Refresh() {
         result := ComCall(35, this, "HRESULT")
@@ -488,8 +514,9 @@ class IMSMQQueueInfo3 extends IDispatch{
     }
 
     /**
-     * 
+     * Learn more about: Update constructor
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/update-constructor
      */
     Update() {
         result := ComCall(36, this, "HRESULT")

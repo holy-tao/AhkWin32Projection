@@ -43,7 +43,7 @@ class ID3D12WorkGraphProperties extends IUnknown{
      * @returns {PWSTR} 
      */
     GetProgramName(WorkGraphIndex) {
-        result := ComCall(4, this, "uint", WorkGraphIndex, "char*")
+        result := ComCall(4, this, "uint", WorkGraphIndex, "ptr")
         return result
     }
 

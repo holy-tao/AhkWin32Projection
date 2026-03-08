@@ -5,7 +5,7 @@
 
 /**
  * The IExtendView interface provides information about the extended view.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-iextendview
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendview
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -32,13 +32,16 @@ class IExtendView extends IUnknown{
 
     /**
      * The GetViews method retrieves information about the extended view and adds extended views to the result pane.
+     * @remarks
+     * For more information and a C++ code example for <b>IExtendView::GetViews</b>, see 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mmc/extending-a-primary-snap-ins-view">Extending a Primary Snap-in's View</a>.
      * @param {IDataObject} pDataObject A pointer to the snap-in data object.
      * @param {IViewExtensionCallback} pViewExtensionCallback A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-iviewextensioncallback">IViewExtensionCallback</a> interface. The view extension snap-in uses the 
      * IViewExtensionCallback interface to add information about the extended view. The snap-in can also call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-iviewextensioncallback-addview">IViewExtensionCallback::AddView</a> method multiple times to add multiple extended views. The value in pViewExtensionCallback is valid only during the call to <b>IExtendView::GetViews</b>; view extension snap-ins must not save this pointer for later use.
      * @returns {HRESULT} If successful, the return value is S_OK. Other return values indicate an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendview-getviews
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendview-getviews
      */
     GetViews(pDataObject, pViewExtensionCallback) {
         result := ComCall(3, this, "ptr", pDataObject, "ptr", pViewExtensionCallback, "HRESULT")

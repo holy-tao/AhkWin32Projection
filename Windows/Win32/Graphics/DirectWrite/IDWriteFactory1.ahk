@@ -6,8 +6,8 @@
 #Include .\IDWriteFactory.ahk
 
 /**
- * The root factory interface for all DirectWrite objects.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nn-dwrite_1-idwritefactory1
+ * The root factory interface for all DirectWrite objects. (IDWriteFactory1)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwritefactory1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -34,13 +34,17 @@ class IDWriteFactory1 extends IDWriteFactory{
 
     /**
      * Gets a font collection representing the set of EUDC (end-user defined characters) fonts.
+     * @remarks
+     * Note that if no EUDC is set on the system,
+     *     the returned collection will be empty, meaning it will return success
+     *     but GetFontFamilyCount will be zero.
      * @param {BOOL} checkForUpdates Type: <b>BOOL</b>
      * 
      * Whether to check for updates.
      * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
      * 
      * The font collection to fill.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefactory1-geteudcfontcollection
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-geteudcfontcollection
      */
     GetEudcFontCollection(checkForUpdates) {
         result := ComCall(24, this, "ptr*", &fontCollection := 0, "int", checkForUpdates, "HRESULT")
@@ -48,7 +52,7 @@ class IDWriteFactory1 extends IDWriteFactory{
     }
 
     /**
-     * Creates a rendering parameters object with the specified properties.
+     * Creates a rendering parameters object with the specified properties. (IDWriteFactory1.CreateCustomRenderingParams)
      * @param {Float} gamma Type: <b>FLOAT</b>
      * 
      * The gamma level to be set for the new rendering parameters object.
@@ -70,7 +74,7 @@ class IDWriteFactory1 extends IDWriteFactory{
      * @returns {IDWriteRenderingParams1} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwriterenderingparams1">IDWriteRenderingParams1</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the newly created rendering parameters object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwritefactory1-createcustomrenderingparams
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwritefactory1-createcustomrenderingparams
      */
     CreateCustomRenderingParams(gamma, enhancedContrast, enhancedContrastGrayscale, clearTypeLevel, pixelGeometry, renderingMode) {
         result := ComCall(25, this, "float", gamma, "float", enhancedContrast, "float", enhancedContrastGrayscale, "float", clearTypeLevel, "int", pixelGeometry, "int", renderingMode, "ptr*", &renderingParams := 0, "HRESULT")

@@ -4,13 +4,10 @@
 #Include .\ID3D10DeviceChild.ahk
 
 /**
- * A resource interface provides common actions on all resources.
+ * A resource interface provides common actions on all resources. (ID3D10Resource)
  * @remarks
- * 
  * A resource interface cannot be created directly; instead, <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-types">buffers</a> and textures are created that inherit from a resource interface (see <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating">Creating Buffer Resources</a> or <a href="https://docs.microsoft.com/windows/desktop/direct3d10/d3d10-graphics-programming-guide-resources-creating-textures">Creating Texture Resources</a>).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d10/nn-d3d10-id3d10resource
+ * @see https://learn.microsoft.com/windows/win32/api/d3d10/nn-d3d10-id3d10resource
  * @namespace Windows.Win32.Graphics.Direct3D10
  * @version v4.0.30319
  */
@@ -36,12 +33,12 @@ class ID3D10Resource extends ID3D10DeviceChild{
     static VTableNames => ["GetType", "SetEvictionPriority", "GetEvictionPriority"]
 
     /**
-     * Get the type of the resource.
+     * Get the type of the resource. (ID3D10Resource.GetType)
      * @param {Pointer<Integer>} rType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_resource_dimension">D3D10_RESOURCE_DIMENSION</a>*</b>
      * 
      * Pointer to the resource type (see <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/ne-d3d10-d3d10_resource_dimension">D3D10_RESOURCE_DIMENSION</a>).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10resource-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10resource-gettype
      */
     GetType(rType) {
         rTypeMarshal := rType is VarRef ? "int*" : "ptr"
@@ -50,9 +47,8 @@ class ID3D10Resource extends ID3D10DeviceChild{
     }
 
     /**
-     * Set the eviction priority of a resource.
+     * Set the eviction priority of a resource. (ID3D10Resource.SetEvictionPriority)
      * @remarks
-     * 
      * Resource priorities determine which resource to evict from video memory when the system has run out of video memory. The resource will not be lost; it will be removed from video memory and placed into system memory, or possibly placed onto the hard drive. The resource will be loaded back into video memory when it is required.
      * 
      * A resource that is set to the maximum priority, DXGI_RESOURCE_PRIORITY_MAXIMUM, is only evicted if there is no other way of resolving the incoming memory request. The Windows Display Driver Model (WDDM) tries to split an incoming memory request to its minimum size and evict lower-priority resources before evicting a resource with maximum priority.
@@ -60,19 +56,19 @@ class ID3D10Resource extends ID3D10DeviceChild{
      * Changing the priorities of resources should be done carefully. The wrong eviction priorities could be a detriment to performance rather than an improvement. See <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgidevice-queryresourceresidency">QueryResourceResidency</a> for additional information.
      * 
      * This method is a wrapper for <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiresource-setevictionpriority">SetEvictionPriority</a> and is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource Interface</a> interface for convenience.
-     * 
-     * 
      * @param {Integer} EvictionPriority Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10resource-setevictionpriority
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10resource-setevictionpriority
      */
     SetEvictionPriority(EvictionPriority) {
         ComCall(8, this, "uint", EvictionPriority)
     }
 
     /**
-     * Get the eviction priority of a resource.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * Get the eviction priority of a resource. (ID3D10Resource.GetEvictionPriority)
+     * @remarks
+     * This method is a wrapper for <a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nf-dxgi-idxgiresource-getevictionpriority">GetEvictionPriority</a> and is provided in the <a href="https://docs.microsoft.com/windows/desktop/api/d3d10/nn-d3d10-id3d10resource">ID3D10Resource Interface</a> interface for convenience.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * One of the following values, which specifies the eviction priority for the resource:
      * 
@@ -83,7 +79,7 @@ class ID3D10Resource extends ID3D10DeviceChild{
      * <li>DXGI_RESOURCE_PRIORITY_HIGH</li>
      * <li>DXGI_RESOURCE_PRIORITY_MAXIMUM</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d10/nf-d3d10-id3d10resource-getevictionpriority
+     * @see https://learn.microsoft.com/windows/win32/api/d3d10/nf-d3d10-id3d10resource-getevictionpriority
      */
     GetEvictionPriority() {
         result := ComCall(9, this, "uint")

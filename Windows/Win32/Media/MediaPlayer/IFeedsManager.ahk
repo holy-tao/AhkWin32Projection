@@ -217,9 +217,10 @@ class IFeedsManager extends IDispatch{
     }
 
     /**
-     * 
+     * Contains values that specify the behavior of UiaGetUpdatedCache.
      * @param {BSTR} feedXmlIn 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(feedXmlIn) {
         feedXmlIn := feedXmlIn is String ? BSTR.Alloc(feedXmlIn).Value : feedXmlIn

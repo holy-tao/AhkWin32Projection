@@ -7,8 +7,7 @@
  * Adds support for motion estimation.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodevice1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodevice1
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,11 +33,11 @@ class ID3D12VideoDevice1 extends ID3D12VideoDevice{
     static VTableNames => ["CreateVideoMotionEstimator", "CreateVideoMotionVectorHeap"]
 
     /**
-     * 
-     * @param {Pointer<D3D12_VIDEO_MOTION_ESTIMATOR_DESC>} pDesc 
-     * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * Creates an ID3D12VideoMotionEstimator, which maintains context for video motion estimation operations.
+     * @param {Pointer<D3D12_VIDEO_MOTION_ESTIMATOR_DESC>} pDesc A [D3D12_VIDEO_MOTION_ESTIMATOR_DESC](ns-d3d12video-d3d12_video_motion_estimator_desc.md) describing the parameters used for motion estimation. This structure contains both input and output fields.
+     * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession A [ID3D12ProtectedResourceSession](../d3d12/nn-d3d12-id3d12protectedresourcesession.md) for managing access to protected resources.
+     * @param {Pointer<Guid>} riid The globally unique identifier (GUID) for the **ID3D12VideoMotionEstimator** interface.
+     * @returns {Pointer<Void>} A pointer to a memory block that receives a pointer to the **ID3D12VideoMotionEstimator** interface.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionestimator
      */
     CreateVideoMotionEstimator(pDesc, pProtectedResourceSession, riid) {
@@ -47,11 +46,11 @@ class ID3D12VideoDevice1 extends ID3D12VideoDevice{
     }
 
     /**
-     * 
-     * @param {Pointer<D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC>} pDesc 
-     * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * Allocates heap that contains motion vectors for video motion estimation.
+     * @param {Pointer<D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC>} pDesc A pointer to a [D3D12_VIDEO_MOTION_VECTOR_HEAP_DESC](ns-d3d12video-d3d12_video_motion_vector_heap_desc.md) describing the format of the heap. This structure contains both input and output fields.
+     * @param {ID3D12ProtectedResourceSession} pProtectedResourceSession A [ID3D12ProtectedResourceSession](../d3d12/nn-d3d12-id3d12protectedresourcesession.md) for managing access to protected resources.
+     * @param {Pointer<Guid>} riid The globally unique identifier (GUID) for the **ID3D12VideoMotionVectorHeap** interface.
+     * @returns {Pointer<Void>} A pointer to a memory block that receives a pointer to the **ID3D12VideoMotionVectorHeap** interface.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodevice1-createvideomotionvectorheap
      */
     CreateVideoMotionVectorHeap(pDesc, pProtectedResourceSession, riid) {

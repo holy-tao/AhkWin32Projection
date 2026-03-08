@@ -80,9 +80,14 @@ class ITravelLogStg extends IUnknown{
     }
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @param {Integer} flags 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount(flags) {
         result := ComCall(7, this, "int", flags, "uint*", &pcEntries := 0, "HRESULT")

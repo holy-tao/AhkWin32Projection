@@ -8,7 +8,7 @@
 
 /**
  * The IEnumNetworkConnections interface provides a standard enumerator for network connections. It enumerates active, disconnected, or all network connections within a network. This interface can be obtained from the INetwork interface.
- * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nn-netlistmgr-ienumnetworkconnections
+ * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nn-netlistmgr-ienumnetworkconnections
  * @namespace Windows.Win32.Networking.NetworkListManager
  * @version v4.0.30319
  */
@@ -42,8 +42,10 @@ class IEnumNetworkConnections extends IDispatch{
 
     /**
      * The get_NewEnum property returns an automation enumerator object that you can use to iterate through the IEnumNetworkConnections collection.
+     * @remarks
+     * In Microsoft Visual Basic and Microsoft C#, you do not need to use the corresponding _NewEnum property, because it is automatically used in the implementation of  the For Each loop (for each in Visual C#).
      * @returns {IEnumVARIANT} Contains the new instance of the implemented interface.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-ienumnetworkconnections-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworkconnections-get__newenum
      */
     get__NewEnum() {
         result := ComCall(7, this, "ptr*", &ppEnumVar := 0, "HRESULT")
@@ -51,11 +53,11 @@ class IEnumNetworkConnections extends IDispatch{
     }
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The Next method gets the next specified number of elements in the enumeration sequence. (IEnumNetworkConnections.Next)
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pceltFetched Pointer to the number of elements supplied. May be <b>NULL</b> if <i>celt</i> is one.
      * @returns {INetworkConnection} Pointer to a list of pointers returned  by <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nn-netlistmgr-inetworkconnection">INetworkConnection</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-ienumnetworkconnections-next
+     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworkconnections-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -65,7 +67,7 @@ class IEnumNetworkConnections extends IDispatch{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. (IEnumNetworkConnections.Skip)
      * @param {Integer} celt Number of elements to skip over in the enumeration.
      * @returns {HRESULT} Returns S_OK if the method succeeds. Otherwise, the method returns one of the following values.
      * 
@@ -97,7 +99,7 @@ class IEnumNetworkConnections extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-ienumnetworkconnections-skip
+     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworkconnections-skip
      */
     Skip(celt) {
         result := ComCall(9, this, "uint", celt, "HRESULT")
@@ -105,7 +107,7 @@ class IEnumNetworkConnections extends IDispatch{
     }
 
     /**
-     * The Reset method resets the enumeration sequence to the beginning.
+     * The Reset method resets the enumeration sequence to the beginning. (IEnumNetworkConnections.Reset)
      * @returns {HRESULT} Returns S_OK if the method succeeds. Otherwise, the method returns one of the following values.
      * 
      * <table>
@@ -125,7 +127,7 @@ class IEnumNetworkConnections extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-ienumnetworkconnections-reset
+     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworkconnections-reset
      */
     Reset() {
         result := ComCall(10, this, "HRESULT")
@@ -133,9 +135,9 @@ class IEnumNetworkConnections extends IDispatch{
     }
 
     /**
-     * The Clone method creates an enumerator that contains the same enumeration state as the enumerator currently in use.
+     * The Clone method creates an enumerator that contains the same enumeration state as the enumerator currently in use. (IEnumNetworkConnections.Clone)
      * @returns {IEnumNetworkConnections} Pointer to new <a href="https://docs.microsoft.com/windows/desktop/api/netlistmgr/nn-netlistmgr-ienumnetworkconnections">IEnumNetworkConnections</a> interface instance.
-     * @see https://docs.microsoft.com/windows/win32/api//netlistmgr/nf-netlistmgr-ienumnetworkconnections-clone
+     * @see https://learn.microsoft.com/windows/win32/api/netlistmgr/nf-netlistmgr-ienumnetworkconnections-clone
      */
     Clone() {
         result := ComCall(11, this, "ptr*", &ppEnumNetwork := 0, "HRESULT")

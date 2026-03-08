@@ -7,7 +7,7 @@
 
 /**
  * Defines the set of operations that can be performed by a set of users within a scope.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazrole
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazrole
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -99,14 +99,11 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the role.
+     * Sets or retrieves the name of the role. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -115,15 +112,12 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * Sets or retrieves the name of the role.
+     * Sets or retrieves the name of the role. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Name</b> property is 64 characters.
-     * 
-     * 
      * @param {BSTR} bstrName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-put_name
      */
     put_Name(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -133,14 +127,11 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a comment that describes the role.
+     * Sets or retrieves a comment that describes the role. (Get)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_description
      */
     get_Description() {
         pbstrDescription := BSTR()
@@ -149,15 +140,12 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * Sets or retrieves a comment that describes the role.
+     * Sets or retrieves a comment that describes the role. (Put)
      * @remarks
-     * 
      * The maximum length of the <b>Description</b> property is 1,024 characters.
-     * 
-     * 
      * @param {BSTR} bstrDescription 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-put_description
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-put_description
      */
     put_Description(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -167,15 +155,12 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * The ApplicationData property of IAzRole sets or retrieves an opaque field that can be used by the application to store information.
+     * The ApplicationData property of IAzRole sets or retrieves an opaque field that can be used by the application to store information. (Get)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_applicationdata
      */
     get_ApplicationData() {
         pbstrApplicationData := BSTR()
@@ -184,16 +169,13 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * The ApplicationData property of IAzRole sets or retrieves an opaque field that can be used by the application to store information.
+     * The ApplicationData property of IAzRole sets or retrieves an opaque field that can be used by the application to store information. (Put)
      * @remarks
-     * 
      * <div class="alert"><b>Important</b>  Policy administrators can read from and write to this property. Applications should not store data in the <b>ApplicationData</b> property that should not be available to the policy administrator.</div>
      * <div> </div>
-     * 
-     * 
      * @param {BSTR} bstrApplicationData 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-put_applicationdata
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-put_applicationdata
      */
     put_ApplicationData(bstrApplicationData) {
         bstrApplicationData := bstrApplicationData is String ? BSTR.Alloc(bstrApplicationData).Value : bstrApplicationData
@@ -205,15 +187,13 @@ class IAzRole extends IDispatch{
     /**
      * Adds the specified IAzApplicationGroup object to the list of application groups that belong to this role.
      * @remarks
+     * To view the list of application groups that belong to this role, use the [AppMembers](nf-azroles-iazrole-get_appmembers.md) property.
      * 
-     * To view the list of application groups that belong to this role, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-get_appmembers">AppMembers</a> property.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to add to the list of the application groups that belong to this role.
+     * You must call the [Submit](nf-azroles-iazrole-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the [Name](nf-azroles-iazapplicationgroup-get_name.md) property of the [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object to add to the list of the application groups that belong to this role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-addappmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-addappmember
      */
     AddAppMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -225,13 +205,11 @@ class IAzRole extends IDispatch{
     /**
      * Removes the specified IAzApplicationGroup object from the list of application groups that belong to the role.
      * @remarks
-     * 
-     * To view the list of application groups that belong to the role, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-get_appmembers">AppMembers</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to remove from the list of  application groups that belong to the role.
+     * To view the list of application groups that belong to the role, use the [AppMembers](nf-azroles-iazrole-get_appmembers.md) property.
+     * @param {BSTR} bstrProp String that contains the [Name](nf-azroles-iazapplicationgroup-get_name.md) property of the [IAzApplicationGroup](nn-azroles-iazapplicationgroup.md) object to remove from the list of  application groups that belong to the role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-deleteappmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-deleteappmember
      */
     DeleteAppMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -243,13 +221,11 @@ class IAzRole extends IDispatch{
     /**
      * Adds the IAzTask object with the specified name to the role.
      * @remarks
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object to add to the role.
+     * You must call the [Submit](nf-azroles-iazrole-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp Name of the [IAzTask](nn-azroles-iaztask.md) object to add to the role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-addtask
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-addtask
      */
     AddTask(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -261,13 +237,11 @@ class IAzRole extends IDispatch{
     /**
      * Removes the IAzTask object with the specified name from the role.
      * @remarks
-     * 
-     * If there are any <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> references to an <b>IAzTask</b> object that has been deleted from the cache, the <b>IAzTask</b> object can no longer be used. In C++, you must release references to deleted <b>IAzTask</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In Visual Basic, references to deleted objects are automatically released.
-     * 
-     * @param {BSTR} bstrProp Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iaztask">IAzTask</a> object to remove from the role.
+     * If there are any [IAzTask](nn-azroles-iaztask.md) references to an **IAzTask** object that has been deleted from the cache, the **IAzTask** object can no longer be used. In C++, you must release references to deleted **IAzTask** objects by calling the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method. In C# and Visual Basic, references to deleted objects are automatically released.
+     * @param {BSTR} bstrProp Name of the [IAzTask](nn-azroles-iaztask.md) object to remove from the role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-deletetask
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-deletetask
      */
     DeleteTask(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -279,13 +253,11 @@ class IAzRole extends IDispatch{
     /**
      * Adds the IAzOperation object with the specified name to the role.
      * @remarks
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object to add to the role.
+     * You must call the [Submit](nf-azroles-iazrole-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp Name of the [IAzOperation](nn-azroles-iazoperation.md) object to add to the role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-addoperation
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-addoperation
      */
     AddOperation(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -297,13 +269,11 @@ class IAzRole extends IDispatch{
     /**
      * Removes the IAzOperation object with the specified name from the role.
      * @remarks
-     * 
-     * If there are any <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> references to an <b>IAzOperation</b> object that has been deleted from the cache, the <b>IAzOperation</b> object can no longer be used. In C++, you must release references to deleted <b>IAzOperation</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In Visual Basic, references to deleted objects are automatically released.
-     * 
-     * @param {BSTR} bstrProp Name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazoperation">IAzOperation</a> object to remove from the role.
+     * If there are any [IAzOperation](nn-azroles-iazoperation.md) references to an **IAzOperation** object that has been deleted from the cache, the **IAzOperation** object can no longer be used. In C++, you must release references to deleted **IAzOperation** objects by calling the [IUnknown::Release](/windows/win32/api/unknwn/nf-unknwn-iunknown-release) method. In C# and Visual Basic, references to deleted objects are automatically released.
+     * @param {BSTR} bstrProp Name of the [IAzOperation](nn-azroles-iazoperation.md) object to remove from the role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-deleteoperation
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-deleteoperation
      */
     DeleteOperation(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -315,15 +285,13 @@ class IAzRole extends IDispatch{
     /**
      * Adds the specified security identifier (SID) in text form to the list of Windows accounts that belong to the role.
      * @remarks
+     * To view the list of SIDs of Windows accounts that belong to this role in text form, use the [Members](nf-azroles-iazrole-get_members.md) property.
      * 
-     * To view the list of SIDs of Windows accounts that belong to this role in text form, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-get_members">Members</a> property.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the text form of the SID to add to the list of Windows  accounts that belong to the role.
+     * You must call the [Submit](nf-azroles-iazrole-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the text form of the SID to add to the list of Windows accounts that belong to the role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-addmember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-addmember
      */
     AddMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -335,13 +303,11 @@ class IAzRole extends IDispatch{
     /**
      * Removes the specified security identifier (SID) in text form from the list of Windows accounts that belong to the role.
      * @remarks
-     * 
-     * To view the list of SIDs of Windows accounts that belong to the role in text form, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-get_members">Members</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the text form of the SID to remove from the list of Windows  accounts that belong to the role.
+     * To view the list of SIDs of Windows accounts that belong to the role in text form, use the [Members](nf-azroles-iazrole-get_members.md) property.
+     * @param {BSTR} bstrProp String that contains the text form of the SID to remove from the list of Windows accounts that belong to the role.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-deletemember
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-deletemember
      */
     DeleteMember(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -353,7 +319,7 @@ class IAzRole extends IDispatch{
     /**
      * Retrieves a value that indicates whether the role can be modified by the user context that initialized it.
      * @returns {BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_writable
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_writable
      */
     get_Writable() {
         result := ComCall(21, this, "int*", &pfProp := 0, "HRESULT")
@@ -472,7 +438,7 @@ class IAzRole extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {VARIANT} A pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazrole">IAzRole</a> object property.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-getproperty
      */
     GetProperty(lPropId, varReserved) {
         pvarProp := VARIANT()
@@ -482,6 +448,8 @@ class IAzRole extends IDispatch{
 
     /**
      * Sets the specified value to the IAzRole object property with the specified property ID.
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazrole">IAzRole</a> object property  to set. The following table shows the possible values.
      * 
      * <table>
@@ -563,7 +531,7 @@ class IAzRole extends IDispatch{
      * </table>
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Any other value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-setproperty
      */
     SetProperty(lPropId, varProp, varReserved) {
         result := ComCall(23, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -573,11 +541,9 @@ class IAzRole extends IDispatch{
     /**
      * Retrieves the application groups that belong to the role.
      * @remarks
-     * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_appmembers
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_appmembers
      */
     get_AppMembers() {
         pvarProp := VARIANT()
@@ -588,11 +554,9 @@ class IAzRole extends IDispatch{
     /**
      * Retrieves the security identifiers (SIDs), in text form, of Windows accounts that belong to the role.
      * @remarks
-     * 
      * In  JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_members
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_members
      */
     get_Members() {
         pvarProp := VARIANT()
@@ -603,11 +567,9 @@ class IAzRole extends IDispatch{
     /**
      * Retrieves the operations associated with the role.
      * @remarks
-     * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_operations
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_operations
      */
     get_Operations() {
         pvarProp := VARIANT()
@@ -618,11 +580,9 @@ class IAzRole extends IDispatch{
     /**
      * Retrieves the tasks associated with the role.
      * @remarks
-     * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_tasks
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_tasks
      */
     get_Tasks() {
         pvarProp := VARIANT()
@@ -631,7 +591,9 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * Adds the specified entity to the specified list.
+     * Adds the specified entity to the specified list. (IAzRole.AddPropertyItem)
+     * @remarks
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-submit">Submit</a> method to persist any changes made by this method.
      * @param {Integer} lPropId Property ID of the  list to which to add the entity specified by the <i>varProp</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -697,7 +659,7 @@ class IAzRole extends IDispatch{
      * If AZ_PROP_ROLE_MEMBERS is specified for the <i>lPropId</i> parameter, the string is the text form of the   <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the Windows account to add to the list. If AZ_PROP_ROLE_MEMBERS_NAME is specified for the <i>lPropId</i> parameter, the string is the account name of the account to add to the list. The account name can be in either user principal name (UPN) format (for example, "someone@example.com") or in the  "ExampleDomain\UserName" format. If AZ_PROP_ROLE_APP_MEMBERS is specified for the <i>lPropId</i> parameter, the string is the  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to add to the list.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Any other value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-addpropertyitem
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-addpropertyitem
      */
     AddPropertyItem(lPropId, varProp, varReserved) {
         result := ComCall(28, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -705,7 +667,7 @@ class IAzRole extends IDispatch{
     }
 
     /**
-     * Removes the specified entity from the specified list.
+     * Removes the specified entity from the specified list. (IAzRole.DeletePropertyItem)
      * @param {Integer} lPropId Property ID of the  list from which to remove the entity specified by the <i>varProp</i> parameter. The following table shows the possible values.
      * 
      * <table>
@@ -771,7 +733,7 @@ class IAzRole extends IDispatch{
      * If AZ_PROP_ROLE_MEMBERS is specified for the <i>lPropId</i> parameter, the string is the  <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">security identifier</a> (SID) of the Windows account to remove from the list. If AZ_PROP_ROLE_MEMBERS_NAME is specified for the <i>lPropId</i> parameter, the string is the account name of the account to remove from the list. The account name can be in either user principal name (UPN) format (for example, "someone@example.com") or in the "ExampleDomain\UserName" format. If AZ_PROP_ROLE_APP_MEMBERS is specified for the <i>lPropId</i> parameter, the string is the  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplicationgroup-get_name">Name</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplicationgroup">IAzApplicationGroup</a> object to remove from the list.
      * @param {VARIANT} varReserved Reserved for future use.
      * @returns {HRESULT} The return value is an <b>HRESULT</b>. A value of S_OK indicates success. Any other value indicates that the operation failed.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-deletepropertyitem
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-deletepropertyitem
      */
     DeletePropertyItem(lPropId, varProp, varReserved) {
         result := ComCall(29, this, "int", lPropId, "ptr", varProp, "ptr", varReserved, "HRESULT")
@@ -781,13 +743,11 @@ class IAzRole extends IDispatch{
     /**
      * Persists changes made to the IAzRole object.
      * @remarks
-     * 
-     * Any additions or modifications to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazrole">IAzRole</a> object are not persisted until the <b>Submit</b> method is called.
-     * 
-     * @param {Integer} lFlags Flags that modify the behavior of the <b>Submit</b> method. The default value is zero. If the AZ_SUBMIT_FLAG_ABORT flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
+     * Any additions or modifications to an [IAzRole](nn-azroles-iazrole.md) object are not persisted until the **Submit** method is called.
+     * @param {Integer} lFlags Flags that modify the behavior of the **Submit** method. The default value is zero. If the **AZ_SUBMIT_FLAG_ABORT** flag is specified, the changes to the object are discarded and the object is updated to match the underlying policy store.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-submit
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-submit
      */
     Submit(lFlags, varReserved) {
         result := ComCall(30, this, "int", lFlags, "ptr", varReserved, "HRESULT")
@@ -797,15 +757,13 @@ class IAzRole extends IDispatch{
     /**
      * Adds the specified account name to the list of accounts that belong to the role.
      * @remarks
+     * To view the list of account names of accounts that belong to this role, use the [MembersName](nf-azroles-iazrole-get_membersname.md) property.
      * 
-     * To view the list of account names of accounts that belong to this role, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-get_membersname">MembersName</a> property.
-     * 
-     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-submit">Submit</a> method to persist any changes made by this method.
-     * 
-     * @param {BSTR} bstrProp String that contains the account name to add to the list of   accounts that belong to the role. The account name can be in either user principal name (UPN) format (for example, "someone@example.com") or in the  "ExampleDomain\UserName" format. If the domain is not  in the "ExampleDomain\UserName" format, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
+     * You must call the [Submit](nf-azroles-iazrole-submit.md) method to persist any changes made by this method.
+     * @param {BSTR} bstrProp String that contains the account name to add to the list of accounts that belong to the role. The account name can be in either user principal name (UPN) format (for example, `someone@example.com`) or in the `ExampleDomain\UserName` format. If the domain is not in the `ExampleDomain\UserName` format, the [LookupAccountName](/windows/win32/api/winbase/nf-winbase-lookupaccountnamea) function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-addmembername
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-addmembername
      */
     AddMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -817,13 +775,11 @@ class IAzRole extends IDispatch{
     /**
      * Removes the specified account name from the list of accounts that belong to the role.
      * @remarks
-     * 
-     * To view the list of account names of accounts that belong to the role, use the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazrole-get_membersname">MembersName</a> property.
-     * 
-     * @param {BSTR} bstrProp String that contains the account name to remove from the list of  accounts that belong to the role. The account name can be in either user principal name (UPN) format (for example, "someone@example.com") or in the "ExampleDomain\UserName" format. If the domain is not  in the "ExampleDomain\UserName" format, the <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-lookupaccountnamea">LookupAccountName</a> function is called to retrieve the domain.
+     * To view the list of account names of accounts that belong to the role, use the [MembersName](nf-azroles-iazrole-get_membersname.md) property.
+     * @param {BSTR} bstrProp String that contains the account name to remove from the list of accounts that belong to the role. The account name can be in either user principal name (UPN) format (for example, `someone@example.com`) or in the `ExampleDomain\UserName` format. If the domain is not in the `ExampleDomain\UserName` format, the [LookupAccountName](/windows/win32/api/winbase/nf-winbase-lookupaccountnamea) function is called to retrieve the domain.
      * @param {VARIANT} varReserved Reserved for future use.
-     * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-deletemembername
+     * @returns {HRESULT} If the method succeeds, it will return `S_OK`. Any other **HRESULT** value indicates that the operation failed.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-deletemembername
      */
     DeleteMemberName(bstrProp, varReserved) {
         bstrProp := bstrProp is String ? BSTR.Alloc(bstrProp).Value : bstrProp
@@ -835,11 +791,9 @@ class IAzRole extends IDispatch{
     /**
      * Retrieves the account names of accounts that belong to the role.
      * @remarks
-     * 
      * In JScript, the returned <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> must be converted to the JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object.
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazrole-get_membersname
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazrole-get_membersname
      */
     get_MembersName() {
         pvarProp := VARIANT()

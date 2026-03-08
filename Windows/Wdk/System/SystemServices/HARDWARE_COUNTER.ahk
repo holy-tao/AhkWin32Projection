@@ -2,6 +2,10 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Contains the hardware counter value.
+ * @remarks
+ * This structure is a member of the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-performance_data">PERFORMANCE_DATA</a> structure.
+ * @see https://learn.microsoft.com/windows/win32/api/winnt/ns-winnt-hardware_counter_data
  * @namespace Windows.Wdk.System.SystemServices
  * @version v4.0.30319
  */
@@ -12,6 +16,7 @@ class HARDWARE_COUNTER extends Win32Struct
     static packingSize => 8
 
     /**
+     * The type of hardware counter data collected. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ne-winnt-hardware_counter_type">HARDWARE_COUNTER_TYPE</a> enumeration.
      * @type {Integer}
      */
     Type {
@@ -20,6 +25,7 @@ class HARDWARE_COUNTER extends Win32Struct
     }
 
     /**
+     * Reserved. Initialize to zero.
      * @type {Integer}
      */
     Reserved {

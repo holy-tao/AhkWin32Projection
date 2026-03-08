@@ -5,7 +5,7 @@
 
 /**
  * The IVMRAspectRatioControl interface controls whether the Video Mixing Renderer Filter 7 (VMR-7) preserves the aspect ratio of the source video.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivmraspectratiocontrol
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmraspectratiocontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -31,9 +31,9 @@ class IVMRAspectRatioControl extends IUnknown{
     static VTableNames => ["GetAspectRatioMode", "SetAspectRatioMode"]
 
     /**
-     * The GetAspectRatioMode method queries whether the VMR will preserve the aspect ratio of the source video.
+     * The GetAspectRatioMode method queries whether the VMR will preserve the aspect ratio of the source video. (IVMRAspectRatioControl.GetAspectRatioMode)
      * @returns {Integer} Pointer to a variable that receives a <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmr_aspect_ratio_mode">VMR_ASPECT_RATIO_MODE</a> value indicating the aspect ratio mode.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmraspectratiocontrol-getaspectratiomode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmraspectratiocontrol-getaspectratiomode
      */
     GetAspectRatioMode() {
         result := ComCall(3, this, "uint*", &lpdwARMode := 0, "HRESULT")
@@ -41,7 +41,7 @@ class IVMRAspectRatioControl extends IUnknown{
     }
 
     /**
-     * The SetAspectRatioMode method specifies whether the VMR will preserve the aspect ratio of the source video.
+     * The SetAspectRatioMode method specifies whether the VMR will preserve the aspect ratio of the source video. (IVMRAspectRatioControl.SetAspectRatioMode)
      * @param {Integer} dwARMode Specifies a member of the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ne-strmif-vmr_aspect_ratio_mode">VMR_ASPECT_RATIO_MODE</a> enumeration type.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following:
      * 
@@ -73,7 +73,7 @@ class IVMRAspectRatioControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmraspectratiocontrol-setaspectratiomode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmraspectratiocontrol-setaspectratiomode
      */
     SetAspectRatioMode(dwARMode) {
         result := ComCall(4, this, "uint", dwARMode, "HRESULT")

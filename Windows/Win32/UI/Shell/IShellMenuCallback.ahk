@@ -6,11 +6,8 @@
 /**
  * A callback interface that exposes a method that receives messages from a menu band.
  * @remarks
- * 
  * Once you have created the menu band object, pass a pointer to this interface to the menu band object by calling <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenu-initialize">IShellMenu::Initialize</a>. You receive messages from the menu band through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm">IShellMenuCallback::CallbackSM</a> method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishellmenucallback
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellmenucallback
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -51,8 +48,8 @@ class IShellMenuCallback extends IUnknown{
      * An LPARAM value that contains additional information. See the specific SMC_XXX message reference for details.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellmenucallback-callbacksm
      */
     CallbackSM(psmd, uMsg, wParam, lParam) {
         result := ComCall(3, this, "ptr", psmd, "uint", uMsg, "ptr", wParam, "ptr", lParam, "HRESULT")

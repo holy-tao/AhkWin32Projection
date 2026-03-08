@@ -129,11 +129,42 @@ class IDocHostUIHandler extends IUnknown{
     }
 
     /**
+     * Processes accelerator keys for menu commands. (ANSI)
+     * @remarks
+     * To differentiate the message that this function sends from messages sent by menus or controls, the high-order word of the
+     *         <i>wParam</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> or <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-syscommand">WM_SYSCOMMAND</a> message contains the value 1.
      * 
-     * @param {Pointer<MSG>} lpMsg 
+     * Accelerator key combinations used to select items from the
+     *         <b>window</b> menu are translated into <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-syscommand">WM_SYSCOMMAND</a> messages; all other accelerator key combinations are translated into <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> messages.
+     * 
+     * When <b>TranslateAccelerator</b> returns a nonzero value and the message is translated, the application should not use the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-translatemessage">TranslateMessage</a> function to process the message again.
+     * 
+     * An accelerator need not correspond to a menu command.
+     * 
+     * If the accelerator command corresponds to a menu item, the application is sent <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-initmenu">WM_INITMENU</a> and <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-initmenupopup">WM_INITMENUPOPUP</a> messages, as if the user were trying to display the menu. However, these messages are not sent if any of the following conditions exist:
+     * 
+     * <ul>
+     * <li>The window is disabled.</li>
+     * <li>The accelerator key combination does not correspond to an item on the <b>window</b> menu and the window is minimized.</li>
+     * <li>A mouse capture is in effect. For information about mouse capture, see the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setcapture">SetCapture</a> function.</li>
+     * </ul>
+     * If the specified window is the active window and no window has the keyboard focus (which is generally the case if the window is minimized), <b>TranslateAccelerator</b> translates
+     *         <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-syskeyup">WM_SYSKEYUP</a> and <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-syskeydown">WM_SYSKEYDOWN</a> messages instead of
+     *         <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keyup">WM_KEYUP</a> and <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-keydown">WM_KEYDOWN</a> messages.
+     * 
+     * If an accelerator keystroke occurs that corresponds to a menu item when the window that owns the menu is minimized, <b>TranslateAccelerator</b> does not send a <a href="https://docs.microsoft.com/windows/desktop/menurc/wm-command">WM_COMMAND</a> message. However, if an accelerator keystroke occurs that does not match any of the items in the window's menu or in the
+     *         <b>window</b> menu, the function sends a <b>WM_COMMAND</b> message, even if the window is minimized.
+     * @param {Pointer<MSG>} lpMsg Type: <b>LPMSG</b>
+     * 
+     * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains message information retrieved from the calling thread's message queue using the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getmessage">GetMessage</a> or <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-peekmessagea">PeekMessage</a> function.
      * @param {Pointer<Guid>} pguidCmdGroup 
      * @param {Integer} nCmdID 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>int</b>
+     * 
+     * If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-translateacceleratora
      */
     TranslateAccelerator(lpMsg, pguidCmdGroup, nCmdID) {
         result := ComCall(12, this, "ptr", lpMsg, "ptr", pguidCmdGroup, "uint", nCmdID, "HRESULT")
@@ -161,8 +192,11 @@ class IDocHostUIHandler extends IUnknown{
     }
 
     /**
-     * 
+     * Returns the name of the file that contains the external key.
+     * @remarks
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
      * @returns {IDispatch} 
+     * @see https://learn.microsoft.com/windows/win32/SecProv/getexternalkeyfilename-win32-encryptablevolume
      */
     GetExternal() {
         result := ComCall(15, this, "ptr*", &ppDispatch := 0, "HRESULT")

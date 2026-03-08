@@ -6,7 +6,7 @@
 
 /**
  * Used to process the input data and read the parameters used by the generator.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdcgenerator
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcgenerator
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -44,7 +44,7 @@ class IRdcGenerator extends IUnknown{
      * @returns {IRdcGeneratorParameters} Address of a pointer that on successful return will contain the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msrdc/nn-msrdc-irdcgeneratorparameters">IRdcGeneratorParameters</a> interface pointer for the 
      *       parameters for the generator level specified in the <i>level</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgenerator-getgeneratorparameters
      */
     GetGeneratorParameters(level) {
         result := ComCall(3, this, "uint", level, "ptr*", &iGeneratorParameters := 0, "HRESULT")
@@ -71,7 +71,7 @@ class IRdcGenerator extends IUnknown{
      *       return value of the <b>Process</b> method contains the 
      *       specific error code.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgenerator-process
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgenerator-process
      */
     Process(endOfInput, endOfOutput, inputBuffer, depth, outputBuffers, rdc_ErrorCode) {
         endOfOutputMarshal := endOfOutput is VarRef ? "int*" : "ptr"

@@ -6,11 +6,8 @@
 /**
  * Represents a Direct3D 12 video decoder heap.
  * @remarks
- * 
  * Get an instance of this class by calling [ID3D12VideoDevice::CreateVideoDecoderHeap](nf-d3d12video-id3d12videodevice-createvideodecoderheap.md).
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodecoderheap
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodecoderheap
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,8 +33,8 @@ class ID3D12VideoDecoderHeap extends ID3D12Pageable{
     static VTableNames => ["GetDesc"]
 
     /**
-     * 
-     * @returns {D3D12_VIDEO_DECODER_HEAP_DESC} 
+     * Gets the D3D12_VIDEO_DECODER_HEAP_DESC structure that was passed into ID3D12VideoDevice::CreateVideoDecoderHeap when the ID3D12VideoDecoderHeap was created.
+     * @returns {D3D12_VIDEO_DECODER_HEAP_DESC} This method returns a **D3D12_VIDEO_DECODER_HEAP_DESC** structure.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecoderheap-getdesc
      */
     GetDesc() {

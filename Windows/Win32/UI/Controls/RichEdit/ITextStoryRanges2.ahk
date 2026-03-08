@@ -6,7 +6,7 @@
 
 /**
  * The ITextStoryRanges2 interface enumerates the stories in an ITextDocument.
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextstoryranges2
+ * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextstoryranges2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -33,13 +33,15 @@ class ITextStoryRanges2 extends ITextStoryRanges{
 
     /**
      * Gets an ITextRange2 object for a story, by index, in a stories collection.
+     * @remarks
+     * The first story has an index of 1, and the last story  has an index equal to the count  retrieved by the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextstoryranges-getcount">ITextStoryRanges::GetCount</a> method. Negative index values count from the last story to the first; that is, an index of –1 gets the last story in the collection, and an index of –<i>count</i> gets the first story.
      * @param {Integer} Index Type: <b>long</b>
      * 
      * The index of the story range. The default value is 1.
      * @returns {ITextRange2} Type: <b>ITextRange2**</b>
      * 
      * The range.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextstoryranges2-item2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextstoryranges2-item2
      */
     Item2(Index) {
         result := ComCall(10, this, "int", Index, "ptr*", &ppRange := 0, "HRESULT")

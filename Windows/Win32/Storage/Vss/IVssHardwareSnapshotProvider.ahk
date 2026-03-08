@@ -5,7 +5,7 @@
 
 /**
  * Contains the methods used by VSS to map volumes to LUNs, discover LUNs created during the shadow copy process, and transport LUNs on a SAN.
- * @see https://docs.microsoft.com/windows/win32/api//vsprov/nn-vsprov-ivsshardwaresnapshotprovider
+ * @see https://learn.microsoft.com/windows/win32/api/vsprov/nn-vsprov-ivsshardwaresnapshotprovider
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -32,6 +32,15 @@ class IVssHardwareSnapshotProvider extends IUnknown{
 
     /**
      * Determines whether the hardware provider supports shadow copy creation for all LUNs that contribute to the volume.
+     * @remarks
+     * If the hardware subsystem supports the SCSI Inquiry Data and Vital Product Data 
+     *     page  80 (device serial number) and page 83 (device identity) guidelines, the provider should not need to modify the structures in the <i>pLunInformation</i> array.
+     * 
+     * In any case, the <b>AreLunsSupported</b> method should not modify the value of the <b>m_rgInterconnects</b> member of any <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure in the <i>pLunInformation</i> array.
+     * 
+     * If the provider supports hardware shadow copy creation for all of the LUNs in the <i>pLunInformation</i> array, it should return <b>TRUE</b> in the <b>BOOL</b> value that the <i>pbIsSupported</i> parameter points to. If the provider does not support hardware shadow copies for one or more LUNs, it must set this <b>BOOL</b> value to <b>FALSE</b>. 
+     * 
+     * The provider must never agree to create shadow copies if it cannot, even if the problem is only temporary. If a transient condition, such as low resources, makes it impossible for the provider to create a shadow copy using one or more LUNs   when <b>AreLunsSupported</b> is called, the provider must set the <b>BOOL</b> value to <b>FALSE</b>.
      * @param {Integer} lLunCount Count of LUNs contributing to this shadow copy volume.
      * @param {Integer} lContext Shadow copy context for the current shadow copy set as enumerated by 
      *       a bitmask of flags from the <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_volume_snapshot_attributes">_VSS_VOLUME_SNAPSHOT_ATTRIBUTES</a> enumeration. If the <b>VSS_VOLSNAP_ATTR_TRANSPORTABLE</b> flag is set, the shadow copy set is transportable.
@@ -41,7 +50,7 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * @returns {BOOL} Pointer to a <b>BOOL</b> value. If all devices are supported for shadow copy, the 
      *       provider should store a <b>TRUE</b> value at the location pointed to by 
      *       <i>pbIsSupported</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotprovider-arelunssupported
+     * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-arelunssupported
      */
     AreLunsSupported(lLunCount, lContext, rgwszDevices, pLunInformation) {
         rgwszDevicesMarshal := rgwszDevices is VarRef ? "ptr*" : "ptr"
@@ -52,12 +61,34 @@ class IVssHardwareSnapshotProvider extends IUnknown{
 
     /**
      * Prompts the hardware provider to indicate whether it supports the corresponding disk device and correct any omissions in the VDS_LUN_INFORMATION structure.
+     * @remarks
+     * VSS calls the <b>FillInLunInfo</b> method for each <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure that the provider previously initialized in its <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-gettargetluns">GetTargetLuns</a> method. VSS also calls the <b>FillInLunInfo</b> method for each new disk device that arrives in the system during the import process. 
+     * 
+     * The provider can correct any omissions in the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure received in the <i>pLunInfo</i>  parameter. However, the provider should not modify the value of the <b>m_rgInterconnects</b> member of this structure.
+     * 
+     * The members of the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure correspond to the SCSI Inquiry Data and Vital Product Data page 80 (device serial number) information, with the following exceptions:
+     * 
+     * <ul>
+     * <li>The <b>m_version</b> member must be set to <b>VER_VDS_LUN_INFORMATION</b>.</li>
+     * <li>The <b>m_BusType</b> member is ignored in comparisons during import. This value depends on the PnP storage stack on the corresponding disk device. Usually this is <b>VDSBusTypeScsi</b>.</li>
+     * <li>The <b>m_diskSignature</b> member is ignored in comparisons during import. The provider must set this member to GUID_NULL.</li>
+     * </ul>
+     * The members of the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_storage_device_id_descriptor">VDS_STORAGE_DEVICE_ID_DESCRIPTOR</a> 
+     *       structure (in the <b>m_deviceIdDescriptor</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> 
+     *     structure) correspond to the page 83 information. In this structure, each <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_storage_identifier">VDS_STORAGE_IDENTIFIER</a> 
+     *       structure corresponds to the STORAGE_IDENTIFIER structure for a device identifier (that is, a storage identifier with an association type of zero). For more information about the STORAGE_IDENTIFIER structure, see the Windows Driver Kit (WDK) documentation.
+     * 
+     * If the <b>FillInLunInfo</b> method is 
+     *     called for a LUN that is unknown to the provider, the provider should not return an error. Instead, it 
+     *     should return <b>FALSE</b>  in the <b>BOOL</b> value that the <i>pbIsSupported</i> parameter points to and 
+     *     return success. If the provider recognizes the LUN, it should set the <b>BOOL</b> value to 
+     *     <b>TRUE</b>.
      * @param {Pointer<Integer>} wszDeviceName Device corresponding to the shadow copy LUN.
      * @param {Pointer<VDS_LUN_INFORMATION>} pLunInfo The <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure for the 
      *       shadow copy LUN.
      * @returns {BOOL} The provider must return <b>TRUE</b> in the location pointed to by the 
      *       <i>pbIsSupported</i> parameter if the device is supported.
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotprovider-fillinluninfo
+     * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-fillinluninfo
      */
     FillInLunInfo(wszDeviceName, pLunInfo) {
         wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"
@@ -68,6 +99,10 @@ class IVssHardwareSnapshotProvider extends IUnknown{
 
     /**
      * Called for each shadow copy that is added to the shadow copy set.
+     * @remarks
+     * This method cannot be called for a virtual hard disk (VHD) that is nested inside another VHD.
+     * 
+     * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>VHDs are not supported.
      * @param {Guid} SnapshotSetId Shadow copy set identifier.
      * @param {Guid} SnapshotId Identifier of the shadow copy to be created.
      * @param {Integer} lContext Shadow copy context for current shadow copy set as enumerated by 
@@ -183,7 +218,7 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotprovider-beginpreparesnapshot
+     * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-beginpreparesnapshot
      */
     BeginPrepareSnapshot(SnapshotSetId, SnapshotId, lContext, lLunCount, rgDeviceNames, rgLunInformation) {
         rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
@@ -194,6 +229,33 @@ class IVssHardwareSnapshotProvider extends IUnknown{
 
     /**
      * Prompts the hardware provider to initialize the VDS_LUN_INFORMATION structures for the newly created shadow copy LUNs.
+     * @remarks
+     * In the <i>rgDestinationLuns</i> parameter, VSS supplies an empty <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> 
+     *     structure for each newly created shadow copy LUN. The shadow copy LUNs are not surfaced or visible to the system. 
+     *     The provider should initialize the members of the 
+     *     <b>VDS_LUN_INFORMATION</b> structure with the appropriate SCSI 
+     *     Inquiry Data and Vital Product Data page  80 (device serial number) and page 83 (device identity) information. The 
+     *     structure should contain correct member values such that the shadow copy LUNs can be located by Windows from the 
+     *     original computer or any other computer connected to the SAN.
+     * 
+     * The members of the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure correspond to the page 80 information, with the following exceptions:
+     * 
+     * <ul>
+     * <li>The <b>m_version</b> member must be set to <b>VER_VDS_LUN_INFORMATION</b>.</li>
+     * <li>The <b>m_BusType</b> member is ignored in comparisons during import. This value depends on the PnP storage stack on the corresponding disk device. Usually this is <b>VDSBusTypeScsi</b>.</li>
+     * <li>The <b>m_diskSignature</b> member is ignored in comparisons during import. The provider must set this member to GUID_NULL.</li>
+     * </ul>
+     * The members of the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_storage_device_id_descriptor">VDS_STORAGE_DEVICE_ID_DESCRIPTOR</a> 
+     *       structure (in the <b>m_deviceIdDescriptor</b> member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> 
+     *     structure) correspond to the page 83 information. In this structure, each <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_storage_identifier">VDS_STORAGE_IDENTIFIER</a> 
+     *       structure corresponds to the STORAGE_IDENTIFIER structure for a device identifier (that is, a storage identifier with an association type of zero). For more information about the STORAGE_IDENTIFIER structure, see the Windows Driver Kit (WDK) documentation.
+     * 
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structures returned here 
+     *     must be the same as the structures provided in 
+     *     the <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-fillinluninfo">IVssHardwareSnapshotProvider::FillInLunInfo</a> method during import so 
+     *     that VSS can use this information to identify the newly arriving shadow copy LUNs at import. These same structures 
+     *     will be passed to the provider in the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-locateluns">IVssHardwareSnapshotProvider::LocateLuns</a> method.
      * @param {Integer} lLunCount Count of LUNs that contribute to the original volume.
      * @param {Pointer<Pointer<Integer>>} rgDeviceNames Pointer to an array of <i>lLunCount</i> pointers to strings. Each string contains 
      *       the name of an original LUN to be shadow copied.
@@ -259,7 +321,7 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotprovider-gettargetluns
+     * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-gettargetluns
      */
     GetTargetLuns(lLunCount, rgDeviceNames, rgSourceLuns, rgDestinationLuns) {
         rgDeviceNamesMarshal := rgDeviceNames is VarRef ? "ptr*" : "ptr"
@@ -270,6 +332,23 @@ class IVssHardwareSnapshotProvider extends IUnknown{
 
     /**
      * Prompts the hardware provider to make the shadow copy LUNs visible to the computer.
+     * @remarks
+     * In the  <i>rgSourceLuns</i> parameter, VSS supplies the same array of <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> 
+     *     structures that the provider previously initialized in its <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-gettargetluns">IVssHardwareSnapshotProvider::GetTargetLuns</a> method. For each <b>VDS_LUN_INFORMATION</b> 
+     *     structure in the array, the provider should unmask (or "surface") the corresponding shadow copy LUN to the computer.
+     * 
+     * Immediately after this method returns, VSS will perform a rescan and enumeration to detect any arrived 
+     *     devices. This causes any exposed LUNs to be discovered by the PnP manager. In parallel with listening for disk arrivals, VSS 
+     *     will also listen for hidden volume arrivals. VSS will stop listening after all volumes that contribute to a shadow copy set 
+     *     appear in the system or a time-out occurs. If some disk or volume devices fail to appear in this window, the 
+     *     requester will be told that only some of the shadow copies were imported by VSS returning 
+     *     <b>VSS_S_SOME_SNAPSHOTS_NOT_IMPORTED</b> to the requester. The requester will also receive the 
+     *     same error from VSS if the <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> 
+     *     structures received from the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-gettargetluns">GetTargetLuns</a> and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-fillinluninfo">IVssHardwareSnapshotProvider::FillInLunInfo</a> methods do not match.
+     * 
+     * This method cannot be used to map shadow copy LUNs as read-only.
      * @param {Integer} lLunCount Number of LUNs that contribute to this shadow copy set.
      * @param {Pointer<VDS_LUN_INFORMATION>} rgSourceLuns Pointer to an array of <i>iLunCount</i><a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structures, one for each LUN 
      *       that is part of the shadow copy set to be imported.
@@ -330,7 +409,7 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotprovider-locateluns
+     * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-locateluns
      */
     LocateLuns(lLunCount, rgSourceLuns) {
         result := ComCall(7, this, "int", lLunCount, "ptr", rgSourceLuns, "HRESULT")
@@ -339,6 +418,31 @@ class IVssHardwareSnapshotProvider extends IUnknown{
 
     /**
      * Called whenever VSS determines that a shadow copy LUN contains no interesting data.
+     * @remarks
+     * Hardware providers should delete a shadow copy and reclaim the LUN if and only if  
+     *     <b>OnLunEmpty</b> is being called. A 
+     *     hardware shadow copy may be used as the backup media itself, therefore the LUNs should be treated with the same 
+     *     care the storage array treats LUNs used for regular disks. Reclaiming LUNs outside of processing for 
+     *     <b>OnLunEmpty</b> should be limited to 
+     *     emergency or an administrator performing explicit action manually.
+     * 
+     * In the case of persistent shadow copies, the requester deletes the shadow copy when it is no longer needed. In the case of 
+     *     nonpersistent auto-release shadow copies, the VSS service deletes the shadow copy when the requester calls <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nl-vsbackup-ivssbackupcomponents">IVssBackupComponents</a> object. In the case of nonpersistent non-auto-release shadow copies, the VSS service deletes the shadow copy when the computer is restarted. In all cases, the VSS service calls the provider's  <b>OnLunEmpty</b> method as needed for each shadow copy 
+     *     LUN.
+     * 
+     * Note that <b>OnLunEmpty</b> is 
+     *     called on a best effort basis. VSS invokes the method only when the LUN is guaranteed to be empty. There may be 
+     *     many cases where the LUN is empty but VSS is unable to detect this due to errors or external circumstances. In 
+     *     this case, the user should use storage management software to clear this state.
+     * 
+     * Some examples:
+     * 
+     * <ul>
+     * <li>When a shadow copy LUN is moved to a different host but not actually transported or imported through VSS, 
+     *       then that LUN appears as any other LUN, and volumes can be simply deleted without any  notification of VSS.</li>
+     * <li>A crash or unexpected reboot in the middle of a shadow copy creation.</li>
+     * <li>A canceled import.</li>
+     * </ul>
      * @param {Pointer<Integer>} wszDeviceName Device corresponding to the LUN that contains the shadow copy to be deleted.
      * @param {Pointer<VDS_LUN_INFORMATION>} pInformation Pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/vdslun/ns-vdslun-vds_lun_information">VDS_LUN_INFORMATION</a> structure 
      *       containing information about the LUN containing the shadow copy to be deleted.
@@ -399,7 +503,7 @@ class IVssHardwareSnapshotProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vsprov/nf-vsprov-ivsshardwaresnapshotprovider-onlunempty
+     * @see https://learn.microsoft.com/windows/win32/api/vsprov/nf-vsprov-ivsshardwaresnapshotprovider-onlunempty
      */
     OnLunEmpty(wszDeviceName, pInformation) {
         wszDeviceNameMarshal := wszDeviceName is VarRef ? "ushort*" : "ptr"

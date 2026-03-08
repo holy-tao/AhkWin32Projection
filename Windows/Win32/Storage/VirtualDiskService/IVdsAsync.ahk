@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Manages asynchronous operations. Methods that initiate asynchronous operations return a pointer to an IVdsAsync interface, allowing the caller to optionally cancel, wait for, or query the status of the asynchronous operation.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsasync
+ * The IVdsAsync (vdshwprv.h) interface manages asynchronous operations. Methods that initiate asynchronous operations return a pointer to an IVdsAsync interface.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdsasync
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -31,8 +31,11 @@ class IVdsAsync extends IUnknown{
     static VTableNames => ["Cancel", "Wait", "QueryStatus"]
 
     /**
-     * Cancels the asynchronous operation.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * The IVdsAsync::Cancel method (vdshwprv.h) cancels the asynchronous operation.
+     * @remarks
+     * Dynamic providers do not implement this method. The basic provider checks for this method only when cleaning 
+     *     a disk and does not implement it for any other operation.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -114,7 +117,7 @@ class IVdsAsync extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsasync-cancel
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-cancel
      */
     Cancel() {
         result := ComCall(3, this, "HRESULT")
@@ -122,17 +125,25 @@ class IVdsAsync extends IUnknown{
     }
 
     /**
-     * Returns when the asynchronous operation has either finished successfully or failed.
+     * The IVdsAsync::Wait method (vdshwprv.h) returns when the asynchronous operation has either finished successfully or failed.
+     * @remarks
+     * This method adds a reference to the contained object produced by the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-createvolume">IVdsPack::CreateVolume</a>, 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsvolume-breakplex">IVdsVolume::BreakPlex</a>, 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem::CreateLun</a>, and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-createpartition">IVdsAdvancedDisk::CreatePartition</a>, and 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdscreatepartitionex-createpartitionex">IVdsCreatePartitionEx::CreatePartitionEx</a> 
+     *     methods. Callers must release the reference to the contained object.
      * @param {Pointer<HRESULT>} pHrResult The address of an <b>HRESULT</b> passed in by the caller.
      * @param {Pointer<VDS_ASYNC_OUTPUT>} pAsyncOut The address of a <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure 
      *       passed in by the caller.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used.
      * 
      * There are two <b>HRESULT</b> return values to examine. The one returned by the method 
      *        reports failures from the call. The <b>HRESULT</b> returned through 
      *        <i>pHrResult</i> is used to report failures with the asynchronous operation associated with 
-     *        the <a href="/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> object. Both values must be examined.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsasync-wait
+     *        the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> object. Both values must be examined.
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-wait
      */
     Wait(pHrResult, pAsyncOut) {
         pHrResultMarshal := pHrResult is VarRef ? "int*" : "ptr"
@@ -142,7 +153,10 @@ class IVdsAsync extends IUnknown{
     }
 
     /**
-     * Returns when the asynchronous operation is in progress, or has either finished successfully or failed.
+     * The IVdsAsync::QueryStatus method (vdshwprv.h) returns when the asynchronous operation is in progress, has finished successfully, or has failed.
+     * @remarks
+     * The <b>QueryStatus</b> method does not wait for 
+     *     the operation to complete before returning.
      * @param {Pointer<HRESULT>} pHrResult The address of an <b>HRESULT</b> for the asynchronous operation passed in by the 
      *       caller. If the operation is in progress, the value is <b>VDS_E_OPERATION_PENDING</b>. If the 
      *       operation has finished, the value is the returned <b>HRESULT</b> of the operation.
@@ -150,7 +164,7 @@ class IVdsAsync extends IUnknown{
      *       asynchronous operation, given as a percentage. If the operation is in progress, the value is between 0 and 99. 
      *       If the operation has finished, the value is 100. If the progress of the operation cannot be estimated, the value 
      *       is 0.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -181,7 +195,7 @@ class IVdsAsync extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsasync-querystatus
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdsasync-querystatus
      */
     QueryStatus(pHrResult, pulPercentCompleted) {
         pHrResultMarshal := pHrResult is VarRef ? "int*" : "ptr"

@@ -5,7 +5,7 @@
 
 /**
  * The ITDetectTone interface exposes methods that allow an application to specify the tones and tone characteristics that should cause the TAPI Server to generate a tone event.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itdetecttone
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itdetecttone
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -49,7 +49,7 @@ class ITDetectTone extends IDispatch{
     /**
      * The get_AppSpecific method retrieves the application-defined tag that identifies the tone to detect.
      * @returns {Integer} Pointer to a value to receive the application-specific identifier for the tone. When the TAPI Server detects the tone, the value of this parameter is passed back to the application in the <b>TE_TONEEVENT</b> event.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-get_appspecific
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_appspecific
      */
     get_AppSpecific() {
         result := ComCall(7, this, "int*", &plAppSpecific := 0, "HRESULT")
@@ -78,7 +78,7 @@ class ITDetectTone extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-put_appspecific
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_appspecific
      */
     put_AppSpecific(lAppSpecific) {
         result := ComCall(8, this, "int", lAppSpecific, "HRESULT")
@@ -88,7 +88,7 @@ class ITDetectTone extends IDispatch{
     /**
      * The get_Duration method retrieves the length of time during which a tone should be present before the TAPI Server generates a tone event.
      * @returns {Integer} Pointer to a value that receives the tone duration, in milliseconds, during which the specified tone should be present.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-get_duration
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_duration
      */
     get_Duration() {
         result := ComCall(9, this, "int*", &plDuration := 0, "HRESULT")
@@ -117,7 +117,7 @@ class ITDetectTone extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-put_duration
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_duration
      */
     put_Duration(lDuration) {
         result := ComCall(10, this, "int", lDuration, "HRESULT")
@@ -126,9 +126,11 @@ class ITDetectTone extends IDispatch{
 
     /**
      * The get_Frequency method retrieves the frequency of the tone for which the TAPI Server generates a tone event.
+     * @remarks
+     * You can set up to three frequencies that make up the components of a tone. If fewer than three frequencies are required, specify a value of zero for the unused frequencies. A tone with all three frequencies set to zero is interpreted as silence and can be used for silence detection.
      * @param {Integer} Index Specifies the index of the tone.
      * @returns {Integer} Pointer to a value to receive the frequency, in hertz, of the tone. For more information, see the following Remarks section.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-get_frequency
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-get_frequency
      */
     get_Frequency(Index) {
         result := ComCall(11, this, "int", Index, "int*", &plFrequency := 0, "HRESULT")
@@ -137,6 +139,8 @@ class ITDetectTone extends IDispatch{
 
     /**
      * The put_Frequency method sets the frequency of the tone for which the TAPI Server should generate a tone event.
+     * @remarks
+     * You can set up to three frequencies that make up the components of a tone. If fewer than three frequencies are required, specify a value of zero for the unused frequencies. A tone with all three frequencies set to zero is interpreted as silence and can be used for silence detection.
      * @param {Integer} Index Specifies the index of the tone to set.
      * @param {Integer} lFrequency Specifies the frequency, in hertz, of the tone. For more information, see the following Remarks section.
      * @returns {HRESULT} This method can return one of these values.
@@ -158,7 +162,7 @@ class ITDetectTone extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itdetecttone-put_frequency
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itdetecttone-put_frequency
      */
     put_Frequency(Index, lFrequency) {
         result := ComCall(12, this, "int", Index, "int", lFrequency, "HRESULT")

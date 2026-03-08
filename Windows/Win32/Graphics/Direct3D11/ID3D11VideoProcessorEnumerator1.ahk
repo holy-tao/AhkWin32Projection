@@ -4,13 +4,10 @@
 #Include .\ID3D11VideoProcessorEnumerator.ahk
 
 /**
- * Enumerates the video processor capabilities of a Microsoft Direct3D 11 device.
+ * Enumerates the video processor capabilities of a Microsoft Direct3D 11 device. (ID3D11VideoProcessorEnumerator1)
  * @remarks
- * 
  * To get a pointer to this interface, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11videodevice-createvideoprocessorenumerator">ID3D11VideoDevice::CreateVideoProcessorEnumerator</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nn-d3d11_1-id3d11videoprocessorenumerator1
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nn-d3d11_1-id3d11videoprocessorenumerator1
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -52,7 +49,7 @@ class ID3D11VideoProcessorEnumerator1 extends ID3D11VideoProcessorEnumerator{
      * @returns {BOOL} Type: <b>BOOL*</b>
      * 
      * Pointer to a boolean that is set by the driver to indicate if the specified combination of format and colorspace conversions is supported. True if the conversion is supported; otherwise, false.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11_1/nf-d3d11_1-id3d11videoprocessorenumerator1-checkvideoprocessorformatconversion
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11_1/nf-d3d11_1-id3d11videoprocessorenumerator1-checkvideoprocessorformatconversion
      */
     CheckVideoProcessorFormatConversion(InputFormat, InputColorSpace, OutputFormat, OutputColorSpace) {
         result := ComCall(13, this, "int", InputFormat, "int", InputColorSpace, "int", OutputFormat, "int", OutputColorSpace, "int*", &pSupported := 0, "HRESULT")

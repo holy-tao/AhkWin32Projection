@@ -6,7 +6,7 @@
 
 /**
  * A built-in implementation of the IDWriteFontFileLoader interface, that operates on local font files and exposes local font file information from the font file reference key.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritelocalfontfileloader
+ * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,17 +33,16 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Obtains the length of the absolute file path from the font file reference key.
-     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
+     * @param {Pointer} fontFileReferenceKey Type: **const void\***
      * 
-     * Font file reference key that uniquely identifies the local font file
-     *     within the scope of the font loader being used.
-     * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
+     * Font file reference key that uniquely identifies the local font file within the scope of the font loader being used.
+     * @param {Integer} fontFileReferenceKeySize Type: **UINT32**
      * 
      * Size of font file reference key in bytes.
-     * @returns {Integer} Type: <b>UINT32*</b>
+     * @returns {Integer} Type: **UINT32\***
      * 
-     * Length of the file path string, not including the terminated <b>NULL</b> character.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathlengthfromkey
+     * Length of the file path string, not including the terminated **NULL** character.
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathlengthfromkey
      */
     GetFilePathLengthFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         result := ComCall(4, this, "ptr", fontFileReferenceKey, "uint", fontFileReferenceKeySize, "uint*", &filePathLength := 0, "HRESULT")
@@ -52,23 +51,22 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Obtains the absolute font file path from the font file reference key.
-     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
+     * @param {Pointer} fontFileReferenceKey Type: **const void\***
      * 
-     * The font file reference key that uniquely identifies the local font file
-     *     within the scope of the font loader being used.
-     * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
+     * The font file reference key that uniquely identifies the local font file within the scope of the font loader being used.
+     * @param {Integer} fontFileReferenceKeySize Type: **UINT32**
      * 
      * The size of font file reference key in bytes.
-     * @param {PWSTR} filePath Type: <b>WCHAR*</b>
+     * @param {PWSTR} filePath Type: **WCHAR\***
      * 
      * The character array that receives the local file path.
-     * @param {Integer} filePathSize Type: <b>UINT32</b>
+     * @param {Integer} filePathSize Type: **UINT32**
      * 
      * The length of the file path character array.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: **HRESULT**
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getfilepathfromkey
+     * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getfilepathfromkey
      */
     GetFilePathFromKey(fontFileReferenceKey, fontFileReferenceKeySize, filePath, filePathSize) {
         filePath := filePath is String ? StrPtr(filePath) : filePath
@@ -79,17 +77,16 @@ class IDWriteLocalFontFileLoader extends IDWriteFontFileLoader{
 
     /**
      * Obtains the last write time of the file from the font file reference key.
-     * @param {Pointer} fontFileReferenceKey Type: <b>const void*</b>
+     * @param {Pointer} fontFileReferenceKey Type: **const void\***
      * 
-     * The font file reference key that uniquely identifies the local font file
-     *     within the scope of the font loader being used.
-     * @param {Integer} fontFileReferenceKeySize Type: <b>UINT32</b>
+     * The font file reference key that uniquely identifies the local font file within the scope of the font loader being used.
+     * @param {Integer} fontFileReferenceKeySize Type: **UINT32**
      * 
      * The size of font file reference key in bytes.
-     * @returns {FILETIME} Type: <b>FILETIME*</b>
+     * @returns {FILETIME} Type: **FILETIME\***
      * 
      * The time of the last font file modification.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritelocalfontfileloader-getlastwritetimefromkey
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritelocalfontfileloader-getlastwritetimefromkey
      */
     GetLastWriteTimeFromKey(fontFileReferenceKey, fontFileReferenceKeySize) {
         lastWriteTime := FILETIME()

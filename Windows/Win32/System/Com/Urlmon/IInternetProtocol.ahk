@@ -29,10 +29,11 @@ class IInternetProtocol extends IInternetProtocolRoot{
     static VTableNames => ["Read", "Seek", "LockRequest", "UnlockRequest"]
 
     /**
-     * 
+     * The ReadBlobFromFile function reads a BLOB in a file.
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -42,10 +43,17 @@ class IInternetProtocol extends IInternetProtocolRoot{
     }
 
     /**
+     * The Seekable attribute is a file-level attribute specifying whether an application can seek to points within the content.
+     * @remarks
+     * This is a coded attribute.
      * 
+     * This attribute cannot be duplicated at the file level. If this attribute is used for an individual stream, it will be treated as custom metadata and will not convey its normal meaning to the objects of the Windows Media Format SDK.
+     * 
+     * The value of this attribute for a file may vary depending upon the object exposing the [**IWMHeaderInfo**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo) or [**IWMHeaderInfo3**](/previous-versions/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3) interface used to retrieve it. This is because the reader objects (both synchronous and asynchronous) perform a more thorough check than the metadata editor object does, to ascertain whether you can seek to a point in a file. The **Seekable** attribute value returned by a reader object is more accurate.
      * @param {Integer} dlibMove 
      * @param {Integer} dwOrigin 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/seekable
      */
     Seek(dlibMove, dwOrigin) {
         result := ComCall(10, this, "int64", dlibMove, "uint", dwOrigin, "uint*", &plibNewPosition := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Enables interoperability with a WinRT�RadialController object and provides access to RadialController members for customizing the interaction experience.
- * @see https://docs.microsoft.com/windows/win32/api//radialcontrollerinterop/nn-radialcontrollerinterop-iradialcontrollerinterop
+ * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nn-radialcontrollerinterop-iradialcontrollerinterop
  * @namespace Windows.Win32.UI.Input.Radial
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IRadialControllerInterop extends IInspectable{
      * 
      * The REFIID, or GUID, of the interface to the resource can be obtained by using the __uuidof() macro. For example, __uuidof(IRadialController) will get the GUID of the interface to a buffer resource.
      * @returns {Pointer<Void>} Address of a pointer to a <a href="https://docs.microsoft.com/uwp/api/windows.ui.input.radialcontroller">RadialController</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerinterop-createforwindow
+     * @see https://learn.microsoft.com/windows/win32/api/radialcontrollerinterop/nf-radialcontrollerinterop-iradialcontrollerinterop-createforwindow
      */
     CreateForWindow(hwnd, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

@@ -6,11 +6,8 @@
 /**
  * The IVMRSurfaceAllocatorEx9 interface provides a way for custom allocator-presenters to control where the Video Mixing Renderer Filter 9 (VMR-9) draws the composited image.
  * @remarks
- * 
  * Include DShow.h and D3d9.h before Vmr9.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrsurfaceallocatorex9
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrsurfaceallocatorex9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IVMRSurfaceAllocatorEx9 extends IVMRSurfaceAllocator9{
 
     /**
      * The GetSurfaceEx method retrieves a Direct3D surface and a destination rectangle.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer} dwUserID Application-defined identifier. This value is the same value that the application passed to the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrsurfaceallocatornotify9-advisesurfaceallocator">IVMRSurfaceAllocatorNotify9::AdviseSurfaceAllocator</a> method in the <i>dwUserID</i> parameter..
      * @param {Integer} SurfaceIndex Index of the surface to retrieve.
      * @param {Integer} SurfaceFlags Surface flags.
@@ -61,7 +60,7 @@ class IVMRSurfaceAllocatorEx9 extends IVMRSurfaceAllocator9{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrsurfaceallocatorex9-getsurfaceex
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrsurfaceallocatorex9-getsurfaceex
      */
     GetSurfaceEx(dwUserID, SurfaceIndex, SurfaceFlags, lplpSurface, lprcDst) {
         result := ComCall(7, this, "ptr", dwUserID, "uint", SurfaceIndex, "uint", SurfaceFlags, "ptr*", lplpSurface, "ptr", lprcDst, "HRESULT")

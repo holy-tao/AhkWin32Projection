@@ -6,11 +6,8 @@
 /**
  * Implements an event service that includes methods that raise events derived from the IESEvent interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IESEventService)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ieseventservice
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ieseventservice
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -44,8 +41,8 @@ class IESEventService extends IUnknown{
     /**
      * Raises an event derived from the IESEvent interface.
      * @param {IESEvent} pESEvent Pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-iesevent">IESEvent</a> interface for the event being raised.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ieseventservice-fireesevent
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ieseventservice-fireesevent
      */
     FireESEvent(pESEvent) {
         result := ComCall(3, this, "ptr", pESEvent, "HRESULT")

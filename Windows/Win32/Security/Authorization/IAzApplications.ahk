@@ -7,7 +7,7 @@
 
 /**
  * Represents a collection of IAzApplication objects.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazapplications
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplications
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class IAzApplications extends IDispatch{
      * Retrieves the IAzApplication object at the specified index into the IAzApplications collection.
      * @param {Integer} Index 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplications-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplications-get_item
      */
     get_Item(Index) {
         pvarObtPtr := VARIANT()
@@ -61,11 +61,9 @@ class IAzApplications extends IDispatch{
     /**
      * Retrieves the number of IAzApplication objects in the collection.
      * @remarks
-     * 
      * The <b>Count</b> property can be used to specify the last <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication">IAzApplication</a> object in a collection when retrieving a specific <b>IAzApplication</b> object using the  <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nf-azroles-iazapplications-get_item">IAzApplications.Item</a> property.
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplications-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplications-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &plCount := 0, "HRESULT")
@@ -73,13 +71,11 @@ class IAzApplications extends IDispatch{
     }
 
     /**
-     * Retrieves an IEnumVARIANT interface on an object that can be used to enumerate the collection. This property is hidden within Visual Basic and Visual Basic Scripting Edition (VBScript).
+     * Retrieves an IEnumVARIANT interface on an object that can be used to enumerate the collection. This property is hidden within Visual Basic and Visual Basic Scripting Edition (VBScript). (IAzApplications.get__NewEnum)
      * @remarks
-     * 
      * This property is provided for use by the <c>For Each</code> keyword in Visual Basic and the <code>foreach</c> keyword in Visual C#.
-     * 
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplications-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplications-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppEnumPtr := 0, "HRESULT")

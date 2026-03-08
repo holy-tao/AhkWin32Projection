@@ -6,7 +6,7 @@
 #Include .\FolderItems2.ahk
 
 /**
- * 
+ * Extends the FolderItems2 object. This object supports an additional method and property.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitems3-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -46,8 +46,10 @@ class FolderItems3 extends FolderItems2{
     }
 
     /**
+     * Sets a wildcard filter to apply to the items returned.
+     * @param {Integer} grfFlags Type: **Integer**
      * 
-     * @param {Integer} grfFlags 
+     * This parameter can be one of the flags listed in [**SHCONTF**](/windows/win32/api/shobjidl_core/ne-shobjidl_core-_shcontf).
      * @param {BSTR} bstrFileSpec 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitems3-filter

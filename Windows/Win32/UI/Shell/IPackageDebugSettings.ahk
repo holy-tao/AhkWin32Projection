@@ -6,12 +6,10 @@
 /**
  * Enables debugger developers to control the life cycle of a Windows Store app, such as suspending or resuming.
  * @remarks
- * 
  * Any debug options set remain in effect until they are cleared or this interface is released.
  * 
  * For debug settings to take effect on Internet Explorer in the new Windows UI, use "DefaultBrowser_NOPUBLISHERID" as the <i>packageFullName</i> parameter  for  <a href="https://docs.microsoft.com/previous-versions/hh438393(v=vs.85)">IPackageDebugSettings</a> methods.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ipackagedebugsettings
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ipackagedebugsettings
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -44,11 +42,22 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Enables debug mode for the processes of the specified package.
+     * @remarks
+     * Enabling debug mode has the following effects:
+     * 
+     * <ul>
+     * <li>Optionally enables debugger attach on activation.</li>
+     * <li>Disables activation timeouts.</li>
+     * <li>Disables automatic process suspension.</li>
+     * <li>Disables automatic process termination.</li>
+     * <li>Disables automatic process resumption.</li>
+     * </ul>
+     * To restore normal operation, call the <a href="https://docs.microsoft.com/previous-versions/hh438394(v=vs.85)">DisableDebugging</a> method.
      * @param {PWSTR} packageFullName The package full name.
      * @param {PWSTR} debuggerCommandLine The command line to use to launch processes from this package. This parameter is optional.
      * @param {PWSTR} environment Any environment strings to pass to processes. This parameter is optional.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enabledebugging
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enabledebugging
      */
     EnableDebugging(packageFullName, debuggerCommandLine, environment) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -61,9 +70,11 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Disables debug mode for the processes of the specified package.
+     * @remarks
+     * This method has no effect if the <a href="https://docs.microsoft.com/previous-versions/hh438395(v=vs.85)">EnableDebugging</a> method was not previously called for this package.
      * @param {PWSTR} packageFullName The package full name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-disabledebugging
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-disabledebugging
      */
     DisableDebugging(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -74,38 +85,22 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Suspends the processes of the package if they are currently running.
-     * @param {PWSTR} packageFullName The package full name.
-     * @returns {HRESULT} This method can return one of these values.
+     * @remarks
+     * Each process receives the [**Suspending**](/uwp/api/Windows.ApplicationModel.Core.CoreApplication) event. It can be useful for developers to step through how their apps respond to this event.
+     * @param {PWSTR} packageFullName Type: **LPCWSTR**
      * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The operation succeeded.
+     * The package full name.
+     * @returns {HRESULT} Type: **HRESULT**
      * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>E_ILLEGAL_STATECHANGE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * The process is not currently running.
+     * This method can return one of these values.
      * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-suspend
+     * 
+     * 
+     * | Return code                                                                                            | Description                                      |
+     * |--------------------------------------------------------------------------------------------------------|--------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl>                   | The operation succeeded.<br/>              |
+     * | <dl> <dt>**E\_ILLEGAL\_STATECHANGE**</dt> </dl> | The process is not currently running.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/WinRT/ipackagedebugsettings-suspend
      */
     Suspend(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -116,9 +111,15 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Resumes the processes of the package if they are currently suspended.
-     * @param {PWSTR} packageFullName The package full name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-resume
+     * @remarks
+     * Each process receives the [**Resuming**](/uwp/api/Windows.ApplicationModel.Core.CoreApplication) event. It can be useful for developers to step through how their apps respond to this event.
+     * @param {PWSTR} packageFullName Type: **LPCWSTR**
+     * 
+     * The package full name.
+     * @returns {HRESULT} Type: **HRESULT**
+     * 
+     * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/WinRT/ipackagedebugsettings-resume
      */
     Resume(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -129,9 +130,11 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Terminates all processes for the specified package.
+     * @remarks
+     * This method does not suspend the processes first. To test suspension followed by termination, call the <a href="https://docs.microsoft.com/windows/desktop/WinRT/ipackagedebugsettings-suspend">Suspend</a> method before calling <a href="https://docs.microsoft.com/previous-versions/hh438399(v=vs.85)">TerminateAllProcesses</a>.
      * @param {PWSTR} packageFullName The package full name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-terminateallprocesses
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-terminateallprocesses
      */
     TerminateAllProcesses(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -143,8 +146,8 @@ class IPackageDebugSettings extends IUnknown{
     /**
      * Sets the session identifier.
      * @param {Integer} sessionId The session identifier.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-settargetsessionid
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-settargetsessionid
      */
     SetTargetSessionId(sessionId) {
         result := ComCall(8, this, "uint", sessionId, "HRESULT")
@@ -153,12 +156,14 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Gets the background tasks that are provided by the specified package.
+     * @remarks
+     * Both parameters <i>taskIds</i> and <i>taskNames</i> have the same ordering of tasks. If you need to know the user-readable task name associated with <i>taskId[0]</i>, refer to <i>taskNames[0]</i>.
      * @param {PWSTR} packageFullName The package full name to query for background tasks.
      * @param {Pointer<Integer>} taskCount The count of <i>taskIds</i> and <i>taskNames</i> entries.
      * @param {Pointer<Pointer<Guid>>} taskIds An array of background task identifiers. You can use these identifiers in the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-activatebackgroundtask">ActivateBackgroundTask</a> method to activate specified tasks.
      * @param {Pointer<Pointer<PWSTR>>} taskNames An array of task names that corresponds with background <i>taskIds</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enumeratebackgroundtasks
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-enumeratebackgroundtasks
      */
     EnumerateBackgroundTasks(packageFullName, taskCount, taskIds, taskNames) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -173,9 +178,11 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Activates the specified background task.
+     * @remarks
+     * Use the <b>ActivateBackgroundTask</b> method to test the code that handles your  background tasks.
      * @param {Pointer<Guid>} taskId The identifier of the background task to activate.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-activatebackgroundtask
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-activatebackgroundtask
      */
     ActivateBackgroundTask(taskId) {
         result := ComCall(10, this, "ptr", taskId, "HRESULT")
@@ -184,9 +191,11 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Suspends and terminates the non-background portion of the apps associated with the specified package and cancels the background tasks associated with the package.
+     * @remarks
+     * Use the <b>StartServicing</b> method to simulate what happens when a package is updated to a newer version. New background task activations are buffered (delayed) until you call the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-stopservicing">StopServicing</a> method.
      * @param {PWSTR} packageFullName The package full name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-startservicing
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-startservicing
      */
     StartServicing(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -198,8 +207,8 @@ class IPackageDebugSettings extends IUnknown{
     /**
      * Completes the previous servicing operation that was started by a call to the StartServicing method.
      * @param {PWSTR} packageFullName The package full name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-stopservicing
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-stopservicing
      */
     StopServicing(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -212,8 +221,8 @@ class IPackageDebugSettings extends IUnknown{
      * Causes background tasks for the specified package to activate in the specified user session.
      * @param {PWSTR} packageFullName The package full name.
      * @param {Integer} sessionId The identifier of the session which background tasks are redirected to.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-startsessionredirection
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-startsessionredirection
      */
     StartSessionRedirection(packageFullName, sessionId) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -225,8 +234,8 @@ class IPackageDebugSettings extends IUnknown{
     /**
      * Stops redirection of background tasks for the specified package.
      * @param {PWSTR} packageFullName The package full name.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-stopsessionredirection
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-stopsessionredirection
      */
     StopSessionRedirection(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -237,11 +246,13 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Returns the current execution state of the specified package.
+     * @remarks
+     * Debuggers can use the <b>GetPackageExecutionState</b> to understand if the application currently is running, suspending, suspended, or terminated. The <b>GetPackageExecutionState</b> function doesn't provide the state of background tasks running in the package.
      * @param {PWSTR} packageFullName Type: <b>LPCWSTR</b>
      * 
      * The package full name.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/ne-shobjidl_core-package_execution_state">PACKAGE_EXECUTION_STATE</a>*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-getpackageexecutionstate
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-getpackageexecutionstate
      */
     GetPackageExecutionState(packageFullName) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -252,10 +263,14 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Register for package state-change notifications.
+     * @remarks
+     * Notifications are raised when the package enters the running,
+     * suspending, and
+     * suspended states.
      * @param {PWSTR} packageFullName The package full name.
      * @param {IPackageExecutionStateChangeNotification} pPackageExecutionStateChangeNotification Package state-change notifications are delivered by the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipackageexecutionstatechangenotification-onstatechanged">OnStateChanged</a> function on <i>pPackageExecutionStateChangeNotification</i>.
      * @returns {Integer} A unique registration identifier for the current listener. Use this identifier  to unregister for package state-change notifications by using the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-unregisterforpackagestatechanges">UnregisterForPackageStateChanges</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-registerforpackagestatechanges
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-registerforpackagestatechanges
      */
     RegisterForPackageStateChanges(packageFullName, pPackageExecutionStateChangeNotification) {
         packageFullName := packageFullName is String ? StrPtr(packageFullName) : packageFullName
@@ -266,9 +281,11 @@ class IPackageDebugSettings extends IUnknown{
 
     /**
      * Stops receiving package state-change notifications associated with a previous call to RegisterForPackageStateChanges.
+     * @remarks
+     * Call the <b>UnregisterForPackageStateChanges</b> to stop receiving package state-change notifications associated with a previous call to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-registerforpackagestatechanges">RegisterForPackageStateChanges</a> method.
      * @param {Integer} dwCookie The notification to cancel. This identifier is returned by a previous call to the  <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-registerforpackagestatechanges">RegisterForPackageStateChanges</a> method.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-unregisterforpackagestatechanges
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ipackagedebugsettings-unregisterforpackagestatechanges
      */
     UnregisterForPackageStateChanges(dwCookie) {
         result := ComCall(17, this, "uint", dwCookie, "HRESULT")

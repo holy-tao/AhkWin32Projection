@@ -135,9 +135,12 @@ class IGameStatistics extends IUnknown{
     }
 
     /**
-     * 
+     * The SaveBookmark method saves the current disc position and state of the MSWebDVD object so the user can return to the same place later.
+     * @remarks
+     * A bookmark is a snapshot of the DVD Navigator's current state. This includes information such as where it is playing on the disc, and which audio and subpictures streams are selected. By saving a bookmark, the user can close the application, shut down the computer, and come back later to continue viewing the disc right where he or she left off, with all settings just as they were before. Only one bookmark can be saved at any given time. When you call `SaveBookmark`, the old bookmark is overwritten.
      * @param {BOOL} trackChanges 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/savebookmark-method
      */
     Save(trackChanges) {
         result := ComCall(12, this, "int", trackChanges, "HRESULT")

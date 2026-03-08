@@ -58,7 +58,7 @@ class EventCollector {
 
         result := DllCall("WecApi.dll\EcOpenSubscriptionEnum", "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -99,7 +99,7 @@ class EventCollector {
 
         result := DllCall("WecApi.dll\EcOpenSubscription", "ptr", SubscriptionName, "uint", AccessMask, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result

@@ -6,12 +6,10 @@
 /**
  * Handles callbacks for the completion of an asynchronous operation.
  * @remarks
- * 
  * This interface provides an asynchronous calling pattern in support of WSDAPI messaging and eventing, allowing an application to receive callback notification based on the status of an operation.
  * 
  * The <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> interface can be used to wait for event notification or to poll for operation completion if asynchronous callbacks are not required.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nn-wsdclient-iwsdasynccallback
+ * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nn-wsdclient-iwsdasynccallback
  * @namespace Windows.Win32.Devices.WebServicesOnDevices
  * @version v4.0.30319
  */
@@ -38,6 +36,8 @@ class IWSDAsyncCallback extends IUnknown{
 
     /**
      * Indicates that the asynchronous operation has completed.
+     * @remarks
+     * The value returned by <b>AsyncOperationComplete</b> is ignored.
      * @param {IWSDAsyncResult} pAsyncResult Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nn-wsdclient-iwsdasyncresult">IWSDAsyncResult</a> object that contains the user-defined state information passed to <a href="https://docs.microsoft.com/windows/desktop/api/wsdclient/nf-wsdclient-iwsdasyncresult-setcallback">IWSDAsyncResult::SetCallback</a>.
      * @param {IUnknown} pAsyncState The state of the asynchronous operation.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following:
@@ -59,7 +59,7 @@ class IWSDAsyncCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/wsdclient/nf-wsdclient-iwsdasynccallback-asyncoperationcomplete
      */
     AsyncOperationComplete(pAsyncResult, pAsyncState) {
         result := ComCall(3, this, "ptr", pAsyncResult, "ptr", pAsyncState, "HRESULT")

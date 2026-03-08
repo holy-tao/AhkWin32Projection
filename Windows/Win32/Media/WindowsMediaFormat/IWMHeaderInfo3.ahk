@@ -6,11 +6,8 @@
 /**
  * The IWMHeaderInfo3 interface supports the following new metadata features:Attribute data in excess of 64 kilobytes.Multiple attributes with the same name.Attributes in multiple languages.Because the attributes created using this interface can have duplicate names, the methods of this interface use index values to identify attributes.The IWMHeaderInfo3 interface is implemented by the metadata editor object, the writer object, the reader object, and the synchronous reader object. To obtain a pointer to an instance, call the QueryInterface method of any other interface in the desired object.
  * @remarks
- * 
  * For information about using the writer for metadata editing, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/to-edit-metadata-with-the-writer">To Edit Metadata with the Writer</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmheaderinfo3
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo3
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -37,9 +34,11 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
 
     /**
      * The GetAttributeCountEx method retrieves the total number of attributes associated with a specified stream number.
+     * @remarks
+     * The maximum number of attributes for a single stream is 65535, the capacity of the <b>WORD</b> parameter, <i>pcAttributes</i>. If you pass 0xFFFF as <i>wStreamNum</i>, this method will return the total number of attributes for the entire file. This number could potentially be greater than the capacity of <i>pcAttributes</i>. If the number of attributes in the file is greater than 65535, this method will produce unpredictable results. In reality, no file should ever have this many attributes. If your application makes use of an extremely large number of attributes, simply make individual calls to <b>GetAttributeCountEx</b> for each stream and for the file-level attributes.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which to retrieve the attribute count. Pass zero to retrieve the count of attributes that apply to the file rather than a specific stream. Pass 0xFFFF to retrieve the total count of all attributes in the file, both stream-specific and file-level.
      * @returns {Integer} Pointer to a <b>WORD</b> containing the number of attributes that exist for the specified stream.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex
      */
     GetAttributeCountEx(wStreamNum) {
         result := ComCall(17, this, "ushort", wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
@@ -48,12 +47,18 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
 
     /**
      * The GetAttributeIndices method retrieves a list of valid attribute indices within specified parameters.
+     * @remarks
+     * You must make two calls to <b>GetAttributeIndices</b> for each set of indices retrieved. On the first call, pass NULL as <i>pwIndices</i>. On return, the variable pointed to by <i>pwCount</i> is set to the number of elements required for the array of indices. Then allocate memory for the array and make the second call, passing a pointer to the array as <i>pwIndices</i>.
+     * 
+     * If you use 0xFFFF for the stream number, the index values returned will be global indices. Only use a global index for calls to other methods of the IWMHeaderInfo3 interface if you will also be using 0xFFFF for the stream number. The global index value for an attribute will be different than the value used when specifying a specific stream number (or stream 0 for file-level attributes).
+     * 
+     * Index values obtained by using this method are given in descending order by index. This is to aid in deleting attributes, which should always be done in descending order.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which to retrieve attribute indices. Passing zero retrieves indices for file-level attributes. Passing 0xFFFF retrieves indices for all appropriate attributes, regardless of their association to streams.
      * @param {PWSTR} pwszName Pointer to a wide-character null-terminated string containing the attribute name for which you want to retrieve indices. Pass NULL to retrieve indices for attributes based on language. Attribute names are limited to 1024 wide characters.
      * @param {Pointer<Integer>} pwLangIndex Pointer to a <b>WORD</b> containing the language index of the language for which to retrieve attribute indices. Pass NULL to retrieve indices for attributes by name.
      * @param {Pointer<Integer>} pwCount On output, pointer to a <b>WORD</b> containing the number of elements in the <i>pwIndices</i> array.
      * @returns {Integer} Pointer to a <b>WORD</b> array containing the indices that meet the criteria described by the input parameters. Pass NULL to retrieve the size of the array, which will be returned in <i>pwCount</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributeindices
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributeindices
      */
     GetAttributeIndices(wStreamNum, pwszName, pwLangIndex, pwCount) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -67,6 +72,10 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
 
     /**
      * The GetAttributeByIndexEx method retrieves the value of an attribute specified by the attribute index.
+     * @remarks
+     * You can use 0xFFFF for the stream number to specify an attribute using its global index. Global index values range from 0 to one less than the count of attributes received from a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex">IWMHeaderInfo3::GetAttributeCountEx</a> where the stream number was set to 0xFFFF.
+     * 
+     * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number to which the attribute applies. Set to zero to retrieve a file-level attribute.
      * @param {Integer} wIndex <b>WORD</b> containing the index of the attribute to be retrieved.
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the attribute name. Pass <b>NULL</b> to retrieve the size of the string, which will be returned in <i>pwNameLen</i>.
@@ -127,7 +136,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributebyindexex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributebyindexex
      */
     GetAttributeByIndexEx(wStreamNum, wIndex, pwszName, pwNameLen, pType, pwLangIndex, pValue, pdwDataLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -144,6 +153,12 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
 
     /**
      * The ModifyAttribute method modifies the settings of an existing attribute.
+     * @remarks
+     * You can use 0xFFFF for the stream number to specify an attribute using its global index. Global index values range from 0 to one less than the count of attributes received from a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex">IWMHeaderInfo3::GetAttributeCountEx</a> where the stream number was set to 0xFFFF.
+     * 
+     * When setting attributes for MP3 files, the metadata editor will automatically insert a byte-order mark in accordance with the Unicode specification. If you manually insert a byte-order mark, this method will not fail, but the value will then have two marks, which can cause problems when reading the attribute.
+     * 
+     * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number to which the attribute applies. Pass zero for file-level attributes.
      * @param {Integer} wIndex <b>WORD</b> containing the index of the attribute to change.
      * @param {Integer} Type Type of data used for the new attribute value. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
@@ -224,7 +239,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-modifyattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-modifyattribute
      */
     ModifyAttribute(wStreamNum, wIndex, Type, wLangIndex, pValue, dwLength) {
         pValueMarshal := pValue is VarRef ? "char*" : "ptr"
@@ -235,6 +250,15 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
 
     /**
      * The AddAttribute method adds a metadata attribute. To change the value of an existing attribute, use the IWMHeaderInfo3::ModifyAttribute method.
+     * @remarks
+     * This method appends a null character to the end of the string passed in <i>pwszName</i> if one is not present. In this case, the buffer needed to retrieve the attribute name will be two bytes larger than the input buffer.
+     * 
+     * When setting attributes for MP3 files, the metadata editor automatically inserts a byte-order mark in accordance with the Unicode specification. If you manually insert a byte-order mark, this method will not fail, but the value will then have two marks, which can cause problems when reading the attribute.
+     * 
+     * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
+     * 
+     * <div class="alert"><b>Note</b>  Be careful to use the correct type representations of values. For example, when setting WM/MediaClassPrimaryID or WM/MediaClassSecondaryID attributes the values need to be represented as GUIDs converted to a byte array instead of strings converted to a byte array.</div>
+     * <div> </div>
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number of the stream to which the attribute applies. Setting this value to zero indicates an attribute that applies to the entire file.
      * @param {PWSTR} pszName Pointer to a wide-character null-terminated string containing the name of the attribute. Attribute names are limited to 1024 wide characters.
      * @param {Integer} Type Type of data used for the new attribute. For more information about the types of data supported, see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a>.
@@ -242,7 +266,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * @param {Pointer<Integer>} pValue Pointer to an array of bytes containing the attribute value.
      * @param {Integer} dwLength <b>DWORD</b> containing the length of the attribute value, in bytes.
      * @returns {Integer} Pointer to a <b>WORD</b>. On successful completion of the method, this value is set to the index assigned to the new attribute.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-addattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-addattribute
      */
     AddAttribute(wStreamNum, pszName, Type, wLangIndex, pValue, dwLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -255,6 +279,10 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
 
     /**
      * The DeleteAttribute method removes an attribute from the file header.
+     * @remarks
+     * You can use 0xFFFF for the stream number to specify an attribute using its global index. Global index values range from 0 to one less than the count of attributes received from a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributecountex">IWMHeaderInfo3::GetAttributeCountEx</a> where the stream number was set to 0xFFFF.
+     * 
+     * When deleting multiple attributes, you should do so in descending order by index value. For convenience, this is the order in which index values are retrieved by <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-getattributeindices">IWMHeaderInfo3::GetAttributeIndices</a>.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number for which the attribute applies. Setting this value to zero indicates a file-level attribute.
      * @param {Integer} wIndex <b>WORD</b> containing the index of the attribute to be deleted.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -298,7 +326,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-deleteattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-deleteattribute
      */
     DeleteAttribute(wStreamNum, wIndex) {
         result := ComCall(22, this, "ushort", wStreamNum, "ushort", wIndex, "HRESULT")
@@ -307,6 +335,8 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
 
     /**
      * The AddCodecInfo method adds codec information to a file. When you copy a compressed stream from one file to another, use this method to include the information about the encoding codec in the file header.
+     * @remarks
+     * The parameters passed to this method should be obtained from the original file with a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo2-getcodecinfo">IWMHeaderInfo2::GetCodecInfo</a>.
      * @param {PWSTR} pwszName Pointer to a wide-character null-terminated string containing the name.
      * @param {PWSTR} pwszDescription Pointer to a wide-character null-terminated string containing the description.
      * @param {Integer} codecType A value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_codec_info_type">WMT_CODEC_INFO_TYPE</a> enumeration specifying the codec type.
@@ -331,7 +361,7 @@ class IWMHeaderInfo3 extends IWMHeaderInfo2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-addcodecinfo
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo3-addcodecinfo
      */
     AddCodecInfo(pwszName, pwszDescription, codecType, cbCodecInfo, pbCodecInfo) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName

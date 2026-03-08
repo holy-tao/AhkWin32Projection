@@ -29,8 +29,9 @@ class ID3D12DeviceConfiguration extends IUnknown{
     static VTableNames => ["GetDesc", "GetEnabledExperimentalFeatures", "SerializeVersionedRootSignature", "CreateVersionedRootSignatureDeserializer"]
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
      * @returns {D3D12_DEVICE_CONFIGURATION_DESC} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDesc() {
         result := ComCall(3, this, "ptr")

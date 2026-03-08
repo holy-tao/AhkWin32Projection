@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * The ITAllocatorProperties interface exposes the buffer allocator properties of the Media Streaming Terminal (MST) to an end-user or server application.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nn-tapi3ds-itallocatorproperties
+ * The ITAllocatorProperties interface (tapi3ds.h) exposes the buffer allocator properties of the Media Streaming Terminal (MST) to an end-user or server application.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nn-tapi3ds-itallocatorproperties
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -32,10 +32,15 @@ class ITAllocatorProperties extends IUnknown{
     static VTableNames => ["SetAllocatorProperties", "GetAllocatorProperties", "SetAllocateBuffers", "GetAllocateBuffers", "SetBufferSize", "GetBufferSize"]
 
     /**
-     * The SetAllocatorProperties method must be called before connection and will force the MSP to use these values during filter negotiation. If the connecting filter doesn't accept these values, the connection is not established.
+     * The ITAllocatorProperties::SetAllocatorProperties method (tapi3ds.h) forces the MSP to use entered values during filter negotiation.
+     * @remarks
+     * <b>This method should be used with extreme care.</b> The quality of the sound may suffer if the values entered for this method are not optimal for the MSP. Therefore, the application should know exactly the properties preferred by the MSP before calling this method. Under Windows 2000, properties entered during calls to this method are ignored if they are not optimal. Under Windows XP, these values are not ignored and the application must be more knowledgeable.
+     * 
+     * If the application is only concerned with setting consistent buffer sizes, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nf-tapi3-itallocatorproperties-setbuffersize">ITAllocatorProperties::SetBufferSize</a> method should be used instead. This guarantees the application is provided with the specified buffer size.
      * @param {Pointer<ALLOCATOR_PROPERTIES>} pAllocProperties Pointer to the allocator buffer.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an error value.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itallocatorproperties-setallocatorproperties
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-setallocatorproperties
      */
     SetAllocatorProperties(pAllocProperties) {
         result := ComCall(3, this, "ptr", pAllocProperties, "HRESULT")
@@ -43,9 +48,9 @@ class ITAllocatorProperties extends IUnknown{
     }
 
     /**
-     * The GetAllocatorProperties method gets the current values for the allocator properties after connection and provides the negotiated values. This method is invalid before connection. The MST will accept any values suggested by the connected filters.
+     * The GetAllocatorProperties method (tapi3ds.h) gets the current values for the allocator properties after connection and provides the negotiated values.
      * @returns {ALLOCATOR_PROPERTIES} Pointer to current allocator values.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itallocatorproperties-getallocatorproperties
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-getallocatorproperties
      */
     GetAllocatorProperties() {
         pAllocProperties := ALLOCATOR_PROPERTIES()
@@ -54,10 +59,10 @@ class ITAllocatorProperties extends IUnknown{
     }
 
     /**
-     * The SetAllocateBuffers method determines whether the current allocator buffers must be set.
+     * The ITAllocatorProperties::SetAllocateBuffers method (tapi3ds.h) determines whether the current allocator buffers must be set.
      * @param {BOOL} bAllocBuffers Boolean indicator of whether allocator buffers must be set.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an error value.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itallocatorproperties-setallocatebuffers
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-setallocatebuffers
      */
     SetAllocateBuffers(bAllocBuffers) {
         result := ComCall(5, this, "int", bAllocBuffers, "HRESULT")
@@ -65,9 +70,9 @@ class ITAllocatorProperties extends IUnknown{
     }
 
     /**
-     * The GetAllocateBuffers method determines whether the current allocator buffers can be retrieved. If it returns FALSE, the sample that the MST allocated doesn't have any buffers and they must be supplied before Update is called on the samples.
+     * The ITAllocatorProperties::GetAllocateBuffers method (tapi3ds.h) determines whether the current allocator buffers can be retrieved.
      * @returns {BOOL} Indicates whether allocator buffers have been set.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itallocatorproperties-getallocatebuffers
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-getallocatebuffers
      */
     GetAllocateBuffers() {
         result := ComCall(6, this, "int*", &pbAllocBuffers := 0, "HRESULT")
@@ -75,10 +80,10 @@ class ITAllocatorProperties extends IUnknown{
     }
 
     /**
-     * The SetBufferSize method sets the size of the allocator buffer.
+     * The ITAllocatorProperties::SetBufferSize method (tapi3ds.h) sets the size of the allocator buffer.
      * @param {Integer} BufferSize Size of the allocator buffer.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise, it returns an error value.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itallocatorproperties-setbuffersize
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-setbuffersize
      */
     SetBufferSize(BufferSize) {
         result := ComCall(7, this, "uint", BufferSize, "HRESULT")
@@ -86,9 +91,9 @@ class ITAllocatorProperties extends IUnknown{
     }
 
     /**
-     * The GetBufferSize method gets the size of the allocator buffer.
+     * The ITAllocatorProperties::GetBufferSize method (tapi3ds.h) gets the size of the allocator buffer.
      * @returns {Integer} Size of current allocator buffer.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3ds/nf-tapi3ds-itallocatorproperties-getbuffersize
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3ds/nf-tapi3ds-itallocatorproperties-getbuffersize
      */
     GetBufferSize() {
         result := ComCall(8, this, "uint*", &pBufferSize := 0, "HRESULT")

@@ -4,12 +4,10 @@
 #Include .\IBrowserService3.ahk
 
 /**
- * Deprecated.
+ * Deprecated. (IBrowserService4)
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice">IBrowserService</a>, <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice2">IBrowserService2</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-ibrowserservice3">IBrowserService3</a> interfaces, from which it inherits.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-ibrowserservice4
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-ibrowserservice4
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -35,14 +33,14 @@ class IBrowserService4 extends IBrowserService3{
     static VTableNames => ["ActivateView", "SaveViewState", "_ResizeAllBorders"]
 
     /**
-     * Deprecated.
+     * Deprecated. (IBrowserService4.ActivateView)
      * @param {BOOL} fPendingView Type: <b>BOOL</b>
      * 
      * Specifies whether the view is pending.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice4-activateview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice4-activateview
      */
     ActivateView(fPendingView) {
         result := ComCall(97, this, "int", fPendingView, "HRESULT")
@@ -50,11 +48,11 @@ class IBrowserService4 extends IBrowserService3{
     }
 
     /**
-     * Deprecated.
+     * Deprecated. (IBrowserService4.SaveViewState)
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice4-saveviewstate
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice4-saveviewstate
      */
     SaveViewState() {
         result := ComCall(98, this, "HRESULT")
@@ -62,11 +60,11 @@ class IBrowserService4 extends IBrowserService3{
     }
 
     /**
-     * Deprecated.
+     * Deprecated. (IBrowserService4._ResizeAllBorders)
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-ibrowserservice4-_resizeallborders
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-ibrowserservice4-_resizeallborders
      */
     _ResizeAllBorders() {
         result := ComCall(99, this, "HRESULT")

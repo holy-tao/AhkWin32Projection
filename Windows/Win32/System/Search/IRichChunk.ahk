@@ -6,11 +6,8 @@
 /**
  * Represents a chunk of data as a string and a PROPVARIANT value.
  * @remarks
- * 
  * In Windows 7, this interface is defined in structuredquerycondition.idl and structuredquerycondition.h. Prior to Windows 7 this interface was declared in structuredquery.h and structuredquery.idl.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nn-structuredquerycondition-irichchunk
+ * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nn-structuredquerycondition-irichchunk
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IRichChunk extends IUnknown{
 
     /**
      * Retrieves the PROPVARIANT and input string that represents a chunk of data.
+     * @remarks
+     * Prior to Windows 7, this was declared in structuredquery.idl and structuredquery.h.
      * @param {Pointer<Integer>} pFirstPos Type: <b>ULONG*</b>
      * 
      * Receives the zero-based starting position of the range. This parameter can be <b>NULL</b>.
@@ -51,8 +50,8 @@ class IRichChunk extends IUnknown{
      * Receives the associated <a href="https://docs.microsoft.com/windows/desktop/api/propidl/ns-propidl-propvariant">PROPVARIANT</a> value, or <b>VT_EMPTY</b> if not available. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//structuredquerycondition/nf-structuredquerycondition-irichchunk-getdata
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/structuredquerycondition/nf-structuredquerycondition-irichchunk-getdata
      */
     GetData(pFirstPos, pLength, ppsz, pValue) {
         pFirstPosMarshal := pFirstPos is VarRef ? "uint*" : "ptr"

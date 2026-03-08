@@ -7,11 +7,8 @@
 /**
  * Represents a section of audio data with associated positional and rendering metadata. Spatial audio objects are stored in IMFSpatialAudioSample instances, and allow passing of spatial audio information between Media Foundation components.
  * @remarks
- * 
  * To get the audio data contained in the spatial audio object, use the    <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-lock">IMFMediaBuffer::Lock</a> and <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediabuffer-unlock">IMFMediaBuffer::Unlock</a> methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nn-mfspatialaudio-imfspatialaudioobjectbuffer
+ * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nn-mfspatialaudio-imfspatialaudioobjectbuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -38,6 +35,10 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
 
     /**
      * Sets the ID of the spatial audio object represented by the buffer.
+     * @remarks
+     * The object ID must be unique for each spatial audio sample.  Subsequent samples can 
+     *     contain spatial audio objects with the same IDs to represent moving dynamic objects or constant
+     *     static objects.
      * @param {Integer} u32ID A 32-bit unsigned unique ID of the audio object.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -58,7 +59,7 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-setid
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-setid
      */
     SetID(u32ID) {
         result := ComCall(8, this, "uint", u32ID, "HRESULT")
@@ -68,7 +69,7 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
     /**
      * Returns the unique, unsigned 32-bit ID of the spatial audio object represented by the buffer.
      * @returns {Integer} Pointer to a 32-bit variable where the object ID will be stored.
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-getid
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-getid
      */
     GetID() {
         result := ComCall(9, this, "uint*", &pu32ID := 0, "HRESULT")
@@ -77,9 +78,11 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
 
     /**
      * Sets the type of the spatial audio object represented by the buffer.
+     * @remarks
+     * A spatial audio object can be of type <b>AudioObjectType_Dynamic</b>, which means that it can change position and orientation in 3D space over time, or it can have a value such as <b>AudioObjectType_FrontLeft</b> which represents the static position of a real or virtual speaker that does not change position over time.
      * @param {Integer} type A value from the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ne-spatialaudioclient-audioobjecttype">AudioObjectType</a> enumeration specifying the type of audio object.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-settype
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-settype
      */
     SetType(type) {
         result := ComCall(10, this, "int", type, "HRESULT")
@@ -89,7 +92,7 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
     /**
      * Gets the type of the spatial audio object represented by the buffer. If SetType has not been called previously, this method returns the default value of AudioObjectType_None.
      * @returns {Integer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudioclient/ne-spatialaudioclient-audioobjecttype">AudioObjectType</a> variable where the audio object type will be stored.
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-gettype
      */
     GetType() {
         result := ComCall(11, this, "int*", &pType := 0, "HRESULT")
@@ -98,9 +101,11 @@ class IMFSpatialAudioObjectBuffer extends IMFMediaBuffer{
 
     /**
      * Retrieves a pointer to a buffer that may contain spatial audio metadata.
+     * @remarks
+     * The metadata is written to the <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> collection in a format identified by the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-spatial-audio-object-metadata-format-id">MF_MT_SPATIAL_AUDIO_OBJECT_METADATA_FORMAT_ID</a>     media type attribute specified during media type negotiation phase of Media Foundation     topology construction.
      * @returns {ISpatialAudioMetadataItems} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> object in which the collection
      *     of metadata items will be stored.
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-getmetadataitems
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudioobjectbuffer-getmetadataitems
      */
     GetMetadataItems() {
         result := ComCall(12, this, "ptr*", &ppMetadataItems := 0, "HRESULT")

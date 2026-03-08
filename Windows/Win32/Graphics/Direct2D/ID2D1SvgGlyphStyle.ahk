@@ -5,7 +5,7 @@
 
 /**
  * This object supplies the values for context-fill, context-stroke, and context-value that are used when rendering SVG glyphs.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1svgglyphstyle
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1svgglyphstyle
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -37,10 +37,10 @@ class ID2D1SvgGlyphStyle extends ID2D1Resource{
      * Describes how the area is painted.  A null brush will cause the context-fill value to come from
      *           the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtext(constwchar_uint32_idwritetextformat_constd2d1_rect_f__id2d1brush_id2d1svgglyphstyle_uint32_d2d1_draw_text_options_dwrite_measuring_mode)">defaultFillBrush</a>. If the defaultFillBrush is also null, the context-fill value will be 'none'.
      *           To set the ‘context-fill’ value, this method uses the provided brush with its opacity set to 1. To set the ‘context-fill-opacity’ value, this method uses the opacity of the provided brush.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-setfill
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-setfill
      */
     SetFill(brush) {
         result := ComCall(4, this, "ptr", brush, "HRESULT")
@@ -53,7 +53,7 @@ class ID2D1SvgGlyphStyle extends ID2D1Resource{
      * 
      * Describes how the area is painted.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getfill
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getfill
      */
     GetFill(brush) {
         ComCall(5, this, "ptr*", brush)
@@ -77,10 +77,10 @@ class ID2D1SvgGlyphStyle extends ID2D1Resource{
      * @param {Float} dashOffset Type: <b>FLOAT</b>
      * 
      * Specifies the 'context-value' for the 'stroke-dashoffset' property.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-setstroke
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-setstroke
      */
     SetStroke(brush, strokeWidth, dashes, dashesCount, dashOffset) {
         dashesMarshal := dashes is VarRef ? "float*" : "ptr"
@@ -94,7 +94,7 @@ class ID2D1SvgGlyphStyle extends ID2D1Resource{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * Returns the number of dashes in the dash array.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getstrokedashescount
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getstrokedashescount
      */
     GetStrokeDashesCount() {
         result := ComCall(7, this, "uint")
@@ -120,7 +120,7 @@ class ID2D1SvgGlyphStyle extends ID2D1Resource{
      * 
      * The 'context-value' for the 'stroke-dashoffset' property.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getstroke
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1svgglyphstyle-getstroke
      */
     GetStroke(brush, strokeWidth, dashes, dashesCount, dashOffset) {
         strokeWidthMarshal := strokeWidth is VarRef ? "float*" : "ptr"

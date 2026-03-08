@@ -6,7 +6,7 @@
 
 /**
  * Represents a virtual adapter. This interface extends [ID3D12Device4](../d3d12/nn-d3d12-id3d12device4.md).
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12device5
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12device5
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -32,10 +32,16 @@ class ID3D12Device5 extends ID3D12Device4{
     static VTableNames => ["CreateLifetimeTracker", "RemoveDevice", "EnumerateMetaCommands", "EnumerateMetaCommandParameters", "CreateMetaCommand", "CreateStateObject", "GetRaytracingAccelerationStructurePrebuildInfo", "CheckDriverMatchingIdentifier"]
 
     /**
+     * Creates a lifetime tracker associated with an application-defined callback; the callback receives notifications when the lifetime of a tracked object is changed.
+     * @param {ID3D12LifetimeOwner} pOwner Type: **[ID3D12LifetimeOwner](./nn-d3d12-id3d12lifetimeowner.md)\***
      * 
-     * @param {ID3D12LifetimeOwner} pOwner 
-     * @param {Pointer<Guid>} riid 
-     * @returns {Pointer<Void>} 
+     * A pointer to an **ID3D12LifetimeOwner** interface representing the application-defined callback.
+     * @param {Pointer<Guid>} riid Type: **REFIID**
+     * 
+     * A reference to the interface identifier (IID) of the interface to return in *ppvTracker*.
+     * @returns {Pointer<Void>} Type: **void\*\***
+     * 
+     * A pointer to a memory block that receives the requested interface pointer to the created object.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createlifetimetracker
      */
     CreateLifetimeTracker(pOwner, riid) {
@@ -44,7 +50,32 @@ class ID3D12Device5 extends ID3D12Device4{
     }
 
     /**
+     * You can call **RemoveDevice** to indicate to the Direct3D 12 runtime that the GPU device encountered a problem, and can no longer be used.
+     * @remarks
+     * Because device removal triggers all fences to be signaled to `UINT64_MAX`, you can create a callback for device removal using an event.
      * 
+     * ```cpp
+     * HANDLE deviceRemovedEvent = CreateEventW(NULL, FALSE, FALSE, NULL);
+     * assert(deviceRemovedEvent != NULL);
+     * _deviceFence->SetEventOnCompletion(UINT64_MAX, deviceRemoved);
+     * 
+     * HANDLE waitHandle;
+     * RegisterWaitForSingleObject(
+     *   &waitHandle,
+     *   deviceRemovedEvent,
+     *   OnDeviceRemoved,
+     *   _device.Get(), // Pass the device as our context
+     *   INFINITE, // No timeout
+     *   0 // No flags
+     * );
+     * 
+     * void OnDeviceRemoved(PVOID context, BOOLEAN)
+     * {
+     *   ID3D12Device* removedDevice = (ID3D12Device*)context;
+     *   HRESULT removedReason = removedDevice->GetDeviceRemovedReason();
+     *   // Perform app-specific device removed operation, such as logging or inspecting DRED output
+     * }
+     * ```
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-removedevice
      */
@@ -60,7 +91,7 @@ class ID3D12Device5 extends ID3D12Device4{
      * @returns {D3D12_META_COMMAND_DESC} Type: [out, optional] **[D3D12_META_COMMAND_DESC](./ns-d3d12-d3d12_meta_command_desc.md)\***
      * 
      * An optional pointer to an array of [D3D12_META_COMMAND_DESC](./ns-d3d12-d3d12_meta_command_desc.md) containing the descriptions of the available meta commands. Pass `nullptr` to have the number of available meta commands returned in <i>pNumMetaCommands</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device5-enumeratemetacommands
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-enumeratemetacommands
      */
     EnumerateMetaCommands(pNumMetaCommands) {
         pNumMetaCommandsMarshal := pNumMetaCommands is VarRef ? "uint*" : "ptr"
@@ -89,8 +120,8 @@ class ID3D12Device5 extends ID3D12Device4{
      * An optional pointer to an array of  <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_meta_command_parameter_desc">D3D12_META_COMMAND_PARAMETER_DESC</a> containing the descriptions of the parameters. Pass <b>nullptr</b> to have the parameter count returned in <i>pParameterCount</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device5-enumeratemetacommandparameters
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-enumeratemetacommandparameters
      */
     EnumerateMetaCommandParameters(CommandId, Stage, pTotalStructureSizeInBytes, pParameterCount, pParameterDescs) {
         pTotalStructureSizeInBytesMarshal := pTotalStructureSizeInBytes is VarRef ? "uint*" : "ptr"
@@ -120,7 +151,7 @@ class ID3D12Device5 extends ID3D12Device4{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * A pointer to a memory block that receives a pointer to the meta command. This is the address of a pointer to an <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12metacommand">ID3D12MetaCommand</a>, representing  the meta command created.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device5-createmetacommand
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createmetacommand
      */
     CreateMetaCommand(CommandId, NodeMask, pCreationParametersData, CreationParametersDataSizeInBytes, riid) {
         result := ComCall(61, this, "ptr", CommandId, "uint", NodeMask, "ptr", pCreationParametersData, "ptr", CreationParametersDataSizeInBytes, "ptr", riid, "ptr*", &ppMetaCommand := 0, "HRESULT")
@@ -132,7 +163,7 @@ class ID3D12Device5 extends ID3D12Device4{
      * @param {Pointer<D3D12_STATE_OBJECT_DESC>} pDesc The description of the state object to create.
      * @param {Pointer<Guid>} riid The GUID of the interface to create. Use <i>__uuidof(ID3D12StateObject)</i>.
      * @returns {Pointer<Void>} The returned state object.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device5-createstateobject
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-createstateobject
      */
     CreateStateObject(pDesc, riid) {
         result := ComCall(62, this, "ptr", pDesc, "ptr", riid, "ptr*", &ppStateObject := 0, "HRESULT")
@@ -142,20 +173,17 @@ class ID3D12Device5 extends ID3D12Device4{
     /**
      * Query the driver for resource requirements to build an acceleration structure.
      * @remarks
-     * 
      * The input acceleration structure description is the same as what goes into <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-buildraytracingaccelerationstructure">BuildRaytracingAccelerationStructure</a>. The result of this function lets the application provide the correct amount of output storage and scratch storage to <b>BuildRaytracingAccelerationStructure</b> given the same geometry.  
      * 
      * Builds can also be done with the same configuration passed to <b>GetAccelerationStructurePrebuildInfo</b> overall except equal or smaller counts for the number of geometries/instances or the  number of vertices/indices/AABBs in any given geometry.  In this case the storage requirements reported with the original sizes passed to <b>GetRaytracingAccelerationStructurePrebuildInfo</b> will be valid – the build may actually consume less space but not more.  This is handy for app scenarios where having conservatively large storage allocated for acceleration structures is fine. 
      * 
      * This method is on the device interface as opposed to command list on the assumption that drivers must be able to calculate resource requirements for an acceleration structure build from only looking at the CPU-visible portions of the call, without having to dereference any pointers to GPU memory containing actual vertex data, index data, etc.
-     * 
-     * 
      * @param {Pointer<D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS>} pDesc Description of the acceleration structure build. This structure is shared with <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist4-buildraytracingaccelerationstructure">BuildRaytracingAccelerationStructure</a>.  For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_build_raytracing_acceleration_structure_inputs">D3D12_BUILD_RAYTRACING_ACCELERATION_STRUCTURE_INPUTS</a>.
      * 
      * The implementation is allowed to look at all the CPU parameters in this struct and nested structs.  It may not inspect/dereference any GPU virtual addresses, other than to check to see if a pointer is NULL or not, such as the optional transform in <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_raytracing_geometry_triangles_desc">D3D12_RAYTRACING_GEOMETRY_TRIANGLES_DESC</a>, without dereferencing it. In other words, the calculation of resource requirements for the acceleration structure does not depend on the actual geometry data (such as vertex positions), rather it can only depend on overall properties, such as the number of triangles, number of instances etc.
      * @param {Pointer<D3D12_RAYTRACING_ACCELERATION_STRUCTURE_PREBUILD_INFO>} pInfo The result of the query.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device5-getraytracingaccelerationstructureprebuildinfo
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-getraytracingaccelerationstructureprebuildinfo
      */
     GetRaytracingAccelerationStructurePrebuildInfo(pDesc, pInfo) {
         ComCall(63, this, "ptr", pDesc, "ptr", pInfo)
@@ -166,7 +194,7 @@ class ID3D12Device5 extends ID3D12Device4{
      * @param {Integer} SerializedDataType The type of the serialized data. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ne-d3d12-d3d12_serialized_data_type">D3D12_SERIALIZED_DATA_TYPE</a>.
      * @param {Pointer<D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER>} pIdentifierToCheck Identifier from the header of the serialized data to check with the driver. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d12/ns-d3d12-d3d12_serialized_data_driver_matching_identifier">D3D12_SERIALIZED_DATA_DRIVER_MATCHING_IDENTIFIER</a>.
      * @returns {Integer} The returned compatibility status. For more information, see <a href="../d3d12/ne-d3d12-d3d12_driver_matching_identifier_status.md">D3D12_DRIVER_MATCHING_IDENTIFIER_STATUS</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12device5-checkdrivermatchingidentifier
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12device5-checkdrivermatchingidentifier
      */
     CheckDriverMatchingIdentifier(SerializedDataType, pIdentifierToCheck) {
         result := ComCall(64, this, "int", SerializedDataType, "ptr", pIdentifierToCheck, "int")

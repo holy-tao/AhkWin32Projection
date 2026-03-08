@@ -6,11 +6,8 @@
 /**
  * The IMSVidAudioRenderer interface represents an audio renderer device. It enables applications to control the volume and balance. To retrieve the audio renderer device that is currently active, call the IMSVidCtl::get_AudioRendererActive method.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidAudioRenderer)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidaudiorenderer
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidaudiorenderer
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -59,9 +56,11 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
 
     /**
      * The put_Volume method specifies the audio renderer's volume level.
+     * @remarks
+     * Full volume is 0 and silence is –10,000. Multiply the desired decibel level by 100; for example, –100 dB is –10,000.
      * @param {Integer} lVol Specifies the volume level, in units of .01 decibel (dB).
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-put_volume
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-put_volume
      */
     put_Volume(lVol) {
         result := ComCall(16, this, "int", lVol, "HRESULT")
@@ -70,8 +69,10 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
 
     /**
      * The get_Volume method retrieves the audio renderer's volume level.
+     * @remarks
+     * Full volume is 0 and silence is –10,000. Divide by 100 to get the equivalent decibel value; for example, –10,000 is –100 dB.
      * @returns {Integer} Pointer to a variable that receives the volume level, in units of .01 decibel (dB).
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-get_volume
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-get_volume
      */
     get_Volume() {
         result := ComCall(17, this, "int*", &lVol := 0, "HRESULT")
@@ -80,9 +81,11 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
 
     /**
      * The put_Balance method specifies the audio renderer's balance level.
+     * @remarks
+     * The balance level is a value between –10,000 and 10,000, measured in hundredths of a decibel (dB). If the value is -10,000, the left channel is at full volume and the right channel is attenuated by 100 dB. If the value is 10,000, the right channel is at full volume and the left channel is attenuated by 100 dB. If the value is zero, both channels are at full volume.
      * @param {Integer} lBal Specifies the balance level.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-put_balance
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-put_balance
      */
     put_Balance(lBal) {
         result := ComCall(18, this, "int", lBal, "HRESULT")
@@ -91,8 +94,10 @@ class IMSVidAudioRenderer extends IMSVidOutputDevice{
 
     /**
      * .
+     * @remarks
+     * The balance level is a value between –10,000 and 10,000, measured in hundredths of a decibel (dB). If the value is –10,000, the left channel is at full volume and the right channel is attenuated by 100 dB. If the value is 10,000, the right channel is at full volume and the left channel is attenuated by 100 dB. If the value is zero, both channels are at full volume.
      * @returns {Integer} Pointer to a variable that receives the balance level.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidaudiorenderer-get_balance
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidaudiorenderer-get_balance
      */
     get_Balance() {
         result := ComCall(19, this, "int*", &lBal := 0, "HRESULT")

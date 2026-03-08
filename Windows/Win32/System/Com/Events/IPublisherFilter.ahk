@@ -6,7 +6,7 @@
 
 /**
  * Acts as a callback interface so that event publishers can control which subscribers receive event notifications or the order in which subscribers are notified.
- * @see https://docs.microsoft.com/windows/win32/api//eventsys/nn-eventsys-ipublisherfilter
+ * @see https://learn.microsoft.com/windows/win32/api/eventsys/nn-eventsys-ipublisherfilter
  * @namespace Windows.Win32.System.Com.Events
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IPublisherFilter extends IUnknown{
 
     /**
      * Associates an event method with a collection of subscription objects.
+     * @remarks
+     * The publisher filter uses the pointer passed in dispUserDefined to obtain a list of subscribers, either by calling <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventsystem-query">IEventSystem::Query</a> or <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nf-eventsys-ieventcontrol-getsubscriptions">IEventControl::GetSubscriptions</a>.
      * @param {BSTR} methodName The name of the event method associated with the publisher filter.
      * @param {IDispatch} dispUserDefined A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventsystem">IEventSystem</a> interface on an event system object or to the <a href="https://docs.microsoft.com/windows/desktop/api/eventsys/nn-eventsys-ieventcontrol">IEventControl</a> interface on an event class object.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL, as well as the following values.
@@ -197,7 +199,7 @@ class IPublisherFilter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ipublisherfilter-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ipublisherfilter-initialize
      */
     Initialize(methodName, dispUserDefined) {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName
@@ -372,7 +374,7 @@ class IPublisherFilter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//eventsys/nf-eventsys-ipublisherfilter-preparetofire
+     * @see https://learn.microsoft.com/windows/win32/api/eventsys/nf-eventsys-ipublisherfilter-preparetofire
      */
     PrepareToFire(methodName, firingControl) {
         methodName := methodName is String ? BSTR.Alloc(methodName).Value : methodName

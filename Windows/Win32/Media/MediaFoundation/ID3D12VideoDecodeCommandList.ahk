@@ -7,8 +7,7 @@
  * Encapsulates a list of graphics commands for video decoding.
  * @remarks
  * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12video/nn-d3d12video-id3d12videodecodecommandlist
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nn-d3d12video-id3d12videodecodecommandlist
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,8 +33,26 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     static VTableNames => ["Close", "Reset", "ClearState", "ResourceBarrier", "DiscardResource", "BeginQuery", "EndQuery", "ResolveQueryData", "SetPredication", "SetMarker", "BeginEvent", "EndEvent", "DecodeFrame", "WriteBufferImmediate"]
 
     /**
+     * Indicates that recording to the command list has finished. (ID3D12VideoDecodeCommandList::Close)
+     * @remarks
+     * The runtime will validate that the command list has not previously been closed.  If an error was encountered during recording, the error code is returned here.  The runtime won't call the close device driver interface (DDI) in this case.
      * 
-     * @returns {HRESULT} 
+     * For an example of creating a command list, see [ID3D12GraphicsCommandList::Close method](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-close)
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns <b>S_OK</b> if successful; otherwise, returns one of the following values:
+     *               
+     * 
+     * <ul>
+     * <li><b>E_FAIL</b> if the command list has already been closed, or an invalid API was called during command list recording.
+     *               </li>
+     * <li><b>E_OUTOFMEMORY</b> if the operating system ran out of memory during recording.
+     *               </li>
+     * <li><b>E_INVALIDARG</b> if an invalid argument was passed to the command list API during recording.
+     *               </li>
+     * </ul>
+     * 
+     * See <a href="https://docs.microsoft.com/windows/win32/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a> for other possible return values.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-close
      */
     Close() {
@@ -44,9 +61,26 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
+     * Resets a command list back to its initial state as if a new command list was just created. (ID3D12VideoDecodeCommandList::Reset)
+     * @remarks
+     * For additional information and examples of using this method, see [ID3D12GraphicsCommandList::Reset method](/windows/desktop/api/d3d12/nf-d3d12-id3d12graphicscommandlist-reset)
+     * @param {ID3D12CommandAllocator} pAllocator Type: <b>ID3D12CommandAllocator*</b>
      * 
-     * @param {ID3D12CommandAllocator} pAllocator 
-     * @returns {HRESULT} 
+     * A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12commandallocator">ID3D12CommandAllocator</a> object that the device creates command lists from.
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * 
+     * Returns <b>S_OK</b> if successful; otherwise, returns one of the following values:
+     *               
+     * 
+     * <ul>
+     * <li><b>E_FAIL</b> if the command list was not in the "closed" state when the <b>Reset</b> call was made, or the per-device limit would have been exceeded.
+     *               </li>
+     * <li><b>E_OUTOFMEMORY</b> if the operating system ran out of memory.
+     *               </li>
+     * <li><b>E_INVALIDARG</b> if the allocator is currently being used with another command list in the "recording" state or if the specified allocator was created with the wrong type.
+     *               </li>
+     * </ul>
+     * See <a href="https://docs.microsoft.com/windows/win32/direct3d12/d3d12-graphics-reference-returnvalues">Direct3D 12 Return Codes</a> for other possible return values.
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-reset
      */
     Reset(pAllocator) {
@@ -55,7 +89,7 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
+     * Resets the state of a direct command list back to the state it was in when the command list was created. (ID3D12VideoDecodeCommandList::ClearState)
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-clearstate
      */
@@ -64,9 +98,13 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
+     * Notifies the driver that it needs to synchronize multiple accesses to resources. (ID3D12VideoDecodeCommandList::ResourceBarrier)
+     * @param {Integer} NumBarriers Type: <b>UINT</b>
      * 
-     * @param {Integer} NumBarriers 
-     * @param {Pointer<D3D12_RESOURCE_BARRIER>} pBarriers 
+     * The number of submitted barrier descriptions.
+     * @param {Pointer<D3D12_RESOURCE_BARRIER>} pBarriers Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_resource_barrier">D3D12_RESOURCE_BARRIER</a>*</b>
+     * 
+     * Pointer to an array of barrier descriptions.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-resourcebarrier
      */
@@ -75,9 +113,9 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {ID3D12Resource} pResource 
-     * @param {Pointer<D3D12_DISCARD_REGION>} pRegion 
+     * Indicate that the current contents of a resource can be discarded. (ID3D12VideoDecodeCommandList::DiscardResource)
+     * @param {ID3D12Resource} pResource A pointer to the <a href="https://docs.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12resource">ID3D12Resource</a> interface for the resource to discard.
+     * @param {Pointer<D3D12_DISCARD_REGION>} pRegion A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/d3d12/ns-d3d12-d3d12_discard_region">D3D12_DISCARD_REGION</a> structure that describes details for the discard-resource operation.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-discardresource
      */
@@ -86,10 +124,12 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {ID3D12QueryHeap} pQueryHeap 
-     * @param {Integer} Type 
-     * @param {Integer} Index 
+     * Starts a query running. (ID3D12VideoDecodeCommandList::BeginQuery)
+     * @remarks
+     * Some queries do not use **BeginQuery** and only have an **EndQuery**.  See each query type in [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) to determine proper usage.
+     * @param {ID3D12QueryHeap} pQueryHeap A pointer to an [ID3D12QueryHeap](/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap) specifying the storage for this query.
+     * @param {Integer} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
+     * @param {Integer} Index The index of the query within the query heap.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-beginquery
      */
@@ -98,10 +138,10 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {ID3D12QueryHeap} pQueryHeap 
-     * @param {Integer} Type 
-     * @param {Integer} Index 
+     * Ends a query. (ID3D12VideoDecodeCommandList::EndQuery)
+     * @param {ID3D12QueryHeap} pQueryHeap A pointer to an [ID3D12QueryHeap](/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap) specifying the storage for this query.
+     * @param {Integer} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
+     * @param {Integer} Index The index of the query within the query heap.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-endquery
      */
@@ -110,13 +150,13 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {ID3D12QueryHeap} pQueryHeap 
-     * @param {Integer} Type 
-     * @param {Integer} StartIndex 
-     * @param {Integer} NumQueries 
-     * @param {ID3D12Resource} pDestinationBuffer 
-     * @param {Integer} AlignedDestinationBufferOffset 
+     * Extracts data from a query. (ID3D12VideoDecodeCommandList::ResolveQueryData)
+     * @param {ID3D12QueryHeap} pQueryHeap A pointer to an [ID3D12QueryHeap](/windows/desktop/api/d3d12/nn-d3d12-id3d12queryheap) specifying the storage containing the queries to resolve.
+     * @param {Integer} Type A member of the [D3D12_QUERY_TYPE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_query_type) enumeration specifying the type of the query.
+     * @param {Integer} StartIndex The index of the first query to resolve.
+     * @param {Integer} NumQueries The number of queries to resolve.
+     * @param {ID3D12Resource} pDestinationBuffer A pointer to an [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the destination buffer. The resource must be in the state [D3D12_RESOURCE_STATE_COPY_DEST](/windows/desktop/api/d3d12/ne-d3d12-d3d12_resource_states).
+     * @param {Integer} AlignedDestinationBufferOffset The alignment offset into the destination buffer. This must be a multiple of 8 bytes.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-resolvequerydata
      */
@@ -125,10 +165,10 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {ID3D12Resource} pBuffer 
-     * @param {Integer} AlignedBufferOffset 
-     * @param {Integer} Operation 
+     * Specifies that subsequent commands should not be performed if the predicate value passes the specified operation. (ID3D12VideoDecodeCommandList::SetPredication)
+     * @param {ID3D12Resource} pBuffer A pointer to an [ID3D12Resource](/windows/desktop/api/d3d12/nn-d3d12-id3d12resource) representing the buffer from which to read the 64-bit predication value.
+     * @param {Integer} AlignedBufferOffset The UINT64-aligned buffer offset.
+     * @param {Integer} Operation A member of the [D3D12_PREDICATION_OP](/windows/desktop/api/d3d12/ne-d3d12-d3d12_predication_op) enumeration specifying the predicate operation.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-setpredication
      */
@@ -137,10 +177,10 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {Integer} Metadata 
-     * @param {Pointer} pData 
-     * @param {Integer} Size 
+     * For internal use only. Not intended to be called directly. (ID3D12VideoDecodeCommandList::SetMarker)
+     * @param {Integer} Metadata Internal.
+     * @param {Pointer} pData Internal.
+     * @param {Integer} Size Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-setmarker
      */
@@ -149,10 +189,10 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {Integer} Metadata 
-     * @param {Pointer} pData 
-     * @param {Integer} Size 
+     * For internal use only. Not intended to be called directly. (ID3D12VideoDecodeCommandList::BeginEvent)
+     * @param {Integer} Metadata Internal.
+     * @param {Pointer} pData Internal.
+     * @param {Integer} Size Internal.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-beginevent
      */
@@ -161,7 +201,7 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
+     * For internal use only. Not intended to be called directly. (ID3D12VideoDecodeCommandList::EndEvent)
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-endevent
      */
@@ -170,10 +210,12 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {ID3D12VideoDecoder} pDecoder 
-     * @param {Pointer<D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS>} pOutputArguments 
-     * @param {Pointer<D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS>} pInputArguments 
+     * Records a decode frame operation to the command list.
+     * @remarks
+     * The [ID3D12VideoDecodeCommandList1::DecodeFrame1](nf-d3d12video-id3d12videodecodecommandlist1-decodeframe1.md) method provides the same functionality as this method, but adds support for decode histograms.
+     * @param {ID3D12VideoDecoder} pDecoder A pointer to an [ID3D12VideoDecoder](nn-d3d12video-id3d12videodecoder.md) interface representing a decoder instance.
+     * @param {Pointer<D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS>} pOutputArguments A [D3D12_VIDEO_DECODE_OUTPUT_STREAM_ARGUMENTS](ns-d3d12video-d3d12_video_decode_output_stream_arguments.md) structure specifying the output surface and output arguments.
+     * @param {Pointer<D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS>} pInputArguments A [D3D12_VIDEO_DECODE_INPUT_STREAM_ARGUMENTS](ns-d3d12video-d3d12_video_decode_input_stream_arguments.md) structure specifying the input bitstream, reference frames, and other input parameters.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-decodeframe
      */
@@ -182,10 +224,12 @@ class ID3D12VideoDecodeCommandList extends ID3D12CommandList{
     }
 
     /**
-     * 
-     * @param {Integer} Count 
-     * @param {Pointer<D3D12_WRITEBUFFERIMMEDIATE_PARAMETER>} pParams 
-     * @param {Pointer<Integer>} pModes 
+     * Writes a number of 32-bit immediate values to the specified buffer locations directly from the command stream. (ID3D12VideoDecodeCommandList::WriteBufferImmediate)
+     * @remarks
+     * The capability for this feature is specified with [D3D12_FEATURE_DATA_D3D12_OPTIONS3::WriteBufferImmediateSupportFlags](../d3d12/ns-d3d12-d3d12_feature_data_d3d12_options3.md)
+     * @param {Integer} Count The number of elements in the *pParams* and *pModes* arrays.
+     * @param {Pointer<D3D12_WRITEBUFFERIMMEDIATE_PARAMETER>} pParams The address of an array of [D3D12_WRITEBUFFERIMMEDIATE_PARAMETER](/windows/desktop/api/d3d12/ns-d3d12-d3d12_writebufferimmediate_parameter) structures of size *Count*.
+     * @param {Pointer<Integer>} pModes The address of an array of [D3D12_WRITEBUFFERIMMEDIATE_MODE](/windows/desktop/api/d3d12/ne-d3d12-d3d12_writebufferimmediate_mode) structures of size *Count*. The default value is <b>null</b>. Passing <b>null</b> causes the system to write all immediate values using **D3D12_WRITEBUFFERIMMEDIATE_MODE_DEFAULT**.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d3d12video/nf-d3d12video-id3d12videodecodecommandlist-writebufferimmediate
      */

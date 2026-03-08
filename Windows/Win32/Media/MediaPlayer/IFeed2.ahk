@@ -91,10 +91,56 @@ class IFeed2 extends IFeed{
     }
 
     /**
-     * 
+     * Sets the attributes of a credential, such as the name associated with the credential. (ANSI)
+     * @remarks
+     * > [!NOTE]
+     * > The sspi.h header defines SetCredentialsAttributes as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BSTR} username 
      * @param {BSTR} password 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is SEC_E_OK.
+     * 
+     * If the function fails, the return value may be one of the following error codes.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INVALID_HANDLE</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The handle passed to the function is not valid.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_UNSUPPORTED_FUNCTION</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The specified <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">attribute</a> is not supported by Schannel. This return value will only be returned when the Schannel SSP is being used.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>SEC_E_INSUFFICIENT_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * Not enough memory is available to complete the request.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-setcredentialsattributesa
      */
     SetCredentials(username, password) {
         username := username is String ? BSTR.Alloc(username).Value : username

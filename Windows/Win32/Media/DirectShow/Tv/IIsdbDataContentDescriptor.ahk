@@ -5,7 +5,7 @@
 #Include ..\..\..\System\Com\IUnknown.ahk
 
 /**
- * 
+ * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) data content descriptor.
  * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbdatacontentdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
@@ -34,7 +34,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
     /**
      * Gets the tag that identifies an Integrated Services Digital Broadcasting (ISDB) data content descriptor.
      * @returns {Integer} Receives the tag value. For ISDB data content descriptors, this value is 0xC7.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -44,7 +44,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
     /**
      * Gets the body length of an Integrated Services Digital Broadcasting (ISDB) data content descriptor, in bytes.
      * @returns {Integer} Receives the descriptor length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -54,7 +54,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
     /**
      * Gets a data component identifier from an Integrated Services Digital Broadcasting (ISDB) data content descriptor. This identifier identifies a component in the descriptor and appears in the data component descriptor for the component.
      * @returns {Integer} Receives the data component identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getdatacomponentid
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getdatacomponentid
      */
     GetDataComponentId() {
         result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -64,7 +64,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
     /**
      * Gets the value of the entry_component field from an Integrated Services Digital Broadcasting (ISDB) data content descriptor. This field indicates the first component stream that is referenced in the descriptor.
      * @returns {Integer} Returns the entry_component field value.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getentrycomponent
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getentrycomponent
      */
     GetEntryComponent() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -74,7 +74,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
     /**
      * Gets the length of the selector part of an Integrated Services Digital Broadcasting (ISDB) data content descriptor, in bytes.
      * @returns {Integer} Receives the selector length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getselectorlength
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getselectorlength
      */
     GetSelectorLength() {
         result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
@@ -83,9 +83,14 @@ class IIsdbDataContentDescriptor extends IUnknown{
 
     /**
      * Gets the selector data from an Integrated Services Digital Broadcasting (ISDB) data content descriptor. The contents of the selector depend on the type of data transmitted in the data component.
+     * @remarks
+     * Table J-1 in Annex J, <i>SERVICE INFORMATION FOR DIGITAL
+     * BROADCASTING SYSTEM
+     * ARIB STANDARD
+     * ARIB, STD-B10, Version 4.6</i> shows the contents of this descriptor for different component types.
      * @param {Integer} bBufLength Specifies the length of the buffer that receives the selector data.
      * @returns {Integer} Receives the selector data.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getselectorbytes
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getselectorbytes
      */
     GetSelectorBytes(bBufLength) {
         result := ComCall(8, this, "char", bBufLength, "char*", &pbBuf := 0, "HRESULT")
@@ -95,7 +100,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
     /**
      * Gets the number of records in an Integrated Services Digital Broadcasting (ISDB) data content descriptor.
      * @returns {Integer} Receives the number of records.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(9, this, "char*", &pbVal := 0, "HRESULT")
@@ -106,7 +111,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
      * Gets the value of the component_ref field from a specified component record in an Integrated Services Digital Broadcasting (ISDB) data content descriptor. This field contains the broadcaster-defined component tag that identifies a component stream.
      * @param {Integer} bRecordIndex Zero-based index of the component record containing the tag. To get the number of components, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-iisdbtsinformationdescriptor-getcountofrecords">IIsdbDataContentDescriptor::GetCountOfRecords</a>.
      * @returns {Integer} Receives the component tag.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getrecordcomponentref
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getrecordcomponentref
      */
     GetRecordComponentRef(bRecordIndex) {
         result := ComCall(10, this, "char", bRecordIndex, "char*", &pbVal := 0, "HRESULT")
@@ -116,7 +121,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
     /**
      * Gets the three-character ISO 639 language code from an Integrated Services Digital Broadcasting (ISDB) data content descriptor.
      * @returns {Integer} Pointer to the buffer that receives the language code. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getlanguagecode
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-getlanguagecode
      */
     GetLanguageCode() {
         result := ComCall(11, this, "char*", &pszCode := 0, "HRESULT")
@@ -127,7 +132,7 @@ class IIsdbDataContentDescriptor extends IUnknown{
      * Gets the text from an Integrated Services Digital Broadcasting (ISDB) data content descriptor that describes the contents of the descriptor, in Unicode text format.
      * @param {Integer} convMode 
      * @returns {BSTR} Pointer to a buffer that receives the description text. The caller is responsible for freeing this memory.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-gettextw
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbdatacontentdescriptor-gettextw
      */
     GetTextW(convMode) {
         pbstrText := BSTR()

@@ -6,10 +6,8 @@
 /**
  * Provides a mechanism to execute a function inside a specific COM+ object context.
  * @remarks
- * 
- *  An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ctxtcall/nn-ctxtcall-icontextcallback
+ * An instance of this interface for the current context can be obtained using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cogetobjectcontext">CoGetObjectContext</a>.
+ * @see https://learn.microsoft.com/windows/win32/api/ctxtcall/nn-ctxtcall-icontextcallback
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -36,13 +34,21 @@ class IContextCallback extends IUnknown{
 
     /**
      * Enters the object context, executes the specified function, and returns.
+     * @remarks
+     * This method simulates a method call on an object inside the context. It is intended for low-level operations, such as cleanup/lazy marshaling, that respect the application's reentrancy expectations. 
+     * 
+     * To give the infrastructure information, an interface and method number must be specified. The parameter <i>riid</i> must not be IID_IUnknown, and the method number must not be less than 3.
+     * 
+     * If <i>riid</i> is set to IID_IEnterActivityWithNoLock, the function is executed without an activity lock.
+     * 
+     * If <i>riid</i> is set to IID_ICallbackWithNoReentrancyToApplicationSTA, the function does not reenter an ASTA arbitrarily. Most apps should set <i>riid</i> to this values for general purpose use.
      * @param {Pointer<PFNCONTEXTCALL>} pfnCallback The function to be called inside the object context.
      * @param {Pointer<ComCallData>} pParam The data to be passed to the function when it is called in the context.
      * @param {Pointer<Guid>} riid The IID of the call that is being simulated. See Remarks for more information.
      * @param {Integer} iMethod The method number of the call that is being simulated. See Remarks for more information.
      * @param {IUnknown} pUnk This parameter is reserved and must be <b>NULL</b>.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, and E_FAIL. If none of these failures occur, the return value of this function is the <b>HRESULT</b> value returned by the <i>pfnCallback</i> function.
-     * @see https://docs.microsoft.com/windows/win32/api//ctxtcall/nf-ctxtcall-icontextcallback-contextcallback
+     * @see https://learn.microsoft.com/windows/win32/api/ctxtcall/nf-ctxtcall-icontextcallback-contextcallback
      */
     ContextCallback(pfnCallback, pParam, riid, iMethod, pUnk) {
         result := ComCall(3, this, "ptr", pfnCallback, "ptr", pParam, "ptr", riid, "int", iMethod, "ptr", pUnk, "HRESULT")

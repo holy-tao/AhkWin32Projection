@@ -6,7 +6,7 @@
 
 /**
  * Manages setup tasks on a WDS transport server.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportsetupmanager
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportsetupmanager
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -61,7 +61,7 @@ class IWdsTransportSetupManager extends IDispatch{
     /**
      * Receives a value that indicates the operating system version of the WDS server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_version
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_version
      */
     get_Version() {
         result := ComCall(7, this, "uint*", &pullVersion := 0, "HRESULT")
@@ -71,7 +71,7 @@ class IWdsTransportSetupManager extends IDispatch{
     /**
      * Receives a value that indicates which WDS features are installed on the server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_installedfeatures
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_installedfeatures
      */
     get_InstalledFeatures() {
         result := ComCall(8, this, "uint*", &pulInstalledFeatures := 0, "HRESULT")
@@ -81,7 +81,7 @@ class IWdsTransportSetupManager extends IDispatch{
     /**
      * Receives a value that indicates which transport protocols are supported by the WDS server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_protocols
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-get_protocols
      */
     get_Protocols() {
         result := ComCall(9, this, "uint*", &pulProtocols := 0, "HRESULT")
@@ -90,12 +90,17 @@ class IWdsTransportSetupManager extends IDispatch{
 
     /**
      * Enables an application run on a client computer to register a content provider DLL. This makes the provider available for use by the WDS transport server.
+     * @remarks
+     * To enable a multicast provider to support unauthenticated connections, the provider developer can add the <b>AllowUnAuth</b> key to the registry and set its <b>DWORD</b> value equal to 1.
+     * 
+     * 
+     * <b>HKLM</b>&#92;<b>System</b>&#92;<b>CurrentControlSet</b>&#92;<b>Services</b>&#92;<b>WDSServer</b>&#92;<b>Providers</b>&#92;<b>WDSMC</b>&#92;<b>Providers</b>&#92;<b><i>Content Provider Name (i.e. bszName)</i></b>&#92;<b>AllowUnauth</b>
      * @param {BSTR} bszName The name of the content provider to be registered. This name must be unique on the server.
      * @param {BSTR} bszDescription A description of the content provider that can be  read by an administrator.
      * @param {BSTR} bszFilePath The  full path to the DLL that implements the content provider. The path can include environment variables.
      * @param {BSTR} bszInitializationRoutine The name of a function exported by the content provider that the WDS transport server can use to initialize the provider.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-registercontentprovider
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-registercontentprovider
      */
     RegisterContentProvider(bszName, bszDescription, bszFilePath, bszInitializationRoutine) {
         bszName := bszName is String ? BSTR.Alloc(bszName).Value : bszName
@@ -111,7 +116,7 @@ class IWdsTransportSetupManager extends IDispatch{
      * Enables an application run on a client computer to deregister a content provider. This makes the provider no longer available for use by the WDS transport server.
      * @param {BSTR} bszName The name of the content provider to be deregistered.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-deregistercontentprovider
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportsetupmanager-deregistercontentprovider
      */
     DeregisterContentProvider(bszName) {
         bszName := bszName is String ? BSTR.Alloc(bszName).Value : bszName

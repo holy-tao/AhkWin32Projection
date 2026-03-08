@@ -31,10 +31,11 @@ class ISpSREngineSite extends IUnknown{
     static VTableNames => ["Read", "DataAvailable", "SetBufferNotifySize", "ParseFromTransitions", "Recognition", "AddEvent", "Synchronize", "GetWordInfo", "SetWordClientContext", "GetRuleInfo", "SetRuleClientContext", "GetStateInfo", "GetResource", "GetTransitionProperty", "IsAlternate", "GetMaxAlternates", "GetContextMaxAlternates", "UpdateRecoPos"]
 
     /**
-     * 
+     * The ReadBlobFromFile function reads a BLOB in a file.
      * @param {Pointer<Void>} pv 
      * @param {Integer} cb 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/readblobfromfile
      */
     Read(pv, cb) {
         pvMarshal := pv is VarRef ? "ptr" : "ptr"
@@ -73,9 +74,12 @@ class ISpSREngineSite extends IUnknown{
     }
 
     /**
-     * 
+     * Indicates the level of confidence that the IInkAnalyzer has in the accuracy of the recognition result.
+     * @remarks
+     * The [**IInkAnalyzer**](iinkanalyzer.md) uses one or more [**IInkAnalysisRecognizer**](iinkanalysisrecognizer.md) objects to convert handwriting to text.
      * @param {Pointer<SPRECORESULTINFO>} pResultInfo 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/tablet/recognitionconfidence
      */
     Recognition(pResultInfo) {
         result := ComCall(7, this, "ptr", pResultInfo, "HRESULT")
@@ -96,9 +100,12 @@ class ISpSREngineSite extends IUnknown{
     }
 
     /**
-     * 
+     * Causes the UI Automation provider to stop listening for mouse or keyboard input.
      * @param {Integer} ullProcessedThruPos 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful or an error value otherwise.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-synchronizedinputpattern_cancel
      */
     Synchronize(ullProcessedThruPos) {
         result := ComCall(9, this, "uint", ullProcessedThruPos, "HRESULT")

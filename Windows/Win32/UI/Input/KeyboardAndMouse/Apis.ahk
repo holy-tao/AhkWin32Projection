@@ -732,7 +732,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\LoadKeyboardLayoutA", "ptr", pwszKLID, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKL({Value: result}, True)
@@ -775,7 +775,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\LoadKeyboardLayoutW", "ptr", pwszKLID, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKL({Value: result}, True)
@@ -813,7 +813,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\ActivateKeyboardLayout", "ptr", hkl, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HKL({Value: result}, True)
@@ -949,8 +949,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnloadKeyboardLayout", "ptr", hkl, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -988,8 +988,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetKeyboardLayoutNameA", "ptr", pwszKLID, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1027,8 +1027,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetKeyboardLayoutNameW", "ptr", pwszKLID, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1060,7 +1060,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\GetKeyboardLayoutList", "int", nBuff, "ptr", lpList, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1183,7 +1183,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\GetMouseMovePointsEx", "uint", cbSize, "ptr", lppt, "ptr", lpptBuf, "int", nBufPoints, "uint", resolution, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1235,8 +1235,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\TrackMouseEvent", "ptr", lpEventTrack, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1284,8 +1284,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\RegisterHotKey", "ptr", hWnd, "int", id, "uint", fsModifiers, "uint", vk, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1313,8 +1313,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\UnregisterHotKey", "ptr", hWnd, "int", id, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1370,8 +1370,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetDoubleClickTime", "uint", param0, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1403,7 +1403,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\SetFocus", "ptr", hWnd, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HWND({Value: result}, True)
@@ -1647,8 +1647,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\GetKeyboardState", lpKeyStateMarshal, lpKeyState, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1675,8 +1675,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\SetKeyboardState", lpKeyStateMarshal, lpKeyState, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1724,7 +1724,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\GetKeyNameTextA", "int", lParam, "ptr", lpString, "int", cchSize, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1772,7 +1772,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\GetKeyNameTextW", "int", lParam, "ptr", lpString, "int", cchSize, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1805,7 +1805,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\GetKeyboardType", "int", nTypeFlag, "int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2761,7 +2761,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\SendInput", "uint", cInputs, "ptr", pInputs, "int", cbSize, "uint")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3056,8 +3056,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\ReleaseCapture", "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -3167,7 +3167,7 @@ class KeyboardAndMouse {
 
         result := DllCall("USER32.dll\SetActiveWindow", "ptr", hWnd, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HWND({Value: result}, True)
@@ -3202,8 +3202,8 @@ class KeyboardAndMouse {
         A_LastError := 0
 
         result := DllCall("USER32.dll\BlockInput", "int", fBlockIt, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

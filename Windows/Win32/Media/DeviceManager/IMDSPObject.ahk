@@ -5,7 +5,7 @@
 
 /**
  * The IMDSPObject interface manages the transfer of data to and from storage media.The Open, Read, Write, and Close methods are valid only if the storage object is a file.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-imdspobject
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-imdspobject
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Open method opens the associated object and prepares it for Read or Write operations. This operation is valid only if the storage object represents a file.
+     * @remarks
+     * If the underlying file-system does not support opening of multiple files at the same time, the service provider should gracefully the return Win32 error code ERROR_TOO_MANY_OPEN_FILES, if the client attempts to open more than one file at a time.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Integer} fuMode Mode in which the file must be opened. It must be one of the following two values.
      * 
      * <table>
@@ -57,8 +61,8 @@ class IMDSPObject extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-open
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-open
      */
     Open(fuMode) {
         result := ComCall(3, this, "uint", fuMode, "HRESULT")
@@ -67,10 +71,14 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Read method reads data from the object at the current position. This operation is valid only if the storage object represents a file.
+     * @remarks
+     * The MAC used for encryption should include both <i>pData</i> and <i>pdwSize</i> in calls to <a href="https://docs.microsoft.com/previous-versions/ms868515(v=msdn.10)">CSecureChannelServer::MACUpdate</a>.
+     * 
+     * This method is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Pointer<Integer>} pdwSize Pointer to a <b>DWORD</b> specifying the number of bytes of data to read. Upon return, this parameter contains the actual amount of data read. This parameter must be included in the input message authentication code.
      * @param {Pointer<Integer>} abMac Array of eight bytes containing the message authentication code for the parameter data of this method. (WMDM_MAC_LENGTH is defined as 8.)
      * @returns {Integer} Pointer to a buffer to receive the data read from the object. This parameter is included in the output message authentication code and must be encrypted using <a href="https://docs.microsoft.com/previous-versions/ms868509(v=msdn.10)">CSecureChannelServer::EncryptParam</a>. See Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-read
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-read
      */
     Read(pdwSize, abMac) {
         pdwSizeMarshal := pdwSize is VarRef ? "uint*" : "ptr"
@@ -82,6 +90,10 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Write method writes data to the object at the current position within the object. This operation is valid only if the storage object represents a file.
+     * @remarks
+     * The MAC used for encryption should include both <i>pData</i> and <i>pdwSize</i> in calls to <a href="https://docs.microsoft.com/previous-versions/ms868515(v=msdn.10)">CSecureChannelServer::MACUpdate</a>.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Pointer<Integer>} pData Pointer to the buffer containing the data to write to the object. This parameter is encrypted and must be decrypted using <a href="https://docs.microsoft.com/previous-versions/bb231598(v=vs.85)">CSecureChannelServer::DecryptParam</a> with the MAC in <i>abMac</i>. See Remarks.
      * @param {Pointer<Integer>} pdwSize <b>DWORD</b> containing the number of bytes of data to write. Upon return, this parameter contains the actual number of bytes written. This parameter must be included in both the input and output message authentication codes.
      * @param {Pointer<Integer>} abMac Array of eight bytes containing the message authentication code for the parameter data of this method. (WMDM_MAC_LENGTH is defined as 8.)
@@ -92,8 +104,8 @@ class IMDSPObject extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-write
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-write
      */
     Write(pData, pdwSize, abMac) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
@@ -106,6 +118,12 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Delete method removes an object or objects from a storage medium on a media device.
+     * @remarks
+     * This method permanently removes the object(s) from the storage medium.
+     * 
+     * When using a CompactFlash card reader/writer with Windows Media Device Manager service provider, calling <b>IMDSPObject::Delete</b> immediately after <b>IMDSPObject::Write</b> sometimes fails. This happens because data written to a CompactFlash reader/writer is buffered by the driver of the card reader/writer. The service provider responds as if the write operations are finished, but the driver writes them out to the device according to its own schedule. <b>IMDSPObject::Delete</b> fails if the driver has not finished its writing operation.
+     * 
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Integer} fuMode Flag that must always be set to WMDM_MODE_RECURSIVE by the client. If the object is a folder, it and its contents, and all subfolders and their contents are deleted. If the object is a file, this parameter is ignored.
      * @param {IWMDMProgress} pProgress Pointer to an application-implemented <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmprogress">IWMDMProgress</a> interface that enables the application to receive progress notifications for lengthy <b>Delete</b> operations.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -115,8 +133,8 @@ class IMDSPObject extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-delete
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-delete
      */
     Delete(fuMode, pProgress) {
         result := ComCall(6, this, "uint", fuMode, "ptr", pProgress, "HRESULT")
@@ -125,6 +143,8 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Seek method sets the current position within the object. This operation is valid only if the storage object represents a file.
+     * @remarks
+     * This method is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Integer} fuFlags Mode in which the file must be opened. It must be one of the values in the following table.
      * 
      * <table>
@@ -155,8 +175,8 @@ class IMDSPObject extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-seek
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-seek
      */
     Seek(fuFlags, dwOffset) {
         result := ComCall(7, this, "uint", fuFlags, "uint", dwOffset, "HRESULT")
@@ -165,6 +185,8 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Rename method renames the associated object which can be a file or a folder.
+     * @remarks
+     * This method is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {PWSTR} pwszNewName Pointer to a wide-character null-terminated string to receive a new name for the object. For information on how to use the <b>LPWSTR</b> variable type, see the Windows documentation.
      * @param {IWMDMProgress} pProgress Pointer to an application-implemented <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmprogress">IWMDMProgress</a> interface that enables the application to receive progress notification for lengthy renaming operations.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
@@ -174,8 +196,8 @@ class IMDSPObject extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-rename
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-rename
      */
     Rename(pwszNewName, pProgress) {
         pwszNewName := pwszNewName is String ? StrPtr(pwszNewName) : pwszNewName
@@ -186,6 +208,10 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Move method moves a file or folder on a media device.
+     * @remarks
+     * A file or directory can be moved only within the same root storage. The object on which this method is called must be updated to reflect its new location.
+     * 
+     * This method is optional. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @param {Integer} fuMode Processing mode by which to invoke the <b>Move</b> operation and the method by which to move. Specify exactly one of the following two modes. If both modes are specified, block mode is used.
      * 
      * <table>
@@ -237,8 +263,8 @@ class IMDSPObject extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-move
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-move
      */
     Move(fuMode, pProgress, pTarget) {
         result := ComCall(9, this, "uint", fuMode, "ptr", pProgress, "ptr", pTarget, "HRESULT")
@@ -247,6 +273,8 @@ class IMDSPObject extends IUnknown{
 
     /**
      * The Close method closes a file on a storage medium of a media device.
+     * @remarks
+     * This method must be implemented. It must not return WMDM_E_NOTSUPPORTED or E_NOTIMPL. For more information, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/mandatory-and-optional-interfaces">Mandatory and Optional Interfaces</a>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. All the interface methods in Windows Media Device Manager can return any of the following classes of error codes:
      * 
      * <ul>
@@ -254,8 +282,8 @@ class IMDSPObject extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-imdspobject-close
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-imdspobject-close
      */
     Close() {
         result := ComCall(10, this, "HRESULT")

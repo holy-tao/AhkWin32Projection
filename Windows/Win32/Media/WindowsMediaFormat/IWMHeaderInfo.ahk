@@ -6,7 +6,6 @@
 /**
  * The IWMHeaderInfo interface sets and retrieves information in the header section of an ASF file.
  * @remarks
- * 
  * Although the <b>IWMHeaderInfo</b> interface is accessible from four different objects, not all of the features are available in all cases. The following table summarizes the differences in implementation for the various objects.
  * 
  * <table>
@@ -34,9 +33,7 @@
  *  
  * 
  * For information about using the writer for metadata editing, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/to-edit-metadata-with-the-writer">To Edit Metadata with the Writer</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmheaderinfo
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmheaderinfo
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -63,9 +60,11 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The GetAttributeCount method returns the number of attributes defined in the header section of the ASF file. This method is replaced by IWMHeaderInfo3::GetAttributeCountEx and IWMHeaderInfo3::GetAttributeIndices, and should no longer be used.
+     * @remarks
+     * Attributes in MP3 files cannot be specific to a particular stream. For MP3 files, always set the stream number to zero.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number. Pass zero for file-level attributes.
      * @returns {Integer} Pointer to a count of the attributes.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributecount
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributecount
      */
     GetAttributeCount(wStreamNum) {
         result := ComCall(3, this, "ushort", wStreamNum, "ushort*", &pcAttributes := 0, "HRESULT")
@@ -74,6 +73,14 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The GetAttributeByIndex method returns a descriptive attribute that is stored in the header section of the ASF file. This method is replaced by IWMHeaderInfo3::GetAttributeByIndexEx and should not be used.
+     * @remarks
+     * You should make two calls to <b>GetAttributeByIndex</b> for each attribute you want to retrieve. On the first call, pass <b>NULL</b> for <i>pwszName</i> and <i>pValue</i>. On return, the value pointed to by <i>pcchNameLen</i> is set to the number of wide characters, including the terminating <b>null</b> character, required to hold the attribute name, and the value pointed to by <i>pcbLength</i> is set to the number of bytes required to hold the attribute value. You can then create buffers of the appropriate size to receive <i>pwszName</i> and <i>pValue</i> and pass pointers to them on the second call.
+     * 
+     * Attributes in MP3 files cannot be stream-specific. When using this method with MP3 files, you must use zero for the stream number.
+     * 
+     * For a list of all the predefined attributes, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a>.
+     * 
+     * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
      * @param {Integer} wIndex <b>WORD</b> containing the index.
      * @param {Pointer<Integer>} pwStreamNum Pointer to a <b>WORD</b> containing the stream number. Although this parameter is a pointer, the method will not change the value. For file-level attributes, use zero for the stream number.
      * @param {PWSTR} pwszName Pointer to a wide-character <b>null</b>-terminated string containing the name. Pass <b>NULL</b> to this parameter to retrieve the required length for the name. Attribute names are limited to 1024 wide characters.
@@ -166,7 +173,7 @@ class IWMHeaderInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributebyindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributebyindex
      */
     GetAttributeByIndex(wIndex, pwStreamNum, pwszName, pcchNameLen, pType, pValue, pcbLength) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -183,6 +190,16 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The GetAttributeByName method returns a descriptive attribute that is stored in the header section of the ASF file.
+     * @remarks
+     * Typically, an application should call this method twice for each attribute that it retrieves. On the first call, set the <i>pValue</i> parameter to <b>NULL</b>. The <i>pcbLength</i> parameter receives the buffer size needed to hold the attribute value. Then, allocate a sufficient byte array and call the method again, passing the address of the array in the <i>pType</i> parameter. The method fills the buffer with the value of the attribute. Coerce the buffer to the data type indicated by the value returned in <i>pType</i>.
+     * 
+     * If the file does not contain the specified attribute, the method might return ASF_E_NOTFOUND. The method can also succeed but return the value zero for <i>pcbLength</i>.
+     * 
+     * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
+     * 
+     * Attributes in MP3 files cannot be specific to a particular stream. For MP3 files, always set the stream number to zero.
+     * 
+     * For a list of all the predefined attributes, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a>.
      * @param {Pointer<Integer>} pwStreamNum Pointer to a <b>WORD</b> containing the stream number, or zero to indicate any stream. Although this parameter is a pointer, the method does not change the value.
      * @param {PWSTR} pszName Pointer to a <b>null</b>-terminated string containing the name of the attribute. Attribute names are limited to 1024 wide characters.
      * @param {Pointer<Integer>} pType Pointer to a variable that receives a value from the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> enumeration type. The returned value specifies the data type of the attribute.
@@ -262,7 +279,7 @@ class IWMHeaderInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributebyname
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getattributebyname
      */
     GetAttributeByName(pwStreamNum, pszName, pType, pValue, pcbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -278,6 +295,20 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The SetAttribute method sets a descriptive attribute that is stored in the header section of the ASF file. This method is replaced by IWMHeaderInfo3::AddAttribute, and should not be used.
+     * @remarks
+     * Refer to the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section for a list of predefined attributes. For predefined attributes, the <i>Type</i> parameter must match the data type defined for that attribute. For custom attributes, you can specify any type except WMT_TYPE_GUID, but the buffer size (given by <i>cbLength</i>) must match the type. See <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_attr_datatype">WMT_ATTR_DATATYPE</a> for more information.
+     * 
+     * The <b>IWMHeaderInfo</b> interface does not support the WMT_TYPE_GUID data type. To use this data type, you must use the methods of the <b>IWMHeaderInfo3</b> interface.
+     * 
+     * Attributes in MP3 files cannot be specific to a particular stream. For MP3 files, always set the stream number to zero. When setting attributes for MP3 files, the metadata editor will automatically insert a byte-order mark in accordance with the Unicode specification. If you manually insert a byte-order mark, this method will not fail, but the value will then have two marks, which can cause problems when reading the attribute.
+     * 
+     * This method does not support attributes with values larger than 64 kilobytes. To include large attributes in your file, use the methods of the <b>IWMHeaderInfo3</b> interface.
+     * 
+     * The writer object supports this method only before the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmwriter-beginwriting">IWMWriter::BeginWriting</a> method has been called. The reader and synchronous reader objects do not support this method.
+     * 
+     * Before you can use this method through the <b>IWMHeaderInfo</b> interface of a writer object to set <a href="https://docs.microsoft.com/windows/desktop/wmformat/wmformat-glossary">DRM</a> attributes, you must set a profile for the writer to use.
+     * 
+     * The objects of the Windows Media Format SDK perform type checking on some supported metadata attributes, but not all of them. You should ensure that any attributes you use are set using the data type specified in the <a href="https://docs.microsoft.com/windows/desktop/wmformat/attributes">Attributes</a> section of this documentation. Likewise, you cannot assume that an attribute set by another application will use the correct data type.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number. To set a file-level attribute, pass zero.
      * @param {PWSTR} pszName Pointer to a wide-character null-terminated string containing the name of the attribute. Attribute names are limited to 1024 wide characters.
      * @param {Integer} Type A value from the <b>WMT_ATTR_DATATYPE</b> enumeration type.
@@ -346,7 +377,7 @@ class IWMHeaderInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-setattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-setattribute
      */
     SetAttribute(wStreamNum, pszName, Type, pValue, cbLength) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
@@ -360,7 +391,7 @@ class IWMHeaderInfo extends IUnknown{
     /**
      * The GetMarkerCount method returns the number of markers currently in the header section of the ASF file.
      * @returns {Integer} Pointer to a count of markers.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getmarkercount
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getmarkercount
      */
     GetMarkerCount() {
         result := ComCall(7, this, "ushort*", &pcMarkers := 0, "HRESULT")
@@ -369,11 +400,13 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The GetMarker method returns the name and time of a marker.
+     * @remarks
+     * The writer does not support markers, and returns E_NOTIMPL when this method is called.
      * @param {Integer} wIndex <b>WORD</b> containing the index.
      * @param {PWSTR} pwszMarkerName Pointer to a wide-character <b>null</b>-terminated string containing the marker name.
      * @param {Pointer<Integer>} pcchMarkerNameLen On input, a pointer to a variable containing the length of the <i>pwszMarkerName</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the actual length of the name, including the terminating <b>null</b> character. To retrieve the length of the name, you must set this to zero and set <i>pwszMarkerName</i> and <i>pcnsMarkerTime</i> to <b>NULL</b>.
      * @returns {Integer} Pointer to a variable specifying the marker time in 100-nanosecond increments.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getmarker
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getmarker
      */
     GetMarker(wIndex, pwszMarkerName, pcchMarkerNameLen) {
         pwszMarkerName := pwszMarkerName is String ? StrPtr(pwszMarkerName) : pwszMarkerName
@@ -386,6 +419,8 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The AddMarker method adds a marker, consisting of a name and a specific time, to the header section of the ASF file.
+     * @remarks
+     * The writer does not support markers. When accessing <b>IWMheaderInfo</b> from the writer, calls to <b>AddMarker</b> will return E_NOTIMPL.
      * @param {PWSTR} pwszMarkerName Pointer to a wide-character null-terminated string containing the marker name. Marker names are limited to 5120 wide characters.
      * @param {Integer} cnsMarkerTime The marker time in 100-nanosecond increments.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -440,7 +475,7 @@ class IWMHeaderInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-addmarker
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-addmarker
      */
     AddMarker(pwszMarkerName, cnsMarkerTime) {
         pwszMarkerName := pwszMarkerName is String ? StrPtr(pwszMarkerName) : pwszMarkerName
@@ -451,6 +486,8 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The RemoveMarker method removes a marker from the header section of the ASF file.
+     * @remarks
+     * This method is not supported by the writer.
      * @param {Integer} wIndex <b>WORD</b> containing the index of the marker.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -504,7 +541,7 @@ class IWMHeaderInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-removemarker
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-removemarker
      */
     RemoveMarker(wIndex) {
         result := ComCall(10, this, "ushort", wIndex, "HRESULT")
@@ -514,7 +551,7 @@ class IWMHeaderInfo extends IUnknown{
     /**
      * The GetScriptCount method returns the number of scripts currently in the header section of the ASF file.
      * @returns {Integer} Pointer to a count of scripts.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getscriptcount
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getscriptcount
      */
     GetScriptCount() {
         result := ComCall(11, this, "ushort*", &pcScripts := 0, "HRESULT")
@@ -523,13 +560,15 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The GetScript method returns the type and command strings, and the presentation time, of a script.
-     * @param {Integer} wIndex <b>WORD</b>that contains the index.
+     * @remarks
+     * You should make two calls to <b>GetScript</b> for each script you want to retrieve. On the first call, pass <b>NULL</b> for <i>pwszType</i> and <i>pwszCommand</i>. On return, the values that are pointed to by <i>pcchTypeLen</i> and <i>pcchCommandLen</i> are set to the number of wide characters. These  include the terminating <b>null</b> character, which is required to hold the script type in <i>pcchTypeLen</i> and the command in <i>pcchCommandLen</i>. You can then create buffers of the appropriate size to receive <i>pwszType</i> and <i>pwszCommand</i> and pass pointers to them on the second call.
+     * @param {Integer} wIndex <b>WORD</b> that contains the index.
      * @param {PWSTR} pwszType Pointer to a wide-character <b>null</b>-terminated string buffer into which the type is copied.
      * @param {Pointer<Integer>} pcchTypeLen On input, a pointer to a variable that contains the length of the <i>pwszType</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the actual length of the string loaded into <i>pwszType</i>.This includes the terminating <b>null</b> character. To retrieve the length of the type, you must set this to zero and set <i>pwszType</i> to <b>NULL</b>.
      * @param {PWSTR} pwszCommand Pointer to a wide-character <b>null</b>-terminated string buffer into which the command is copied.
      * @param {Pointer<Integer>} pcchCommandLen On input, a pointer to a variable that contains the length of the <i>pwszCommand</i> array in wide characters (2 bytes). On output, if the method succeeds, the variable contains the actual length of the command string. This  includes the terminating <b>null</b> character. To retrieve the length of the command, you must set this to zero and set <i>pwszCommand</i> to <b>NULL</b>.
-     * @returns {Integer} Pointer to a <b>QWORD</b>that specifies the presentation time of this script command in 100-nanosecond increments.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getscript
+     * @returns {Integer} Pointer to a <b>QWORD</b> that specifies the presentation time of this script command in 100-nanosecond increments.
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-getscript
      */
     GetScript(wIndex, pwszType, pcchTypeLen, pwszCommand, pcchCommandLen) {
         pwszType := pwszType is String ? StrPtr(pwszType) : pwszType
@@ -544,6 +583,12 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The AddScript method adds a script, consisting of type and command strings, and a specific time, to the header section of the ASF file.
+     * @remarks
+     * Before <b>BeginWriting</b> has been called, the writer only supports <b>AddScript</b>. The reader does not support <b>AddScript</b>, and always returns E_NOTIMPL.
+     * 
+     * You should not add a large number of script commands to the file header if the file is intended for streaming. Some protocols impose limits on the size of a header. Limits differ by protocol, but if your script commands total tens of kilobytes, you should create a script stream instead.
+     * 
+     * When using DRM to encrypt a file, no script command can have a presentation time of 0.
      * @param {PWSTR} pwszType Pointer to a wide-character null-terminated string containing the type. Script types are limited to 1024 wide characters.
      * @param {PWSTR} pwszCommand Pointer to a wide-character null-terminated string containing the command. Script commands are limited to 10240 wide characters.
      * @param {Integer} cnsScriptTime The script time in 100-nanosecond increments.
@@ -610,7 +655,7 @@ class IWMHeaderInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-addscript
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-addscript
      */
     AddScript(pwszType, pwszCommand, cnsScriptTime) {
         pwszType := pwszType is String ? StrPtr(pwszType) : pwszType
@@ -622,6 +667,8 @@ class IWMHeaderInfo extends IUnknown{
 
     /**
      * The RemoveScript method enables the object to remove a script from the header section of the ASF file.
+     * @remarks
+     * The writer only supports this method before the <b>BeginWriting</b> method has been called. This method is not supported by the reader.
      * @param {Integer} wIndex <b>WORD</b> containing the index of the script.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -664,7 +711,7 @@ class IWMHeaderInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmheaderinfo-removescript
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmheaderinfo-removescript
      */
     RemoveScript(wIndex) {
         result := ComCall(14, this, "ushort", wIndex, "HRESULT")

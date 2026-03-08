@@ -39,9 +39,14 @@ class IXmlWriterLite extends IUnknown{
     }
 
     /**
+     * The GetProperty function returns a handle to a given property.
+     * @remarks
+     * The **GetProperty** function can be used to obtain the property handle needed to locate instances of the property. The functions used to locate property instances are [FindPropertyInstance](findpropertyinstance.md) (which locates the first instance) and [FindPropertyInstanceRestart](findpropertyinstancerestart.md) (which locates the next instance).
      * 
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetProperty** function.
      * @param {Integer} nProperty 
      * @returns {Pointer} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getproperty
      */
     GetProperty(nProperty) {
         result := ComCall(4, this, "uint", nProperty, "ptr*", &ppValue := 0, "HRESULT")
@@ -49,10 +54,13 @@ class IXmlWriterLite extends IUnknown{
     }
 
     /**
-     * 
+     * Sets Interaction Context object properties.
      * @param {Integer} nProperty 
      * @param {Pointer} pValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If this function succeeds, it returns S_OK.
+     *  
+     * Otherwise, it returns an HRESULT error code.
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-setpropertyinteractioncontext
      */
     SetProperty(nProperty, pValue) {
         result := ComCall(5, this, "uint", nProperty, "ptr", pValue, "HRESULT")
@@ -357,8 +365,12 @@ class IXmlWriterLite extends IUnknown{
     }
 
     /**
+     * Clears the forward buffers for the stream and writes any buffered data to the configuration file.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/BEvtColProv/control-flush
      */
     Flush() {
         result := ComCall(30, this, "HRESULT")

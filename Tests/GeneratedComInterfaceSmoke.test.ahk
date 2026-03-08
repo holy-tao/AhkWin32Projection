@@ -70,10 +70,13 @@ class GeneratedComInterfaceTests {
     class PropGetOut {
 
         InterfaceProperty_Out_ReadOnlyInterface_ReturnsInterface(){
-            comObjUnknown := ComObject("MSXML2.DOMDocument.6.0", String(IXMLDOMDocument2.IID))
-            pUnk := comObjUnknown.ptr
+            comObjUnknown := ComObject("MSXML2.DOMDocument.6.0")
+            pUnk := ComObjQuery(comObjUnknown, String(IXMLDOMDocument2.IID)).ptr
 
             ixmlDoc2 := IXMLDOMDocument2(pUnk)
+            ixmlDoc2.AddRef()
+
+            comObjUnknown.loadXml("<root/>")
 
             Assert.IsType(ixmlDoc2.documentElement, IXMLDOMElement)
         }
@@ -83,6 +86,7 @@ class GeneratedComInterfaceTests {
             pUnk := comObjUnknown.ptr
 
             ixmlDoc2 := IXMLDOMDocument2(pUnk)
+            ixmlDoc2.AddRef()
 
             ; Also tests the getter
             ixmlDoc2.preserveWhiteSpace := Foundation.VARIANT_TRUE

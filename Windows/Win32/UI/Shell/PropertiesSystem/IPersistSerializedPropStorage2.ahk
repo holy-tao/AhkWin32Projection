@@ -4,9 +4,8 @@
 #Include .\IPersistSerializedPropStorage.ahk
 
 /**
- * Exposes methods to persist serialized property storage data for later use and to restore persisted data to a new property store instance.
+ * Exposes methods to persist serialized property storage data for later use and to restore persisted data to a new property store instance. (IPersistSerializedPropStorage2)
  * @remarks
- * 
  * This interface also provides the methods of the <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipersistserializedpropstorage">IPersistSerializedPropStorage</a> interface, from which it inherits.
  * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
@@ -14,8 +13,7 @@
  * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * The in-memory property store, created by calling <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-pscreatememorypropertystore">PSCreateMemoryPropertyStore</a>, provides an implementation of this interface. Use this implementation when you want to persist or restore serialized property storage data.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-ipersistserializedpropstorage2
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-ipersistserializedpropstorage2
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -45,7 +43,7 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * The count of bytes contained in the serialized property storage data.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragesize
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragesize
      */
     GetPropertyStorageSize() {
         result := ComCall(6, this, "uint*", &pcb := 0, "HRESULT")
@@ -54,6 +52,10 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
 
     /**
      * Gets the serialized property storage buffer from the property store instance.
+     * @remarks
+     * This methods returns an error if <i>cb</i> is smaller than the total size of the serialized data.
+     * 
+     * The <b>SERIALIZEDPROPSTORAGE</b> type is defined in Propsys.h as an incomplete type. It should be treated as an array of <b>BYTE</b> values; the format of the returned data is not specified. The contents of the <b>SERIALIZEDPROPSTORAGE</b> structure are suitable for persisting to disk or other storage and can be used to initialize another property store through <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nf-propsys-ipersistserializedpropstorage-setpropertystorage">IPersistSerializedPropStorage::SetPropertyStorage</a>.
      * @param {Pointer} psps Type: <b>SERIALIZEDPROPSTORAGE*</b>
      * 
      * When this method returns successfully, contains the contents of the property storage buffer.
@@ -63,7 +65,7 @@ class IPersistSerializedPropStorage2 extends IPersistSerializedPropStorage{
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * The count of bytes contained in the serialized property storage buffer pointed to by <i>psps</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-ipersistserializedpropstorage2-getpropertystoragebuffer
      */
     GetPropertyStorageBuffer(psps, cb) {
         result := ComCall(7, this, "ptr", psps, "uint", cb, "uint*", &pcbWritten := 0, "HRESULT")

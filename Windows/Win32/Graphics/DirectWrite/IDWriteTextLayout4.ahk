@@ -4,6 +4,8 @@
 #Include .\IDWriteTextLayout3.ahk
 
 /**
+ * Represents a block of text after it has been fully analyzed and formatted.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritetextlayout4
  * @namespace Windows.Win32.Graphics.DirectWrite

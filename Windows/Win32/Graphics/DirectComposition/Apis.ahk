@@ -57,11 +57,7 @@ class DirectComposition {
      * @since windows8.0
      */
     static DCompositionCreateDevice(dxgiDevice, iid) {
-        result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionCreateDevice", "ptr", dxgiDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
         return dcompositionDevice
     }
 
@@ -96,11 +92,7 @@ class DirectComposition {
      * @since windows8.1
      */
     static DCompositionCreateDevice2(renderingDevice, iid) {
-        result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionCreateDevice2", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
         return dcompositionDevice
     }
 
@@ -118,11 +110,7 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositioncreatedevice3
      */
     static DCompositionCreateDevice3(renderingDevice, iid) {
-        result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionCreateDevice3", "ptr", renderingDevice, "ptr", iid, "ptr*", &dcompositionDevice := 0, "HRESULT")
         return dcompositionDevice
     }
 
@@ -140,11 +128,7 @@ class DirectComposition {
      */
     static DCompositionCreateSurfaceHandle(desiredAccess, securityAttributes) {
         surfaceHandle := HANDLE()
-        result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", "uint", desiredAccess, "ptr", securityAttributes, "ptr", surfaceHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionCreateSurfaceHandle", "uint", desiredAccess, "ptr", securityAttributes, "ptr", surfaceHandle, "HRESULT")
         return surfaceHandle
     }
 
@@ -167,11 +151,7 @@ class DirectComposition {
     static DCompositionAttachMouseWheelToHwnd(visual, hwnd, enable) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionAttachMouseWheelToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "HRESULT")
         return result
     }
 
@@ -194,11 +174,7 @@ class DirectComposition {
     static DCompositionAttachMouseDragToHwnd(visual, hwnd, enable) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionAttachMouseDragToHwnd", "ptr", visual, "ptr", hwnd, "int", enable, "HRESULT")
         return result
     }
 
@@ -213,11 +189,7 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetframeid
      */
     static DCompositionGetFrameId(frameIdType) {
-        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "uint*", &frameId := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionGetFrameId", "int", frameIdType, "uint*", &frameId := 0, "HRESULT")
         return frameId
     }
 
@@ -241,11 +213,7 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositiongetstatistics
      */
     static DCompositionGetStatistics(frameId, frameStats, targetIdCount, targetIds) {
-        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "uint*", &actualTargetIdCount := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionGetStatistics", "uint", frameId, "ptr", frameStats, "uint", targetIdCount, "ptr", targetIds, "uint*", &actualTargetIdCount := 0, "HRESULT")
         return actualTargetIdCount
     }
 
@@ -257,11 +225,7 @@ class DirectComposition {
      * @returns {HRESULT} 
      */
     static DCompositionGetTargetStatistics(frameId, targetId, targetStats) {
-        result := DllCall("dcomp.dll\DCompositionGetTargetStatistics", "uint", frameId, "ptr", targetId, "ptr", targetStats, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionGetTargetStatistics", "uint", frameId, "ptr", targetId, "ptr", targetStats, "HRESULT")
         return result
     }
 
@@ -276,11 +240,7 @@ class DirectComposition {
      * @see https://learn.microsoft.com/windows/win32/api/dcomp/nf-dcomp-dcompositionboostcompositorclock
      */
     static DCompositionBoostCompositorClock(enable) {
-        result := DllCall("dcomp.dll\DCompositionBoostCompositorClock", "int", enable, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("dcomp.dll\DCompositionBoostCompositorClock", "int", enable, "HRESULT")
         return result
     }
 

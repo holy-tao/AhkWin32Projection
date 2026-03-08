@@ -6,7 +6,7 @@
 
 /**
  * Enables you to specify and retrieve a string that contains the display name of a certificate.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertyfriendlyname
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyfriendlyname
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -40,10 +40,14 @@ class ICertPropertyFriendlyName extends ICertProperty{
 
     /**
      * Initializes the object from the certificate display name.
+     * @remarks
+     * Typically, you specify the display name in a user interface or from the command line before beginning the enrollment process so that the name can be associated with the dummy certificate in the request store. To retrieve that value and use it here, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollment-get_certificatefriendlyname">CertificateFriendlyName</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment">IX509Enrollment</a> interface.
+     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyfriendlyname-get_friendlyname">FriendlyName</a> property to retrieve the display name.
      * @param {BSTR} strFriendlyName A <b>BSTR</b> variable that contains the name.  The string length cannot exceed 260 characters.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -75,7 +79,7 @@ class ICertPropertyFriendlyName extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyfriendlyname-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyfriendlyname-initialize
      */
     Initialize(strFriendlyName) {
         strFriendlyName := strFriendlyName is String ? BSTR.Alloc(strFriendlyName).Value : strFriendlyName
@@ -85,14 +89,11 @@ class ICertPropertyFriendlyName extends ICertProperty{
     }
 
     /**
-     * Retrieves the display name of the certificate.
+     * Retrieves the display name of the certificate. (ICertPropertyFriendlyName.get_FriendlyName)
      * @remarks
-     * 
-     *  Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyfriendlyname-initialize">Initialize</a> method to create a description.
-     * 
-     * 
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyfriendlyname-initialize">Initialize</a> method to create a description.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyfriendlyname-get_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyfriendlyname-get_friendlyname
      */
     get_FriendlyName() {
         pValue := BSTR()

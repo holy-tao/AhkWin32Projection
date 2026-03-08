@@ -73,11 +73,12 @@ class IDxcUtils extends IUnknown{
     }
 
     /**
-     * 
+     * The CreateBlob function creates an empty BLOB.
      * @param {Pointer} pData 
      * @param {Integer} size 
      * @param {Integer} codePage 
      * @returns {IDxcBlobEncoding} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/createblob
      */
     CreateBlob(pData, size, codePage) {
         result := ComCall(6, this, "ptr", pData, "uint", size, "uint", codePage, "ptr*", &ppBlobEncoding := 0, "HRESULT")

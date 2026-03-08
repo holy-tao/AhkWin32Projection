@@ -7,7 +7,6 @@
 /**
  * An unordered set of certificates to be used with a signature.
  * @remarks
- * 
  * Do not add the certificate that will be passed to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-sign">IOpcDigitalSignature::Sign</a> method (the signer certificate) to this certificate set.
  * 
  * Certificates that are in a certificate chain are added to the package by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateset-add">Add</a> method.
@@ -15,10 +14,7 @@
  * To access an <b>IOpcCertificateSet</b> interface pointer, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsigningoptions-getcertificateset">IOpcSigningOptions::GetCertificateSet</a> method.
  * 
  * When a signature is generated, certificates that were added to the package by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopccertificateset-add">Add</a> are associated  with the signature.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopccertificateset
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopccertificateset
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -45,6 +41,13 @@ class IOpcCertificateSet extends IUnknown{
 
     /**
      * Adds a certificate to the set.
+     * @remarks
+     * Certificates that are in a certificate chain are added to the package by calling the 
+     *     <b>Add</b> method.
+     * 
+     * When a signature is 
+     *     generated, certificates that were added to the package by calling 
+     *     <b>Add</b> are associated  with the signature.
      * @param {Pointer<CERT_CONTEXT>} certificate A 
      *        <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/ns-wincrypt-cert_context">CERT_CONTEXT</a> 
      *        structure that contains the certificate to be added.
@@ -79,7 +82,7 @@ class IOpcCertificateSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateset-add
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-add
      */
     Add(certificate) {
         result := ComCall(3, this, "ptr", certificate, "HRESULT")
@@ -119,7 +122,7 @@ class IOpcCertificateSet extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateset-remove
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-remove
      */
     Remove(certificate) {
         result := ComCall(4, this, "ptr", certificate, "HRESULT")
@@ -129,7 +132,7 @@ class IOpcCertificateSet extends IUnknown{
     /**
      * Gets an enumerator of certificates in the set.
      * @returns {IOpcCertificateEnumerator} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nn-msopc-iopccertificateenumerator">IOpcCertificateEnumerator</a> interface of certificates in the set.
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopccertificateset-getenumerator
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopccertificateset-getenumerator
      */
     GetEnumerator() {
         result := ComCall(5, this, "ptr*", &certificateEnumerator := 0, "HRESULT")

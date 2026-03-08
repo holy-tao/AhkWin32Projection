@@ -6,7 +6,6 @@
 /**
  * The sampler-state interface holds a description for sampler state that you can bind to any shader stage of the pipeline for reference by texture sample operations.
  * @remarks
- * 
  * To create a sampler-state object, call <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createsamplerstate">ID3D11Device::CreateSamplerState</a>.
  * 
  * To bind a sampler-state object to any <a href="https://docs.microsoft.com/windows/desktop/direct3d11/overviews-direct3d-11-graphics-pipeline">pipeline</a> shader stage, call the following methods:
@@ -32,9 +31,7 @@
  * </li>
  * </ul>
  * You can bind the same sampler-state object to multiple shader stages simultaneously.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d11/nn-d3d11-id3d11samplerstate
+ * @see https://learn.microsoft.com/windows/win32/api/d3d11/nn-d3d11-id3d11samplerstate
  * @namespace Windows.Win32.Graphics.Direct3D11
  * @version v4.0.30319
  */
@@ -62,15 +59,12 @@ class ID3D11SamplerState extends ID3D11DeviceChild{
     /**
      * Gets the description for sampler state that you used to create the sampler-state object.
      * @remarks
-     * 
      * You use the description for sampler state in a call to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createsamplerstate">ID3D11Device::CreateSamplerState</a> method to create the sampler-state object.
-     * 
-     * 
      * @param {Pointer<D3D11_SAMPLER_DESC>} pDesc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_sampler_desc">D3D11_SAMPLER_DESC</a>*</b>
      * 
      * A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/ns-d3d11-d3d11_sampler_desc">D3D11_SAMPLER_DESC</a> structure that receives a description of the sampler state.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d11/nf-d3d11-id3d11samplerstate-getdesc
+     * @see https://learn.microsoft.com/windows/win32/api/d3d11/nf-d3d11-id3d11samplerstate-getdesc
      */
     GetDesc(pDesc) {
         ComCall(7, this, "ptr", pDesc)

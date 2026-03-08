@@ -7,7 +7,7 @@
 
 /**
  * Gets information about a content group map.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxcontentgroupmapreader
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxcontentgroupmapreader
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IAppxContentGroupMapReader extends IUnknown{
     /**
      * Gets the required content group from the content group map.
      * @returns {IAppxContentGroup} The required content group.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getrequiredgroup
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getrequiredgroup
      */
     GetRequiredGroup() {
         result := ComCall(3, this, "ptr*", &requiredGroup := 0, "HRESULT")
@@ -45,7 +45,7 @@ class IAppxContentGroupMapReader extends IUnknown{
     /**
      * Gets the automatic content group(s) from the content group map.
      * @returns {IAppxContentGroupsEnumerator} An enumerator for the automatic content group(s).
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getautomaticgroups
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxcontentgroupmapreader-getautomaticgroups
      */
     GetAutomaticGroups() {
         result := ComCall(4, this, "ptr*", &automaticGroupsEnumerator := 0, "HRESULT")

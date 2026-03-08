@@ -6,10 +6,8 @@
 /**
  * Provides access to a device's Encoder Service.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_Encoder)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_encoder
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_encoder
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -38,8 +36,8 @@ class IBDA_Encoder extends IUnknown{
      * Gets the number of encoding formats supported by the device.
      * @param {Pointer<Integer>} NumAudioFmts Receives the number of audio formats.
      * @param {Pointer<Integer>} NumVideoFmts Receives the number of video formats.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_encoder-querycapabilities
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-querycapabilities
      */
     QueryCapabilities(NumAudioFmts, NumVideoFmts) {
         NumAudioFmtsMarshal := NumAudioFmts is VarRef ? "uint*" : "ptr"
@@ -86,8 +84,8 @@ class IBDA_Encoder extends IUnknown{
      * @param {Pointer<Integer>} SamplingRate Receives the audio sampling rate, in Hz.
      * @param {Pointer<Integer>} BitDepth Receives the number of bits per audio sample.
      * @param {Pointer<Integer>} NumChannels Receives the number of audio channels.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_encoder-enumaudiocapability
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumaudiocapability
      */
     EnumAudioCapability(FmtIndex, MethodID, AlgorithmType, SamplingRate, BitDepth, NumChannels) {
         MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
@@ -102,6 +100,8 @@ class IBDA_Encoder extends IUnknown{
 
     /**
      * Gets one of the video formats supported by the device.
+     * @remarks
+     * The <i>VerticalSize</i>, <i>HorizontalSize</i>, <i>AspectRatio</i>, <i>FrameRateCode</i>, and <i>ProgressiveSequence</i> parameters are interpreted according to the ANSI/SCTE 43 2005 standard.
      * @param {Integer} FmtIndex The zero-based index of the video format to retrieve. To get the number of video formats, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_encoder-querycapabilities">IBDA_Encoder::QueryCapabilities</a>.
      * @param {Pointer<Integer>} MethodID Receives a value that uniquely identifies this video method.
      * @param {Pointer<Integer>} AlgorithmType Receives the type of encoding algorithm. The following values are defined.
@@ -161,8 +161,8 @@ class IBDA_Encoder extends IUnknown{
      * @param {Pointer<Integer>} AspectRatio Receives the aspect_ratio_information field.
      * @param {Pointer<Integer>} FrameRateCode Receives the frame_rate_code field.
      * @param {Pointer<Integer>} ProgressiveSequence Receives the progressive_sequence field.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_encoder-enumvideocapability
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-enumvideocapability
      */
     EnumVideoCapability(FmtIndex, MethodID, AlgorithmType, VerticalSize, HorizontalSize, AspectRatio, FrameRateCode, ProgressiveSequence) {
         MethodIDMarshal := MethodID is VarRef ? "uint*" : "ptr"
@@ -226,8 +226,8 @@ class IBDA_Encoder extends IUnknown{
      * @param {Integer} VideoBitrateMode The video compression mode. For a list of values, see <i>AudioBitrateMode</i>.
      * @param {Integer} VideoBitrate The video bit rate.
      * @param {Integer} VideoMethodID The active video encoder method.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_encoder-setparameters
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-setparameters
      */
     SetParameters(AudioBitrateMode, AudioBitrate, AudioMethodID, AudioProgram, VideoBitrateMode, VideoBitrate, VideoMethodID) {
         result := ComCall(6, this, "uint", AudioBitrateMode, "uint", AudioBitrate, "uint", AudioMethodID, "uint", AudioProgram, "uint", VideoBitrateMode, "uint", VideoBitrate, "uint", VideoMethodID, "HRESULT")
@@ -291,12 +291,12 @@ class IBDA_Encoder extends IUnknown{
      * @param {Pointer<Integer>} VideoBitrateStepping Receives the minimum increment for the video bit rate.
      * @param {Pointer<Integer>} VideoMethodID Receives the active video encoder method.
      * @param {Pointer<Integer>} SignalSourceID Receives the identifier of the signal source. The value is an auxiliary connector ID, as returned by the <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_aux-enumcapability">IBDA_AUX::EnumCapability</a>  method.
-     * @param {Pointer<Integer>} SignalFormat Receives a value from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> enumeration. This value specifies the analog video standard that is received on the auxiliary input.
+     * @param {Pointer<Integer>} SignalFormat Receives a value from the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ne-strmif-analogvideostandard">AnalogVideoStandard</a> enumeration. This value specifies the analog video standard that is received on the auxiliary input.
      * @param {Pointer<BOOL>} SignalLock Receives the value <b>TRUE</b> if the device has a signal lock, and <b>FALSE</b> otherwise.
      * @param {Pointer<Integer>} SignalLevel Receives the signal level in decibels.
      * @param {Pointer<Integer>} SignalToNoiseRatio Receives a value between 0 and 100, indicating the signal-to-noise ratio.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_encoder-getstate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_encoder-getstate
      */
     GetState(AudioBitrateMax, AudioBitrateMin, AudioBitrateMode, AudioBitrateStepping, AudioBitrate, AudioMethodID, AvailableAudioPrograms, AudioProgram, VideoBitrateMax, VideoBitrateMin, VideoBitrateMode, VideoBitrate, VideoBitrateStepping, VideoMethodID, SignalSourceID, SignalFormat, SignalLock, SignalLevel, SignalToNoiseRatio) {
         AudioBitrateMaxMarshal := AudioBitrateMax is VarRef ? "uint*" : "ptr"

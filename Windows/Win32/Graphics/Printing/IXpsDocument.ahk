@@ -5,6 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
+ * The IXpsDocumentPackageTarget interface contains the elements needed for printing XPS content in the Document Printing model.
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel_1/nn-xpsobjectmodel_1-ixpsdocumentpackagetarget
  * @namespace Windows.Win32.Graphics.Printing
  * @version v4.0.30319
  */

@@ -7,11 +7,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidFilePlayback2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidfileplayback2
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidfileplayback2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -52,6 +49,8 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later.
+     * @remarks
+     * If the CLSID is GUID_NULL, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidfileplaybackdevice">MSVidFilePlaybackDevice</a> object uses the default source filter for the file name given in <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidfileplayback-put_filename">IMSVidFilePlayback::put_FileName</a>.
      * @param {BSTR} FileName <b>BSTR</b> that contains the CLSID of the source filter. The <b>BSTR</b> must use the following format: <c>{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}</c>.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -72,7 +71,7 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback2-put__sourcefilter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback2-put__sourcefilter
      */
     put__SourceFilter(FileName) {
         FileName := FileName is String ? BSTR.Alloc(FileName).Value : FileName
@@ -83,6 +82,8 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later.
+     * @remarks
+     * If the CLSID is GUID_NULL, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/msvidfileplaybackdevice">MSVidFilePlaybackDevice</a> object uses the default source filter for the file name given in <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidfileplayback-put_filename">IMSVidFilePlayback::put_FileName</a>.
      * @param {Guid} FileName Specifies the CLSID of the source filter.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -103,7 +104,7 @@ class IMSVidFilePlayback2 extends IMSVidFilePlayback{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidfileplayback2-put___sourcefilter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidfileplayback2-put___sourcefilter
      */
     put___SourceFilter(FileName) {
         result := ComCall(35, this, "ptr", FileName, "HRESULT")

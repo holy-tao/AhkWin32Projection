@@ -5,7 +5,7 @@
 
 /**
  * Retrieves a list of valid and invalid characters or the maximum length of a name in the namespace. Use this interface for validation parsing and translation.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iitemnamelimits
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iitemnamelimits
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,6 +32,15 @@ class IItemNameLimits extends IUnknown{
 
     /**
      * Loads a string that contains each of the characters that are valid or invalid in the namespace under which it is called.
+     * @remarks
+     * As an example, the standard file system returns the string "\/:*?"&lt;&gt;|" in <i>ppwszInvalidChars</i> and <b>NULL</b> in <i>ppwszValidChars</i>. 
+     * 
+     * Both parameters cannot return non-<b>NULL</b> values, so <i>ppwszValidChars</i> is assigned a value of <b>NULL</b> because of the non-<b>NULL</b> value 
+     * 
+     * in <i>ppwszInvalidChars</i>. It is assumed that when there are specified invalid characters, everything else is valid. Only when <i>ppwszInvalidChars</i> is <b>NULL</b> does <i>ppwszValidChars</i> contain a list of all valid characters.
+     * 			
+     * 
+     * If the method returns a success code, the allocated string must be freed using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
      * @param {Pointer<PWSTR>} ppwszValidChars Type: <b>LPWSTR*</b>
      * 
      * A pointer to a string that contains all valid characters in the namespace. If the namespace provides <i>any</i> invalid characters in <i>ppwszInvalidChars</i>, then this value returns <b>NULL</b>. See Remarks for more details.
@@ -40,8 +49,8 @@ class IItemNameLimits extends IUnknown{
      * A pointer to a string that contains all invalid characters in the namespace.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iitemnamelimits-getvalidcharacters
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iitemnamelimits-getvalidcharacters
      */
     GetValidCharacters(ppwszValidChars, ppwszInvalidChars) {
         ppwszValidCharsMarshal := ppwszValidChars is VarRef ? "ptr*" : "ptr"
@@ -59,7 +68,7 @@ class IItemNameLimits extends IUnknown{
      * @returns {Integer} Type: <b>int*</b>
      * 
      * A pointer to the maximum number of characters which can be used in the name.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iitemnamelimits-getmaxlength
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iitemnamelimits-getmaxlength
      */
     GetMaxLength(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

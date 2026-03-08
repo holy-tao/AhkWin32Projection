@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IXDSCodecConfig interface configures the XDS Codec filter. Most applications will not have to use this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IXDSCodecConfig)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-ixdscodecconfig
+ * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-ixdscodecconfig
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,8 +34,10 @@ class IXDSCodecConfig extends IUnknown{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @remarks
+     * If the method succeeds, the caller must release the <b>IUnknown</b> interface.
      * @returns {IUnknown} Receives a pointer to the secure channel object's <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodecconfig-getsecurechannelobject
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodecconfig-getsecurechannelobject
      */
     GetSecureChannelObject() {
         result := ComCall(3, this, "ptr*", &ppUnkDRMSecureChannel := 0, "HRESULT")
@@ -49,7 +48,7 @@ class IXDSCodecConfig extends IUnknown{
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @param {Integer} dwPauseBufferTime Specifies the license generation interval, in seconds.
      * @returns {HRESULT} Returns an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ixdscodecconfig-setpausebuffertime
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ixdscodecconfig-setpausebuffertime
      */
     SetPauseBufferTime(dwPauseBufferTime) {
         result := ComCall(4, this, "uint", dwPauseBufferTime, "HRESULT")

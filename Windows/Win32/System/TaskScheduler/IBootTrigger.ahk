@@ -7,16 +7,12 @@
 /**
  * Represents a trigger that starts a task when the system is started.
  * @remarks
- * 
  * The Task Scheduler service is started when the operating system is booted, and boot trigger tasks are set to start when the Task Scheduler service starts.
  * 
  * Only a member of the Administrators group can create a task with a boot trigger.
  * 
  * When creating your own XML for a task, a boot trigger is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-boottrigger-triggergroup-element">BootTrigger</a> element of the Task Scheduler schema.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-iboottrigger
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-iboottrigger
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -49,15 +45,12 @@ class IBootTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a value that indicates the amount of time between when the system is booted and when the task is started.
+     * Gets or sets a value that indicates the amount of time between when the system is booted and when the task is started. (Get)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the boot delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-boottriggertype-element">Delay</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {Pointer<BSTR>} pDelay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iboottrigger-get_delay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iboottrigger-get_delay
      */
     get_Delay(pDelay) {
         result := ComCall(20, this, "ptr", pDelay, "HRESULT")
@@ -65,15 +58,12 @@ class IBootTrigger extends ITrigger{
     }
 
     /**
-     * Gets or sets a value that indicates the amount of time between when the system is booted and when the task is started.
+     * Gets or sets a value that indicates the amount of time between when the system is booted and when the task is started. (Put)
      * @remarks
-     * 
      * When reading or writing your own XML for a task, the boot delay is specified using the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/taskschedulerschema-delay-boottriggertype-element">Delay</a> element of the Task Scheduler schema.
-     * 
-     * 
      * @param {BSTR} delay 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-iboottrigger-put_delay
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-iboottrigger-put_delay
      */
     put_Delay(delay) {
         delay := delay is String ? BSTR.Alloc(delay).Value : delay

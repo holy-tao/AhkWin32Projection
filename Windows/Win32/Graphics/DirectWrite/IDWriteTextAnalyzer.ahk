@@ -5,7 +5,7 @@
 
 /**
  * Analyzes various text properties for complex script processing such as bidirectional (bidi) support for languages like Arabic, determination of line break opportunities, glyph placement, and number substitution.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextanalyzer
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalyzer
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -46,8 +46,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzescript
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzescript
      */
     AnalyzeScript(analysisSource, textPosition, textLength, analysisSink) {
         result := ComCall(3, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
@@ -56,6 +56,11 @@ class IDWriteTextAnalyzer extends IUnknown{
 
     /**
      * Analyzes a text range for script directionality, reading attributes from the source and reporting levels to the sink callback SetBidiLevel.
+     * @remarks
+     * While the function can handle multiple paragraphs, the text range
+     *      should not arbitrarily split the middle of paragraphs. Otherwise, the
+     *      returned levels may be wrong, because the Bidi algorithm is meant to
+     *      apply to the paragraph as a whole.
      * @param {IDWriteTextAnalysisSource} analysisSource Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource">IDWriteTextAnalysisSource</a>*</b>
      * 
      * A pointer to a source object to analyze.
@@ -70,8 +75,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzebidi
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzebidi
      */
     AnalyzeBidi(analysisSource, textPosition, textLength, analysisSink) {
         result := ComCall(4, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
@@ -80,6 +85,11 @@ class IDWriteTextAnalyzer extends IUnknown{
 
     /**
      * Analyzes a text range for spans where number substitution is applicable, reading attributes from the source and reporting substitutable ranges to the sink callback SetNumberSubstitution.
+     * @remarks
+     * Although the function can handle multiple ranges of differing number
+     *      substitutions, the text ranges should not arbitrarily split the
+     *      middle of numbers. Otherwise, it will treat the numbers separately
+     *      and will not translate any intervening punctuation.
      * @param {IDWriteTextAnalysisSource} analysisSource Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource">IDWriteTextAnalysisSource</a>*</b>
      * 
      * The source object to analyze.
@@ -94,8 +104,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzenumbersubstitution
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzenumbersubstitution
      */
     AnalyzeNumberSubstitution(analysisSource, textPosition, textLength, analysisSink) {
         result := ComCall(5, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
@@ -104,6 +114,12 @@ class IDWriteTextAnalyzer extends IUnknown{
 
     /**
      * Analyzes a text range for potential breakpoint opportunities, reading attributes from the source and reporting breakpoint opportunities to the sink callback SetLineBreakpoints.
+     * @remarks
+     * Although the function can handle multiple paragraphs, the text range
+     *      should not arbitrarily split the middle of paragraphs, unless the
+     *      specified text span is considered a whole unit. Otherwise, the
+     *      returned properties for the first and last characters will
+     *      inappropriately allow breaks.
      * @param {IDWriteTextAnalysisSource} analysisSource Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissource">IDWriteTextAnalysisSource</a>*</b>
      * 
      * A pointer to the source object to analyze.
@@ -118,8 +134,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      * A pointer to the  sink callback object that receives the text analysis.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-analyzelinebreakpoints
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzelinebreakpoints
      */
     AnalyzeLineBreakpoints(analysisSource, textPosition, textLength, analysisSink) {
         result := ComCall(6, this, "ptr", analysisSource, "uint", textPosition, "uint", textLength, "ptr", analysisSink, "HRESULT")
@@ -128,6 +144,10 @@ class IDWriteTextAnalyzer extends IUnknown{
 
     /**
      * Parses the input text string and maps it to the set of glyphs and associated glyph data according to the font and the writing system's rendering rules.
+     * @remarks
+     * Note that the mapping from characters to glyphs is, in general, many-to-many.  The recommended estimate for the per-glyph output buffers is (3 * <i>textLength</i> / 2 + 16).  This is not guaranteed to be sufficient.
+     * 
+     * The value of the <i>actualGlyphCount</i> parameter is only valid if the call succeeds.  In the event that <i>maxGlyphCount</i> is not big enough, <b>HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)</b> will be returned. The application should allocate a larger buffer and try again.
      * @param {PWSTR} textString Type: <b>const WCHAR*</b>
      * 
      * An array of characters to convert to glyphs.
@@ -189,8 +209,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      *      the call succeeds.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-getglyphs
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs
      */
     GetGlyphs(textString, textLength, fontFace, isSideways, isRightToLeft, scriptAnalysis, localeName, numberSubstitution, features, featureRangeLengths, featureRanges, maxGlyphCount, clusterMap, textProps, glyphIndices, glyphProps, actualGlyphCount) {
         textString := textString is String ? StrPtr(textString) : textString
@@ -271,8 +291,8 @@ class IDWriteTextAnalyzer extends IUnknown{
      * When this method returns, contains the offset of the origin of each glyph.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-getglyphplacements
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphplacements
      */
     GetGlyphPlacements(textString, clusterMap, textProps, textLength, glyphIndices, glyphProps, glyphCount, fontFace, fontEmSize, isSideways, isRightToLeft, scriptAnalysis, localeName, features, featureRangeLengths, featureRanges, glyphAdvances, glyphOffsets) {
         textString := textString is String ? StrPtr(textString) : textString
@@ -290,80 +310,73 @@ class IDWriteTextAnalyzer extends IUnknown{
 
     /**
      * Place glyphs output from the GetGlyphs method according to the font and the writing system's rendering rules.
-     * @param {PWSTR} textString Type: <b>const WCHAR*</b>
+     * @param {PWSTR} textString Type: **const WCHAR\***
      * 
      * An array of characters containing the original string from which the glyphs came.
-     * @param {Pointer<Integer>} clusterMap Type: <b>const UINT16*</b>
+     * @param {Pointer<Integer>} clusterMap Type: **const UINT16\***
      * 
-     * A pointer to the mapping from character ranges to glyph 
-     *      ranges. This is returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs">GetGlyphs</a>.
-     * @param {Pointer<DWRITE_SHAPING_TEXT_PROPERTIES>} textProps Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_text_properties">DWRITE_SHAPING_TEXT_PROPERTIES</a>*</b>
+     * A pointer to the mapping from character ranges to glyph ranges. This is returned by [**GetGlyphs**](/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs).
+     * @param {Pointer<DWRITE_SHAPING_TEXT_PROPERTIES>} textProps Type: **[**DWRITE\_SHAPING\_TEXT\_PROPERTIES**](/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_text_properties)\***
      * 
-     * A pointer to an array of structures that contains  shaping properties for each character. This structure is returned by 
-     *      <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs">GetGlyphs</a>.
-     * @param {Integer} textLength Type: <b>UINT32</b>
+     * A pointer to an array of structures that contains shaping properties for each character. This structure is returned by [**GetGlyphs**](/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs).
+     * @param {Integer} textLength Type: **UINT32**
      * 
-     * The text length of <i>textString</i>.
-     * @param {Pointer<Integer>} glyphIndices Type: <b>const UINT16*</b>
+     * The text length of *textString*.
+     * @param {Pointer<Integer>} glyphIndices Type: **const UINT16\***
      * 
-     * An array of glyph indices returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs">GetGlyphs</a>.
-     * @param {Pointer<DWRITE_SHAPING_GLYPH_PROPERTIES>} glyphProps Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_glyph_properties">DWRITE_SHAPING_GLYPH_PROPERTIES</a>*</b>
+     * An array of glyph indices returned by [**GetGlyphs**](/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs).
+     * @param {Pointer<DWRITE_SHAPING_GLYPH_PROPERTIES>} glyphProps Type: **const [**DWRITE\_SHAPING\_GLYPH\_PROPERTIES**](/windows/win32/api/dwrite/ns-dwrite-dwrite_shaping_glyph_properties)\***
      * 
-     * A pointer to an array of structures that contain  shaping properties for each glyph returned by <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs">GetGlyphs</a>.
-     * @param {Integer} glyphCount Type: <b>UINT32</b>
+     * A pointer to an array of structures that contain shaping properties for each glyph returned by [**GetGlyphs**](/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs).
+     * @param {Integer} glyphCount Type: **UINT32**
      * 
-     * The number of glyphs returned from <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs">GetGlyphs</a>.
-     * @param {IDWriteFontFace} fontFace Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a>*</b>
+     * The number of glyphs returned from [**GetGlyphs**](/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-getglyphs).
+     * @param {IDWriteFontFace} fontFace Type: **[**IDWriteFontFace**](/windows/win32/api/dwrite/nn-dwrite-idwritefontface)\***
      * 
      * A pointer to the font face that is the source for the output glyphs.
-     * @param {Float} fontEmSize Type: <b>FLOAT</b>
+     * @param {Float} fontEmSize Type: **FLOAT**
      * 
      * The logical font size in DIPs.
-     * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
+     * @param {Float} pixelsPerDip Type: **FLOAT**
      * 
      * The number of physical pixels per DIP.
-     * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
+     * @param {Pointer<DWRITE_MATRIX>} transform Type: **const [**DWRITE\_MATRIX**](/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix)\***
      * 
-     * An optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the font size and <i>pixelsPerDip</i>.
-     * @param {BOOL} useGdiNatural Type: <b>BOOL</b>
+     * An optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the font size and *pixelsPerDip*.
+     * @param {BOOL} useGdiNatural Type: **BOOL**
      * 
-     * When set to <b>FALSE</b>, the metrics are the same as the metrics of GDI aliased text.  When set to <b>TRUE</b>, the metrics are the same as the metrics of text measured by GDI using a font created with <b>CLEARTYPE_NATURAL_QUALITY</b>.
-     * @param {BOOL} isSideways Type: <b>BOOL</b>
+     * When set to **FALSE**, the metrics are the same as the metrics of GDI aliased text. When set to **TRUE**, the metrics are the same as the metrics of text measured by GDI using a font created with **CLEARTYPE\_NATURAL\_QUALITY**.
+     * @param {BOOL} isSideways Type: **BOOL**
      * 
-     * A Boolean flag set to <b>TRUE</b> if the text is intended to be
-     *      drawn vertically.
-     * @param {BOOL} isRightToLeft Type: <b>BOOL</b>
+     * A Boolean flag set to **TRUE** if the text is intended to be drawn vertically.
+     * @param {BOOL} isRightToLeft Type: **BOOL**
      * 
-     * A Boolean flag set to <b>TRUE</b> for right-to-left text.
-     * @param {Pointer<DWRITE_SCRIPT_ANALYSIS>} scriptAnalysis Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_script_analysis">DWRITE_SCRIPT_ANALYSIS</a>*</b>
+     * A Boolean flag set to **TRUE** for right-to-left text.
+     * @param {Pointer<DWRITE_SCRIPT_ANALYSIS>} scriptAnalysis Type: **const [**DWRITE\_SCRIPT\_ANALYSIS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_script_analysis)\***
      * 
-     * A pointer to a Script analysis result from an<a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzescript">AnalyzeScript</a> call.
-     * @param {PWSTR} localeName Type: <b>const WCHAR*</b>
+     * A pointer to a Script analysis result from an[**AnalyzeScript**](/windows/win32/api/dwrite/nf-dwrite-idwritetextanalyzer-analyzescript) call.
+     * @param {PWSTR} localeName Type: **const WCHAR\***
      * 
-     * An array of characters containing the locale to use when selecting glyphs.
-     *      For example, the same character may map to different glyphs for ja-jp versus zh-chs.
-     *      If this is <b>NULL</b>, then the default mapping based on the script is used.
-     * @param {Pointer<Pointer<DWRITE_TYPOGRAPHIC_FEATURES>>} features Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_typographic_features">DWRITE_TYPOGRAPHIC_FEATURES</a>**</b>
+     * An array of characters containing the locale to use when selecting glyphs. For example, the same character may map to different glyphs for ja-jp versus zh-chs. If this is **NULL**, then the default mapping based on the script is used.
+     * @param {Pointer<Pointer<DWRITE_TYPOGRAPHIC_FEATURES>>} features Type: **const [**DWRITE\_TYPOGRAPHIC\_FEATURES**](/windows/win32/api/dwrite/ns-dwrite-dwrite_typographic_features)\*\***
      * 
-     * An array of pointers to the sets of typographic 
-     *      features to use in each feature range.
-     * @param {Pointer<Integer>} featureRangeLengths Type: <b>const UINT32*</b>
+     * An array of pointers to the sets of typographic features to use in each feature range.
+     * @param {Pointer<Integer>} featureRangeLengths Type: **const UINT32\***
      * 
-     * The length of each feature range, in characters.  
-     *      The sum of all lengths should be equal to <i>textLength</i>.
-     * @param {Integer} featureRanges Type: <b>UINT32</b>
+     * The length of each feature range, in characters. The sum of all lengths should be equal to *textLength*.
+     * @param {Integer} featureRanges Type: **UINT32**
      * 
      * The number of feature ranges.
-     * @param {Pointer<Float>} glyphAdvances Type: <b>FLOAT*</b>
+     * @param {Pointer<Float>} glyphAdvances Type: **FLOAT\***
      * 
      * When this method returns, contains the advance width of each glyph.
-     * @param {Pointer<DWRITE_GLYPH_OFFSET>} glyphOffsets Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_offset">DWRITE_GLYPH_OFFSET</a>*</b>
+     * @param {Pointer<DWRITE_GLYPH_OFFSET>} glyphOffsets Type: **[**DWRITE\_GLYPH\_OFFSET**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_offset)\***
      * 
      * When this method returns, contains the offset of the origin of each glyph.
-     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * @returns {HRESULT} Type: **HRESULT**
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalyzer-getgdicompatibleglyphplacements
+     * If this method succeeds, it returns **S\_OK**. Otherwise, it returns an **HRESULT** error code.
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritetextanalyzer-getgdicompatibleglyphplacements
      */
     GetGdiCompatibleGlyphPlacements(textString, clusterMap, textProps, textLength, glyphIndices, glyphProps, glyphCount, fontFace, fontEmSize, pixelsPerDip, transform, useGdiNatural, isSideways, isRightToLeft, scriptAnalysis, localeName, features, featureRangeLengths, featureRanges, glyphAdvances, glyphOffsets) {
         textString := textString is String ? StrPtr(textString) : textString

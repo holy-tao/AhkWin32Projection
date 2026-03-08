@@ -6,7 +6,6 @@
 /**
  * Exposes a method to get search results from a custom client-side OpenSearch data source.
  * @remarks
- * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Implement this interface when a server-side only solution will not work, such as the following: 
  *             
@@ -19,8 +18,7 @@
  * A client-side OpenSearch data source that sits in between the Windows OpenSearch provider and the external data source.
  * 
  * With a search connector (a .searchconnector-ms file), Windows Explorer calls your implementation with the query parameters. Your implementation returns results formatted in RSS or Atom format. That allows your implementation to provide custom authentication UI and connect to the data source using its proprietary API.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iopensearchsource
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iopensearchsource
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -47,6 +45,17 @@ class IOpenSearchSource extends IUnknown{
 
     /**
      * Returns search results, from an OpenSearch data source, formatted in RSS or Atom format.
+     * @remarks
+     * Windows Explorer calls this method with the search query parameters. The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-iopensearchsource">IOpenSearchSource</a> implementation returns some or all results after performing required actions, such as providing custom authentication UI or connecting to the data source using a proprietary API.
+     *             
+     * 
+     * <h3><a id="Paged_Results"></a><a id="paged_results"></a><a id="PAGED_RESULTS"></a>Paged Results</h3>
+     * If you do not want the web service to return more than a limited number of results per request, this method can return just a "page" of results at a time. Windows Explorer can get additional pages of results by calling this method repeatedly and specifying a new index number. When returning results, the first result must be the result at the index requested by <i>dwStartIndex</i>.
+     * 
+     * <h3><a id="Index_Numbers_and_Counts"></a><a id="index_numbers_and_counts"></a><a id="INDEX_NUMBERS_AND_COUNTS"></a>Index Numbers and Counts</h3>
+     * The index number identifies the first result on a page of results. It is equivalent to the OpenSearch {startIndex} parameter. The count, equivalent to the OpenSearch {count} parameter, identifies the expected or preferred number of items returned per page.
+     * 
+     * If a web service returns 20 items on the first page of results, the expected page size is 20.  To get the next 20 items, Windows Explorer would call <b>IOpenSearchSource::GetResults</b> with the value 21 for <i>dwStartIndex</i> and with the value of 20 for <i>dwCount</i>. When a page of results returned by the web service has fewer items than the expected page size, Windows Explorer assumes it has received the last page of results and stops making requests.
      * @param {HWND} hwnd Type: <b>HWND</b>
      * 
      * The window handle of the caller.
@@ -65,7 +74,7 @@ class IOpenSearchSource extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * An interface pointer, of type specified by RIID, to the object containing the results in Atom or RSS format.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iopensearchsource-getresults
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iopensearchsource-getresults
      */
     GetResults(hwnd, pszQuery, dwStartIndex, dwCount, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

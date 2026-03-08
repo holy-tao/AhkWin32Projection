@@ -6,7 +6,7 @@
 
 /**
  * IUISimplePropertySet is a read-only interface that defines a method for retrieving the value identified by a property key.
- * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nn-uiribbon-iuisimplepropertyset
+ * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nn-uiribbon-iuisimplepropertyset
  * @namespace Windows.Win32.UI.Ribbon
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IUISimplePropertySet extends IUnknown{
      * 
      * When this method returns, contains a pointer to the value for 
      * 					<i>key</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//uiribbon/nf-uiribbon-iuisimplepropertyset-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiribbon/nf-uiribbon-iuisimplepropertyset-getvalue
      */
     GetValue(key) {
         value := PROPVARIANT()

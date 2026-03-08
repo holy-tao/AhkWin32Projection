@@ -6,7 +6,7 @@
 
 /**
  * Allows the provider to optionally support a more comprehensive spell checking functionality.
- * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nn-spellcheckprovider-icomprehensivespellcheckprovider
+ * @see https://learn.microsoft.com/windows/win32/api/spellcheckprovider/nn-spellcheckprovider-icomprehensivespellcheckprovider
  * @namespace Windows.Win32.Globalization
  * @version v4.0.30319
  */
@@ -33,9 +33,11 @@ class IComprehensiveSpellCheckProvider extends IUnknown{
 
     /**
      * Spell-check the provider text in a more thorough manner than ISpellCheckProvider::Check.
+     * @remarks
+     * This interface isn't required to be implemented by a spell check provider. But if the provider supports two "modes" of spell checking (a faster one and a slower but more thorough one), it should implement this interface in the same object that implements [**ISpellCheckProvider**](/windows/desktop/api/Spellcheckprovider/nn-spellcheckprovider-ispellcheckprovider) to support the more thorough checking mode. When a client calls [**ISpellChecker::ComprehensiveCheck**](/windows/desktop/api/Spellcheck/nf-spellcheck-ispellchecker-comprehensivecheck), the spell checking functionality will [**QueryInterface**](/windows/win32/api/unknwn/nf-unknwn-iunknown-queryinterface(q)) the provider for [**IComprehensiveSpellCheckProvider**](/windows/desktop/api/spellcheckprovider/nn-spellcheckprovider-icomprehensivespellcheckprovider), and call **IComprehensiveSpellCheckProvider.ComprehensiveCheck** if the interface is supported. If the interface isn't supported, it will silently fall back to [**ISpellCheckProvider::Check**](/windows/desktop/api/Spellcheckprovider/nf-spellcheckprovider-ispellcheckprovider-check).
      * @param {PWSTR} text The text to check.
-     * @returns {IEnumSpellingError} The result of checking this text, as an enumeration of spelling errors (<a href="https://docs.microsoft.com/windows/desktop/api/spellcheck/nn-spellcheck-ienumspellingerror">IEnumSpellingError</a>), if any.
-     * @see https://docs.microsoft.com/windows/win32/api//spellcheckprovider/nf-spellcheckprovider-icomprehensivespellcheckprovider-comprehensivecheck
+     * @returns {IEnumSpellingError} 
+     * @see https://learn.microsoft.com/windows/win32/Intl/icomprehensivespellcheckprovider-comprehensivecheck
      */
     ComprehensiveCheck(text) {
         text := text is String ? StrPtr(text) : text

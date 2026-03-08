@@ -5,7 +5,7 @@
 
 /**
  * The IVMRImageCompositor interface is implemented by the default compositor for the Video Mixing Renderer Filter 7 (VMR-7).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivmrimagecompositor
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivmrimagecompositor
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IVMRImageCompositor extends IUnknown{
      * @param {IUnknown} pD3DDevice Pointer to the <b>IUnknown</b> interface of the Direct3D device object.
      * @param {IDirectDrawSurface7} pddsRenderTarget Specifies the DirectDraw surface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagecompositor-initcompositiontarget
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-initcompositiontarget
      */
     InitCompositionTarget(pD3DDevice, pddsRenderTarget) {
         result := ComCall(3, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, "HRESULT")
@@ -47,7 +47,7 @@ class IVMRImageCompositor extends IUnknown{
      * @param {IUnknown} pD3DDevice Pointer to the <b>IUnknown</b> interface of the Direct3D device object.
      * @param {IDirectDrawSurface7} pddsRenderTarget Specifies the DirectDraw surface
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagecompositor-termcompositiontarget
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-termcompositiontarget
      */
     TermCompositionTarget(pD3DDevice, pddsRenderTarget) {
         result := ComCall(4, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, "HRESULT")
@@ -60,7 +60,7 @@ class IVMRImageCompositor extends IUnknown{
      * @param {Pointer<AM_MEDIA_TYPE>} pmt Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/strmif/ns-strmif-am_media_type">AM_MEDIA_TYPE</a> structure that specifies the media type.
      * @param {BOOL} fTexture If <b>TRUE</b>, specifies that the target surface is a Direct3D texture surface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagecompositor-setstreammediatype
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-setstreammediatype
      */
     SetStreamMediaType(dwStrmID, pmt, fTexture) {
         result := ComCall(5, this, "uint", dwStrmID, "ptr", pmt, "int", fTexture, "HRESULT")
@@ -78,7 +78,7 @@ class IVMRImageCompositor extends IUnknown{
      * @param {Pointer<VMRVIDEOSTREAMINFO>} pVideoStreamInfo Pointer to an array of video stream info objects.
      * @param {Integer} cStreams Specifies the number of streams to be mixed, which is equal to the size of the pVideoStreamInfo array.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivmrimagecompositor-compositeimage
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivmrimagecompositor-compositeimage
      */
     CompositeImage(pD3DDevice, pddsRenderTarget, pmtRenderTarget, rtStart, rtEnd, dwClrBkGnd, pVideoStreamInfo, cStreams) {
         result := ComCall(6, this, "ptr", pD3DDevice, "ptr", pddsRenderTarget, "ptr", pmtRenderTarget, "int64", rtStart, "int64", rtEnd, "uint", dwClrBkGnd, "ptr", pVideoStreamInfo, "uint", cStreams, "HRESULT")

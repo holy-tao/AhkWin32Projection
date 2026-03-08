@@ -29,12 +29,16 @@ class IDeveloperConsoleMessageReceiver extends IUnknown{
     static VTableNames => ["Write", "WriteWithUrl", "WriteWithUrlAndLine", "WriteWithUrlLineAndColumn"]
 
     /**
-     * 
+     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
      * @param {PWSTR} source 
      * @param {Integer} level 
      * @param {Integer} messageId 
      * @param {PWSTR} messageText 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method has no parameters.
+     * 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
      */
     Write(source, level, messageId, messageText) {
         source := source is String ? StrPtr(source) : source

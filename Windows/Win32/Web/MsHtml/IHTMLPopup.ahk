@@ -50,13 +50,14 @@ class IHTMLPopup extends IDispatch{
     }
 
     /**
-     * 
+     * Shows the timeout values of the service (in seconds).
      * @param {Integer} x 
      * @param {Integer} y 
      * @param {Integer} w 
      * @param {Integer} h 
      * @param {Pointer<VARIANT>} pElement 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Http/show-timeout
      */
     show(x, y, w, h, pElement) {
         result := ComCall(7, this, "int", x, "int", y, "int", w, "int", h, "ptr", pElement, "HRESULT")

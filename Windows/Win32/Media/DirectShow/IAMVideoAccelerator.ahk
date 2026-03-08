@@ -7,7 +7,7 @@
 
 /**
  * The IAMVideoAccelerator interface enables a video decoder filter to access DirectX Video Acceleration (DXVA) 1.0 functionality.
- * @see https://docs.microsoft.com/windows/win32/api//videoacc/nn-videoacc-iamvideoaccelerator
+ * @see https://learn.microsoft.com/windows/win32/api/videoacc/nn-videoacc-iamvideoaccelerator
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,12 +34,14 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The GetVideoAcceleratorGUIDs method gets a list of DirectX Video Acceleration (DXVA) profiles supported by the display driver.
+     * @remarks
+     * Call this method twice. On the first call, set <i>pGuidsSupported</i> to <b>NULL</b>. The <i>pdwNumGuidsSupported</i> parameter receives the number of DXVA profile GUIDs. Allocate an array of GUIDs with the required size and call the method again. This time, set <i>pGuidsSupported</i> to the address of the array. The method fills the array with the list of DXVA profile GUIDs.
      * @param {Pointer<Integer>} pdwNumGuidsSupported On input, specifies the number of elements in the <i>pGuidsSupported</i> array.
      *             If <i>pGuidsSupported</i> is <b>NULL</b>, the value of <c>*pdwNumGuidsSupported</c> must be zero. 
      * 
      * On output, if <i>pGuidsSupported</i> is <b>NULL</b>, <i>pdwNumGuidsSupported</i> receives the number of restricted-mode DXVA profiles. Otherwise, <i>pdwNumGuidsSupported</i> receives the actual number of GUIDs copied to the <i>pGuidsSupported</i> array.
      * @returns {Guid} Address of an array of GUIDs, or <b>NULL</b>. If the value is non-<b>NULL</b>, the array receives a list of GUIDs that specify restricted-mode DXVA profiles. These GUIDs are defined in the header file dxva.h, and are documented in the <a href="https://docs.microsoft.com/windows-hardware/drivers/display/directx-video-acceleration">DXVA 1.0 specification</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-getvideoacceleratorguids
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getvideoacceleratorguids
      */
     GetVideoAcceleratorGUIDs(pdwNumGuidsSupported) {
         pdwNumGuidsSupportedMarshal := pdwNumGuidsSupported is VarRef ? "uint*" : "ptr"
@@ -51,6 +53,10 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The GetUncompFormatsSupported method gets a list of uncompressed pixel formats that can be rendered using a specified DirectX Video Acceleration (DXVA) profile.
+     * @remarks
+     * Call this method twice. On the first call, set <i>pFormatsSupported</i> to <b>NULL</b>. The <i>pdwNumFormatsSupported</i> parameter receives the number of formats. Allocate an array of <b>DDPIXELFORMAT</b> structures with the required size, and call the method again. This time, set <i>pFormatsSupported</i> to the address of the array. The method fills the array with the list of pixel formats.
+     * 
+     * The driver should return the formats in decreasing order of preference, with the most preferred format listed first.
      * @param {Pointer<Guid>} pGuid Pointer to a GUID that specifies the DXVA profile. To get a list of supported profiles, call 
      *           <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getvideoacceleratorguids">IAMVideoAccelerator::GetVideoAcceleratorGUIDs</a>.
      * @param {Pointer<Integer>} pdwNumFormatsSupported On input, specifies the number of elements in the <i>pFormatsSupported</i> array.
@@ -58,7 +64,7 @@ class IAMVideoAccelerator extends IUnknown{
      * 
      * On output, if <i>pFormatsSupported</i> is <b>NULL</b>, <i>pdwNumFormatsSupported</i> receives the number of supported pixel formats. Otherwise, <i>pdwNumFormatsSupported</i> receives the actual number of pixel formats copied to the <i>pFormatsSupported</i> array.
      * @returns {DDPIXELFORMAT} Address of an array of <b>DDPIXELFORMAT</b> structures, or <b>NULL</b>. If the value is non-<b>NULL</b>, the array receives a list of pixel formats.
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-getuncompformatssupported
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getuncompformatssupported
      */
     GetUncompFormatsSupported(pGuid, pdwNumFormatsSupported) {
         pdwNumFormatsSupportedMarshal := pdwNumFormatsSupported is VarRef ? "uint*" : "ptr"
@@ -136,7 +142,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-getinternalmeminfo
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalmeminfo
      */
     GetInternalMemInfo(pGuid, pamvaUncompDataInfo, pamvaInternalMemInfo) {
         result := ComCall(5, this, "ptr", pGuid, "ptr", pamvaUncompDataInfo, "ptr", pamvaInternalMemInfo, "HRESULT")
@@ -145,6 +151,11 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The GetCompBufferInfo method gets information about the compressed buffers used for DirectX Video Acceleration (DXVA) decoding.
+     * @remarks
+     * The decoder can use this method to get compressed buffer information during the pin connection 
+     *       process. After the pins are connected, the decoder can call <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalcompbufferinfo">IAMVideoAccelerator::GetInternalCompBufferInfo</a> to get this information.
+     * 
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvacompbufferinfo">AMVACompBufferInfo</a> structure contains information that is needed for the <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer">IAMVideoAccelerator::GetBuffer</a> method.
      * @param {Pointer<Guid>} pGuid Pointer to a GUID that specifies the DXVA profile in use.
      * @param {Pointer<AMVAUncompDataInfo>} pamvaUncompDataInfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvauncompdatainfo">AMVAUncompDataInfo</a> structure that specifies the size and pixel format of the uncompressed data.
      * @param {Pointer<Integer>} pdwNumTypesCompBuffers On input, specifies the number of elements in the <i>pamvaCompBufferInfo</i> array.
@@ -155,8 +166,8 @@ class IAMVideoAccelerator extends IUnknown{
      * 
      * Set all of the array elements to zero before calling this method.
      * 
-     * Each array index corresponds to one of the DXVA surface types defined in dxva.h. The video accelerator will return a list of up to <b>DXVA_NUM_TYPES_COMP_BUFFERS</b>array entries. For details, refer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/display/directx-video-acceleration">DXVA 1.0 specification</a>, section 3.4, "Buffer Description List." If a particular buffer type is not used by the DXVA profile in question, the entry at that index contains zeroes for all values.
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-getcompbufferinfo
+     * Each array index corresponds to one of the DXVA surface types defined in dxva.h. The video accelerator will return a list of up to <b>DXVA_NUM_TYPES_COMP_BUFFERS</b> array entries. For details, refer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/display/directx-video-acceleration">DXVA 1.0 specification</a>, section 3.4, "Buffer Description List." If a particular buffer type is not used by the DXVA profile in question, the entry at that index contains zeroes for all values.
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getcompbufferinfo
      */
     GetCompBufferInfo(pGuid, pamvaUncompDataInfo, pdwNumTypesCompBuffers) {
         pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
@@ -168,6 +179,8 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The GetInternalCompBufferInfo method gets information about the compressed buffers used for DirectX Video Acceleration (DXVA) decoding.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvacompbufferinfo">AMVACompBufferInfo</a> structure contains information that is needed for the <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer">IAMVideoAccelerator::GetBuffer</a> method.
      * @param {Pointer<Integer>} pdwNumTypesCompBuffers On input, specifies the number of elements in the <i>pamvaCompBufferInfo</i> array.
      *             If <i>pamvaCompBufferInfo</i> is <b>NULL</b>, the value of <c>*pdwNumTypesCompBuffers</c> must be zero.
      * 
@@ -176,8 +189,8 @@ class IAMVideoAccelerator extends IUnknown{
      * 
      * Set all of the array elements to zero before calling this method.
      * 
-     * Each array index corresponds to one of the DXVA surface types defined in dxva.h. The video accelerator will return a list of up to <b>DXVA_NUM_TYPES_COMP_BUFFERS</b>array entries. For details, refer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/display/directx-video-acceleration">DXVA 1.0 specification</a>, section 3.4, "Buffer Description List." If a particular buffer type is not used by the DXVA profile in question, the entry at that index contains zeroes for all values.
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-getinternalcompbufferinfo
+     * Each array index corresponds to one of the DXVA surface types defined in dxva.h. The video accelerator will return a list of up to <b>DXVA_NUM_TYPES_COMP_BUFFERS</b> array entries. For details, refer to the <a href="https://docs.microsoft.com/windows-hardware/drivers/display/directx-video-acceleration">DXVA 1.0 specification</a>, section 3.4, "Buffer Description List." If a particular buffer type is not used by the DXVA profile in question, the entry at that index contains zeroes for all values.
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalcompbufferinfo
      */
     GetInternalCompBufferInfo(pdwNumTypesCompBuffers) {
         pdwNumTypesCompBuffersMarshal := pdwNumTypesCompBuffers is VarRef ? "uint*" : "ptr"
@@ -189,6 +202,12 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The BeginFrame method begins the processing to create a decoded picture.
+     * @remarks
+     * If the filter's pins are not connected, the method returns <b>VFW_E_NOT_CONNECTED</b>.
+     * 
+     * This method might block if no frame buffer is available.
+     * 
+     * For each call to <b>BeginFrame</b>, the decoder must make a corresponding call to <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-endframe">IAMVideoAccelerator::EndFrame</a>.
      * @param {Pointer<AMVABeginFrameInfo>} amvaBeginFrameInfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvabeginframeinfo">AMVABeginFrameInfo</a> structure that contains information needed to begin processing the frame.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface. <b>HRESULT</b> can include one of the following standard constants, or other values not listed.
      * 
@@ -275,7 +294,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-beginframe
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-beginframe
      */
     BeginFrame(amvaBeginFrameInfo) {
         result := ComCall(8, this, "ptr", amvaBeginFrameInfo, "HRESULT")
@@ -284,6 +303,10 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The EndFrame method ends frame processing.
+     * @remarks
+     * If the filter's pins are not connected, the method returns <b>VFW_E_NOT_CONNECTED</b>.
+     * 
+     * For more information about this method, see the remarks for  <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-beginframe">IAMVideoAccelerator::BeginFrame</a>.
      * @param {Pointer<AMVAEndFrameInfo>} pEndFrameInfo Pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvaendframeinfo">AMVAEndFrameInfo</a> structure.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface. <b>HRESULT</b> can include one of the following standard constants, or other values not listed.
      * 
@@ -370,7 +393,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-endframe
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-endframe
      */
     EndFrame(pEndFrameInfo) {
         result := ComCall(9, this, "ptr", pEndFrameInfo, "HRESULT")
@@ -379,6 +402,15 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The GetBuffer method gets a pointer to a compressed or uncompressed surface that was allocated for DirectX Video Acceleration (DXVA) decoding.
+     * @remarks
+     * If the filter's pins are not connected, the method returns <b>VFW_E_NOT_CONNECTED</b>.
+     * 
+     * This method locks and obtains access to a single buffer. Buffers are identified by type and by index within that type. The <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getinternalcompbufferinfo">IAMVideoAccelerator::GetInternalCompBufferInfo</a> method returns the number of surface types in its <i>pdwNumTypesCompBuffers</i> parameter. This number defines the valid range for <i>dwTypeIndex</i>. For each type, the <b>dwNumCompBuffers</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/amva/ns-amva-amvacompbufferinfo">AMVACompBufferInfo</a> structure gives the number of buffers, which defines the valid range for <i>dwBufferIndex</i>. 
+     *       
+     * 
+     * To release the buffer, call <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-releasebuffer">IAMVideoAccelerator::ReleaseBuffer</a>.
+     * 
+     * Until all compressed buffers are released, it is possible that the calling thread will hold the Win16 lock or the DirectDraw lock.
      * @param {Integer} dwTypeIndex Specifies the surface type:
      * 
      * <ul>
@@ -480,7 +512,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-getbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer
      */
     GetBuffer(dwTypeIndex, dwBufferIndex, bReadOnly, ppBuffer, lpStride) {
         ppBufferMarshal := ppBuffer is VarRef ? "ptr*" : "ptr"
@@ -492,6 +524,12 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The ReleaseBuffer method releases a buffer that was locked by a previous call to IAMVideoAccelerator::GetBuffer.
+     * @remarks
+     * If the filter's pins are not connected, the method returns <b>VFW_E_NOT_CONNECTED</b>.
+     * 
+     * This method unlocks a single buffer. The video decoder calls this method when the buffer is no longer required, after any calls to <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-execute">IAMVideoAccelerator::Execute</a> have been made using that buffer.
+     * 
+     * The buffer pointer obtained from <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer">GetBuffer</a> is no longer valid after this call.
      * @param {Integer} dwTypeIndex The surface type of the buffer. Use the same value that was passed to the <i>dwTypeIndex</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer">GetBuffer</a> method.
      * @param {Integer} dwBufferIndex The zero-based index of the buffer. Use the same value that was passed to the <i>dwBufferIndex</i> parameter of the <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-getbuffer">GetBuffer</a> method.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface. <b>HRESULT</b> can include one of the following standard constants, or other values not listed.
@@ -579,7 +617,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-releasebuffer
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-releasebuffer
      */
     ReleaseBuffer(dwTypeIndex, dwBufferIndex) {
         result := ComCall(11, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "HRESULT")
@@ -588,6 +626,13 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The Execute method performs a DirectX Video Acceleration (DXVA) decoding operation.
+     * @remarks
+     * If the filter's pins are not connected, the method returns <b>VFW_E_NOT_CONNECTED</b>.
+     * 
+     * The associated buffer list is passed along with a function number (defaulting to zero) and any necessary private data describing the decompression operation. For example, decompressed reference frame information is passed in the buffer list. The buffer list order is important and is defined by the particular decompression operation being performed.
+     *       
+     * 
+     * Private data can be passed to and from a driver.
      * @param {Integer} dwFunction Contains one or more 
      *             DXVA function numbers.
      * @param {Pointer<Void>} lpPrivateInputData Pointer to input data for the decoding operation. The meaning of this data depends on the surface type and function number. For details, refer to the DXVA 1.0 specification.
@@ -681,7 +726,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-execute
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-execute
      */
     Execute(dwFunction, lpPrivateInputData, cbPrivateInputData, lpPrivateOutputDat, cbPrivateOutputData, dwNumBuffers, pamvaBufferInfo) {
         lpPrivateInputDataMarshal := lpPrivateInputData is VarRef ? "ptr" : "ptr"
@@ -693,6 +738,8 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The QueryRenderStatus method queries the read/write status of a DirectX Video Acceleration (DXVA) decoding surface.
+     * @remarks
+     * If the filter's pins are not connected, the method returns <b>VFW_E_NOT_CONNECTED</b>.
      * @param {Integer} dwTypeIndex Specifies the type of surface to query: 
      * 
      * <ul>
@@ -781,7 +828,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-queryrenderstatus
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-queryrenderstatus
      */
     QueryRenderStatus(dwTypeIndex, dwBufferIndex, dwFlags) {
         result := ComCall(13, this, "uint", dwTypeIndex, "uint", dwBufferIndex, "uint", dwFlags, "HRESULT")
@@ -790,8 +837,15 @@ class IAMVideoAccelerator extends IUnknown{
 
     /**
      * The DisplayFrame method causes the video renderer to display a decoded frame.
+     * @remarks
+     * If the filter's pins are not connected, the method returns <b>VFW_E_NOT_CONNECTED</b>.
+     * 
+     * The method blocks until the video renderer finishes displaying the video frame.
+     *       
+     * 
+     * The video decoder calls this method after calling <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-endframe">IAMVideoAccelerator::EndFrame</a> for the surface whose index is given in <i>dwFlipToIndex</i>. The index value must match the value of <b>AMVABeginFrameInfo.dwDestSurfaceIndex</b> in a previous call to <a href="https://docs.microsoft.com/windows/desktop/api/videoacc/nf-videoacc-iamvideoaccelerator-beginframe">IAMVideoAccelerator::BeginFrame</a>.
      * @param {Integer} dwFlipToIndex The surface index of the decoded frame to display.
-     * @param {IMediaSample} pMediaSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imediasample">IMediaSample</a> interface of a media sample. This sample does not contain a video frame, but is used to specify the time stamp and any sample flags. (For more information about sample flags, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ns-strmif-am_sample2_properties">AM_SAMPLE2_PROPERTIES</a>.
+     * @param {IMediaSample} pMediaSample Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imediasample">IMediaSample</a> interface of a media sample. This sample does not contain a video frame, but is used to specify the time stamp and any sample flags. (For more information about sample flags, see <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-am_sample2_properties">AM_SAMPLE2_PROPERTIES</a>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface. <b>HRESULT</b> can include one of the following standard constants, or other values not listed.
      * 
      * <table>
@@ -877,7 +931,7 @@ class IAMVideoAccelerator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//videoacc/nf-videoacc-iamvideoaccelerator-displayframe
+     * @see https://learn.microsoft.com/windows/win32/api/videoacc/nf-videoacc-iamvideoaccelerator-displayframe
      */
     DisplayFrame(dwFlipToIndex, pMediaSample) {
         result := ComCall(14, this, "uint", dwFlipToIndex, "ptr", pMediaSample, "HRESULT")

@@ -112,7 +112,7 @@ class Mailslots {
 
         result := DllCall("KERNEL32.dll\CreateMailslotA", "ptr", lpName, "uint", nMaxMessageSize, "uint", lReadTimeout, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -219,7 +219,7 @@ class Mailslots {
 
         result := DllCall("KERNEL32.dll\CreateMailslotW", "ptr", lpName, "uint", nMaxMessageSize, "uint", lReadTimeout, "ptr", lpSecurityAttributes, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -274,8 +274,8 @@ class Mailslots {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\GetMailslotInfo", "ptr", hMailslot, lpMaxMessageSizeMarshal, lpMaxMessageSize, lpNextSizeMarshal, lpNextSize, lpMessageCountMarshal, lpMessageCount, lpReadTimeoutMarshal, lpReadTimeout, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -334,8 +334,8 @@ class Mailslots {
         A_LastError := 0
 
         result := DllCall("KERNEL32.dll\SetMailslotInfo", "ptr", hMailslot, "uint", lReadTimeout, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

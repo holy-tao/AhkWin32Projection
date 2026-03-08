@@ -7,7 +7,7 @@
 
 /**
  * Deprecated. Exposes methods that maintain and manipulate a record of travel in the browser.
- * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nn-shdeprecated-itravellog
+ * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nn-shdeprecated-itravellog
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -42,8 +42,8 @@ class ITravelLog extends IUnknown{
      * A value specifying whether the new entry is a local anchor.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-addentry
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-addentry
      */
     AddEntry(punk, fIsLocalAnchor) {
         result := ComCall(3, this, "ptr", punk, "int", fIsLocalAnchor, "HRESULT")
@@ -60,8 +60,8 @@ class ITravelLog extends IUnknown{
      * A value specifying whether the new entry is a local anchor.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-updateentry
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-updateentry
      */
     UpdateEntry(punk, fIsLocalAnchor) {
         result := ComCall(4, this, "ptr", punk, "int", fIsLocalAnchor, "HRESULT")
@@ -78,8 +78,8 @@ class ITravelLog extends IUnknown{
      * A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of an <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767949(v=vs.85)">IHlinkBrowseContext</a> retrieved through <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/aa767937(v=vs.85)">IHlinkFrame::GetBrowseContext</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-updateexternal
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-updateexternal
      */
     UpdateExternal(punk, punkHLBrowseContext) {
         result := ComCall(5, this, "ptr", punk, "ptr", punkHLBrowseContext, "HRESULT")
@@ -88,6 +88,8 @@ class ITravelLog extends IUnknown{
 
     /**
      * Deprecated. Navigates to a travel entry in the travel log relative to the position of the current entry.
+     * @remarks
+     * Calling <b>ITravelLog::Travel</b> has the same result as calling <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nf-shdeprecated-itravelentry-invoke">Invoke</a>.
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> that represents the nearest browser or frame within which the travel generating the log is taking place.
@@ -96,8 +98,8 @@ class ITravelLog extends IUnknown{
      * The number of travel entries forward (a positive value) or backward (a negative value) to move in the travel log.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-travel
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-travel
      */
     Travel(punk, iOffset) {
         result := ComCall(6, this, "ptr", punk, "int", iOffset, "HRESULT")
@@ -106,6 +108,8 @@ class ITravelLog extends IUnknown{
 
     /**
      * Deprecated. Gets a travel entry in the travel log relative to the position of the current entry.
+     * @remarks
+     * <b>ITravelLog::GetTravelEntry</b> is often used to discover whether the <b>Back</b> and <b>Forward</b> buttons should be enabled in the browser window.
      * @param {IUnknown} punk Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> representing the nearest browser or frame within which the travel generating the log is taking place.
@@ -115,7 +119,7 @@ class ITravelLog extends IUnknown{
      * @returns {ITravelEntry} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravelentry">ITravelEntry</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravelentry">ITravelEntry</a> interface representing the travel entry at the offset specified in <i>iOffset</i>. This value is only valid if the method returns successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-gettravelentry
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-gettravelentry
      */
     GetTravelEntry(punk, iOffset) {
         result := ComCall(7, this, "ptr", punk, "int", iOffset, "ptr*", &ppte := 0, "HRESULT")
@@ -133,7 +137,7 @@ class ITravelLog extends IUnknown{
      * @returns {ITravelEntry} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravelentry">ITravelEntry</a>**</b>
      * 
      * The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravelentry">ITravelEntry</a> interface representing the travel entry, if found.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-findtravelentry
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-findtravelentry
      */
     FindTravelEntry(punk, pidl) {
         result := ComCall(8, this, "ptr", punk, "ptr", pidl, "ptr*", &ppte := 0, "HRESULT")
@@ -159,8 +163,8 @@ class ITravelLog extends IUnknown{
      * The number of characters in the buffer pointed to by <i>pwzText</i>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-gettooltiptext
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-gettooltiptext
      */
     GetToolTipText(punk, iOffset, idsTemplate, pwzText, cchText) {
         pwzText := pwzText is String ? StrPtr(pwzText) : pwzText
@@ -191,8 +195,8 @@ class ITravelLog extends IUnknown{
      * The types of entries to add to the menu. Includes the following:
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-insertmenuentries
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-insertmenuentries
      */
     InsertMenuEntries(punk, hmenu, nPos, idFirst, idLast, dwFlags) {
         hmenu := hmenu is Win32Handle ? NumGet(hmenu, "ptr") : hmenu
@@ -206,7 +210,7 @@ class ITravelLog extends IUnknown{
      * @returns {ITravelLog} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shdeprecated/nn-shdeprecated-itravellog">ITravelLog</a>**</b>
      * 
      * The address of a pointer to the interface representing the cloned travel log.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-clone
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-clone
      */
     Clone() {
         result := ComCall(11, this, "ptr*", &pptl := 0, "HRESULT")
@@ -221,7 +225,7 @@ class ITravelLog extends IUnknown{
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * The number of entries in the travel log.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-countentries
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-countentries
      */
     CountEntries(punk) {
         result := ComCall(12, this, "ptr", punk, "uint")
@@ -232,8 +236,8 @@ class ITravelLog extends IUnknown{
      * Deprecated. Reverts to the current entry, dropping the result of ITravelLog::AddEntry in the case of a failed navigation.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shdeprecated/nf-shdeprecated-itravellog-revert
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shdeprecated/nf-shdeprecated-itravellog-revert
      */
     Revert() {
         result := ComCall(13, this, "HRESULT")

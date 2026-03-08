@@ -5,7 +5,7 @@
 
 /**
  * The IPerChannelDbLevel interface represents a generic subunit control interface that provides per-channel control over the volume level, in decibels, of an audio stream or of a frequency band in an audio stream.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-iperchanneldblevel
+ * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-iperchanneldblevel
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -31,9 +31,9 @@ class IPerChannelDbLevel extends IUnknown{
     static VTableNames => ["GetChannelCount", "GetLevelRange", "GetLevel", "SetLevel", "SetLevelUniform", "SetLevelAllChannels"]
 
     /**
-     * The GetChannelCount method gets the number of channels in the audio stream.
+     * The GetChannelCount method gets the number of channels in the audio stream. (IPerChannelDbLevel.GetChannelCount)
      * @returns {Integer} Pointer to a <b>UINT</b> variable into which the method writes the channel count (the number of channels in the audio stream).
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iperchanneldblevel-getchannelcount
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getchannelcount
      */
     GetChannelCount() {
         result := ComCall(3, this, "uint*", &pcChannels := 0, "HRESULT")
@@ -76,7 +76,7 @@ class IPerChannelDbLevel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iperchanneldblevel-getlevelrange
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevelrange
      */
     GetLevelRange(nChannel, pfMinLevelDB, pfMaxLevelDB, pfStepping) {
         pfMinLevelDBMarshal := pfMinLevelDB is VarRef ? "float*" : "ptr"
@@ -91,7 +91,7 @@ class IPerChannelDbLevel extends IUnknown{
      * The GetLevel method gets the volume level, in decibels, of the specified channel.
      * @param {Integer} nChannel The channel number. If the audio stream has <i>N</i> channels, the channels are numbered from 0 to <i>N</i>– 1. To get the number of channels in the stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getchannelcount">IPerChannelDbLevel::GetChannelCount</a> method.
      * @returns {Float} Pointer to a <b>float</b> variable into which the method writes the volume level, in decibels, of the specified channel.
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iperchanneldblevel-getlevel
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevel
      */
     GetLevel(nChannel) {
         result := ComCall(5, this, "uint", nChannel, "float*", &pfLevelDB := 0, "HRESULT")
@@ -100,6 +100,12 @@ class IPerChannelDbLevel extends IUnknown{
 
     /**
      * The SetLevel method sets the volume level, in decibels, of the specified channel.
+     * @remarks
+     * If the caller specifies a value for <i>fLevelDB</i> that is an exact stepping value, the <b>SetLevel</b> method completes successfully. A subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevel">IPerChannelDbLevel::GetLevel</a> method will return either the value that was set, or one of the following values:<ul>
+     * <li>If the set value was below the minimum, the <b>GetLevel</b> method returns the minimum value.</li>
+     * <li>If the set value was above the maximum, the <b>GetLevel</b> method returns the maximum value.</li>
+     * <li>If the set value was between two stepping values, the <b>GetLevel</b> method returns a value that could be the next stepping value above or the stepping value below the set value; the relative distances from the set value to the neighboring stepping values is unimportant. The value that the <b>GetLevel</b> method returns is whichever value has more of an impact on the signal path.</li>
+     * </ul>
      * @param {Integer} nChannel The number of the selected channel. If the audio stream has <i>N</i> channels, the channels are numbered from 0 to <i>N</i>– 1. To get the number of channels in the stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getchannelcount">IPerChannelDbLevel::GetChannelCount</a> method.
      * @param {Float} fLevelDB The new volume level in decibels. A positive value represents gain, and a negative value represents attenuation.
      * @param {Pointer<Guid>} pguidEventContext Context value for the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-icontrolchangenotify-onnotify">IControlChangeNotify::OnNotify</a> method. This parameter points to an event-context GUID. If the <b>SetLevel</b> call changes the state of the level control, all clients that have registered <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-icontrolchangenotify">IControlChangeNotify</a> interfaces with that control receive notifications. In its implementation of the <b>OnNotify</b> method, a client can inspect the event-context GUID to discover whether it or another client is the source of the control-change event. If the caller supplies a <b>NULL</b> pointer for this parameter, the client's notification method receives a <b>NULL</b> context pointer.
@@ -133,7 +139,7 @@ class IPerChannelDbLevel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iperchanneldblevel-setlevel
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setlevel
      */
     SetLevel(nChannel, fLevelDB, pguidEventContext) {
         result := ComCall(6, this, "uint", nChannel, "float", fLevelDB, "ptr", pguidEventContext, "HRESULT")
@@ -142,6 +148,8 @@ class IPerChannelDbLevel extends IUnknown{
 
     /**
      * The SetLevelUniform method sets all channels in the audio stream to the same uniform volume level, in decibels.
+     * @remarks
+     * If the specified uniform level is beyond the range that the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevelrange">IPerChannelDbLevel::GetLevelRange</a> method reports for a particular channel, the <b>SetLevelUniform</b> call clamps the value for that channel to the supported range and completes successfully. A subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevel">IPerChannelDbLevel::GetLevel</a> method retrieves the actual value used for that channel.
      * @param {Float} fLevelDB The new uniform level in decibels.
      * @param {Pointer<Guid>} pguidEventContext Context value for the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-icontrolchangenotify-onnotify">IControlChangeNotify::OnNotify</a> method. This parameter points to an event-context GUID. If the <b>SetLevelUniform</b> call changes the state of the level control, all clients that have registered <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-icontrolchangenotify">IControlChangeNotify</a> interfaces with that control receive notifications. In its implementation of the <b>OnNotify</b> method, a client can inspect the event-context GUID to discover whether it or another client is the source of the control-change event. If the caller supplies a <b>NULL</b> pointer for this parameter, the client's notification method receives a <b>NULL</b> context pointer.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
@@ -163,7 +171,7 @@ class IPerChannelDbLevel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iperchanneldblevel-setleveluniform
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setleveluniform
      */
     SetLevelUniform(fLevelDB, pguidEventContext) {
         result := ComCall(7, this, "float", fLevelDB, "ptr", pguidEventContext, "HRESULT")
@@ -172,6 +180,8 @@ class IPerChannelDbLevel extends IUnknown{
 
     /**
      * The SetLevelAllChannels method sets the volume levels, in decibels, of all the channels in the audio stream.
+     * @remarks
+     * If the specified level value for any channel is beyond the range that the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevelrange">IPerChannelDbLevel::GetLevelRange</a> method reports for that channel, the <b>SetLevelAllChannels</b> call clamps the value to the supported range and completes successfully. A subsequent call to the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getlevel">IPerChannelDbLevel::GetLevel</a> method retrieves the actual value used for that channel.
      * @param {Pointer<Float>} aLevelsDB Pointer to an array of volume levels. This parameter points to a caller-allocated <b>float</b> array into which the method writes the new volume levels, in decibels, for all the channels. The method writes the level for a particular channel into the array element whose index matches the channel number. If the audio stream contains <i>n</i> channels, the channels are numbered 0 to <i>n</i>– 1. To get the number of channels in the stream, call the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-iperchanneldblevel-getchannelcount">IPerChannelDbLevel::GetChannelCount</a> method.
      * @param {Integer} cChannels The number of elements in the <i>aLevelsDB</i> array. If this parameter does not match the number of channels in the audio stream, the method fails without modifying the <i>aLevelsDB</i> array.
      * @param {Pointer<Guid>} pguidEventContext Context value for the <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nf-devicetopology-icontrolchangenotify-onnotify">IControlChangeNotify::OnNotify</a> method. This parameter points to an event-context GUID. If the <b>SetLevelAllChannels</b> call changes the state of the level control, all clients that have registered <a href="https://docs.microsoft.com/windows/desktop/api/devicetopology/nn-devicetopology-icontrolchangenotify">IControlChangeNotify</a> interfaces with that control receive notifications. In its implementation of the <b>OnNotify</b> method, a client can inspect the event-context GUID to discover whether it or another client is the source of the control-change event. If the caller supplies a <b>NULL</b> pointer for this parameter, the client's notification method receives a <b>NULL</b> context pointer.
@@ -216,7 +226,7 @@ class IPerChannelDbLevel extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nf-devicetopology-iperchanneldblevel-setlevelallchannels
+     * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nf-devicetopology-iperchanneldblevel-setlevelallchannels
      */
     SetLevelAllChannels(aLevelsDB, cChannels, pguidEventContext) {
         aLevelsDBMarshal := aLevelsDB is VarRef ? "float*" : "ptr"

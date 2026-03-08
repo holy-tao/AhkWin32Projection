@@ -72,8 +72,9 @@ class ITargetFrame2 extends IUnknown{
     }
 
     /**
-     * 
+     * The GetFrameSrcAddressOffset function returns the offset of the frames source address.
      * @returns {PWSTR} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getframesrcaddressoffset
      */
     GetFrameSrc() {
         result := ComCall(7, this, "ptr*", &ppszFrameSrc := 0, "HRESULT")

@@ -6,7 +6,7 @@
 
 /**
  * The ITfTransitoryExtensionUIElement interface is implemented by TSF manager which provides the UI of transitory extension.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itftransitoryextensionuielement
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itftransitoryextensionuielement
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class ITfTransitoryExtensionUIElement extends ITfUIElement{
     /**
      * The ITfTransitoryExtensionUIElement::GetDocumentMgr method returns the pointer of the transitory document manager.
      * @returns {ITfDocumentMgr} [out] A pointer to receive the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfdocumentmgr">ITfDocumentMgr</a> interface pointer. This document manager object contains a context object that has the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface and contains the text of the transitory extension.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itftransitoryextensionuielement-getdocumentmgr
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itftransitoryextensionuielement-getdocumentmgr
      */
     GetDocumentMgr() {
         result := ComCall(7, this, "ptr*", &ppdim := 0, "HRESULT")

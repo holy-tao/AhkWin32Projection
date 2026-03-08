@@ -6,7 +6,6 @@
 /**
  * Applications use the methods of the IDirectDrawPalette interface to create DirectDrawPalette objects and work with system-level variables. This section is a reference to the methods of this interface.
  * @remarks
- * 
  * The methods of the <b>IDirectDrawPalette</b> interface can be organized into the following groups:<table>
  * <tr>
  * <th>Group</th>
@@ -45,8 +44,7 @@
  * typedef struct IDirectDrawPalette    FAR *LPDIRECTDRAWPALETTE;
  * 
  * ```
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ddraw/nn-ddraw-idirectdrawpalette
+ * @see https://learn.microsoft.com/windows/win32/api/ddraw/nn-ddraw-idirectdrawpalette
  * @namespace Windows.Win32.Graphics.DirectDraw
  * @version v4.0.30319
  */
@@ -82,7 +80,7 @@ class IDirectDrawPalette extends IUnknown{
      * <li>DDERR_INVALIDOBJECT</li>
      * <li>DDERR_INVALIDPARAMS</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-getcaps
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-getcaps
      */
     GetCaps(param0) {
         param0Marshal := param0 is VarRef ? "uint*" : "ptr"
@@ -108,7 +106,7 @@ class IDirectDrawPalette extends IUnknown{
      * <li>DDERR_INVALIDPARAMS</li>
      * <li>DDERR_NOTPALETTIZED</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-getentries
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-getentries
      */
     GetEntries(param0, param1, param2, param3) {
         result := ComCall(4, this, "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "HRESULT")
@@ -123,7 +121,7 @@ class IDirectDrawPalette extends IUnknown{
      * @returns {HRESULT} This method returns DDERR_ALREADYINITIALIZED.
      * 
      * This method is provided for compliance with the Component Object Model (COM). Because the DirectDrawPalette object is initialized when it is created, this method always returns DDERR_ALREADYINITIALIZED.
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-initialize
      */
     Initialize(param0, param1, param2) {
         result := ComCall(5, this, "ptr", param0, "uint", param1, "ptr", param2, "HRESULT")
@@ -149,7 +147,7 @@ class IDirectDrawPalette extends IUnknown{
      * <li>DDERR_NOTPALETTIZED</li>
      * <li>DDERR_UNSUPPORTED</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//ddraw/nf-ddraw-idirectdrawpalette-setentries
+     * @see https://learn.microsoft.com/windows/win32/api/ddraw/nf-ddraw-idirectdrawpalette-setentries
      */
     SetEntries(param0, param1, param2, param3) {
         result := ComCall(6, this, "uint", param0, "uint", param1, "uint", param2, "ptr", param3, "HRESULT")

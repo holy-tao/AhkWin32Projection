@@ -4,7 +4,9 @@
 #Include .\IPresentStatistics.ahk
 
 /**
- * 
+ * Describes how the system displayed an instance of a particular piece of content within a particular present.
+ * @remarks
+ * There may be many frames for which a present is on screen. Statistics are only reported for the first composition frame on which a present appears.
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-icompositionframepresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
  * @version v4.0.30319
@@ -31,8 +33,10 @@ class ICompositionFramePresentStatistics extends IPresentStatistics{
     static VTableNames => ["GetContentTag", "GetCompositionFrameId", "GetDisplayInstanceArray"]
 
     /**
+     * Gets the tag of the content on which statistics are being reporting. (ICompositionFramePresentStatistics::GetContentTag)
+     * @returns {Pointer} Type: **[UINT_PTR_](/windows/desktop/winprog/windows-data-types)**
      * 
-     * @returns {Pointer} 
+     * The tag of the content on which statistics are being reporting.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-icompositionframepresentstatistics-getcontenttag
      */
     GetContentTag() {
@@ -41,8 +45,10 @@ class ICompositionFramePresentStatistics extends IPresentStatistics{
     }
 
     /**
+     * Gets the ID of the composition frame, to be used in other APIs to get more detailed information.
+     * @returns {Integer} TYPE: **CompositionFrameId**
      * 
-     * @returns {Integer} 
+     * The ID of the composition frame, to be used in other APIs to get more detailed information.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-icompositionframepresentstatistics-getcompositionframeid
      */
     GetCompositionFrameId() {
@@ -51,9 +57,15 @@ class ICompositionFramePresentStatistics extends IPresentStatistics{
     }
 
     /**
+     * Gets the array of display instances and its count.
+     * @remarks
+     * This data is valid for the lifetime of the `ICompositionFramePresentStatistics`, and should not be read after the `ICompositionFramePresentStatistics` is released.
+     * @param {Pointer<Integer>} displayInstanceArrayCount Type: **[UINT](/windows/desktop/winprog/windows-data-types)**
      * 
-     * @param {Pointer<Integer>} displayInstanceArrayCount 
-     * @param {Pointer<Pointer<CompositionFrameDisplayInstance>>} displayInstanceArray 
+     * The count of the _`displayInstanceArray`_.
+     * @param {Pointer<Pointer<CompositionFrameDisplayInstance>>} displayInstanceArray Type: **[CompositionFrameDisplayInstance](ns-presentation-compositionframedisplayinstance.md) \*\***
+     * 
+     * The array of display instances.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-icompositionframepresentstatistics-getdisplayinstancearray
      */

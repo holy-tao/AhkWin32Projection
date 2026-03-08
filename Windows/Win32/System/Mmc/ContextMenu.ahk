@@ -6,7 +6,14 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Represents a context menu control.
+ * @remarks
+ * Optional.
  * 
+ * May occur one or more times for each [**ContextPopup.ContextMenus**](windowsribbon-element-contextpopup-contextmenus.md).
+ * 
+ * > [!IMPORTANT]
+ * > A **ContextMenu** cannot host [Combo Box](windowsribbon-controls-combobox.md) or [Spinner](windowsribbon-controls-spinner.md) controls.
  * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-contextmenu
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319

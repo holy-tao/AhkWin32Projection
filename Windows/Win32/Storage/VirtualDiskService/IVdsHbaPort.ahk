@@ -6,7 +6,7 @@
 
 /**
  * Provides methods to query and interact with HBA ports on the local system.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdshbaport
+ * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdshbaport
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IVdsHbaPort extends IUnknown{
      * Retrieves the properties of an HBA port.
      * @returns {VDS_HBAPORT_PROP} The address of a member of the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hbaport_prop">VDS_HBAPORT_PROP</a> structure 
      *       that is allocated and passed in by the caller.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdshbaport-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdshbaport-getproperties
      */
     GetProperties() {
         pHbaPortProp := VDS_HBAPORT_PROP()
@@ -46,7 +46,7 @@ class IVdsHbaPort extends IUnknown{
     /**
      * Sets the statuses of all paths originating from the HBA port to a specified status.
      * @param {Integer} status The status to be assigned to the paths.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -78,7 +78,7 @@ class IVdsHbaPort extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdshbaport-setallpathstatuses
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdshbaport-setallpathstatuses
      */
     SetAllPathStatuses(status) {
         result := ComCall(4, this, "int", status, "HRESULT")

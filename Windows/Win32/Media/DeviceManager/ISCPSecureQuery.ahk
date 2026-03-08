@@ -6,7 +6,7 @@
 
 /**
  * The ISCPSecureQuery interface is queried by Windows Media Device Manager to determine ownership of secured content.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iscpsecurequery
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iscpsecurequery
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -33,6 +33,20 @@ class ISCPSecureQuery extends IUnknown{
 
     /**
      * The GetDataDemands method reports which data the secure content provider needs to determine the rights and responsibility for a specified piece of content.
+     * @remarks
+     * This method must be called before any of the other methods of <b>ISCPSecureQuery</b> are called.
+     * 
+     * This method is called after any certificate exchanges have been successfully finished. The secure content provider fills in the parameters with the flags and data that describe its requirements for making decisions about the content.
+     * 
+     * If the secure content provider sets the WMDM_SCP_RIGHTS_DATA flag, then Windows Media Device Manager sends the amount of data specified in <i>pdwMinRightsData</i> by calling <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-getrights">ISCPSecureQuery::GetRights</a>.
+     * 
+     * If the secure content provider sets the WMDM_SCP_EXAMINE_DATA flag, then Windows Media Device Manager sends the amount of data specified in <i>pdwMinExamineData</i> by calling <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata">ISCPSecureQuery::ExamineData</a>.
+     * 
+     * If the secure content provider sets the WMDM_SCP_DECIDE_DATA flag, then Windows Media Device Manager sends the amount of data specified in <i>pdwMinDecideData</i> by calling <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-makedecision">ISCPSecureQuery::MakeDecision</a>.
+     * 
+     * If no examine flags are set, Windows Media Device Manager does not make any more calls. If no decide flags are set, Windows Media Device Manager still calls <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata">ISCPSecureQuery::ExamineData</a>.
+     * 
+     * If this method does not return S_OK, then Windows Media Device Manager does not make any further calls to this secure content provider.
      * @param {Pointer<Integer>} pfuFlags Flags describing the data required by the secure content provider to make decisions. This parameter is included in the output message authentication code. At least one of the following flags must be used.
      * 
      * <table>
@@ -112,7 +126,7 @@ class ISCPSecureQuery extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecurequery-getdatademands
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands
      */
     GetDataDemands(pfuFlags, pdwMinRightsData, pdwMinExamineData, pdwMinDecideData, abMac) {
         pfuFlagsMarshal := pfuFlags is VarRef ? "uint*" : "ptr"
@@ -127,6 +141,12 @@ class ISCPSecureQuery extends IUnknown{
 
     /**
      * The ExamineData method determines rights and responsibility for the content by examining data that Windows Media Device Manager passes to this method.
+     * @remarks
+     * This method is called after the <b>GetDataDemands</b> method. The secure content provider uses the information passed in this method to determine whether it is responsible for the content. The <i>fuFlags</i> parameter is consulted to determine which data has been presented for examination. The <i>pData</i> parameter points to the beginning of the rights and responsibility data. The <i>dwSize</i> parameter contains the length, in bytes, of the rights and responsibility data.
+     * 
+     * If the WMDM_SCP_EXAMINE_DATA flag is set, then the <i>pDataBuffer</i> parameter contains <i>dwDataLength</i> of bytes for the secure content provider to examine.
+     * 
+     * If this method does not return S_OK or WMDM_E_MOREDATA, then Windows Media Device Manager does not make any further calls to this secure content provider.
      * @param {Integer} fuFlags Flags describing the data offered to the secure content provider to make decisions. The following flags can be present.
      * 
      * <table>
@@ -230,7 +250,7 @@ class ISCPSecureQuery extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecurequery-examinedata
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata
      */
     ExamineData(fuFlags, pwszExtension, pData, dwSize, abMac) {
         pwszExtension := pwszExtension is String ? StrPtr(pwszExtension) : pwszExtension
@@ -244,6 +264,8 @@ class ISCPSecureQuery extends IUnknown{
 
     /**
      * The MakeDecision method determines whether access to the content is allowed. If access is allowed, this method returns the interface that will be used to access the content.
+     * @remarks
+     * This method is called after the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata">ISCPSecureQuery::ExamineData</a> method, and makes the final decision whether access to the content is allowed.
      * @param {Integer} fuFlags Flags describing the data offered to the secure content provider for making decisions. This parameter must be included in the input message authentication code. The following flags can be present.
      * 
      * <table>
@@ -274,7 +296,7 @@ class ISCPSecureQuery extends IUnknown{
      * @param {IMDSPStorageGlobals} pStorageGlobals Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nn-mswmdm-iwmdmstorageglobals">IWMDMStorageGlobals</a> interface on the root storage of the media or device to or from which the file is being transferred. This parameter must be included in the input message authentication code.
      * @param {Pointer<Integer>} abMac Array of eight bytes containing the message authentication code for the parameter data of this method. (WMDM_MAC_LENGTH is defined as 8.)
      * @returns {ISCPSecureExchange} Pointer to an exchange object that receives the exchange interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecurequery-makedecision
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-makedecision
      */
     MakeDecision(fuFlags, pData, dwSize, dwAppSec, pbSPSessionKey, dwSessionKeyLen, pStorageGlobals, abMac) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"
@@ -287,6 +309,8 @@ class ISCPSecureQuery extends IUnknown{
 
     /**
      * The GetRights method retrieves rights information for the current piece of content. Rights are file-specific.
+     * @remarks
+     * This method must not be called until <b>GetDataDemands</b> and then <b>ExamineData</b> have been called, in that order.
      * @param {Pointer<Integer>} pData Pointer to data requested by <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-getdatademands">GetDataDemands</a>. This parameter must be included in the input message authentication code and must be encrypted.
      * @param {Integer} dwSize Number of bytes of data in the <i>pData</i> buffer. This parameter must be included in the input message authentication code.
      * @param {Pointer<Integer>} pbSPSessionKey Pointer to an array of bytes containing the session key for securing communication with the service provider to which <i>pStgGlobals</i> points. This parameter must be included in the input message authentication code and must be encrypted.
@@ -309,7 +333,7 @@ class ISCPSecureQuery extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * This method was called out of sequence. <b>GetDataDemands</b> and then <a href="/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata">ExamineData</a> must be called first, in that order.
+     * This method was called out of sequence. <b>GetDataDemands</b> and then <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iscpsecurequery-examinedata">ExamineData</a> must be called first, in that order.
      * 
      * </td>
      * </tr>
@@ -358,7 +382,7 @@ class ISCPSecureQuery extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iscpsecurequery-getrights
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iscpsecurequery-getrights
      */
     GetRights(pData, dwSize, pbSPSessionKey, dwSessionKeyLen, pStgGlobals, ppRights, pnRightsCount, abMac) {
         pDataMarshal := pData is VarRef ? "char*" : "ptr"

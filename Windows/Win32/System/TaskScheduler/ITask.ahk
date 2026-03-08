@@ -6,14 +6,10 @@
 /**
  * Provides the methods for running tasks, getting or setting task information, and terminating tasks. It is derived from the IScheduledWorkItem interface and inherits all the methods of that interface.
  * @remarks
- * 
  * <b>ITask</b> is the primary interface of the <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/t">task trigger object</a>. To create a task object, call 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-activate">ITaskScheduler::Activate</a> for existing tasks or 
  * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-newworkitem">ITaskScheduler::NewWorkItem</a> for new tasks.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mstask/nn-mstask-itask
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-itask
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -40,6 +36,11 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * This method assigns a specific application to the current task.
+     * @remarks
+     * If you do not specify a path for the application, the Task Scheduler searches the environment path to find the correct path. If the application name specifies a program, the name should use the .exe extension to ensure that the Task Scheduler user interface properly displays the application's icon.
+     * 
+     * After calling 
+     * <b>SetApplicationName</b>, make sure you call <b>IPersistFile::Save</b> to save the modified task to disk.
      * @param {PWSTR} pwszApplicationName A null-terminated string  that contains the name of the application that will be associated with the task. Use an empty string to clear the application name.
      * @returns {HRESULT} The 
      * <b>SetApplicationName</b> method returns one of the following values.
@@ -83,7 +84,7 @@ class ITask extends IScheduledWorkItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-setapplicationname
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-setapplicationname
      */
     SetApplicationName(pwszApplicationName) {
         pwszApplicationName := pwszApplicationName is String ? StrPtr(pwszApplicationName) : pwszApplicationName
@@ -95,7 +96,7 @@ class ITask extends IScheduledWorkItem{
     /**
      * This method retrieves the name of the application that the task is associated with.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the name of the application the current task is associated with. After processing this name, call <b>CoTaskMemFree</b> to free resources.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-getapplicationname
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getapplicationname
      */
     GetApplicationName() {
         result := ComCall(33, this, "ptr*", &ppwszApplicationName := 0, "HRESULT")
@@ -104,6 +105,10 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * This method sets the command-line parameters for the task.
+     * @remarks
+     * If the task has an application associated with it, the task parameters that are set by this method are ignored.
+     * 
+     * After setting the parameters of the task, be sure to call <b>IPersistFile::Save</b> to save the modified task object to disk.
      * @param {PWSTR} pwszParameters A null-terminated string that contains task parameters. These parameters are passed as command-line arguments to the application the task will run. To clear the command-line parameter property, set <i>pwszParameters</i> to L"".
      * @returns {HRESULT} The 
      * <b>SetParameters</b> method returns one of the following values.
@@ -147,7 +152,7 @@ class ITask extends IScheduledWorkItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-setparameters
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-setparameters
      */
     SetParameters(pwszParameters) {
         pwszParameters := pwszParameters is String ? StrPtr(pwszParameters) : pwszParameters
@@ -160,7 +165,7 @@ class ITask extends IScheduledWorkItem{
      * This method retrieves the task's command-line parameters.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the command-line parameters for the task. The method that invokes 
      * <b>GetParameters</b> is responsible for freeing this string using the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-getparameters
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getparameters
      */
     GetParameters() {
         result := ComCall(35, this, "ptr*", &ppwszParameters := 0, "HRESULT")
@@ -169,6 +174,8 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * This method sets the working directory for the task.
+     * @remarks
+     * After setting the working directory of a task, be sure to call <b>IPersistFile::Save</b> to save the modified task object to disk.
      * @param {PWSTR} pwszWorkingDirectory A null-terminated string that contains a directory path to the working directory for the task. 
      * 
      * 
@@ -217,7 +224,7 @@ class ITask extends IScheduledWorkItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-setworkingdirectory
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-setworkingdirectory
      */
     SetWorkingDirectory(pwszWorkingDirectory) {
         pwszWorkingDirectory := pwszWorkingDirectory is String ? StrPtr(pwszWorkingDirectory) : pwszWorkingDirectory
@@ -230,7 +237,7 @@ class ITask extends IScheduledWorkItem{
      * This method retrieves the task'sworking directory.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the task's working directory. The application that invokes 
      * <b>GetWorkingDirectory</b> is responsible for freeing this string using the <b>CoTaskMemFree</b> function.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-getworkingdirectory
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getworkingdirectory
      */
     GetWorkingDirectory() {
         result := ComCall(37, this, "ptr*", &ppwszWorkingDirectory := 0, "HRESULT")
@@ -239,6 +246,8 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * This method sets the priority for the task.
+     * @remarks
+     * After setting the priority of a task, call <b>IPersistFile::Save</b> to save the modified task object to disk.
      * @param {Integer} dwPriority A <b>DWORD</b> that specifies the priority for the current task. The priority of a task determines the frequency and length of the time slices for a process. This applies only to the Windows Server 2003, Windows XP, and Windows 2000 operating systems. These values are taken from the <b>CreateProcess</b> priority class and can be one of following flags (in descending order of thread scheduling priority): 
      * 
      * 
@@ -281,7 +290,7 @@ class ITask extends IScheduledWorkItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-setpriority
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-setpriority
      */
     SetPriority(dwPriority) {
         result := ComCall(38, this, "uint", dwPriority, "HRESULT")
@@ -301,7 +310,7 @@ class ITask extends IScheduledWorkItem{
      * <li>NORMAL_PRIORITY_CLASS</li>
      * <li>IDLE_PRIORITY_CLASS</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-getpriority
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getpriority
      */
     GetPriority() {
         result := ComCall(39, this, "uint*", &pdwPriority := 0, "HRESULT")
@@ -310,6 +319,12 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * This method sets the flags that modify the behavior of a scheduled task.
+     * @remarks
+     * Applications must call the <b>IPersistFile::Save</b> method after calling 
+     * <b>SetTaskFlags</b> to update the task flags.
+     * 
+     * This method is designed to set the flags that only apply to scheduled tasks. In contrast, 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-ischeduledworkitem-setflags">IScheduledWorkItem::SetFlags</a> is used to set the flags that apply to all types of scheduled work items.
      * @param {Integer} dwFlags Currently, there are no flags defined for scheduled tasks.
      * @returns {HRESULT} The 
      * <b>SetTaskFlags</b> method returns one of the following values.
@@ -353,7 +368,7 @@ class ITask extends IScheduledWorkItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-settaskflags
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-settaskflags
      */
     SetTaskFlags(dwFlags) {
         result := ComCall(40, this, "uint", dwFlags, "HRESULT")
@@ -363,7 +378,7 @@ class ITask extends IScheduledWorkItem{
     /**
      * This method returns the flags that modify the behavior of a task.
      * @returns {Integer} Currently, there are no defined flags for scheduled tasks.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-gettaskflags
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-gettaskflags
      */
     GetTaskFlags() {
         result := ComCall(41, this, "uint*", &pdwFlags := 0, "HRESULT")
@@ -372,6 +387,10 @@ class ITask extends IScheduledWorkItem{
 
     /**
      * This method sets the maximum time the task can run, in milliseconds, before terminating.
+     * @remarks
+     * When the maximum run time is exceeded, the Task Scheduler attempts to terminate the application associated with the task. If a WM_CLOSE message cannot be sent (for example, the application has no windows) or the application has not exited within three minutes of the receiving WM_CLOSE, the Task Scheduler terminates the application using <b>TerminateProcess</b>.
+     * 
+     * After setting the maximum run time, be sure to call <b>IPersistFile::Save</b> to save the modified task object to disk.
      * @param {Integer} dwMaxRunTimeMS A <b>DWORD</b> value that specifies the maximum run time (in milliseconds), for the task. This parameter may be set to INFINITE to specify an unlimited time.
      * @returns {HRESULT} The 
      * <b>SetMaxRunTime</b> method returns one of the following values.
@@ -415,7 +434,7 @@ class ITask extends IScheduledWorkItem{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-setmaxruntime
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-setmaxruntime
      */
     SetMaxRunTime(dwMaxRunTimeMS) {
         result := ComCall(42, this, "uint", dwMaxRunTimeMS, "HRESULT")
@@ -430,7 +449,7 @@ class ITask extends IScheduledWorkItem{
      * 
      * 
      * If the maximum run time is reached during the execution of a task, the Task Scheduler first sends a WM_CLOSE message to the associated application. If the application does not  exit within three minutes, <b>TerminateProcess</b> is run.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itask-getmaxruntime
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itask-getmaxruntime
      */
     GetMaxRunTime() {
         result := ComCall(43, this, "uint*", &pdwMaxRunTimeMS := 0, "HRESULT")

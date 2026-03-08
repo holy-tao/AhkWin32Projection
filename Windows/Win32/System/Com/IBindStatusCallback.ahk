@@ -40,8 +40,15 @@ class IBindStatusCallback extends IUnknown{
     }
 
     /**
+     * Retrieves the priority class for the specified process. This value, together with the priority value of each thread of the process, determines each thread's base priority level.
+     * @remarks
+     * Every thread has a base priority level determined by the thread's priority value and the priority class of its process. The operating system uses the base priority level of all executable threads to determine which thread gets the next slice of CPU time. Threads are scheduled in a round-robin fashion at each priority level, and only when there are no executable threads at a higher level will scheduling of threads at a lower level take place.
      * 
+     * For a table that shows the base priority levels for each combination of priority class and thread priority value, see <a href="https://docs.microsoft.com/windows/desktop/ProcThread/scheduling-priorities">Scheduling Priorities</a>.
+     * 
+     * Priority class is maintained by the executive, so all processes have a priority class that can be queried.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getpriorityclass
      */
     GetPriority() {
         result := ComCall(4, this, "int*", &pnPriority := 0, "HRESULT")

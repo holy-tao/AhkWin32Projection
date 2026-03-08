@@ -36,7 +36,7 @@ class IDataModelManager4 extends IDataModelManager3{
      * @returns {IModelObject} 
      */
     CreateSyntheticObjectFromKeyStore(context, parentStore) {
-        result := ComCall(27, this, "ptr", context, "ptr", parentStore, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(27, this, "ptr", context, "ptr", parentStore, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 }

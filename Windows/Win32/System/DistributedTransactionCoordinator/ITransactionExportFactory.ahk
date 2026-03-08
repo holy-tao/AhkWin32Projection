@@ -40,10 +40,11 @@ class ITransactionExportFactory extends IUnknown{
     }
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {Integer} cbWhereabouts 
      * @param {Pointer<Integer>} rgbWhereabouts 
      * @returns {ITransactionExport} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(cbWhereabouts, rgbWhereabouts) {
         rgbWhereaboutsMarshal := rgbWhereabouts is VarRef ? "char*" : "ptr"

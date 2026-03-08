@@ -6,7 +6,7 @@
 
 /**
  * Connects to the dispenser manager.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-idispensermanager
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-idispensermanager
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -39,10 +39,16 @@ class IDispenserManager extends IUnknown{
 
     /**
      * Registers the resource dispenser with the dispenser manager.
+     * @remarks
+     * The Resource Dispenser notifies the Dispenser Manager that it has started and is prepared to accept notifications on this <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-idispenserdriver">IDispenserDriver</a> interface. Then the Dispenser Manager creates the Holder for this new Resource Dispenser and returns it to the Resource Dispenser.
+     * 
+     * 
+     * 
+     * This method does not call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> on the <i>pDispenserDriver</i> object, but <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iholder-close">IHolder::Close</a> does perform a <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on <i>pDispenserDriver</i>. This can cause the Resource Dispenser object to be destroyed prematurely. To prevent this premature destruction, the caller of <b>IDispenserManager::RegisterDispenser</b> must explicitly call <b>AddRef</b> on the <i>pDispenserDriver</i> object.
      * @param {IDispenserDriver} __MIDL__IDispenserManager0000 The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-idispenserdriver">IDispenserDriver</a> interface the Resource Dispenser offers to the Dispenser Manager to use later to notify the Resource Dispenser.
      * @param {PWSTR} szDispenserName A friendly name of the Resource Dispenser for administrator display.
      * @returns {IHolder} The <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nn-comsvcs-iholder">IHolder</a> interface that has been instantiated for the resource dispenser.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-idispensermanager-registerdispenser
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispensermanager-registerdispenser
      */
     RegisterDispenser(__MIDL__IDispenserManager0000, szDispenserName) {
         szDispenserName := szDispenserName is String ? StrPtr(szDispenserName) : szDispenserName
@@ -56,7 +62,7 @@ class IDispenserManager extends IUnknown{
      * @param {Pointer<Pointer>} __MIDL__IDispenserManager0002 An internal unique identifier of the current object, or 0 if no current object. This may not be interpreted as an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer to the current object.
      * @param {Pointer<Pointer>} __MIDL__IDispenserManager0003 The transaction that the current object is running in, or 0 if none. This value may be cast to <b>ITransaction *</b>.
      * @returns {HRESULT} If the method succeeds, the return value is S_OK. Otherwise, it is E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-idispensermanager-getcontext
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-idispensermanager-getcontext
      */
     GetContext(__MIDL__IDispenserManager0002, __MIDL__IDispenserManager0003) {
         __MIDL__IDispenserManager0002Marshal := __MIDL__IDispenserManager0002 is VarRef ? "ptr*" : "ptr"

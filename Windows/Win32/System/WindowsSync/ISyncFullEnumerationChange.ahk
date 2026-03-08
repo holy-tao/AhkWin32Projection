@@ -8,11 +8,8 @@
 /**
  * Represents additional information about an ISyncChange object during recovery synchronization.
  * @remarks
- * 
  * To obtain an <b>ISyncFullEnumerationChange</b> object, pass <b>IID_ISyncFullEnumerationChange</b> to the <b>QueryInterface</b> method of an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nn-winsync-isyncchange">ISyncChange</a> object during recovery synchronization.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-isyncfullenumerationchange
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-isyncfullenumerationchange
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -40,7 +37,7 @@ class ISyncFullEnumerationChange extends IUnknown{
     /**
      * Gets the knowledge the destination replica will learn after it applies the changes in the full enumeration.
      * @returns {ISyncKnowledge} The knowledge that the destination replica will learn after it applies this change during recovery synchronization.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchange-getlearnedknowledgeafterrecoverycomplete
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchange-getlearnedknowledgeafterrecoverycomplete
      */
     GetLearnedKnowledgeAfterRecoveryComplete() {
         result := ComCall(3, this, "ptr*", &ppLearnedKnowledge := 0, "HRESULT")
@@ -49,8 +46,10 @@ class ISyncFullEnumerationChange extends IUnknown{
 
     /**
      * Gets the forgotten knowledge that the destination replica learns when the destination provider applies this change during recovery synchronization.
+     * @remarks
+     * The knowledge returned in <i>ppLearnedForgottenKnowledge</i> is the source forgotten knowledge of the change batch projected onto the item that is associated with this change.
      * @returns {IForgottenKnowledge} The forgotten knowledge that the destination replica learns when the destination provider applies this change during recovery synchronization.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-isyncfullenumerationchange-getlearnedforgottenknowledge
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-isyncfullenumerationchange-getlearnedforgottenknowledge
      */
     GetLearnedForgottenKnowledge() {
         result := ComCall(4, this, "ptr*", &ppLearnedForgottenKnowledge := 0, "HRESULT")

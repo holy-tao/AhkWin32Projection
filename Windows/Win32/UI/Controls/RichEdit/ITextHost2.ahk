@@ -7,7 +7,7 @@
 
 /**
  * The ITextHost2 interface extends the ITextHost interface.
- * @see https://docs.microsoft.com/windows/win32/api//textserv/nl-textserv-itexthost2
+ * @see https://learn.microsoft.com/windows/win32/api/textserv/nl-textserv-itexthost2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -29,10 +29,10 @@ class ITextHost2 extends ITextHost{
 
     /**
      * Discovers whether the message queue contains a WM_LBUTTONDBLCLK message that is pending for the text host window.
-     * @returns {BOOL} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
+     * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
-     * Returns <b>TRUE</b> if a <a href="/windows/desktop/inputdev/wm-lbuttondblclk">WM_LBUTTONDBLCLK</a> message is pending, or <b>FALSE</b> if not.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txisdoubleclickpending
+     * Returns <b>TRUE</b> if a <a href="https://docs.microsoft.com/windows/desktop/inputdev/wm-lbuttondblclk">WM_LBUTTONDBLCLK</a> message is pending, or <b>FALSE</b> if not.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txisdoubleclickpending
      */
     TxIsDoubleClickPending() {
         result := ComCall(42, this, "int")
@@ -44,10 +44,10 @@ class ITextHost2 extends ITextHost{
      * @param {Pointer<HWND>} phwnd Type: <b>HWND*</b>
      * 
      * The handle of the text host window.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txgetwindow
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgetwindow
      */
     TxGetWindow(phwnd) {
         result := ComCall(43, this, "ptr", phwnd, "HRESULT")
@@ -56,10 +56,10 @@ class ITextHost2 extends ITextHost{
 
     /**
      * Sets the rich edit control's host window as the foreground window.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txsetforegroundwindow
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txsetforegroundwindow
      */
     TxSetForegroundWindow() {
         result := ComCall(44, this, "HRESULT")
@@ -68,14 +68,15 @@ class ITextHost2 extends ITextHost{
 
     /**
      * Retrieves the color palette of the rich edit control.
-     * @returns {HPALETTE} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HPALETTE</a></b>
+     * @returns {HPALETTE} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HPALETTE</a></b>
      * 
      * Returns the color palette, or <b>NULL</b> if the control uses the system default color palette.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txgetpalette
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgetpalette
      */
     TxGetPalette() {
         result := ComCall(45, this, "ptr")
-        return HPALETTE({Value: result}, True)
+        resultHandle := HPALETTE({Value: result}, True)
+        return resultHandle
     }
 
     /**
@@ -105,15 +106,15 @@ class ITextHost2 extends ITextHost{
      * </dl>
      * </td>
      * <td width="60%">
-     * The rich edit client handles IME imput.
+     * The rich edit client handles IME input.
      * 
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txgeteastasianflags
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgeteastasianflags
      */
     TxGetEastAsianFlags(pFlags) {
         pFlagsMarshal := pFlags is VarRef ? "int*" : "ptr"
@@ -130,27 +131,25 @@ class ITextHost2 extends ITextHost{
      * @param {BOOL} bText Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a></b>
      * 
      * <b>TRUE</b> if the cursor is used for text, or <b>FALSE</b> if not.
-     * @returns {HCURSOR} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HCURSOR</a></b>
+     * @returns {HCURSOR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HCURSOR</a></b>
      * 
      * Returns the cursor that <i>hcur</i> is replacing.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txsetcursor2
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txsetcursor2
      */
     TxSetCursor2(hcur, bText) {
         hcur := hcur is Win32Handle ? NumGet(hcur, "ptr") : hcur
 
         result := ComCall(47, this, "ptr", hcur, "int", bText, "ptr")
-        return HCURSOR({Value: result}, True)
+        resultHandle := HCURSOR({Value: result}, True)
+        return resultHandle
     }
 
     /**
      * Notifies the text host that text services have been freed.
      * @remarks
-     * 
      * If the text host hasn't received this notification when the text host is shutting down, the text host can tell text services to release its text host reference count.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txfreetextservicesnotification
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txfreetextservicesnotification
      */
     TxFreeTextServicesNotification() {
         ComCall(48, this)
@@ -182,10 +181,10 @@ class ITextHost2 extends ITextHost{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txgeteditstyle
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgeteditstyle
      */
     TxGetEditStyle(dwItem, pdwData) {
         pdwDataMarshal := pdwData is VarRef ? "uint*" : "ptr"
@@ -202,10 +201,10 @@ class ITextHost2 extends ITextHost{
      * @param {Pointer<Integer>} pdwExStyle Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * The extended windows styles. For a description of the possible values, see <a href="https://docs.microsoft.com/windows/desktop/winmsg/extended-window-styles">Extended Window Styles</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txgetwindowstyles
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgetwindowstyles
      */
     TxGetWindowStyles(pdwStyle, pdwExStyle) {
         pdwStyleMarshal := pdwStyle is VarRef ? "uint*" : "ptr"
@@ -226,10 +225,10 @@ class ITextHost2 extends ITextHost{
      * @param {Pointer<RECT>} prc Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">LPCRECT</a></b>
      * 
      * The drop caret rectangle.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txshowdropcaret
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txshowdropcaret
      */
     TxShowDropCaret(fShow, hdc, prc) {
         hdc := hdc is Win32Handle ? NumGet(hdc, "ptr") : hdc
@@ -240,10 +239,10 @@ class ITextHost2 extends ITextHost{
 
     /**
      * Destroys the caret (Direct2D only).
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txdestroycaret
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txdestroycaret
      */
     TxDestroyCaret() {
         result := ComCall(52, this, "HRESULT")
@@ -252,13 +251,15 @@ class ITextHost2 extends ITextHost{
 
     /**
      * Gets the horizontal scroll extent of the text host window.
+     * @remarks
+     * A rich edit control doesn't use the return value; instead, they get the scroll width from the widest line.
      * @param {Pointer<Integer>} plHorzExtent Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LONG</a>*</b>
      * 
      * The horizontal scroll extent.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//textserv/nf-textserv-itexthost2-txgethorzextent
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/textserv/nf-textserv-itexthost2-txgethorzextent
      */
     TxGetHorzExtent(plHorzExtent) {
         plHorzExtentMarshal := plHorzExtent is VarRef ? "int*" : "ptr"

@@ -6,15 +6,13 @@
 /**
  * Gets the input buffer for each processing pass.
  * @remarks
- * 
  * <b>IAudioInputEndpointRT</b> methods can be called 
  *      from a real-time processing thread. The implementation of the methods of this interface must not block, access 
  *      paged memory, or call any blocking system routines.
  * 
  * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client 
  *     applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioinputendpointrt
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioinputendpointrt
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -42,7 +40,6 @@ class IAudioInputEndpointRT extends IUnknown{
     /**
      * Gets a pointer to the buffer from which data will be read by the audio engine.
      * @remarks
-     * 
      * This method returns a pointer from the endpoint to the buffer <i>pConnectionProperty</i>-&gt;<b>pBuffer</b>, which
      *     contains data that needs to be passed into the engine as input.
      *     The data and the buffer pointer must remain valid until the
@@ -54,16 +51,14 @@ class IAudioInputEndpointRT extends IUnknown{
      *     passed in the <i>pConnectionProperty</i> parameter.
      * 
      * Passing zero in the <b>u32ValidFrameCount</b> member is a valid request. In this case,
-     *     the input pointer must be valid but the endpoint does not read from it. The <i>pConnectionProperty</i>-&gt;<b>u32ValidFrameCount</b>value must be less than or equal to the maximum  frame count supported by the endpoint. To get the supported number of frames, call the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getframesperpacket">IAudioEndpoint::GetFramesPerPacket</a> method.
+     *     the input pointer must be valid but the endpoint does not read from it. The <i>pConnectionProperty</i>-&gt;<b>u32ValidFrameCount</b> value must be less than or equal to the maximum  frame count supported by the endpoint. To get the supported number of frames, call the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getframesperpacket">IAudioEndpoint::GetFramesPerPacket</a> method.
      * 
      * This method can be called from a real-time processing thread. The
      *     implementation of this method must not block, access
      *     paged memory, or call any blocking system routines.
      * 
      * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
-     * 
-     * 
-     * @param {Pointer<APO_CONNECTION_PROPERTY>} pConnectionProperty A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/audioapotypes/ns-audioapotypes-apo_connection_property">APO_CONNECTION_PROPERTY</a>structure.
+     * @param {Pointer<APO_CONNECTION_PROPERTY>} pConnectionProperty A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/audioapotypes/ns-audioapotypes-apo_connection_property">APO_CONNECTION_PROPERTY</a> structure.
      * 
      * The caller sets the member values as follows:
      * 
@@ -88,7 +83,7 @@ class IAudioInputEndpointRT extends IUnknown{
      * @param {Pointer<AE_CURRENT_POSITION>} pAeTimeStamp A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/ns-audioengineendpoint-ae_current_position">AE_CURRENT_POSITION</a> structure that contains the time stamp of the data that is captured in the buffer.
      *     This parameter is optional.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-getinputdatapointer
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-getinputdatapointer
      */
     GetInputDataPointer(pConnectionProperty, pAeTimeStamp) {
         ComCall(3, this, "ptr", pConnectionProperty, "ptr", pAeTimeStamp)
@@ -97,10 +92,9 @@ class IAudioInputEndpointRT extends IUnknown{
     /**
      * Releases the acquired data pointer.
      * @remarks
-     * 
      * <b>ReleaseInputDataPointer</b> notifies the endpoint that the audio engine no longer requires the input data pointer and also indicates the number of frames used during the session.
      *     For example, an endpoint, which represents a looped buffer, is connected to the input of the
-     *     audio engine and  can advance its read
+     *     audio engine and can advance its read
      *     pointer by using the actual frame count.
      *     If <b>u32FrameCount</b> is zero, this indicates that the client did not use any data
      *     from the specified input buffer. The <b>u32FrameCount</b> must be less than or equal to the maximum  frame count supported by the endpoint. To get the supported number of frames, the audio engine calls the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpoint-getframesperpacket">IAudioEndpoint::GetFramesPerPacket</a> method.
@@ -108,31 +102,26 @@ class IAudioInputEndpointRT extends IUnknown{
      * This method can be called from a real-time processing thread. The implementation of this method must not block, access paged memory, or call any blocking system routines.
      * 
      * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
-     * 
-     * 
      * @param {Integer} u32FrameCount The number of frames that have been
      *     consumed by the audio engine. This count might not
      *     be the same as the value returned by the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-getinputdatapointer">IAudioInputEndpointRT::GetInputDataPointer</a> method in the <i>pConnectionProperty</i>-&gt;<b>u32ValidFrameCount</b> member.
      * @param {Pointer} pDataPointer The pointer to the buffer retrieved by                  the <a href="https://docs.microsoft.com/windows/desktop/api/audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-getinputdatapointer">GetInputDataPointer</a> method received  in the <i>pConnectionProperty</i>-&gt;<b>pBuffer</b> member.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-releaseinputdatapointer
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-releaseinputdatapointer
      */
     ReleaseInputDataPointer(u32FrameCount, pDataPointer) {
         ComCall(4, this, "uint", u32FrameCount, "ptr", pDataPointer)
     }
 
     /**
-     * Is reserved.
+     * Is reserved. (IAudioInputEndpointRT.PulseEndpoint)
      * @remarks
-     * 
      * This method can be called from a real-time processing thread. The
      *     implementation of this method must not block, access paged memory, or call any blocking system routines.
      * 
      * The Remote Desktop Services AudioEndpoint API is for use in Remote Desktop scenarios; it is not for client applications.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-pulseendpoint
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioinputendpointrt-pulseendpoint
      */
     PulseEndpoint() {
         ComCall(5, this)

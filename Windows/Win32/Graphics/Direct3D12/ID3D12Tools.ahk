@@ -6,13 +6,10 @@
 /**
  * This interface is used to configure the runtime for tools such as PIX. Its not intended or supported for any other scenario.
  * @remarks
- * 
- * Do not use this interface in your application, its not intended or supported for any scenario other than to enable tooling such as PIX.
+ * Do not use this interface in your application, it's not intended or supported for any scenario other than to enable tooling such as PIX.
  * 
  * Developer Mode must be enabled for this interface to respond.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12tools
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12tools
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -40,17 +37,14 @@ class ID3D12Tools extends IUnknown{
     /**
      * This method enables tools such as PIX to instrument shaders.
      * @remarks
-     * 
-     * Do not use this interface in your application, its not intended or supported for any scenario other than to enable tooling such as PIX.
+     * Do not use this interface in your application, it's not intended or supported for any scenario other than to enable tooling such as PIX.
      * 
      * Developer Mode must be enabled for this interface to respond.
-     * 
-     * 
      * @param {BOOL} bEnable Type: <b>BOOL</b>
      * 
      * TRUE to enable shader instrumentation; otherwise, FALSE.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12tools-enableshaderinstrumentation
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12tools-enableshaderinstrumentation
      */
     EnableShaderInstrumentation(bEnable) {
         ComCall(3, this, "int", bEnable)
@@ -58,10 +52,14 @@ class ID3D12Tools extends IUnknown{
 
     /**
      * Determines whether shader instrumentation is enabled.
+     * @remarks
+     * Do not use this interface in your application, it's not intended or supported for any scenario other than to enable tooling such as PIX.
+     * 
+     * Developer Mode must be enabled for this interface to respond.
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns TRUE if shader instrumentation is enabled; otherwise FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12tools-shaderinstrumentationenabled
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12tools-shaderinstrumentationenabled
      */
     ShaderInstrumentationEnabled() {
         result := ComCall(4, this, "int")

@@ -39,10 +39,11 @@ class INetConnectionConnectUi extends IUnknown{
     }
 
     /**
-     * 
+     * Defines each configuration setting and associates it with a name. The Connection element is optional.
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect(hwndParent, dwFlags) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -52,10 +53,13 @@ class INetConnectionConnectUi extends IUnknown{
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @param {HWND} hwndParent 
      * @param {Integer} dwFlags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect(hwndParent, dwFlags) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

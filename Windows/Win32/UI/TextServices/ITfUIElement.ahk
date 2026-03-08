@@ -7,10 +7,8 @@
 /**
  * The ITfUIElement interface is a base interface of the UIElement object and is implemented by a text service.
  * @remarks
- * 
  * A text service may implement some other UIElement interface such as <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcandidatelistuielement">ITfCandidateListUIElement</a> in the same object that can be obtained by QI. A text service may implement only the <b>ITfUIElement</b> interface to a UI object that does not have to be drawn by the application but the show status can be controlled by the application. A text service that is categorized by GUID_TFCAT_TIPCAP_UIELEMENTENABLED needs to implement ITfUIElement for any UI object.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfuielement
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfuielement
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -38,7 +36,7 @@ class ITfUIElement extends IUnknown{
     /**
      * The ITfUIElement::GetDescription method returns the description of the UI element.
      * @returns {BSTR} [in] A pointer to BSTR that contains the description of the UI element.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-getdescription
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getdescription
      */
     GetDescription() {
         pbstrDescription := BSTR()
@@ -49,7 +47,7 @@ class ITfUIElement extends IUnknown{
     /**
      * The ITfUIElement::GetGUID method returns the unique id of this UI element.
      * @returns {Guid} [out] A pointer to receive the GUID of the UI element.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-getguid
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-getguid
      */
     GetGUID() {
         pguid := Guid()
@@ -90,7 +88,7 @@ class ITfUIElement extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-show
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-show
      */
     Show(bShow) {
         result := ComCall(5, this, "int", bShow, "HRESULT")
@@ -100,7 +98,7 @@ class ITfUIElement extends IUnknown{
     /**
      * The ITfUIElement::IsShown method returns true if the UI is currently shown by a text service; otherwise false.
      * @returns {BOOL} [out] A pointer to bool of the current show status of the original UI of this element.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfuielement-isshown
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfuielement-isshown
      */
     IsShown() {
         result := ComCall(6, this, "int*", &pbShow := 0, "HRESULT")

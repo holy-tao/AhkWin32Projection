@@ -5,7 +5,7 @@
 
 /**
  * Represents the key to each object in the transaction resource pool.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjpool
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjpool
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -66,7 +66,7 @@ class IObjPool extends IUnknown{
      * Destroys the pooled object when the transaction ends.
      * @param {IUnknown} pObj A reference to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> of the pooled object.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjpool-putendtx
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjpool-putendtx
      */
     PutEndTx(pObj) {
         ComCall(7, this, "ptr", pObj)

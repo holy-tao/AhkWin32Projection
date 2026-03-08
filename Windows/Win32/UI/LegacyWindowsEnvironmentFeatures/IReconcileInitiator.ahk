@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that provide the briefcase reconciler with the means to notify the initiator of its progress, to set a termination object, and to request a given version of a document. The initiator is responsible for implementing this interface.
- * @see https://docs.microsoft.com/windows/win32/api//reconcil/nn-reconcil-ireconcileinitiator
+ * @see https://learn.microsoft.com/windows/win32/lwef/ireconcileinitiator
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IReconcileInitiator extends IUnknown{
 
     /**
      * Sets the object through which the initiator can asynchronously terminate a reconciliation. A briefcase reconciler typically sets this object for reconciliations that are lengthy or involve user interaction.
+     * @remarks
+     * The initiator can accept or reject the object. If the initiator accepts the object, the briefcase reconciler must remove the object by calling this method with a <b>NULL</b> parameter when the reconciliation is complete. Because the reconciler removes the object after completing reconciliation, there may be times when the initiator releases the object after reconciliation is complete. In such cases, the reconciler ignores the request to terminate. 
+     * 
+     * If the reconciliation is terminated, the <a href="https://docs.microsoft.com/windows/desktop/api/reconcil/nf-reconcil-ireconcilableobject-reconcile">Reconcile</a> method must return either the REC_E_ABORTED or REC_E_NOTCOMPLETE value.
      * @param {IUnknown} punkForAbort Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>*</b>
      * 
      * The address of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the object. The initiator signals a request to terminate the reconciliation by using the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method to release the object. This parameter may be <b>NULL</b> to direct the initiator to remove the previously specified object.
@@ -67,7 +71,7 @@ class IReconcileInitiator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//reconcil/nf-reconcil-ireconcileinitiator-setabortcallback
+     * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcileinitiator-setabortcallback
      */
     SetAbortCallback(punkForAbort) {
         result := ComCall(3, this, "ptr", punkForAbort, "HRESULT")
@@ -76,6 +80,8 @@ class IReconcileInitiator extends IUnknown{
 
     /**
      * Indicates the amount of progress the briefcase reconciler has made toward completing the reconciliation.
+     * @remarks
+     * The initiator typically uses this measure of progress to update a thermometer gauge or some other form of visual feedback for the user. The briefcase reconciler can change the value of <i>ulProgressMax</i> from call to call. This means successive calls to this method do not necessarily indicate steady forward progress. Backward progress is legal, although not desirable. It is the responsibility of the initiator to determine whether backward progress should be revealed to the user.
      * @param {Integer} ulProgress Type: <b>ULONG</b>
      * 
      * The numerator of the progress fraction.
@@ -85,7 +91,7 @@ class IReconcileInitiator extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns the S_OK value if successful, or the E_UNEXPECTED value if an unspecified error occurred.
-     * @see https://docs.microsoft.com/windows/win32/api//reconcil/nf-reconcil-ireconcileinitiator-setprogressfeedback
+     * @see https://learn.microsoft.com/windows/win32/api/reconcil/nf-reconcil-ireconcileinitiator-setprogressfeedback
      */
     SetProgressFeedback(ulProgress, ulProgressMax) {
         result := ComCall(4, this, "uint", ulProgress, "uint", ulProgressMax, "HRESULT")

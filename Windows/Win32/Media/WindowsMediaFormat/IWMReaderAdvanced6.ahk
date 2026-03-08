@@ -5,7 +5,7 @@
 
 /**
  * The IWMReaderAdvanced6 interface enables sample protection.An IWMReaderAdvanced6 interface exists for every reader object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreaderadvanced6
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreaderadvanced6
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,13 +32,15 @@ class IWMReaderAdvanced6 extends IWMReaderAdvanced5{
 
     /**
      * The SetProtectStreamSamples method configures sample protection.
+     * @remarks
+     * The constants used for <i>dwCertificateType</i> and <i>dwFlags</i> are defined in wmdrmsdk.h.
      * @param {Pointer<Integer>} pbCertificate Buffer containing the certificate to use for protection.
      * @param {Integer} cbCertificate Size of the certificate in bytes.
      * @param {Integer} dwCertificateType Type of certificate passed in <i>pbCertificate</i>. The only supported type is WMDRM_CERTIFICATE_TYPE_XML.
      * @param {Integer} dwFlags The type of session protection to use for re-encoding. The only supported type is WMDRM_PROTECTION_TYPE_RC4.
      * @param {Pointer<Integer>} pcbInitializationVector On input, the size of the buffer passed as <i>pbInitializationVector</i>. On output, the size of the used portion of the buffer. If you pass <b>NULL</b> for <i>pbInitializationVector</i>, this value is set to the required buffer size on output.
      * @returns {Integer} Receives the initialization vector. The initialization vector is OEAP-encrypted with the RSA public key found in the certificate. Set to <b>NULL</b> to receive the required buffer size in pcbInitializationVector.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreaderadvanced6-setprotectstreamsamples
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced6-setprotectstreamsamples
      */
     SetProtectStreamSamples(pbCertificate, cbCertificate, dwCertificateType, dwFlags, pcbInitializationVector) {
         pbCertificateMarshal := pbCertificate is VarRef ? "char*" : "ptr"

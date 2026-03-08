@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods for getting and setting the property key.
- * @see https://docs.microsoft.com/windows/win32/api//propsys/nn-propsys-iobjectwithpropertykey
+ * @see https://learn.microsoft.com/windows/win32/api/propsys/nn-propsys-iobjectwithpropertykey
  * @namespace Windows.Win32.UI.Shell.PropertiesSystem
  * @version v4.0.30319
  */
@@ -38,8 +38,8 @@ class IObjectWithPropertyKey extends IUnknown{
      * The property key.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-iobjectwithpropertykey-setpropertykey
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-iobjectwithpropertykey-setpropertykey
      */
     SetPropertyKey(key) {
         result := ComCall(3, this, "ptr", key, "HRESULT")
@@ -51,7 +51,7 @@ class IObjectWithPropertyKey extends IUnknown{
      * @returns {PROPERTYKEY} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/wtypes/ns-wtypes-propertykey">PROPERTYKEY</a>*</b>
      * 
      * When this returns, contains the property key.
-     * @see https://docs.microsoft.com/windows/win32/api//propsys/nf-propsys-iobjectwithpropertykey-getpropertykey
+     * @see https://learn.microsoft.com/windows/win32/api/propsys/nf-propsys-iobjectwithpropertykey-getpropertykey
      */
     GetPropertyKey() {
         pkey := PROPERTYKEY()

@@ -5,9 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Applications use the methods of the IDirect3DVertexDeclaration9 interface to encapsulate the vertex shader declaration.
+ * The IDirect3DVertexDeclaration9 (d3d9.h) interface is used by applications to encapsulate the vertex shader declaration.
  * @remarks
- * 
  * A vertex shader declaration is made up of an array of vertex elements.
  * 
  * The LPDIRECT3DVERTEXDECLARATION9 and PDIRECT3DVERTEXDECLARATION9 types are defined as pointers to the <b>IDirect3DVertexDeclaration9</b> interface.
@@ -18,9 +17,7 @@
  * ```
  * typedef struct IDirect3DVertexDeclaration9 *LPDIRECT3DVERTEXDECLARATION9, *PDIRECT3DVERTEXDECLARATION9;
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dvertexdeclaration9
+ * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dvertexdeclaration9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -46,11 +43,11 @@ class IDirect3DVertexDeclaration9 extends IUnknown{
     static VTableNames => ["GetDevice", "GetDeclaration"]
 
     /**
-     * Gets the current device.
+     * The IDirect3DVertexDeclaration9::GetDevice (d3d9.h) method gets the current device.
      * @returns {IDirect3DDevice9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>**</b>
      * 
      * Pointer to the IDirect3DDevice9 interface that is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvertexdeclaration9-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexdeclaration9-getdevice
      */
     GetDevice() {
         result := ComCall(3, this, "ptr*", &ppDevice := 0, "HRESULT")
@@ -58,17 +55,34 @@ class IDirect3DVertexDeclaration9 extends IUnknown{
     }
 
     /**
-     * Gets the vertex shader declaration.
-     * @param {Pointer<D3DVERTEXELEMENT9>} pElement Type: [in, out] <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvertexelement9">D3DVERTEXELEMENT9</a>*</b>
+     * The IDirect3DVertexDeclaration9::GetDeclaration (d3d9.h) method gets the vertex shader declaration.
+     * @remarks
+     * The number of elements, pNumElements, includes the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddecl-end">D3DDECL_END</a> macro, which ends the declaration. So the element count is actually one higher than the number of valid vertex elements.
+     * 
+     * Here's an example that will return the vertex declaration array of up to 256 elements:
+     * 
+     * 
+     * ```
+     *  
+     * D3DVERTEXELEMENT9 decl[MAXD3DDECLLENGTH];
+     * UINT numElements;
+     * HRESULT hr = m_pVertexDeclaration->GetDeclaration( decl, &numElements);
+     * 
+     * ```
+     * 
+     * 
+     * Specify <b>NULL</b> for pDeclto get the number of elements in the declaration.
+     * @param {Pointer<D3DVERTEXELEMENT9>} pElement Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvertexelement9">D3DVERTEXELEMENT9</a>*</b>
      * 
      * Array of vertex elements (see <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dvertexelement9">D3DVERTEXELEMENT9</a>) that make up a vertex shader declaration. The application needs to allocate enough room for this. The vertex element array ends with the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddecl-end">D3DDECL_END</a> macro.
-     * @param {Pointer<Integer>} pNumElements Type: [out] <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
+     * @param {Pointer<Integer>} pNumElements Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Number of elements in the array. The application needs to allocate enough room for this.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dvertexdeclaration9-getdeclaration
+     * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be:
+     *      D3DERR_INVALIDCALL.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dvertexdeclaration9-getdeclaration
      */
     GetDeclaration(pElement, pNumElements) {
         pNumElementsMarshal := pNumElements is VarRef ? "uint*" : "ptr"

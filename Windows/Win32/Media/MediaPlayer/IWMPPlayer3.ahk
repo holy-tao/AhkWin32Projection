@@ -6,7 +6,7 @@
 
 /**
  * The IWMPPlayer3 interface provides methods for modifying the basic behavior of the control user interface. These methods supplement the IWMPCore2 interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpplayer3
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpplayer3
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */

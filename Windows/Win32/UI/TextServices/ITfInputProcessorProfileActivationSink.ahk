@@ -6,10 +6,8 @@
 /**
  * The ITfInputProcessorProfileActivationSink interface is implemented by an application to receive notifications when the profile changes.
  * @remarks
- * 
  * To install this advise sink, obtain an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfsource">ITfSource</a> object from an <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfthreadmgr">ITfThreadMgr</a> object by calling <b>ITfThreadMgr::QueryInterface</b> with <b>IID_ ITfSource</b>. Then call <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfsource-advisesink">ITfSource::AdviseSink</a> with <b>IID_ITfInputProcessorProfileActivationSink</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfinputprocessorprofileactivationsink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfinputprocessorprofileactivationsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -88,7 +86,7 @@ class ITfInputProcessorProfileActivationSink extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} The TSF manager ignores the return value of this method.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfinputprocessorprofileactivationsink-onactivated
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfinputprocessorprofileactivationsink-onactivated
      */
     OnActivated(dwProfileType, langid, clsid, catid, guidProfile, hkl, dwFlags) {
         hkl := hkl is Win32Handle ? NumGet(hkl, "ptr") : hkl

@@ -6,11 +6,8 @@
 /**
  * The IMSVidStreamBufferSinkEvent4 interface receives events from the MSVidStreamBufferSink object.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSinkEvent4)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersinkevent4
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersinkevent4
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -36,8 +33,8 @@ class IMSVidStreamBufferSinkEvent4 extends IMSVidStreamBufferSinkEvent3{
     static VTableNames => ["WriteFailureClear"]
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The WriteFailureClear method is called when a write error from the Stream Buffer Sink filter has been cleared.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersinkevent4-writefailureclear
      */
     WriteFailureClear() {

@@ -5,7 +5,7 @@
 
 /**
  * Represents a certificate property that identifies whether a certificate has been archived.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icertpropertyarchived
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icertpropertyarchived
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -39,10 +39,12 @@ class ICertPropertyArchived extends ICertProperty{
 
     /**
      * Initializes the object from a Boolean value that specifies whether the certificate has been archived.
+     * @remarks
+     * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertproperty-setvalueoncertificate">SetValueOnCertificate</a> method to associate the property with a certificate. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyarchived-get_archived">Archived</a> property to retrieve the Boolean value.
      * @param {VARIANT_BOOL} ArchivedValue A <b>VARIANT_BOOL</b> variable that identifies whether the certificate has been archived.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table.  For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -62,7 +64,7 @@ class ICertPropertyArchived extends ICertProperty{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyarchived-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyarchived-initialize
      */
     Initialize(ArchivedValue) {
         result := ComCall(14, this, "short", ArchivedValue, "HRESULT")
@@ -72,12 +74,9 @@ class ICertPropertyArchived extends ICertProperty{
     /**
      * Retrieves a Boolean value that specifies whether the certificate has been archived.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icertpropertyarchived-initialize">Initialize</a> method to specify the Boolean value.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icertpropertyarchived-get_archived
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icertpropertyarchived-get_archived
      */
     get_Archived() {
         result := ComCall(15, this, "short*", &pValue := 0, "HRESULT")

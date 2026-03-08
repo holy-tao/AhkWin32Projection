@@ -6,7 +6,7 @@
 
 /**
  * The ITocEntryList interface represents a list of entries in a table of contents. It provides methods for adding entries to, and removing entries from the list.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-itocentrylist
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-itocentrylist
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -53,7 +53,7 @@ class ITocEntryList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrycount
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrycount
      */
     GetEntryCount(pdwEntryCount) {
         pdwEntryCountMarshal := pdwEntryCount is VarRef ? "uint*" : "ptr"
@@ -66,7 +66,7 @@ class ITocEntryList extends IUnknown{
      * The GetEntryByIndex method retrieves an entry, specified by an index, from the list.
      * @param {Integer} dwEntryIndex The index of the entry to retrieve.
      * @returns {ITocEntry} Pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmcodecdsp/nn-wmcodecdsp-itocentry">ITocEntry</a> interface that represents the entry.
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrybyindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-getentrybyindex
      */
     GetEntryByIndex(dwEntryIndex) {
         result := ComCall(4, this, "uint", dwEntryIndex, "ptr*", &ppEntry := 0, "HRESULT")
@@ -96,7 +96,7 @@ class ITocEntryList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentry
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentry
      */
     AddEntry(pEntry, pdwEntryIndex) {
         pdwEntryIndexMarshal := pdwEntryIndex is VarRef ? "uint*" : "ptr"
@@ -128,7 +128,7 @@ class ITocEntryList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentrybyindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-addentrybyindex
      */
     AddEntryByIndex(dwEntryIndex, pEntry) {
         result := ComCall(6, this, "uint", dwEntryIndex, "ptr", pEntry, "HRESULT")
@@ -157,7 +157,7 @@ class ITocEntryList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-itocentrylist-removeentrybyindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-itocentrylist-removeentrybyindex
      */
     RemoveEntryByIndex(dwEntryIndex) {
         result := ComCall(7, this, "uint", dwEntryIndex, "HRESULT")

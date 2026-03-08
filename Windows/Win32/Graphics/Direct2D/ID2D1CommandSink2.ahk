@@ -5,7 +5,7 @@
 
 /**
  * This interface performs all the same functions as the existing ID2D1CommandSink1 interface. It also enables access to ink rendering and gradient mesh rendering.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1commandsink2
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1commandsink2
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -31,7 +31,7 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1{
     static VTableNames => ["DrawInk", "DrawGradientMesh", "DrawGdiMetafile"]
 
     /**
-     * Renders the given ink object using the given brush and ink style.
+     * Renders the given ink object using the given brush and ink style. (ID2D1CommandSink2.DrawInk)
      * @param {ID2D1Ink} ink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1ink">ID2D1Ink</a>*</b>
      * 
      * The ink object to be rendered.
@@ -42,7 +42,7 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1{
      * 
      * The ink style to use when rendering the ink object.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1commandsink2-drawink
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink2-drawink
      */
     DrawInk(ink, brush, inkStyle) {
         result := ComCall(29, this, "ptr", ink, "ptr", brush, "ptr", inkStyle, "HRESULT")
@@ -50,12 +50,12 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1{
     }
 
     /**
-     * Renders a given gradient mesh to the target.
+     * Renders a given gradient mesh to the target. (ID2D1CommandSink2.DrawGradientMesh)
      * @param {ID2D1GradientMesh} gradientMesh Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1gradientmesh">ID2D1GradientMesh</a>*</b>
      * 
      * The gradient mesh to be rendered.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1commandsink2-drawgradientmesh
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink2-drawgradientmesh
      */
     DrawGradientMesh(gradientMesh) {
         result := ComCall(30, this, "ptr", gradientMesh, "HRESULT")
@@ -75,7 +75,7 @@ class ID2D1CommandSink2 extends ID2D1CommandSink1{
      * The rectangle of the source metafile that will be drawn, relative to the upper left corner (defined in DIPs). 
      *      If NULL is specified, the source rectangle is the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nf-d2d1_3-id2d1gdimetafile1-getsourcebounds">ID2D1GdiMetafile1::GetSourceBounds</a>.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1commandsink2-drawgdimetafile
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1commandsink2-drawgdimetafile
      */
     DrawGdiMetafile(gdiMetafile, destinationRectangle, sourceRectangle) {
         result := ComCall(31, this, "ptr", gdiMetafile, "ptr", destinationRectangle, "ptr", sourceRectangle, "HRESULT")

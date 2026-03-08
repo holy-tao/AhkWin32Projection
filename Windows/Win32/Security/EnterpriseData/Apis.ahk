@@ -22,11 +22,7 @@ class EnterpriseData {
     static SrpCreateThreadNetworkContext(enterpriseId, threadNetworkContext) {
         enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
 
-        result := DllCall("srpapi.dll\SrpCreateThreadNetworkContext", "ptr", enterpriseId, "ptr", threadNetworkContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpCreateThreadNetworkContext", "ptr", enterpriseId, "ptr", threadNetworkContext, "HRESULT")
         return result
     }
 
@@ -38,11 +34,7 @@ class EnterpriseData {
      * @since windows10.0.10240
      */
     static SrpCloseThreadNetworkContext(threadNetworkContext) {
-        result := DllCall("srpapi.dll\SrpCloseThreadNetworkContext", "ptr", threadNetworkContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpCloseThreadNetworkContext", "ptr", threadNetworkContext, "HRESULT")
         return result
     }
 
@@ -58,11 +50,7 @@ class EnterpriseData {
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
         enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
 
-        result := DllCall("srpapi.dll\SrpSetTokenEnterpriseId", "ptr", tokenHandle, "ptr", enterpriseId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpSetTokenEnterpriseId", "ptr", tokenHandle, "ptr", enterpriseId, "HRESULT")
         return result
     }
 
@@ -80,11 +68,7 @@ class EnterpriseData {
 
         numberOfBytesMarshal := numberOfBytes is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("srpapi.dll\SrpGetEnterpriseIds", "ptr", tokenHandle, numberOfBytesMarshal, numberOfBytes, "ptr", enterpriseIds, "uint*", &enterpriseIdCount := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpGetEnterpriseIds", "ptr", tokenHandle, numberOfBytesMarshal, numberOfBytes, "ptr", enterpriseIds, "uint*", &enterpriseIdCount := 0, "HRESULT")
         return enterpriseIdCount
     }
 
@@ -100,11 +84,7 @@ class EnterpriseData {
     static SrpEnablePermissiveModeFileEncryption(enterpriseId) {
         enterpriseId := enterpriseId is String ? StrPtr(enterpriseId) : enterpriseId
 
-        result := DllCall("srpapi.dll\SrpEnablePermissiveModeFileEncryption", "ptr", enterpriseId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpEnablePermissiveModeFileEncryption", "ptr", enterpriseId, "HRESULT")
         return result
     }
 
@@ -117,11 +97,7 @@ class EnterpriseData {
      * @since windows10.0.10240
      */
     static SrpDisablePermissiveModeFileEncryption() {
-        result := DllCall("srpapi.dll\SrpDisablePermissiveModeFileEncryption", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpDisablePermissiveModeFileEncryption", "HRESULT")
         return result
     }
 
@@ -135,11 +111,7 @@ class EnterpriseData {
     static SrpGetEnterprisePolicy(tokenHandle) {
         tokenHandle := tokenHandle is Win32Handle ? NumGet(tokenHandle, "ptr") : tokenHandle
 
-        result := DllCall("srpapi.dll\SrpGetEnterprisePolicy", "ptr", tokenHandle, "int*", &policyFlags := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpGetEnterprisePolicy", "ptr", tokenHandle, "int*", &policyFlags := 0, "HRESULT")
         return policyFlags
     }
 
@@ -168,11 +140,7 @@ class EnterpriseData {
      * @since windows10.0.10240
      */
     static SrpDoesPolicyAllowAppExecution(packageId) {
-        result := DllCall("srpapi.dll\SrpDoesPolicyAllowAppExecution", "ptr", packageId, "int*", &isAllowed := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpDoesPolicyAllowAppExecution", "ptr", packageId, "int*", &isAllowed := 0, "HRESULT")
         return isAllowed
     }
 
@@ -199,11 +167,7 @@ class EnterpriseData {
     static SrpHostingInitialize(Version, Type, pvData, cbData) {
         pvDataMarshal := pvData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("srpapi.dll\SrpHostingInitialize", "int", Version, "int", Type, pvDataMarshal, pvData, "uint", cbData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("srpapi.dll\SrpHostingInitialize", "int", Version, "int", Type, pvDataMarshal, pvData, "uint", cbData, "HRESULT")
         return result
     }
 
@@ -228,11 +192,7 @@ class EnterpriseData {
         fileOrFolderPath := fileOrFolderPath is String ? StrPtr(fileOrFolderPath) : fileOrFolderPath
         identity := identity is String ? StrPtr(identity) : identity
 
-        result := DllCall("efswrt.dll\ProtectFileToEnterpriseIdentity", "ptr", fileOrFolderPath, "ptr", identity, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("efswrt.dll\ProtectFileToEnterpriseIdentity", "ptr", fileOrFolderPath, "ptr", identity, "HRESULT")
         return result
     }
 
@@ -245,11 +205,7 @@ class EnterpriseData {
     static UnprotectFile(fileOrFolderPath, options) {
         fileOrFolderPath := fileOrFolderPath is String ? StrPtr(fileOrFolderPath) : fileOrFolderPath
 
-        result := DllCall("efswrt.dll\UnprotectFile", "ptr", fileOrFolderPath, "ptr", options, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("efswrt.dll\UnprotectFile", "ptr", fileOrFolderPath, "ptr", options, "HRESULT")
         return result
     }
 

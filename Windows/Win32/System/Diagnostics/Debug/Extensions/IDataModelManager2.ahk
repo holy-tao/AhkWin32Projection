@@ -54,7 +54,7 @@ class IDataModelManager2 extends IDataModelManager{
      * @returns {IModelObject} 
      */
     CreateTypedIntrinsicObjectEx(context, intrinsicData, type) {
-        result := ComCall(24, this, "ptr", context, "ptr", intrinsicData, "ptr", type, "ptr*", &object := 0, "HRESULT")
-        return IModelObject(object)
+        result := ComCall(24, this, "ptr", context, "ptr", intrinsicData, "ptr", type, "ptr*", &object_R := 0, "HRESULT")
+        return IModelObject(object_R)
     }
 }

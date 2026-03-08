@@ -29,9 +29,31 @@ class IDebugHostContextAlternator extends IUnknown{
     static VTableNames => ["SwitchTo", "SwitchBack"]
 
     /**
+     * Schedules a fiber. The function must be called on a fiber.
+     * @remarks
+     * You create fibers with the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfiber">CreateFiber</a> function. Before you can schedule fibers associated with a thread, you must call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-convertthreadtofiber">ConvertThreadToFiber</a> to set up an area in which to save the fiber state information. The thread is now the currently executing fiber.
      * 
+     * The 
+     * <b>SwitchToFiber</b> function saves the state information of the current fiber and restores the state of the specified fiber. You can call 
+     * <b>SwitchToFiber</b> with the address of a fiber created by a different thread. To do this, you must have the address returned to the other thread when it called 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-createfiber">CreateFiber</a> and you must use proper synchronization.
+     * 
+     * Avoid making the following call:
+     * 
+     * 
+     * ``` syntax
+     * SwitchToFiber( GetCurrentFiber() );
+     * ```
+     * 
+     * This call can cause unpredictable problems.
+     * 
+     * To compile an application that uses this function, define _WIN32_WINNT as 0x0400 or later. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/WinProg/using-the-windows-headers">Using the Windows Headers</a>.
      * @param {Integer} fullSwitch 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-switchtofiber
      */
     SwitchTo(fullSwitch) {
         result := ComCall(3, this, "char", fullSwitch, "HRESULT")

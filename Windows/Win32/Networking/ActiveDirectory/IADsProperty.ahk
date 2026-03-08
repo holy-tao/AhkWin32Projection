@@ -8,13 +8,9 @@
 /**
  * The IADsProperty interface is designed to manage a single attribute definition for a schema class object.
  * @remarks
- * 
  * The <b>IADsProperty</b> interface methods can add new 
  *     attributes and property objects to a provider-specific implementation.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsproperty
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsproperty
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -182,8 +178,12 @@ class IADsProperty extends IADs{
 
     /**
      * Returns a collection of ADSI objects that describe additional qualifiers of this property.
+     * @remarks
+     * The qualifier objects are provider-specific. When supported, this method can be used to obtain extended schema data.
+     * 
+     * This method is not currently supported by any of the providers supplied by Microsoft.
      * @returns {IADsCollection} Indirect pointer to the  <a href="https://docs.microsoft.com/windows/desktop/api/iads/nn-iads-iadscollection">IADsCollection</a> interface on the ADSI collection object that represents additional limits for this property.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsproperty-qualifiers
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsproperty-qualifiers
      */
     Qualifiers() {
         result := ComCall(30, this, "ptr*", &ppQualifiers := 0, "HRESULT")

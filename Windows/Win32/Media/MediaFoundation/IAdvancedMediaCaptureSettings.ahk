@@ -6,7 +6,7 @@
 
 /**
  * Provides settings for advanced media capture.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nn-mfmediacapture-iadvancedmediacapturesettings
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nn-mfmediacapture-iadvancedmediacapturesettings
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAdvancedMediaCaptureSettings extends IUnknown{
     /**
      * Gets the DirectX device manager.
      * @returns {IMFDXGIDeviceManager} 
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediacapture/nf-mfmediacapture-iadvancedmediacapturesettings-getdirectxdevicemanager
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediacapture/nf-mfmediacapture-iadvancedmediacapturesettings-getdirectxdevicemanager
      */
     GetDirectxDeviceManager() {
         result := ComCall(3, this, "ptr*", &value := 0, "HRESULT")

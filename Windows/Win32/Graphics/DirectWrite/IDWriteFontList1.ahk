@@ -6,8 +6,8 @@
 #Include .\IDWriteFontList.ahk
 
 /**
- * Represents a list of fonts.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontlist1
+ * Represents a list of fonts. (IDWriteFontList1)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontlist1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -33,14 +33,16 @@ class IDWriteFontList1 extends IDWriteFontList{
     static VTableNames => ["GetFontLocality", "GetFont", "GetFontFaceReference"]
 
     /**
-     * Gets the current location of a font given its zero-based index.
+     * Gets the current location of a font given its zero-based index. (IDWriteFontList1.GetFontLocality)
+     * @remarks
+     * For fully local files, the result will always be <b>DWRITE_LOCALITY_LOCAL</b>. For streamed files, the result depends on how much of the file has been downloaded. <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist1-getfont">GetFont</a> fails if the locality is <b>DWRITE_LOCALITY_REMOTE</b> and potentially fails if <b>DWRITE_LOCALITY_PARTIAL</b>.
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the font in the font list.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a></b>
      * 
-     * Returns a <a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a>-typed value that specifies the location of the specified font.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontlist1-getfontlocality
+     * Returns a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_locality">DWRITE_LOCALITY</a>-typed value that specifies the location of the specified font.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist1-getfontlocality
      */
     GetFontLocality(listIndex) {
         result := ComCall(6, this, "uint", listIndex, "int")
@@ -48,14 +50,14 @@ class IDWriteFontList1 extends IDWriteFontList{
     }
 
     /**
-     * Gets a font given its zero-based index.
+     * Gets a font given its zero-based index. (IDWriteFontList1.GetFont)
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the font in the font list.
      * @returns {IDWriteFont3} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3">IDWriteFont3</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefont3">IDWriteFont3</a> interface for the newly created font object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontlist1-getfont
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist1-getfont
      */
     GetFont(listIndex) {
         result := ComCall(7, this, "uint", listIndex, "ptr*", &font := 0, "HRESULT")
@@ -63,14 +65,14 @@ class IDWriteFontList1 extends IDWriteFontList{
     }
 
     /**
-     * Gets a font face reference given its zero-based index.
+     * Gets a font face reference given its zero-based index. (IDWriteFontList1.GetFontFaceReference)
      * @param {Integer} listIndex Type: <b>UINT32</b>
      * 
      * Zero-based index of the font in the font list.
      * @returns {IDWriteFontFaceReference} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a>**</b>
      * 
      * A pointer to a memory block that receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontfacereference">IDWriteFontFaceReference</a> interface for the newly created font face reference object.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontlist1-getfontfacereference
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontlist1-getfontfacereference
      */
     GetFontFaceReference(listIndex) {
         result := ComCall(8, this, "uint", listIndex, "ptr*", &fontFaceReference := 0, "HRESULT")

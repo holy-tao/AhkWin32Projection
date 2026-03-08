@@ -7,7 +7,7 @@
 
 /**
  * Use the IEnumBackgroundCopyJobs interface to enumerate the list of jobs in the transfer queue. To get an IEnumBackgroundCopyJobs interface pointer, call the IBackgroundCopyManager::EnumJobs method.
- * @see https://docs.microsoft.com/windows/win32/api//bits/nn-bits-ienumbackgroundcopyjobs
+ * @see https://learn.microsoft.com/windows/win32/api/bits/nn-bits-ienumbackgroundcopyjobs
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -33,12 +33,12 @@ class IEnumBackgroundCopyJobs extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone", "GetCount"]
 
     /**
-     * Retrieves a specified number of items in the enumeration sequence. If there are fewer than the requested number of elements left in the sequence, it retrieves the remaining elements.
+     * Retrieves a specified number of items in the enumeration sequence. If there are fewer than the requested number of elements left in the sequence, it retrieves the remaining elements. (IEnumBackgroundCopyJobs.Next)
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pceltFetched Number of elements returned in <i>rgelt</i>. You can set <i>pceltFetched</i> to <b>NULL</b> if <i>celt</i> is one. Otherwise, initialize the value of <i>pceltFetched</i> to 0 before calling this method.
      * @returns {IBackgroundCopyJob} Array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/bits/nn-bits-ibackgroundcopyjob">IBackgroundCopyJob</a> objects. You must release each object in <i>rgelt</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ienumbackgroundcopyjobs-next
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ienumbackgroundcopyjobs-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -48,7 +48,7 @@ class IEnumBackgroundCopyJobs extends IUnknown{
     }
 
     /**
-     * Skips the next specified number of elements in the enumeration sequence. If there are fewer elements left in the sequence than the requested number of elements to skip, it skips past the last element in the sequence.
+     * Skips the next specified number of elements in the enumeration sequence. If there are fewer elements left in the sequence than the requested number of elements to skip, it skips past the last element in the sequence. (IEnumBackgroundCopyJobs.Skip)
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method returns the following <b>HRESULT</b> values, as well as others.
      * 
@@ -80,7 +80,7 @@ class IEnumBackgroundCopyJobs extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ienumbackgroundcopyjobs-skip
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ienumbackgroundcopyjobs-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -88,9 +88,9 @@ class IEnumBackgroundCopyJobs extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumBackgroundCopyJobs.Reset)
      * @returns {HRESULT} This method returns <b>S_OK</b> on success or one of the standard COM <b>HRESULT</b> values on error.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ienumbackgroundcopyjobs-reset
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ienumbackgroundcopyjobs-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -100,7 +100,7 @@ class IEnumBackgroundCopyJobs extends IUnknown{
     /**
      * Creates another IEnumBackgroundCopyJobs enumerator that contains the same enumeration state as the current one.
      * @returns {IEnumBackgroundCopyJobs} Receives the interface pointer to the enumeration object. If the method is unsuccessful, the value of this output variable is undefined. You must release <i>ppEnumJobs</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ienumbackgroundcopyjobs-clone
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ienumbackgroundcopyjobs-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")
@@ -110,7 +110,7 @@ class IEnumBackgroundCopyJobs extends IUnknown{
     /**
      * Retrieves a count of the number of jobs in the enumeration.
      * @returns {Integer} Number of jobs in the enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//bits/nf-bits-ienumbackgroundcopyjobs-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/bits/nf-bits-ienumbackgroundcopyjobs-getcount
      */
     GetCount() {
         result := ComCall(7, this, "uint*", &puCount := 0, "HRESULT")

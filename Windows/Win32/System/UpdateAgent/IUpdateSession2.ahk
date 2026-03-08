@@ -4,13 +4,10 @@
 #Include .\IUpdateSession.ahk
 
 /**
- * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation.
+ * Represents a session in which the caller can perform operations that involve updates. For example, this interface represents sessions in which the caller performs a search, download, installation, or uninstallation operation. (IUpdateSession2)
  * @remarks
- * 
  * You can create an instance of this interface by using the UpdateSession coclass. Use the Microsoft.Update.Session program identifier to create the object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatesession2
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatesession2
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -44,19 +41,16 @@ class IUpdateSession2 extends IUpdateSession{
     }
 
     /**
-     * Gets and sets the preferred locale for which update information is retrieved..
+     * Gets and sets the preferred locale for which update information is retrieved.. (Get)
      * @remarks
-     * 
      * A search from an <b>UpdateSearch</b> object that was created from the <b>UpdateSession</b> object fails if the following conditions are true:
      * 
      * <ul>
      * <li>A user or a power user set the <b>UserLocale</b> property for the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesession2">IUpdateSession2</a> interface to a locale.</li>
      * <li>The locale corresponds to a language that is not installed on the computer.</li>
      * </ul>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession2-get_userlocale
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession2-get_userlocale
      */
     get_UserLocale() {
         result := ComCall(15, this, "uint*", &retval := 0, "HRESULT")
@@ -64,20 +58,17 @@ class IUpdateSession2 extends IUpdateSession{
     }
 
     /**
-     * Gets and sets the preferred locale for which update information is retrieved..
+     * Gets and sets the preferred locale for which update information is retrieved.. (Put)
      * @remarks
-     * 
      * A search from an <b>UpdateSearch</b> object that was created from the <b>UpdateSession</b> object fails if the following conditions are true:
      * 
      * <ul>
      * <li>A user or a power user set the <b>UserLocale</b> property for the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesession2">IUpdateSession2</a> interface to a locale.</li>
      * <li>The locale corresponds to a language that is not installed on the computer.</li>
      * </ul>
-     * 
-     * 
      * @param {Integer} lcid 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatesession2-put_userlocale
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatesession2-put_userlocale
      */
     put_UserLocale(lcid) {
         result := ComCall(16, this, "uint", lcid, "HRESULT")

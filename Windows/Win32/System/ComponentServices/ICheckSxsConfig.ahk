@@ -4,7 +4,7 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
- * 
+ * Used to check the configuration of the current side-by-side assembly.
  * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-ichecksxsconfig
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
@@ -66,7 +66,7 @@ class ICheckSxsConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-ichecksxsconfig-issamesxsconfig
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-ichecksxsconfig-issamesxsconfig
      */
     IsSameSxsConfig(wszSxsName, wszSxsDirectory, wszSxsAppName) {
         wszSxsName := wszSxsName is String ? StrPtr(wszSxsName) : wszSxsName

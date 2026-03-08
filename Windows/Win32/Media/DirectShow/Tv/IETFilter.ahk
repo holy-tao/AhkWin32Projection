@@ -6,11 +6,8 @@
 /**
  * The IETFilter interface is exposed by the Encrypter/Tagger filter. Most applications will not have to use this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IETFilter)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//encdec/nn-encdec-ietfilter
+ * @see https://learn.microsoft.com/windows/win32/api/encdec/nn-encdec-ietfilter
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -51,7 +48,7 @@ class IETFilter extends IUnknown{
     /**
      * .
      * @returns {HRESULT} Receives an <b>HRESULT</b> value. The <b>HRESULT</b> is the value that was returned when the filter called <b>CoCreateInstance</b> to create the <b>EvalRat</b> object. If it equals S_OK, the <b>EvalRat</b> object was created successfully.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ietfilter-get_evalratobjok
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-get_evalratobjok
      */
     get_EvalRatObjOK() {
         result := ComCall(3, this, "int*", &pHrCoCreateRetVal := 0, "HRESULT")
@@ -60,11 +57,11 @@ class IETFilter extends IUnknown{
 
     /**
      * The GetCurrRating method retrieves the current rating, based on the most recent media sample.
-     * @param {Pointer<Integer>} pEnSystem Receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_system">EnTvRat_System</a> enumeration type.
-     * @param {Pointer<Integer>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_genericlevel">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
-     * @param {Pointer<Integer>} plbfEnAttr Receives a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-bfentvrat_genericattributes">BfEnTvRat_GenericAttributes</a> enumeration. The flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
+     * @param {Pointer<Integer>} pEnSystem Receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration type.
+     * @param {Pointer<Integer>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration type. The meaning of this value depends on the rating system.
+     * @param {Pointer<Integer>} plbfEnAttr Receives a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration. The flags specify content attributes, such as violence or adult language. Content attributes do not apply to all rating systems.
      * @returns {HRESULT} Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ietfilter-getcurrrating
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrrating
      */
     GetCurrRating(pEnSystem, pEnRating, plbfEnAttr) {
         pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
@@ -79,7 +76,7 @@ class IETFilter extends IUnknown{
      * This method is currently not supported.
      * @param {Pointer<Integer>} protType Reserved.
      * @returns {Integer} Reserved.
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ietfilter-getcurrlicenseexpdate
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getcurrlicenseexpdate
      */
     GetCurrLicenseExpDate(protType) {
         protTypeMarshal := protType is VarRef ? "int*" : "ptr"
@@ -109,7 +106,7 @@ class IETFilter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ietfilter-getlasterrorcode
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-getlasterrorcode
      */
     GetLastErrorCode() {
         result := ComCall(6, this, "HRESULT")
@@ -118,6 +115,8 @@ class IETFilter extends IUnknown{
 
     /**
      * The SetRecordingOn method signals to the Encrypter/Tagger filter that the Video Control is about to start or stop recording.
+     * @remarks
+     * The <b>SetRecordingOn</b> method enables the Video Control to enforce copy protection in the television broadcast signal. When the Video Control uses the Stream Buffer Engine to play television content, the Encrypter/Tagger filter is located in the Stream Buffer Sink graph. The Encrypter/Tagger sends data to the Stream Buffer Sink for both playback and recording. When <b>SetRecordingOn</b> is called with the value <b>TRUE</b>, the Encrypter/Tagger watches the video stream for the copy protection flags and sends a broadcast event if they change. The Video Control listens for the event and disallows the recording if indicated by the copy protection flag.
      * @param {BOOL} fRecState <b>TRUE</b> if recording is about to start, or <b>FALSE</b> if recording is about to stop.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -138,7 +137,7 @@ class IETFilter extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//encdec/nf-encdec-ietfilter-setrecordingon
+     * @see https://learn.microsoft.com/windows/win32/api/encdec/nf-encdec-ietfilter-setrecordingon
      */
     SetRecordingOn(fRecState) {
         result := ComCall(7, this, "int", fRecState, "HRESULT")

@@ -6,14 +6,11 @@
 /**
  * Exposes methods that report status and error messages to Remote Desktop Connection Broker (RD Connection Broker).
  * @remarks
- * 
  * Plug-ins can use this interface to report status and error messages to RD Connection Broker.
  * 
  * The RD Connection Broker server and the Remote Desktop Session Host (RD Session Host) server (the redirector) must 
  *     be running Windows Server 2008 R2, and clients must use RDC 7.0.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbbasenotifysink
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbbasenotifysink
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -40,9 +37,11 @@ class ITsSbBaseNotifySink extends IUnknown{
 
     /**
      * Reports an error condition to Remote Desktop Connection Broker (RD Connection Broker).
+     * @remarks
+     * Calling this  method stops further processing on the client connection and causes the connection to fail.
      * @param {HRESULT} hrError The error condition.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbbasenotifysink-onerror
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbbasenotifysink-onerror
      */
     OnError(hrError) {
         result := ComCall(3, this, "int", hrError, "HRESULT")
@@ -51,10 +50,15 @@ class ITsSbBaseNotifySink extends IUnknown{
 
     /**
      * Sends status messages to the Remote Desktop Connection (RDC) client regarding the processing of a client connection.
+     * @remarks
+     * This method allows plug-ins to send more specific status and error messages to the RDC client, overriding the 
+     *     default status and error messages that Remote Desktop Connection Broker (RD Connection Broker) sends to the client.
+     * 
+     * The following error codes are defined by RD Connection Broker for use by plug-ins.
      * @param {Integer} messageType 
      * @param {Integer} messageID 
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nf-sbtsv-itssbbasenotifysink-onreportstatus
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nf-sbtsv-itssbbasenotifysink-onreportstatus
      */
     OnReportStatus(messageType, messageID) {
         result := ComCall(4, this, "int", messageType, "uint", messageID, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Represents a share item in the Offline Files cache.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesshareitem
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesshareitem
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */

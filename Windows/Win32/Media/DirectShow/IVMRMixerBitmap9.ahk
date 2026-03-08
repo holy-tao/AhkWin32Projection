@@ -7,11 +7,8 @@
 /**
  * The IVMRMixerBitmap9 interface enables an application to blend a static image from a bitmap or Direct3D surface onto the video stream, when using the Video Mixing Renderer Filter 9 (VMR-9).You can pass images to the VMR as frequently as you like, but changing the image several times per second may impact the performance and smoothness of the video being rendered. The new image will be blended with the next and all subsequent video frames rendered by the VMR.Internally, the VMR uses its mixer component to perform the blending operation. In the VMR-9, the mixer is always present by default except in &#0034;renderless&#0034; mode in which the application is performing its own rendering. The image can contain embedded per pixel alpha information; this allows the image to contain regions that are transparent. Transparent areas can also be identified by a color key value. Changes in the image are only shown on the screen while the filter graph is running.
  * @remarks
- * 
  * Include DShow.h and D3d9.h before Vmr9.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrmixerbitmap9
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrmixerbitmap9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -38,6 +35,24 @@ class IVMRMixerBitmap9 extends IUnknown{
 
     /**
      * The SetAlphaBitmap method specifies a new bitmap image and the source location of the bitmap and how and where it should be rendered on the destination rectangle.
+     * @remarks
+     * To remove the bitmap, set the VMR9AlphaBitmap_Disable flag in the <b>VMR9AlphaBitmap</b> structure and call <c>SetAlphaBitmap</c> again.
+     * 
+     * The application can provide the bitmap either as a Direct3D surface or as a GDI bitmap. To use a Direct3D surface, set the <b>pDDS</b> member of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9alphabitmap">VMR9AlphaBitmap</a> structure. To use a GDI bitmap, set the <b>hdc</b> member of the structure.
+     * 
+     * The bitmap is mixed onto the video frame by the VMR's mixer component. The mixer draws the bitmap once per frame. If you change the bitmap while the filter graph is paused or stopped, the mixer does not use the new bitmap until the graph restarts. You can work around this limitation by calling <a href="https://docs.microsoft.com/windows/desktop/api/control/nf-control-imediacontrol-stopwhenready">IMediaControl::StopWhenReady</a>, although a better solution is to write a custom allocator-presenter to draw the bitmap. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/supplying-a-custom-allocator-presenter-for-vmr-9">Supplying a Custom Allocator-Presenter for VMR-9</a>.
+     * 
+     * If the method returns E_INVALIDARG, possible reasons include the following:
+     * 
+     * <ul>
+     * <li>The Direct3D surface was not allocated from the D3DPOOL_SYSTEMMEM pool.</li>
+     * <li>Invalid surface format. If a Direct3D surface is used, the surface format must be D3DFMT_X8R8G8B8 or D3DFMT_A8R8G8B8. If the surface format is D3DFMT_A8R8G8B8, the VMR9AlphaBitmap_SrcColorKey flag cannot be used.</li>
+     * <li>The source rectangle (rSrc) exceeds the boundaries of the Direct3D surface.</li>
+     * <li>The source rectangle is empty.</li>
+     * <li>The source rectangle exceeds the maximum texture width or maximum texture height for the Direct3D device. To find the maximum texture size, call <b>IDirect3DDevice9::GetDeviceCaps</b>.</li>
+     * <li>The <b>dwFilterMode</b> member contains an invalid combination of flags.</li>
+     * </ul>
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<VMR9AlphaBitmap>} pBmpParms Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9alphabitmap">VMR9AlphaBitmap</a> structure that contains information about the bitmap.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -102,7 +117,7 @@ class IVMRMixerBitmap9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmixerbitmap9-setalphabitmap
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-setalphabitmap
      */
     SetAlphaBitmap(pBmpParms) {
         result := ComCall(3, this, "ptr", pBmpParms, "HRESULT")
@@ -111,6 +126,10 @@ class IVMRMixerBitmap9 extends IUnknown{
 
     /**
      * The UpdateAlphaBitmapParameters method changes the bitmap location, size and blending value.
+     * @remarks
+     * The filter graph must be running for the changes to take effect. This method does not change the bitmap image. If you specify a <b>VMR9AlphaBitmap</b> structure with no destination or color key set, the bitmap is not displayed. This behavior was implemented for backward compatibility.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<VMR9AlphaBitmap>} pBmpParms Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9alphabitmap">VMR9AlphaBitmap</a> structure.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -131,7 +150,7 @@ class IVMRMixerBitmap9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmixerbitmap9-updatealphabitmapparameters
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-updatealphabitmapparameters
      */
     UpdateAlphaBitmapParameters(pBmpParms) {
         result := ComCall(4, this, "ptr", pBmpParms, "HRESULT")
@@ -140,8 +159,10 @@ class IVMRMixerBitmap9 extends IUnknown{
 
     /**
      * The GetAlphaBitmapParameters method retrieves a copy of the current image and related blending parameters.
+     * @remarks
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {VMR9AlphaBitmap} Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9alphabitmap">VMR9AlphaBitmap</a> structure that receives the bitmap, information about the blending values, and the location to blend it.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmixerbitmap9-getalphabitmapparameters
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmixerbitmap9-getalphabitmapparameters
      */
     GetAlphaBitmapParameters() {
         pBmpParms := VMR9AlphaBitmap()

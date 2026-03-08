@@ -4,8 +4,8 @@
 #Include .\IDWriteRenderingParams.ahk
 
 /**
- * Represents text rendering settings for glyph rasterization and filtering.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nn-dwrite_1-idwriterenderingparams1
+ * Represents text rendering settings for glyph rasterization and filtering. (IDWriteRenderingParams1)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nn-dwrite_1-idwriterenderingparams1
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IDWriteRenderingParams1 extends IDWriteRenderingParams{
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The contrast enhancement value. Valid values are greater than or equal to zero.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_1/nf-dwrite_1-idwriterenderingparams1-getgrayscaleenhancedcontrast
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_1/nf-dwrite_1-idwriterenderingparams1-getgrayscaleenhancedcontrast
      */
     GetGrayscaleEnhancedContrast() {
         result := ComCall(8, this, "float")

@@ -194,10 +194,11 @@ class _ICounterItemUnion extends IUnknown{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetValueAndName
      * @param {Pointer<Float>} Value 
      * @param {Pointer<Integer>} Status 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecmetadata-getvalueandname
      */
     GetValue(Value, Status) {
         ValueMarshal := Value is VarRef ? "double*" : "ptr"

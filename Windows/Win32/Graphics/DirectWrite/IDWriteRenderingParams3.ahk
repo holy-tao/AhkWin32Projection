@@ -4,8 +4,8 @@
 #Include .\IDWriteRenderingParams2.ahk
 
 /**
- * Represents text rendering settings for glyph rasterization and filtering.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwriterenderingparams3
+ * Represents text rendering settings for glyph rasterization and filtering. (IDWriteRenderingParams3)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwriterenderingparams3
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,10 +32,10 @@ class IDWriteRenderingParams3 extends IDWriteRenderingParams2{
 
     /**
      * Gets the rendering mode.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a></b>
      * 
-     * Returns a <a href="/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a>-typed value for the rendering mode.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwriterenderingparams3-getrenderingmode1
+     * Returns a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ne-dwrite_3-dwrite_rendering_mode1">DWRITE_RENDERING_MODE1</a>-typed value for the rendering mode.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwriterenderingparams3-getrenderingmode1
      */
     GetRenderingMode1() {
         result := ComCall(10, this, "int")

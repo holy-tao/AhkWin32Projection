@@ -11,7 +11,7 @@
 
 /**
  * Extends the IAzClientContext2 interface.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazclientcontext3
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazclientcontext3
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -65,7 +65,7 @@ class IAzClientContext3 extends IAzClientContext2{
      * @returns {Integer} A pointer to a value that indicates whether the principal represented by the current client context is allowed to perform the operation specified by the <i>lOperation</i> parameter.
      * 
      *  A value of <b>NO_ERROR</b> indicates that the principal does have permission. Any other value indicates that the principal does not have permission.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-accesscheck2
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-accesscheck2
      */
     AccessCheck2(bstrObjectName, bstrScopeName, lOperation) {
         bstrObjectName := bstrObjectName is String ? BSTR.Alloc(bstrObjectName).Value : bstrObjectName
@@ -80,7 +80,7 @@ class IAzClientContext3 extends IAzClientContext2{
      * @param {BSTR} bstrScopeName The name of the scope to check.
      * @param {BSTR} bstrRoleName The name of the role to check.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if the principal represented by the current client context is a member of the role specified by the <i>bstrRoleName</i> parameter in the scope specified by the <i>bstrScopeName</i> parameter; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-isinroleassignment
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-isinroleassignment
      */
     IsInRoleAssignment(bstrScopeName, bstrRoleName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -94,7 +94,7 @@ class IAzClientContext3 extends IAzClientContext2{
      * Returns a collection of the operations, within the specified scope, that the principal represented by the current client context has permission to perform.
      * @param {BSTR} bstrScopeName The name of the scope to check.
      * @returns {IAzOperations} The address of a pointer to the collection of operations that the principal represented by the current client context has permission to perform.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-getoperations
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-getoperations
      */
     GetOperations(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -107,7 +107,7 @@ class IAzClientContext3 extends IAzClientContext2{
      * Returns a collection of the tasks, within the specified scope, that the principal represented by the current client context has permission to perform.
      * @param {BSTR} bstrScopeName The name of the scope to check.
      * @returns {IAzTasks} The address of a pointer to the collection of tasks that the principal represented by the current client context has permission to perform.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-gettasks
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-gettasks
      */
     GetTasks(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -119,7 +119,7 @@ class IAzClientContext3 extends IAzClientContext2{
     /**
      * Gets the collection of parameters that can be passed by the business rule (BizRule) script associated with this client context.
      * @returns {IAzBizRuleParameters} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-get_bizruleparameters
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-get_bizruleparameters
      */
     get_BizRuleParameters() {
         result := ComCall(30, this, "ptr*", &ppBizRuleParam := 0, "HRESULT")
@@ -129,7 +129,7 @@ class IAzClientContext3 extends IAzClientContext2{
     /**
      * Gets the collection of IDispatch interfaces that can be called by the business rule (BizRule) script associated with this client context.
      * @returns {IAzBizRuleInterfaces} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-get_bizruleinterfaces
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-get_bizruleinterfaces
      */
     get_BizRuleInterfaces() {
         result := ComCall(31, this, "ptr*", &ppBizRuleInterfaces := 0, "HRESULT")
@@ -143,7 +143,7 @@ class IAzClientContext3 extends IAzClientContext2{
      * @returns {VARIANT} A pointer to an array of the names of application groups associated with this client context.
      * 
      * This is a variant that contains either a <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> or the  JScript <a href="https://docs.microsoft.com/scripting/javascript/reference/array-object-javascript">Array</a> object. Each element of the array holds a <b>VT_BSTR</b> that contains the name of an application group.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-getgroups
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-getgroups
      */
     GetGroups(bstrScopeName, ulOptions) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -156,7 +156,7 @@ class IAzClientContext3 extends IAzClientContext2{
     /**
      * Gets an array of the security identifiers (SIDs) associated with this client context.
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazclientcontext3-get_sids
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazclientcontext3-get_sids
      */
     get_Sids() {
         pStringSidArray := VARIANT()

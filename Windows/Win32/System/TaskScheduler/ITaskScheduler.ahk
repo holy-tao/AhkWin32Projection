@@ -6,7 +6,7 @@
 
 /**
  * Provides the methods for scheduling tasks.
- * @see https://docs.microsoft.com/windows/win32/api//mstask/nn-mstask-itaskscheduler
+ * @see https://learn.microsoft.com/windows/win32/api/mstask/nn-mstask-itaskscheduler
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -39,6 +39,19 @@ class ITaskScheduler extends IUnknown{
 
     /**
      * The SetTargetComputer method selects the computer that the ITaskScheduler interface operates on, allowing remote task management and enumeration.
+     * @remarks
+     * For a Windows Server 2003, Windows XP computer to create, monitor, or control tasks on a Windows Vista computer, the following operations should be completed on the Windows Vista computer, and the user who is calling the <b>ITaskScheduler::SetTargetComputer</b> method must be a member of the Administrators group on the remote Windows Vista  computer.<p class="proch"><b>Enable the "Share File and Printers" exception in Windows Firewall</b>
+     * 
+     * <ol>
+     * <li>Click Start, and then click Control Panel.</li>
+     * <li>In Control Panel, click <b>Classic View</b> and then double-click the <b>Windows Firewall </b> icon.</li>
+     * <li>In the Windows Firewall window, click the <b>Exceptions</b> tab and select <b>File and Printer Sharing exception</b> check box.</li>
+     * </ol>
+     * <p class="proch"><b>Enable the "Remote Registry" service</b>
+     * 
+     * <ul>
+     * <li>Open a Command Prompt window and enter the following command: <b>net start "Remote Registry"</b></li>
+     * </ul>
      * @param {PWSTR} pwszComputer A pointer to a <b>null</b>-terminated wide character string that specifies the target computer name for the current instance of the 
      * <b>ITaskScheduler</b> interface. Specify the target computer name in the Universal Naming Convention (UNC) format. To indicate the local computer, set this value to <b>NULL</b> or to the local computer's UNC name.
      * 
@@ -108,7 +121,7 @@ class ITaskScheduler extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-settargetcomputer
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-settargetcomputer
      */
     SetTargetComputer(pwszComputer) {
         pwszComputer := pwszComputer is String ? StrPtr(pwszComputer) : pwszComputer
@@ -121,7 +134,7 @@ class ITaskScheduler extends IUnknown{
      * The GetTargetComputer method returns the name of the computer on which ITaskScheduler is currently targeted.
      * @returns {PWSTR} A pointer to a null-terminated string that contains the name of the target computer for the current task. This string is allocated by the application that invokes 
      * <b>GetTargetComputer</b>, and must also be freed using <b>CoTaskMemFree</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-gettargetcomputer
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-gettargetcomputer
      */
     GetTargetComputer() {
         result := ComCall(4, this, "ptr*", &ppwszComputer := 0, "HRESULT")
@@ -130,9 +143,28 @@ class ITaskScheduler extends IUnknown{
 
     /**
      * The Enum method retrieves a pointer to an OLE enumerator object that enumerates the tasks in the current task folder.
+     * @remarks
+     * By default, the current folder resides on the local computer. For remote computers, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-gettargetcomputer">ITaskScheduler::GetTargetComputer</a> and use the name returned by this call. To change the target computer call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-settargetcomputer">ITaskScheduler::SetTargetComputer</a>.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>For a complete example of</th>
+     * <th>See</th>
+     * </tr>
+     * <tr>
+     * <td>Using 
+     * <b>Enum</b> to retrieve the task names on the local computer</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/enumerating-tasks-example">Enumerating Tasks Example</a>
+     * </td>
+     * </tr>
+     * </table>
      * @returns {IEnumWorkItems} A pointer to a pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-ienumworkitems">IEnumWorkItems</a> interface. This interface contains the enumeration context of the current task(s).
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-enum
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-enum
      */
     Enum() {
         result := ComCall(5, this, "ptr*", &ppEnumWorkItems := 0, "HRESULT")
@@ -145,7 +177,7 @@ class ITaskScheduler extends IUnknown{
      * @param {Pointer<Guid>} riid An identifier that identifies the interface being requested. The only interface supported at this time, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a>, has the identifier IID_ITask.
      * @returns {IUnknown} A pointer to an interface pointer that receives the address of the requested interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-activate
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-activate
      */
     Activate(pwszName, riid) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -199,7 +231,7 @@ class ITaskScheduler extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-delete
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-delete
      */
     Delete(pwszName) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName
@@ -210,12 +242,45 @@ class ITaskScheduler extends IUnknown{
 
     /**
      * The NewWorkItem method creates a new work item, allocating space for the work item and retrieving its address.
+     * @remarks
+     * This method handles memory allocation automatically when creating the new work item.
+     * 
+     * To save the work item to disk, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a> . This COM interface is supported by all work item interfaces (currently 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a> is the only supported work item interface).
+     * 
+     * Task scheduler provides two methods for adding work items: 
+     * <b>NewWorkItem</b> and 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-addworkitem">AddWorkItem</a>. Of these methods, each has its specific advantage. 
+     * <b>AddWorkItem</b> prevents naming collisions, but also requires two disk write operations per call. One write operation is performed when the call to 
+     * <b>AddWorkItem</b> creates an empty work item object on the disk, followed by another write operation when <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a> is called.
+     * 
+     * You can create a task by calling <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-addworkitem">AddWorkItem</a> or <b>NewWorkItem</b>. When use <b>AddWorkItem</b>, it is your responsibility to create an instance of the Task object (which supports the <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a> interface) and then add the task with the name you supply.
+     * 
+     * 
+     * 
+     * <b>NewWorkItem</b> does not prevent naming collisions, but requires only one disk write operation when <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nf-objidl-ipersistfile-save">IPersistFile::Save</a> is called. Although 
+     * <b>NewWorkItem</b> is more efficient with respect to disk write operations, the application runs the risk of having another application create a work item with the same name before the call to <b>IPersistFile::Save</b> is made.
+     * 
+     * 
+     * <table>
+     * <tr>
+     * <th>For a complete example of</th>
+     * <th>See</th>
+     * </tr>
+     * <tr>
+     * <td>Creating a new task</td>
+     * <td>
+     * <a href="https://docs.microsoft.com/windows/desktop/TaskSchd/creating-a-task-using-newworkitem-example">Creating a Task Using NewWorkItem Example</a>
+     * </td>
+     * </tr>
+     * </table>
      * @param {PWSTR} pwszTaskName A null-terminated string that specifies the name of the new work item. This name must conform to Windows NT file-naming conventions, but cannot include backslashes because nesting within the task folder object is not allowed.
      * @param {Pointer<Guid>} rclsid The class identifier of the work item to be created. The only class supported at this time, the task class, has the identifier CLSID_Ctask.
      * @param {Pointer<Guid>} riid The reference identifier of the interface being requested. The only interface supported at this time, 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nn-mstask-itask">ITask</a>, has the identifier IID_ITask.
      * @returns {IUnknown} A pointer to an interface pointer that receives the requested interface. See Remarks for information on saving the work item to disk.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-newworkitem
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-newworkitem
      */
     NewWorkItem(pwszTaskName, rclsid, riid) {
         pwszTaskName := pwszTaskName is String ? StrPtr(pwszTaskName) : pwszTaskName
@@ -226,6 +291,16 @@ class ITaskScheduler extends IUnknown{
 
     /**
      * The AddWorkItem method adds a task to the schedule of tasks.
+     * @remarks
+     * Task scheduler provides two methods for adding work items: 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-newworkitem">NewWorkItem</a> and 
+     * <b>AddWorkItem</b>. Of these methods, each has its specific advantage. 
+     * <b>AddWorkItem</b> prevents naming collisions, but it also requires two disk write operations per call. One write operation is performed when the call to 
+     * <b>AddWorkItem</b> creates an empty work item object on the disk, followed by another write operation when <b>IPersistFile::Save</b> is called.
+     * 
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mstask/nf-mstask-itaskscheduler-newworkitem">NewWorkItem</a> does not prevent naming collisions, but it requires only one disk write operation when <b>IPersistFile::Save</b> is called. Although 
+     * <b>NewWorkItem</b> is more efficient with disk write operations, the application runs the risk of having another application create a work item with the same name before the call to <b>IPersistFile::Save</b> is made.
      * @param {PWSTR} pwszTaskName A null-terminated string that specifies the name of the task to add. The task name must conform to Windows NT file-naming conventions, but cannot include backslashes because nesting within the task folder object is not allowed.
      * @param {IScheduledWorkItem} pWorkItem A pointer to the task to add to the schedule.
      * @returns {HRESULT} The 
@@ -281,7 +356,7 @@ class ITaskScheduler extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-addworkitem
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-addworkitem
      */
     AddWorkItem(pwszTaskName, pWorkItem) {
         pwszTaskName := pwszTaskName is String ? StrPtr(pwszTaskName) : pwszTaskName
@@ -296,7 +371,7 @@ class ITaskScheduler extends IUnknown{
      * @param {Pointer<Guid>} riid The reference identifier of the interface to be matched.
      * @returns {HRESULT} The 
      * <b>IsOfType</b> method returns S_OK if the object named by <i>pwszName</i> supports the interface specified in <i>riid</i>. Otherwise,  S_FALSE is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//mstask/nf-mstask-itaskscheduler-isoftype
+     * @see https://learn.microsoft.com/windows/win32/api/mstask/nf-mstask-itaskscheduler-isoftype
      */
     IsOfType(pwszName, riid) {
         pwszName := pwszName is String ? StrPtr(pwszName) : pwszName

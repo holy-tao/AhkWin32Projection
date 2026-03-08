@@ -5,7 +5,7 @@
 
 /**
  * Extends the ISearchCatalogManager interface to manage a search catalog, for purposes such as re-indexing or setting timeouts.
- * @see https://docs.microsoft.com/windows/win32/api//searchapi/nn-searchapi-isearchcatalogmanager2
+ * @see https://learn.microsoft.com/windows/win32/api/searchapi/nn-searchapi-isearchcatalogmanager2
  * @namespace Windows.Win32.System.Search
  * @version v4.0.30319
  */
@@ -32,6 +32,11 @@ class ISearchCatalogManager2 extends ISearchCatalogManager{
 
     /**
      * Instructs the indexer to give a higher priority to indexing items that have URLs that match a specified pattern. These items will then have a higher priority than other indexing tasks.
+     * @remarks
+     * The <i>pszPattern</i> string must specify a pattern than matches the entire item URL. You can use the asterisk wildcard character to create your pattern string.
+     *             
+     * 
+     * The <i>PRIORITIZE_FLAG_IGNOREFAILURECOUNT</i> flag is valid only in combination with the <i>PRIORITIZE_FLAG_RETRYFAILEDITEMS</i> flag.
      * @param {PWSTR} pszPattern Type: <b>LPCWSTR</b>
      * 
      * A string specifying the URL pattern that defines items that failed indexing and need re-indexing.
@@ -41,7 +46,7 @@ class ISearchCatalogManager2 extends ISearchCatalogManager{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//searchapi/nf-searchapi-isearchcatalogmanager2-prioritizematchingurls
+     * @see https://learn.microsoft.com/windows/win32/api/searchapi/nf-searchapi-isearchcatalogmanager2-prioritizematchingurls
      */
     PrioritizeMatchingURLs(pszPattern, dwPrioritizeFlags) {
         pszPattern := pszPattern is String ? StrPtr(pszPattern) : pszPattern

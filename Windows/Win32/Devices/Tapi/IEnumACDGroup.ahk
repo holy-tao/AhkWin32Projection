@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * The IEnumACDGroup interface provides COM-standard enumeration methods for the ITACDGroup interface. The ITAgentHandler::EnumerateACDGroups method returns a pointer to IEnumACDGroup.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nn-tapi3cc-ienumacdgroup
+ * The IEnumACDGroup interface (tapi3cc.h) provides COM-standard enumeration methods for the ITACDGroup interface.
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nn-tapi3cc-ienumacdgroup
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -32,7 +32,11 @@ class IEnumACDGroup extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The IEnumACDGroup::Next method (tapi3cc.h) gets the next specified number of elements in the enumeration sequence.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itacdgroup">ITACDGroup</a> interface returned by <b>IEnumACDGroup::Next</b>. The application must call <b>Release</b> on the 
+     * <b>ITACDGroup</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<ITACDGroup>} ppElements Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-itacdgroup">ITACDGroup</a> list of pointers returned.
@@ -89,7 +93,7 @@ class IEnumACDGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumacdgroup-next
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumacdgroup-next
      */
     Next(celt, ppElements, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -99,7 +103,7 @@ class IEnumACDGroup extends IUnknown{
     }
 
     /**
-     * The Reset method resets the enumeration sequence to the beginning.
+     * The IEnumACDGroup::Reset method (tapi3cc.h) resets the enumeration sequence to the beginning.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -130,7 +134,7 @@ class IEnumACDGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumacdgroup-reset
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumacdgroup-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -138,7 +142,7 @@ class IEnumACDGroup extends IUnknown{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The IEnumACDGroup::Skip method (tapi3cc.h) skips over the next specified number of elements in the enumeration sequence.
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -181,7 +185,7 @@ class IEnumACDGroup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumacdgroup-skip
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumacdgroup-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -189,10 +193,14 @@ class IEnumACDGroup extends IUnknown{
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * The IEnumACDGroup::Clone method (tapi3cc.h) creates another enumerator that contains the same enumeration state as the current one.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumacdgroup">IEnumACDGroup</a> interface returned by <b>IEnumACDGroup::Clone</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumACDGroup</b> interface to free resources associated with it.
      * @returns {IEnumACDGroup} Pointer to new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3/nn-tapi3-ienumacdgroup">IEnumACDGroup</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3cc/nf-tapi3cc-ienumacdgroup-clone
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3cc/nf-tapi3cc-ienumacdgroup-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

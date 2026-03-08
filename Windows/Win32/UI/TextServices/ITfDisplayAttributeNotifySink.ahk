@@ -5,7 +5,7 @@
 
 /**
  * The ITfDisplayAttributeNotifySink interface is implemented by an application to receive a notification when display attribute information is updated.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfdisplayattributenotifysink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfdisplayattributenotifysink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,8 +32,8 @@ class ITfDisplayAttributeNotifySink extends IUnknown{
 
     /**
      * ITfDisplayAttributeNotifySink::OnUpdateInfo method
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfdisplayattributenotifysink-onupdateinfo
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfdisplayattributenotifysink-onupdateinfo
      */
     OnUpdateInfo() {
         result := ComCall(3, this, "HRESULT")

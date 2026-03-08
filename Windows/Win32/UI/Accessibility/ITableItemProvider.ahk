@@ -6,7 +6,6 @@
 /**
  * Provides access to child controls of containers that implement ITableProvider.
  * @remarks
- * 
  * This control pattern is analogous to <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a> with 
  *             the distinction that any control implementing <b>ITableItemProvider</b> 
  *             must expose the relationship between the individual cell and its row and column information.
@@ -18,9 +17,7 @@
  * 
  * Implemented on a UI Automation provider that must 
  *             support the <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-implementingtableitem">TableItem</a> control pattern.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itableitemprovider
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itableitemprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -51,7 +48,7 @@ class ITableItemProvider extends IUnknown{
      * 
      * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains an array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces
      * 				of the row headers. This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itableitemprovider-getrowheaderitems
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableitemprovider-getrowheaderitems
      */
     GetRowHeaderItems() {
         result := ComCall(3, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -64,7 +61,7 @@ class ITableItemProvider extends IUnknown{
      * 
      * Receives a pointer to a <a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a> that contains an array of pointers to the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple">IRawElementProviderSimple</a> interfaces of
      * 				the column headers. This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itableitemprovider-getcolumnheaderitems
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itableitemprovider-getcolumnheaderitems
      */
     GetColumnHeaderItems() {
         result := ComCall(4, this, "ptr*", &pRetVal := 0, "HRESULT")

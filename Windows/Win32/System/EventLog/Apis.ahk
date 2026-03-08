@@ -66,7 +66,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtOpenSession", "int", LoginClass, LoginMarshal, Login, "uint", Timeout, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -117,8 +117,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtClose", "ptr", Object_R, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -195,8 +195,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtCancel", "ptr", Object_R, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -249,7 +249,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtQuery", "ptr", Session, "ptr", Path, "ptr", Query, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -312,8 +312,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtNext", "ptr", ResultSet, "uint", EventsSize, EventsMarshal, Events, "uint", Timeout, "uint", Flags, ReturnedMarshal, Returned, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -369,8 +369,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtSeek", "ptr", ResultSet, "int64", Position, "ptr", Bookmark, "uint", Timeout, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -409,7 +409,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtSubscribe", "ptr", Session, "ptr", SignalEvent, "ptr", ChannelPath, "ptr", Query, "ptr", Bookmark, ContextMarshal, Context, "ptr", Callback, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -442,7 +442,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtCreateRenderContext", "uint", ValuePathsCount, ValuePathsMarshal, ValuePaths, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -507,8 +507,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtRender", "ptr", Context, "ptr", Fragment, "uint", Flags, "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, PropertyCountMarshal, PropertyCount, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -602,8 +602,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtFormatMessage", "ptr", PublisherMetadata, "ptr", Event, "uint", MessageId, "uint", ValueCount, "ptr", Values, "uint", Flags, "uint", BufferSize, "ptr", Buffer_R, BufferUsedMarshal, BufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -630,7 +630,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtOpenLog", "ptr", Session, "ptr", Path, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -687,8 +687,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetLogInfo", "ptr", Log, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -747,8 +747,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtClearLog", "ptr", Session, "ptr", ChannelPath, "ptr", TargetFilePath, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -811,8 +811,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtExportLog", "ptr", Session, "ptr", Path, "ptr", Query, "ptr", TargetFilePath, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -866,8 +866,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtArchiveExportedLog", "ptr", Session, "ptr", LogFilePath, "uint", Locale, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -892,7 +892,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtOpenChannelEnum", "ptr", Session, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -949,8 +949,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtNextChannelPath", "ptr", ChannelEnum, "uint", ChannelPathBufferSize, "ptr", ChannelPathBuffer, ChannelPathBufferUsedMarshal, ChannelPathBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -981,7 +981,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtOpenChannelConfig", "ptr", Session, "ptr", ChannelPath, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -1035,8 +1035,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtSaveChannelConfig", "ptr", ChannelConfig, "uint", Flags, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1091,8 +1091,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtSetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "ptr", PropertyValue, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1147,8 +1147,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetChannelConfigProperty", "ptr", ChannelConfig, "int", PropertyId, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1173,7 +1173,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtOpenPublisherEnum", "ptr", Session, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -1232,8 +1232,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtNextPublisherId", "ptr", PublisherEnum, "uint", PublisherIdBufferSize, "ptr", PublisherIdBuffer, PublisherIdBufferUsedMarshal, PublisherIdBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1265,7 +1265,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtOpenPublisherMetadata", "ptr", Session, "ptr", PublisherId, "ptr", LogFilePath, "uint", Locale, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -1327,8 +1327,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetPublisherMetadataProperty", "ptr", PublisherMetadata, "int", PropertyId, "uint", Flags, "uint", PublisherMetadataPropertyBufferSize, "ptr", PublisherMetadataPropertyBuffer, PublisherMetadataPropertyBufferUsedMarshal, PublisherMetadataPropertyBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1353,7 +1353,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtOpenEventMetadataEnum", "ptr", PublisherMetadata, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -1381,7 +1381,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtNextEventMetadata", "ptr", EventMetadataEnum, "uint", Flags, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -1437,8 +1437,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetEventMetadataProperty", "ptr", EventMetadata, "int", PropertyId, "uint", Flags, "uint", EventMetadataPropertyBufferSize, "ptr", EventMetadataPropertyBuffer, EventMetadataPropertyBufferUsedMarshal, EventMetadataPropertyBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1487,8 +1487,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetObjectArraySize", "ptr", ObjectArray, ObjectArraySizeMarshal, ObjectArraySize, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1555,8 +1555,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetObjectArrayProperty", "ptr", ObjectArray, "uint", PropertyId, "uint", ArrayIndex, "uint", Flags, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1612,8 +1612,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetQueryInfo", "ptr", QueryOrSubscription, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1639,7 +1639,7 @@ class EventLog {
 
         result := DllCall("wevtapi.dll\EvtCreateBookmark", "ptr", BookmarkXml, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := EVT_HANDLE({Value: result}, True)
@@ -1690,8 +1690,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtUpdateBookmark", "ptr", Bookmark, "ptr", Event, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1747,8 +1747,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("wevtapi.dll\EvtGetEventInfo", "ptr", Event, "int", PropertyId, "uint", PropertyValueBufferSize, "ptr", PropertyValueBuffer, PropertyValueBufferUsedMarshal, PropertyValueBufferUsed, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1787,8 +1787,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ClearEventLogA", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1827,8 +1827,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ClearEventLogW", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1862,8 +1862,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\BackupEventLogA", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1897,8 +1897,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\BackupEventLogW", "ptr", hEventLog, "ptr", lpBackupFileName, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1923,8 +1923,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\CloseEventLog", "ptr", hEventLog, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1948,8 +1948,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\DeregisterEventSource", "ptr", hEventLog, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -1986,8 +1986,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\NotifyChangeEventLog", "ptr", hEventLog, "ptr", hEvent, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2018,8 +2018,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetNumberOfEventLogRecords", "ptr", hEventLog, NumberOfRecordsMarshal, NumberOfRecords, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2050,8 +2050,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetOldestEventLogRecord", "ptr", hEventLog, OldestRecordMarshal, OldestRecord, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2082,7 +2082,7 @@ class EventLog {
 
         result := DllCall("ADVAPI32.dll\OpenEventLogA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2115,7 +2115,7 @@ class EventLog {
 
         result := DllCall("ADVAPI32.dll\OpenEventLogW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2154,7 +2154,7 @@ class EventLog {
 
         result := DllCall("ADVAPI32.dll\RegisterEventSourceA", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2193,7 +2193,7 @@ class EventLog {
 
         result := DllCall("ADVAPI32.dll\RegisterEventSourceW", "ptr", lpUNCServerName, "ptr", lpSourceName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2232,7 +2232,7 @@ class EventLog {
 
         result := DllCall("ADVAPI32.dll\OpenBackupEventLogA", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2271,7 +2271,7 @@ class EventLog {
 
         result := DllCall("ADVAPI32.dll\OpenBackupEventLogW", "ptr", lpUNCServerName, "ptr", lpFileName, "ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         resultHandle := HANDLE({Value: result}, True)
@@ -2317,8 +2317,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReadEventLogA", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2362,8 +2362,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReadEventLogW", "ptr", hEventLog, "uint", dwReadFlags, "uint", dwRecordOffset, "ptr", lpBuffer, "uint", nNumberOfBytesToRead, pnBytesReadMarshal, pnBytesRead, pnMinNumberOfBytesNeededMarshal, pnMinNumberOfBytesNeeded, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2478,8 +2478,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReportEventA", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, lpStringsMarshal, lpStrings, "ptr", lpRawData, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2594,8 +2594,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\ReportEventW", "ptr", hEventLog, "ushort", wType, "ushort", wCategory, "uint", dwEventID, "ptr", lpUserSid, "ushort", wNumStrings, "uint", dwDataSize, lpStringsMarshal, lpStrings, "ptr", lpRawData, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2648,8 +2648,8 @@ class EventLog {
         A_LastError := 0
 
         result := DllCall("ADVAPI32.dll\GetEventLogInformation", "ptr", hEventLog, "uint", dwInfoLevel, "ptr", lpBuffer, "uint", cbBufSize, pcbBytesNeededMarshal, pcbBytesNeeded, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

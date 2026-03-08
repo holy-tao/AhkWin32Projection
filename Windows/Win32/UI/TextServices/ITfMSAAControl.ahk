@@ -5,7 +5,7 @@
 
 /**
  * The ITfMSAAControl interface is used by Microsoft Active Accessibility to add or remove a document from TSF control, to avoid unnecessary overhead in TSF. This interface is not recommended for use by other applications.
- * @see https://docs.microsoft.com/windows/win32/api//msaatext/nn-msaatext-itfmsaacontrol
+ * @see https://learn.microsoft.com/windows/win32/api/msaatext/nn-msaatext-itfmsaacontrol
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -62,7 +62,7 @@ class ITfMSAAControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-itfmsaacontrol-systemenablemsaa
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-itfmsaacontrol-systemenablemsaa
      */
     SystemEnableMSAA() {
         result := ComCall(3, this, "HRESULT")
@@ -101,7 +101,7 @@ class ITfMSAAControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msaatext/nf-msaatext-itfmsaacontrol-systemdisablemsaa
+     * @see https://learn.microsoft.com/windows/win32/api/msaatext/nf-msaatext-itfmsaacontrol-systemdisablemsaa
      */
     SystemDisableMSAA() {
         result := ComCall(4, this, "HRESULT")

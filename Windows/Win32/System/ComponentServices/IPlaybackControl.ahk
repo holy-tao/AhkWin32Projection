@@ -5,7 +5,7 @@
 
 /**
  * Enables participation in the abnormal handling of server-side playback errors and client-side failures of the Message Queuing delivery mechanism.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iplaybackcontrol
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iplaybackcontrol
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -32,8 +32,14 @@ class IPlaybackControl extends IUnknown{
 
     /**
      * Informs the client-side exception handling component that all Message Queuing attempts to deliver the message to the server were rejected. The message ended up on the client-side Xact dead letter queue.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iplaybackcontrol-finalclientretry
+     * @remarks
+     * As messages arrive on the Xact dead letter queue, COM+ attempts to invoke a client-side exception handler related to the server class to deliver this notification. This exception object might take exceptional action, such as recording the failure, sending a mail message to the administrator, or taking client-side compensating action (reversing the effect of an earlier transaction).
+     * 
+     * 
+     * 
+     * If this method is not successful, the message is left on the Xact dead letter queue.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iplaybackcontrol-finalclientretry
      */
     FinalClientRetry() {
         result := ComCall(3, this, "HRESULT")
@@ -42,8 +48,14 @@ class IPlaybackControl extends IUnknown{
 
     /**
      * Informs the server-side Exception_CLSID implementation that all attempts to play back the deferred activation have failed. The message is about to be moved to the final resting queue.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iplaybackcontrol-finalserverretry
+     * @remarks
+     * As the message is about to be moved to the final resting queue, the server object may attempt to record the failure, send a mail message to the administrator, or take client-side compensating action (reversing the effect of an earlier transaction). The server object should make every effort to complete this transaction successfully. Otherwise, manual intervention is required to reprocess the message.
+     * 
+     * 
+     * 
+     * If this method is not successful, the message is moved to the final resting queue.
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iplaybackcontrol-finalserverretry
      */
     FinalServerRetry() {
         result := ComCall(4, this, "HRESULT")

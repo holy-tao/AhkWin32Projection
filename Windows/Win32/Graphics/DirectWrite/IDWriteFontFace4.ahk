@@ -4,8 +4,8 @@
 #Include .\IDWriteFontFace3.ahk
 
 /**
- * Contains font face type, appropriate file references, and face identification data.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nn-dwrite_3-idwritefontface4
+ * Contains font face type, appropriate file references, and face identification data. (IDWriteFontFace4)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nn-dwrite_3-idwritefontface4
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -31,12 +31,12 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
     static VTableNames => ["GetGlyphImageFormats", "GetGlyphImageFormats1", "GetGlyphImageData", "ReleaseGlyphImageData"]
 
     /**
-     * Gets all the glyph image formats supported by the entire font.
+     * Gets all the glyph image formats supported by the entire font. (IDWriteFontFace4.GetGlyphImageFormats)
      * @param {Integer} glyphId 
      * @param {Integer} pixelsPerEmFirst 
      * @param {Integer} pixelsPerEmLast 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
     GetGlyphImageFormats(glyphId, pixelsPerEmFirst, pixelsPerEmLast) {
         result := ComCall(49, this, "ushort", glyphId, "uint", pixelsPerEmFirst, "uint", pixelsPerEmLast, "int*", &glyphImageFormats := 0, "HRESULT")
@@ -44,11 +44,11 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
     }
 
     /**
-     * Gets all the glyph image formats supported by the entire font.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
+     * Gets all the glyph image formats supported by the entire font. (IDWriteFontFace4.GetGlyphImageFormats)
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dcommon/ne-dcommon-dwrite_glyph_image_formats">DWRITE_GLYPH_IMAGE_FORMATS</a></b>
      * 
      * Returns all the glyph image formats supported by the entire font.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimageformats
      */
     GetGlyphImageFormats1() {
         result := ComCall(50, this, "int")
@@ -57,6 +57,23 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
 
     /**
      * Gets a pointer to the glyph data based on the desired image format.
+     * @remarks
+     * The glyphDataContext must be released via <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-releaseglyphimagedata">ReleaseGlyphImageData</a> when done if the data is not empty,
+     *      similar to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-readfilefragment">IDWriteFontFileStream::ReadFileFragment</a> 
+     *        and <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontfilestream-releasefilefragment">IDWriteFontFileStream::ReleaseFileFragment</a>.
+     *      The data pointer is valid so long as the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface">IDWriteFontFace</a> exists and <b>ReleaseGlyphImageData</b> has not
+     *      been called.
+     *      
+     * 
+     * The <a href="https://docs.microsoft.com/windows/win32/api/dwrite_3/ns-dwrite_3-dwrite_glyph_image_data">DWRITE_GLYPH_IMAGE_DATA::uniqueDataId</a> is valuable for caching purposes so that if the same
+     *      resource is returned more than once, an existing resource can be quickly retrieved rather than
+     *      needing to reparse or decompress the data.
+     *      
+     * 
+     * The function only returns SVG or raster data - requesting TrueType/CFF/COLR data returns
+     *      DWRITE_E_INVALIDARG. Those must be drawn via DrawGlyphRun or queried using GetGlyphOutline instead.
+     *      Exactly one format may be requested or else the function returns DWRITE_E_INVALIDARG.
+     *      If the glyph does not have that format, the call is not an error, but the function returns empty data.
      * @param {Integer} glyphId Type: <b>UINT16</b>
      * 
      * The ID of the glyph to retrieve image data for.
@@ -70,10 +87,10 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
      * 
      * On return contains data for a glyph.
      * @param {Pointer<Pointer<Void>>} glyphDataContext Type: <b>void**</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimagedata
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-getglyphimagedata
      */
     GetGlyphImageData(glyphId, pixelsPerEm, glyphImageFormat, glyphData, glyphDataContext) {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr*" : "ptr"
@@ -88,7 +105,7 @@ class IDWriteFontFace4 extends IDWriteFontFace3{
      * 
      * Opaque context from ReadGlyphData.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_3/nf-dwrite_3-idwritefontface4-releaseglyphimagedata
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_3/nf-dwrite_3-idwritefontface4-releaseglyphimagedata
      */
     ReleaseGlyphImageData(glyphDataContext) {
         glyphDataContextMarshal := glyphDataContext is VarRef ? "ptr" : "ptr"

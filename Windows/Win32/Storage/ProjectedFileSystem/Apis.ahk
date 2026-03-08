@@ -31,11 +31,7 @@ class ProjectedFileSystem {
         instanceContextMarshal := instanceContext is VarRef ? "ptr" : "ptr"
 
         namespaceVirtualizationContext := PRJ_NAMESPACE_VIRTUALIZATION_CONTEXT()
-        result := DllCall("PROJECTEDFSLIB.dll\PrjStartVirtualizing", "ptr", virtualizationRootPath, "ptr", callbacks, instanceContextMarshal, instanceContext, "ptr", options, "ptr", namespaceVirtualizationContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjStartVirtualizing", "ptr", virtualizationRootPath, "ptr", callbacks, instanceContextMarshal, instanceContext, "ptr", options, "ptr", namespaceVirtualizationContext, "HRESULT")
         return namespaceVirtualizationContext
     }
 
@@ -67,11 +63,7 @@ class ProjectedFileSystem {
     static PrjClearNegativePathCache(namespaceVirtualizationContext) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjClearNegativePathCache", "ptr", namespaceVirtualizationContext, "uint*", &totalEntryNumber := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjClearNegativePathCache", "ptr", namespaceVirtualizationContext, "uint*", &totalEntryNumber := 0, "HRESULT")
         return totalEntryNumber
     }
 
@@ -91,11 +83,7 @@ class ProjectedFileSystem {
     static PrjGetVirtualizationInstanceInfo(namespaceVirtualizationContext, virtualizationInstanceInfo) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjGetVirtualizationInstanceInfo", "ptr", namespaceVirtualizationContext, "ptr", virtualizationInstanceInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjGetVirtualizationInstanceInfo", "ptr", namespaceVirtualizationContext, "ptr", virtualizationInstanceInfo, "HRESULT")
         return result
     }
 
@@ -118,11 +106,7 @@ class ProjectedFileSystem {
         rootPathName := rootPathName is String ? StrPtr(rootPathName) : rootPathName
         targetPathName := targetPathName is String ? StrPtr(targetPathName) : targetPathName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjMarkDirectoryAsPlaceholder", "ptr", rootPathName, "ptr", targetPathName, "ptr", versionInfo, "ptr", virtualizationInstanceID, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjMarkDirectoryAsPlaceholder", "ptr", rootPathName, "ptr", targetPathName, "ptr", versionInfo, "ptr", virtualizationInstanceID, "HRESULT")
         return result
     }
 
@@ -151,11 +135,7 @@ class ProjectedFileSystem {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "HRESULT")
         return result
     }
 
@@ -183,11 +163,7 @@ class ProjectedFileSystem {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo2", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "ptr", ExtendedInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjWritePlaceholderInfo2", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "ptr", ExtendedInfo, "HRESULT")
         return result
     }
 
@@ -257,11 +233,7 @@ class ProjectedFileSystem {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "int", updateFlags, "int*", &failureReason := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjUpdateFileIfNeeded", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "ptr", placeholderInfo, "uint", placeholderInfoSize, "int", updateFlags, "int*", &failureReason := 0, "HRESULT")
         return failureReason
     }
 
@@ -286,11 +258,7 @@ class ProjectedFileSystem {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjDeleteFile", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "int", updateFlags, "int*", &failureReason := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjDeleteFile", "ptr", namespaceVirtualizationContext, "ptr", destinationFileName, "int", updateFlags, "int*", &failureReason := 0, "HRESULT")
         return failureReason
     }
 
@@ -328,11 +296,7 @@ class ProjectedFileSystem {
     static PrjWriteFileData(namespaceVirtualizationContext, dataStreamId, buffer_R, byteOffset, length) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", "ptr", namespaceVirtualizationContext, "ptr", dataStreamId, "ptr", buffer_R, "uint", byteOffset, "uint", length, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjWriteFileData", "ptr", namespaceVirtualizationContext, "ptr", dataStreamId, "ptr", buffer_R, "uint", byteOffset, "uint", length, "HRESULT")
         return result
     }
 
@@ -351,11 +315,7 @@ class ProjectedFileSystem {
     static PrjGetOnDiskFileState(destinationFileName) {
         destinationFileName := destinationFileName is String ? StrPtr(destinationFileName) : destinationFileName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjGetOnDiskFileState", "ptr", destinationFileName, "int*", &fileState := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjGetOnDiskFileState", "ptr", destinationFileName, "int*", &fileState := 0, "HRESULT")
         return fileState
     }
 
@@ -400,11 +360,7 @@ class ProjectedFileSystem {
     static PrjCompleteCommand(namespaceVirtualizationContext, commandId, completionResult, extendedParameters) {
         namespaceVirtualizationContext := namespaceVirtualizationContext is Win32Handle ? NumGet(namespaceVirtualizationContext, "ptr") : namespaceVirtualizationContext
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjCompleteCommand", "ptr", namespaceVirtualizationContext, "int", commandId, "int", completionResult, "ptr", extendedParameters, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjCompleteCommand", "ptr", namespaceVirtualizationContext, "int", commandId, "int", completionResult, "ptr", extendedParameters, "HRESULT")
         return result
     }
 
@@ -432,11 +388,7 @@ class ProjectedFileSystem {
         fileName := fileName is String ? StrPtr(fileName) : fileName
         dirEntryBufferHandle := dirEntryBufferHandle is Win32Handle ? NumGet(dirEntryBufferHandle, "ptr") : dirEntryBufferHandle
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer", "ptr", fileName, "ptr", fileBasicInfo, "ptr", dirEntryBufferHandle, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer", "ptr", fileName, "ptr", fileBasicInfo, "ptr", dirEntryBufferHandle, "HRESULT")
         return result
     }
 
@@ -464,11 +416,7 @@ class ProjectedFileSystem {
         dirEntryBufferHandle := dirEntryBufferHandle is Win32Handle ? NumGet(dirEntryBufferHandle, "ptr") : dirEntryBufferHandle
         fileName := fileName is String ? StrPtr(fileName) : fileName
 
-        result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer2", "ptr", dirEntryBufferHandle, "ptr", fileName, "ptr", fileBasicInfo, "ptr", extendedInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROJECTEDFSLIB.dll\PrjFillDirEntryBuffer2", "ptr", dirEntryBufferHandle, "ptr", fileName, "ptr", fileBasicInfo, "ptr", extendedInfo, "HRESULT")
         return result
     }
 

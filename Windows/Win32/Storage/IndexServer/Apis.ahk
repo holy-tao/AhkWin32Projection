@@ -763,11 +763,7 @@ class IndexServer {
     static LoadIFilter(pwcsPath, pUnkOuter) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("query.dll\LoadIFilter", "ptr", pwcsPath, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "HRESULT")
         return ppIUnk
     }
 
@@ -781,11 +777,7 @@ class IndexServer {
     static LoadIFilterEx(pwcsPath, dwFlags, riid) {
         pwcsPath := pwcsPath is String ? StrPtr(pwcsPath) : pwcsPath
 
-        result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("query.dll\LoadIFilterEx", "ptr", pwcsPath, "uint", dwFlags, "ptr", riid, "ptr*", &ppIUnk := 0, "HRESULT")
         return ppIUnk
     }
 
@@ -800,11 +792,7 @@ class IndexServer {
      * @since windows5.0
      */
     static BindIFilterFromStorage(pStg, pUnkOuter) {
-        result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("query.dll\BindIFilterFromStorage", "ptr", pStg, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "HRESULT")
         return ppIUnk
     }
 
@@ -819,11 +807,7 @@ class IndexServer {
      * @since windows5.0
      */
     static BindIFilterFromStream(pStm, pUnkOuter) {
-        result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("query.dll\BindIFilterFromStream", "ptr", pStm, "ptr", pUnkOuter, "ptr*", &ppIUnk := 0, "HRESULT")
         return ppIUnk
     }
 

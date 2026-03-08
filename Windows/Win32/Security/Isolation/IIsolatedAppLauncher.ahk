@@ -5,7 +5,7 @@
 
 /**
  * Enables apps to determine whether they are running in a Windows Defender Application Guard container (VM container environment).
- * @see https://docs.microsoft.com/windows/win32/api//isolatedapplauncher/nn-isolatedapplauncher-iisolatedapplauncher
+ * @see https://learn.microsoft.com/windows/win32/api/isolatedapplauncher/nn-isolatedapplauncher-iisolatedapplauncher
  * @namespace Windows.Win32.Security.Isolation
  * @version v4.0.30319
  */

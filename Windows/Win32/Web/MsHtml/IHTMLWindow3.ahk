@@ -138,8 +138,11 @@ class IHTMLWindow3 extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Submits a custom shader message to the information queue.
+     * @remarks
+     * This operation does nothing on devices that do not support it.
+     * @returns {HRESULT} This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/printf
      */
     print() {
         result := ComCall(13, this, "HRESULT")

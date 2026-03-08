@@ -29,13 +29,18 @@ class IRowsetLocate extends IRowset{
     static VTableNames => ["Compare", "GetRowsAt", "GetRowsByBookmark", "Hash"]
 
     /**
+     * The CompareAddresses function compares two addresses, indicating that one of the addresses is greater than, less than, or equal to the other address.
+     * @remarks
+     * An address that is less than another address indicates a previous frame. An address that is greater than another address indicates a later frame.
      * 
+     * Network Monitor provides two other functions, [CompareFrameDestAddress](compareframedestaddress.md) and [CompareFrameSourceAddress](compareframesourceaddress.md), which you can use to compare addresses. The **CompareFrameDestAddress** function compares a given address to the frame's destination address, and the **CompareFrameSourceAddress** function compares a given address to the frame's source address.
      * @param {Pointer} hReserved 
      * @param {Pointer} cbBookmark1 
      * @param {Pointer<Integer>} pBookmark1 
      * @param {Pointer} cbBookmark2 
      * @param {Pointer<Integer>} pBookmark2 
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/compareaddresses
      */
     Compare(hReserved, cbBookmark1, pBookmark1, cbBookmark2, pBookmark2) {
         pBookmark1Marshal := pBookmark1 is VarRef ? "char*" : "ptr"
@@ -87,14 +92,17 @@ class IRowsetLocate extends IRowset{
     }
 
     /**
-     * 
+     * Hashes an array of data.
      * @param {Pointer} hReserved 
      * @param {Pointer} cBookmarks 
      * @param {Pointer<Pointer>} rgcbBookmarks 
      * @param {Pointer<Pointer<Integer>>} rgpBookmarks 
      * @param {Pointer<Pointer>} rgHashedValues 
      * @param {Pointer<Integer>} rgBookmarkStatus 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-hashdata
      */
     Hash(hReserved, cBookmarks, rgcbBookmarks, rgpBookmarks, rgHashedValues, rgBookmarkStatus) {
         rgcbBookmarksMarshal := rgcbBookmarks is VarRef ? "ptr*" : "ptr"

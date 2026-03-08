@@ -31,9 +31,10 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     static VTableNames => ["GetBool", "SetBool", "GetInt32", "SetInt32", "GetString", "SetString", "GetBytes", "SetBytes", "GetReadStream", "GetWriteStream"]
 
     /**
-     * 
+     * Retrieves a named Boolean value from a BLOB.
      * @param {BSTR} bstrName 
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getboolfromblob
      */
     GetBool(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -43,10 +44,13 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * The SetBoolInBlob function sets a Boolean value at a given location within a BLOB.
      * @param {BSTR} bstrName 
      * @param {BOOL} bValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
+     * 
+     * If the function is unsuccessful, the return value is a NMERR value that indicates the error.
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/setboolinblob
      */
     SetBool(bstrName, bValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -81,9 +85,10 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * Returns a string located at a given position within a BLOB.
      * @param {BSTR} bstrName 
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getstringfromblob
      */
     GetString(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -94,10 +99,15 @@ class IPrinterScriptablePropertyBag extends IDispatch{
     }
 
     /**
-     * 
+     * Sets a string at a given location within a BLOB.
      * @param {BSTR} bstrName 
      * @param {BSTR} bstrValue 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is NMERR\_SUCCESS.
+     * 
+     * If the function is unsuccessful, the return value is a NMERR value that indicates the problem.
+     * 
+     * If the specified **Owner**, **Category**, or **Tag** information does not exist, the return value is NMERR\_BLOB\_ENTRY\_DOES\_NOT\_EXIST.
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/setstringinblob
      */
     SetString(bstrName, bstrValue) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName

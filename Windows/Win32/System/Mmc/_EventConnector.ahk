@@ -35,9 +35,12 @@ class _EventConnector extends IDispatch{
     static VTableNames => ["ConnectTo", "Disconnect"]
 
     /**
-     * 
+     * Establishes or terminates a connection between a client's sink and a connection point container.
      * @param {_Application} Application 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this function succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shlwapi/nf-shlwapi-connecttoconnectionpoint
      */
     ConnectTo(Application) {
         result := ComCall(7, this, "ptr", Application, "HRESULT")
@@ -45,8 +48,11 @@ class _EventConnector extends IDispatch{
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect() {
         result := ComCall(8, this, "HRESULT")

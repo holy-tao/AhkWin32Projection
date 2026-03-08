@@ -7,13 +7,10 @@
 /**
  * Initiates communication with an event provider using a restricted set of queries.
  * @remarks
- * 
  * When implementing an event subscription sink (<a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemobjectsink">IWbemObjectSink</a> or <b>IWbemEventSink</b>), do  not call into WMI from within the  methods on the sink object.  For example, calling <a href="https://docs.microsoft.com/windows/desktop/api/wbemcli/nf-wbemcli-iwbemservices-cancelasynccall">IWbemServices::CancelAsyncCall</a> to cancel the sink  from within an implementation of <a href="https://docs.microsoft.com/windows/desktop/api/wbemprov/nf-wbemprov-iwbemeventsink-setsinksecurity">IWbemEventSink::SetSinkSecurity</a> can interfere with the WMI state. To cancel an event subscription, set a flag and call <b>IWbemServices::CancelAsyncCall</b> from another thread or object. For implementations that are not related to an event sink, such as object, enum, and query retrievals, you can call back into WMI.
  * 
  * Sink implementations should process the event notification within 100 MSEC because the WMI thread that delivers the event notification cannot do other work until the sink object has completed processing. If the notification requires a large amount of processing, the sink can use an internal queue for another thread to handle the processing.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbemeventsink
+ * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbemeventsink
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -40,10 +37,15 @@ class IWbemEventSink extends IWbemObjectSink{
 
     /**
      * Used to set a security descriptor (SD) on a sink for all the events passing through.
+     * @remarks
+     * The SD DACL defines who has access to the events. The access control entry (ACE) of a consumer seeking access to the events delivered to the sink must match an ACE with <b>WBEM_RIGHT_SUBSCRIBE</b> set in the <i>pSD</i> parameter. The SD owner and group specify the identity to be used when raising the event. This identity can be different than the identity of the account raising the event; however, when checking access of the event against a filter SD, both the identity of the user and the identity specified in the owner field are checked for access. For more information, see the <b>EventAccess</b> property of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/--eventfilter">__EventFilter</a> class. The group field of the SD must be set and the SACL field is not used.  For more information about event security and when to use this method, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/securing-wmi-events">Securing WMI Events</a>.
+     * 
+     * For more information about providing events, see <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/writing-an-event-provider">Writing an Event Provider</a>.
      * @param {Integer} lSDLength Length of security descriptor.
      * @param {Pointer<Integer>} pSD Security descriptor, DACL.
      * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-setsinksecurity
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-setsinksecurity
      */
     SetSinkSecurity(lSDLength, pSD) {
         pSDMarshal := pSD is VarRef ? "char*" : "ptr"
@@ -54,8 +56,8 @@ class IWbemEventSink extends IWbemObjectSink{
 
     /**
      * The IWbemEventSink::IsActive method is used by the provider to determine if there is interest in the events that the sink is filtering.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-isactive
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-isactive
      */
     IsActive() {
         result := ComCall(6, this, "HRESULT")
@@ -69,7 +71,7 @@ class IWbemEventSink extends IWbemObjectSink{
      * @param {IUnknown} pCallback Pointer to callback for event provider.
      * @returns {IWbemEventSink} Pointer to created 
      * <a href="https://docs.microsoft.com/windows/desktop/WmiSdk/iwbemeventsink">IWbemEventSink</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-getrestrictedsink
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-getrestrictedsink
      */
     GetRestrictedSink(lNumQueries, awszQueries, pCallback) {
         awszQueriesMarshal := awszQueries is VarRef ? "ptr*" : "ptr"
@@ -83,8 +85,8 @@ class IWbemEventSink extends IWbemObjectSink{
      * @param {Integer} lFlags Determines batching behavior.
      * @param {Integer} dwMaxBufferSize Maximum batch buffer size. To specify maximum batch size, use MAX_INT.
      * @param {Integer} dwMaxSendLatency Maximum batch send latency. To specify infinite timeout, use <b>WBEM_INFINITE</b>.
-     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained withinan <b>HRESULT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbemeventsink-setbatchingparameters
+     * @returns {HRESULT} This method returns an <b>HRESULT</b> indicating the status of the method call. The following list lists the value contained within an <b>HRESULT</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbemeventsink-setbatchingparameters
      */
     SetBatchingParameters(lFlags, dwMaxBufferSize, dwMaxSendLatency) {
         result := ComCall(8, this, "int", lFlags, "uint", dwMaxBufferSize, "uint", dwMaxSendLatency, "HRESULT")

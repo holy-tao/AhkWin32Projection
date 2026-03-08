@@ -11,15 +11,12 @@
 /**
  * The INetSharingManager interface is the primary interface for the Manager object. INetSharingManager provides methods to determine if sharing is installed, to manage port mappings, and to obtain enumeration interfaces for public and private connections.
  * @remarks
- * 
  * To obtain an enumeration interface for port mappings, use the 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">get_INetSharingConfigurationForINetConnection</a> method to obtain an 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface. Then use the 
  * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_enumportmappings">INetSharingConfiguration::EnumPortMappings</a> method to obtain an 
  * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/nn-netcon-ienumnetsharingportmapping">IEnumNetSharingPortMapping</a> interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-inetsharingmanager
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingmanager
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -66,8 +63,20 @@ class INetSharingManager extends IDispatch{
 
     /**
      * Reports whether the currently-installed version of Windows XP supports connection sharing.
+     * @remarks
+     * This method sets the <i>pbInstalled</i> parameter to <b>TRUE</b> when called on the following versions of Windows XP:
+     * 
+     * <ul>
+     * <li>Windows XP Home Edition</li>
+     * <li>Windows XP Professional</li>
+     * <li>Windows XP Embedded</li>
+     * </ul>
+     * This function sets the <i>pbInstalled</i> parameter to <b>FALSE</b> when called on other versions of Windows XP.
+     * 
+     * To determine whether sharing is enable for a particular connection, call 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingconfiguration-get_sharingenabled">INetSharingConfiguration::get_SharingEnabled</a> method for that connection.
      * @returns {VARIANT_BOOL} A pointer to a <b>VARIANT_BOOL</b> that specifies whether the currently-installed version Windows XP supports connection sharing. For more information, see Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingmanager-get_sharinginstalled
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_sharinginstalled
      */
     get_SharingInstalled() {
         result := ComCall(7, this, "short*", &pbInstalled := 0, "HRESULT")
@@ -79,7 +88,7 @@ class INetSharingManager extends IDispatch{
      * @param {Integer} Flags This parameter must be ICSSC_DEFAULT.
      * @returns {INetSharingPublicConnectionCollection} Pointer to a pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingpublicconnectioncollection">INetSharingPublicConnectionCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingmanager-get_enumpublicconnections
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumpublicconnections
      */
     get_EnumPublicConnections(Flags) {
         result := ComCall(8, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
@@ -91,7 +100,7 @@ class INetSharingManager extends IDispatch{
      * @param {Integer} Flags This parameter must be ICSSC_DEFAULT.
      * @returns {INetSharingPrivateConnectionCollection} Pointer to a pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/netcon/nn-netcon-inetsharingprivateconnectioncollection">INetSharingPrivateConnectionCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingmanager-get_enumprivateconnections
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumprivateconnections
      */
     get_EnumPrivateConnections(Flags) {
         result := ComCall(9, this, "int", Flags, "ptr*", &ppColl := 0, "HRESULT")
@@ -104,7 +113,7 @@ class INetSharingManager extends IDispatch{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetconnection">INetConnection</a> interface for an Internet connection.
      * @returns {INetSharingConfiguration} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingconfiguration">INetSharingConfiguration</a> interface for the connection specified by the <i>pNetConnection</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection
      */
     get_INetSharingConfigurationForINetConnection(pNetConnection) {
         result := ComCall(10, this, "ptr", pNetConnection, "ptr*", &ppNetSharingConfiguration := 0, "HRESULT")
@@ -115,7 +124,7 @@ class INetSharingManager extends IDispatch{
      * The get_EnumEveryConnection method retrieves an enumeration interface for all the connections in the connection folder.
      * @returns {INetSharingEveryConnectionCollection} Pointer to a pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetsharingeveryconnectioncollection">INetSharingEveryConnectionCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingmanager-get_enumeveryconnection
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_enumeveryconnection
      */
     get_EnumEveryConnection() {
         result := ComCall(11, this, "ptr*", &ppColl := 0, "HRESULT")
@@ -124,11 +133,14 @@ class INetSharingManager extends IDispatch{
 
     /**
      * The get_NetConnectionProps method retrieves a properties interface for the specified connection.
+     * @remarks
+     * Not all connections can be configured for sharing. Retrieve the properties for the connection to verify that the connection can be shared before calling 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nf-netcon-inetsharingmanager-get_inetsharingconfigurationforinetconnection">INetSharingManager::get_INetSharingConfigurationForINetConnection</a>.
      * @param {INetConnection} pNetConnection Pointer to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetconnection">INetConnection</a> interface for the connection for which to retrieve the properties interface.
      * @returns {INetConnectionProps} Pointer to an interface pointer that, on successful return, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netcon/nn-netcon-inetconnectionprops">INetConnectionProps</a> interface for the connection.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingmanager-get_netconnectionprops
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingmanager-get_netconnectionprops
      */
     get_NetConnectionProps(pNetConnection) {
         result := ComCall(12, this, "ptr", pNetConnection, "ptr*", &ppProps := 0, "HRESULT")

@@ -8,11 +8,8 @@
 /**
  * The IGuideDataProperty interface represents the name, value, and language of a property associated with a service, program or schedule entry object.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IGuideDataProperty)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdatif/nn-bdatif-iguidedataproperty
+ * @see https://learn.microsoft.com/windows/win32/api/bdatif/nn-bdatif-iguidedataproperty
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -61,7 +58,7 @@ class IGuideDataProperty extends IUnknown{
     /**
      * The get_Name method retrieves the name of the property.
      * @returns {BSTR} Pointer to a variable that receives a string containing the property name, for example "Description.ID" or "Description.Title".
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataproperty-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -72,7 +69,7 @@ class IGuideDataProperty extends IUnknown{
     /**
      * The get_Language method retrieves the language associated with the property.
      * @returns {Integer} Pointer to a variable that receives the language identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataproperty-get_language
+     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_language
      */
     get_Language() {
         result := ComCall(4, this, "int*", &idLang := 0, "HRESULT")
@@ -81,8 +78,10 @@ class IGuideDataProperty extends IUnknown{
 
     /**
      * The get_Value method retrieves the value associated with the property.
+     * @remarks
+     * If the name of the property is "Description.Name" then the value of the property is the actual name of the service or show.
      * @returns {VARIANT} Pointer to a variable that receives the value of the property as a <b>VARIANT</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//bdatif/nf-bdatif-iguidedataproperty-get_value
+     * @see https://learn.microsoft.com/windows/win32/api/bdatif/nf-bdatif-iguidedataproperty-get_value
      */
     get_Value() {
         pvar := VARIANT()

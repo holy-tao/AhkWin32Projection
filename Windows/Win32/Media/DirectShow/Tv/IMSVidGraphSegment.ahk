@@ -7,6 +7,12 @@
 #Include ..\..\..\System\Com\IPersist.ahk
 
 /**
+ * The IMSVidGraphSegmentContainer interface is exposed by the Video Control and contains one supported method, get_Graph, which obtains a pointer to the Filter Graph Manager.
+ * @remarks
+ * This interface has additional methods besides the one shown here, but they are not supported.
+ * 
+ * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGraphSegmentContainer)</c>.
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidgraphsegmentcontainer
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -128,8 +134,73 @@ class IMSVidGraphSegment extends IPersist{
     }
 
     /**
+     * Fills a specified DCB structure with values specified in a device-control string. (ANSI)
+     * @remarks
+     * The 
+     * <b>BuildCommDCB</b> function adjusts only those members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure that are specifically affected by the <i>lpDef</i> parameter, with the following exceptions:
      * 
-     * @returns {HRESULT} 
+     * <ul>
+     * <li>If the specified baud rate is 110, the function sets the stop bits to 2 to remain compatible with the system's <b>mode</b> command.</li>
+     * <li>By default, 
+     * <b>BuildCommDCB</b> disables XON/XOFF and hardware flow control. To enable flow control, you must explicitly set the appropriate members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure.</li>
+     * </ul>
+     * The 
+     * <b>BuildCommDCB</b> function only fills in the members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure. To apply these settings to a serial port, use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-setcommstate">SetCommState</a> function.
+     * 
+     * There are older and newer forms of the <b>mode</b> syntax. The 
+     * <b>BuildCommDCB</b> function supports both forms. However, you cannot mix the two forms together.
+     * 
+     * The newer form of the <b>mode</b> syntax lets you explicitly set the values of the flow control members of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/ns-winbase-dcb">DCB</a> structure. If you use an older form of the <b>mode</b> syntax, the 
+     * <b>BuildCommDCB</b> function sets the flow control members of the 
+     * <b>DCB</b> structure, as follows:
+     * 
+     * <ul>
+     * <li>For a string that does not end with an x or a p: 
+     * 
+     * 
+     * <ul>
+     * <li><b>fInX</b>, <b>fOutX</b>, <b>fOutXDsrFlow</b>, and <b>fOutXCtsFlow</b> are all set to <b>FALSE</b></li>
+     * <li><b>fDtrControl</b> is set to DTR_CONTROL_ENABLE</li>
+     * <li><b>fRtsControl</b> is set to RTS_CONTROL_ENABLE</li>
+     * </ul>
+     * </li>
+     * <li>For a string that ends with an x: 
+     * 
+     * 
+     * <ul>
+     * <li><b>fInX</b> and <b>fOutX</b> are both set to <b>TRUE</b></li>
+     * <li><b>fOutXDsrFlow</b> and <b>fOutXCtsFlow</b> are both set to <b>FALSE</b></li>
+     * <li><b>fDtrControl</b> is set to DTR_CONTROL_ENABLE</li>
+     * <li><b>fRtsControl</b> is set to RTS_CONTROL_ENABLE</li>
+     * </ul>
+     * </li>
+     * <li>For a string that ends with a p: 
+     * 
+     * 
+     * <ul>
+     * <li><b>fInX</b> and <b>fOutX</b> are both set to <b>FALSE</b></li>
+     * <li><b>fOutXDsrFlow</b> and <b>fOutXCtsFlow</b> are both set to <b>TRUE</b></li>
+     * <li><b>fDtrControl</b> is set to DTR_CONTROL_HANDSHAKE</li>
+     * <li><b>fRtsControl</b> is set to RTS_CONTROL_HANDSHAKE</li>
+     * </ul>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * 
+     * 
+     * > [!NOTE]
+     * > The winbase.h header defines BuildCommDCB as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-buildcommdcba
      */
     Build() {
         result := ComCall(11, this, "HRESULT")

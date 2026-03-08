@@ -7,11 +7,8 @@
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose programmatic text-edit actions.
  * @remarks
- * 
  * Call  the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiaraisetextedittextchangedevent">UiaRaiseTextEditTextChangedEvent</a> function to raise the UI Automation events that notify clients of changes. Use values of <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-texteditchangetype">TextEditChangeType</a> to describe the change. Follow the guidance given in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/textedit-control-pattern">TextEdit Control Pattern</a> that describes when to raise the events and what payload the events should pass to UI Automation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itexteditprovider
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itexteditprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -37,11 +34,13 @@ class ITextEditProvider extends ITextProvider{
     static VTableNames => ["GetActiveComposition", "GetConversionTarget"]
 
     /**
-     * Returns the active composition.
+     * Returns the active composition. (ITextEditProvider.GetActiveComposition)
+     * @remarks
+     * Follow the guidance given in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/textedit-control-pattern">TextEdit Control Pattern</a> that describes how to implement this method and how to raise the related notification events.
      * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
      * Pointer to the range of the current conversion (none if there is no conversion).
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itexteditprovider-getactivecomposition
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itexteditprovider-getactivecomposition
      */
     GetActiveComposition() {
         result := ComCall(9, this, "ptr*", &pRetVal := 0, "HRESULT")
@@ -49,11 +48,13 @@ class ITextEditProvider extends ITextProvider{
     }
 
     /**
-     * Returns the current conversion target range.
+     * Returns the current conversion target range. (ITextEditProvider.GetConversionTarget)
+     * @remarks
+     * Follow the guidance given in <a href="https://docs.microsoft.com/windows/desktop/WinAuto/textedit-control-pattern">TextEdit Control Pattern</a> that describes how to implement this method and how to raise the related notification events.
      * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
      * Pointer to the conversion target range (none if there is no conversion).
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itexteditprovider-getconversiontarget
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itexteditprovider-getconversiontarget
      */
     GetConversionTarget() {
         result := ComCall(10, this, "ptr*", &pRetVal := 0, "HRESULT")

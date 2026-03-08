@@ -6,7 +6,7 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
- * 
+ * The X.509 version 3 certificate format identifies multiple extensions that can be added to a certificate.
  * @see https://learn.microsoft.com/windows/win32/SecCertEnroll/extensions
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
@@ -62,7 +62,7 @@ class Extensions extends IDispatch{
     }
 
     /**
-     * 
+     * The Item property retrieves an extension, by index, from the collection. This is the default property.
      * @param {Integer} Index 
      * @returns {Extension} 
      * @see https://learn.microsoft.com/windows/win32/SecCrypto/extensions-item

@@ -5,7 +5,7 @@
 
 /**
  * Provides methods of interaction with a connected identity provider.
- * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nn-identityprovider-iconnectedidentityprovider
+ * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nn-identityprovider-iconnectedidentityprovider
  * @namespace Windows.Win32.Security.Authentication.Identity.Provider
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IConnectedIdentityProvider extends IUnknown{
 
     /**
      * Connects an identity to a domain user.
+     * @remarks
+     * The <i>AuthBuffer</i> parameter can be encrypted in the system context if the credential is collected on the secure desktop. In that case, the identity provider cannot decrypt the credential in the current process. To decrypt the buffer, the identity provider will need to send the credential to a process that is running in the system context.
      * @param {Pointer<Integer>} AuthBuffer A marshaled authentication buffer <a href="https://docs.microsoft.com/windows/desktop/api/sspi/ns-sspi-sec_winnt_auth_identity_ex2">SEC_WINNT_AUTH_IDENTITY_EX2</a> structure that contains the credential of the online identity. The buffer can be constructed by the caller by using the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-credpackauthenticationbuffera">CredPackAuthenticationBuffer</a> function with the CRED_PACK_ID_PROVIDER_CREDENTIALS option or returned by an online identity credential provider from the <a href="https://docs.microsoft.com/windows/desktop/api/wincred/nf-wincred-creduipromptforwindowscredentialsa">CredUIPromptForWindowsCredentials</a> function. The buffer can be optionally encrypted by calling the <a href="https://docs.microsoft.com/windows/desktop/api/sspi/nf-sspi-sspiencryptauthidentityex">SspiEncryptAuthIdentityEx</a> function with the SEC_WINNT_AUTH_IDENTITY_ENCRYPT_SAME_LOGON option.
      * @param {Integer} AuthBufferSize Size, in bytes, of the <i>AuthBuffer</i> parameter.
      * @returns {HRESULT} If the method succeeds, returns S_OK.
@@ -88,7 +90,7 @@ class IConnectedIdentityProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
+     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-connectidentity
      */
     ConnectIdentity(AuthBuffer, AuthBufferSize) {
         AuthBufferMarshal := AuthBuffer is VarRef ? "char*" : "ptr"
@@ -131,7 +133,7 @@ class IConnectedIdentityProvider extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-disconnectidentity
+     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-disconnectidentity
      */
     DisconnectIdentity() {
         result := ComCall(4, this, "HRESULT")
@@ -156,7 +158,7 @@ class IConnectedIdentityProvider extends IUnknown{
      * @returns {HRESULT} If the method succeeds, the method returns S_OK.
      * 
      * If the method fails, the method returns a Win32 error code.
-     * @see https://docs.microsoft.com/windows/win32/api//identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
+     * @see https://learn.microsoft.com/windows/win32/api/identityprovider/nf-identityprovider-iconnectedidentityprovider-geturl
      */
     GetUrl(Identifier, Context, PostData, Url) {
         UrlMarshal := Url is VarRef ? "ptr*" : "ptr"

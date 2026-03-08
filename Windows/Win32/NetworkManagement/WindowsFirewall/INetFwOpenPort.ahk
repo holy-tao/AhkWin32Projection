@@ -7,19 +7,16 @@
 /**
  * The INetFwOpenPort interface provides access to the properties of a port that has been opened in the firewall.
  * @remarks
- * 
  * Ports  with their <b>BuiltIn</b> property set to true (<b>VARIANT_TRUE</b>) are system specified and cannot be removed.
  * 
  * When creating new ports, this interface is supported by the
  * <b>HNetCfg.FWOpenPort</b> COM object. 
  * 
  * For reading or modifying existing ports,
- * instances of this interface are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenports">INetFwOpenPorts</a>collection. 
+ * instances of this interface are retrieved through the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenports">INetFwOpenPorts</a> collection. 
  * 
  * All configuration changes take effect immediately.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwopenport
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwopenport
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -114,14 +111,11 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies the friendly name of this port.
+     * Specifies the friendly name of this port. (Get)
      * @remarks
-     * 
      * This property is required.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_name
      */
     get_Name() {
         name := BSTR()
@@ -130,15 +124,12 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies the friendly name of this port.
+     * Specifies the friendly name of this port. (Put)
      * @remarks
-     * 
      * This property is required.
-     * 
-     * 
      * @param {BSTR} name 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-put_name
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_name
      */
     put_Name(name) {
         name := name is String ? BSTR.Alloc(name).Value : name
@@ -148,14 +139,11 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies the IP version setting for this port.
+     * Specifies the IP version setting for this port. (Get)
      * @remarks
-     * 
      * Only <b>NET_FW_IP_VERSION_ANY</b> is supported and this is the default for new ports.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_ipversion
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_ipversion
      */
     get_IpVersion() {
         result := ComCall(9, this, "int*", &ipVersion := 0, "HRESULT")
@@ -163,15 +151,12 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies the IP version setting for this port.
+     * Specifies the IP version setting for this port. (Put)
      * @remarks
-     * 
      * Only <b>NET_FW_IP_VERSION_ANY</b> is supported and this is the default for new ports.
-     * 
-     * 
      * @param {Integer} ipVersion 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-put_ipversion
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_ipversion
      */
     put_IpVersion(ipVersion) {
         result := ComCall(10, this, "int", ipVersion, "HRESULT")
@@ -179,14 +164,11 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies the protocol type setting for this port.
+     * Specifies the protocol type setting for this port. (Get)
      * @remarks
-     * 
      * The default protocol type is TCP for new ports.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_protocol
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_protocol
      */
     get_Protocol() {
         result := ComCall(11, this, "int*", &ipProtocol := 0, "HRESULT")
@@ -194,15 +176,12 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies the protocol type setting for this port.
+     * Specifies the protocol type setting for this port. (Put)
      * @remarks
-     * 
      * The default protocol type is TCP for new ports.
-     * 
-     * 
      * @param {Integer} ipProtocol 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-put_protocol
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_protocol
      */
     put_Protocol(ipProtocol) {
         result := ComCall(12, this, "int", ipProtocol, "HRESULT")
@@ -210,9 +189,9 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifiess the host-ordered port number for this port.
+     * Specifies the host-ordered port number for this port. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_port
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_port
      */
     get_Port() {
         result := ComCall(13, this, "int*", &portNumber := 0, "HRESULT")
@@ -220,10 +199,10 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifiess the host-ordered port number for this port.
+     * Specifies the host-ordered port number for this port. (Put)
      * @param {Integer} portNumber 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-put_port
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_port
      */
     put_Port(portNumber) {
         result := ComCall(14, this, "int", portNumber, "HRESULT")
@@ -231,9 +210,8 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Controls the network scope from which the port can listen.
+     * Controls the network scope from which the port can listen. (INetFwOpenPort.get_Scope)
      * @remarks
-     * 
      * When setting the
      *    Scope property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
      * 
@@ -241,10 +219,8 @@ class INetFwOpenPort extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses">RemoteAddresses</a> property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_scope
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_scope
      */
     get_Scope() {
         result := ComCall(15, this, "int*", &scope := 0, "HRESULT")
@@ -252,9 +228,8 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Controls the network scope from which the port can listen.
+     * Controls the network scope from which the port can listen. (INetFwOpenPort.put_Scope)
      * @remarks
-     * 
      * When setting the
      *    Scope property, only <b>NET_FW_SCOPE_ALL</b> and <b>NET_FW_SCOPE_LOCAL_SUBNET</b> are valid.
      * 
@@ -262,11 +237,9 @@ class INetFwOpenPort extends IDispatch{
      *    <b>NET_FW_SCOPE_ALL</b> for new ports.
      * 
      * To create a custom scope, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses">RemoteAddresses</a> property.
-     * 
-     * 
      * @param {Integer} scope 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-put_scope
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_scope
      */
     put_Scope(scope) {
         result := ComCall(16, this, "int", scope, "HRESULT")
@@ -274,9 +247,8 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies a set of remote addresses from which the port can listen for traffic.
+     * Specifies a set of remote addresses from which the port can listen for traffic. (Get)
      * @remarks
-     * 
      * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
      * 
      * Valid tokens:
@@ -294,10 +266,8 @@ class INetFwOpenPort extends IDispatch{
      * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
      * </ul>
      * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_scope">Scope</a> property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_remoteaddresses
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses
      */
     get_RemoteAddresses() {
         remoteAddrs := BSTR()
@@ -306,9 +276,8 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Specifies a set of remote addresses from which the port can listen for traffic.
+     * Specifies a set of remote addresses from which the port can listen for traffic. (Put)
      * @remarks
-     * 
      * The <i>remoteAddrs</i> parameter consists of one or more comma-delimited tokens specifying the remote addresses from which the application can listen for traffic. The default value is "*". 
      * 
      * Valid tokens:
@@ -326,11 +295,9 @@ class INetFwOpenPort extends IDispatch{
      * <li>Windows Vista: An IPv6 address range in the format "start address - end address."</li>
      * </ul>
      * For a predefined address range, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_scope">Scope</a> property.
-     * 
-     * 
      * @param {BSTR} remoteAddrs 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-put_remoteaddresses
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_remoteaddresses
      */
     put_RemoteAddresses(remoteAddrs) {
         remoteAddrs := remoteAddrs is String ? BSTR.Alloc(remoteAddrs).Value : remoteAddrs
@@ -340,16 +307,13 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Indicates whether the settings for this port are currently enabled.
+     * Indicates whether the settings for this port are currently enabled. (Get)
      * @remarks
-     * 
      * This property can be set to false (<b>VARIANT_FALSE</b>) to allow port settings to be stored in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenports">INetFWOpenPorts</a> collection without actually opening the port. 
      * 
      * The default value is true (<b>VARIANT_TRUE</b>) for new ports.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_enabled
      */
     get_Enabled() {
         result := ComCall(19, this, "short*", &enabled := 0, "HRESULT")
@@ -357,17 +321,14 @@ class INetFwOpenPort extends IDispatch{
     }
 
     /**
-     * Indicates whether the settings for this port are currently enabled.
+     * Indicates whether the settings for this port are currently enabled. (Put)
      * @remarks
-     * 
      * This property can be set to false (<b>VARIANT_FALSE</b>) to allow port settings to be stored in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nn-netfw-inetfwopenports">INetFWOpenPorts</a> collection without actually opening the port. 
      * 
      * The default value is true (<b>VARIANT_TRUE</b>) for new ports.
-     * 
-     * 
      * @param {VARIANT_BOOL} enabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-put_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-put_enabled
      */
     put_Enabled(enabled) {
         result := ComCall(20, this, "short", enabled, "HRESULT")
@@ -377,12 +338,9 @@ class INetFwOpenPort extends IDispatch{
     /**
      * Indicates whether the port is defined by the system.
      * @remarks
-     * 
      * Ports  with their <b>BuiltIn</b> property set to true (<b>VARIANT_TRUE</b>) are system specified and cannot be removed, only the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_enabled">Enabled</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_remoteaddresses">RemoteAddress</a>, and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/netfw/nf-netfw-inetfwopenport-get_scope">Scope</a> properties can be modified.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwopenport-get_builtin
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwopenport-get_builtin
      */
     get_BuiltIn() {
         result := ComCall(21, this, "short*", &builtIn := 0, "HRESULT")

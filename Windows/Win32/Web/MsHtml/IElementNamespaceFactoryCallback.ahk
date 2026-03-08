@@ -30,12 +30,13 @@ class IElementNamespaceFactoryCallback extends IUnknown{
     static VTableNames => ["Resolve"]
 
     /**
-     * 
+     * Locates the target function of the specified import and replaces the function pointer in the import thunk with the target of the function implementation.
      * @param {BSTR} bstrNamespace 
      * @param {BSTR} bstrTagName 
      * @param {BSTR} bstrAttrs 
      * @param {IElementNamespace} pNamespace 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} The address of the import, or the failure stub for it.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/resolvedelayloadedapi
      */
     Resolve(bstrNamespace, bstrTagName, bstrAttrs, pNamespace) {
         bstrNamespace := bstrNamespace is String ? BSTR.Alloc(bstrNamespace).Value : bstrNamespace

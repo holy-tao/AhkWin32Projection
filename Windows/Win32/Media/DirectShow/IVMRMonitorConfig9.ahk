@@ -6,11 +6,8 @@
 /**
  * The IVMRMonitorConfig9 interface is implemented by the Video Mixing Renderer Filter 9 (VMR-9).
  * @remarks
- * 
  * Include DShow.h and D3d9.h before Vmr9.h.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vmr9/nn-vmr9-ivmrmonitorconfig9
+ * @see https://learn.microsoft.com/windows/win32/api/vmr9/nn-vmr9-ivmrmonitorconfig9
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -37,6 +34,10 @@ class IVMRMonitorConfig9 extends IUnknown{
 
     /**
      * On a multi-monitor system, the SetMonitor method specifies the monitor that the VMR should use when it creates the Direct3D device.
+     * @remarks
+     * Use this method on a multi-monitor system to specify to the VMR which Direct3D device should be used when connecting to an upstream decoder filter.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Integer} uDev Index that specifies the monitor.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
@@ -79,7 +80,7 @@ class IVMRMonitorConfig9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmonitorconfig9-setmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-setmonitor
      */
     SetMonitor(uDev) {
         result := ComCall(3, this, "uint", uDev, "HRESULT")
@@ -88,8 +89,12 @@ class IVMRMonitorConfig9 extends IUnknown{
 
     /**
      * The GetMonitor method retrieves the monitor that this instance of the VMR is using for video playback.
+     * @remarks
+     * Use this method to determine the Direct3D object that will be used when connecting the mixer filter to an upstream decoder filter.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {Integer} Pointer that receives an index that identifies the monitor currently in use.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmonitorconfig9-getmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getmonitor
      */
     GetMonitor() {
         result := ComCall(4, this, "uint*", &puDev := 0, "HRESULT")
@@ -98,6 +103,10 @@ class IVMRMonitorConfig9 extends IUnknown{
 
     /**
      * The SetDefaultMonitor method specifies the default monitor that all future instances of the VMR should use for video playback.
+     * @remarks
+     * Use this method on a multi-monitor system to specify to the VMR the default Direct3D device to use when connecting to an upstream filter. The default Direct3D device can be overridden for a particular connection by the <a href="https://docs.microsoft.com/windows/desktop/api/vmr9/nf-vmr9-ivmrmonitorconfig9-setmonitor">SetMonitor</a> method.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Integer} uDev Index that specifies the default monitor.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include those in the following table.
      * 
@@ -151,7 +160,7 @@ class IVMRMonitorConfig9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmonitorconfig9-setdefaultmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-setdefaultmonitor
      */
     SetDefaultMonitor(uDev) {
         result := ComCall(5, this, "uint", uDev, "HRESULT")
@@ -160,8 +169,12 @@ class IVMRMonitorConfig9 extends IUnknown{
 
     /**
      * The GetDefaultMonitor method retrieves the default monitor that all future instances of the VMR will use for video playback.
+     * @remarks
+     * Use this method on a multi-monitor system to determine which is the default Direct3D device the overlay mixer filter will use when connecting to an upstream filter.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @returns {Integer} Pointer that receives an index that identifies the default monitor on the system.
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmonitorconfig9-getdefaultmonitor
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getdefaultmonitor
      */
     GetDefaultMonitor() {
         result := ComCall(6, this, "uint*", &puDev := 0, "HRESULT")
@@ -170,6 +183,10 @@ class IVMRMonitorConfig9 extends IUnknown{
 
     /**
      * The GetAvailableMonitors method retrieves information about the monitors currently available on the system.
+     * @remarks
+     * Use this method to get a list of Direct Draw device identifiers and their associated monitor information that the mixer can use when connecting to an upstream decoder filter.
+     * 
+     * Include DShow.h and D3d9.h before Vmr9.h.
      * @param {Pointer<VMR9MonitorInfo>} pInfo Pointer to an array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/vmr9/ns-vmr9-vmr9monitorinfo">VMR9MonitorInfo</a> structures that contain information about each monitor on the system.
      * @param {Integer} dwMaxInfoArraySize Specifies the maximum number of members in the array.
      * @param {Pointer<Integer>} pdwNumDevices If <i>pInfo</i> is <b>NULL</b>, this parameter receives the required array size. Otherwise, it receives the actual number of devices retrieved.
@@ -214,7 +231,7 @@ class IVMRMonitorConfig9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vmr9/nf-vmr9-ivmrmonitorconfig9-getavailablemonitors
+     * @see https://learn.microsoft.com/windows/win32/api/vmr9/nf-vmr9-ivmrmonitorconfig9-getavailablemonitors
      */
     GetAvailableMonitors(pInfo, dwMaxInfoArraySize, pdwNumDevices) {
         pdwNumDevicesMarshal := pdwNumDevices is VarRef ? "uint*" : "ptr"

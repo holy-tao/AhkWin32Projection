@@ -7,9 +7,8 @@
 /**
  * Provides access to controls that act as containers for a collection of child elements organized in a two-dimensional logical coordinate system that can be traversed (that is, a Microsoft UI Automation client can move to adjacent controls) by using the keyboard.
  * @remarks
- * 
  * The <b>IGridProvider</b> interface exposes methods and properties to support UI Automation client access to controls 
- * 		that act as containers for a collection of child elements. The children of this element must implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a>and be organized in a two-dimensional logical coordinate system that can be traversed (that is, a UI Automation client can move to adjacent controls) by using the keyboard.
+ * 		that act as containers for a collection of child elements. The children of this element must implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-igriditemprovider">IGridItemProvider</a> and be organized in a two-dimensional logical coordinate system that can be traversed (that is, a UI Automation client can move to adjacent controls) by using the keyboard.
  * 		
  * 
  * Implemented on a UI Automation provider that must support 
@@ -17,9 +16,7 @@
  * 
  * <b>IGridProvider</b> does not enable active manipulation of a grid; 
  *         <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itransformprovider">ITransformProvider</a> must be implemented for this.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-igridprovider
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-igridprovider
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -60,6 +57,19 @@ class IGridProvider extends IUnknown{
 
     /**
      * Retrieves the Microsoft UI Automation provider for the specified cell.
+     * @remarks
+     * Grid coordinates are zero-based with the upper left (or upper right cell depending on locale) having coordinates (0,0).
+     *             
+     * 
+     * If a cell is empty a UI Automation provider must still be 
+     *             returned in order to support the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-igriditemprovider-get_containinggrid">ContainingGrid</a> property 
+     *             for that cell. This is possible when the layout of child elements in the grid is similar to a ragged array.
+     *             
+     * 
+     * Hidden rows and columns, depending on the provider implementation, may be loaded in the 
+     *             UI Automation tree and will therefore be reflected in the <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount">IGridProvider::RowCount</a> 
+     *             and <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount">IGridProvider::ColumnCount</a> properties. 
+     *             If the hidden rows and columns have not yet been loaded they should not be counted.
      * @param {Integer} row Type: <b>int</b>
      * 
      * The ordinal number of the row of interest.
@@ -70,7 +80,7 @@ class IGridProvider extends IUnknown{
      * 
      * Receives a pointer to a UI Automation provider for the specified cell or a null reference 
      *                 (Nothing in Microsoft Visual Basic .NET) if the cell is empty.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igridprovider-getitem
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-getitem
      */
     GetItem(row, column) {
         result := ComCall(3, this, "int", row, "int", column, "ptr*", &pRetVal := 0, "HRESULT")
@@ -80,16 +90,13 @@ class IGridProvider extends IUnknown{
     /**
      * Specifies the total number of rows in the grid.
      * @remarks
-     * 
      * Hidden rows and columns, depending on the provider implementation, may be loaded 
      *             in the logical tree and will therefore be reflected in the 
      *             <b>IGridProvider::RowCount</b> and 
      *             <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount">IGridProvider::ColumnCount</a> properties. 
      *             If the hidden rows and columns have not yet been loaded they will not be counted.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount
      */
     get_RowCount() {
         result := ComCall(4, this, "int*", &pRetVal := 0, "HRESULT")
@@ -99,16 +106,13 @@ class IGridProvider extends IUnknown{
     /**
      * Specifies the total number of columns in the grid.
      * @remarks
-     * 
      * Hidden rows and columns, depending on the provider implementation, may be loaded 
      *             in the logical tree and will therefore be reflected in the 
      *             <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_rowcount">IGridProvider::RowCount</a> and 
      *             <b>IGridProvider::ColumnCount</b> properties. 
      *             If the hidden rows and columns have not yet been loaded they will not be counted.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-igridprovider-get_columncount
      */
     get_ColumnCount() {
         result := ComCall(5, this, "int*", &pRetVal := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Provides access to a constructor string. Use it when you want to specify the parameters during the construction of your object.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjectconstructstring
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectconstructstring
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -38,9 +38,11 @@ class IObjectConstructString extends IDispatch{
 
     /**
      * Retrieves the constructor string for the object.
+     * @remarks
+     * You can use this method when implementing <a href="https://docs.microsoft.com/windows/desktop/api/comsvcs/nf-comsvcs-iobjectconstruct-construct">IObjectConstruct::Construct</a>, which is called by the COM+ environment when your component is marked as supporting object construction.
      * @param {Pointer<BSTR>} pVal A reference to an administratively supplied object constructor string.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectconstructstring-get_constructstring
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectconstructstring-get_constructstring
      */
     get_ConstructString(pVal) {
         result := ComCall(7, this, "ptr", pVal, "HRESULT")

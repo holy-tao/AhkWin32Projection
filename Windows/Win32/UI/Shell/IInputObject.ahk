@@ -6,14 +6,12 @@
 /**
  * Exposes methods that change UI activation and process accelerators for a user input object contained in the Shell.
  * @remarks
- * 
  * Implement <b>IInputObject</b> if you are implementing a Shell object that takes user input.
  * 
  * You do not call this interface directly. <b>IInputObject</b> is used by the Shell or the browser to notify the object of UI activation changes and to translate keyboard accelerators.
  * 
  * <b>IInputObject</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a>. The listed methods are specific to <b>IInputObject</b>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iinputobject
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iinputobject
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -48,8 +46,8 @@ class IInputObject extends IUnknown{
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/winuser/ns-winuser-msg">MSG</a> structure that contains the message that caused the activation change. This value may be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobject-uiactivateio
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobject-uiactivateio
      */
     UIActivateIO(fActivate, pMsg) {
         result := ComCall(3, this, "int", fActivate, "ptr", pMsg, "HRESULT")
@@ -61,7 +59,7 @@ class IInputObject extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if one of the object's windows has the keyboard focus, or S_FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobject-hasfocusio
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobject-hasfocusio
      */
     HasFocusIO() {
         result := ComCall(4, this, "HRESULT")
@@ -76,7 +74,7 @@ class IInputObject extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns <b>S_OK</b> if the accelerator was translated, or <b>S_FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iinputobject-translateacceleratorio
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iinputobject-translateacceleratorio
      */
     TranslateAcceleratorIO(pMsg) {
         result := ComCall(5, this, "ptr", pMsg, "HRESULT")

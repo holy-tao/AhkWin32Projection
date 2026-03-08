@@ -5,7 +5,7 @@
 
 /**
  * The IVPManager interface is implemented on the Video Port Manager (VPM).
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ivpmanager
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ivpmanager
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IVPManager extends IUnknown{
 
     /**
      * The SetVideoPortIndex method instructs the Video Port Manager (VPM) to connect to the specified video port.
+     * @remarks
+     * Use this method on a multi-monitor system to specify to the Video Port Manager which video port index is being used.
      * @param {Integer} dwVideoPortIndex Double word containing the video port index.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivpmanager-setvideoportindex
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivpmanager-setvideoportindex
      */
     SetVideoPortIndex(dwVideoPortIndex) {
         result := ComCall(3, this, "uint", dwVideoPortIndex, "HRESULT")
@@ -43,8 +45,10 @@ class IVPManager extends IUnknown{
 
     /**
      * The GetVideoPortIndex method returns the current video port index being used by the Video Port Manager (VPM).
+     * @remarks
+     * This method returns the current video port index being used by the Video Port Manager (VPM).
      * @returns {Integer} Pointer to a double word containing the index of the video port that the VPM is currently connected to.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ivpmanager-getvideoportindex
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ivpmanager-getvideoportindex
      */
     GetVideoPortIndex() {
         result := ComCall(4, this, "uint*", &pdwVideoPortIndex := 0, "HRESULT")

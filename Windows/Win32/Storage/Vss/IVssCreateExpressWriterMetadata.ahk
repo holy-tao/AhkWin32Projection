@@ -6,7 +6,7 @@
 
 /**
  * The IVssCreateExpressWriterMetadata interface is a COM interface containing methods to construct the Writer Metadata Document for an express writer.
- * @see https://docs.microsoft.com/windows/win32/api//vswriter/nl-vswriter-ivsscreateexpresswritermetadata
+ * @see https://learn.microsoft.com/windows/win32/api/vswriter/nl-vswriter-ivsscreateexpresswritermetadata
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -33,6 +33,13 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
 
     /**
      * Excludes a file set (a specified file or files) that might otherwise be implicitly included when a component of an express writer is backed up.
+     * @remarks
+     * Express writers support only local resources—sets of files whose absolute path starts with a valid local volume specification and cannot be a mapped network drive. Therefore, path inputs (<i>wszPath</i>) to 
+     * <b>AddExcludeFiles</b> (after the resolution of any environment variables) must be in this format. For example, it is often convenient to define a component to include all files in a specified directory and then use 
+     * <b>AddExcludeFiles</b> to explicitly remove some files (for instance, temporary files) from a backup.
+     * 
+     * For more information on excluding files, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/writer-metadata-document-contents">Exclude File List Specification</a>.
      * @param {PWSTR} wszPath A pointer to a null-terminated wide character string containing the root directory under which files are to be excluded. 
      * 
      * 
@@ -102,7 +109,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -114,14 +121,14 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addexcludefiles
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addexcludefiles
      */
     AddExcludeFiles(wszPath, wszFilespec, bRecursive) {
         wszPath := wszPath is String ? StrPtr(wszPath) : wszPath
@@ -133,6 +140,20 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
 
     /**
      * Adds a file group to an express writer's set of components to be backed up.
+     * @remarks
+     * This method can be called multiple times to add several components to an express writer's metadata.
+     * 
+     * The combination of logical path and name for each component of a specified instance of a specified class of writer 
+     *     must be unique. Attempting to call 
+     *     <b>AddComponent</b> twice with 
+     *     the same values of <i>wszLogicalPath</i> and <i>wszComponentName</i> results 
+     *     in a VSS_E_OBJECT_ALREADY_EXISTS error.
+     * 
+     * <b>AddComponent</b> can be used to 
+     *     add subcomponents—components in which all member files are backed up as a group but which contain 
+     *     files that can be restored individually. For more information, see 
+     *     <a href="https://docs.microsoft.com/windows/desktop/VSS/working-with-selectability-for-restore-and-subcomponents">Working with 
+     *     Selectability for Restore and Subcomponents</a>.
      * @param {Integer} ct A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_component_type">VSS_COMPONENT_TYPE</a> enumeration value that specifies 
      *       the type of the component. Only <b>VSS_CT_FILEGROUP</b> is supported for this parameter.
      * @param {PWSTR} wszLogicalPath A pointer to a <b>null</b>-terminated wide character string containing the logical path of the database or file group. 
@@ -228,7 +249,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. 
      *         For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -251,14 +272,14 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addcomponent
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addcomponent
      */
     AddComponent(ct, wszLogicalPath, wszComponentName, wszCaption, pbIcon, cbIcon, bRestoreMetadata, bNotifyOnBackupComplete, bSelectable, bSelectableForRestore, dwComponentFlags) {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
@@ -352,7 +373,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -375,14 +396,14 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addfilestofilegroup
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addfilestofilegroup
      */
     AddFilesToFileGroup(wszLogicalPath, wszGroupName, wszPath, wszFilespec, bRecursive, wszAlternateLocation, dwBackupTypeMask) {
         wszLogicalPath := wszLogicalPath is String ? StrPtr(wszLogicalPath) : wszLogicalPath
@@ -397,6 +418,25 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
 
     /**
      * Specifies how an express writer's data is to be restored.
+     * @remarks
+     * An express writer can define only one restore method. If the restore method is not overridden, all of the express writer's components will be restored using the same method.
+     * 
+     * Express writers override the restore method on a component-by-component basis by setting a restore target, typically while handling a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssbackupcomponents-prerestore">PreRestore</a> event (<a href="https://docs.microsoft.com/windows/desktop/api/vswriter/nf-vswriter-cvsswriter-onprerestore">CVssWriter::OnPreRestore</a>).
+     * 
+     * It is important to note that despite the fact that restore methods are applied on a per-writer basis, methods are implemented on a per-component basis. For example, if the method specified by the <i>method</i> parameter is <b>VSS_RME_RESTORE_IF_CAN_REPLACE</b>, then all of the files in the component are restored to their original location if they can all be replaced without an error occurring. Otherwise, they are restored to their alternate location if one is specified.
+     * 
+     * A file can be restored to an alternate location mapping if either of the following is true:
+     * 
+     * <ul>
+     * <li>The restore method is <b>VSS_RME_RESTORE_IF_NOT_THERE</b>, and a version of the file is already present on disk.</li>
+     * <li>The restore method is <b>VSS_RME_RESTORE_IF_CAN_REPLACE</b>, and a version of the file is present on disk and cannot be replaced.</li>
+     * </ul>
+     * If no valid alternate location mapping is defined, this is a writer error.
+     * 
+     * For more information about restore methods, see <a href="https://docs.microsoft.com/windows/desktop/VSS/setting-vss-restore-methods">Setting VSS Restore Methods</a>.
+     * 
+     * If the restore method is VSS_RME_STOP_RESTORE_START or VSS_RME_RESTORE_STOP_START, then the correct name of the service must be provided as the <i>wszService</i> argument. For information on writer participation in stopping and restarting services during a restore operation, see <a href="https://docs.microsoft.com/windows/desktop/VSS/stopping-services-for-restore-by-requestors">Stopping Services for Restore by Requesters</a>.
      * @param {Integer} method A <a href="https://docs.microsoft.com/windows/desktop/api/vswriter/ne-vswriter-vss_restoremethod_enum">VSS_RESTOREMETHOD_ENUM</a> enumeration value specifying the restore method to be used in the restore operation. This parameter is required and cannot be <b>VSS_RME_UNDEFINED</b>, <b>VSS_RME_RESTORE_TO_ALTERNATE_LOCATION</b>, or <b>VSS_RME_CUSTOM</b>.
      * @param {PWSTR} wszService A pointer to a wide character string containing the name of a service that must be stopped prior to a restore operation and then started after the restore operation takes place, if the value of <i>method</i> is <b>VSS_RME_STOP_RESTORE_START</b> or <b>VSS_RME_RESTORE_STOP_START</b>. 
      * 
@@ -455,7 +495,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -467,14 +507,14 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreateexpresswritermetadata-setrestoremethod
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-setrestoremethod
      */
     SetRestoreMethod(method, wszService, wszUserProcedure, writerRestore, bRebootRequired) {
         wszService := wszService is String ? StrPtr(wszService) : wszService
@@ -540,7 +580,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
@@ -563,14 +603,14 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * Unexpected error. The error code is logged in the error log file. For more information, see 
-     *         <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     *         <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * <b>Windows Server 2008, Windows Vista, Windows Server 2003 and Windows XP:  </b>This value is not supported until Windows Server 2008 R2 and Windows 7. E_UNEXPECTED is used instead.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addcomponentdependency
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-addcomponentdependency
      */
     AddComponentDependency(wszForLogicalPath, wszForComponentName, onWriterId, wszOnLogicalPath, wszOnComponentName) {
         wszForLogicalPath := wszForLogicalPath is String ? StrPtr(wszForLogicalPath) : wszForLogicalPath
@@ -584,6 +624,13 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
 
     /**
      * Used by an express writer to indicate in its Writer Metadata Document the types of backup operations it can participate in.
+     * @remarks
+     * If no schema is explicitly set by 
+     * <b>SetBackupSchema</b>, the express writer will be assigned the default value of <b>VSS_BS_UNDEFINED</b>. <b>VSS_BS_UNDEFINED</b> means that the writer supports only simple full backup and restoration of entire files (as defined by <b>VSS_BT_FULL</b>), there is no support for incremental or differential backups, and partial files are not supported. Only the <b>VSS_BS_UNDEFINED</b>, <b>VSS_BS_COPY</b> and <b>VSS_BS_INDEPENDENT_SYSTEM_STATE</b> backup schema types are supported by express writers.
+     * 
+     * Requesters call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-ivssexaminewritermetadata-getbackupschema">IVssExamineWriterMetadata::GetBackupSchema</a> to retrieve a writer's backup schemas as set by 
+     * <b>SetBackupSchema</b>.
      * @param {Integer} dwSchemaMask A bitmask of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ne-vss-vss_backup_schema">VSS_BACKUP_SCHEMA</a> enumeration values that specify the types of backup operations this writer supports.
      * @returns {HRESULT} The following are the valid return codes for this method.
@@ -634,12 +681,12 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
      * </td>
      * <td width="60%">
      * The XML document is not valid. Check the event log for details. For more information, see 
-     * <a href="/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/VSS/event-and-error-handling-under-vss">Event and Error Handling Under VSS</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreateexpresswritermetadata-setbackupschema
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-setbackupschema
      */
     SetBackupSchema(dwSchemaMask) {
         result := ComCall(8, this, "uint", dwSchemaMask, "HRESULT")
@@ -649,7 +696,7 @@ class IVssCreateExpressWriterMetadata extends IUnknown{
     /**
      * Stores the Writer Metadata Document that contains an express writer's state information into a specified string.
      * @returns {BSTR} A pointer to a string to be used to store the Writer Metadata Document that contains a writer's state information.
-     * @see https://docs.microsoft.com/windows/win32/api//vswriter/nf-vswriter-ivsscreateexpresswritermetadata-saveasxml
+     * @see https://learn.microsoft.com/windows/win32/api/vswriter/nf-vswriter-ivsscreateexpresswritermetadata-saveasxml
      */
     SaveAsXML() {
         pbstrXML := BSTR()

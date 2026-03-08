@@ -6,7 +6,7 @@
 
 /**
  * Enumerates an array of STATSTG structures.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-ienumstatstg
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-ienumstatstg
  * @namespace Windows.Win32.System.Com.StructuredStorage
  * @version v4.0.30319
  */
@@ -50,7 +50,7 @@ class IEnumSTATSTG extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The number of <a href="/windows/desktop/api/objidl/ns-objidl-statstg">STATSTG</a> structures returned is equal to the number specified in the <i>celt</i> parameter.
+     * The number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-statstg">STATSTG</a> structures returned is equal to the number specified in the <i>celt</i> parameter.
      * 
      * </td>
      * </tr>
@@ -61,12 +61,12 @@ class IEnumSTATSTG extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The number of <a href="/windows/desktop/api/objidl/ns-objidl-statstg">STATSTG</a> structures returned is less than the number specified in the <i>celt</i> parameter.
+     * The number of <a href="https://docs.microsoft.com/windows/desktop/api/objidl/ns-objidl-statstg">STATSTG</a> structures returned is less than the number specified in the <i>celt</i> parameter.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumstatstg-next
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienumstatstg-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -84,7 +84,7 @@ class IEnumSTATSTG extends IUnknown{
      * |----------------|---------------|
      * | S_OK | The specified number of **STATSTG** structures that were successfully skipped. |
      * | S_FALSE | The number of **STATSTG** structures skipped is less than the *celt* parameter. |
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumstatstg-skip
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienumstatstg-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -112,7 +112,7 @@ class IEnumSTATSTG extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumstatstg-reset
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienumstatstg-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -124,7 +124,7 @@ class IEnumSTATSTG extends IUnknown{
      * @returns {IEnumSTATSTG} A pointer to the variable that receives the  <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ienumstatstg">IEnumSTATSTG</a> interface pointer. 
      * 
      * If the method is unsuccessful, the value of the <i>ppenum</i> parameter is undefined.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-ienumstatstg-clone
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-ienumstatstg-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

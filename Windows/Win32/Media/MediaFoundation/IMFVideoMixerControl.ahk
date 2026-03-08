@@ -6,7 +6,7 @@
 
 /**
  * Controls how the Enhanced Video Renderer (EVR) mixes video substreams.
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-imfvideomixercontrol
+ * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfvideomixercontrol
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,6 +33,8 @@ class IMFVideoMixerControl extends IUnknown{
 
     /**
      * Sets the z-order of a video stream.
+     * @remarks
+     * The EVR draws the video streams in the order of their z-order values, starting with zero. The reference stream must be first in the z-order, and the remaining streams can be in any order.
      * @param {Integer} dwStreamID Identifier of the stream. For the EVR media sink, the stream identifier is defined when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-addstreamsink">IMFMediaSink::AddStreamSink</a> method is called. For the DirectShow EVR filter, the stream identifier corresponds to the pin index. The reference stream is always stream 0.
      * @param {Integer} dwZ Z-order value. The z-order of the reference stream must be zero. The maximum z-order value is the number of streams minus one.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -87,7 +89,7 @@ class IMFVideoMixerControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideomixercontrol-setstreamzorder
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-setstreamzorder
      */
     SetStreamZOrder(dwStreamID, dwZ) {
         result := ComCall(3, this, "uint", dwStreamID, "uint", dwZ, "HRESULT")
@@ -98,7 +100,7 @@ class IMFVideoMixerControl extends IUnknown{
      * Retrieves the z-order of a video stream.
      * @param {Integer} dwStreamID Identifier of the stream. For the EVR media sink, the stream identifier is defined when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-addstreamsink">IMFMediaSink::AddStreamSink</a> method is called. For the DirectShow EVR filter, the stream identifier corresponds to the pin index. The reference stream is always stream 0.
      * @returns {Integer} Receives the z-order value.
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideomixercontrol-getstreamzorder
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-getstreamzorder
      */
     GetStreamZOrder(dwStreamID) {
         result := ComCall(4, this, "uint", dwStreamID, "uint*", &pdwZ := 0, "HRESULT")
@@ -107,6 +109,17 @@ class IMFVideoMixerControl extends IUnknown{
 
     /**
      * Sets the position of a video stream within the composition rectangle.
+     * @remarks
+     * The mixer draws each video stream inside a bounding rectangle that is specified relative to the final video image. This bounding rectangle is given in <i>normalized</i> coordinates. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/evr/ns-evr-mfvideonormalizedrect">MFVideoNormalizedRect</a> structure.
+     *       
+     * 
+     * The coordinates of the bounding rectangle must fall within the range [0.0, 1.0]. Also, the X and Y coordinates of the upper-left corner cannot exceed the X and Y coordinates of the lower-right corner. In other words, the bounding rectangle must fit entirely within the composition rectangle and cannot be flipped vertically or horizontally.
+     *       
+     * 
+     * The following diagram shows how the EVR mixes substreams.
+     * 
+     * <img alt="Diagram showing an image, then that image inside a larger output rectangle, then a portion of the image in a source rectangle" border="" src="./images/d87d365f-a004-4896-ad03-48cd28449403.gif"/>
+     * The output rectangle for the stream is specified by calling <b>SetStreamOutputRect</b>. The source rectangle is specified by calling <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfvideodisplaycontrol-setvideoposition">IMFVideoDisplayControl::SetVideoPosition</a>. The mixer applies the output rectangle first, when it mixes the streams into a single bounding rectangle. This bounding rectangle is called <i>composition space</i>. Then the presenter applies the source rectangle to the composited image.
      * @param {Integer} dwStreamID Identifier of the stream. For the EVR media sink, the stream identifier is defined when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-addstreamsink">IMFMediaSink::AddStreamSink</a> method is called. For the DirectShow EVR filter, the stream identifier corresponds to the pin index. The reference stream is always stream 0.
      * @param {Pointer<MFVideoNormalizedRect>} pnrcOutput Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/evr/ns-evr-mfvideonormalizedrect">MFVideoNormalizedRect</a> structure that defines the bounding rectangle for the video stream.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -154,7 +167,7 @@ class IMFVideoMixerControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideomixercontrol-setstreamoutputrect
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-setstreamoutputrect
      */
     SetStreamOutputRect(dwStreamID, pnrcOutput) {
         result := ComCall(5, this, "uint", dwStreamID, "ptr", pnrcOutput, "HRESULT")
@@ -165,7 +178,7 @@ class IMFVideoMixerControl extends IUnknown{
      * Retrieves the position of a video stream within the composition rectangle.
      * @param {Integer} dwStreamID The identifier of the stream. For the EVR media sink, the stream identifier is defined when the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-addstreamsink">IMFMediaSink::AddStreamSink</a> method is called. For the DirectShow EVR filter, the stream identifier corresponds to the pin index. The reference stream is always stream 0.
      * @returns {MFVideoNormalizedRect} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/evr/ns-evr-mfvideonormalizedrect">MFVideoNormalizedRect</a> structure that receives the bounding rectangle, in normalized coordinates.
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfvideomixercontrol-getstreamoutputrect
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfvideomixercontrol-getstreamoutputrect
      */
     GetStreamOutputRect(dwStreamID) {
         pnrcOutput := MFVideoNormalizedRect()

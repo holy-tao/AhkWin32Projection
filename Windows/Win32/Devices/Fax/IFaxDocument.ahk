@@ -10,11 +10,8 @@
 /**
  * The IFaxDocument interface defines a messaging object used by a fax client application to compose a fax document and submit it to the fax service for processing.
  * @remarks
- * 
  * A default implementation of <b>IFaxDocument</b> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdocument2">IFaxDocument2</a> is provided as the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument">FaxDocument</a> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxdocument
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxdocument
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -179,16 +176,13 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Body property provides the path to the file that comprises the body of a fax. The body of a fax consists of the fax pages other than the cover page.
+     * The IFaxDocument::get_Body property provides the path to the file that comprises the body of a fax. The body of a fax consists of the fax pages other than the cover page. (Get)
      * @remarks
-     * 
      * Examples of documents that you can send as a fax body are a text file (.txt), a Microsoft Word document (.doc), or a Microsoft Excel spreadsheet (.xls). When you send a fax from a client computer, the body has to be associated with an application that is installed on that computer, and the application has to support the <b>PrintTo</b> verb; otherwise, the fax will fail.
      * 
      * Either the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-bodies-vb">Bodies</a> property or the <b>IFaxDocument::get_Body</b> property must be <b>NULL</b>. You must use <b>Bodies</b> if you will be submitting with either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-connectedsubmit2-vb">ConnectedSubmit2</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-submit2-vb">Submit2</a> (both available only in Windows Vista or later). You must use <b>IFaxDocument::get_Body</b> if you will be submitting with either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-connectedsubmit">ConnectedSubmit</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-submit-vb">IFaxDocument::Submit</a>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_body
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_body
      */
     get_Body() {
         pbstrBody := BSTR()
@@ -197,17 +191,14 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Body property provides the path to the file that comprises the body of a fax. The body of a fax consists of the fax pages other than the cover page.
+     * The IFaxDocument::get_Body property provides the path to the file that comprises the body of a fax. The body of a fax consists of the fax pages other than the cover page. (Put)
      * @remarks
-     * 
      * Examples of documents that you can send as a fax body are a text file (.txt), a Microsoft Word document (.doc), or a Microsoft Excel spreadsheet (.xls). When you send a fax from a client computer, the body has to be associated with an application that is installed on that computer, and the application has to support the <b>PrintTo</b> verb; otherwise, the fax will fail.
      * 
      * Either the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-bodies-vb">Bodies</a> property or the <b>IFaxDocument::get_Body</b> property must be <b>NULL</b>. You must use <b>Bodies</b> if you will be submitting with either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-connectedsubmit2-vb">ConnectedSubmit2</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument2-submit2-vb">Submit2</a> (both available only in Windows Vista or later). You must use <b>IFaxDocument::get_Body</b> if you will be submitting with either <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-connectedsubmit">ConnectedSubmit</a> or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-submit-vb">IFaxDocument::Submit</a>.
-     * 
-     * 
      * @param {BSTR} bstrBody 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_body
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_body
      */
     put_Body(bstrBody) {
         bstrBody := bstrBody is String ? BSTR.Alloc(bstrBody).Value : bstrBody
@@ -219,7 +210,7 @@ class IFaxDocument extends IDispatch{
     /**
      * Retrieves an object containing information about the sender of the fax document.
      * @returns {IFaxSender} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_sender
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_sender
      */
     get_Sender() {
         result := ComCall(9, this, "ptr*", &ppFaxSender := 0, "HRESULT")
@@ -229,7 +220,7 @@ class IFaxDocument extends IDispatch{
     /**
      * The IFaxDocument::get_Recipients property retrieves a collection of one or more recipients for the fax document.
      * @returns {IFaxRecipients} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_recipients
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_recipients
      */
     get_Recipients() {
         result := ComCall(10, this, "ptr*", &ppFaxRecipients := 0, "HRESULT")
@@ -237,18 +228,15 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_CoverPage property is a null-terminated string that contains the name of the cover page template file (.cov) to associate with the fax document.
+     * The IFaxDocument::get_CoverPage property is a null-terminated string that contains the name of the cover page template file (.cov) to associate with the fax document. (Get)
      * @remarks
-     * 
      * To specify a server-based cover page file, you must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpagetype-vb">IFaxDocument::get_CoverPageType</a> property to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptSERVER</a>.
      * 
      *                 
      * 
      * To specify a local or personal cover page file, you must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpagetype-vb">IFaxDocument::get_CoverPageType</a> property to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptLOCAL</a>.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_coverpage
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpage
      */
     get_CoverPage() {
         pbstrCoverPage := BSTR()
@@ -257,19 +245,16 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_CoverPage property is a null-terminated string that contains the name of the cover page template file (.cov) to associate with the fax document.
+     * The IFaxDocument::get_CoverPage property is a null-terminated string that contains the name of the cover page template file (.cov) to associate with the fax document. (Put)
      * @remarks
-     * 
      * To specify a server-based cover page file, you must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpagetype-vb">IFaxDocument::get_CoverPageType</a> property to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptSERVER</a>.
      * 
      *                 
      * 
      * To specify a local or personal cover page file, you must set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpagetype-vb">IFaxDocument::get_CoverPageType</a> property to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptLOCAL</a>.
-     * 
-     * 
      * @param {BSTR} bstrCoverPage 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_coverpage
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_coverpage
      */
     put_CoverPage(bstrCoverPage) {
         bstrCoverPage := bstrCoverPage is String ? BSTR.Alloc(bstrCoverPage).Value : bstrCoverPage
@@ -279,9 +264,9 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Subject property is a null-terminated string that contains the contents of the subject field on the cover page of the fax.
+     * The IFaxDocument::get_Subject property is a null-terminated string that contains the contents of the subject field on the cover page of the fax. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_subject
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_subject
      */
     get_Subject() {
         pbstrSubject := BSTR()
@@ -290,10 +275,10 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Subject property is a null-terminated string that contains the contents of the subject field on the cover page of the fax.
+     * The IFaxDocument::get_Subject property is a null-terminated string that contains the contents of the subject field on the cover page of the fax. (Put)
      * @param {BSTR} bstrSubject 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_subject
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_subject
      */
     put_Subject(bstrSubject) {
         bstrSubject := bstrSubject is String ? BSTR.Alloc(bstrSubject).Value : bstrSubject
@@ -303,9 +288,9 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Note property is a null-terminated string that contains the contents of the note field on the cover page of the fax.
+     * The IFaxDocument::get_Note property is a null-terminated string that contains the contents of the note field on the cover page of the fax. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_note
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_note
      */
     get_Note() {
         pbstrNote := BSTR()
@@ -314,10 +299,10 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Note property is a null-terminated string that contains the contents of the note field on the cover page of the fax.
+     * The IFaxDocument::get_Note property is a null-terminated string that contains the contents of the note field on the cover page of the fax. (Put)
      * @param {BSTR} bstrNote 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_note
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_note
      */
     put_Note(bstrNote) {
         bstrNote := bstrNote is String ? BSTR.Alloc(bstrNote).Value : bstrNote
@@ -327,19 +312,16 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ScheduleTime property indicates the time to submit the fax for processing to the fax service.
+     * The IFaxDocument::get_ScheduleTime property indicates the time to submit the fax for processing to the fax service. (Get)
      * @remarks
-     * 
      * If the time specified has passed, the fax service sends the fax as soon as a device is available. By default, <b>IFaxDocument::get_ScheduleTime</b> is set to zero, meaning that no time is specified.
      * 
      * Note that the fax service ignores this parameter unless you set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-scheduletype-vb">IFaxDocument::get_ScheduleType</a> property to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_schedule_type_enum">fstSpecific_TIME</a>.
      * 
      * <div class="alert"><b>Note</b>  The value of the <b>IFaxDocument::get_ScheduleTime</b> property must include the date and time for submitting the fax.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Float} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_scheduletime
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_scheduletime
      */
     get_ScheduleTime() {
         result := ComCall(17, this, "double*", &pdateScheduleTime := 0, "HRESULT")
@@ -347,20 +329,17 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ScheduleTime property indicates the time to submit the fax for processing to the fax service.
+     * The IFaxDocument::get_ScheduleTime property indicates the time to submit the fax for processing to the fax service. (Put)
      * @remarks
-     * 
      * If the time specified has passed, the fax service sends the fax as soon as a device is available. By default, <b>IFaxDocument::get_ScheduleTime</b> is set to zero, meaning that no time is specified.
      * 
      * Note that the fax service ignores this parameter unless you set the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-scheduletype-vb">IFaxDocument::get_ScheduleType</a> property to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_schedule_type_enum">fstSpecific_TIME</a>.
      * 
      * <div class="alert"><b>Note</b>  The value of the <b>IFaxDocument::get_ScheduleTime</b> property must include the date and time for submitting the fax.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Float} dateScheduleTime 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_scheduletime
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_scheduletime
      */
     put_ScheduleTime(dateScheduleTime) {
         result := ComCall(18, this, "double", dateScheduleTime, "HRESULT")
@@ -368,14 +347,11 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ReceiptAddress property is a null-terminated string that indicates the email address to which the fax service should send a delivery receipt when the fax job reaches a final state.
+     * The IFaxDocument::get_ReceiptAddress property is a null-terminated string that indicates the email address to which the fax service should send a delivery receipt when the fax job reaches a final state. (Get)
      * @remarks
-     * 
      * This property has meaning only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-receipttype-vb">ReceiptType</a> property for the document is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtMail</a>, indicating that the delivery receipt will be sent by email.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_receiptaddress
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receiptaddress
      */
     get_ReceiptAddress() {
         pbstrReceiptAddress := BSTR()
@@ -384,15 +360,12 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ReceiptAddress property is a null-terminated string that indicates the email address to which the fax service should send a delivery receipt when the fax job reaches a final state.
+     * The IFaxDocument::get_ReceiptAddress property is a null-terminated string that indicates the email address to which the fax service should send a delivery receipt when the fax job reaches a final state. (Put)
      * @remarks
-     * 
      * This property has meaning only if the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-receipttype-vb">ReceiptType</a> property for the document is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtMail</a>, indicating that the delivery receipt will be sent by email.
-     * 
-     * 
      * @param {BSTR} bstrReceiptAddress 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_receiptaddress
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_receiptaddress
      */
     put_ReceiptAddress(bstrReceiptAddress) {
         bstrReceiptAddress := bstrReceiptAddress is String ? BSTR.Alloc(bstrReceiptAddress).Value : bstrReceiptAddress
@@ -402,9 +375,9 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_DocumentName property is a null-terminated string that contains the user-friendly name to display for the fax document. The value is for display purposes only.
+     * The IFaxDocument::get_DocumentName property is a null-terminated string that contains the user-friendly name to display for the fax document. The value is for display purposes only. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_documentname
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_documentname
      */
     get_DocumentName() {
         pbstrDocumentName := BSTR()
@@ -413,10 +386,10 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_DocumentName property is a null-terminated string that contains the user-friendly name to display for the fax document. The value is for display purposes only.
+     * The IFaxDocument::get_DocumentName property is a null-terminated string that contains the user-friendly name to display for the fax document. The value is for display purposes only. (Put)
      * @param {BSTR} bstrDocumentName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_documentname
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_documentname
      */
     put_DocumentName(bstrDocumentName) {
         bstrDocumentName := bstrDocumentName is String ? BSTR.Alloc(bstrDocumentName).Value : bstrDocumentName
@@ -445,16 +418,13 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_CoverPageType property is a value from an enumeration that indicates whether a specified cover page template file (.cov) is a server-based cover page file or a local-computer-based cover page file.
+     * The IFaxDocument::get_CoverPageType property is a value from an enumeration that indicates whether a specified cover page template file (.cov) is a server-based cover page file or a local-computer-based cover page file. (Get)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_CoverPageType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptNONE</a>, indicating that no file is used.
      * 
      * Provide the name of the cover page in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpage-vb">IFaxDocument::get_CoverPage</a> property.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_coverpagetype
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_coverpagetype
      */
     get_CoverPageType() {
         result := ComCall(25, this, "int*", &pCoverPageType := 0, "HRESULT")
@@ -462,17 +432,14 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_CoverPageType property is a value from an enumeration that indicates whether a specified cover page template file (.cov) is a server-based cover page file or a local-computer-based cover page file.
+     * The IFaxDocument::get_CoverPageType property is a value from an enumeration that indicates whether a specified cover page template file (.cov) is a server-based cover page file or a local-computer-based cover page file. (Put)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_CoverPageType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_coverpage_type_enum">fcptNONE</a>, indicating that no file is used.
      * 
      * Provide the name of the cover page in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-coverpage-vb">IFaxDocument::get_CoverPage</a> property.
-     * 
-     * 
      * @param {Integer} CoverPageType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_coverpagetype
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_coverpagetype
      */
     put_CoverPageType(CoverPageType) {
         result := ComCall(26, this, "int", CoverPageType, "HRESULT")
@@ -480,14 +447,11 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ScheduleType property indicates when to schedule the fax job; for example, you can specify that the fax service send the fax immediately, at a specified time, or during a predefined discount period.
+     * The IFaxDocument::get_ScheduleType property indicates when to schedule the fax job; for example, you can specify that the fax service send the fax immediately, at a specified time, or during a predefined discount period. (Get)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_ScheduleType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_schedule_type_enum">fstNOW</a>, indicating that the fax will be sent as soon as the device is available.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_scheduletype
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_scheduletype
      */
     get_ScheduleType() {
         result := ComCall(27, this, "int*", &pScheduleType := 0, "HRESULT")
@@ -495,15 +459,12 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ScheduleType property indicates when to schedule the fax job; for example, you can specify that the fax service send the fax immediately, at a specified time, or during a predefined discount period.
+     * The IFaxDocument::get_ScheduleType property indicates when to schedule the fax job; for example, you can specify that the fax service send the fax immediately, at a specified time, or during a predefined discount period. (Put)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_ScheduleType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_schedule_type_enum">fstNOW</a>, indicating that the fax will be sent as soon as the device is available.
-     * 
-     * 
      * @param {Integer} ScheduleType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_scheduletype
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_scheduletype
      */
     put_ScheduleType(ScheduleType) {
         result := ComCall(28, this, "int", ScheduleType, "HRESULT")
@@ -511,16 +472,13 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ReceiptType property specifies the type of delivery receipt to deliver when the fax job reaches a final state.
+     * The IFaxDocument::get_ReceiptType property specifies the type of delivery receipt to deliver when the fax job reaches a final state. (Get)
      * @remarks
-     * 
      * The fax service sends a report (a delivery receipt) to the sender of the fax when the fax completes successfully or when the fax transmission fails.
      * 
      * If an email receipt will be sent, an address has to be provided in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-receiptaddress-vb">IFaxDocument::get_ReceiptAddress</a> property. If the receipt type is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtMSGBOX</a>, the message box will appear on the computer from which the document was sent. By default, <b>ReceiptType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtNONE</a>, indicating that no receipt will be sent.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_receipttype
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_receipttype
      */
     get_ReceiptType() {
         result := ComCall(29, this, "int*", &pReceiptType := 0, "HRESULT")
@@ -528,17 +486,14 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_ReceiptType property specifies the type of delivery receipt to deliver when the fax job reaches a final state.
+     * The IFaxDocument::get_ReceiptType property specifies the type of delivery receipt to deliver when the fax job reaches a final state. (Put)
      * @remarks
-     * 
      * The fax service sends a report (a delivery receipt) to the sender of the fax when the fax completes successfully or when the fax transmission fails.
      * 
      * If an email receipt will be sent, an address has to be provided in the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-receiptaddress-vb">IFaxDocument::get_ReceiptAddress</a> property. If the receipt type is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtMSGBOX</a>, the message box will appear on the computer from which the document was sent. By default, <b>ReceiptType</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_receipt_type_enum">frtNONE</a>, indicating that no receipt will be sent.
-     * 
-     * 
      * @param {Integer} ReceiptType 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_receipttype
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_receipttype
      */
     put_ReceiptType(ReceiptType) {
         result := ComCall(30, this, "int", ReceiptType, "HRESULT")
@@ -546,9 +501,9 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_GroupBroadcastReceipts property is a Boolean value that indicates whether to send an individual delivery receipt for each recipient of the broadcast, or to send a summary receipt for all the recipients.
+     * The IFaxDocument::get_GroupBroadcastReceipts property is a Boolean value that indicates whether to send an individual delivery receipt for each recipient of the broadcast, or to send a summary receipt for all the recipients. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_groupbroadcastreceipts
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_groupbroadcastreceipts
      */
     get_GroupBroadcastReceipts() {
         result := ComCall(31, this, "short*", &pbUseGrouping := 0, "HRESULT")
@@ -556,10 +511,10 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_GroupBroadcastReceipts property is a Boolean value that indicates whether to send an individual delivery receipt for each recipient of the broadcast, or to send a summary receipt for all the recipients.
+     * The IFaxDocument::get_GroupBroadcastReceipts property is a Boolean value that indicates whether to send an individual delivery receipt for each recipient of the broadcast, or to send a summary receipt for all the recipients. (Put)
      * @param {VARIANT_BOOL} bUseGrouping 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_groupbroadcastreceipts
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_groupbroadcastreceipts
      */
     put_GroupBroadcastReceipts(bUseGrouping) {
         result := ComCall(32, this, "short", bUseGrouping, "HRESULT")
@@ -567,14 +522,11 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority.
+     * The IFaxDocument::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority. (Get)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_Priority</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_priority_type_enum">fptLow</a>, which indicates low priority.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_priority
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_priority
      */
     get_Priority() {
         result := ComCall(33, this, "int*", &pPriority := 0, "HRESULT")
@@ -582,15 +534,12 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority.
+     * The IFaxDocument::get_Priority property specifies the priority to use when sending the fax; for example, normal, low, or high priority. (Put)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_Priority</b> is set to <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_priority_type_enum">fptLow</a>, which indicates low priority.
-     * 
-     * 
      * @param {Integer} Priority 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_priority
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_priority
      */
     put_Priority(Priority) {
         result := ComCall(34, this, "int", Priority, "HRESULT")
@@ -618,13 +567,21 @@ class IFaxDocument extends IDispatch{
 
     /**
      * The IFaxDocument::Submit method submits a single fax document to the fax service for processing.
+     * @remarks
+     * You must provide the server name when submitting the document. To submit the document to the local server, set the <i>bstrFaxServerName</i> parameter to <b>NULL</b> or an empty string. The method returns a collection of fax job IDs, one for each recipient of the fax.
+     * 
+     * To succeed, the <b>IFaxDocument::Submit</b> method requires that the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdocument">IFaxDocument</a> interface have at least one recipient, and either a cover page or a fax body. You can only use this method if the server (remote or local) is installed as a network printer on the local computer.
+     * 
+     * This method is not supported for a remote connection to a fax server running Windows XP Home Edition or Windows XP Professional, and will return the error <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-error-codes">FAX_E_NOT_SUPPORTED_ON_THIS_SKU</a>.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_NORMAL</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_HIGH</a> access right, depending on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-priority-vb">Priority</a> of the fax document.
      * @param {BSTR} bstrFaxServerName Type: <b>BSTR</b>
      * 
      * <b>BSTR</b> that specifies a fax server. If this parameter is <b>NULL</b> or an empty string, the local fax server is specified.
      * @returns {VARIANT} Type: <b>VARIANT*</b>
      * 
      * <b>VARIANT</b> that specifies a collection of outbound job IDs, one for each recipient of the fax.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-submit
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-submit
      */
     Submit(bstrFaxServerName) {
         bstrFaxServerName := bstrFaxServerName is String ? BSTR.Alloc(bstrFaxServerName).Value : bstrFaxServerName
@@ -636,13 +593,19 @@ class IFaxDocument extends IDispatch{
 
     /**
      * The IFaxDocument::ConnectedSubmit method submits a single fax document to the connected IFaxServer. The method returns an array of fax job ID strings, one for each recipient of the fax.
+     * @remarks
+     * <div class="alert"><b>Note</b>  To succeed, the <b>IFaxDocument::ConnectedSubmit</b> method requires that the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxdocument">IFaxDocument</a> object have at least one recipient, and either a cover page or a fax body. You can only use this method if the server (remote or local) is installed as a network printer on the local computer.</div>
+     * <div> </div>
+     * This method is not supported for a remote connection to a fax server running Windows XP Home Edition or Windows XP Professional, and will return the error: <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-fax-error-codes">FAX_E_NOT_SUPPORTED_ON_THIS_SKU</a>.
+     * 
+     * To use this method, a user must have the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_LOW</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_NORMAL</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/ne-faxcomex-fax_access_rights_enum">farSUBMIT_HIGH</a> access right, depending on the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxdocument-priority-vb">IFaxDocument::get_Priority</a> of the fax document.
      * @param {IFaxServer} pFaxServer Type: <b>IFaxServer*</b>
      * 
      * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxserver">IFaxServer</a> interface that specifies a connected fax server.
      * @returns {VARIANT} Type: <b>VARIANT*</b>
      * 
      * <b>VARIANT</b> that holds an array of outbound job ID strings, one for each recipient of the fax.
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-connectedsubmit
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-connectedsubmit
      */
     ConnectedSubmit(pFaxServer) {
         pvFaxOutgoingJobIDs := VARIANT()
@@ -651,16 +614,13 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_AttachFaxToReceipt property indicates whether to attach a fax to the receipt.
+     * The IFaxDocument::get_AttachFaxToReceipt property indicates whether to attach a fax to the receipt. (Get)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_AttachFaxToReceipt</b> is set to <b>FALSE</b>.
      * 
      * When a fax consisting only of a cover page is sent to multiple recipients, you cannot attach the fax to the receipt because the fax differs for each recipient. If there is a fax body, then the body can be attached to the receipt, even when there are multiple recipients.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-get_attachfaxtoreceipt
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-get_attachfaxtoreceipt
      */
     get_AttachFaxToReceipt() {
         result := ComCall(39, this, "short*", &pbAttachFax := 0, "HRESULT")
@@ -668,17 +628,14 @@ class IFaxDocument extends IDispatch{
     }
 
     /**
-     * The IFaxDocument::get_AttachFaxToReceipt property indicates whether to attach a fax to the receipt.
+     * The IFaxDocument::get_AttachFaxToReceipt property indicates whether to attach a fax to the receipt. (Put)
      * @remarks
-     * 
      * By default, <b>IFaxDocument::get_AttachFaxToReceipt</b> is set to <b>FALSE</b>.
      * 
      * When a fax consisting only of a cover page is sent to multiple recipients, you cannot attach the fax to the receipt because the fax differs for each recipient. If there is a fax body, then the body can be attached to the receipt, even when there are multiple recipients.
-     * 
-     * 
      * @param {VARIANT_BOOL} bAttachFax 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nf-faxcomex-ifaxdocument-put_attachfaxtoreceipt
+     * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-ifaxdocument-put_attachfaxtoreceipt
      */
     put_AttachFaxToReceipt(bAttachFax) {
         result := ComCall(40, this, "short", bAttachFax, "HRESULT")

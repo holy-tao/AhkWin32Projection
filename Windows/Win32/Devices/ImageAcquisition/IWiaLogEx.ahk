@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * This interface is not supported.
- * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nn-wia_xp-iwialogex
+ * This interface is not supported. (IWiaLogEx)
+ * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nn-wia_xp-iwialogex
  * @namespace Windows.Win32.Devices.ImageAcquisition
  * @version v4.0.30319
  */
@@ -32,12 +32,12 @@ class IWiaLogEx extends IUnknown{
     static VTableNames => ["InitializeLogEx", "hResult", "Log", "hResultEx", "LogEx"]
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLogEx.InitializeLogEx)
      * @param {Pointer<Integer>} hInstance Type: <b>BYTE*</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialogex-initializelogex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-initializelogex
      */
     InitializeLogEx(hInstance) {
         hInstanceMarshal := hInstance is VarRef ? "char*" : "ptr"
@@ -47,12 +47,12 @@ class IWiaLogEx extends IUnknown{
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLogEx.hResult)
      * @param {HRESULT} hResult Type: <b>HRESULT</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialogex-hresult
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-hresult
      */
     hResult(hResult) {
         result := ComCall(4, this, "int", hResult, "HRESULT")
@@ -60,15 +60,15 @@ class IWiaLogEx extends IUnknown{
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLogEx.Log)
      * @param {Integer} lFlags Type: <b>LONG</b>
      * @param {Integer} lResID Type: <b>LONG</b>
      * @param {Integer} lDetail Type: <b>LONG</b>
      * @param {BSTR} bstrText Type: <b>BSTR</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialogex-log
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-log
      */
     Log(lFlags, lResID, lDetail, bstrText) {
         bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText
@@ -78,13 +78,13 @@ class IWiaLogEx extends IUnknown{
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLogEx.hResultEx)
      * @param {Integer} lMethodId Type: <b>LONG</b>
      * @param {HRESULT} hResult Type: <b>HRESULT</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialogex-hresultex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-hresultex
      */
     hResultEx(lMethodId, hResult) {
         result := ComCall(6, this, "int", lMethodId, "int", hResult, "HRESULT")
@@ -92,7 +92,7 @@ class IWiaLogEx extends IUnknown{
     }
 
     /**
-     * This method is not supported.
+     * This method is not supported. (IWiaLogEx.LogEx)
      * @param {Integer} lMethodId Type: <b>LONG</b>
      * @param {Integer} lFlags Type: <b>LONG</b>
      * @param {Integer} lResID Type: <b>LONG</b>
@@ -100,8 +100,8 @@ class IWiaLogEx extends IUnknown{
      * @param {BSTR} bstrText Type: <b>BSTR</b>
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wia_xp/nf-wia_xp-iwialogex-logex
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/wia_xp/nf-wia_xp-iwialogex-logex
      */
     LogEx(lMethodId, lFlags, lResID, lDetail, bstrText) {
         bstrText := bstrText is String ? BSTR.Alloc(bstrText).Value : bstrText

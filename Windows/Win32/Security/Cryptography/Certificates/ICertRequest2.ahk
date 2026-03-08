@@ -6,8 +6,8 @@
 #Include .\ICertRequest.ahk
 
 /**
- * Provide communications between a client or intermediary application and Certificate Services.
- * @see https://docs.microsoft.com/windows/win32/api//certcli/nn-certcli-icertrequest2
+ * Provide communications between a client or intermediary application and Certificate Services. (ICertRequest2)
+ * @see https://learn.microsoft.com/windows/win32/api/certcli/nn-certcli-icertrequest2
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class ICertRequest2 extends ICertRequest{
      * @param {Integer} RequestId A <b>LONG</b> value that represents the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">certificate request</a> ID in the Certificates Services database. Use –1 for this value if the serial number (passed in as <i>strSerialNumber</i>) is to be used instead of the request ID.
      * @param {BSTR} strSerialNumber A <b>BSTR</b> value that represents the certificate serial number, as issued by the CA. For <i>strSerialNumber</i> to be used, you must specify a value of –1 for <i>RequestId</i>.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest2-getissuedcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getissuedcertificate
      */
     GetIssuedCertificate(strConfig, RequestId, strSerialNumber) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -83,7 +83,7 @@ class ICertRequest2 extends ICertRequest{
      * </tr>
      * </table>
      * @returns {BSTR} A pointer to the <b>BSTR</b> that represents the error message text for <i>hrMessage</i>. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest2-geterrormessagetext
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-geterrormessagetext
      */
     GetErrorMessageText(hrMessage, Flags) {
         pstrErrorMessageText := BSTR()
@@ -92,7 +92,7 @@ class ICertRequest2 extends ICertRequest{
     }
 
     /**
-     * Retrieves a property value for the certification authority (CA).
+     * Retrieves a property value for the certification authority (CA). (ICertRequest2.GetCAProperty)
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form COMPUTERNAME\CANAME, where COMPUTERNAME is the Certificate Services server's network name, and CANAME is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * @param {Integer} PropId Specifies the property identifier. For information about this parameter, see the table in 
@@ -247,7 +247,7 @@ class ICertRequest2 extends ICertRequest{
      * @returns {VARIANT} A pointer to a <b>VARIANT</b> that receives the requested property value.
      * 
      * When you have finished using the <b>VARIANT</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-variantclear">VariantClear</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest2-getcaproperty
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getcaproperty
      */
     GetCAProperty(strConfig, PropId, PropIndex, PropType, Flags) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -259,12 +259,19 @@ class ICertRequest2 extends ICertRequest{
 
     /**
      * Retrieves the property flags for a certification authority (CA) property.
+     * @remarks
+     * The <b>GetCAPropertyFlags</b> method's functionality is similar to that of the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin2-getcapropertyflags">ICertAdmin2::GetCAPropertyFlags</a> method. 
+     * 
+     * In the ICertAdmin2 method, the CA enforces that the caller has CA read access, which is usually only granted to CA officers and CA administrators.
+     * 
+     * By contrast, in the ICertRequest2 and ICertRequest3 implementations of the method, the CA does not require any access rights by default.  Only Distributed Component Object Model (DCOM) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control lists</a> (ACLs) are enforced; for a domain-joined CA, the DCOM ACLs allow Everyone access to the CAs.  Everyone does not include Anonymous.
+     * The CA's request interface can be locked down by using the registry configuration to enforce that the caller has enroll access.
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form <i>ComputerName</i><b>\\</b><i>CAName</i>, where <i>ComputerName</i> is the network name of the Certificate Services server, and <i>CAName</i> is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * @param {Integer} PropId Specifies the property identifier. For information about this parameter, see the table in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin2-getcaproperty">ICertAdmin2::GetCAProperty</a>.
      * @returns {Integer} A pointer to a <b>LONG</b> value that represents the property flags.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest2-getcapropertyflags
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getcapropertyflags
      */
     GetCAPropertyFlags(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -275,12 +282,19 @@ class ICertRequest2 extends ICertRequest{
 
     /**
      * Retrieves the property display name for a certification authority (CA) property.
+     * @remarks
+     * The <b>GetCAPropertyDisplayName</b> method's functionality is similar to that of the <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin2-getcapropertydisplayname">ICertAdmin2::GetCAPropertyDisplayName</a> method. 
+     * 
+     * In the ICertAdmin2 method, the CA enforces that the caller has CA read access, which is usually only granted to CA officers and CA administrators.
+     * 
+     * By contrast, in the ICertRequest2 and ICertRequest3 implementations of the method, the CA does not require any access rights by default.  Only Distributed Component Object Model (DCOM) <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access control lists</a> (ACLs) are enforced; for a domain-joined CA, the DCOM ACLs allow Everyone access to the CAs.  Everyone does not include Anonymous.
+     * The CA's request interface can be locked down by using the registry configuration to enforce that the caller has enroll access.
      * @param {BSTR} strConfig Represents a valid configuration string for the CA in the form <i>ComputerName</i><b>\\</b><i>CAName</i>, where <i>ComputerName</i> is the network name of the Certificate Services server, and <i>CAName</i> is the common name of the CA, as entered during Certificate Services setup. For information about the configuration string name, see 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nn-certcli-icertconfig">ICertConfig</a>.
      * @param {Integer} PropId Specifies the property identifier. For information about this parameter, see the table in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/certadm/nf-certadm-icertadmin2-getcaproperty">ICertAdmin2::GetCAProperty</a>.
      * @returns {BSTR} A pointer to the <b>BSTR</b> that represents the property's display name. When you have finished using the <b>BSTR</b>, free it by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> function.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest2-getcapropertydisplayname
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getcapropertydisplayname
      */
     GetCAPropertyDisplayName(strConfig, PropId) {
         strConfig := strConfig is String ? BSTR.Alloc(strConfig).Value : strConfig
@@ -292,6 +306,28 @@ class ICertRequest2 extends ICertRequest{
 
     /**
      * Retrieves the cached response data returned by the server.
+     * @remarks
+     * The following <i>PropId</i> values return binary data, which means that the <i>Flags</i> parameter must set to CR_OUT_BINARY:
+     * 
+     * <ul>
+     * <li>FR_PROP_FULLRESPONSE</li>
+     * <li>FR_PROP_ISSUEDCERTIFICATEHASH</li>
+     * <li>FR_PROP_ISSUEDCERTIFICATE</li>
+     * <li>FR_PROP_ISSUEDCERTIFICATECHAIN</li>
+     * <li>FR_PROP_ISSUEDCERTIFICATECRLCHAIN</li>
+     * <li>FR_PROP_ENCRYPTEDKYEHASH</li>
+     * <li>FR_PROP_FULLRESPONSENOPKCS7</li>
+     * </ul>
+     * This method is called after the <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-submit">ICertRequest3::Submit</a> or <a href="https://docs.microsoft.com/windows/desktop/api/certcli/nf-certcli-icertrequest-retrievepending">ICertRequest3::RetrievePending</a> methods have been called. These methods populate the cached data that is returned by <b>GetFullResponseProperty</b>.
+     * 
+     * After the <b>ICertRequest3::GetFullResponseProperty</b> method returns its data, the following methods can be called:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll4-acceptresponse">ICEnroll4::AcceptResponse</a> can be called to install the returned certificate.</li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/xenroll/nf-xenroll-icenroll4-getcertfromresponse">ICEnroll4::GetCertFromResponse</a> can be called to parse the certificate from the response.</li>
+     * </ul>
      * @param {Integer} PropId The data to be retrieved. If the property is indexed, use <i>PropIndex</i> to specify the index.
      * @param {Integer} PropIndex The zero-based index when <i>PropId</i> is an indexed property. If <i>PropId</i> is not an indexed property, then <i>PropIndex</i> must be zero.
      * @param {Integer} PropType The type of data returned in <i>pvarPropertyValue</i>. The property type here must match the type of data specified by the <i>PropId</i> parameter.
@@ -301,7 +337,7 @@ class ICertRequest2 extends ICertRequest{
      * 
      * For more information, see Remarks.
      * @returns {VARIANT} The data returned.
-     * @see https://docs.microsoft.com/windows/win32/api//certcli/nf-certcli-icertrequest2-getfullresponseproperty
+     * @see https://learn.microsoft.com/windows/win32/api/certcli/nf-certcli-icertrequest2-getfullresponseproperty
      */
     GetFullResponseProperty(PropId, PropIndex, PropType, Flags) {
         pvarPropertyValue := VARIANT()

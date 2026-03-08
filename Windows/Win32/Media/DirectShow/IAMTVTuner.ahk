@@ -5,7 +5,7 @@
 
 /**
  * The IAMTVTuner interface controls a TV tuner.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtvtuner
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtvtuner
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -76,7 +76,7 @@ class IAMTVTuner extends IAMTuner{
     /**
      * The get_AvailableTVFormats method retrieves all the analog video TV standards that the tuner supports.
      * @returns {Integer} Pointer to a variable that receives a bitwise combination of values from the [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-get_availabletvformats
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_availabletvformats
      */
     get_AvailableTVFormats() {
         result := ComCall(18, this, "int*", &lAnalogVideoStandard := 0, "HRESULT")
@@ -86,7 +86,7 @@ class IAMTVTuner extends IAMTuner{
     /**
      * The get_TVFormat method retrieves the current analog video TV standard in use.
      * @returns {Integer} Pointer to a variable that receives a member of the [AnalogVideoStandard](/windows/desktop/api/strmif/ne-strmif-analogvideostandard) enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-get_tvformat
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_tvformat
      */
     get_TVFormat() {
         result := ComCall(19, this, "int*", &plAnalogVideoStandard := 0, "HRESULT")
@@ -95,9 +95,13 @@ class IAMTVTuner extends IAMTuner{
 
     /**
      * The AutoTune method scans for a precise signal on the channel's frequency.
+     * @remarks
+     * TV channels generally map to a unique frequency depending on regional variances. To avoid interference between multiple transmitters that are assigned the same channel when they are in close geographic proximity, small frequency offsets are introduced at each transmitter. In the United States, this offset ranges up to +/– 26.25 kilohertz (kHz).
+     * 
+     * This method handles the channel-to-frequency conversion and scans for the most precise frequency. Store these values by calling the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamtvtuner-storeautotune">IAMTVTuner::StoreAutoTune</a> method. You can find base frequencies for channels in the appendix <a href="https://docs.microsoft.com/windows/desktop/DirectShow/international-analog-tv-tuning">International Analog TV Tuning</a>.
      * @param {Integer} lChannel TV channel number.
      * @returns {Integer} Pointer to a variable indicating whether the channel's frequency was found; nonzero indicates found, zero indicates not found.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-autotune
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-autotune
      */
     AutoTune(lChannel) {
         result := ComCall(20, this, "int", lChannel, "int*", &plFoundSignal := 0, "HRESULT")
@@ -106,8 +110,10 @@ class IAMTVTuner extends IAMTuner{
 
     /**
      * The StoreAutoTune method saves the fine-tuning information for all channels.
+     * @remarks
+     * Override the channel-to-frequency information stored by this method by setting a new country/region code in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamtuner-put_countrycode">IAMTuner::put_CountryCode</a> method. For a listing of country/region codes, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/international-analog-tv-tuning">International Analog TV Tuning</a>.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-storeautotune
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-storeautotune
      */
     StoreAutoTune() {
         result := ComCall(21, this, "HRESULT")
@@ -117,7 +123,7 @@ class IAMTVTuner extends IAMTuner{
     /**
      * The get_NumInputConnections method retrieves the number of TV sources plugged into the tuner filter.
      * @returns {Integer} Pointer to a variable that receives the number of TV sources plugged into the tuner filter.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-get_numinputconnections
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_numinputconnections
      */
     get_NumInputConnections() {
         result := ComCall(22, this, "int*", &plNumInputConnections := 0, "HRESULT")
@@ -129,7 +135,7 @@ class IAMTVTuner extends IAMTuner{
      * @param {Integer} lIndex Index value that specifies the input pin to be set.
      * @param {Integer} InputType Value indicating the connection type, as specified in the [TunerInputType](/windows/desktop/api/strmif/ne-strmif-tunerinputtype) enumeration.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-put_inputtype
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-put_inputtype
      */
     put_InputType(lIndex, InputType) {
         result := ComCall(23, this, "int", lIndex, "int", InputType, "HRESULT")
@@ -140,7 +146,7 @@ class IAMTVTuner extends IAMTuner{
      * The get_InputType method retrieves the input type set in IAMTVTuner::put_InputType.
      * @param {Integer} lIndex Index value that specifies the input pin that will be set.
      * @returns {Integer} Pointer to a variable the receives a member of the [TunerInputType](/windows/desktop/api/strmif/ne-strmif-tunerinputtype) enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-get_inputtype
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_inputtype
      */
     get_InputType(lIndex) {
         result := ComCall(24, this, "int", lIndex, "int*", &pInputType := 0, "HRESULT")
@@ -151,7 +157,7 @@ class IAMTVTuner extends IAMTuner{
      * The put_ConnectInput method sets the hardware tuner input connection.
      * @param {Integer} lIndex Index value of the input pin to set connection for.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value that depends on the implementation of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-put_connectinput
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-put_connectinput
      */
     put_ConnectInput(lIndex) {
         result := ComCall(25, this, "int", lIndex, "HRESULT")
@@ -161,7 +167,7 @@ class IAMTVTuner extends IAMTuner{
     /**
      * The get_ConnectInput method retrieves the hardware tuner input connection.
      * @returns {Integer} Pointer to the input pin to get the connection for.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-get_connectinput
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_connectinput
      */
     get_ConnectInput() {
         result := ComCall(26, this, "int*", &plIndex := 0, "HRESULT")
@@ -170,8 +176,10 @@ class IAMTVTuner extends IAMTuner{
 
     /**
      * The get_VideoFrequency method retrieves the current video frequency.
+     * @remarks
+     * This is a diagnostic method that enables you to examine the exact frequency being used for a given channel.
      * @returns {Integer} Pointer to a variable that receives the video frequency, in hertz (Hz).
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-get_videofrequency
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_videofrequency
      */
     get_VideoFrequency() {
         result := ComCall(27, this, "int*", &lFreq := 0, "HRESULT")
@@ -180,8 +188,10 @@ class IAMTVTuner extends IAMTuner{
 
     /**
      * The get_AudioFrequency method retrieves the currently tuned audio frequency.
+     * @remarks
+     * This is a diagnostic method that enables you to examine the exact frequency being used for a given channel.
      * @returns {Integer} Pointer to a variable that receives the audio frequency, in hertz (Hz).
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtvtuner-get_audiofrequency
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtvtuner-get_audiofrequency
      */
     get_AudioFrequency() {
         result := ComCall(28, this, "int*", &lFreq := 0, "HRESULT")

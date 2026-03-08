@@ -10,11 +10,8 @@
 /**
  * Downloads updates from the server.
  * @remarks
- * 
  * You can create an instance of this interface by using the UpdateDownloader coclass. Use the Microsoft.Update.Downloader program identifier to create the object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdatedownloader
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdatedownloader
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -78,14 +75,11 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets the current client application.
+     * Gets and sets the current client application. (IUpdateDownloader.get_ClientApplicationID)
      * @remarks
-     * 
      * Returns the value Unknown if the client application has not set the property.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-get_clientapplicationid
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_clientapplicationid
      */
     get_ClientApplicationID() {
         retval := BSTR()
@@ -94,15 +88,12 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets the current client application.
+     * Gets and sets the current client application. (IUpdateDownloader.put_ClientApplicationID)
      * @remarks
-     * 
      * Returns the value Unknown if the client application has not set the property.
-     * 
-     * 
      * @param {BSTR} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-put_clientapplicationid
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-put_clientapplicationid
      */
     put_ClientApplicationID(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -112,14 +103,11 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether the Windows Update Agent (WUA) forces the download of updates that are already installed or that cannot be installed.
+     * Gets and sets a Boolean value that indicates whether the Windows Update Agent (WUA) forces the download of updates that are already installed or that cannot be installed. (Get)
      * @remarks
-     * 
      * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is implementing the interface is locked down.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-get_isforced
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_isforced
      */
     get_IsForced() {
         result := ComCall(9, this, "short*", &retval := 0, "HRESULT")
@@ -127,15 +115,12 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets a Boolean value that indicates whether the Windows Update Agent (WUA) forces the download of updates that are already installed or that cannot be installed.
+     * Gets and sets a Boolean value that indicates whether the Windows Update Agent (WUA) forces the download of updates that are already installed or that cannot be installed. (Put)
      * @remarks
-     * 
      * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is implementing the interface is locked down.
-     * 
-     * 
      * @param {VARIANT_BOOL} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-put_isforced
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-put_isforced
      */
     put_IsForced(value) {
         result := ComCall(10, this, "short", value, "HRESULT")
@@ -143,9 +128,9 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets the priority level of the download.
+     * Gets and sets the priority level of the download. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-get_priority
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_priority
      */
     get_Priority() {
         result := ComCall(11, this, "int*", &retval := 0, "HRESULT")
@@ -153,10 +138,10 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets the priority level of the download.
+     * Gets and sets the priority level of the download. (Put)
      * @param {Integer} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-put_priority
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-put_priority
      */
     put_Priority(value) {
         result := ComCall(12, this, "int", value, "HRESULT")
@@ -164,9 +149,9 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets an interface that contains a read-only collection of the updates that are specified for download.
+     * Gets and sets an interface that contains a read-only collection of the updates that are specified for download. (Get)
      * @returns {IUpdateCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-get_updates
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-get_updates
      */
     get_Updates() {
         result := ComCall(13, this, "ptr*", &retval := 0, "HRESULT")
@@ -174,10 +159,10 @@ class IUpdateDownloader extends IDispatch{
     }
 
     /**
-     * Gets and sets an interface that contains a read-only collection of the updates that are specified for download.
+     * Gets and sets an interface that contains a read-only collection of the updates that are specified for download. (Put)
      * @param {IUpdateCollection} value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-put_updates
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-put_updates
      */
     put_Updates(value) {
         result := ComCall(14, this, "ptr", value, "HRESULT")
@@ -186,6 +171,18 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * Starts an asynchronous download of the content files that are associated with the updates.
+     * @remarks
+     * As an alternative to implementing the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadprogresschangedcallback">IDownloadProgressChangedCallback</a> interface, you can use a script to   implement a callback routine of any identifier with DISPID 0 on an automation object. The type of the  <i>onProgressChanged</i> parameter is <b>IUnknown*</b>.
+     * 
+     *   As an alternative to implementing the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadcompletedcallback">IDownloadCompletedCallback</a> interface, you can use a script to   implement a callback routine of any identifier with DISPID 0 on an automation object. The type of the  <i>onCompleted</i> parameter is <b>IUnknown*</b>.
+     * 
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is implementing the interface is  locked down.
+     * 
+     * This method returns <b>WU_E_NO_UPDATE</b> if the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatedownloader-get_updates">Updates</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatedownloader">IUpdateDownloader</a> interface is not set. This method also returns WU_E_NO_UPDATE if the <b>Updates</b> property is set to an empty collection.
+     * 
+     * This method returns <b>SUS_E_NOT_INITIALIZED</b> if the download job contains no updates.
+     * 
+     * When you use any asynchronous WUA API in your app, you might need to implement a time-out mechanism. For more info about how to perform asynchronous WUA operations, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/guidelines-for-asynchronous-wua-operations">Guidelines for Asynchronous WUA Operations</a>.
      * @param {IUnknown} onProgressChanged An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadprogresschangedcallback">IDownloadProgressChangedCallback</a> interface that is called periodically for download progress changes before download is complete.
      * @param {IUnknown} onCompleted An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadcompletedcallback">IDownloadCompletedCallback</a> interface (C++/COM) that is called when an asynchronous download operation is complete.
      * @param {VARIANT} state The caller-specific state that the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-idownloadjob-get_asyncstate">AsyncState</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadjob">IDownloadJob</a> interface returns. A caller may use this parameter to attach a value to the download job object. This  allows the caller to retrieve custom information about that download job object at a later time.
@@ -195,7 +192,7 @@ class IUpdateDownloader extends IDispatch{
      * </div>
      * <div> </div>
      * @returns {IDownloadJob} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadjob">IDownloadJob</a> interface that contains the properties and methods that are available to a download operation that has started.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-begindownload
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-begindownload
      */
     BeginDownload(onProgressChanged, onCompleted, state) {
         result := ComCall(15, this, "ptr", onProgressChanged, "ptr", onCompleted, "ptr", state, "ptr*", &retval := 0, "HRESULT")
@@ -204,8 +201,14 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * Starts a synchronous download of the content files that are associated with the updates.
+     * @remarks
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is implementing the interface is locked down.
+     * 
+     * This method returns <b>WU_E_NO_UPDATE</b> if the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatedownloader-get_updates">Updates</a> property of the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatedownloader">IUpdateDownloader</a> interface is not set. This method also returns <b>WU_E_NO_UPDATE</b> if the <b>Updates</b> property is set to an empty collection.
+     * 
+     * This method returns <b>SUS_E_NOT_INITIALIZED</b> if the download job does not contain updates.
      * @returns {IDownloadResult} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadresult">IDownloadResult</a> interface that contains result codes for the download.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-download
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-download
      */
     Download() {
         result := ComCall(16, this, "ptr*", &retval := 0, "HRESULT")
@@ -214,9 +217,13 @@ class IUpdateDownloader extends IDispatch{
 
     /**
      * Completes an asynchronous download.
+     * @remarks
+     * This method returns <b>WU_E_INVALID_OPERATION</b> if the object that is implementing the interface is locked down.
+     * 
+     * When you use any asynchronous WUA API in your app, you might need to implement a time-out mechanism. For more info about how to perform asynchronous WUA operations, see <a href="https://docs.microsoft.com/windows/desktop/Wua_Sdk/guidelines-for-asynchronous-wua-operations">Guidelines for Asynchronous WUA Operations</a>.
      * @param {IDownloadJob} value The <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadjob">IDownloadJob</a> interface pointer that  <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdatedownloader-begindownload">BeginDownload</a> returns.
      * @returns {IDownloadResult} An <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-idownloadresult">IDownloadResult</a> interface that contains result codes for a download.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdatedownloader-enddownload
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdatedownloader-enddownload
      */
     EndDownload(value) {
         result := ComCall(17, this, "ptr", value, "ptr*", &retval := 0, "HRESULT")

@@ -6,14 +6,10 @@
 /**
  * Provides read-only access to the properties section of a package manifest.
  * @remarks
- * 
  * The properties section of the manifest is defined using the <a href="https://docs.microsoft.com/uwp/schemas/appxpackage/appxmanifestschema/element-properties">Properties</a> element.
  * 
  * This object can be retrieved using the <a href="https://docs.microsoft.com/windows/desktop/api/appxpackaging/nf-appxpackaging-iappxmanifestreader-getproperties">IAppxManifestReader::GetProperties</a> method.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestproperties
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestproperties
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -40,6 +36,8 @@ class IAppxManifestProperties extends IUnknown{
 
     /**
      * Gets the value of the specified Boolean element in the properties section.
+     * @remarks
+     * If a valid Boolean property with this name is not defined in the manifest, this method  returns <b>E_INVALIDARG</b> and <i>value</i> is <b>FALSE</b>.
      * @param {PWSTR} name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the Boolean element. Valid values include:
@@ -50,7 +48,7 @@ class IAppxManifestProperties extends IUnknown{
      * @returns {BOOL} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BOOL</a>*</b>
      * 
      * The value of the specified Boolean element.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestproperties-getboolvalue
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestproperties-getboolvalue
      */
     GetBoolValue(name) {
         name := name is String ? StrPtr(name) : name
@@ -61,6 +59,10 @@ class IAppxManifestProperties extends IUnknown{
 
     /**
      * Gets the value of the specified string element in the properties section.
+     * @remarks
+     * If a valid string property with this name is not defined in the manifest, this method  returns <b>E_INVALIDARG</b> and  <i>value</i> receives a null string.
+     * 
+     * The caller must free the memory allocated for <i>value</i> using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {PWSTR} name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the string element. Valid values include:
@@ -75,7 +77,7 @@ class IAppxManifestProperties extends IUnknown{
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The value of the specified element.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestproperties-getstringvalue
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestproperties-getstringvalue
      */
     GetStringValue(name) {
         name := name is String ? StrPtr(name) : name

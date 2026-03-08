@@ -5,7 +5,7 @@
 
 /**
  * This interface enables registration for notifications to detect adapter enumeration state changes.
- * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nn-dxgi1_6-idxgifactory7
+ * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nn-dxgi1_6-idxgifactory7
  * @namespace Windows.Win32.Graphics.Dxgi
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IDXGIFactory7 extends IDXGIFactory6{
      * Registers to receive notification of changes whenever the adapter enumeration state changes.
      * @param {HANDLE} hEvent A handle to the event object.
      * @returns {Integer} A key value for the registered event.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nf-dxgi1_6-idxgifactory7-registeradapterschangedevent
+     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory7-registeradapterschangedevent
      */
     RegisterAdaptersChangedEvent(hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -47,7 +47,7 @@ class IDXGIFactory7 extends IDXGIFactory6{
      * Unregisters an event to stop receiving notifications when the adapter enumeration state changes.
      * @param {Integer} dwCookie A key value for the event to unregister.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful; an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dxgi1_6/nf-dxgi1_6-idxgifactory7-unregisteradapterschangedevent
+     * @see https://learn.microsoft.com/windows/win32/api/dxgi1_6/nf-dxgi1_6-idxgifactory7-unregisteradapterschangedevent
      */
     UnregisterAdaptersChangedEvent(dwCookie) {
         result := ComCall(31, this, "uint", dwCookie, "HRESULT")

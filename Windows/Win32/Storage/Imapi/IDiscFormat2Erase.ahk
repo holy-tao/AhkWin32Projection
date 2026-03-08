@@ -8,11 +8,8 @@
 /**
  * Use this interface to erase data from a disc.
  * @remarks
- * 
  * To create the <b>MsftDiscFormat2Erase</b> object in a script, use IMAPI2.MsftDiscFormat2Erase as the program identifier when calling <b>CreateObject</b>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscformat2erase
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2erase
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -70,9 +67,11 @@ class IDiscFormat2Erase extends IDiscFormat2{
 
     /**
      * Sets the recording device to use in the erase operation.
+     * @remarks
+     * The recorder must be compatible with the format defined by this  interface. To determine compatibility, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2-isrecordersupported">IDiscFormat2::IsRecorderSupported</a> method.
      * @param {IDiscRecorder2} value An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2">IDiscRecorder2</a> interface that identifies the recording device to use in the erase operation.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-put_recorder
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-put_recorder
      */
     put_Recorder(value) {
         result := ComCall(12, this, "ptr", value, "HRESULT")
@@ -82,7 +81,7 @@ class IDiscFormat2Erase extends IDiscFormat2{
     /**
      * Retrieves the recording device to use in the erase operation.
      * @returns {IDiscRecorder2} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2">IDiscRecorder2</a> interface that identifies the recording device to use in the erase operation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-get_recorder
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_recorder
      */
     get_Recorder() {
         result := ComCall(13, this, "ptr*", &value := 0, "HRESULT")
@@ -90,14 +89,14 @@ class IDiscFormat2Erase extends IDiscFormat2{
     }
 
     /**
-     * Determines the quality of the disc erasure.
+     * Determines the quality of the disc erasure. (Put)
      * @param {VARIANT_BOOL} value Set to VARIANT_TRUE to fully erase the disc by overwriting the  entire medium at least once. 
      * 
      * Set to VARIANT_FALSE to overwrite the directory tracks, but not the entire disc. This option requires less time to perform than the full erase option. 
      * 
      * The default is VARIANT_FALSE.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-put_fullerase
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-put_fullerase
      */
     put_FullErase(value) {
         result := ComCall(14, this, "short", value, "HRESULT")
@@ -105,11 +104,11 @@ class IDiscFormat2Erase extends IDiscFormat2{
     }
 
     /**
-     * Determines the quality of the disc erasure.
+     * Determines the quality of the disc erasure. (Get)
      * @returns {VARIANT_BOOL} Is VARIANT_TRUE if the erase operation fully erases the disc by overwriting the  entire medium at least once. 
      * 
      * Is VARIANT_FALSE if the erase operation overwrites the  directory tracks, but not the entire disc. This option requires less time to perform than the full erase option.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-get_fullerase
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_fullerase
      */
     get_FullErase() {
         result := ComCall(15, this, "short*", &value := 0, "HRESULT")
@@ -117,9 +116,9 @@ class IDiscFormat2Erase extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the type of media in the disc device.
-     * @returns {Integer} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a>enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-get_currentphysicalmediatype
+     * Retrieves the type of media in the disc device. (IDiscFormat2Erase.get_CurrentPhysicalMediaType)
+     * @returns {Integer} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType() {
         result := ComCall(16, this, "int*", &value := 0, "HRESULT")
@@ -127,7 +126,11 @@ class IDiscFormat2Erase extends IDiscFormat2{
     }
 
     /**
-     * Sets the friendly name of the client.
+     * Sets the friendly name of the client. (IDiscFormat2Erase.put_ClientName)
+     * @remarks
+     * The name is used when the write operation requests exclusive access to the device. The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner">IDiscRecorder2::get_ExclusiveAccessOwner</a> property contains the name of the client that has the lock.
+     * 
+     * Because any application with read/write access to the CDROM device during the erase operation can use the IOCTL_CDROM_EXCLUSIVE_ACCESS (query) control code (see the Microsoft Windows Driver Development Kit (DDK)) to access the name, it is important that the name identify the program that is using this interface to erase to the media. The name is restricted to the same character set as required by the IOCTL_CDROM_EXCLUSIVE_ACCESS control code.
      * @param {BSTR} value Name of the client application.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -163,7 +166,7 @@ class IDiscFormat2Erase extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-put_clientname
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-put_clientname
      */
     put_ClientName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -173,9 +176,9 @@ class IDiscFormat2Erase extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the friendly name of the client.
+     * Retrieves the friendly name of the client. (IDiscFormat2Erase.get_ClientName)
      * @returns {BSTR} Name of the client application.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-get_clientname
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-get_clientname
      */
     get_ClientName() {
         value := BSTR()
@@ -185,6 +188,24 @@ class IDiscFormat2Erase extends IDiscFormat2{
 
     /**
      * Erases the media in the active disc recorder.
+     * @remarks
+     * Synchronously erases the media.  Progress can be reported by calling into registered events of type <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscformat2eraseevents">DDiscFormat2EraseEvents</a>.
+     * 
+     * Before calling this method, you must call the following methods:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2erase-put_recorder">IDiscFormat2Erase::put_Recorder</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2erase-put_clientname">IDiscFormat2Erase::put_ClientName</a>
+     * </li>
+     * </ul>
+     * You should also consider calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2erase-put_fullerase">IDiscFormat2Erase::put_FullErase</a> method if its default value is not appropriate for your application.
+     * 
+     * This method is synchronous. To determine the progress of the erase operation, you must implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscformat2eraseevents">DDiscFormat2EraseEvents</a> interface. For examples that show how to implement an event handler in a script, see <a href="https://docs.microsoft.com/windows/desktop/imapi/monitoring-progress-with-events">Monitoring Progress With Events</a>.
+     * 
+     * Currently, the E_IMAPI_ERASE_TOOK_LONGER_THAN_ONE_HOUR value is returned if an attempt to perform an erase on CD-RW or DVD-RW media via the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2erase">IDiscFormat2Erase</a> interface fails as a result of the media being bad or a drive failure.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -487,14 +508,14 @@ class IDiscFormat2Erase extends IDiscFormat2{
      * <td width="60%">
      * The drive did not complete the erase in one hour.  The drive may require a power cycle, media removal, or other manual intervention to resume proper operation.
      * 
-     * <div class="alert"><b>Note</b>  Currently, this value will also be returned if an attempt to perform an erase on CD-RW or DVD-RW media via the <a href="/windows/desktop/api/imapi2/nn-imapi2-idiscformat2erase">IDiscFormat2Erase</a> interface fails as a result of the media being bad.</div>
+     * <div class="alert"><b>Note</b>  Currently, this value will also be returned if an attempt to perform an erase on CD-RW or DVD-RW media via the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscformat2erase">IDiscFormat2Erase</a> interface fails as a result of the media being bad.</div>
      * <div> </div>
      * Value: 0x80AA0906
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2erase-erasemedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2erase-erasemedia
      */
     EraseMedia() {
         result := ComCall(19, this, "HRESULT")

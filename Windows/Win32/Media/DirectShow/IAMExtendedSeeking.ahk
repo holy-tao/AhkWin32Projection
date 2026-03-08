@@ -6,12 +6,10 @@
 /**
  * The IAMExtendedSeeking interface seeks to a marker in a Windows Media stream or changes the playback rate for a Windows Media file. This interface is implemented by the Windows Media Source filter and the WM ASF Reader filter.
  * @remarks
- * 
  * To define the interface identifier, include the header file Initguid.h before Qnetwork.h, but after Dshow.h and other header files:
  * 
  * <pre class="syntax" xml:space="preserve"><code>#include &lt;dshow.h&gt;
- * 
- * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nn-qnetwork-iamextendedseeking
+ * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nn-qnetwork-iamextendedseeking
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -63,9 +61,44 @@ class IAMExtendedSeeking extends IDispatch{
 
     /**
      * The get_ExSeekCapabilities method retrieves the extended seeking capabilities of the filter.
+     * @remarks
+     * The Windows Media Source filter sets the extended seeking flags as follows.
+     * 
+     * <table>
+     * <tr>
+     * <td>Flag
+     *             </td>
+     * <td>Condition
+     *             </td>
+     * </tr>
+     * <tr>
+     * <td>AM_EXSEEK_BUFFERING</td>
+     * <td>Always.</td>
+     * </tr>
+     * <tr>
+     * <td>AM_EXSEEK_NOSTANDARDREPAINT</td>
+     * <td>Always.</td>
+     * </tr>
+     * <tr>
+     * <td>AM_EXSEEK_SENDS_VIDEOFRAMEREADY</td>
+     * <td>If the video pin has been created.</td>
+     * </tr>
+     * <tr>
+     * <td>AM_EXSEEK_CANSCAN, AM_EXSEEK_SCANWITHOUTCLOCK</td>
+     * <td>If the stream supports rates other than 1.0.</td>
+     * </tr>
+     * <tr>
+     * <td>AM_EXSEEK_CANSEEK</td>
+     * <td>If the stream has been authored to be seekable.</td>
+     * </tr>
+     * <tr>
+     * <td>AM_EXSEEK_MARKERSEEK</td>
+     * <td>If the stream contains markers.</td>
+     * </tr>
+     * </table>
      * @param {Pointer<Integer>} pExCapabilities Pointer to a variable that receives a bitwise OR of <a href="https://docs.microsoft.com/windows/desktop/api/qnetwork/ne-qnetwork-amextendedseekingcapabilities">AMExtendedSeekingCapabilities</a> flags.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_exseekcapabilities
      */
     get_ExSeekCapabilities(pExCapabilities) {
         pExCapabilitiesMarshal := pExCapabilities is VarRef ? "int*" : "ptr"
@@ -78,7 +111,7 @@ class IAMExtendedSeeking extends IDispatch{
      * The get_MarkerCount method retrieves the number of markers in the current stream.
      * @param {Pointer<Integer>} pMarkerCount Pointer to a variable that receives the marker count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_markercount
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_markercount
      */
     get_MarkerCount(pMarkerCount) {
         pMarkerCountMarshal := pMarkerCount is VarRef ? "int*" : "ptr"
@@ -91,7 +124,7 @@ class IAMExtendedSeeking extends IDispatch{
      * The get_CurrentMarker method retrieves the current marker.
      * @param {Pointer<Integer>} pCurrentMarker Pointer to a variable that receives the current marker.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_currentmarker
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_currentmarker
      */
     get_CurrentMarker(pCurrentMarker) {
         pCurrentMarkerMarshal := pCurrentMarker is VarRef ? "int*" : "ptr"
@@ -105,7 +138,7 @@ class IAMExtendedSeeking extends IDispatch{
      * @param {Integer} MarkerNum Specifies the marker number.
      * @param {Pointer<Float>} pMarkerTime Pointer to a variable that receives the marker time.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-getmarkertime
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkertime
      */
     GetMarkerTime(MarkerNum, pMarkerTime) {
         pMarkerTimeMarshal := pMarkerTime is VarRef ? "double*" : "ptr"
@@ -116,10 +149,12 @@ class IAMExtendedSeeking extends IDispatch{
 
     /**
      * The GetMarkerName method retrieves the name associated with the specified marker.
+     * @remarks
+     * The caller must release the returned <b>BSTR</b> by calling <b>SysFreeString</b>.
      * @param {Integer} MarkerNum Specifies the marker number.
      * @param {Pointer<BSTR>} pbstrMarkerName Pointer to a variable that receives the marker name.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-getmarkername
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-getmarkername
      */
     GetMarkerName(MarkerNum, pbstrMarkerName) {
         result := ComCall(11, this, "int", MarkerNum, "ptr", pbstrMarkerName, "HRESULT")
@@ -130,7 +165,7 @@ class IAMExtendedSeeking extends IDispatch{
      * The put_PlaybackSpeed method specifies the playback speed.
      * @param {Float} Speed Specifies the playback speed. The value may be positive or negative, but not zero.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-put_playbackspeed
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-put_playbackspeed
      */
     put_PlaybackSpeed(Speed) {
         result := ComCall(12, this, "double", Speed, "HRESULT")
@@ -141,7 +176,7 @@ class IAMExtendedSeeking extends IDispatch{
      * The get_PlaybackSpeed method retrieves the playback speed.
      * @param {Pointer<Float>} pSpeed Pointer to a variable that receives the playback speed.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//qnetwork/nf-qnetwork-iamextendedseeking-get_playbackspeed
+     * @see https://learn.microsoft.com/windows/win32/api/qnetwork/nf-qnetwork-iamextendedseeking-get_playbackspeed
      */
     get_PlaybackSpeed(pSpeed) {
         pSpeedMarshal := pSpeed is VarRef ? "double*" : "ptr"

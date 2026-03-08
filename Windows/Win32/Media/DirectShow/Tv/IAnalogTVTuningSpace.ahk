@@ -6,11 +6,8 @@
 /**
  * The IAnalogTVTuningSpace interface provides methods for getting and setting parameters associated with analog TV tuning spaces. The Video Control uses these methods when building and controlling a WDM Analog TV filter graph.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IAnalogTVTuningSpace)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-ianalogtvtuningspace
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-ianalogtvtuningspace
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -75,8 +72,10 @@ class IAnalogTVTuningSpace extends ITuningSpace{
 
     /**
      * The get_MinChannel method gets the lowest channel number for this tuning space.
+     * @remarks
+     * An NTSC tuning space connected to an antenna will return a value of 2.
      * @returns {Integer} Receives the lowest channel.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-get_minchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_minchannel
      */
     get_MinChannel() {
         result := ComCall(26, this, "int*", &MinChannelVal := 0, "HRESULT")
@@ -87,7 +86,7 @@ class IAnalogTVTuningSpace extends ITuningSpace{
      * The put_MinChannel method sets the lowest channel number for this tuning space.
      * @param {Integer} NewMinChannelVal The lowest channel number.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-put_minchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_minchannel
      */
     put_MinChannel(NewMinChannelVal) {
         result := ComCall(27, this, "int", NewMinChannelVal, "HRESULT")
@@ -96,8 +95,10 @@ class IAnalogTVTuningSpace extends ITuningSpace{
 
     /**
      * The get_MaxChannel method gets the highest channel number for this tuning space.
+     * @remarks
+     * For example, an NTSC tuning space connected to an antenna would return 69.
      * @returns {Integer} Receives the highest channel.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-get_maxchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_maxchannel
      */
     get_MaxChannel() {
         result := ComCall(28, this, "int*", &MaxChannelVal := 0, "HRESULT")
@@ -108,7 +109,7 @@ class IAnalogTVTuningSpace extends ITuningSpace{
      * The put_MaxChannel method sets the highest channel number for this tuning space.
      * @param {Integer} NewMaxChannelVal The highest channel number.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-put_maxchannel
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_maxchannel
      */
     put_MaxChannel(NewMaxChannelVal) {
         result := ComCall(29, this, "int", NewMaxChannelVal, "HRESULT")
@@ -118,7 +119,7 @@ class IAnalogTVTuningSpace extends ITuningSpace{
     /**
      * The get_InputType method gets the input type (antenna or cable) intended for the tuning space.
      * @returns {Integer} Pointer to a variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-tunerinputtype">TunerInputType</a> that receives the input type.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-get_inputtype
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_inputtype
      */
     get_InputType() {
         result := ComCall(30, this, "int*", &InputTypeVal := 0, "HRESULT")
@@ -129,7 +130,7 @@ class IAnalogTVTuningSpace extends ITuningSpace{
      * The put_InputType method sets the input type (antenna or cable) intended for the tuning space.
      * @param {Integer} NewInputTypeVal Variable of type <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/strmif/ne-strmif-tunerinputtype">TunerInputType</a> that specifies the input type.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-put_inputtype
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_inputtype
      */
     put_InputType(NewInputTypeVal) {
         result := ComCall(31, this, "int", NewInputTypeVal, "HRESULT")
@@ -138,8 +139,10 @@ class IAnalogTVTuningSpace extends ITuningSpace{
 
     /**
      * The get_CountryCode method gets the country/region code of the tuning space (based on TAPI country/region codes).
+     * @remarks
+     * The tuner can use the country/region code to locate a likely channel for frequency mapping.
      * @returns {Integer} Receives the value for the country/region code.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-get_countrycode
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-get_countrycode
      */
     get_CountryCode() {
         result := ComCall(32, this, "int*", &CountryCodeVal := 0, "HRESULT")
@@ -148,9 +151,11 @@ class IAnalogTVTuningSpace extends ITuningSpace{
 
     /**
      * The put_CountryCode method sets the country/region code of the tuning space (based on TAPI country/region codes).
+     * @remarks
+     * The tuner can use the country/region code to locate a likely channel for frequency mapping.
      * @param {Integer} NewCountryCodeVal The country/region code.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-ianalogtvtuningspace-put_countrycode
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-ianalogtvtuningspace-put_countrycode
      */
     put_CountryCode(NewCountryCodeVal) {
         result := ComCall(33, this, "int", NewCountryCodeVal, "HRESULT")

@@ -7,7 +7,7 @@
 
 /**
  * To access the properties of a third-party firewall registration.
- * @see https://docs.microsoft.com/windows/win32/api//netfw/nn-netfw-inetfwproduct
+ * @see https://learn.microsoft.com/windows/win32/api/netfw/nn-netfw-inetfwproduct
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -62,9 +62,9 @@ class INetFwProduct extends IDispatch{
     }
 
     /**
-     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall.
+     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall. (Get)
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-get_rulecategories
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_rulecategories
      */
     get_RuleCategories() {
         ruleCategories := VARIANT()
@@ -73,10 +73,10 @@ class INetFwProduct extends IDispatch{
     }
 
     /**
-     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall.
+     * For a third-party firewall product registration, indicates the rule categories for which the third-party firewall wishes to take ownership from Windows Firewall. (Put)
      * @param {VARIANT} ruleCategories 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-put_rulecategories
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-put_rulecategories
      */
     put_RuleCategories(ruleCategories) {
         result := ComCall(8, this, "ptr", ruleCategories, "HRESULT")
@@ -84,9 +84,9 @@ class INetFwProduct extends IDispatch{
     }
 
     /**
-     * Indicates the display name for a third-party firewall product registration.
+     * Indicates the display name for a third-party firewall product registration. (Get)
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-get_displayname
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_displayname
      */
     get_DisplayName() {
         displayName := BSTR()
@@ -95,10 +95,10 @@ class INetFwProduct extends IDispatch{
     }
 
     /**
-     * Indicates the display name for a third-party firewall product registration.
+     * Indicates the display name for a third-party firewall product registration. (Put)
      * @param {BSTR} displayName 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-put_displayname
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-put_displayname
      */
     put_DisplayName(displayName) {
         displayName := displayName is String ? BSTR.Alloc(displayName).Value : displayName
@@ -110,12 +110,9 @@ class INetFwProduct extends IDispatch{
     /**
      * Indicates the path to the signed executable file of a third-party firewall product registration.
      * @remarks
-     * 
      * This is a read-only property, which is set after the product has been registered.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//netfw/nf-netfw-inetfwproduct-get_pathtosignedproductexe
+     * @see https://learn.microsoft.com/windows/win32/api/netfw/nf-netfw-inetfwproduct-get_pathtosignedproductexe
      */
     get_PathToSignedProductExe() {
         path := BSTR()

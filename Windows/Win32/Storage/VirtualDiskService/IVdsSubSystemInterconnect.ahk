@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a method to query the interconnect types that are supported by a subsystem.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdssubsysteminterconnect
+ * The IVdsSubSystemInterconnect interface (vdshwprv.h) provides a method to query the interconnect types that are supported by a subsystem.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdssubsysteminterconnect
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -31,9 +31,9 @@ class IVdsSubSystemInterconnect extends IUnknown{
     static VTableNames => ["GetSupportedInterconnects"]
 
     /**
-     * Returns the interconnect types that the subsystem supports.
+     * The IVdsSubSystemInterconnect::GetSupportedInterconnects (vdshwprv.h) method returns the interconnect types that the subsystem supports.
      * @returns {Integer} A pointer to a caller-allocated <b>ULONG</b> value that receives a bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ne-vdshwprv-vds_interconnect_flag">VDS_INTERCONNECT_FLAG</a> flags, one for each interconnect type that the subsystem supports. This parameter is required and cannot be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdssubsysteminterconnect-getsupportedinterconnects
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdssubsysteminterconnect-getsupportedinterconnects
      */
     GetSupportedInterconnects() {
         result := ComCall(3, this, "uint*", &pulSupportedInterconnectsFlag := 0, "HRESULT")

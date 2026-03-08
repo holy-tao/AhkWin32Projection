@@ -7,7 +7,7 @@
 
 /**
  * Represents a recoverable error that occurred when an item was loaded or when an item was saved.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-irecoverableerror
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-irecoverableerror
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -65,7 +65,7 @@ class IRecoverableError extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerror-getstage
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getstage
      */
     GetStage(pStage) {
         pStageMarshal := pStage is VarRef ? "int*" : "ptr"
@@ -107,7 +107,7 @@ class IRecoverableError extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerror-getprovider
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getprovider
      */
     GetProvider(pProviderRole) {
         pProviderRoleMarshal := pProviderRole is VarRef ? "int*" : "ptr"
@@ -119,7 +119,7 @@ class IRecoverableError extends IUnknown{
     /**
      * Gets the item change that caused the error.
      * @returns {ISyncChange} Returns the item change that caused the error.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerror-getchangewithrecoverableerror
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getchangewithrecoverableerror
      */
     GetChangeWithRecoverableError() {
         result := ComCall(5, this, "ptr*", &ppChangeWithRecoverableError := 0, "HRESULT")
@@ -130,7 +130,7 @@ class IRecoverableError extends IUnknown{
      * Gets additional data about the recoverable error.
      * @param {Pointer<HRESULT>} phrError Returns the error code that is associated with the error that prevented the change unit data from being applied.
      * @returns {IRecoverableErrorData} Returns additional information about the error.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchange
      */
     GetRecoverableErrorDataForChange(phrError) {
         phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"
@@ -144,7 +144,7 @@ class IRecoverableError extends IUnknown{
      * @param {ISyncChangeUnit} pChangeUnit The change unit that is associated with the error.
      * @param {Pointer<HRESULT>} phrError Returns the error code that is associated with the error that prevented the change unit data from being applied.
      * @returns {IRecoverableErrorData} Returns additional information about the error.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchangeunit
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-irecoverableerror-getrecoverableerrordataforchangeunit
      */
     GetRecoverableErrorDataForChangeUnit(pChangeUnit, phrError) {
         phrErrorMarshal := phrError is VarRef ? "int*" : "ptr"

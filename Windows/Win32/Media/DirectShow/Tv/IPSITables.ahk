@@ -5,7 +5,7 @@
 
 /**
  * Gets an MPEG-2 program specific information (PSI) table from an MPEG-2 transport stream.
- * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nn-mpeg2psiparser-ipsitables
+ * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nn-mpeg2psiparser-ipsitables
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IPSITables extends IUnknown{
      * @param {Integer} dwHashedVer Hash value that identifies the table contents.
      * @param {Integer} dwPara4 PID for a Program Mapping Table or the service ID (SID) for an EIT. Otherwise, not used.
      * @returns {IUnknown} Pointer to  the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface for the table object that is retrieved. The caller is responsible for freeing the memory.
-     * @see https://docs.microsoft.com/windows/win32/api//mpeg2psiparser/nf-mpeg2psiparser-ipsitables-gettable
+     * @see https://learn.microsoft.com/windows/win32/api/mpeg2psiparser/nf-mpeg2psiparser-ipsitables-gettable
      */
     GetTable(dwTSID, dwTID_PID, dwHashedVer, dwPara4) {
         result := ComCall(3, this, "uint", dwTSID, "uint", dwTID_PID, "uint", dwHashedVer, "uint", dwPara4, "ptr*", &ppIUnknown := 0, "HRESULT")

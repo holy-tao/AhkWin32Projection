@@ -6,7 +6,7 @@
 
 /**
  * Exposes methods that authorize connections and resources.
- * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nn-tsgpolicyengine-itsgpolicyengine
+ * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgpolicyengine
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -33,6 +33,16 @@ class ITSGPolicyEngine extends IUnknown{
 
     /**
      * Determines whether the specified connection is authorized to connect to Remote Desktop Gateway (RD Gateway).
+     * @remarks
+     * If this method returns <b>S_OK</b>, RD Gateway waits for the authorization 
+     *     plug-in to call a method of the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeconnectionsink">ITSGAuthorizeConnectionSink</a> interface. If 
+     *     any other value is returned, RD Gateway immediately denies the  authorization request.
+     * 
+     * If authorization requires more than 1 second, we recommend starting a separate thread to perform 
+     *     authorization.
+     * 
+     * For a sample that uses the <b>AuthorizeConnection</b> method, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
      * @param {Guid} mainSessionId A unique identifier assigned to the connection request by RD Gateway.
      * @param {BSTR} username The user name.
      * @param {Integer} authType A value of the <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-aaauthschemes">AAAuthSchemes</a> enumeration type that specifies the type of authentication used to connect to RD Gateway.
@@ -44,8 +54,8 @@ class ITSGPolicyEngine extends IUnknown{
      * @param {Integer} numCookieBytes The number of bytes referenced by the <i>cookieData</i> parameter.
      * @param {HANDLE_PTR} userToken A pointer to a <b>HANDLE</b> that specifies the user token of the user. If the user is not running Windows, this parameter is <b>NULL</b>.
      * @param {ITSGAuthorizeConnectionSink} pSink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeconnectionsink">ITSGAuthorizeConnectionSink</a> interface that the authorization plug-in must use to notify RD Gateway about the result of authorization.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-authorizeconnection
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-authorizeconnection
      */
     AuthorizeConnection(mainSessionId, username, authType, clientMachineIP, clientMachineName, sohData, numSOHBytes, cookieData, numCookieBytes, userToken, pSink) {
         username := username is String ? BSTR.Alloc(username).Value : username
@@ -61,6 +71,17 @@ class ITSGPolicyEngine extends IUnknown{
 
     /**
      * Determines which resources the specified connection is authorized to connect to.
+     * @remarks
+     * If this method returns <b>S_OK</b>, RD Gateway waits for the authorization 
+     *     plug-in to call a method of the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeresourcesink">ITSGAuthorizeResourceSink</a> interface. If any 
+     *     other value is returned, RD Gateway immediately denies the  authorization request.
+     * 
+     * If authorization requires more than 1 second, we recommend starting a separate thread to perform 
+     *     authorization.
+     * 
+     * 
+     * For a sample that uses the <b>AuthorizeResource</b> method, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
      * @param {Guid} mainSessionId A unique identifier assigned to the connection request by RD Gateway.
      * @param {Integer} subSessionId A unique identifier assigned to the subsession by RD Gateway. A subsession is a session launched from another session.
      * @param {BSTR} username The user name.
@@ -73,8 +94,8 @@ class ITSGPolicyEngine extends IUnknown{
      * @param {Pointer<Integer>} cookie A pointer to a <b>BYTE</b> that contains the cookie provided by the user. If the user did not authenticate by using a cookie, this parameter is <b>NULL</b>.
      * @param {Integer} numBytesInCookie The number of bytes referenced by the <i>cookie</i> parameter.
      * @param {ITSGAuthorizeResourceSink} pSink A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeresourcesink">ITSGAuthorizeResourceSink</a> interface that the authorization plug-in must use to notify RD Gateway about the result of authorization.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-authorizeresource
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-authorizeresource
      */
     AuthorizeResource(mainSessionId, subSessionId, username, resourceNames, numResources, alternateResourceNames, numAlternateResourceName, portNumber, operation, cookie, numBytesInCookie, pSink) {
         username := username is String ? BSTR.Alloc(username).Value : username
@@ -89,7 +110,7 @@ class ITSGPolicyEngine extends IUnknown{
     /**
      * This method is reserved.
      * @returns {HRESULT} Always returns <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-refresh
+     * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-refresh
      */
     Refresh() {
         result := ComCall(5, this, "HRESULT")
@@ -99,7 +120,7 @@ class ITSGPolicyEngine extends IUnknown{
     /**
      * Indicates whether the authorization plug-in requires a statement of health (SoH) from the user's computer.
      * @returns {BOOL} Indicates whether the authorization plug-in requires a statement of health from the user's computer. <b>TRUE</b> to use RD Gateway to request an SoH from the user's computer; otherwise, <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-isquarantineenabled
+     * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-isquarantineenabled
      */
     IsQuarantineEnabled() {
         result := ComCall(6, this, "int*", &quarantineEnabled := 0, "HRESULT")

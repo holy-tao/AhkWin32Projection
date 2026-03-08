@@ -5,7 +5,7 @@
 
 /**
  * The IMMEndpoint interface represents an audio endpoint device.
- * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nn-mmdeviceapi-immendpoint
+ * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nn-mmdeviceapi-immendpoint
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IMMEndpoint extends IUnknown{
      * </ul>
      * 
      * The data-flow direction for a rendering device is eRender. The data-flow direction for a capture device is eCapture.
-     * @see https://docs.microsoft.com/windows/win32/api//mmdeviceapi/nf-mmdeviceapi-immendpoint-getdataflow
+     * @see https://learn.microsoft.com/windows/win32/api/mmdeviceapi/nf-mmdeviceapi-immendpoint-getdataflow
      */
     GetDataFlow() {
         result := ComCall(3, this, "int*", &pDataFlow := 0, "HRESULT")

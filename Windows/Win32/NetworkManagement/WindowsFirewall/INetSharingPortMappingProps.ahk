@@ -6,7 +6,7 @@
 
 /**
  * The INetSharingPortMappingProps interface provides methods that retrieve and set the properties of a network connection port mapping.
- * @see https://docs.microsoft.com/windows/win32/api//netcon/nn-netcon-inetsharingportmappingprops
+ * @see https://learn.microsoft.com/windows/win32/api/netcon/nn-netcon-inetsharingportmappingprops
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -91,7 +91,7 @@ class INetSharingPortMappingProps extends IDispatch{
      * The get_Name method retrieves the name for this port mapping.
      * @returns {BSTR} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that receives the name of the port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_name
      */
     get_Name() {
         pbstrName := BSTR()
@@ -102,7 +102,7 @@ class INetSharingPortMappingProps extends IDispatch{
     /**
      * The get_IPProtocol method retrieves the IP Protocol associated with this port mapping.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_ipprotocol
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_ipprotocol
      */
     get_IPProtocol() {
         result := ComCall(8, this, "char*", &pucIPProt := 0, "HRESULT")
@@ -112,7 +112,7 @@ class INetSharingPortMappingProps extends IDispatch{
     /**
      * The get_ExternalPort method retrieves the external port associated with this port mapping.
      * @returns {Integer} Pointer to a <b>LONG</b> variable that receives the external port for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_externalport
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_externalport
      */
     get_ExternalPort() {
         result := ComCall(9, this, "int*", &pusPort := 0, "HRESULT")
@@ -122,7 +122,7 @@ class INetSharingPortMappingProps extends IDispatch{
     /**
      * The get_InternalPort method retrieves the internal port associated with this port mapping.
      * @returns {Integer} Pointer to a <b>LONG</b> variable that receives the internal port for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_internalport
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_internalport
      */
     get_InternalPort() {
         result := ComCall(10, this, "int*", &pusPort := 0, "HRESULT")
@@ -132,7 +132,7 @@ class INetSharingPortMappingProps extends IDispatch{
     /**
      * The get_Options method retrieves the options associated with this port mapping.
      * @returns {Integer} Pointer to a <b>DWORD</b> variable that receives the options associated with this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_options
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_options
      */
     get_Options() {
         result := ComCall(11, this, "int*", &pdwOptions := 0, "HRESULT")
@@ -143,7 +143,7 @@ class INetSharingPortMappingProps extends IDispatch{
      * The get_TargetName method retrieves the name of the target computer for this port mapping.
      * @returns {BSTR} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that receives the name of the target computer for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_targetname
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_targetname
      */
     get_TargetName() {
         pbstrTargetName := BSTR()
@@ -155,7 +155,7 @@ class INetSharingPortMappingProps extends IDispatch{
      * The get_TargetIPAddress method retrieves the IP address of the target computer for this port mapping.
      * @returns {BSTR} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that receives the IP address of the target computer for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_targetipaddress
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_targetipaddress
      */
     get_TargetIPAddress() {
         pbstrTargetIPAddress := BSTR()
@@ -167,7 +167,7 @@ class INetSharingPortMappingProps extends IDispatch{
      * The get_Enabled method retrieves the status for this port mapping.
      * @returns {VARIANT_BOOL} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">VARIANT_BOOL</a> variable that receives the status of the port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//netcon/nf-netcon-inetsharingportmappingprops-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/netcon/nf-netcon-inetsharingportmappingprops-get_enabled
      */
     get_Enabled() {
         result := ComCall(14, this, "short*", &pbool := 0, "HRESULT")

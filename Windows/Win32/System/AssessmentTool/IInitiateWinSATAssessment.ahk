@@ -5,7 +5,7 @@
 
 /**
  * Initiates an assessment.
- * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nn-winsatcominterfacei-iinitiatewinsatassessment
+ * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nn-winsatcominterfacei-iinitiatewinsatassessment
  * @namespace Windows.Win32.System.AssessmentTool
  * @version v4.0.30319
  */
@@ -32,6 +32,12 @@ class IInitiateWinSATAssessment extends IUnknown{
 
     /**
      * Initiates an ad hoc assessment.
+     * @remarks
+     * You typically run an ad hoc assessment to assess one subcomponent of the computer, whereas a formal assessment assesses all subcomponents of the computer. To run a formal assessment, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateformalassessment">IInitiateWinSATAssessment::InitiateFormalAssessment</a> method.
+     * 
+     * Ad hoc assessments are not saved in the WinSAT data store; only formal assessments are saved in the data store (you cannot use the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nn-winsatcominterfacei-iqueryrecentwinsatassessment">IQueryRecentWinSATAssessment</a> interface to query the results). To get the results of an ad hoc assessment, include the <b>–xml</b><b> </b><i>FileName</i> argument, which  will save the results to an XML file that you can later parse.
+     * 
+     * WinSAT requires administrator privileges to run. If the user does not have administrator privileges, WinSAT will display a dialog box that asks for credentials.
      * @param {PWSTR} cmdLine Command-line arguments to pass to WinSAT. The command line cannot be empty. For command line usage, see <a href="https://docs.microsoft.com/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/cc770542(v=ws.11)">WinSAT Command Reference</a> on Microsoft TechNet.
      * @param {IWinSATInitiateEvents} pCallbacks An <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nn-winsatcominterfacei-iwinsatinitiateevents">IWinSATInitiateEvents</a> interface that you implement to receive notification when the assessment finishes or makes progress. Can be <b>NULL</b> if you do not want to receive notifications.
      * @param {HWND} callerHwnd The window handle of your client. The handle is used to center the WinSAT dialog boxes. If <b>NULL</b>, the dialog boxes are centered on the desktop.
@@ -56,7 +62,7 @@ class IInitiateWinSATAssessment extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * WinSAT successfully started. To determine if the assessment ran successfully, implement the <a href="/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete">IWinSATInitiateEvents::WinSATComplete</a> method and check the value of the <i>hresult</i> parameter.
+     * WinSAT successfully started. To determine if the assessment ran successfully, implement the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete">IWinSATInitiateEvents::WinSATComplete</a> method and check the value of the <i>hresult</i> parameter.
      * 
      * </td>
      * </tr>
@@ -97,7 +103,7 @@ class IInitiateWinSATAssessment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateassessment
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateassessment
      */
     InitiateAssessment(cmdLine, pCallbacks, callerHwnd) {
         cmdLine := cmdLine is String ? StrPtr(cmdLine) : cmdLine
@@ -109,6 +115,14 @@ class IInitiateWinSATAssessment extends IUnknown{
 
     /**
      * Initiates a formal assessment.
+     * @remarks
+     * You typically run a formal assessment to assess all subcomponents of the computer, whereas an ad hoc assessment assesses one subcomponent of the computer. To run an ad hoc assessment, call the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateassessment">IInitiateWinSATAssessment::InitiateAssessment</a> method.
+     * 
+     * To get the results of a formal assessment, use the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nn-winsatcominterfacei-iqueryrecentwinsatassessment">IQueryRecentWinSATAssessment</a> interface.  
+     * 
+     * If you call this function from a Windows application, implement the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nn-winsatcominterfacei-iwinsatinitiateevents">IWinSATInitiateEvents</a> interface so that you can display progress information and receive notification when the assessment is complete. For a Windows console application, showing progress is not necessary because WinSAT writes progress information to the console window.
+     * 
+     * Note that WinSAT requires administrator privileges to run. If the user does not have administrator privileges, WinSAT will display a dialog box that asks for credentials.
      * @param {IWinSATInitiateEvents} pCallbacks An <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nn-winsatcominterfacei-iwinsatinitiateevents">IWinSATInitiateEvents</a> interface that you implement to receive notification when the assessment finishes or makes progress. Can be <b>NULL</b> if you do not want to receive notifications.
      * @param {HWND} callerHwnd The window handle of your client. The handle is used to center the WinSAT dialog boxes. If <b>NULL</b>, the dialog boxes are centered on the desktop.
      * @returns {HRESULT} This method can return one of these values.
@@ -132,7 +146,7 @@ class IInitiateWinSATAssessment extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * WinSAT successfully started. To determine if the assessment ran successfully, implement the <a href="/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete">IWinSATInitiateEvents::WinSATComplete</a> method and check the value of the <i>hresult</i> parameter.
+     * WinSAT successfully started. To determine if the assessment ran successfully, implement the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete">IWinSATInitiateEvents::WinSATComplete</a> method and check the value of the <i>hresult</i> parameter.
      * 
      * </td>
      * </tr>
@@ -149,7 +163,7 @@ class IInitiateWinSATAssessment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateformalassessment
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-initiateformalassessment
      */
     InitiateFormalAssessment(pCallbacks, callerHwnd) {
         callerHwnd := callerHwnd is Win32Handle ? NumGet(callerHwnd, "ptr") : callerHwnd
@@ -160,6 +174,8 @@ class IInitiateWinSATAssessment extends IUnknown{
 
     /**
      * Cancels a currently running assessment.
+     * @remarks
+     * This method sends WinSAT a request to cancel the assessment. To determine if the cancel request succeeded, implement the <a href="https://docs.microsoft.com/windows/desktop/api/winsatcominterfacei/nf-winsatcominterfacei-iwinsatinitiateevents-winsatcomplete">IWinSATInitiateEvents::WinSATComplete</a> method and check the <i>hresult</i> parameter for a value of WINSAT_ERROR_WINSAT_CANCELED.
      * @returns {HRESULT} Returns S_OK if successful; otherwise, the method returns the following error code or a Win32 error code returned as an HRESULT.
      * 
      * <table>
@@ -180,7 +196,7 @@ class IInitiateWinSATAssessment extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-cancelassessment
+     * @see https://learn.microsoft.com/windows/win32/api/winsatcominterfacei/nf-winsatcominterfacei-iinitiatewinsatassessment-cancelassessment
      */
     CancelAssessment() {
         result := ComCall(5, this, "HRESULT")

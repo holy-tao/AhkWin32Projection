@@ -5,7 +5,7 @@
 
 /**
  * Is the generic interface for all types of generator parameters. All generator parameter objects must support this interface.
- * @see https://docs.microsoft.com/windows/win32/api//msrdc/nn-msrdc-irdcgeneratorparameters
+ * @see https://learn.microsoft.com/windows/win32/api/msrdc/nn-msrdc-irdcgeneratorparameters
  * @namespace Windows.Win32.Networking.RemoteDifferentialCompression
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class IRdcGeneratorParameters extends IUnknown{
     /**
      * Returns the specific type of the parameters.
      * @returns {Integer} The address of a <a href="https://docs.microsoft.com/windows/win32/api/msrdc/ne-msrdc-generatorparameterstype">GeneratorParametersType</a> that will receive the type of the parameters.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-getgeneratorparameterstype
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getgeneratorparameterstype
      */
     GetGeneratorParametersType() {
         result := ComCall(3, this, "int*", &parametersType := 0, "HRESULT")
@@ -53,8 +53,8 @@ class IRdcGeneratorParameters extends IUnknown{
      * @param {Pointer<Integer>} minimumCompatibleAppVersion Address of a <b>ULONG</b> that will receive the version of RDC that is compatible 
      *       with the serialized parameters. This corresponds to the 
      *       <b>MSRDC_MINIMUM_COMPATIBLE_APP_VERSION</b> constant.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-getparametersversion
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getparametersversion
      */
     GetParametersVersion(currentVersion, minimumCompatibleAppVersion) {
         currentVersionMarshal := currentVersion is VarRef ? "uint*" : "ptr"
@@ -68,7 +68,7 @@ class IRdcGeneratorParameters extends IUnknown{
      * Returns the size, in bytes, of the serialized parameter data.
      * @returns {Integer} Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
      *       bytes, of the serialized parameter data.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-getserializesize
      */
     GetSerializeSize() {
         result := ComCall(5, this, "uint*", &size := 0, "HRESULT")
@@ -82,8 +82,8 @@ class IRdcGeneratorParameters extends IUnknown{
      * @param {Pointer<Integer>} bytesWritten Address of a <b>ULONG</b> that on successful completion is filled with the size, in 
      *       bytes, of the serialized parameter data written to the buffer pointed to by the 
      *       <i>parametersBlob</i> parameter.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msrdc/nf-msrdc-irdcgeneratorparameters-serialize
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msrdc/nf-msrdc-irdcgeneratorparameters-serialize
      */
     Serialize(size, parametersBlob, bytesWritten) {
         parametersBlobMarshal := parametersBlob is VarRef ? "char*" : "ptr"

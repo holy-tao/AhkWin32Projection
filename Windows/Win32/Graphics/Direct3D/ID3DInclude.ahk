@@ -5,11 +5,8 @@
 /**
  * ID3DInclude is an include interface that the user implements to allow an application to call user-overridable methods for opening and closing shader
  * @remarks
- * 
  * To use this interface, create an interface that inherits from <b>ID3DInclude</b> and implement custom behavior for the methods.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/nn-d3dcommon-id3dinclude
+ * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nn-d3dcommon-id3dinclude
  * @namespace Windows.Win32.Graphics.Direct3D
  * @version v4.0.30319
  */
@@ -46,7 +43,7 @@ class ID3DInclude extends Win32ComInterface{
      * @param {Pointer<Integer>} pBytes Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a>*</b>
      * 
      * Pointer to the number of bytes that <b>Open</b> returns in <i>ppData</i>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * The user-implemented method must return S_OK. If <b>Open</b> fails when it reads the #include file, the application programming interface (API) that caused <b>Open</b> to be called fails. This failure can occur in one of the following situations:
      *               
@@ -57,7 +54,7 @@ class ID3DInclude extends Win32ComInterface{
      * <li>The effect fails one of the <b>D3D10CreateEffect***</b> functions.
      *               </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/nf-d3dcommon-id3dinclude-open
+     * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3dinclude-open
      */
     Open(IncludeType, pFileName, pParentData, ppData, pBytes) {
         pFileName := pFileName is String ? StrPtr(pFileName) : pFileName
@@ -72,10 +69,12 @@ class ID3DInclude extends Win32ComInterface{
 
     /**
      * A user-implemented method for closing a shader
+     * @remarks
+     * If <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nf-d3dcommon-id3dinclude-open">ID3DInclude::Open</a> was successful, <b>Close</b> is guaranteed to be called before the API using the <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nn-d3dcommon-id3dinclude">ID3DInclude</a> interface returns.
      * @param {Pointer<Void>} pData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCVOID</a></b>
      * 
      * Pointer to the buffer that contains the include directives. This is the pointer that was returned by the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/d3dcommon/nf-d3dcommon-id3dinclude-open">ID3DInclude::Open</a> call.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * The user-implemented <b>Close</b> method should return S_OK. If <b>Close</b> fails when it closes the #include file, the application programming interface (API) that caused <b>Close</b> to be called fails. This failure can occur in one of the following situations:
      *               
@@ -86,7 +85,7 @@ class ID3DInclude extends Win32ComInterface{
      * <li>The effect fails one of the <b>D3D10CreateEffect***</b> functions.
      *               </li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3dcommon/nf-d3dcommon-id3dinclude-close
+     * @see https://learn.microsoft.com/windows/win32/api/d3dcommon/nf-d3dcommon-id3dinclude-close
      */
     Close(pData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"

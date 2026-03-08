@@ -6,8 +6,8 @@
 #Include .\ITextPara.ahk
 
 /**
- * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara.
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextpara2
+ * Text Object Model (TOM) rich text-range attributes are accessed through a pair of dual interfaces, ITextFont and ITextPara. (ITextPara2)
+ * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextpara2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class ITextPara2 extends ITextPara{
      * @returns {IUnknown} Type: <b>IUnknown**</b>
      * 
      * The borders collection.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-getborders
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getborders
      */
     GetBorders() {
         result := ComCall(55, this, "ptr*", &ppBorders := 0, "HRESULT")
@@ -49,7 +49,7 @@ class ITextPara2 extends ITextPara{
      * @returns {ITextPara2} Type: <b>ITextPara2**</b>
      * 
      * The duplicate text paragraph format object
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-getduplicate2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getduplicate2
      */
     GetDuplicate2() {
         result := ComCall(56, this, "ptr*", &ppPara := 0, "HRESULT")
@@ -58,12 +58,14 @@ class ITextPara2 extends ITextPara{
 
     /**
      * Sets the properties of this object by copying the properties of another text paragraph object.
+     * @remarks
+     * <b>tomUndefined</b> values have no effect.
      * @param {ITextPara2} pPara Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara2">ITextPara2</a>*</b>
      * 
      * The text paragraph object to copy from.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If <b>ITextPara2::SetDuplicate2</b> succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
+     * If <b>ITextPara2::SetDuplicate2</b> succeeds, it returns <b>S_OK</b>. If the method fails, it returns one of the following COM error codes. For more information about COM error codes, see <a href="https://docs.microsoft.com/windows/desktop/com/error-handling-in-com">Error Handling in COM</a>.
      * 
      * <table>
      * <tr>
@@ -104,7 +106,7 @@ class ITextPara2 extends ITextPara{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-setduplicate2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setduplicate2
      */
     SetDuplicate2(pPara) {
         result := ComCall(57, this, "ptr", pPara, "HRESULT")
@@ -114,7 +116,7 @@ class ITextPara2 extends ITextPara{
     /**
      * Gets the paragraph font alignment state.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-getfontalignment
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getfontalignment
      */
     GetFontAlignment() {
         result := ComCall(58, this, "int*", &pValue := 0, "HRESULT")
@@ -124,10 +126,10 @@ class ITextPara2 extends ITextPara{
     /**
      * Sets the paragraph font alignment for Chinese, Japanese, Korean text.
      * @param {Integer} Value Type: <b>long</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-setfontalignment
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setfontalignment
      */
     SetFontAlignment(Value) {
         result := ComCall(59, this, "int", Value, "HRESULT")
@@ -160,7 +162,7 @@ class ITextPara2 extends ITextPara{
      * <td>The HangingPunctuation property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-gethangingpunctuation
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-gethangingpunctuation
      */
     GetHangingPunctuation() {
         result := ComCall(60, this, "int*", &pValue := 0, "HRESULT")
@@ -197,10 +199,10 @@ class ITextPara2 extends ITextPara{
      * <td>The HangingPunctuation property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-sethangingpunctuation
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-sethangingpunctuation
      */
     SetHangingPunctuation(Value) {
         result := ComCall(61, this, "int", Value, "HRESULT")
@@ -231,7 +233,7 @@ class ITextPara2 extends ITextPara{
      * <td>The SnapToGrid property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-getsnaptogrid
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getsnaptogrid
      */
     GetSnapToGrid() {
         result := ComCall(62, this, "int*", &pValue := 0, "HRESULT")
@@ -266,10 +268,10 @@ class ITextPara2 extends ITextPara{
      * <td>The SnapToGrid property is undefined.</td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-setsnaptogrid
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setsnaptogrid
      */
     SetSnapToGrid(Value) {
         result := ComCall(63, this, "int", Value, "HRESULT")
@@ -300,7 +302,7 @@ class ITextPara2 extends ITextPara{
      * <td>The TrimPunctuationAtStart property is undefined.</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-gettrimpunctuationatstart
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-gettrimpunctuationatstart
      */
     GetTrimPunctuationAtStart() {
         result := ComCall(64, this, "int*", &pValue := 0, "HRESULT")
@@ -310,10 +312,10 @@ class ITextPara2 extends ITextPara{
     /**
      * Sets whether to trim the leading space of a punctuation symbol at the start of a line.
      * @param {Integer} Value Type: <b>long</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-settrimpunctuationatstart
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-settrimpunctuationatstart
      */
     SetTrimPunctuationAtStart(Value) {
         result := ComCall(65, this, "int", Value, "HRESULT")
@@ -322,6 +324,8 @@ class ITextPara2 extends ITextPara{
 
     /**
      * Gets the paragraph format effects.
+     * @remarks
+     * If the <b>tomTable</b> flag is set, you can use the  <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange2-gettable">ITextRange2::GetTable</a> method to get more table properties.
      * @param {Pointer<Integer>} pValue Type: <b>long*</b>
      * 
      * The paragraph effects. This value can be a combination of the following flags. 
@@ -333,10 +337,10 @@ class ITextPara2 extends ITextPara{
      * @param {Pointer<Integer>} pMask Type: <b>long*</b>
      * 
      * The differences in the flags over the range. A value of 1 indicates that the corresponding effect is the same over the range. For an insertion point, the values equal 1 for all defined effects.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-geteffects
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-geteffects
      */
     GetEffects(pValue, pMask) {
         pValueMarshal := pValue is VarRef ? "int*" : "ptr"
@@ -347,14 +351,22 @@ class ITextPara2 extends ITextPara{
     }
 
     /**
-     * Gets the value of the specified property.
+     * Gets the value of the specified property. (ITextPara2.GetProperty)
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomParaPropMathAlign</a> property sets the math alignment for math paragraphs in a text paragraph. It can have one of the following values.<dl>
+     * <dd><a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomMathParaAlignDefault</a></dd>
+     * <dd><a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomMathParaAlignCenterGroup</a></dd>
+     * <dd><a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomMathParaAlignCenter</a></dd>
+     * <dd><a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomMathParaAlignLeft</a></dd>
+     * <dd><a href="https://docs.microsoft.com/windows/win32/api/tom/ne-tom-tomconstants">tomMathParaAlignRight</a></dd>
+     * </dl>
      * @param {Integer} Type Type: <b>long</b>
      * 
      * The ID of the property value to retrieve.
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The property value.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-getproperty
      */
     GetProperty(Type) {
         result := ComCall(67, this, "int", Type, "int*", &pValue := 0, "HRESULT")
@@ -369,7 +381,7 @@ class ITextPara2 extends ITextPara{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * A <a href="https://docs.microsoft.com/windows/desktop/Controls/about-text-object-model">tomBool</a> value that is <b>tomTrue</b> if the text paragraph objects have the same properties, or <b>tomFalse</b> if they don't. This parameter can be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-isequal2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-isequal2
      */
     IsEqual2(pPara) {
         result := ComCall(68, this, "ptr", pPara, "int*", &pB := 0, "HRESULT")
@@ -390,10 +402,10 @@ class ITextPara2 extends ITextPara{
      * This value can be a combination of the flags defined in the table for <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextpara2-geteffects">ITextPara2::GetEffects</a>. 
      * 
      * Only effects with the corresponding mask flag set are modified.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-seteffects
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-seteffects
      */
     SetEffects(Value, Mask) {
         result := ComCall(69, this, "int", Value, "int", Mask, "HRESULT")
@@ -408,10 +420,10 @@ class ITextPara2 extends ITextPara{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The property value to set.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextpara2-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextpara2-setproperty
      */
     SetProperty(Type, Value) {
         result := ComCall(70, this, "int", Type, "int", Value, "HRESULT")

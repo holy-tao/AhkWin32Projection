@@ -6,7 +6,7 @@
 
 /**
  * The IWMPSyncServices interface provides methods to enumerate available devices that can synchronize digital media files with Windows Media Player 10 or later.To use this interface, you must create a remoted instance of the Windows Media Player control.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpsyncservices
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncservices
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -39,6 +39,10 @@ class IWMPSyncServices extends IUnknown{
 
     /**
      * The get_deviceCount method retrieves the number of available devices.
+     * @remarks
+     * This method may return devices that have been connected previously, but that do not have a partnership established. Therefore, the list of returned devices does not represent a list of devices with partnerships.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} plCount Pointer to a <b>long</b> that contains the device count.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -70,7 +74,7 @@ class IWMPSyncServices extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncservices-get_devicecount
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-get_devicecount
      */
     get_deviceCount(plCount) {
         plCountMarshal := plCount is VarRef ? "int*" : "ptr"
@@ -81,9 +85,11 @@ class IWMPSyncServices extends IUnknown{
 
     /**
      * The getDevice method retrieves a pointer to a device interface.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Integer} lIndex <b>long</b> that contains the index of the device to retrieve. Device indexes are zero-based.
      * @returns {IWMPSyncDevice} Pointer to a pointer to an <b>IWMPSyncDevice</b> interface that represents the device having the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncservices-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncservices-getdevice
      */
     getDevice(lIndex) {
         result := ComCall(4, this, "int", lIndex, "ptr*", &ppDevice := 0, "HRESULT")

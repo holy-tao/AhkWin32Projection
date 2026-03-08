@@ -4,8 +4,8 @@
 #Include .\ISynchronizeHandle.ahk
 
 /**
- * Assigns an event handle to a synchronization object.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-isynchronizeevent
+ * The ISynchronizeEvent (objidlbase.h) interface assigns an event handle to a synchronization object.
+ * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nn-objidlbase-isynchronizeevent
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -31,10 +31,10 @@ class ISynchronizeEvent extends ISynchronizeHandle{
     static VTableNames => ["SetEventHandle"]
 
     /**
-     * Assigns an event handle to a synchronization object.
+     * The ISynchronizeEvent::SetEventHandle (objidlbase.h) method assigns an event handle to a synchronization object.
      * @param {Pointer<HANDLE>} ph A pointer to the event handle.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-isynchronizeevent-seteventhandle
+     * @see https://learn.microsoft.com/windows/win32/api/objidlbase/nf-objidlbase-isynchronizeevent-seteventhandle
      */
     SetEventHandle(ph) {
         result := ComCall(4, this, "ptr", ph, "HRESULT")

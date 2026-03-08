@@ -5,7 +5,7 @@
 
 /**
  * IWTSProtocolLogonErrorRedirector is no longer available. Instead, use IWRdsProtocolLogonErrorRedirector.
- * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nn-wtsprotocol-iwtsprotocollogonerrorredirector
+ * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nn-wtsprotocol-iwtsprotocollogonerrorredirector
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,8 +32,8 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
 
     /**
      * IWTSProtocolLogonErrorRedirector::OnBeginPainting is no longer available. Instead, use IWRdsProtocolLogonErrorRedirector::OnBeginPainting.
-     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-onbeginpainting
+     * @returns {HRESULT} When you are implementing this method, return <b>S_OK</b> if the function succeeds. If it fails, return an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-onbeginpainting
      */
     OnBeginPainting() {
         result := ComCall(3, this, "HRESULT")
@@ -44,7 +44,7 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
      * IWTSProtocolLogonErrorRedirector::RedirectStatus is no longer available. Instead, use IWRdsProtocolLogonErrorRedirector::RedirectStatus.
      * @param {PWSTR} pszMessage A pointer to a string that contains the logon status message.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectstatus
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectstatus
      */
     RedirectStatus(pszMessage) {
         pszMessage := pszMessage is String ? StrPtr(pszMessage) : pszMessage
@@ -59,7 +59,7 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
      * @param {PWSTR} pszMessage A pointer to a string that contains the logon message.
      * @param {Integer} uType An integer that contains the message box type. For more information, see the <b>MessageBox</b> function.
      * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WTS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response for redirecting the logon message.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectmessage
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectmessage
      */
     RedirectMessage(pszCaption, pszMessage, uType) {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption
@@ -77,7 +77,7 @@ class IWTSProtocolLogonErrorRedirector extends IUnknown{
      * @param {PWSTR} pszMessage A pointer to a string that contains the message.
      * @param {Integer} uType An integer that contains the message box type. For more information, see the <b>MessageBox</b> function.
      * @returns {Integer} A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/wtsdefs/ne-wtsdefs-wts_logon_error_redirector_response">WTS_LOGON_ERROR_REDIRECTOR_RESPONSE</a> enumeration that specifies to the Remote Desktop Services service the preferred response to the logon error.
-     * @see https://docs.microsoft.com/windows/win32/api//wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectlogonerror
+     * @see https://learn.microsoft.com/windows/win32/api/wtsprotocol/nf-wtsprotocol-iwtsprotocollogonerrorredirector-redirectlogonerror
      */
     RedirectLogonError(ntsStatus, ntsSubstatus, pszCaption, pszMessage, uType) {
         pszCaption := pszCaption is String ? StrPtr(pszCaption) : pszCaption

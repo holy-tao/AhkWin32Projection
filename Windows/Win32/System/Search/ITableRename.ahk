@@ -29,11 +29,12 @@ class ITableRename extends IUnknown{
     static VTableNames => ["RenameColumn", "RenameTable"]
 
     /**
-     * 
+     * Learn more about: RenameColumnGrbit enumeration
      * @param {Pointer<DBID>} pTableId 
      * @param {Pointer<DBID>} pOldColumnId 
      * @param {Pointer<DBID>} pNewColumnId 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/renamecolumngrbit-enumeration
      */
     RenameColumn(pTableId, pOldColumnId, pNewColumnId) {
         result := ComCall(3, this, "ptr", pTableId, "ptr", pOldColumnId, "ptr", pNewColumnId, "HRESULT")

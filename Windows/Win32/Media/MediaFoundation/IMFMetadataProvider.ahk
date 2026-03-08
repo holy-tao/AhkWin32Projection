@@ -6,7 +6,7 @@
 
 /**
  * Gets metadata from a media source or other object.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfmetadataprovider
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfmetadataprovider
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IMFMetadataProvider extends IUnknown{
      * @param {Integer} dwStreamIdentifier If this parameter is zero, the method retrieves metadata that applies to the entire presentation. Otherwise, this <i></i> parameter specifies a stream identifier, and the method retrieves metadata for that stream. To get the stream identifier for a stream, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfstreamdescriptor-getstreamidentifier">IMFStreamDescriptor::GetStreamIdentifier</a>.
      * @param {Integer} dwFlags Reserved. Must be zero.
      * @returns {IMFMetadata} Receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfmetadata">IMFMetadata</a> interface. Use this interface to access the metadata. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfmetadataprovider-getmfmetadata
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfmetadataprovider-getmfmetadata
      */
     GetMFMetadata(pPresentationDescriptor, dwStreamIdentifier, dwFlags) {
         result := ComCall(3, this, "ptr", pPresentationDescriptor, "uint", dwStreamIdentifier, "uint", dwFlags, "ptr*", &ppMFMetadata := 0, "HRESULT")

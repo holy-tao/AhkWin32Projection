@@ -69,10 +69,16 @@ class ISWbemObjectSet extends IDispatch{
     }
 
     /**
+     * Windows Image Acquisition (WIA) hardware devices are represented as hierarchical trees of Item objects. The root item in this tree represents the device itself, while child items represent images, folders, or scanning beds.
+     * @remarks
+     * The **Item** object has these types of members:
      * 
+     * -   [Methods](#methods)
+     * -   [Properties](#properties)
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @returns {ISWbemObject} 
+     * @see https://learn.microsoft.com/windows/win32/wia/-wia-item
      */
     Item(strObjectPath, iFlags) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath

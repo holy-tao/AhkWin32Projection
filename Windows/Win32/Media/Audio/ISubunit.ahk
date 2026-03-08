@@ -5,7 +5,7 @@
 
 /**
  * The ISubunit interface represents a hardware subunit (for example, a volume control) that lies in the data path between a client and an audio endpoint device.
- * @see https://docs.microsoft.com/windows/win32/api//devicetopology/nn-devicetopology-isubunit
+ * @see https://learn.microsoft.com/windows/win32/api/devicetopology/nn-devicetopology-isubunit
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */

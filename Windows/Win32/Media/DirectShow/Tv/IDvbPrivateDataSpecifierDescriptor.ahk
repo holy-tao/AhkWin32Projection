@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that get data from a Digital Video Broadcast (DVB) private data descriptor. The private data descriptor describes broadcaster-specific data that is not part of the official MPEG-2 standard for broadcast streams.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvbprivatedataspecifierdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvbprivatedataspecifierdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IDvbPrivateDataSpecifierDescriptor extends IUnknown{
     /**
      * Gets the tag that identifies a Digital Video Broadcast (DVB) private data descriptor.
      * @returns {Integer} Receives the private descriptor identifier tag. For private data descriptors, this value is 0x5F.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -43,7 +43,7 @@ class IDvbPrivateDataSpecifierDescriptor extends IUnknown{
     /**
      * Gets the body length of a Digital Video Broadcast (DVB) private data descriptor.
      * @returns {Integer} Receives the private data descriptor length, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -53,7 +53,7 @@ class IDvbPrivateDataSpecifierDescriptor extends IUnknown{
     /**
      * Gets the data from a Digital Video Broadcast (DVB) private data descriptor.
      * @returns {Integer} Receives the private descriptor specifier data.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getprivatedataspecifier
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvbprivatedataspecifierdescriptor-getprivatedataspecifier
      */
     GetPrivateDataSpecifier() {
         result := ComCall(5, this, "uint*", &pdwVal := 0, "HRESULT")

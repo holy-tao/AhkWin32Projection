@@ -6,7 +6,7 @@
 
 /**
  * Extends the ITextProvider interface to enable Microsoft UI Automation providers to expose textual content that is the target of an annotation, and information about a caret that belongs to the provider.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-itextprovider2
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-itextprovider2
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -39,7 +39,7 @@ class ITextProvider2 extends ITextProvider{
      * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
      * Receives a text range that contains the annotation target text.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itextprovider2-rangefromannotation
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider2-rangefromannotation
      */
     RangeFromAnnotation(annotationElement) {
         result := ComCall(9, this, "ptr", annotationElement, "ptr*", &pRetVal := 0, "HRESULT")
@@ -48,13 +48,17 @@ class ITextProvider2 extends ITextProvider{
 
     /**
      * Provides a zero-length text range at the location of the caret that belongs to the text-based control.
+     * @remarks
+     * If the <i>isActive</i> parameter is <b>FALSE</b>, the caret that belongs to the text-based control might not be at the same location as the system caret.
+     * 
+     * This method retrieves a text range that a client can use to find the bounding rectangle of the caret that belongs to the text-based control, or to find the text near the caret.
      * @param {Pointer<BOOL>} isActive Type: <b>BOOL*</b>
      * 
      * <b>TRUE</b> if the text-based control that contains the caret has keyboard focus, otherwise <b>FALSE</b>.
      * @returns {ITextRangeProvider} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-itextrangeprovider">ITextRangeProvider</a>**</b>
      * 
      *  A text range that represents the current location of the caret that belongs to the text-based control.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-itextprovider2-getcaretrange
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-itextprovider2-getcaretrange
      */
     GetCaretRange(isActive) {
         isActiveMarshal := isActive is VarRef ? "int*" : "ptr"

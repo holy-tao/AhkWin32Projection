@@ -71,11 +71,7 @@ class DXCore {
      * @see https://learn.microsoft.com/windows/win32/dxcore/dxcore/nf-dxcore-dxcorecreateadapterfactory
      */
     static DXCoreCreateAdapterFactory(riid) {
-        result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, "ptr*", &ppvFactory := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("DXCORE.dll\DXCoreCreateAdapterFactory", "ptr", riid, "ptr*", &ppvFactory := 0, "HRESULT")
         return ppvFactory
     }
 

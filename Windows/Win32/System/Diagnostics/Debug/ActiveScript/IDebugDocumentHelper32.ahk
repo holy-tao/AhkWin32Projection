@@ -31,12 +31,20 @@ class IDebugDocumentHelper32 extends IUnknown{
     static VTableNames => ["Init", "Attach", "Detach", "AddUnicodeText", "AddDBCSText", "SetDebugDocumentHost", "AddDeferredText", "DefineScriptBlock", "SetDefaultTextAttr", "SetTextAttributes", "SetLongName", "SetShortName", "SetDocumentAttr", "GetDebugApplicationNode", "GetScriptBlockInfo", "CreateDebugDocumentContext", "BringDocumentToTop", "BringDocumentContextToTop"]
 
     /**
+     * Initializes the trace.
+     * @remarks
+     * Exstrace.dll is an optional component that installs with the Simple Mail Transfer Protocol (SMTP) and the Network News Transfer Protocol (NNTP).
      * 
+     * This function has no associated import library or header file; you must call it using the [**LoadLibrary**](/windows/win32/api/libloaderapi/nf-libloaderapi-loadlibrarya) and [**GetProcAddress**](/windows/win32/api/libloaderapi/nf-libloaderapi-getprocaddress) functions.
      * @param {IDebugApplication32} pda 
      * @param {PWSTR} pszShortName 
      * @param {PWSTR} pszLongName 
      * @param {Integer} docAttr 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function has no parameters.
+     * 
+     * 
+     * This function returns **TRUE** if the function succeeds; otherwise, it returns **FALSE**.
+     * @see https://learn.microsoft.com/windows/win32/DevNotes/-initasynctrace
      */
     Init(pda, pszShortName, pszLongName, docAttr) {
         pszShortName := pszShortName is String ? StrPtr(pszShortName) : pszShortName
@@ -47,9 +55,20 @@ class IDebugDocumentHelper32 extends IUnknown{
     }
 
     /**
+     * See reference information about the AttachConsole function, which attaches the calling process to the console of the specified process.
+     * @remarks
+     * A process can be attached to at most one console. If the calling process is already attached to a console, the error code returned is **ERROR\_ACCESS\_DENIED**. If the specified process does not have a console, the error code returned is **ERROR\_INVALID\_HANDLE**. If the specified process does not exist, the error code returned is **ERROR\_INVALID\_PARAMETER**.
      * 
+     * A process can use the [**FreeConsole**](freeconsole.md) function to detach itself from its console. If other processes share the console, the console is not destroyed, but the process that called **FreeConsole** cannot refer to it. A console is closed when the last process attached to it terminates or calls **FreeConsole**. After a process calls **FreeConsole**, it can call the [**AllocConsole**](allocconsole.md) function to create a new console or **AttachConsole** to attach to another console.
+     * 
+     * This function is primarily useful to applications that were linked with [*SUBSYSTEM:WINDOWS**](/cpp/build/reference/subsystem-specify-subsystem), which implies to the operating system that a console is not needed before entering the program's main method. In that instance, the standard handles retrieved with [**GetStdHandle**](getstdhandle.md) will likely be invalid on startup until **AttachConsole** is called. The exception to this is if the application is launched with handle inheritance by its parent process.
+     * 
+     * To compile an application that uses this function, define **\_WIN32\_WINNT** as `0x0501` or later. For more information, see [Using the Windows Headers](/windows/win32/winprog/using-the-windows-headers).
      * @param {IDebugDocumentHelper32} pddhParent 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call [**GetLastError**](/windows/win32/api/errhandlingapi/nf-errhandlingapi-getlasterror).
+     * @see https://learn.microsoft.com/windows/console/attachconsole
      */
     Attach(pddhParent) {
         result := ComCall(4, this, "ptr", pddhParent, "HRESULT")
@@ -57,8 +76,9 @@ class IDebugDocumentHelper32 extends IUnknown{
     }
 
     /**
-     * 
+     * Learn more about: DetachDatabaseGrbit enumeration
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/detachdatabasegrbit-enumeration
      */
     Detach() {
         result := ComCall(5, this, "HRESULT")

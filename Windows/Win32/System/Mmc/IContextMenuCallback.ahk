@@ -5,7 +5,7 @@
 
 /**
  * The IContextMenuCallback interface is used to add menu items to a context menu.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-icontextmenucallback
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-icontextmenucallback
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IContextMenuCallback extends IUnknown{
      * @param {Pointer<CONTEXTMENUITEM>} pItem A pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/ns-mmc-contextmenuitem">CONTEXTMENUITEM</a> structure with the item to be added. This parameter cannot be <b>NULL</b>.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-icontextmenucallback-additem
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-icontextmenucallback-additem
      */
     AddItem(pItem) {
         result := ComCall(3, this, "ptr", pItem, "HRESULT")

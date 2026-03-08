@@ -6,7 +6,7 @@
 
 /**
  * The ITCallStateEvent interface contains methods that retrieve the description of call state events.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcallstateevent
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcallstateevent
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -60,10 +60,10 @@ class ITCallStateEvent extends IDispatch{
     }
 
     /**
-     * The get_Call method gets a pointer to the call information interface for the call on which the event has occurred.
+     * The get_Call method gets a pointer to the call information interface for the call on which the event has occurred. (ITCallStateEvent.get_Call)
      * @returns {ITCallInfo} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallstateevent-get_call
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_call
      */
     get_Call() {
         result := ComCall(7, this, "ptr*", &ppCallInfo := 0, "HRESULT")
@@ -74,7 +74,7 @@ class ITCallStateEvent extends IDispatch{
      * The get_State method gets information on the new call state.
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state">CALL_STATE</a> constant.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallstateevent-get_state
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_state
      */
     get_State() {
         result := ComCall(8, this, "int*", &pCallState := 0, "HRESULT")
@@ -82,10 +82,10 @@ class ITCallStateEvent extends IDispatch{
     }
 
     /**
-     * The get_Cause method gets the cause associated with this event.
+     * The get_Cause method gets the cause associated with this event. (ITCallStateEvent.get_Cause)
      * @returns {Integer} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-call_state_event_cause">CALL_STATE_EVENT_CAUSE</a> indicator.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallstateevent-get_cause
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_cause
      */
     get_Cause() {
         result := ComCall(9, this, "int*", &pCEC := 0, "HRESULT")
@@ -93,10 +93,10 @@ class ITCallStateEvent extends IDispatch{
     }
 
     /**
-     * The get_CallbackInstance method gets a pointer to the callback instance associated with this event.
+     * The get_CallbackInstance method gets a pointer to the callback instance associated with this event. (ITCallStateEvent.get_CallbackInstance)
      * @returns {Integer} Pointer to callback instance returned by 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-registercallnotifications">ITTAPI::RegisterCallNotifications</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcallstateevent-get_callbackinstance
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcallstateevent-get_callbackinstance
      */
     get_CallbackInstance() {
         result := ComCall(10, this, "int*", &plCallbackInstance := 0, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Represents a clock vector that contains FeedSync information.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ifeedclockvector
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ifeedclockvector
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -63,7 +63,7 @@ class IFeedClockVector extends IClockVector{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ifeedclockvector-getupdatecount
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvector-getupdatecount
      */
     GetUpdateCount(pdwUpdateCount) {
         pdwUpdateCountMarshal := pdwUpdateCount is VarRef ? "uint*" : "ptr"
@@ -105,7 +105,7 @@ class IFeedClockVector extends IClockVector{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ifeedclockvector-isnoconflictsspecified
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ifeedclockvector-isnoconflictsspecified
      */
     IsNoConflictsSpecified(pfIsNoConflictsSpecified) {
         pfIsNoConflictsSpecifiedMarshal := pfIsNoConflictsSpecified is VarRef ? "int*" : "ptr"

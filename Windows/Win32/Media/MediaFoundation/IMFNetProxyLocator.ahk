@@ -6,7 +6,7 @@
 
 /**
  * Determines the proxy to use when connecting to a server.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfnetproxylocator
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfnetproxylocator
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -55,7 +55,7 @@ class IMFNetProxyLocator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetproxylocator-findfirstproxy
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetproxylocator-findfirstproxy
      */
     FindFirstProxy(pszHost, pszUrl, fReserved) {
         pszHost := pszHost is String ? StrPtr(pszHost) : pszHost
@@ -97,7 +97,7 @@ class IMFNetProxyLocator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetproxylocator-findnextproxy
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetproxylocator-findnextproxy
      */
     FindNextProxy() {
         result := ComCall(4, this, "HRESULT")
@@ -126,7 +126,7 @@ class IMFNetProxyLocator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetproxylocator-registerproxyresult
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetproxylocator-registerproxyresult
      */
     RegisterProxyResult(hrOp) {
         result := ComCall(5, this, "int", hrOp, "HRESULT")
@@ -167,7 +167,7 @@ class IMFNetProxyLocator extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetproxylocator-getcurrentproxy
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetproxylocator-getcurrentproxy
      */
     GetCurrentProxy(pszStr, pcchStr) {
         pszStr := pszStr is String ? StrPtr(pszStr) : pszStr
@@ -181,7 +181,7 @@ class IMFNetProxyLocator extends IUnknown{
     /**
      * Creates a new instance of the default proxy locator.
      * @returns {IMFNetProxyLocator} Receives a pointer to the new proxy locator object's <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfnetproxylocator">IMFNetProxyLocator</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfnetproxylocator-clone
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfnetproxylocator-clone
      */
     Clone() {
         result := ComCall(7, this, "ptr*", &ppProxyLocator := 0, "HRESULT")

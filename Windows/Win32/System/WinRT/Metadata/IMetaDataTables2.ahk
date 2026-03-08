@@ -5,7 +5,7 @@
 
 /**
  * Extends IMetaDataTables to include methods for working with metadata streams.
- * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nn-rometadataapi-imetadatatables2
+ * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nn-rometadataapi-imetadatatables2
  * @namespace Windows.Win32.System.WinRT.Metadata
  * @version v4.0.30319
  */
@@ -34,8 +34,8 @@ class IMetaDataTables2 extends IMetaDataTables{
      * Gets the size and contents of the metadata stored in the specified section.
      * @param {Pointer<Pointer<Void>>} ppvMd A pointer to a metadata section.
      * @param {Pointer<Integer>} pcbMd The size of the metadata stream.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastorage
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastorage
      */
     GetMetaDataStorage(ppvMd, pcbMd) {
         ppvMdMarshal := ppvMd is VarRef ? "ptr*" : "ptr"
@@ -51,8 +51,8 @@ class IMetaDataTables2 extends IMetaDataTables{
      * @param {Pointer<Pointer<Integer>>} ppchName A pointer to the name of the stream.
      * @param {Pointer<Pointer<Void>>} ppv A pointer to the metadata stream.
      * @param {Pointer<Integer>} pcb The size, in bytes, of <i>ppv</i>.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastreaminfo
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/rometadataapi/nf-rometadataapi-imetadatatables2-getmetadatastreaminfo
      */
     GetMetaDataStreamInfo(ix, ppchName, ppv, pcb) {
         ppchNameMarshal := ppchName is VarRef ? "ptr*" : "ptr"

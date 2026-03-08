@@ -7,7 +7,6 @@
 /**
  * Called by a Failover Cluster Administrator extension to retrieve information about a resource.
  * @remarks
- * 
  * If the object being extended is not a resource, queries for 
  *      <b>IGetClusterResourceInfo</b> methods will fail. 
  *      Otherwise, you can use the 
@@ -43,10 +42,7 @@
  *      <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-queryinterface(q)">QueryInterface</a> will return a valid interface, 
  *      the operation is not valid in the context of the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/c-gly">cluster</a>, 
  *      and the result is an interface that represents no real cluster object.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-igetclusterresourceinfo
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-igetclusterresourceinfo
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -81,8 +77,8 @@ class IGetClusterResourceInfo extends IUnknown{
      * 
      * If <b>GetResourceHandle</b> is 
      *        not successful, it returns <b>NULL</b>. For more information about the error, call the 
-     *        function <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcehandle
+     *        function <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcehandle
      */
     GetResourceHandle(lObjIndex) {
         result := ComCall(3, this, "int", lObjIndex, "ptr")
@@ -146,13 +142,13 @@ class IGetClusterResourceInfo extends IUnknown{
      * <td width="60%">
      * The buffer pointed to by <i>lpResTypeName</i> is too small to hold the requested 
      *          resource type. 
-     *          <a href="/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcetypename">GetResourceTypeName</a> 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcetypename">GetResourceTypeName</a> 
      *          returns the required number of characters in the content of <i>pcchResTypeName</i>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcetypename
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcetypename
      */
     GetResourceTypeName(lObjIndex, lpszResTypeName, pcchResTypeName) {
         lpszResTypeName := lpszResTypeName is String ? BSTR.Alloc(lpszResTypeName).Value : lpszResTypeName
@@ -165,6 +161,18 @@ class IGetClusterResourceInfo extends IUnknown{
 
     /**
      * Returns the name of the network managed by the Network Name resource on which a resource depends.
+     * @remarks
+     * The 
+     *      <b>GetResourceNetworkName</b> 
+     *      method is necessary to allow 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/cluster-administrator">Failover Cluster Administrator</a> extension property 
+     *      pages to determine whether a resource has an existing or a pending dependency on a Network Name resource.
+     * 
+     * The name of the network is stored in the Network Name resource's Name private property. The Network Name 
+     *      resource's Name common property is the name of the resource, not the network.
+     * 
+     * <b>MAX_COMPUTERNAME_LENGTH</b> is a constant defined as 15 in the Windows header file 
+     *      WinBase.h.
      * @param {Integer} lObjIndex A number representing the zero-based index of the target resource. The target resource may or may not depend 
      *        on a Network Name resource. <i>lObjIndex</i> is restricted to the number that can be 
      *        retrieved by calling 
@@ -190,8 +198,8 @@ class IGetClusterResourceInfo extends IUnknown{
      * </td>
      * <td width="60%">
      * The resource indexed by <i>lObjIndex</i> has a 
-     *          <a href="/previous-versions/windows/desktop/mscs/resource-dependencies">dependency</a> on a 
-     *          <a href="/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource, and the name of the 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/resource-dependencies">dependency</a> on a 
+     *          <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mscs/network-name">Network Name</a> resource, and the name of the 
      *          network was successfully returned.
      * 
      * </td>
@@ -210,7 +218,7 @@ class IGetClusterResourceInfo extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcenetworkname
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-igetclusterresourceinfo-getresourcenetworkname
      */
     GetResourceNetworkName(lObjIndex, lpszNetName, pcchNetName) {
         lpszNetName := lpszNetName is String ? BSTR.Alloc(lpszNetName).Value : lpszNetName

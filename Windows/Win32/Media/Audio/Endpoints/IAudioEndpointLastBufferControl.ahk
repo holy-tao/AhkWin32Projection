@@ -6,11 +6,8 @@
 /**
  * Provides functionality to allow an offload stream client to notify the endpoint that the last buffer has been sent only partially filled.
  * @remarks
- * 
  * This is an optional interface on an endpoint.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nn-audioengineendpoint-iaudioendpointlastbuffercontrol
+ * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nn-audioengineendpoint-iaudioendpointlastbuffercontrol
  * @namespace Windows.Win32.Media.Audio.Endpoints
  * @version v4.0.30319
  */
@@ -38,7 +35,7 @@ class IAudioEndpointLastBufferControl extends IUnknown{
     /**
      * Indicates if last buffer control is supported.
      * @returns {BOOL} <b>true</b> if last buffer control is supported; otherwise, <b>false</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-islastbuffercontrolsupported
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-islastbuffercontrolsupported
      */
     IsLastBufferControlSupported() {
         result := ComCall(3, this, "int")
@@ -49,7 +46,7 @@ class IAudioEndpointLastBufferControl extends IUnknown{
      * Releases the output data pointer for the last buffer.
      * @param {Pointer<APO_CONNECTION_PROPERTY>} pConnectionProperty The APO connection property.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-releaseoutputdatapointerforlastbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/audioengineendpoint/nf-audioengineendpoint-iaudioendpointlastbuffercontrol-releaseoutputdatapointerforlastbuffer
      */
     ReleaseOutputDataPointerForLastBuffer(pConnectionProperty) {
         ComCall(4, this, "ptr", pConnectionProperty)

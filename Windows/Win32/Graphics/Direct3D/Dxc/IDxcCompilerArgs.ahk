@@ -33,13 +33,20 @@ class IDxcCompilerArgs extends IUnknown{
      * @returns {Pointer<PWSTR>} 
      */
     GetArguments() {
-        result := ComCall(3, this, "ptr*")
+        result := ComCall(3, this, "ptr")
         return result
     }
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
-     * @returns {Integer} 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
+     * @returns {Integer} If this function succeeds, the return value is **TRUE**.
+     * 
+     * If this function fails, the return value is **FALSE**. For extended error information, call **GetLastError**.
+     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
         result := ComCall(4, this, "uint")

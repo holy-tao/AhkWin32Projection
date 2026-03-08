@@ -7,7 +7,7 @@
 
 /**
  * The ITCollection interface allows Automation client applications, such as those written in Visual Basic, to retrieve collection information.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itcollection
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itcollection
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -49,7 +49,7 @@ class ITCollection extends IDispatch{
     /**
      * The get_Count method gets the number of items in the collection.
      * @returns {Integer} Number of items.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &lCount := 0, "HRESULT")
@@ -60,7 +60,7 @@ class ITCollection extends IDispatch{
      * The get_Item method, given an index, returns an item in the collection.
      * @param {Integer} Index Index of item to be retrieved.
      * @returns {VARIANT} Pointer to item returned.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get_item
      */
     get_Item(Index) {
         pVariant := VARIANT()
@@ -70,6 +70,14 @@ class ITCollection extends IDispatch{
 
     /**
      * The get__NewEnum method gets an enumerator for the collection.
+     * @remarks
+     * Each TAPI 3 interface that includes a method that returns a collection also includes a method that returns a pointer to a TAPI 3 enumerator interface. If you are programming in C/C++, it can be easier to call a collection's enumerator method directly to obtain an enumerator object, instead of calling the <b>ITCollection::get__NewEnum</b> method. For example, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-ittapi-enumerateaddresses">ITTAPI::EnumerateAddresses</a> method returns a pointer to an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumaddress">IEnumAddress</a> interface. 
+     * <b>IEnumAddress</b> provides enumeration methods for the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/address-object">Address object</a>.
+     * 
+     * If you are programming in Visual Basic, you do not need to call this method to enumerate a collection. This is because you can invoke the method's functionality implicitly using the <b>For...Each...in...Next...</b> construct.
      * @returns {IUnknown} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on an enumerator object for the collection. 
      * 
@@ -81,7 +89,7 @@ class ITCollection extends IDispatch{
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> enumeration interface on the collection. <b>IEnumVARIANT</b> provides a number of methods that you can use to iterate through the collection.
      * 
      * For more information, see the following Remarks section.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itcollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itcollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &ppNewEnum := 0, "HRESULT")

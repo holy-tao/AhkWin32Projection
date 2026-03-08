@@ -259,11 +259,7 @@ class PropertiesSystem {
     static PSFormatForDisplay(propkey, propvar, pdfFlags, pwszText, cchText) {
         pwszText := pwszText is String ? StrPtr(pwszText) : pwszText
 
-        result := DllCall("PROPSYS.dll\PSFormatForDisplay", "ptr", propkey, "ptr", propvar, "int", pdfFlags, "ptr", pwszText, "uint", cchText, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSFormatForDisplay", "ptr", propkey, "ptr", propvar, "int", pdfFlags, "ptr", pwszText, "uint", cchText, "HRESULT")
         return result
     }
 
@@ -444,11 +440,7 @@ class PropertiesSystem {
      * @since windows6.0.6000
      */
     static PSFormatForDisplayAlloc(key, propvar, pdff) {
-        result := DllCall("PROPSYS.dll\PSFormatForDisplayAlloc", "ptr", key, "ptr", propvar, "int", pdff, "ptr*", &ppszDisplay := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSFormatForDisplayAlloc", "ptr", key, "ptr", propvar, "int", pdff, "ptr*", &ppszDisplay := 0, "HRESULT")
         return ppszDisplay
     }
 
@@ -629,11 +621,7 @@ class PropertiesSystem {
      * @since windows6.0.6000
      */
     static PSFormatPropertyValue(pps, ppd, pdff) {
-        result := DllCall("PROPSYS.dll\PSFormatPropertyValue", "ptr", pps, "ptr", ppd, "int", pdff, "ptr*", &ppszDisplay := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSFormatPropertyValue", "ptr", pps, "ptr", ppd, "int", pdff, "ptr*", &ppszDisplay := 0, "HRESULT")
         return ppszDisplay
     }
 
@@ -654,11 +642,7 @@ class PropertiesSystem {
      * @since windows6.1
      */
     static PSGetImageReferenceForValue(propkey, propvar) {
-        result := DllCall("PROPSYS.dll\PSGetImageReferenceForValue", "ptr", propkey, "ptr", propvar, "ptr*", &ppszImageRes := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetImageReferenceForValue", "ptr", propkey, "ptr", propvar, "ptr*", &ppszImageRes := 0, "HRESULT")
         return ppszImageRes
     }
 
@@ -684,11 +668,7 @@ class PropertiesSystem {
     static PSStringFromPropertyKey(pkey, psz, cch) {
         psz := psz is String ? StrPtr(psz) : psz
 
-        result := DllCall("PROPSYS.dll\PSStringFromPropertyKey", "ptr", pkey, "ptr", psz, "uint", cch, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSStringFromPropertyKey", "ptr", pkey, "ptr", psz, "uint", cch, "HRESULT")
         return result
     }
 
@@ -713,11 +693,7 @@ class PropertiesSystem {
     static PSPropertyKeyFromString(pszString, pkey) {
         pszString := pszString is String ? StrPtr(pszString) : pszString
 
-        result := DllCall("PROPSYS.dll\PSPropertyKeyFromString", "ptr", pszString, "ptr", pkey, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyKeyFromString", "ptr", pszString, "ptr", pkey, "HRESULT")
         return result
     }
 
@@ -739,11 +715,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateMemoryPropertyStore(riid) {
-        result := DllCall("PROPSYS.dll\PSCreateMemoryPropertyStore", "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreateMemoryPropertyStore", "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -791,11 +763,7 @@ class PropertiesSystem {
     static PSCreateDelayedMultiplexPropertyStore(flags, pdpsf, rgStoreIds, cStores, riid) {
         rgStoreIdsMarshal := rgStoreIds is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, "uint", cStores, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreateDelayedMultiplexPropertyStore", "int", flags, "ptr", pdpsf, rgStoreIdsMarshal, rgStoreIds, "uint", cStores, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -831,11 +799,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateMultiplexPropertyStore(prgpunkStores, cStores, riid) {
-        result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", "ptr*", prgpunkStores, "uint", cStores, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreateMultiplexPropertyStore", "ptr*", prgpunkStores, "uint", cStores, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -876,11 +840,7 @@ class PropertiesSystem {
     static PSCreatePropertyChangeArray(rgpropkey, rgflags, rgpropvar, cChanges, riid) {
         rgflagsMarshal := rgflags is VarRef ? "int*" : "ptr"
 
-        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, rgflagsMarshal, rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreatePropertyChangeArray", "ptr", rgpropkey, rgflagsMarshal, rgflags, "ptr", rgpropvar, "uint", cChanges, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -908,11 +868,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateSimplePropertyChange(flags, key, propvar, riid) {
-        result := DllCall("PROPSYS.dll\PSCreateSimplePropertyChange", "int", flags, "ptr", key, "ptr", propvar, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreateSimplePropertyChange", "int", flags, "ptr", key, "ptr", propvar, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -933,11 +889,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertyDescription(propkey, riid) {
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescription", "ptr", propkey, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescription", "ptr", propkey, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1455,11 +1407,7 @@ class PropertiesSystem {
     static PSGetPropertyDescriptionByName(pszCanonicalName, riid) {
         pszCanonicalName := pszCanonicalName is String ? StrPtr(pszCanonicalName) : pszCanonicalName
 
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionByName", "ptr", pszCanonicalName, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionByName", "ptr", pszCanonicalName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1490,11 +1438,7 @@ class PropertiesSystem {
     static PSLookupPropertyHandlerCLSID(pszFilePath, pclsid) {
         pszFilePath := pszFilePath is String ? StrPtr(pszFilePath) : pszFilePath
 
-        result := DllCall("PROPSYS.dll\PSLookupPropertyHandlerCLSID", "ptr", pszFilePath, "ptr", pclsid, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSLookupPropertyHandlerCLSID", "ptr", pszFilePath, "ptr", pclsid, "HRESULT")
         return result
     }
 
@@ -1528,11 +1472,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandler(punkItem, fReadWrite, riid) {
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "int", fReadWrite, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandler", "ptr", punkItem, "int", fReadWrite, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1571,11 +1511,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetItemPropertyHandlerWithCreateObject(punkItem, fReadWrite, punkCreateObject, riid) {
-        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "int", fReadWrite, "ptr", punkCreateObject, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetItemPropertyHandlerWithCreateObject", "ptr", punkItem, "int", fReadWrite, "ptr", punkCreateObject, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1599,11 +1535,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertyValue(pps, ppd, ppropvar) {
-        result := DllCall("PROPSYS.dll\PSGetPropertyValue", "ptr", pps, "ptr", ppd, "ptr", ppropvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetPropertyValue", "ptr", pps, "ptr", ppd, "ptr", ppropvar, "HRESULT")
         return result
     }
 
@@ -1627,11 +1559,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSSetPropertyValue(pps, ppd, propvar) {
-        result := DllCall("PROPSYS.dll\PSSetPropertyValue", "ptr", pps, "ptr", ppd, "ptr", propvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSSetPropertyValue", "ptr", pps, "ptr", ppd, "ptr", propvar, "HRESULT")
         return result
     }
 
@@ -1697,11 +1625,7 @@ class PropertiesSystem {
     static PSRegisterPropertySchema(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("PROPSYS.dll\PSRegisterPropertySchema", "ptr", pszPath, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSRegisterPropertySchema", "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -1752,11 +1676,7 @@ class PropertiesSystem {
     static PSUnregisterPropertySchema(pszPath) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("PROPSYS.dll\PSUnregisterPropertySchema", "ptr", pszPath, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSUnregisterPropertySchema", "ptr", pszPath, "HRESULT")
         return result
     }
 
@@ -1798,11 +1718,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSRefreshPropertySchema() {
-        result := DllCall("PROPSYS.dll\PSRefreshPropertySchema", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSRefreshPropertySchema", "HRESULT")
         return result
     }
 
@@ -1823,11 +1739,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSEnumeratePropertyDescriptions(filterOn, riid) {
-        result := DllCall("PROPSYS.dll\PSEnumeratePropertyDescriptions", "int", filterOn, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSEnumeratePropertyDescriptions", "int", filterOn, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -1892,11 +1804,7 @@ class PropertiesSystem {
     static PSGetPropertyKeyFromName(pszName, ppropkey) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("PROPSYS.dll\PSGetPropertyKeyFromName", "ptr", pszName, "ptr", ppropkey, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetPropertyKeyFromName", "ptr", pszName, "ptr", ppropkey, "HRESULT")
         return result
     }
 
@@ -1916,11 +1824,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetNameFromPropertyKey(propkey) {
-        result := DllCall("PROPSYS.dll\PSGetNameFromPropertyKey", "ptr", propkey, "ptr*", &ppszCanonicalName := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetNameFromPropertyKey", "ptr", propkey, "ptr*", &ppszCanonicalName := 0, "HRESULT")
         return ppszCanonicalName
     }
 
@@ -2124,11 +2028,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCoerceToCanonicalValue(key, ppropvar) {
-        result := DllCall("PROPSYS.dll\PSCoerceToCanonicalValue", "ptr", key, "ptr", ppropvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCoerceToCanonicalValue", "ptr", key, "ptr", ppropvar, "HRESULT")
         return result
     }
 
@@ -2155,11 +2055,7 @@ class PropertiesSystem {
     static PSGetPropertyDescriptionListFromString(pszPropList, riid) {
         pszPropList := pszPropList is String ? StrPtr(pszPropList) : pszPropList
 
-        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionListFromString", "ptr", pszPropList, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetPropertyDescriptionListFromString", "ptr", pszPropList, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2183,11 +2079,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreatePropertyStoreFromPropertySetStorage(ppss, grfMode, riid) {
-        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromPropertySetStorage", "ptr", ppss, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2211,11 +2103,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreatePropertyStoreFromObject(punk, grfMode, riid) {
-        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreatePropertyStoreFromObject", "ptr", punk, "uint", grfMode, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2242,11 +2130,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSCreateAdapterFromPropertyStore(pps, riid) {
-        result := DllCall("PROPSYS.dll\PSCreateAdapterFromPropertyStore", "ptr", pps, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSCreateAdapterFromPropertyStore", "ptr", pps, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2266,11 +2150,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertySystem(riid) {
-        result := DllCall("PROPSYS.dll\PSGetPropertySystem", "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetPropertySystem", "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -2301,11 +2181,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static PSGetPropertyFromPropertyStorage(psps, cb, rpkey, ppropvar) {
-        result := DllCall("PROPSYS.dll\PSGetPropertyFromPropertyStorage", "ptr", psps, "uint", cb, "ptr", rpkey, "ptr", ppropvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetPropertyFromPropertyStorage", "ptr", psps, "uint", cb, "ptr", rpkey, "ptr", ppropvar, "HRESULT")
         return result
     }
 
@@ -2338,11 +2214,7 @@ class PropertiesSystem {
     static PSGetNamedPropertyFromPropertyStorage(psps, cb, pszName, ppropvar) {
         pszName := pszName is String ? StrPtr(pszName) : pszName
 
-        result := DllCall("PROPSYS.dll\PSGetNamedPropertyFromPropertyStorage", "ptr", psps, "uint", cb, "ptr", pszName, "ptr", ppropvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSGetNamedPropertyFromPropertyStorage", "ptr", psps, "uint", cb, "ptr", pszName, "ptr", ppropvar, "HRESULT")
         return result
     }
 
@@ -2371,11 +2243,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadType(propBag, propName, var, type) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadType", "ptr", propBag, "ptr", propName, "ptr", var, "ushort", type, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadType", "ptr", propBag, "ptr", propName, "ptr", var, "ushort", type, "HRESULT")
         return result
     }
 
@@ -2405,11 +2273,7 @@ class PropertiesSystem {
         propName := propName is String ? StrPtr(propName) : propName
         value := value is String ? StrPtr(value) : value
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStr", "ptr", propBag, "ptr", propName, "ptr", value, "int", characterCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStr", "ptr", propBag, "ptr", propName, "ptr", value, "int", characterCount, "HRESULT")
         return result
     }
 
@@ -2432,11 +2296,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadStrAlloc(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStrAlloc", "ptr", propBag, "ptr", propName, "ptr*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStrAlloc", "ptr", propBag, "ptr", propName, "ptr*", &value := 0, "HRESULT")
         return value
     }
 
@@ -2460,11 +2320,7 @@ class PropertiesSystem {
         propName := propName is String ? StrPtr(propName) : propName
 
         value := BSTR()
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return value
     }
 
@@ -2491,11 +2347,7 @@ class PropertiesSystem {
         propName := propName is String ? StrPtr(propName) : propName
         value := value is String ? StrPtr(value) : value
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteStr", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteStr", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -2522,11 +2374,7 @@ class PropertiesSystem {
         propName := propName is String ? StrPtr(propName) : propName
         value := value is Win32Handle ? NumGet(value, "ptr") : value
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBSTR", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -2551,11 +2399,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadInt(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadInt", "ptr", propBag, "ptr", propName, "int*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadInt", "ptr", propBag, "ptr", propName, "int*", &value := 0, "HRESULT")
         return value
     }
 
@@ -2581,11 +2425,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteInt(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteInt", "ptr", propBag, "ptr", propName, "int", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteInt", "ptr", propBag, "ptr", propName, "int", value, "HRESULT")
         return result
     }
 
@@ -2608,11 +2448,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadSHORT(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadSHORT", "ptr", propBag, "ptr", propName, "short*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadSHORT", "ptr", propBag, "ptr", propName, "short*", &value := 0, "HRESULT")
         return value
     }
 
@@ -2638,11 +2474,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteSHORT(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteSHORT", "ptr", propBag, "ptr", propName, "short", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteSHORT", "ptr", propBag, "ptr", propName, "short", value, "HRESULT")
         return result
     }
 
@@ -2667,11 +2499,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadLONG(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadLONG", "ptr", propBag, "ptr", propName, "int*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadLONG", "ptr", propBag, "ptr", propName, "int*", &value := 0, "HRESULT")
         return value
     }
 
@@ -2697,11 +2525,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteLONG(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteLONG", "ptr", propBag, "ptr", propName, "int", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteLONG", "ptr", propBag, "ptr", propName, "int", value, "HRESULT")
         return result
     }
 
@@ -2724,11 +2548,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadDWORD(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadDWORD", "ptr", propBag, "ptr", propName, "uint*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadDWORD", "ptr", propBag, "ptr", propName, "uint*", &value := 0, "HRESULT")
         return value
     }
 
@@ -2754,11 +2574,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteDWORD(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteDWORD", "ptr", propBag, "ptr", propName, "uint", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteDWORD", "ptr", propBag, "ptr", propName, "uint", value, "HRESULT")
         return result
     }
 
@@ -2781,11 +2597,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadBOOL(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBOOL", "ptr", propBag, "ptr", propName, "int*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadBOOL", "ptr", propBag, "ptr", propName, "int*", &value := 0, "HRESULT")
         return value
     }
 
@@ -2811,11 +2623,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteBOOL(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBOOL", "ptr", propBag, "ptr", propName, "int", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteBOOL", "ptr", propBag, "ptr", propName, "int", value, "HRESULT")
         return result
     }
 
@@ -2841,11 +2649,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadPOINTL(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPOINTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPOINTL", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -2871,11 +2675,7 @@ class PropertiesSystem {
     static PSPropertyBag_WritePOINTL(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WritePOINTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WritePOINTL", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -2901,11 +2701,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadPOINTS(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPOINTS", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPOINTS", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -2931,11 +2727,7 @@ class PropertiesSystem {
     static PSPropertyBag_WritePOINTS(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WritePOINTS", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WritePOINTS", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -2961,11 +2753,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadRECTL(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadRECTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadRECTL", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -2991,11 +2779,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteRECTL(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteRECTL", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteRECTL", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -3022,11 +2806,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadStream(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStream", "ptr", propBag, "ptr", propName, "ptr*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadStream", "ptr", propBag, "ptr", propName, "ptr*", &value := 0, "HRESULT")
         return IStream(value)
     }
 
@@ -3052,11 +2832,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteStream(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteStream", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteStream", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -3079,11 +2855,7 @@ class PropertiesSystem {
     static PSPropertyBag_Delete(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_Delete", "ptr", propBag, "ptr", propName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_Delete", "ptr", propBag, "ptr", propName, "HRESULT")
         return result
     }
 
@@ -3106,11 +2878,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadULONGLONG(propBag, propName) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadULONGLONG", "ptr", propBag, "ptr", propName, "uint*", &value := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadULONGLONG", "ptr", propBag, "ptr", propName, "uint*", &value := 0, "HRESULT")
         return value
     }
 
@@ -3136,11 +2904,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteULONGLONG(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteULONGLONG", "ptr", propBag, "ptr", propName, "uint", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteULONGLONG", "ptr", propBag, "ptr", propName, "uint", value, "HRESULT")
         return result
     }
 
@@ -3166,11 +2930,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadUnknown(propBag, propName, riid) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadUnknown", "ptr", propBag, "ptr", propName, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadUnknown", "ptr", propBag, "ptr", propName, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -3196,11 +2956,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteUnknown(propBag, propName, punk) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteUnknown", "ptr", propBag, "ptr", propName, "ptr", punk, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteUnknown", "ptr", propBag, "ptr", propName, "ptr", punk, "HRESULT")
         return result
     }
 
@@ -3226,11 +2982,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadGUID(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadGUID", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadGUID", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -3256,11 +3008,7 @@ class PropertiesSystem {
     static PSPropertyBag_WriteGUID(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteGUID", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WriteGUID", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -3286,11 +3034,7 @@ class PropertiesSystem {
     static PSPropertyBag_ReadPropertyKey(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPropertyKey", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_ReadPropertyKey", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -3318,11 +3062,7 @@ class PropertiesSystem {
     static PSPropertyBag_WritePropertyKey(propBag, propName, value) {
         propName := propName is String ? StrPtr(propName) : propName
 
-        result := DllCall("PROPSYS.dll\PSPropertyBag_WritePropertyKey", "ptr", propBag, "ptr", propName, "ptr", value, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("PROPSYS.dll\PSPropertyBag_WritePropertyKey", "ptr", propBag, "ptr", propName, "ptr", value, "HRESULT")
         return result
     }
 
@@ -3344,11 +3084,7 @@ class PropertiesSystem {
      * @since windows6.0.6000
      */
     static SHGetPropertyStoreFromIDList(pidl, flags, riid) {
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromIDList", "ptr", pidl, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromIDList", "ptr", pidl, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -3375,11 +3111,7 @@ class PropertiesSystem {
     static SHGetPropertyStoreFromParsingName(pszPath, pbc, flags, riid) {
         pszPath := pszPath is String ? StrPtr(pszPath) : pszPath
 
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreFromParsingName", "ptr", pszPath, "ptr", pbc, "int", flags, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 
@@ -3415,11 +3147,7 @@ class PropertiesSystem {
     static SHAddDefaultPropertiesByExt(pszExt, pPropStore) {
         pszExt := pszExt is String ? StrPtr(pszExt) : pszExt
 
-        result := DllCall("SHELL32.dll\SHAddDefaultPropertiesByExt", "ptr", pszExt, "ptr", pPropStore, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SHELL32.dll\SHAddDefaultPropertiesByExt", "ptr", pszExt, "ptr", pPropStore, "HRESULT")
         return result
     }
 
@@ -3593,11 +3321,7 @@ class PropertiesSystem {
     static SHPropStgCreate(psstg, fmtid, pclsid, grfFlags, grfMode, dwDisposition, ppstg, puCodePage) {
         puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, "ptr", fmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "uint", dwDisposition, "ptr*", ppstg, puCodePageMarshal, puCodePage, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SHELL32.dll\SHPropStgCreate", "ptr", psstg, "ptr", fmtid, "ptr", pclsid, "uint", grfFlags, "uint", grfMode, "uint", dwDisposition, "ptr*", ppstg, puCodePageMarshal, puCodePage, "HRESULT")
         return result
     }
 
@@ -3625,11 +3349,7 @@ class PropertiesSystem {
      * @since windows5.1.2600
      */
     static SHPropStgReadMultiple(pps, uCodePage, cpspec, rgpspec, rgvar) {
-        result := DllCall("SHELL32.dll\SHPropStgReadMultiple", "ptr", pps, "uint", uCodePage, "uint", cpspec, "ptr", rgpspec, "ptr", rgvar, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SHELL32.dll\SHPropStgReadMultiple", "ptr", pps, "uint", uCodePage, "uint", cpspec, "ptr", rgpspec, "ptr", rgvar, "HRESULT")
         return result
     }
 
@@ -3662,11 +3382,7 @@ class PropertiesSystem {
     static SHPropStgWriteMultiple(pps, puCodePage, cpspec, rgpspec, rgvar, propidNameFirst) {
         puCodePageMarshal := puCodePage is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SHELL32.dll\SHPropStgWriteMultiple", "ptr", pps, puCodePageMarshal, puCodePage, "uint", cpspec, "ptr", rgpspec, "ptr", rgvar, "uint", propidNameFirst, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SHELL32.dll\SHPropStgWriteMultiple", "ptr", pps, puCodePageMarshal, puCodePage, "uint", cpspec, "ptr", rgpspec, "ptr", rgvar, "uint", propidNameFirst, "HRESULT")
         return result
     }
 
@@ -3711,11 +3427,7 @@ class PropertiesSystem {
     static SHGetPropertyStoreForWindow(hwnd, riid) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd
 
-        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SHELL32.dll\SHGetPropertyStoreForWindow", "ptr", hwnd, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")
         return ppv
     }
 

@@ -5,7 +5,7 @@
 
 /**
  * This interface is accessible to the provider through IFunctionDiscoveryProviderQuery::GetPropertyConstraints.
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpropertyconstraintcollection
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpropertyconstraintcollection
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -31,9 +31,9 @@ class IProviderPropertyConstraintCollection extends IUnknown{
     static VTableNames => ["GetCount", "Get", "Item", "Next", "Skip", "Reset"]
 
     /**
-     * Gets the number of items in the collection.
+     * Gets the number of items in the collection. (IProviderPropertyConstraintCollection.GetCount)
      * @returns {Integer} The number of items.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-getcount
      */
     GetCount() {
         result := ComCall(3, this, "uint*", &pdwCount := 0, "HRESULT")
@@ -86,7 +86,7 @@ class IProviderPropertyConstraintCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-get
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-get
      */
     Get(Key, pPropVar, pdwPropertyConstraint) {
         pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
@@ -131,7 +131,7 @@ class IProviderPropertyConstraintCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-item
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-item
      */
     Item(dwIndex, pKey, pPropVar, pdwPropertyConstraint) {
         pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
@@ -175,7 +175,7 @@ class IProviderPropertyConstraintCollection extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-next
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-next
      */
     Next(pKey, pPropVar, pdwPropertyConstraint) {
         pdwPropertyConstraintMarshal := pdwPropertyConstraint is VarRef ? "uint*" : "ptr"
@@ -185,9 +185,9 @@ class IProviderPropertyConstraintCollection extends IUnknown{
     }
 
     /**
-     * Skips the next item in the collection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-skip
+     * Skips the next item in the collection. (IProviderPropertyConstraintCollection.Skip)
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-skip
      */
     Skip() {
         result := ComCall(7, this, "HRESULT")
@@ -195,9 +195,9 @@ class IProviderPropertyConstraintCollection extends IUnknown{
     }
 
     /**
-     * Resets the current index to the start of the collection.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-reset
+     * Resets the current index to the start of the collection. (IProviderPropertyConstraintCollection.Reset)
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-iproviderpropertyconstraintcollection-reset
      */
     Reset() {
         result := ComCall(8, this, "HRESULT")

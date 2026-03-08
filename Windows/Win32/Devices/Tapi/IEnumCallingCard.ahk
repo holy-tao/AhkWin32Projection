@@ -7,7 +7,7 @@
 
 /**
  * The IEnumCallingCard interface provides COM-standard enumeration methods for the ITCallingCard interface. The ITAddressTranslation::EnumerateCallingCards method returns a pointer to IEnumCallingCard.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ienumcallingcard
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ienumcallingcard
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,12 +33,16 @@ class IEnumCallingCard extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * The Next method gets the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages. (IEnumCallingCard.Next)
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallingcard">ITCallingCard</a> interface returned by <b>IEnumCallingCard::Next</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>ITCallingCard</b> interface to free resources associated with it.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pceltFetched Pointer to number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
      * @returns {ITCallingCard} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallingcard">ITCallingCard</a> pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumcallingcard-next
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallingcard-next
      */
     Next(celt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -48,7 +52,7 @@ class IEnumCallingCard extends IUnknown{
     }
 
     /**
-     * The Reset method resets to the beginning of the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * The Reset method resets to the beginning of the enumeration sequence. This method is hidden from Visual Basic and scripting languages. (IEnumCallingCard.Reset)
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -79,7 +83,7 @@ class IEnumCallingCard extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumcallingcard-reset
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallingcard-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -87,7 +91,7 @@ class IEnumCallingCard extends IUnknown{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages.
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. This method is hidden from Visual Basic and scripting languages. (IEnumCallingCard.Skip)
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -130,7 +134,7 @@ class IEnumCallingCard extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumcallingcard-skip
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallingcard-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -138,10 +142,14 @@ class IEnumCallingCard extends IUnknown{
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one. This method is hidden from Visual Basic and scripting languages.
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. This method is hidden from Visual Basic and scripting languages. (IEnumCallingCard.Clone)
+     * @remarks
+     * TAPI calls the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-addref">AddRef</a> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcallingcard">IEnumCallingCard</a> interface returned by <b>IEnumCallingCard::Clone</b>. The application must call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> on the 
+     * <b>IEnumCallingCard</b> interface to free resources associated with it.
      * @returns {IEnumCallingCard} Pointer to new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcallingcard">IEnumCallingCard</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ienumcallingcard-clone
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ienumcallingcard-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

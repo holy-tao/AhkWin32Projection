@@ -5,7 +5,7 @@
 
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-idvb_dit
+ * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-idvb_dit
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -85,7 +85,7 @@ class IDVB_DIT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_dit-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_dit-initialize
      */
     Initialize(pSectionList) {
         result := ComCall(3, this, "ptr", pSectionList, "HRESULT")
@@ -95,7 +95,7 @@ class IDVB_DIT extends IUnknown{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 and later.
      * @returns {BOOL} Pointer to a variable that receives a Boolean value. The value is <b>TRUE</b> if the transition_flag bit is set, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-idvb_dit-gettransitionflag
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-idvb_dit-gettransitionflag
      */
     GetTransitionFlag() {
         result := ComCall(4, this, "int*", &pfVal := 0, "HRESULT")

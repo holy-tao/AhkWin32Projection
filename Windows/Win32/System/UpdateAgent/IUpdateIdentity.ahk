@@ -7,11 +7,8 @@
 /**
  * Represents the unique identifier of an update.
  * @remarks
- * 
  * You can create an instance of this interface by using the UpdateIdentity coclass.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateidentity
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateidentity
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -53,7 +50,7 @@ class IUpdateIdentity extends IDispatch{
     /**
      * Gets the revision number of an update.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateidentity-get_revisionnumber
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateidentity-get_revisionnumber
      */
     get_RevisionNumber() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -63,7 +60,7 @@ class IUpdateIdentity extends IDispatch{
     /**
      * Gets the revision-independent identifier of an update.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateidentity-get_updateid
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateidentity-get_updateid
      */
     get_UpdateID() {
         retval := BSTR()

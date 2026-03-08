@@ -6,7 +6,7 @@
 
 /**
  * The IAMBufferNegotiation interface requests the number of buffers for a filter to create and size of each buffer.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iambuffernegotiation
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iambuffernegotiation
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IAMBufferNegotiation extends IUnknown{
 
     /**
      * The SuggestAllocatorProperties method informs the pin of the application's preferred allocator properties. Call this method before the pin connects.
+     * @remarks
+     * If both pins in the connection expose the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-iambuffernegotiation">IAMBufferNegotiation</a> interface, call this method on each pin, to ensure that one pin does not override the other.
+     * 
+     * To request a particular number of buffers, set the <b>cBuffers</b> member of the <b>ALLOCATOR_PROPERTIES</b> structure. To request a particular buffer size, set the <b>cbBuffer</b> member. An application typically should not specify the alignment or prefix. If the number of buffers or size of each buffer is too small, the filter graph might drop samples.
      * @param {Pointer<ALLOCATOR_PROPERTIES>} pprop Pointer to an [ALLOCATOR_PROPERTIES](/windows/desktop/api/strmif/ns-strmif-allocator_properties) structure that contains the requested properties. A negative value for any member indicates that the pin should use its default setting for that property.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -86,7 +90,7 @@ class IAMBufferNegotiation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iambuffernegotiation-suggestallocatorproperties
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iambuffernegotiation-suggestallocatorproperties
      */
     SuggestAllocatorProperties(pprop) {
         result := ComCall(3, this, "ptr", pprop, "HRESULT")
@@ -95,8 +99,10 @@ class IAMBufferNegotiation extends IUnknown{
 
     /**
      * The GetAllocatorProperties method retrieves the allocator properties that the pin is using.
+     * @remarks
+     * Call this method after the pins connect, to find out the allocator properties that were chosen.
      * @returns {ALLOCATOR_PROPERTIES} Pointer to an [ALLOCATOR_PROPERTIES](/windows/desktop/api/strmif/ns-strmif-allocator_properties) structure, allocated by the caller, that receives the allocator properties.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iambuffernegotiation-getallocatorproperties
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iambuffernegotiation-getallocatorproperties
      */
     GetAllocatorProperties() {
         pprop := ALLOCATOR_PROPERTIES()

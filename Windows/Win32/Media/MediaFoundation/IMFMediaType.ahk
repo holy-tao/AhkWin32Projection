@@ -6,7 +6,6 @@
 /**
  * Represents a description of a media format.
  * @remarks
- * 
  * To create a new media type, call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatemediatype">MFCreateMediaType</a>.
  *       
  * 
@@ -19,9 +18,7 @@
  * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
  * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
  * </ul>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfmediatype
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmediatype
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -48,8 +45,18 @@ class IMFMediaType extends IMFAttributes{
 
     /**
      * Gets the major type of the format.
+     * @remarks
+     * This method is equivalent to getting the <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-major-type-attribute">MF_MT_MAJOR_TYPE</a> attribute from the media type.
+     *       
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @returns {Guid} Receives the major type <b>GUID</b>. The major type describes the broad category of the format, such as audio or video. For a list of possible values, see <a href="https://docs.microsoft.com/windows/desktop/medfound/media-type-guids">Major Media Types</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediatype-getmajortype
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-getmajortype
      */
     GetMajorType() {
         pguidMajorType := Guid()
@@ -59,8 +66,21 @@ class IMFMediaType extends IMFAttributes{
 
     /**
      * Queries whether the media type is a temporally compressed format.
+     * @remarks
+     * This method returns <b>FALSE</b> in <i>pfCompressed</i> if the media type's <a href="https://docs.microsoft.com/windows/desktop/medfound/mf-mt-all-samples-independent-attribute">MF_MT_ALL_SAMPLES_INDEPENDENT</a> attribute is <b>TRUE</b>. If the <b>MF_MT_ALL_SAMPLES_INDEPENDENT</b> attribute is <b>FALSE</b> or not set, the method returns <b>TRUE</b>.
+     *       
+     * 
+     * If the method returns <b>TRUE</b> in <i>pfCompressed</i>, it is a hint that the format has temporal compression applied to it. If the method returns <b>FALSE</b>, the format does not use temporal compression, although it might use intra-frame compression.
+     *       
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @returns {BOOL} Receives a Boolean value. The value is <b>TRUE</b> if the format uses temporal compression, or <b>FALSE</b> if the format does not use temporal compression.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediatype-iscompressedformat
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-iscompressedformat
      */
     IsCompressedFormat() {
         result := ComCall(34, this, "int*", &pfCompressed := 0, "HRESULT")
@@ -69,6 +89,19 @@ class IMFMediaType extends IMFAttributes{
 
     /**
      * Compares two media types and determines whether they are identical. If they are not identical, the method indicates how the two formats differ.
+     * @remarks
+     * Both of the media types must have a major type, or the method returns <b>E_INVALIDARG</b>.
+     *       
+     * 
+     * If the method succeeds and all of the comparison flags are set in <i>pdwFlags</i>, the return value is <b>S_OK</b>. If the method succeeds but one or more comparison flags are not set, the method returns <b>S_FALSE</b>.
+     *       
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {IMFMediaType} pIMediaType Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nn-mfobjects-imfmediatype">IMFMediaType</a> interface of the media type to compare.
      * @returns {Integer} Receives a bitwise <b>OR</b> of zero or more flags, indicating the degree of similarity between the two media types. The following flags are defined.
      * 
@@ -126,7 +159,7 @@ class IMFMediaType extends IMFAttributes{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediatype-isequal
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-isequal
      */
     IsEqual(pIMediaType) {
         result := ComCall(35, this, "ptr", pIMediaType, "uint*", &pdwFlags := 0, "HRESULT")
@@ -135,6 +168,19 @@ class IMFMediaType extends IMFAttributes{
 
     /**
      * Retrieves an alternative representation of the media type. Currently only the DirectShow AM_MEDIA_TYPE structure is supported.
+     * @remarks
+     * If you request a specific format structure in the <i>guidRepresentation</i> parameter, such as <b>VIDEOINFOHEADER</b>, you might lose some of the format information.
+     *       
+     * 
+     * You can also use the <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfinitammediatypefrommfmediatype">MFInitAMMediaTypeFromMFMediaType</a> function to convert a Media Foundation media type into a DirectShow media type.
+     *       
+     * 
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {Guid} guidRepresentation GUID that specifies the representation to retrieve. The following values are defined.
      *           
      * 
@@ -189,7 +235,7 @@ class IMFMediaType extends IMFAttributes{
      * </tr>
      * </table>
      * @returns {Pointer<Void>} Receives a pointer to a structure that contains the representation. The method allocates the memory for the structure. The caller must release the memory by calling <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-freerepresentation">IMFMediaType::FreeRepresentation</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediatype-getrepresentation
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation
      */
     GetRepresentation(guidRepresentation) {
         result := ComCall(36, this, "ptr", guidRepresentation, "ptr*", &ppvRepresentation := 0, "HRESULT")
@@ -198,10 +244,17 @@ class IMFMediaType extends IMFAttributes{
 
     /**
      * Frees memory that was allocated by the IMFMediaType::GetRepresentation method.
+     * @remarks
+     * This interface is available on the following platforms if the Windows Media Format 11 SDK redistributable components are installed:
+     * 
+     * <ul>
+     * <li>Windows XP with Service Pack 2 (SP2) and later.</li>
+     * <li>Windows XP Media Center Edition 2005 with KB900325 (Windows XP Media Center Edition 2005) and KB925766 (October 2006 Update Rollup for Windows XP Media Center Edition) installed.</li>
+     * </ul>
      * @param {Guid} guidRepresentation GUID that was passed to the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation">GetRepresentation</a> method.
      * @param {Pointer<Void>} pvRepresentation Pointer to the buffer that was returned by the <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfmediatype-getrepresentation">GetRepresentation</a> method.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmediatype-freerepresentation
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmediatype-freerepresentation
      */
     FreeRepresentation(guidRepresentation, pvRepresentation) {
         pvRepresentationMarshal := pvRepresentation is VarRef ? "ptr" : "ptr"

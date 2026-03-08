@@ -11,7 +11,7 @@
 #Include .\Columns.ahk
 
 /**
- * 
+ * The View object represents a result set obtained when processing a query using the OpenView method of the Database object.
  * @see https://learn.microsoft.com/windows/win32/Msi/view-object
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
@@ -187,9 +187,18 @@ class View extends IDispatch{
     }
 
     /**
+     * The Is\_Protected attribute indicates whether the content is protected using digital rights management (DRM).
+     * @remarks
+     * This attribute is stored in both the library and the digital media file.
      * 
+     * **DigitallySecure** is an alias for this attribute.
+     * 
+     * The Windows Media Format SDK constant for this attribute is g\_wszWMProtected.
+     * 
+     * To determine whether you can change the value of this attribute, use the [Media.isReadOnlyItem](media-isreadonlyitem.md) method.
      * @param {View} View 
      * @returns {VARIANT_BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/is-protected-attribute
      */
     Is(View) {
         result := ComCall(13, this, "ptr", View, "short*", &TheSame := 0, "HRESULT")
@@ -215,9 +224,10 @@ class View extends IDispatch{
     }
 
     /**
-     * 
+     * An XPath query that identifies the events to include in the query result set.
      * @param {Node} Node 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WES/queryschema-select-querytype-element
      */
     Select(Node) {
         result := ComCall(16, this, "ptr", Node, "HRESULT")
@@ -417,8 +427,13 @@ class View extends IDispatch{
     }
 
     /**
+     * The Close method of the View object terminates query execution and releases database resources.
+     * @remarks
+     * This method must be called before the [**Execute**](view-execute.md) method is called again on the [**View**](view-object.md) object unless all rows of the result set have been obtained with the [**Fetch**](view-fetch.md) method. It is called internally when the view is destroyed.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
      * @see https://learn.microsoft.com/windows/win32/Msi/view-close
      */
     Close() {
@@ -446,8 +461,11 @@ class View extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The BackColor property sets or retrieves the color of the bars that appear around the edges of the video rectangle when the aspect ratio of the native video is not the same as that of the object's display area.
+     * @remarks
+     * This property is read/write with a default value of off-black (0x100010).
+     * @returns {HRESULT} Returns an integer value representing the RGB values of the back color.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/backcolor-property
      */
     Back() {
         result := ComCall(38, this, "HRESULT")

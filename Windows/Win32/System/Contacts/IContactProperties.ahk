@@ -7,7 +7,7 @@
 
 /**
  * Do not use. Used to retrieve, set, create, and remove properties on an IContact. Property names and extension mechanisms are described in icontactproperties.h.
- * @see https://docs.microsoft.com/windows/win32/api//icontact/nn-icontact-icontactproperties
+ * @see https://learn.microsoft.com/windows/win32/api/icontact/nn-icontact-icontactproperties
  * @namespace Windows.Win32.System.Contacts
  * @version v4.0.30319
  */
@@ -34,6 +34,13 @@ class IContactProperties extends IUnknown{
 
     /**
      * Retrieves the string value at a specified property into a caller-allocated buffer.
+     * @remarks
+     * To retrieve a single level property, set <i>pszPropertyName</i> to the property name.
+     * 
+     * To retrieve a value from a multi-value (hierarchical) property, include the desired index as part of <i>pszPropertyName</i> in the form: toplevel/secondlevel[1]/thirdlevel. NOTE: the first element of a set is index 1, so index [0] is invalid. The following example retrieves the Title of the fourth Name property of a contact.
+     * 		
+     * 
+     * <c>L"NameCollection/Name[4]/Title"</c>
      * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
      * 
      * Specifies the property to retrieve.
@@ -77,7 +84,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * <td width="60%">
      * No data for this value. Either the property has been present in the past but its value has been removed 
-     * 					or the property is a container of other properties (toplevel/secondlevel[3]). The buffer at <i>pszValue</i> has been zero'ed. 
+     * 					or the property is a container of other properties (toplevel/secondlevel[3]). The buffer at <i>pszValue</i> has been zeroed. 
      * 
      * </td>
      * </tr>
@@ -105,7 +112,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-getstring
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-getstring
      */
     GetString(pszPropertyName, dwFlags, pszValue, cchValue, pdwcchPropertyValueRequired) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -119,6 +126,10 @@ class IContactProperties extends IUnknown{
 
     /**
      * Retrieves the date and time value at a specified property into a caller's FILETIME structure. All times are stored and returned as Coordinated Universal Time (UTC).
+     * @remarks
+     * To retrieve a single level property, set <i>pszPropertyName</i> to the property name. 
+     * 
+     * To retrieve a value from a multi-value (hierarchical) property, include the desired index as part of <i>pszPropertyName</i> using the form: toplevel/secondlevel[1]/thirdlevel. NOTE: the first element of a set is index 1, so index [0] is invalid.
      * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
      * 
      * Specifies the property to retrieve.
@@ -144,7 +155,7 @@ class IContactProperties extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * <i>pftDateTime</i> contains a valid <a href="/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>. 
+     * <i>pftDateTime</i> contains a valid <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>. 
      * 
      * </td>
      * </tr>
@@ -156,7 +167,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * <td width="60%">
      * The property has been present in the past but its value has been removed. 
-     * 					The <a href="/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> has been zero'ed. 
+     * 					The <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a> has been zeroed. 
      * 
      * </td>
      * </tr>
@@ -172,7 +183,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-getdate
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-getdate
      */
     GetDate(pszPropertyName, dwFlags, pftDateTime) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -183,6 +194,12 @@ class IContactProperties extends IUnknown{
 
     /**
      * Retrieves the binary data of a property using an IStream interface [Structured Storage].
+     * @remarks
+     * To retrieve a single level property, set <i>pszPropertyName</i> to the property name. 
+     * 
+     * To retrieve a value from a multi-value (hierarchical) property, include the desired index as part of <i>pszPropertyName</i> using the form: toplevel/secondlevel[1]/thirdlevel. NOTE: the first element of a set is index 1, so index [0] is invalid.
+     * 
+     * For deleted properties, this method returns S_OK and an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream interface [Structured Storage]</a> of zero length. NOTE: For properties not of binary type, this method may return incorrect data in the IStream.
      * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
      * 
      * Specifies the property to retrieve.
@@ -201,7 +218,7 @@ class IContactProperties extends IUnknown{
      * @returns {IStream} Type: <b>IStream**</b>
      * 
      * On success, contains a new <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream interface [Structured Storage]</a>. Use this to retrieve the binary data.
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-getbinary
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-getbinary
      */
     GetBinary(pszPropertyName, dwFlags, pszContentType, cchContentType, pdwcchContentTypeRequired) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -215,6 +232,8 @@ class IContactProperties extends IUnknown{
 
     /**
      * Retrieves the labels for a specified array element name.
+     * @remarks
+     * The user-allocated buffer in <i>pszLabels</i> receives a concatenated list of null-terminated strings, followed by an empty string. In other words, the last 4 bytes will be zero. For example,  L"str1\0str2\0\0". NOTE: Succeeds only for multi-value properties. Also, may return labels in a different order than they were set.
      * @param {PWSTR} pszArrayElementName Type: <b>LPCWSTR</b>
      * 
      * Specifies the array element name.
@@ -286,7 +305,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-getlabels
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-getlabels
      */
     GetLabels(pszArrayElementName, dwFlags, pszLabels, cchLabels, pdwcchLabelsRequired) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
@@ -300,6 +319,11 @@ class IContactProperties extends IUnknown{
 
     /**
      * Sets the string value of a specified property to that of a specified null-terminated string.
+     * @remarks
+     * To set a single-level property, set <i>pszPropertyName</i> to the property name. 
+     * 
+     * To set a property from a multi-value property, set <i>pszPropertyName</i> to the form: 
+     * 		toplevel/secondlevel[4]/thirdlevel.
      * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
      * 
      * Specifies the property to set.
@@ -352,7 +376,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-setstring
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-setstring
      */
     SetString(pszPropertyName, dwFlags, pszValue) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -417,7 +441,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-setdate
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-setdate
      */
     SetDate(pszPropertyName, dwFlags, ftDateTime) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -428,6 +452,11 @@ class IContactProperties extends IUnknown{
 
     /**
      * Sets the binary data at a specified property to the contents of a specified IStream interface [Structured Storage], which contains a null-terminated string (as MIME type) data.
+     * @remarks
+     * To set a single-level property, set <i>pszPropertyName</i> to the property name. 
+     * 
+     * To set a property from a multi-value property, set <i>pszPropertyName</i> 
+     * 		to the form: toplevel/secondlevel[4]/thirdlevel.
      * @param {PWSTR} pszPropertyName Type: <b>LPCWSTR</b>
      * 
      * Specifies the property to set.
@@ -485,7 +514,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-setbinary
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-setbinary
      */
     SetBinary(pszPropertyName, dwFlags, pszContentType, pStream) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -552,7 +581,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-setlabels
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-setlabels
      */
     SetLabels(pszArrayElementName, dwFlags, dwLabelCount, ppszLabels) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
@@ -565,6 +594,17 @@ class IContactProperties extends IUnknown{
 
     /**
      * Creates a new array node in a multi-value property.
+     * @remarks
+     * <div class="alert"><b>Note</b>  The first element of an existing set is at index 1. </div>
+     * <div> </div>
+     * To create a <i>pszArrayName</i> at toplevel/secondlevel[1], 
+     * 		call this function with <i>pszArrayName</i> == toplevel, fAppend=<b>FALSE</b>. 
+     * 
+     * To create an array node that is an extension at [namespace]toplevel/secondlevel[1], 
+     * 		call this function with <i>pszArrayName</i> == [namespace:secondlevel]toplevel. 
+     * 
+     * To append to the set, pass <i>fAppend</i>=TRUE instead; 
+     * 		<i>pszNewArrayElementName</i> then contains the resulting array node name, including the index.
      * @param {PWSTR} pszArrayName Type: <b>LPCWSTR</b>
      * 
      * Specifies the top-level property for which to create a new node.
@@ -626,7 +666,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-createarraynode
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-createarraynode
      */
     CreateArrayNode(pszArrayName, dwFlags, fAppend, pszNewArrayElementName, cchNewArrayElementName, pdwcchNewArrayElementNameRequired) {
         pszArrayName := pszArrayName is String ? StrPtr(pszArrayName) : pszArrayName
@@ -678,7 +718,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-deleteproperty
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-deleteproperty
      */
     DeleteProperty(pszPropertyName, dwFlags) {
         pszPropertyName := pszPropertyName is String ? StrPtr(pszPropertyName) : pszPropertyName
@@ -689,6 +729,10 @@ class IContactProperties extends IUnknown{
 
     /**
      * Deletes the data at a specified array entry.
+     * @remarks
+     * <div class="alert"><b>Note</b>  Element indexes are unchanged for the entire set. Array node element ID, 
+     * 		modification and version data can still be enumerated with <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactpropertycollection">IContactPropertyCollection</a>.</div>
+     * <div> </div>
      * @param {PWSTR} pszArrayElementName Type: <b>LPCWSTR</b>
      * 
      * Specifies array entry from which to remove all data.
@@ -727,7 +771,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-deletearraynode
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-deletearraynode
      */
     DeleteArrayNode(pszArrayElementName, dwFlags) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
@@ -776,7 +820,7 @@ class IContactProperties extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-deletelabels
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-deletelabels
      */
     DeleteLabels(pszArrayElementName, dwFlags) {
         pszArrayElementName := pszArrayElementName is String ? StrPtr(pszArrayElementName) : pszArrayElementName
@@ -787,6 +831,11 @@ class IContactProperties extends IUnknown{
 
     /**
      * Returns an IContactPropertyCollection for the current contact. Optionally, filters the IContactPropertyCollection to enumerate only some values.
+     * @remarks
+     * Caller can enumerate all child properties of a top-level property with 
+     * 		an optional label filter applied. For example: all emailAddresses where label="work". On success, 
+     * 		collection has been reset to the location before the first element (if any are present). 
+     * 		Call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nf-icontact-icontactpropertycollection-next">Next</a> to begin querying data.
      * @param {Integer} dwFlags Type: <b>DWORD</b>
      * 
      * Must be CGD_DEFAULT.
@@ -809,7 +858,7 @@ class IContactProperties extends IUnknown{
      * @returns {IContactPropertyCollection} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactpropertycollection">IContactPropertyCollection</a>**</b>
      * 
      * On success, points to the new <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/icontact/nn-icontact-icontactpropertycollection">IContactPropertyCollection</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//icontact/nf-icontact-icontactproperties-getpropertycollection
+     * @see https://learn.microsoft.com/windows/win32/api/icontact/nf-icontact-icontactproperties-getpropertycollection
      */
     GetPropertyCollection(dwFlags, pszMultiValueName, dwLabelCount, ppszLabels, fAnyLabelMatches) {
         pszMultiValueName := pszMultiValueName is String ? StrPtr(pszMultiValueName) : pszMultiValueName

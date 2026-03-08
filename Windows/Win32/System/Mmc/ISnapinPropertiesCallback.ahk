@@ -5,7 +5,7 @@
 
 /**
  * The ISnapinPropertiesCallback interface adds property names for the snap-in. This interface is implemented by MMC for the snap-in.
- * @see https://docs.microsoft.com/windows/win32/api//mmcobj/nn-mmcobj-isnapinpropertiescallback
+ * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nn-mmcobj-isnapinpropertiescallback
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class ISnapinPropertiesCallback extends IUnknown{
      * @param {PWSTR} pszPropName The property name.
      * @param {Integer} dwFlags This parameter can be one or more of the following flags.
      * @returns {HRESULT} If successful, the return value is S_OK. Other return values indicate an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mmcobj/nf-mmcobj-isnapinpropertiescallback-addpropertyname
+     * @see https://learn.microsoft.com/windows/win32/api/mmcobj/nf-mmcobj-isnapinpropertiescallback-addpropertyname
      */
     AddPropertyName(pszPropName, dwFlags) {
         pszPropName := pszPropName is String ? StrPtr(pszPropName) : pszPropName

@@ -6,16 +6,17 @@
 /**
  * Defines methods to manage the association database entries for PnP-X devices.
  * @remarks
- * 
  * This interface is obtained by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa364381(v=vs.85)">QueryService</a> on a function instance returned by a Function Discovery query. The following pseudocode shows the parameters to use for the  <b>QueryService</b> call.
  * 
- * <pre class="syntax" xml:space="preserve"><c>QueryService( SID_PNPXAssociation, __uuidof( IPNPXAssociation ) )</c></pre>
+ * 
+ * ``` syntax
+ * QueryService( SID_PNPXAssociation, __uuidof( IPNPXAssociation ) )
+ * ```
+ * 
  * The <b>IPNPXAssociation</b> methods modify the association database entry for the function instance upon which <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/aa364381(v=vs.85)">QueryService</a>  was called.
  * 
  * Not all function instances can be associated using the <b>IPNPXAssociation</b> methods. The function instance must have its  PKEY_PNPX_GlobalIdentity key populated with the UUID supplied by the Function Discovery provider used to discover the device. For more information about property keys, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/pnp-x-provider-pkeys">PnP-X Provider PKEYs</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nn-pnpxassoc-ipnpxassociation
+ * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nn-pnpxassoc-ipnpxassociation
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -48,6 +49,10 @@ class IPNPXAssociation extends IUnknown{
 
     /**
      * Marks an association database entry as associated.
+     * @remarks
+     * This method modifies the association database entry corresponding to the function instance from which the <a href="https://docs.microsoft.com/windows/desktop/api/pnpxassoc/nn-pnpxassoc-ipnpxassociation">IPNPXAssociation</a> interface was obtained. 
+     * 
+     * Once a device is associated, the PnP-X Service IP Bus Enumerator (IPBusEnum) sends a request to the PnP component  to create the device <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fundisc/function-discovery-glossary">devnode</a>. The <b>Found New Hardware</b> wizard appears if user intervention is required to install a device driver after association.
      * @param {PWSTR} pszSubcategory The subcategory of the association database in which the entry is stored.   This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -79,7 +84,7 @@ class IPNPXAssociation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxassociation-associate
+     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-associate
      */
     Associate(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
@@ -90,6 +95,10 @@ class IPNPXAssociation extends IUnknown{
 
     /**
      * Marks an association database entry as unassociated.
+     * @remarks
+     * This method modifies the association database entry corresponding to the function instance from which the <a href="https://docs.microsoft.com/windows/desktop/api/pnpxassoc/nn-pnpxassoc-ipnpxassociation">IPNPXAssociation</a> interface was obtained. 
+     * 
+     * This method does not remove the entry from the association database. To remove an entry from the association database, call <a href="https://docs.microsoft.com/windows/desktop/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-delete">IPNPXAssociation::Delete</a>.
      * @param {PWSTR} pszSubcategory The subcategory of the association database in which the entry is stored.  This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -121,7 +130,7 @@ class IPNPXAssociation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxassociation-unassociate
+     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-unassociate
      */
     Unassociate(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory
@@ -132,6 +141,10 @@ class IPNPXAssociation extends IUnknown{
 
     /**
      * Removes an entry from the association database.
+     * @remarks
+     * This method modifies the association database entry corresponding to the function instance from which the <a href="https://docs.microsoft.com/windows/desktop/api/pnpxassoc/nn-pnpxassoc-ipnpxassociation">IPNPXAssociation</a> interface was obtained. 
+     * 
+     * To mark a device as unavailable for use without deleting the association database entry, call <a href="https://docs.microsoft.com/windows/desktop/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-unassociate">IPNPXAssociation::Unassociate</a>.
      * @param {PWSTR} pszSubcategory The subcategory of the association database in which the entry is stored.  This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -163,7 +176,7 @@ class IPNPXAssociation extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//pnpxassoc/nf-pnpxassoc-ipnpxassociation-delete
+     * @see https://learn.microsoft.com/windows/win32/api/pnpxassoc/nf-pnpxassoc-ipnpxassociation-delete
      */
     Delete(pszSubcategory) {
         pszSubcategory := pszSubcategory is String ? StrPtr(pszSubcategory) : pszSubcategory

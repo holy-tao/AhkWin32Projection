@@ -6,7 +6,6 @@
 /**
  * This notification interface signals an application of the completion status of vendor-specific operations and other vendor-specific changes in the device state.
  * @remarks
- * 
  * The following procedure describes how to register for notifications.
  * 
  * <ol>
@@ -17,8 +16,7 @@
  * Notifications can be terminated by calling <a href="https://docs.microsoft.com/windows/win32/api/ocidl/nf-ocidl-iconnectionpoint-unadvise">Unadvise</a> on the connection point returned in step 2.
  * 
  * To view some code that registers for COM notifications, see the Client section of the <a href="https://docs.microsoft.com/archive/msdn-magazine/2007/september/clr-inside-out-com-connection-points">COM Connection Points</a> article.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nn-mbnapi-imbnvendorspecificevents
+ * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nn-mbnapi-imbnvendorspecificevents
  * @namespace Windows.Win32.NetworkManagement.MobileBroadband
  * @version v4.0.30319
  */
@@ -45,10 +43,12 @@ class IMbnVendorSpecificEvents extends IUnknown{
 
     /**
      * Notification method signaling a change event from the underlying Mobile Broadband device miniport driver.
+     * @remarks
+     * This byte array contains the byte by byte copy of data returned by underlying miniport driver.  The Mobile Broadband service will free the memory for this field after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnVendorSpecificOperation} vendorOperation A <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnvendorspecificoperation">IMbnVendorSpecificOperation</a> interface representing the device on which the event has occurred.
      * @param {Pointer<SAFEARRAY>} vendorSpecificData A byte array containing the data returned by underlying miniport driver.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnvendorspecificevents-oneventnotification
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnvendorspecificevents-oneventnotification
      */
     OnEventNotification(vendorOperation, vendorSpecificData) {
         result := ComCall(3, this, "ptr", vendorOperation, "ptr", vendorSpecificData, "HRESULT")
@@ -57,11 +57,13 @@ class IMbnVendorSpecificEvents extends IUnknown{
 
     /**
      * Notification method indicating that a vendor-specific operation has completed.
+     * @remarks
+     * This byte array contains the byte by byte copy of data returned by underlying miniport driver. The Mobile Broadband service will free the memory for this field after the function call returns. If an application wants to use this data then it should copy the contents in its own memory.
      * @param {IMbnVendorSpecificOperation} vendorOperation An <a href="https://docs.microsoft.com/windows/desktop/api/mbnapi/nn-mbnapi-imbnvendorspecificoperation">IMbnVendorSpecificOperation</a> interface representing the operation that completed.
      * @param {Pointer<SAFEARRAY>} vendorSpecificData A byte array containing the data returned by underlying miniport driver.
      * @param {Integer} requestID A request ID assigned by the Mobile Broadband service to identify the vendor-specific operation request.
      * @returns {HRESULT} This method must return <b>S_OK</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//mbnapi/nf-mbnapi-imbnvendorspecificevents-onsetvendorspecificcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/mbnapi/nf-mbnapi-imbnvendorspecificevents-onsetvendorspecificcomplete
      */
     OnSetVendorSpecificComplete(vendorOperation, vendorSpecificData, requestID) {
         result := ComCall(4, this, "ptr", vendorOperation, "ptr", vendorSpecificData, "uint", requestID, "HRESULT")

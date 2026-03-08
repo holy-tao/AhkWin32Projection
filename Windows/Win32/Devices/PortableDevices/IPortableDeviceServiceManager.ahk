@@ -5,7 +5,7 @@
 
 /**
  * Retrieves the device associated with a service and the list of services found on a device.
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemanager
+ * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceservicemanager
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -32,6 +32,13 @@ class IPortableDeviceServiceManager extends IUnknown{
 
     /**
      * Retrieves a list of the services associated with the specified device.
+     * @remarks
+     * If this method succeeds, the application should call the <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/freeportabledevicepnpids">FreePortableDevicePnPIDs</a> function to free the array referenced by the <i>pServices</i> parameter.
+     * 
+     * An application can retrieve the PnP identifier for a device by calling the <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicemanager-getdevices">IPortableDeviceManager::GetDevices</a> method.
+     *   
+     * 
+     * Applications that use Single Threaded Apartments should use <b>CLSID_PortableDeviceServiceFTM</b> as this eliminates the overhead of interface pointer marshaling.  <b>CLSID_PortableDeviceService</b> is still supported for legacy applications.
      * @param {PWSTR} pszPnPDeviceID The Plug and Play (PnP) identifier of the device.
      * @param {Pointer<Guid>} guidServiceCategory A reference to a globally unique identifier (GUID) that specifies the category of services to retrieve. If the  referenced identifier is <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/device-interface-guids">GUID_DEVINTERFACE_WPD_SERVICE</a>, this method will retrieve all services supported by the device.
      * @param {Pointer<PWSTR>} pServices A user-allocated array of pointers to strings. When the method returns, the array contains the retrieved PnP service identifiers.
@@ -78,7 +85,7 @@ class IPortableDeviceServiceManager extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemanager-getdeviceservices
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemanager-getdeviceservices
      */
     GetDeviceServices(pszPnPDeviceID, guidServiceCategory, pServices, pcServices) {
         pszPnPDeviceID := pszPnPDeviceID is String ? StrPtr(pszPnPDeviceID) : pszPnPDeviceID
@@ -92,9 +99,13 @@ class IPortableDeviceServiceManager extends IUnknown{
 
     /**
      * Retrieves the device associated with the specified service.
+     * @remarks
+     * Neither the <i>pszPnPServiceID</i> parameter nor the <i>pszPnPDeviceID</i> parameter can be <b>NULL</b>.
+     * 
+     * An application can retrieve a PnP service identifier by calling the <b>GetDeviceServices</b> method.
      * @param {PWSTR} pszPnPServiceID The Plug and Play (PnP) identifier of the service.
      * @returns {PWSTR} The retrieved PnP identifier of the device associated with the service.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemanager-getdeviceforservice
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceservicemanager-getdeviceforservice
      */
     GetDeviceForService(pszPnPServiceID) {
         pszPnPServiceID := pszPnPServiceID is String ? StrPtr(pszPnPServiceID) : pszPnPServiceID

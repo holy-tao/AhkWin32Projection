@@ -5,7 +5,7 @@
 
 /**
  * Provides access to attribute values of the optional package information.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestoptionalpackageinfo
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestoptionalpackageinfo
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IAppxManifestOptionalPackageInfo extends IUnknown{
     /**
      * Determines whether the package is optional.
      * @returns {BOOL} True if the package is optional, false otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getisoptionalpackage
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getisoptionalpackage
      */
     GetIsOptionalPackage() {
         result := ComCall(3, this, "int*", &isOptionalPackage := 0, "HRESULT")
@@ -43,7 +43,7 @@ class IAppxManifestOptionalPackageInfo extends IUnknown{
     /**
      * Gets the main package name from the optional package.
      * @returns {PWSTR} The main package name.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getmainpackagename
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestoptionalpackageinfo-getmainpackagename
      */
     GetMainPackageName() {
         result := ComCall(4, this, "ptr*", &mainPackageName := 0, "HRESULT")

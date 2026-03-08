@@ -6,12 +6,9 @@
 /**
  * This interface is implemented by the text analyzer's client to receive the output of a given text analysis.
  * @remarks
- * 
  * The text analyzer disregards any current
  *  state of the analysis sink, therefore, a Set method call on a range overwrites the previously set analysis result of the same range.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextanalysissink
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextanalysissink
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -50,7 +47,7 @@ class IDWriteTextAnalysisSink extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * A successful code or error code to stop analysis.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setscriptanalysis
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setscriptanalysis
      */
     SetScriptAnalysis(textPosition, textLength, scriptAnalysis) {
         result := ComCall(3, this, "uint", textPosition, "uint", textLength, "ptr", scriptAnalysis, "HRESULT")
@@ -71,7 +68,7 @@ class IDWriteTextAnalysisSink extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * A successful code or error code to stop analysis.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setlinebreakpoints
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setlinebreakpoints
      */
     SetLineBreakpoints(textPosition, textLength, lineBreakpoints) {
         result := ComCall(4, this, "uint", textPosition, "uint", textLength, "ptr", lineBreakpoints, "HRESULT")
@@ -97,7 +94,7 @@ class IDWriteTextAnalysisSink extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * A successful code or error code to stop analysis.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setbidilevel
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setbidilevel
      */
     SetBidiLevel(textPosition, textLength, explicitLevel, resolvedLevel) {
         result := ComCall(5, this, "uint", textPosition, "uint", textLength, "char", explicitLevel, "char", resolvedLevel, "HRESULT")
@@ -117,8 +114,8 @@ class IDWriteTextAnalysisSink extends IUnknown{
      * An object that holds the appropriate digits and numeric punctuation for a given locale. Use <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createnumbersubstitution">IDWriteFactory::CreateNumberSubstitution</a> to create this object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextanalysissink-setnumbersubstitution
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextanalysissink-setnumbersubstitution
      */
     SetNumberSubstitution(textPosition, textLength, numberSubstitution) {
         result := ComCall(6, this, "uint", textPosition, "uint", textLength, "ptr", numberSubstitution, "HRESULT")

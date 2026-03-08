@@ -6,14 +6,11 @@
 /**
  * Provides the main features for a property page site object.
  * @remarks
- * 
  * For each property page created within a property frame, the frame creates a property page site to provide information to the property page and to receive notifications from the page when changes occur. This latter notification is used to initiate a call to <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypage-ispagedirty">IPropertyPage::IsPageDirty</a>, the return value of which is then used to enable or disable the frame's <b>Apply</b> button.
  * 
  * <h3><a id="OLE_Implementation"></a><a id="ole_implementation"></a><a id="OLE_IMPLEMENTATION"></a>OLE Implementation</h3>
  * The system provides an implementation of the <b>IPropertyPageSite</b> interface through the <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatepropertyframe">OleCreatePropertyFrame</a> or <a href="https://docs.microsoft.com/windows/desktop/api/olectl/nf-olectl-olecreatepropertyframeindirect">OleCreatePropertyFrameIndirect</a> functions. The frame implementation provided through these functions only implements the <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypagesite-onstatuschange">OnStatusChange</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypagesite-getlocaleid">GetLocaleID</a> methods. The <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypagesite-getpagecontainer">GetPageContainer</a> and <a href="https://docs.microsoft.com/windows/desktop/api/ocidl/nf-ocidl-ipropertypagesite-translateaccelerator">TranslateAccelerator</a> methods return E_NOTIMPL.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ocidl/nn-ocidl-ipropertypagesite
+ * @see https://learn.microsoft.com/windows/win32/api/ocidl/nn-ocidl-ipropertypagesite
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -42,7 +39,7 @@ class IPropertyPageSite extends IUnknown{
      * Informs the frame that the property page managed by this site has changed its state, that is, one or more property values have been changed in the page. Property pages should call this method whenever changes occur in their dialog boxes.
      * @param {Integer} dwFlags 
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-onstatuschange
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-onstatuschange
      */
     OnStatusChange(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")
@@ -52,7 +49,7 @@ class IPropertyPageSite extends IUnknown{
     /**
      * Retrieves the locale identifier (an LCID) that a property page can use to adjust its locale-specific settings.
      * @returns {Integer} A pointer to a variable that receives the locale identifier. See <a href="https://docs.microsoft.com/windows/desktop/Intl/language-identifier-constants-and-strings">Language Identifier Constants and Strings</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-getlocaleid
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-getlocaleid
      */
     GetLocaleID() {
         result := ComCall(4, this, "uint*", &pLocaleID := 0, "HRESULT")
@@ -62,7 +59,7 @@ class IPropertyPageSite extends IUnknown{
     /**
      * Retrieves a pointer to the object representing the entire property frame dialog box that contains all the pages. Calling this method could potentially allow one page to navigate to another.
      * @returns {IUnknown} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer variable that receives the interface pointer to the container object. If an error occurs, the implementation must set *<i>ppUnk</i> to <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-getpagecontainer
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-getpagecontainer
      */
     GetPageContainer() {
         result := ComCall(5, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -113,7 +110,7 @@ class IPropertyPageSite extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ocidl/nf-ocidl-ipropertypagesite-translateaccelerator
+     * @see https://learn.microsoft.com/windows/win32/api/ocidl/nf-ocidl-ipropertypagesite-translateaccelerator
      */
     TranslateAccelerator(pMsg) {
         result := ComCall(6, this, "ptr", pMsg, "HRESULT")

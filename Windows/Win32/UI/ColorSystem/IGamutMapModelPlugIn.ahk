@@ -7,7 +7,7 @@
 
 /**
  * Describes the methods that are defined for the IGamutMapModelPlugIn Component Object Model (COM) interface.
- * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nn-wcsplugin-igamutmapmodelplugin
+ * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nn-wcsplugin-igamutmapmodelplugin
  * @namespace Windows.Win32.UI.ColorSystem
  * @version v4.0.30319
  */
@@ -42,7 +42,7 @@ class IGamutMapModelPlugIn extends IUnknown{
      * @returns {HRESULT} If this function succeeds, the return value is S_OK.
      * 
      * If this function fails, the return value is E_FAIL.
-     * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nf-wcsplugin-igamutmapmodelplugin-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-igamutmapmodelplugin-initialize
      */
     Initialize(bstrXml, pSrcPlugIn, pDestPlugIn, pSrcGBD, pDestGBD) {
         bstrXml := bstrXml is String ? BSTR.Alloc(bstrXml).Value : bstrXml
@@ -56,7 +56,7 @@ class IGamutMapModelPlugIn extends IUnknown{
      * @param {Integer} cColors The number of colors in the <i>pXYZColors</i> and <i>pDeviceValues</i> arrays.
      * @param {Pointer<JChColorF>} pInputColors A pointer to the array of incoming colors to be gamut mapped.
      * @returns {JChColorF} A pointer to the array of outgoing colors.
-     * @see https://docs.microsoft.com/windows/win32/api//wcsplugin/nf-wcsplugin-igamutmapmodelplugin-sourcetodestinationappearancecolors
+     * @see https://learn.microsoft.com/windows/win32/api/wcsplugin/nf-wcsplugin-igamutmapmodelplugin-sourcetodestinationappearancecolors
      */
     SourceToDestinationAppearanceColors(cColors, pInputColors) {
         pOutputColors := JChColorF()

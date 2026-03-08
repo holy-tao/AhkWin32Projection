@@ -29,7 +29,13 @@ class IDocHostShowUI extends IUnknown{
     static VTableNames => ["ShowMessage", "ShowHelp"]
 
     /**
+     * Represents an action that shows a message box.
+     * @remarks
+     * For scripting development, a message box action is specified using the [**ShowMessageAction**](showmessageaction.md) object.
      * 
+     * For C++ development, a message box action is specified using the [**IShowMessageAction**](/windows/desktop/api/taskschd/nn-taskschd-ishowmessageaction) interface.
+     * 
+     * **Windows 8 and Windows Server 2012:** This element has been removed. You can use IExecAction with the Windows scripting [**MsgBox function**](/previous-versions/sfw6660x(v=vs.80)) to show a message in the user session.
      * @param {HWND} hwnd 
      * @param {PWSTR} lpstrText 
      * @param {PWSTR} lpstrCaption 
@@ -37,6 +43,7 @@ class IDocHostShowUI extends IUnknown{
      * @param {PWSTR} lpstrHelpFile 
      * @param {Integer} dwHelpContext 
      * @returns {LRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-showmessage-actiongroup-element
      */
     ShowMessage(hwnd, lpstrText, lpstrCaption, dwType, lpstrHelpFile, dwHelpContext) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

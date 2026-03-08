@@ -8,7 +8,7 @@
 
 /**
  * Represents the result of a search.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-isearchresult
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-isearchresult
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -64,7 +64,7 @@ class ISearchResult extends IDispatch{
     /**
      * Gets an OperationResultCode enumeration that specifies the result of a search.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_resultcode
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_resultcode
      */
     get_ResultCode() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -74,7 +74,7 @@ class ISearchResult extends IDispatch{
     /**
      * Gets an interface collection of the root categories that are currently available on the computer.
      * @returns {ICategoryCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_rootcategories
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_rootcategories
      */
     get_RootCategories() {
         result := ComCall(8, this, "ptr*", &retval := 0, "HRESULT")
@@ -84,7 +84,7 @@ class ISearchResult extends IDispatch{
     /**
      * Gets an interface collection of the updates that result from a search.
      * @returns {IUpdateCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_updates
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_updates
      */
     get_Updates() {
         result := ComCall(9, this, "ptr*", &retval := 0, "HRESULT")
@@ -94,7 +94,7 @@ class ISearchResult extends IDispatch{
     /**
      * Gets a collection of the warnings that result from a search.
      * @returns {IUpdateExceptionCollection} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-isearchresult-get_warnings
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-isearchresult-get_warnings
      */
     get_Warnings() {
         result := ComCall(10, this, "ptr*", &retval := 0, "HRESULT")

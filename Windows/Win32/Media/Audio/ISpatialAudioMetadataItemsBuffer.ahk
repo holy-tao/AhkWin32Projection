@@ -5,7 +5,7 @@
 
 /**
  * Provides methods for attaching buffers to SpatialAudioMetadataItems for in-place storage of data.
- * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitemsbuffer
+ * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitemsbuffer
  * @namespace Windows.Win32.Media.Audio
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
 
     /**
      * Attaches caller-provided memory for storage of ISpatialAudioMetadataItems objects.
-     * @param {Pointer} buffer A pointer to memory to use for storage.
+     * @param {Pointer} buffer_R 
      * @param {Integer} bufferLength The length of the supplied buffer. This size must match the length required for the metadata format and maximum metadata item count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -48,7 +48,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for copying with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open">Open</a> or the object has been closed for writing with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for copying with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open">Open</a> or the object has been closed for writing with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
      * 
      * </td>
      * </tr>
@@ -59,7 +59,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> was created to use a media pipeline internal buffer, so an external buffer can't be attached.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> was created to use a media pipeline internal buffer, so an external buffer can't be attached.
      * 
      * </td>
      * </tr>
@@ -88,16 +88,16 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtobuffer
+     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtobuffer
      */
-    AttachToBuffer(buffer, bufferLength) {
-        result := ComCall(3, this, "ptr", buffer, "uint", bufferLength, "HRESULT")
+    AttachToBuffer(buffer_R, bufferLength) {
+        result := ComCall(3, this, "ptr", buffer_R, "uint", bufferLength, "HRESULT")
         return result
     }
 
     /**
      * Attaches a previously populated buffer for storage of ISpatialAudioMetadataItems objects. The metadata items already in the buffer are retained.
-     * @param {Pointer} buffer A pointer to memory to use for storage.
+     * @param {Pointer} buffer_R 
      * @param {Integer} bufferLength The length of the supplied buffer. This size must match the length required for the metadata format and maximum metadata item count.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -113,7 +113,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for copying with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open">Open</a> or the object has been closed for writing with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for copying with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open">Open</a> or the object has been closed for writing with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
      * 
      * </td>
      * </tr>
@@ -135,7 +135,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> was created to use a media pipeline internal buffer, so an external buffer can't be attached.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> was created to use a media pipeline internal buffer, so an external buffer can't be attached.
      * 
      * </td>
      * </tr>
@@ -159,15 +159,15 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * <td width="60%">
      * One of the provided pointers is not valid.
      * 
-     * The supplied buffer is not large enough to hold the maximum number of metadata items. Call <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-getspatialaudiometadataitemsbufferlength">GetSpatialAudioMetadataItemsBufferLength</a> to determine the required buffer size.
+     * The supplied buffer is not large enough to hold the maximum number of metadata items. Call <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataclient-getspatialaudiometadataitemsbufferlength">GetSpatialAudioMetadataItemsBufferLength</a> to determine the required buffer size.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtopopulatedbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-attachtopopulatedbuffer
      */
-    AttachToPopulatedBuffer(buffer, bufferLength) {
-        result := ComCall(4, this, "ptr", buffer, "uint", bufferLength, "HRESULT")
+    AttachToPopulatedBuffer(buffer_R, bufferLength) {
+        result := ComCall(4, this, "ptr", buffer_R, "uint", bufferLength, "HRESULT")
         return result
     }
 
@@ -187,7 +187,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for copying with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open">Open</a> or the object has been closed for writing with a call to <a href="/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> has not been opened for copying with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-open">Open</a> or the object has been closed for writing with a call to <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadatacopier-close">Close</a>.
      * 
      * </td>
      * </tr>
@@ -198,7 +198,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> was created to use a media pipeline internal buffer which can't be detached.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/spatialaudiometadata/nn-spatialaudiometadata-ispatialaudiometadataitems">ISpatialAudioMetadataItems</a> was created to use a media pipeline internal buffer which can't be detached.
      * 
      * </td>
      * </tr>
@@ -227,7 +227,7 @@ class ISpatialAudioMetadataItemsBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-detachbuffer
+     * @see https://learn.microsoft.com/windows/win32/api/spatialaudiometadata/nf-spatialaudiometadata-ispatialaudiometadataitemsbuffer-detachbuffer
      */
     DetachBuffer() {
         result := ComCall(5, this, "HRESULT")

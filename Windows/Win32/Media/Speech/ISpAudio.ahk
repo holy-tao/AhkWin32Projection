@@ -100,7 +100,8 @@ class ISpAudio extends ISpStreamFormat{
      */
     EventHandle() {
         result := ComCall(21, this, "ptr")
-        return HANDLE({Value: result}, True)
+        resultHandle := HANDLE({Value: result}, True)
+        return resultHandle
     }
 
     /**

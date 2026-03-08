@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that create a destination Shell item for a copy or move operation. This interface is provided to allow more control over file operations by providing an ITransferDestination::Advise method.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-itransferdestination
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-itransferdestination
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -31,14 +31,16 @@ class ITransferDestination extends IUnknown{
     static VTableNames => ["Advise", "Unadvise", "CreateItem"]
 
     /**
-     * Sets up an advisory connection for notifications on the status of file operations.
+     * Sets up an advisory connection for notifications on the status of file operations. (ITransferDestination.Advise)
+     * @remarks
+     * Call <b>ITransferDestination::Advise</b> before calling any other <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransferdestination">ITransferDestination</a> methods so the handler can callback for any errors that might occur. If not set, the handler should consider it an indication that no feedback is available and do the "default" operation.
      * @param {ITransferAdviseSink} psink Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransferadvisesink">ITransferAdviseSink</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransferadvisesink">ITransferAdviseSink</a> notification interface to update the calling application using methods on this interface.
      * @returns {Integer} Type: <b>DWORD*</b>
      * 
      * A pointer to a returned token that uniquely identifies this connection. The calling application uses this token later to delete the connection by passing it to the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itransferdestination-unadvise">ITransferDestination::Unadvise</a> method. If the connection is not successfully established, this value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferdestination-advise
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferdestination-advise
      */
     Advise(psink) {
         result := ComCall(3, this, "ptr", psink, "uint*", &pdwCookie := 0, "HRESULT")
@@ -46,7 +48,9 @@ class ITransferDestination extends IUnknown{
     }
 
     /**
-     * Terminates an advisory connection.
+     * Terminates an advisory connection. (ITransferDestination.Unadvise)
+     * @remarks
+     * Terminates an advisory connection previously established through the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itransferdestination-advise">ITransferDestination::Advise</a> method.
      * @param {Integer} dwCookie Type: <b>DWORD</b>
      * 
      * A connection token previously returned from <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itransferdestination-advise">ITransferDestination::Advise</a>. Identifies the connection to be terminated.
@@ -82,7 +86,7 @@ class ITransferDestination extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferdestination-unadvise
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferdestination-unadvise
      */
     Unadvise(dwCookie) {
         result := ComCall(4, this, "uint", dwCookie, "HRESULT")
@@ -91,6 +95,12 @@ class ITransferDestination extends IUnknown{
 
     /**
      * Creates the specified file.
+     * @remarks
+     * This method may be used to create a Shell item object representing the destination folder for a copy or move operation. The <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransfersource">ITransferSource</a> interface provides methods to actually move objects of <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitem">IShellItem</a> to the destination.
+     * 
+     * Call <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-itransferdestination-advise">ITransferDestination::Advise</a> before calling any other <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-itransferdestination">ITransferDestination</a> methods so the handler can callback on any errors that might occur. If not set, the handler should consider it an indication that no feedback is available and to do the "default" operation.
+     * 
+     * It is recommended that you use the <b>IID_PPV_ARGS</b> macro, defined in Objbase.h, to package the <i>riidResources</i> and <i>ppvResources</i> parameters. This macro provides the correct IID based on the interface pointed to by the value in <i>ppvResources</i>, which eliminates the possibility of a coding error.
      * @param {PWSTR} pszName Type: <b>LPCWSTR</b>
      * 
      * A pointer to a null-terminated buffer that contains the name of the file relative to the current directory.
@@ -125,7 +135,7 @@ class ITransferDestination extends IUnknown{
      * <li><b>S_OK</b>: The move succeeded and <i>ppvItem</i> and <i>ppvResources</i> both point to valid objects.</li>
      * <li><b>COPYENGINE_S_USER_IGNORED</b>: The destination item already exists and has not been overwritten. The values pointed to by <i>ppvItem</i> and <i>ppvResources</i> are <b>NULL</b>. If the caller is implementing a move as a copy and delete operation, the caller should complete the move by deleting the source item.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-itransferdestination-createitem
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-itransferdestination-createitem
      */
     CreateItem(pszName, dwAttributes, ullSize, flags, riidItem, ppvItem, riidResources, ppvResources) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

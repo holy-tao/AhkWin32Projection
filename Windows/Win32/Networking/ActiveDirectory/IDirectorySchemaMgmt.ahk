@@ -6,10 +6,8 @@
 /**
  * Not currently implemented and should not be used.
  * @remarks
- * 
  * The methods for this interface are not fully implemented at this time.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-idirectoryschemamgmt
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -35,7 +33,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     static VTableNames => ["EnumAttributes", "CreateAttributeDefinition", "WriteAttributeDefinition", "DeleteAttributeDefinition", "EnumClasses", "WriteClassDefinition", "CreateClassDefinition", "DeleteClassDefinition"]
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {Pointer<PWSTR>} ppszAttrNames 
      * @param {Integer} dwNumAttributes 
      * @param {Pointer<Pointer<ADS_ATTR_DEF>>} ppAttrDefinition 
@@ -53,7 +53,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszAttributeName 
      * @param {Pointer<ADS_ATTR_DEF>} pAttributeDefinition 
      * @returns {HRESULT} 
@@ -67,7 +69,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszAttributeName 
      * @param {Pointer<ADS_ATTR_DEF>} pAttributeDefinition 
      * @returns {HRESULT} 
@@ -81,7 +85,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszAttributeName 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt
@@ -94,7 +100,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {Pointer<PWSTR>} ppszClassNames 
      * @param {Integer} dwNumClasses 
      * @param {Pointer<Pointer<ADS_CLASS_DEF>>} ppClassDefinition 
@@ -112,7 +120,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszClassName 
      * @param {Pointer<ADS_CLASS_DEF>} pClassDefinition 
      * @returns {HRESULT} 
@@ -126,7 +136,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszClassName 
      * @param {Pointer<ADS_CLASS_DEF>} pClassDefinition 
      * @returns {HRESULT} 
@@ -140,7 +152,9 @@ class IDirectorySchemaMgmt extends IUnknown{
     }
 
     /**
-     * 
+     * Not currently implemented and should not be used.
+     * @remarks
+     * The methods for this interface are not fully implemented at this time.
      * @param {PWSTR} pszClassName 
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-idirectoryschemamgmt

@@ -5,7 +5,7 @@
 #Include .\Folder.ahk
 
 /**
- * 
+ * Extends the Folder object to support offline folders.
  * @see https://learn.microsoft.com/windows/win32/shell/folder2-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -77,7 +77,12 @@ class Folder2 extends Folder{
     }
 
     /**
+     * Synchronizes all offline files in the folder.
+     * @remarks
+     * This method has no parameters.
      * 
+     * 
+     * To use this method, the Offline Files feature must be enabled.
      * @returns {HRESULT} 
      * @see https://learn.microsoft.com/windows/win32/shell/folder2-synchronize
      */
@@ -96,8 +101,13 @@ class Folder2 extends Folder{
     }
 
     /**
+     * Called in response to the web view barricade being dismissed by the user.
+     * @remarks
+     * An application calls this method after the user dismisses the web view barricade.
+     * @returns {HRESULT} This method has no parameters.
      * 
-     * @returns {HRESULT} 
+     * 
+     * This method does not return a value.
      * @see https://learn.microsoft.com/windows/win32/shell/folder2-dismissedwebviewbarricade
      */
     DismissedWebViewBarricade() {

@@ -30,8 +30,9 @@ class ITypeLibRegistration extends IUnknown{
     static VTableNames => ["GetGuid", "GetVersion", "GetLcid", "GetWin32Path", "GetWin64Path", "GetDisplayName", "GetFlags", "GetHelpDir"]
 
     /**
-     * 
+     * Retrieves the guide used for boxed, lined, or freeform input.
      * @returns {Guid} 
+     * @see https://learn.microsoft.com/windows/win32/api/recapis/nf-recapis-getguide
      */
     GetGuid() {
         pGuid := Guid()
@@ -41,8 +42,14 @@ class ITypeLibRegistration extends IUnknown{
 
     /**
      * With the release of Windows 8.1, the behavior of the GetVersion API has changed in the value it will return for the operating system version. The value returned by the GetVersion function now depends on how the application is manifested.
+     * @remarks
+     * The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sysinfoapi/nf-sysinfoapi-getversionexa">GetVersionEx</a> function was developed because many existing applications err when examining the packed <b>DWORD</b> value returned by 
+     * <b>GetVersion</b>, transposing the major and minor version numbers. 
+     * <b>GetVersionEx</b> forces applications to explicitly examine each element of version information. 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-verifyversioninfoa">VerifyVersionInfo</a> eliminates further potential for error by comparing the required system version with the current system version for you.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//sysinfoapi/nf-sysinfoapi-getversion
+     * @see https://learn.microsoft.com/windows/win32/api/sysinfoapi/nf-sysinfoapi-getversion
      */
     GetVersion() {
         pVersion := BSTR()

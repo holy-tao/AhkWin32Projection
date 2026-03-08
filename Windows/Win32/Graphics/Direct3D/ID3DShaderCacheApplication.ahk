@@ -39,8 +39,9 @@ class ID3DShaderCacheApplication extends IUnknown{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetDescription
      * @returns {D3D_SHADER_CACHE_APPLICATION_DESC} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecstrings-getdescription
      */
     GetDesc() {
         pApplicationDesc := D3D_SHADER_CACHE_APPLICATION_DESC()

@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Contains methods to iterate over and perform other operations on a list of enumerated objects.
- * @see https://docs.microsoft.com/windows/win32/api//vss/nn-vss-ivssenumobject
+ * Contains methods to iterate over and perform other operations on a list of enumerated objects. (IVssEnumObject)
+ * @see https://learn.microsoft.com/windows/win32/api/vss/nn-vss-ivssenumobject
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -31,7 +31,27 @@ class IVssEnumObject extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Returns the specified number of objects from the specified list of enumerated objects.
+     * Returns the specified number of objects from the specified list of enumerated objects. (IVssEnumObject.Next)
+     * @remarks
+     * When requesting the return of more than one 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> object, a return value of S_FALSE indicates that the end of the enumeration list has been reached. If more objects were requested than remained in the list, 
+     * <b>Next</b> will return all the remaining objects, set the <i>pceltFetched</i> parameter to a nonzero value, and return S_FALSE.
+     * 
+     * The output <i>rgelt</i> parameter must point to an allocated array containing <i>celt</i>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structures, and cannot be NULL.
+     * 
+     * It is the caller's responsibility to free system resources returned by <b>IVssEnumObject::Next</b> to the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structure pointed to by the <i>rgelt</i> parameter.
+     * 
+     * The callers must use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> for every string value in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_provider_prop">VSS_PROVIDER_PROP</a> object in the returned 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structure.
+     * 
+     * In the case of 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_snapshot_prop">VSS_SNAPSHOT_PROP</a>, this can be done manually, or the utility function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/vsbackup/nf-vsbackup-vssfreesnapshotproperties">VssFreeSnapshotProperties</a> can be used.
      * @param {Integer} celt The number of elements to be read from the list of enumerated objects into the <i>rgelt</i> buffer.
      * @param {Pointer<VSS_OBJECT_PROP>} rgelt The address of a caller-allocated buffer that receives <i>celt</i><a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structures that contain the returned objects. This parameter is required and cannot be NULL.
      * @param {Pointer<Integer>} pceltFetched The number of elements that were returned in the <i>rgelt</i> buffer.
@@ -87,7 +107,7 @@ class IVssEnumObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vss/nf-vss-ivssenumobject-next
+     * @see https://learn.microsoft.com/windows/win32/api/vss/nf-vss-ivssenumobject-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -97,7 +117,7 @@ class IVssEnumObject extends IUnknown{
     }
 
     /**
-     * Skips the specified number of objects.
+     * Skips the specified number of objects. (IVssEnumObject.Skip)
      * @param {Integer} celt Number of elements to be skipped in the list of enumerated objects.
      * @returns {HRESULT} The following are the valid return codes for this method.
      * 
@@ -140,7 +160,7 @@ class IVssEnumObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vss/nf-vss-ivssenumobject-skip
+     * @see https://learn.microsoft.com/windows/win32/api/vss/nf-vss-ivssenumobject-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -179,7 +199,7 @@ class IVssEnumObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vss/nf-vss-ivssenumobject-reset
+     * @see https://learn.microsoft.com/windows/win32/api/vss/nf-vss-ivssenumobject-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -188,6 +208,14 @@ class IVssEnumObject extends IUnknown{
 
     /**
      * Creates a copy of the specified list of enumerated elements by creating a copy of the IVssEnumObject enumerator object.
+     * @remarks
+     * The cloned enumerator object will refer to the same list of 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/ns-vss-vss_object_prop">VSS_OBJECT_PROP</a> structures.
+     * 
+     * The caller must call the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">Release</a> method of the 
+     *     returned interface pointer to deallocate the system resources held by the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> enumerator object pointed to by 
+     *     the <i>ppEnum</i> parameter.
      * @param {Pointer<IVssEnumObject>} ppenum Doubly indirect pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vss/nn-vss-ivssenumobject">IVssEnumObject</a> 
      *       enumerator object. Set the value of this parameter to <b>NULL</b> before calling this 
      *       method.
@@ -243,7 +271,7 @@ class IVssEnumObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vss/nf-vss-ivssenumobject-clone
+     * @see https://learn.microsoft.com/windows/win32/api/vss/nf-vss-ivssenumobject-clone
      */
     Clone(ppenum) {
         result := ComCall(6, this, "ptr*", ppenum, "HRESULT")

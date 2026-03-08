@@ -6,11 +6,8 @@
 /**
  * Represents a buffer that contains a Microsoft DirectX Graphics Infrastructure (DXGI)surface.
  * @remarks
- * 
  * To create a DXGImedia buffer, first create the DXGIsurface. Then call <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatedxgisurfacebuffer">MFCreateDXGISurfaceBuffer</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfdxgibuffer
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfdxgibuffer
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,9 +34,11 @@ class IMFDXGIBuffer extends IUnknown{
 
     /**
      * Queries the Microsoft DirectX Graphics Infrastructure (DXGI)surface for an interface.
-     * @param {Pointer<Guid>} riid The interface identifer (IID) of the interface being requested.
+     * @remarks
+     * You can use this method to get a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nn-d3d11-id3d11texture2d">ID3D11Texture2D</a> interface of the surface. If the buffer is locked, the method returns <b>MF_E_INVALIDREQUEST</b>.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @returns {Pointer<Void>} Receives a pointer to the interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgibuffer-getresource
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getresource
      */
     GetResource(riid) {
         result := ComCall(3, this, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
@@ -48,8 +47,12 @@ class IMFDXGIBuffer extends IUnknown{
 
     /**
      * Gets the index of the subresource that is associated with this media buffer.
+     * @remarks
+     * The subresource index is specified when you create the media buffer object. See <a href="https://docs.microsoft.com/windows/desktop/api/mfapi/nf-mfapi-mfcreatedxgisurfacebuffer">MFCreateDXGISurfaceBuffer</a>.
+     * 
+     * For more information about texture subresources, see <a href="https://docs.microsoft.com/windows/desktop/api/d3d11/nf-d3d11-id3d11device-createtexture2d">ID3D11Device::CreateTexture2D</a>.
      * @returns {Integer} Receives the zero-based index of the subresource.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgibuffer-getsubresourceindex
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getsubresourceindex
      */
     GetSubresourceIndex() {
         result := ComCall(4, this, "uint*", &puSubresource := 0, "HRESULT")
@@ -59,9 +62,9 @@ class IMFDXGIBuffer extends IUnknown{
     /**
      * Gets an IUnknown pointer that was previously stored in the media buffer object.
      * @param {Pointer<Guid>} guid The identifier of the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer.
-     * @param {Pointer<Guid>} riid The interface identifer (IID) of the interface being requested.
+     * @param {Pointer<Guid>} riid The interface identifier (IID) of the interface being requested.
      * @returns {Pointer<Void>} Receives a pointer to the interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgibuffer-getunknown
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-getunknown
      */
     GetUnknown(guid, riid) {
         result := ComCall(5, this, "ptr", guid, "ptr", riid, "ptr*", &ppvObject := 0, "HRESULT")
@@ -70,6 +73,8 @@ class IMFDXGIBuffer extends IUnknown{
 
     /**
      * Stores an arbitrary IUnknown pointer in the media buffer object.
+     * @remarks
+     * To retrieve the pointer from the object, call <a href="https://docs.microsoft.com/windows/desktop/api/mfobjects/nf-mfobjects-imfdxgibuffer-getunknown">IMFDXGIBuffer::GetUnknown</a>.
      * @param {Pointer<Guid>} guid The identifier for the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> pointer. This identifier is used as a key to retrieve the value. It can be any <b>GUID</b> value.
      * @param {IUnknown} pUnkData A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface. Set this parameter to <b>NULL</b> to clear a pointer that was previously set.
      * @returns {HRESULT} This method can return one of these values.
@@ -102,7 +107,7 @@ class IMFDXGIBuffer extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfdxgibuffer-setunknown
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfdxgibuffer-setunknown
      */
     SetUnknown(guid, pUnkData) {
         result := ComCall(6, this, "ptr", guid, "ptr", pUnkData, "HRESULT")

@@ -145,8 +145,9 @@ class IMSMQApplication3 extends IMSMQApplication2{
     }
 
     /**
-     * 
+     * Defines each configuration setting and associates it with a name. The Connection element is optional.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/eaphost/eapconnectionpropertiesv1schema-connection-connections-element
      */
     Connect() {
         result := ComCall(22, this, "HRESULT")
@@ -154,8 +155,11 @@ class IMSMQApplication3 extends IMSMQApplication2{
     }
 
     /**
-     * 
+     * The Disconnect event is reserved for future use.
+     * @remarks
+     * This event is reserved for future use.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/WMP/axwmplib-axwindowsmediaplayer-disconnect
      */
     Disconnect() {
         result := ComCall(23, this, "HRESULT")

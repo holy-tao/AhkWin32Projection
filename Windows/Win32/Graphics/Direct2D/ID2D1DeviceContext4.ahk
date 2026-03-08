@@ -6,7 +6,7 @@
 
 /**
  * This interface performs all the same functions as the ID2D1DeviceContext3 interface, plus it enables functionality for handling new types of color font glyphs.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1devicecontext4
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1devicecontext4
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @returns {ID2D1SvgGlyphStyle} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1svgglyphstyle">ID2D1SvgGlyphStyle</a>**</b>
      * 
      * On completion points to the created <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1svgglyphstyle">ID2D1SvgGlyphStyle</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext4-createsvgglyphstyle
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-createsvgglyphstyle
      */
     CreateSvgGlyphStyle() {
         result := ComCall(108, this, "ptr*", &svgGlyphStyle := 0, "HRESULT")
@@ -44,23 +44,42 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
     }
 
     /**
+     * Draws the text within the given layout rectangle. (overload 1/2)
+     * @param {PWSTR} string_R 
+     * @param {Integer} stringLength Type: <b>UINT32</b>
      * 
-     * @param {PWSTR} string 
-     * @param {Integer} stringLength 
-     * @param {IDWriteTextFormat} textFormat 
-     * @param {Pointer<D2D_RECT_F>} layoutRect 
-     * @param {ID2D1Brush} defaultFillBrush 
-     * @param {ID2D1SvgGlyphStyle} svgGlyphStyle 
-     * @param {Integer} colorPaletteIndex 
-     * @param {Integer} options 
-     * @param {Integer} measuringMode 
+     * The number of characters in string.
+     * @param {IDWriteTextFormat} textFormat Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dwrite/nn-dwrite-idwritetextformat">IDWriteTextFormat</a>*</b>
+     * 
+     * An object that describes formatting details of the text to draw, such as the font, the font size, and flow direction.
+     * @param {Pointer<D2D_RECT_F>} layoutRect Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-rect-f">D2D1_RECT_F</a>*</b>
+     * 
+     * The size and position of the area in which the text is drawn.
+     * @param {ID2D1Brush} defaultFillBrush Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1brush">ID2D1Brush</a>*</b>
+     * 
+     * The brush used to paint the text.
+     * @param {ID2D1SvgGlyphStyle} svgGlyphStyle Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1svgglyphstyle">ID2D1SvgGlyphStyle</a>*</b>
+     * 
+     * Values for context-fill, context-stroke, and context-value that are used when rendering SVG glyphs.
+     * @param {Integer} colorPaletteIndex Type: <b>UINT32</b>
+     * 
+     * The index used to select a color palette within a color font.
+     * @param {Integer} options Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS</a></b>
+     * 
+     * A value that indicates whether the text should be snapped to pixel boundaries and whether the text should be clipped to the layout rectangle. 
+     *           The default value is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS_NONE</a>, 
+     *           which indicates that text should be snapped to pixel boundaries and it should not be clipped to the layout rectangle.
+     * @param {Integer} measuringMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE</a></b>
+     * 
+     * A value that indicates how glyph metrics are used to measure text when it is formatted. 
+     *           The default value is <a href="https://docs.microsoft.com/windows/desktop/api/dcommon/ne-dcommon-dwrite_measuring_mode">DWRITE_MEASURING_MODE_NATURAL</a>.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtext(constwchar_uint32_idwritetextformat_constd2d1_rect_f_id2d1brush_id2d1svgglyphstyle_uint32_d2d1_draw_text_options_dwrite_measuring_mode)
      */
-    DrawText(string, stringLength, textFormat, layoutRect, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options, measuringMode) {
-        string := string is String ? StrPtr(string) : string
+    DrawText(string_R, stringLength, textFormat, layoutRect, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options, measuringMode) {
+        string_R := string_R is String ? StrPtr(string_R) : string_R
 
-        ComCall(109, this, "ptr", string, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", options, "int", measuringMode)
+        ComCall(109, this, "ptr", string_R, "uint", stringLength, "ptr", textFormat, "ptr", layoutRect, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", options, "int", measuringMode)
     }
 
     /**
@@ -86,7 +105,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      *             The default value is <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/ne-d2d1-d2d1_draw_text_options">D2D1_DRAW_TEXT_OPTIONS_NONE</a>, 
      *             which indicates that text should be snapped to pixel boundaries and it should not be clipped to the layout rectangle.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtextlayout
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawtextlayout
      */
     DrawTextLayout(origin, textLayout, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, options) {
         ComCall(110, this, "ptr", origin, "ptr", textLayout, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", options)
@@ -114,7 +133,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * 
      * Specifies the pixel snapping policy when rendering color bitmap glyphs.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawcolorbitmapglyphrun
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawcolorbitmapglyphrun
      */
     DrawColorBitmapGlyphRun(glyphImageFormat, baselineOrigin, glyphRun, measuringMode, bitmapSnapOption) {
         ComCall(111, this, "int", glyphImageFormat, "ptr", baselineOrigin, "ptr", glyphRun, "int", measuringMode, "int", bitmapSnapOption)
@@ -142,7 +161,7 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * 
      * Indicates the measuring method used for text layout.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawsvgglyphrun
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-drawsvgglyphrun
      */
     DrawSvgGlyphRun(baselineOrigin, glyphRun, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, measuringMode) {
         ComCall(112, this, "ptr", baselineOrigin, "ptr", glyphRun, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "int", measuringMode)
@@ -185,10 +204,10 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {Pointer<ID2D1Image>} glyphImage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nn-d2d1-id2d1image">ID2D1Image</a>**</b>
      * 
      * On completion contains the retrieved glyph image.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext4-getcolorbitmapglyphimage
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getcolorbitmapglyphimage
      */
     GetColorBitmapGlyphImage(glyphImageFormat, glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, dpiX, dpiY, glyphTransform, glyphImage) {
         result := ComCall(113, this, "int", glyphImageFormat, "ptr", glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, "int", isSideways, "ptr", worldTransform, "float", dpiX, "float", dpiY, "ptr", glyphTransform, "ptr*", glyphImage, "HRESULT")
@@ -233,10 +252,10 @@ class ID2D1DeviceContext4 extends ID2D1DeviceContext3{
      * @param {Pointer<ID2D1CommandList>} glyphImage Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nn-d2d1_1-id2d1commandlist">ID2D1CommandList</a>**</b>
      * 
      * On completion, contains the retrieved glyph image.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * This method returns an HRESULT success or error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1devicecontext4-getsvgglyphimage
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1devicecontext4-getsvgglyphimage
      */
     GetSvgGlyphImage(glyphOrigin, fontFace, fontEmSize, glyphIndex, isSideways, worldTransform, defaultFillBrush, svgGlyphStyle, colorPaletteIndex, glyphTransform, glyphImage) {
         result := ComCall(114, this, "ptr", glyphOrigin, "ptr", fontFace, "float", fontEmSize, "ushort", glyphIndex, "int", isSideways, "ptr", worldTransform, "ptr", defaultFillBrush, "ptr", svgGlyphStyle, "uint", colorPaletteIndex, "ptr", glyphTransform, "ptr*", glyphImage, "HRESULT")

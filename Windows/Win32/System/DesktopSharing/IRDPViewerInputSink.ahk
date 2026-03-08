@@ -5,7 +5,7 @@
 
 /**
  * Sends mouse and keyboard events, and supports touch input.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpviewerinputsink
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpviewerinputsink
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IRDPViewerInputSink extends IUnknown{
      * @param {Integer} xPos The mouse position in  pixels along the horizontal axis.
      * @param {Integer} yPos The mouse position in pixels along the vertical axis.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousebuttonevent
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousebuttonevent
      */
     SendMouseButtonEvent(buttonType, vbButtonDown, xPos, yPos) {
         result := ComCall(3, this, "int", buttonType, "short", vbButtonDown, "uint", xPos, "uint", yPos, "HRESULT")
@@ -49,7 +49,7 @@ class IRDPViewerInputSink extends IUnknown{
      * @param {Integer} xPos The mouse position in  pixels along the horizontal axis.
      * @param {Integer} yPos The mouse position in pixels along the vertical axis.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousemoveevent
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousemoveevent
      */
     SendMouseMoveEvent(xPos, yPos) {
         result := ComCall(4, this, "uint", xPos, "uint", yPos, "HRESULT")
@@ -60,7 +60,7 @@ class IRDPViewerInputSink extends IUnknown{
      * Sends a mouse wheel event message.
      * @param {Integer} wheelRotation The number of increments that the wheel is moved.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousewheelevent
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendmousewheelevent
      */
     SendMouseWheelEvent(wheelRotation) {
         result := ComCall(5, this, "ushort", wheelRotation, "HRESULT")
@@ -75,7 +75,7 @@ class IRDPViewerInputSink extends IUnknown{
      * @param {VARIANT_BOOL} vbRepeat The key code is a repeated code:  <b>FALSE</b> if this is the initial key code from a key press, <b>TRUE</b> if this is repeated code from a single key press.
      * @param {VARIANT_BOOL} vbExtended The key code is extended:  <b>TRUE</b> if the code is extended, <b>FALSE</b> otherwise.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendkeyboardevent
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendkeyboardevent
      */
     SendKeyboardEvent(codeType, keycode, vbKeyUp, vbRepeat, vbExtended) {
         result := ComCall(6, this, "int", codeType, "ushort", keycode, "short", vbKeyUp, "short", vbRepeat, "short", vbExtended, "HRESULT")
@@ -86,7 +86,7 @@ class IRDPViewerInputSink extends IUnknown{
      * Sends an event message to indicate a change in the state of the keyboard, such as when the Caps Lock key is pressed.
      * @param {Integer} syncFlags For possible values, see the <a href="https://docs.microsoft.com/windows/win32/api/rdpencomapi/ne-rdpencomapi-rdpsrapi_kbd_sync_flag">RDPSRAPI_KBD_SYNC_FLAG</a> enumeration.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendsyncevent
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-sendsyncevent
      */
     SendSyncEvent(syncFlags) {
         result := ComCall(7, this, "uint", syncFlags, "HRESULT")
@@ -96,7 +96,7 @@ class IRDPViewerInputSink extends IUnknown{
     /**
      * Begins to accept a series of touch inputs.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-begintouchframe
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-begintouchframe
      */
     BeginTouchFrame() {
         result := ComCall(8, this, "HRESULT")
@@ -110,7 +110,7 @@ class IRDPViewerInputSink extends IUnknown{
      * @param {Integer} x The touch position in the x-axis.
      * @param {Integer} y The touch position in the y-axis.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-addtouchinput
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-addtouchinput
      */
     AddTouchInput(contactId, event, x, y) {
         result := ComCall(9, this, "uint", contactId, "uint", event, "int", x, "int", y, "HRESULT")
@@ -120,7 +120,7 @@ class IRDPViewerInputSink extends IUnknown{
     /**
      * Stops to accept a series of touch inputs.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-endtouchframe
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpviewerinputsink-endtouchframe
      */
     EndTouchFrame() {
         result := ComCall(10, this, "HRESULT")

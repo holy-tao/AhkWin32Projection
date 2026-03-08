@@ -7,7 +7,7 @@
 
 /**
  * Can be used to create an IX509EnrollmentHelper object on a webpage.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509machineenrollmentfactory
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509machineenrollmentfactory
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -34,9 +34,11 @@ class IX509MachineEnrollmentFactory extends IDispatch{
 
     /**
      * Creates an IX509EnrollmentHelper object on a webpage.
+     * @remarks
+     * This method calls <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmenthelper-initialize">Initialize</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmenthelper">IX509EnrollmentHelper</a> interface by using the <b>ContextAdministratorForceMachine</b> context value, thereby specifying that all certificates to be enrolled by the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollment2">IX509Enrollment2</a> object will be requested by an administrator acting on behalf of a computer. To enroll a user certificate, call <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentwebclassfactory-createobject">CreateObject</a> on the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentwebclassfactory">IX509EnrollmentWebClassFactory</a> interface.
      * @param {BSTR} strProgID A <b>BSTR</b> variable that contains the ProgID value. This must be "X509Enrollment.CX509EnrollmentHelper".
      * @returns {IX509EnrollmentHelper} Address of a pointer to a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmenthelper">IX509EnrollmentHelper</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509machineenrollmentfactory-createobject
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509machineenrollmentfactory-createobject
      */
     CreateObject(strProgID) {
         strProgID := strProgID is String ? BSTR.Alloc(strProgID).Value : strProgID

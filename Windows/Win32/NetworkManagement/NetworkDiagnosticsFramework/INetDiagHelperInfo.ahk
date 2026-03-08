@@ -5,7 +5,7 @@
 
 /**
  * The INetDiagHelperInfo interface provides a method that is called by the Network Diagnostics Framework (NDF) when it needs to validate that it has the necessary information for a helper class and that it has chosen the correct helper class.
- * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nn-ndhelper-inetdiaghelperinfo
+ * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nn-ndhelper-inetdiaghelperinfo
  * @namespace Windows.Win32.NetworkManagement.NetworkDiagnosticsFramework
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class INetDiagHelperInfo extends IUnknown{
 
     /**
      * The GetAttributeInfo method retrieves the list of key parameters needed by the Helper Class Extension.
+     * @remarks
+     * The key parameter list is used by NDF to determine whether enough information is available for the extension to perform diagnosis.  If the hypothesis to call the extension lacks a key attribute, the extension will not be called.  Optional attributes will not be returned by this call.
      * @param {Pointer<Integer>} pcelt A pointer to a count of elements in the array pointed to by <i>pprgAttributeInfos</i>.
      * @param {Pointer<Pointer<HelperAttributeInfo>>} pprgAttributeInfos A pointer to an array of <a href="https://docs.microsoft.com/windows/desktop/api/ndhelper/ns-ndhelper-helperattributeinfo">HelperAttributeInfo</a> structures that contain helper class key parameters.
      * @returns {HRESULT} <table>
@@ -87,7 +89,7 @@ class INetDiagHelperInfo extends IUnknown{
      *  
      * 
      * Helper Class Extensions may return HRESULTS that are specific to the diagnoses or repairs.
-     * @see https://docs.microsoft.com/windows/win32/api//ndhelper/nf-ndhelper-inetdiaghelperinfo-getattributeinfo
+     * @see https://learn.microsoft.com/windows/win32/api/ndhelper/nf-ndhelper-inetdiaghelperinfo-getattributeinfo
      */
     GetAttributeInfo(pcelt, pprgAttributeInfos) {
         pceltMarshal := pcelt is VarRef ? "uint*" : "ptr"

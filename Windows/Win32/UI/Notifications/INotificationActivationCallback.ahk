@@ -5,7 +5,7 @@
 
 /**
  * Receives notification messages when an app is triggered through a toast from the action center.
- * @see https://docs.microsoft.com/windows/win32/api//notificationactivationcallback/nn-notificationactivationcallback-inotificationactivationcallback
+ * @see https://learn.microsoft.com/windows/win32/api/notificationactivationcallback/nn-notificationactivationcallback-inotificationactivationcallback
  * @namespace Windows.Win32.UI.Notifications
  * @version v4.0.30319
  */
@@ -32,12 +32,18 @@ class INotificationActivationCallback extends IUnknown{
 
     /**
      * Called when a user interacts with a toast in the action center.
+     * @remarks
+     * In order for your app to respond to toasts in the action center, you need to override this method in your app. You also will need to create a shortcut on the start menu. For more information about how to respond to activation notifications, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/win32_tile_badge_notif/respond-to-toast-activations">Respond to toast activations</a>.
+     * 
+     * If your application uses non-interactive toasts, you can respond to those without using <i>invokedArgs</i> or <i>data</i>.
+     * 
+     * If you return a failure code, the activation will fail and the user can try again to activate your app.
      * @param {PWSTR} appUserModelId The unique identifier representing your app to the notification platform.
      * @param {PWSTR} invokedArgs Arguments from the invoked button. <b>NULL</b> if the toast indicates the default activation and no launch arguments were specified in the XML payload.
      * @param {Pointer<NOTIFICATION_USER_INPUT_DATA>} data The data from the input elements available on the notification toast.
      * @param {Integer} count The number of <i>data</i> elements.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//notificationactivationcallback/nf-notificationactivationcallback-inotificationactivationcallback-activate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/notificationactivationcallback/nf-notificationactivationcallback-inotificationactivationcallback-activate
      */
     Activate(appUserModelId, invokedArgs, data, count) {
         appUserModelId := appUserModelId is String ? StrPtr(appUserModelId) : appUserModelId

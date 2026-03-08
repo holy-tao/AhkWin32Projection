@@ -11,7 +11,7 @@
 
 /**
  * Provides methods to manage IAzRoleAssignment, IAzRoleDefinition, and IAzScope2 objects.
- * @see https://docs.microsoft.com/windows/win32/api//azroles/nn-azroles-iazapplication3
+ * @see https://learn.microsoft.com/windows/win32/api/azroles/nn-azroles-iazapplication3
  * @namespace Windows.Win32.Security.Authorization
  * @version v4.0.30319
  */
@@ -62,7 +62,7 @@ class IAzApplication3 extends IAzApplication2{
      * Indicates whether the specified scope exists in this IAzApplication3 object.
      * @param {BSTR} bstrScopeName A string that contains the name of the scope to be checked.
      * @returns {VARIANT_BOOL} <b>VARIANT_TRUE</b> if the specified scope exists in this <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazapplication3">IAzApplication3</a> object; otherwise, <b>VARIANT_FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-scopeexists
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-scopeexists
      */
     ScopeExists(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -77,7 +77,7 @@ class IAzApplication3 extends IAzApplication2{
      * @returns {IAzScope2} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope2">IAzScope2</a> object that this method opens.
      * 
      * When you have finished using the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope2">IAzScope2</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-openscope2
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-openscope2
      */
     OpenScope2(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -92,7 +92,7 @@ class IAzApplication3 extends IAzApplication2{
      * @returns {IAzScope2} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope2">IAzScope2</a> object that this method creates.
      * 
      * When you have finished using this <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope2">IAzScope2</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-createscope2
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-createscope2
      */
     CreateScope2(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -103,11 +103,13 @@ class IAzApplication3 extends IAzApplication2{
 
     /**
      * Removes the specified IAzScope2 object from the IAzApplication3 object.
+     * @remarks
+     * If any references to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope2">IAzScope2</a> object have been deleted from the cache, you can no longer use that object. In C++, you must release references to deleted <b>IAzScope2</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In Visual Basic, references to deleted objects are automatically released.
      * @param {BSTR} bstrScopeName A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazscope2">IAzScope2</a> object to remove.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-deletescope2
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-deletescope2
      */
     DeleteScope2(bstrScopeName) {
         bstrScopeName := bstrScopeName is String ? BSTR.Alloc(bstrScopeName).Value : bstrScopeName
@@ -119,7 +121,7 @@ class IAzApplication3 extends IAzApplication2{
     /**
      * Gets an IAzRoleDefinitions object that represents the collection of IAzRoleDefinition objects associated with the current IAzApplication3 object.
      * @returns {IAzRoleDefinitions} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-get_roledefinitions
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-get_roledefinitions
      */
     get_RoleDefinitions() {
         result := ComCall(74, this, "ptr*", &ppRoleDefinitions := 0, "HRESULT")
@@ -132,7 +134,7 @@ class IAzApplication3 extends IAzApplication2{
      * @returns {IAzRoleDefinition} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object that this method creates.
      * 
      * When you have finished using this <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-createroledefinition
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-createroledefinition
      */
     CreateRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
@@ -147,7 +149,7 @@ class IAzApplication3 extends IAzApplication2{
      * @returns {IAzRoleDefinition} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object that this method opens.
      * 
      * When you have finished using this <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-openroledefinition
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-openroledefinition
      */
     OpenRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
@@ -158,11 +160,13 @@ class IAzApplication3 extends IAzApplication2{
 
     /**
      * Removes the specified IAzRoleDefinition object from the IAzApplication3 object.
+     * @remarks
+     * If any references to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object have been deleted from the cache, you can no longer use that object. In C++, you must release references to deleted <b>IAzRoleDefinition</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In Visual Basic, references to deleted objects are automatically released.
      * @param {BSTR} bstrRoleDefinitionName A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroledefinition">IAzRoleDefinition</a> object to remove.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-deleteroledefinition
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-deleteroledefinition
      */
     DeleteRoleDefinition(bstrRoleDefinitionName) {
         bstrRoleDefinitionName := bstrRoleDefinitionName is String ? BSTR.Alloc(bstrRoleDefinitionName).Value : bstrRoleDefinitionName
@@ -174,7 +178,7 @@ class IAzApplication3 extends IAzApplication2{
     /**
      * Gets an IAzRoleAssignments object that represents the collection of IAzRoleAssignment objects associated with the current IAzApplication3 object.
      * @returns {IAzRoleAssignments} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-get_roleassignments
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-get_roleassignments
      */
     get_RoleAssignments() {
         result := ComCall(78, this, "ptr*", &ppRoleAssignments := 0, "HRESULT")
@@ -187,7 +191,7 @@ class IAzApplication3 extends IAzApplication2{
      * @returns {IAzRoleAssignment} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object that this method creates.
      * 
      * When you have finished using this <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-createroleassignment
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-createroleassignment
      */
     CreateRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
@@ -202,7 +206,7 @@ class IAzApplication3 extends IAzApplication2{
      * @returns {IAzRoleAssignment} The address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object that this method opens.
      * 
      * When you have finished using this <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object, release it by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-openroleassignment
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-openroleassignment
      */
     OpenRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
@@ -213,11 +217,13 @@ class IAzApplication3 extends IAzApplication2{
 
     /**
      * Removes the specified IAzRoleAssignment object from the IAzApplication3 object.
+     * @remarks
+     * If any references to an <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object have been deleted from the cache, you can no longer use that object. In C++, you must release references to deleted <b>IAzRoleAssignment</b> objects by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method. In Visual Basic, references to deleted objects are automatically released.
      * @param {BSTR} bstrRoleAssignmentName A string that contains the name of the <a href="https://docs.microsoft.com/windows/desktop/api/azroles/nn-azroles-iazroleassignment">IAzRoleAssignment</a> object to remove.
      * @returns {HRESULT} If the method succeeds, it returns <b>S_OK</b>.
      * 
-     * If the method fails, it returns an error code. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-deleteroleassignment
+     * If the method fails, it returns an error code. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-deleteroleassignment
      */
     DeleteRoleAssignment(bstrRoleAssignmentName) {
         bstrRoleAssignmentName := bstrRoleAssignmentName is String ? BSTR.Alloc(bstrRoleAssignmentName).Value : bstrRoleAssignmentName
@@ -227,9 +233,9 @@ class IAzApplication3 extends IAzApplication2{
     }
 
     /**
-     * Gets or sets a value that indicates whether business rules are enabled for this application.
+     * Gets or sets a value that indicates whether business rules are enabled for this application. (Get)
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-get_bizrulesenabled
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-get_bizrulesenabled
      */
     get_BizRulesEnabled() {
         result := ComCall(82, this, "short*", &pbEnabled := 0, "HRESULT")
@@ -237,10 +243,10 @@ class IAzApplication3 extends IAzApplication2{
     }
 
     /**
-     * Gets or sets a value that indicates whether business rules are enabled for this application.
+     * Gets or sets a value that indicates whether business rules are enabled for this application. (Put)
      * @param {VARIANT_BOOL} bEnabled 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//azroles/nf-azroles-iazapplication3-put_bizrulesenabled
+     * @see https://learn.microsoft.com/windows/win32/api/azroles/nf-azroles-iazapplication3-put_bizrulesenabled
      */
     put_BizRulesEnabled(bEnabled) {
         result := ComCall(83, this, "short", bEnabled, "HRESULT")

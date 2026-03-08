@@ -4,8 +4,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a method that retireves system id data.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfsystemid
+ * Provides a method that retrieves system id data.
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfsystemid
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -53,7 +53,7 @@ class IMFSystemId extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsystemid-getdata
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-getdata
      */
     GetData(size, data) {
         sizeMarshal := size is VarRef ? "uint*" : "ptr"
@@ -70,8 +70,8 @@ class IMFSystemId extends IUnknown{
      * @param {Pointer} pbIn The input buffer.
      * @param {Pointer<Integer>} pcbOut Size of output buffer.
      * @param {Pointer<Pointer<Integer>>} ppbOut The output buffer.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfsystemid-setup
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfsystemid-setup
      */
     Setup(stage, cbIn, pbIn, pcbOut, ppbOut) {
         pcbOutMarshal := pcbOut is VarRef ? "uint*" : "ptr"

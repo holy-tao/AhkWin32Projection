@@ -5,7 +5,7 @@
 
 /**
  * The IKsNodeControl interface must be implemented by USB Video Class (UVC) extension units.
- * @see https://docs.microsoft.com/windows/win32/api//vidcap/nn-vidcap-iksnodecontrol
+ * @see https://learn.microsoft.com/windows/win32/api/vidcap/nn-vidcap-iksnodecontrol
  * @namespace Windows.Win32.Media.KernelStreaming
  * @version v4.0.30319
  */
@@ -48,7 +48,7 @@ class IKsNodeControl extends IUnknown{
      * Sets the node identifier for the extension unit.
      * @param {Integer} dwNodeId Node identifier.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-iksnodecontrol-put_nodeid
+     * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iksnodecontrol-put_nodeid
      */
     put_NodeId(dwNodeId) {
         result := ComCall(3, this, "uint", dwNodeId, "HRESULT")
@@ -57,9 +57,11 @@ class IKsNodeControl extends IUnknown{
 
     /**
      * Provides an instance of the IKsControl interface to the extension unit.
+     * @remarks
+     * The KsProxy filter calls this method with a pointer to its own <b>IKsControl</b> interface. The extension unit should cache the pointer.
      * @param {Pointer<Void>} pKsControl Pointer to the <b>IKsControl</b> interface, typed as a void pointer.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//vidcap/nf-vidcap-iksnodecontrol-put_kscontrol
+     * @see https://learn.microsoft.com/windows/win32/api/vidcap/nf-vidcap-iksnodecontrol-put_kscontrol
      */
     put_KsControl(pKsControl) {
         pKsControlMarshal := pKsControl is VarRef ? "ptr" : "ptr"

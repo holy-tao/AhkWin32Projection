@@ -7,7 +7,7 @@
 
 /**
  * Supports retrieving and updating individual properties in an instance of a WMI class.
- * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nn-wbemprov-iwbempropertyprovider
+ * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nn-wbemprov-iwbempropertyprovider
  * @namespace Windows.Win32.System.Wmi
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IWbemPropertyProvider extends IUnknown{
      * @param {BSTR} strInstMapping Literal copy of the string value for the <b>InstanceContext</b> qualifier for the instance. This must point to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
      * @param {BSTR} strPropMapping Literal copy of the value of the <b>PropertyContext</b> qualifier for the property. This must point to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
      * @returns {VARIANT} Pointer to an uninitialized <b>VARIANT</b> that receives the value for the property. The implementation must call <b>VariantInit</b> and return the value. If an error occurs, the implementation is expected to ignore the pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbempropertyprovider-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbempropertyprovider-getproperty
      */
     GetProperty(lFlags, strLocale, strClassMapping, strInstMapping, strPropMapping) {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale
@@ -62,7 +62,7 @@ class IWbemPropertyProvider extends IUnknown{
      * @param {BSTR} strPropMapping Literal copy of the value of the <b>PropertyContext</b> qualifier for the property. This must point to a valid <b>BSTR</b>, which is treated as read-only, or <b>NULL</b> if the qualifier does not exist.
      * @param {Pointer<VARIANT>} pvValue Pointer to an existing <b>VARIANT</b> that contains the value to be written.
      * @returns {HRESULT} This method must return <b>WBEM_S_NO_ERROR</b> if the operation succeeds, or <b>WBEM_S_FALSE</b> if the operation fails.
-     * @see https://docs.microsoft.com/windows/win32/api//wbemprov/nf-wbemprov-iwbempropertyprovider-putproperty
+     * @see https://learn.microsoft.com/windows/win32/api/wbemprov/nf-wbemprov-iwbempropertyprovider-putproperty
      */
     PutProperty(lFlags, strLocale, strClassMapping, strInstMapping, strPropMapping, pvValue) {
         strLocale := strLocale is String ? BSTR.Alloc(strLocale).Value : strLocale

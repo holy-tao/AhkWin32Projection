@@ -8,11 +8,8 @@
 /**
  * The ITfCandidateList interface is implemented by a text service and is used by the TSF manager or a client (application or other text service) to obtain and manipulate candidate string objects.
  * @remarks
- * 
  * When a text service must interpret text before it is inserted into a context, there might be more than one possible interpretation of the text. Speech input is an example of this. If the spoken word is "there", other possible interpretations might be "their" or "they're". The text service will insert the most appropriate text, but there is still some chance of error involved. Text reconversion is the process of allowing the user to select alternate text for the inserted text. The alternate text objects are known as candidates.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nn-ctffunc-itfcandidatelist
+ * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nn-ctffunc-itfcandidatelist
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -40,7 +37,7 @@ class ITfCandidateList extends IUnknown{
     /**
      * ITfCandidateList::EnumCandidates method
      * @returns {IEnumTfCandidates} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-ienumtfcandidates">IEnumTfCandidates</a> interface pointer that receives the enumerator object. The caller must release this interface when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-enumcandidates
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-enumcandidates
      */
     EnumCandidates() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -51,7 +48,7 @@ class ITfCandidateList extends IUnknown{
      * ITfCandidateList::GetCandidate method
      * @param {Integer} nIndex Specifies the zero-based index of the candidate string to obtain.
      * @returns {ITfCandidateString} Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/ctffunc/nn-ctffunc-itfcandidatestring">ITfCandidateString</a> interface pointer that receives the candidate string object. The caller must release this interface when it is no longer required.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-getcandidate
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidate
      */
     GetCandidate(nIndex) {
         result := ComCall(4, this, "uint", nIndex, "ptr*", &ppCand := 0, "HRESULT")
@@ -61,7 +58,7 @@ class ITfCandidateList extends IUnknown{
     /**
      * ITfCandidateList::GetCandidateNum method
      * @returns {Integer} Pointer to a <b>ULONG</b> value that receives the number of candidate string objects in the candidate list.
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-getcandidatenum
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-getcandidatenum
      */
     GetCandidateNum() {
         result := ComCall(5, this, "uint*", &pnCnt := 0, "HRESULT")
@@ -70,6 +67,16 @@ class ITfCandidateList extends IUnknown{
 
     /**
      * ITfCandidateList::SetResult method
+     * @remarks
+     * A typical reconversion operation would include the following operations.
+     * 
+     * <ol>
+     * <li>A list of candidates is obtained and displayed to the user in a dialog box.</li>
+     * <li>When the user selects a candidate, but before the dialog box is dismissed, <b>ITfCandidateList::SetResult</b> is called with the index of the newly selected candidate and CAND_SELECTED.</li>
+     * <li>If a different candidate is selected, <b>ITfCandidateList::SetResult</b> is called agian with the index of the newly selected candidate and CAND_SELECTED.</li>
+     * <li>If the user chooses to accept the new candidate, <b>ITfCandidateList::SetResult</b> is called with the index of the currently selected candidate and CAND_FINALIZED.</li>
+     * <li>If the user cancels the dialog, <b>ITfCandidateList::SetResult</b> is called with an index of zero and CAND_CANCELED.</li>
+     * </ol>
      * @param {Integer} nIndex Specifies the zero-based index of the candidate string to set the result for. This parameter is ignored if <i>imcr</i> contains CAND_CANCELED.
      * @param {Integer} imcr Contains one of the <a href="https://docs.microsoft.com/windows/win32/api/ctffunc/ne-ctffunc-tfcandidateresult">TfCandidateResult</a> values that specifies the result of the reconversion operation.
      * @returns {HRESULT} This method can return one of these values.
@@ -102,7 +109,7 @@ class ITfCandidateList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ctffunc/nf-ctffunc-itfcandidatelist-setresult
+     * @see https://learn.microsoft.com/windows/win32/api/ctffunc/nf-ctffunc-itfcandidatelist-setresult
      */
     SetResult(nIndex, imcr) {
         result := ComCall(6, this, "uint", nIndex, "int", imcr, "HRESULT")

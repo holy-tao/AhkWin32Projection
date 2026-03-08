@@ -6,7 +6,7 @@
 
 /**
  * Provides an interface that enables pages in an XPS package to share resources.
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomremotedictionaryresource
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -33,8 +33,10 @@ class IXpsOMRemoteDictionaryResource extends IXpsOMResource{
 
     /**
      * Gets a pointer to the IXpsOMDictionary interface of the remote dictionary that is associated with this resource.
+     * @remarks
+     * After loading and parsing the resource into the XPS OM, this method might return an error that applies to another resource. This occurs because all of the relationships are parsed when a resource is loaded.
      * @returns {IXpsOMDictionary} A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface of the dictionary that is associated with this resource.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-getdictionary
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-getdictionary
      */
     GetDictionary() {
         result := ComCall(5, this, "ptr*", &dictionary := 0, "HRESULT")
@@ -44,7 +46,7 @@ class IXpsOMRemoteDictionaryResource extends IXpsOMResource{
     /**
      * Sets a pointer to the IXpsOMDictionary interface of the remote dictionary that is to be associated with this resource.
      * @param {IXpsOMDictionary} dictionary The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary">IXpsOMDictionary</a> interface of the dictionary that is to be associated with this resource.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -74,7 +76,7 @@ class IXpsOMRemoteDictionaryResource extends IXpsOMResource{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-setdictionary
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomremotedictionaryresource-setdictionary
      */
     SetDictionary(dictionary) {
         result := ComCall(6, this, "ptr", dictionary, "HRESULT")

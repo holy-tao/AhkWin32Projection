@@ -6,7 +6,7 @@
 
 /**
  * Provides access to the IMFAttributes of the substreams of a multiplexed media source.
- * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nn-mfobjects-imfmuxstreamattributesmanager
+ * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nn-mfobjects-imfmuxstreamattributesmanager
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -32,9 +32,9 @@ class IMFMuxStreamAttributesManager extends IUnknown{
     static VTableNames => ["GetStreamCount", "GetAttributes"]
 
     /**
-     * Gets the count of substreams managed by the multiplexed media source.
+     * Gets the count of substreams managed by the multiplexed media source. (IMFMuxStreamAttributesManager.GetStreamCount)
      * @returns {Integer} The count of substreams managed by the multiplexed media source.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getstreamcount
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getstreamcount
      */
     GetStreamCount() {
         result := ComCall(3, this, "uint*", &pdwMuxStreamCount := 0, "HRESULT")
@@ -45,7 +45,7 @@ class IMFMuxStreamAttributesManager extends IUnknown{
      * Gets the IMFAttributes for the substream with the specified index.
      * @param {Integer} dwMuxStreamIndex The index of the substream for which attributes are retrieved.
      * @returns {IMFAttributes} The attributes for the specified substream.
-     * @see https://docs.microsoft.com/windows/win32/api//mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getattributes
+     * @see https://learn.microsoft.com/windows/win32/api/mfobjects/nf-mfobjects-imfmuxstreamattributesmanager-getattributes
      */
     GetAttributes(dwMuxStreamIndex) {
         result := ComCall(4, this, "uint", dwMuxStreamIndex, "ptr*", &ppStreamAttributes := 0, "HRESULT")

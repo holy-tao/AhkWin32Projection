@@ -2521,11 +2521,7 @@ class Audio {
      * @since windows5.0
      */
     static CoRegisterMessageFilter(lpMessageFilter) {
-        result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr*", &lplpMessageFilter := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("OLE32.dll\CoRegisterMessageFilter", "ptr", lpMessageFilter, "ptr*", &lplpMessageFilter := 0, "HRESULT")
         return IMessageFilter(lplpMessageFilter)
     }
 
@@ -9848,11 +9844,7 @@ class Audio {
     static ActivateAudioInterfaceAsync(deviceInterfacePath, riid, activationParams, completionHandler) {
         deviceInterfacePath := deviceInterfacePath is String ? StrPtr(deviceInterfacePath) : deviceInterfacePath
 
-        result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr*", &activationOperation := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MMDevAPI.dll\ActivateAudioInterfaceAsync", "ptr", deviceInterfacePath, "ptr", riid, "ptr", activationParams, "ptr", completionHandler, "ptr*", &activationOperation := 0, "HRESULT")
         return IActivateAudioInterfaceAsyncOperation(activationOperation)
     }
 
@@ -9861,11 +9853,7 @@ class Audio {
      * @returns {IAudioStateMonitor} 
      */
     static CreateRenderAudioStateMonitor() {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitor", "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitor", "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 
@@ -9875,11 +9863,7 @@ class Audio {
      * @returns {IAudioStateMonitor} 
      */
     static CreateRenderAudioStateMonitorForCategory(category) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategory", "int", category, "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategory", "int", category, "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 
@@ -9890,11 +9874,7 @@ class Audio {
      * @returns {IAudioStateMonitor} 
      */
     static CreateRenderAudioStateMonitorForCategoryAndDeviceRole(category, role) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 
@@ -9907,11 +9887,7 @@ class Audio {
     static CreateRenderAudioStateMonitorForCategoryAndDeviceId(category, deviceId) {
         deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
-        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateRenderAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 
@@ -9920,11 +9896,7 @@ class Audio {
      * @returns {IAudioStateMonitor} 
      */
     static CreateCaptureAudioStateMonitor() {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitor", "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitor", "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 
@@ -9934,11 +9906,7 @@ class Audio {
      * @returns {IAudioStateMonitor} 
      */
     static CreateCaptureAudioStateMonitorForCategory(category) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategory", "int", category, "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategory", "int", category, "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 
@@ -9949,11 +9917,7 @@ class Audio {
      * @returns {IAudioStateMonitor} 
      */
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceRole(category, role) {
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceRole", "int", category, "int", role, "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 
@@ -9966,11 +9930,7 @@ class Audio {
     static CreateCaptureAudioStateMonitorForCategoryAndDeviceId(category, deviceId) {
         deviceId := deviceId is String ? StrPtr(deviceId) : deviceId
 
-        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", &audioStateMonitor := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("Windows.Media.MediaControl.dll\CreateCaptureAudioStateMonitorForCategoryAndDeviceId", "int", category, "ptr", deviceId, "ptr*", &audioStateMonitor := 0, "HRESULT")
         return IAudioStateMonitor(audioStateMonitor)
     }
 

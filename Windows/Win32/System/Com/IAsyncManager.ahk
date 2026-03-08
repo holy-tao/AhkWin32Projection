@@ -49,8 +49,11 @@ class IAsyncManager extends IUnknown{
     }
 
     /**
-     * 
+     * Gets current Interaction Context state and the time when the context will return to idle state.
+     * @remarks
+     * After interaction ends, the interaction context might still be busy reporting inertia, or expecting second tap in a double tap gesture (in general, if multi-stroke gesture is possible). This function allows the caller to find out when it is safe to treat the Interaction Context object as idle. The main purpose of this function is management of pools of interaction contexts.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/interactioncontext/nf-interactioncontext-getstateinteractioncontext
      */
     GetState() {
         result := ComCall(5, this, "uint*", &pulStateFlags := 0, "HRESULT")

@@ -7,7 +7,7 @@
 
 /**
  * Exposes methods used to retrieve input and output connectors exposed by the bitmap effect.
- * @see https://docs.microsoft.com/windows/win32/api//mileffects/nn-mileffects-imilbitmapeffectconnections
+ * @see https://learn.microsoft.com/windows/win32/api/mileffects/nn-mileffects-imilbitmapeffectconnections
  * @namespace Windows.Win32.UI.Wpf
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IMILBitmapEffectConnections extends IUnknown{
      * @returns {IMILBitmapEffectInputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectinputconnector">IMILBitmapEffectInputConnector</a>**</b>
      * 
      * When this method returns, contains the input connector for the given input pin.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnections-getinputconnector
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnections-getinputconnector
      */
     GetInputConnector(uiIndex) {
         result := ComCall(3, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")
@@ -55,7 +55,7 @@ class IMILBitmapEffectConnections extends IUnknown{
      * @returns {IMILBitmapEffectOutputConnector} Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/mileffects/nn-mileffects-imilbitmapeffectoutputconnector">IMILBitmapEffectOutputConnector</a>**</b>
      * 
      * When this method returns, contains the output connector for the given output pin.
-     * @see https://docs.microsoft.com/windows/win32/api//mileffects/nf-mileffects-imilbitmapeffectconnections-getoutputconnector
+     * @see https://learn.microsoft.com/windows/win32/api/mileffects/nf-mileffects-imilbitmapeffectconnections-getoutputconnector
      */
     GetOutputConnector(uiIndex) {
         result := ComCall(4, this, "uint", uiIndex, "ptr*", &ppConnector := 0, "HRESULT")

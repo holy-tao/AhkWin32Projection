@@ -5,6 +5,8 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Determines which menu item, if any, is at the specified location.
+ * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-menuitemfrompoint
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -111,8 +113,9 @@ class MenuItem extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Calls the DsReplicaConsistencyCheck function, which invokes the Knowledge Consistency Checker (KCC) to verify the replication topology.
+     * @returns {HRESULT} This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/AD/executekcc-msad-domaincontroller
      */
     Execute() {
         result := ComCall(11, this, "HRESULT")

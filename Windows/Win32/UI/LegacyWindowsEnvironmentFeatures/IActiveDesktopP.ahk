@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that manage the Windows Desktop.
- * @see https://docs.microsoft.com/windows/win32/api//shlobj/nn-shlobj-iactivedesktopp
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj/nn-shlobj-iactivedesktopp
  * @namespace Windows.Win32.UI.LegacyWindowsEnvironmentFeatures
  * @version v4.0.30319
  */
@@ -38,7 +38,7 @@ class IActiveDesktopP extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if successful, or an error code otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj/nf-shlobj-iactivedesktopp-setsafemode
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj/nf-shlobj-iactivedesktopp-setsafemode
      */
     SetSafeMode(dwFlags) {
         result := ComCall(3, this, "uint", dwFlags, "HRESULT")

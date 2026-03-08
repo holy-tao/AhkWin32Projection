@@ -6,7 +6,7 @@
 
 /**
  * This interface provides a method to retrieve all the clients currently connected to the TFTP server.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransporttftpmanager
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransporttftpmanager
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IWdsTransportTftpManager extends IDispatch{
     /**
      * Returns a pointer to the object of an IWdsTransportCollection interface containing a collection of objects of the IWdsTransportTftpClient interface for the clients currently connected to the TFTP server.
      * @returns {IWdsTransportCollection} A pointer to a pointer to an object of the <a href="https://docs.microsoft.com/windows/desktop/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcollection">IWdsTransportCollection</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpmanager-retrievetftpclients
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransporttftpmanager-retrievetftpclients
      */
     RetrieveTftpClients() {
         result := ComCall(7, this, "ptr*", &ppWdsTransportTftpClients := 0, "HRESULT")

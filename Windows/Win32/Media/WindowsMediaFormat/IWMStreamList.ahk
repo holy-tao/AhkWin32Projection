@@ -5,7 +5,7 @@
 
 /**
  * The IWMStreamList interface is used by mutual exclusion objects and bandwidth sharing objects to maintain lists of streams.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmstreamlist
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmstreamlist
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,9 +32,13 @@ class IWMStreamList extends IUnknown{
 
     /**
      * The GetStreams method retrieves an array of stream numbers that make up the list.
+     * @remarks
+     * You should make two calls to <b>GetStreams</b>. On the first call, pass <b>NULL</b> as <i>pwStreamNumArray</i>. On return, the value pointed to by <i>pcStreams</i> is set to the number of stream numbers in the stream number array. Then you can allocate the required amount of memory for the array and pass a pointer to it as <i>pwStreamNumArray</i> on the second call.
+     * 
+     * Stream numbers are in the range of 1 through 63.
      * @param {Pointer<Integer>} pcStreams On input, a pointer to a variable containing the size of the <i>pwStreamNumArray</i> array. On output, if the method succeeds, this variable contains the number of stream numbers entered into <i>pwStreamNumArray</i> by the method.
      * @returns {Integer} Pointer to a <b>WORD</b> array containing the stream numbers. Pass <b>NULL</b> to retrieve the required size of the array.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamlist-getstreams
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamlist-getstreams
      */
     GetStreams(pcStreams) {
         pcStreamsMarshal := pcStreams is VarRef ? "ushort*" : "ptr"
@@ -76,7 +80,7 @@ class IWMStreamList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamlist-addstream
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamlist-addstream
      */
     AddStream(wStreamNum) {
         result := ComCall(4, this, "ushort", wStreamNum, "HRESULT")
@@ -85,6 +89,8 @@ class IWMStreamList extends IUnknown{
 
     /**
      * The RemoveStream method removes a stream from the list.
+     * @remarks
+     * The <b>RemoveStream</b> method also removes the stream from any mutual exclusion objects that the stream belongs to.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number. Stream numbers are in the range of 1 through 63.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -116,7 +122,7 @@ class IWMStreamList extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmstreamlist-removestream
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmstreamlist-removestream
      */
     RemoveStream(wStreamNum) {
         result := ComCall(5, this, "ushort", wStreamNum, "HRESULT")

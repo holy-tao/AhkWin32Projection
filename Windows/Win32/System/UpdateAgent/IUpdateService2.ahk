@@ -4,8 +4,8 @@
 #Include .\IUpdateService.ahk
 
 /**
- * Contains information about a service that is registered with Windows Update Agent (WUA) or with Automatic Updates.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateservice2
+ * Contains information about a service that is registered with Windows Update Agent (WUA) or with Automatic Updates. (IUpdateService2)
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateservice2
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IUpdateService2 extends IUpdateService{
     /**
      * Gets a Boolean value that indicates whether the service is registered with Automatic Updates and whether the service is currently used by Automatic Updates as the default service.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateservice2-get_isdefaultauservice
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateservice2-get_isdefaultauservice
      */
     get_IsDefaultAUService() {
         result := ComCall(20, this, "short*", &retval := 0, "HRESULT")

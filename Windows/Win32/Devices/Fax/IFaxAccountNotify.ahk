@@ -5,9 +5,8 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
- * Called by the fax service to send event notifications about particular fax accounts. This property sends event notifications. Events include changes to incoming and outgoing job queues, and changes to incoming and outgoing archives.
+ * Called by the fax service to send event notifications about particular fax accounts. This property sends event notifications. Events include changes to incoming and outgoing job queues, and changes to incoming and outgoing archives. (IIFaxAccountNotify)
  * @remarks
- * 
  * <h3><a id="To_Use_Fax_Notification_Events_with_Visual_Basic"></a><a id="to_use_fax_notification_events_with_visual_basic"></a><a id="TO_USE_FAX_NOTIFICATION_EVENTS_WITH_VISUAL_BASIC"></a>To Use Fax Notification Events with Visual Basic</h3>
  * Use the following syntax when creating the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object:
  * 
@@ -22,8 +21,7 @@
  * 
  * <h3><a id="To_Use_Fax_Notification_Events_with_C__"></a><a id="to_use_fax_notification_events_with_c__"></a><a id="TO_USE_FAX_NOTIFICATION_EVENTS_WITH_C__"></a>To Use Fax Notification Events with C++</h3>
  * A fax client application must implement <b>IFaxAccountNotify</b> and pass the fax service the pointer to an <b>IFaxAccountNotify</b> interface.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//faxcomex/nn-faxcomex-ifaxaccountnotify
+ * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nn-faxcomex-ifaxaccountnotify
  * @namespace Windows.Win32.Devices.Fax
  * @version v4.0.30319
  */
@@ -49,10 +47,18 @@ class IFaxAccountNotify extends IDispatch{
     static VTableNames => ["OnIncomingJobAdded", "OnIncomingJobRemoved", "OnIncomingJobChanged", "OnOutgoingJobAdded", "OnOutgoingJobRemoved", "OnOutgoingJobChanged", "OnIncomingMessageAdded", "OnIncomingMessageRemoved", "OnOutgoingMessageAdded", "OnOutgoingMessageRemoved", "OnServerShutDown"]
 
     /**
+     * Called by the fax service when an incoming fax job is added to the job queue for a particular fax account.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrJobId 
-     * @returns {HRESULT} 
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
+     * 
+     * A null-terminated string that contains the ID of the job added to the job queue.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onincomingjobadded
      */
     OnIncomingJobAdded(pFaxAccount, bstrJobId) {
@@ -63,10 +69,18 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when an incoming fax job is removed from the job queue of a particular fax account.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrJobId 
-     * @returns {HRESULT} 
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
+     * 
+     * A null-terminated string that contains the ID of the job removed from the job queue.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onincomingjobremoved
      */
     OnIncomingJobRemoved(pFaxAccount, bstrJobId) {
@@ -77,11 +91,21 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when the status of an incoming fax job for a particular fax account changes.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrJobId 
-     * @param {IFaxJobStatus} pJobStatus 
-     * @returns {HRESULT} 
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
+     * 
+     * A null-terminated string that contains the ID of the job for which the status has changed.
+     * @param {IFaxJobStatus} pJobStatus Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxjobstatus">IFaxJobStatus</a>*</b>
+     * 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxjobstatus">FaxJobStatus</a> object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onincomingjobchanged
      */
     OnIncomingJobChanged(pFaxAccount, bstrJobId, pJobStatus) {
@@ -92,10 +116,18 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when an outgoing fax job is added to the job queue for a particular fax account.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrJobId 
-     * @returns {HRESULT} 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
+     * 
+     * Null-terminated string that contains the ID of the job added to the job queue.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onoutgoingjobadded
      */
     OnOutgoingJobAdded(pFaxAccount, bstrJobId) {
@@ -106,10 +138,18 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when an outgoing fax job is removed from the job queue of a particular fax account.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrJobId 
-     * @returns {HRESULT} 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
+     * 
+     * Null-terminated string that contains the ID of the job removed from the job queue.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onoutgoingjobremoved
      */
     OnOutgoingJobRemoved(pFaxAccount, bstrJobId) {
@@ -120,11 +160,21 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when the status of an outgoing fax job for a particular fax account changes.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrJobId 
-     * @param {IFaxJobStatus} pJobStatus 
-     * @returns {HRESULT} 
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrJobId Type: <b>BSTR</b>
+     * 
+     * A null-terminated string that contains the ID of the job for which the status has changed.
+     * @param {IFaxJobStatus} pJobStatus Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxjobstatus">IFaxJobStatus</a>*</b>
+     * 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/fax/-mfax-faxjobstatus">FaxJobStatus</a> object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onoutgoingjobchanged
      */
     OnOutgoingJobChanged(pFaxAccount, bstrJobId, pJobStatus) {
@@ -135,11 +185,21 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when an incoming message is added to the inbound fax archive.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrMessageId 
-     * @param {VARIANT_BOOL} fAddedToReceiveFolder 
-     * @returns {HRESULT} 
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrMessageId Type: <b>BSTR</b>
+     * 
+     * A null-terminated string that contains the ID of the message added to the inbound fax archive.
+     * @param {VARIANT_BOOL} fAddedToReceiveFolder Type: <b>VARIANT_BOOL</b>
+     * 
+     * A value that indicates whether the message was successfully added to the received folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onincomingmessageadded
      */
     OnIncomingMessageAdded(pFaxAccount, bstrMessageId, fAddedToReceiveFolder) {
@@ -150,11 +210,21 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when an incoming message is removed from the inbound fax archive.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrMessageId 
-     * @param {VARIANT_BOOL} fRemovedFromReceiveFolder 
-     * @returns {HRESULT} 
+     * An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrMessageId Type: <b>BSTR</b>
+     * 
+     * A null-terminated string that contains the ID of the message removed from the inbound fax archive.
+     * @param {VARIANT_BOOL} fRemovedFromReceiveFolder Type: <b>VARIANT_BOOL</b>
+     * 
+     * A value that indicates whether the message was successfully removed from the received folder.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onincomingmessageremoved
      */
     OnIncomingMessageRemoved(pFaxAccount, bstrMessageId, fRemovedFromReceiveFolder) {
@@ -165,10 +235,18 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * The fax service calls the IFaxAccountNotify::OnOutgoingMessageAdded method when an outgoing message is added to the outbound fax archive.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrMessageId 
-     * @returns {HRESULT} 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrMessageId Type: <b>BSTR</b>
+     * 
+     * Null-terminated string that contains the ID of the message added to the outbound fax archive.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onoutgoingmessageadded
      */
     OnOutgoingMessageAdded(pFaxAccount, bstrMessageId) {
@@ -179,10 +257,18 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when an outgoing message is removed from the outbound fax archive.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxAccount} pFaxAccount Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxAccount} pFaxAccount 
-     * @param {BSTR} bstrMessageId 
-     * @returns {HRESULT} 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @param {BSTR} bstrMessageId Type: <b>BSTR</b>
+     * 
+     * Null-terminated string that contains the ID of the message removed from the outbound fax archive.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onoutgoingmessageremoved
      */
     OnOutgoingMessageRemoved(pFaxAccount, bstrMessageId) {
@@ -193,9 +279,15 @@ class IFaxAccountNotify extends IDispatch{
     }
 
     /**
+     * Called by the fax service when it shuts down.
+     * @remarks
+     * To implement this functionality in Visual Basic, select and implement the appropriate event procedure.
+     * @param {IFaxServer2} pFaxServer Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a>*</b>
      * 
-     * @param {IFaxServer2} pFaxServer 
-     * @returns {HRESULT} 
+     * A <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/faxcomex/nn-faxcomex-ifaxaccount">IFaxAccount</a> object.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
      * @see https://learn.microsoft.com/windows/win32/api/faxcomex/nf-faxcomex-_ifaxaccountnotify-onservershutdown
      */
     OnServerShutDown(pFaxServer) {

@@ -5,6 +5,8 @@
 #Include ..\Com\IUnknown.ahk
 
 /**
+ * Describes the stub for a managed object.
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-imanagedobjectinfo
  * @namespace Windows.Win32.System.ClrHosting
  * @version v4.0.30319
  */

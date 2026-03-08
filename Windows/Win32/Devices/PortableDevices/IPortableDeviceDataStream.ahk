@@ -5,7 +5,7 @@
 
 /**
  * The IPortableDeviceDataStream interface exposes additional methods on an IStream that is used for data transfers.
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledevicedatastream
+ * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledevicedatastream
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IPortableDeviceDataStream extends IStream{
 
     /**
      * The GetObjectID method retrieves the object ID of the resource that was written to the device. This method is only valid after calling IStream::Commit on the data stream.
+     * @remarks
+     * An object ID is created after the object is created on the device. Therefore, a new object that is created by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicecontent-createobjectwithpropertiesanddata">IPortableDeviceContent::CreateObjectWithPropertiesAndData</a> will not have an ID assigned until the application calls <b>Commit</b> on the data transfer stream.
      * @returns {PWSTR} The ID of the object just transferred to the device.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-getobjectid
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-getobjectid
      */
     GetObjectID() {
         result := ComCall(14, this, "ptr*", &ppszObjectID := 0, "HRESULT")
@@ -42,6 +44,8 @@ class IPortableDeviceDataStream extends IStream{
 
     /**
      * The Cancel method cancels a call in progress on this interface.
+     * @remarks
+     * This method cancels all pending operations on the current device handle, which corresponds to a session associated with an <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nn-portabledeviceapi-iportabledevice">IPortableDevice</a> interface. The Windows Portable Devices (WPD) API does not support targeted cancellation of specific operations.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -61,7 +65,7 @@ class IPortableDeviceDataStream extends IStream{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-cancel
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledevicedatastream-cancel
      */
     Cancel() {
         result := ComCall(15, this, "HRESULT")

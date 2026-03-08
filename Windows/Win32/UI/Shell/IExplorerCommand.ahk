@@ -7,10 +7,10 @@
 /**
  * Exposes methods that get the command appearance, enumerate subcommands, or invoke the command.
  * @remarks
- * 
  * None of the methods of this interface should communicate with network resources. These methods are called on the UI thread, so communication with network resources could cause the UI to stop responding.
  * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iexplorercommand
+ * Note: Windows 11 refines the behavior of the contextual file operations in the right-click context menu of File Explorer and the Share dialog. Please see  <a href="https://docs.microsoft.com/windows/apps/get-started/make-apps-great-for-windows">Top 11 things you can do to make your app great on Windows 11 </a>
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iexplorercommand
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class IExplorerCommand extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Pointer to a buffer that, when this method returns successfully, receives the title string.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-gettitle
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettitle
      */
     GetTitle(psiItemArray) {
         result := ComCall(3, this, "ptr", psiItemArray, "ptr*", &ppszName := 0, "HRESULT")
@@ -52,13 +52,15 @@ class IExplorerCommand extends IUnknown{
 
     /**
      * Gets an icon resource string of the icon associated with the specified Windows Explorer command item.
+     * @remarks
+     * The retrieved icon resource string is in the standard format, for instance "shell32.dll,-249".
      * @param {IShellItemArray} psiItemArray Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>*</b>
      * 
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ishellitemarray">IShellItemArray</a>.
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Pointer to a buffer that, when this method returns successfully, receives the resource string that identifies the icon source.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-geticon
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-geticon
      */
     GetIcon(psiItemArray) {
         result := ComCall(4, this, "ptr", psiItemArray, "ptr*", &ppszIcon := 0, "HRESULT")
@@ -73,7 +75,7 @@ class IExplorerCommand extends IUnknown{
      * @returns {PWSTR} Type: <b>LPWSTR*</b>
      * 
      * Pointer to a buffer that, when this method returns successfully, receives the tooltip string.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-gettooltip
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-gettooltip
      */
     GetToolTip(psiItemArray) {
         result := ComCall(5, this, "ptr", psiItemArray, "ptr*", &ppszInfotip := 0, "HRESULT")
@@ -81,11 +83,13 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
-     * Gets the GUID of an Windows Explorer command.
+     * Gets the GUID of a Windows Explorer command.
+     * @remarks
+     * This method is somewhat misnamed, given that it retrieves a GUID. To retrieve the command's canonical name, you must take the additional step to pull it from the command's subkey. The GUID is the name of the subkey. where that information is stored.
      * @returns {Guid} Type: <b>GUID*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives the command's GUID, under which it is declared in the registry.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-getcanonicalname
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getcanonicalname
      */
     GetCanonicalName() {
         pguidCommandName := Guid()
@@ -104,7 +108,7 @@ class IExplorerCommand extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_expcmdstate">EXPCMDSTATE</a>*</b>
      * 
      * A pointer to a value that, when this method returns successfully, receives one or more Windows Explorer command states indicated by the <a href="https://docs.microsoft.com/windows/win32/api/shobjidl_core/ne-shobjidl_core-_expcmdstate">EXPCMDSTATE</a> constants.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-getstate
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getstate
      */
     GetState(psiItemArray, fOkToBeSlow) {
         result := ComCall(7, this, "ptr", psiItemArray, "int", fOkToBeSlow, "uint*", &pCmdState := 0, "HRESULT")
@@ -121,8 +125,8 @@ class IExplorerCommand extends IUnknown{
      * A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-ibindctx">IBindCtx</a> interface, which provides access to a bind context. This value can be <b>NULL</b> if no bind context is needed.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-invoke
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-invoke
      */
     Invoke(psiItemArray, pbc) {
         result := ComCall(8, this, "ptr", psiItemArray, "ptr", pbc, "HRESULT")
@@ -132,7 +136,7 @@ class IExplorerCommand extends IUnknown{
     /**
      * Gets the flags associated with a Windows Explorer command.
      * @returns {Integer} Type: <b>EXPCMDFLAGS*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-getflags
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getflags
      */
     GetFlags() {
         result := ComCall(9, this, "uint*", &pFlags := 0, "HRESULT")
@@ -140,11 +144,15 @@ class IExplorerCommand extends IUnknown{
     }
 
     /**
-     * Retrieves an enemerator for a command's subcommands.
+     * Retrieves an enumerator for a command's subcommands.
+     * @remarks
+     * Subcommands are displayed as menu drop-down items through the use of a Split button when commands are exposed at the top of a Windows Explorer window. In that position, only the default command button is given an icon. In a normal menu, the icons for all commands are shown.
+     * 
+     * Subcommands which themselves have subcommands are not supported by Windows Explorer. When a command has its own subcommands, it must designate this status by specifying ECF_HASSUBCOMMANDS in the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-getflags">IExplorerCommand::GetFlags</a> call.
      * @returns {IEnumExplorerCommand} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumexplorercommand">IEnumExplorerCommand</a>**</b>
      * 
      * When this method returns successfully, contains an <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-ienumexplorercommand">IEnumExplorerCommand</a> interface pointer that can be used to walk the set of subcommands.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iexplorercommand-enumsubcommands
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iexplorercommand-enumsubcommands
      */
     EnumSubCommands() {
         result := ComCall(10, this, "ptr*", &ppEnum := 0, "HRESULT")

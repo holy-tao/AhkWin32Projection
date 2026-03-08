@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that determines the sector size as an aid to byte alignment.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-istreamunbufferedinfo
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-istreamunbufferedinfo
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IStreamUnbufferedInfo extends IUnknown{
      * @returns {Integer} Type: <b>ULONG*</b>
      * 
      * When this method returns successfully, contains a pointer to a <b>ULONG</b> value that represents the number of bytes per sector for the disk.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-istreamunbufferedinfo-getsectorsize
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-istreamunbufferedinfo-getsectorsize
      */
     GetSectorSize() {
         result := ComCall(3, this, "uint*", &pcbSectorSize := 0, "HRESULT")

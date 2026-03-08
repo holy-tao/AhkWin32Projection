@@ -7,7 +7,6 @@
 /**
  * The IGPMPermission interface contains methods to retrieve permission-related properties when using the GPMC.
  * @remarks
- * 
  * The interface divides the policy-related permissions into categories. The following table lists the categories, permissions included in the categories, and the object to which they can be applied, as  defined in the GPMPermissionType.
  * 
  * <table>
@@ -271,9 +270,7 @@
  * 
  * For more information about security groups, see 
  * <a href="https://docs.microsoft.com/windows/desktop/AD/how-security-groups-are-used-in-access-control">How Security Groups are Used in Access Control</a> in the Active Directory Programmer's Guide.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//gpmgmt/nn-gpmgmt-igpmpermission
+ * @see https://learn.microsoft.com/windows/win32/api/gpmgmt/nn-gpmgmt-igpmpermission
  * @namespace Windows.Win32.System.GroupPolicy
  * @version v4.0.30319
  */

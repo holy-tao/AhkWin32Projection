@@ -4,7 +4,14 @@
 #Include ..\..\System\Com\IDispatch.ahk
 
 /**
+ * Receives IShellWindows window registration events.
+ * @remarks
+ * The **DShellWindowsEvents** object has these types of members:
  * 
+ * -   [Methods](#methods)
+ * 
+ * 
+ * Use **DShellWindowsEvents** to monitor when a Shell window is registered or revoked. For more information, see [**IShellWindows**](/windows/desktop/api/Exdisp/nn-exdisp-ishellwindows).
  * @see https://learn.microsoft.com/windows/win32/shell/dshellwindowsevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

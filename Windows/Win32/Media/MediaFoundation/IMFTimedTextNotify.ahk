@@ -5,7 +5,7 @@
 
 /**
  * Interface that defines callbacks for Microsoft Media Foundation Timed Text notifications.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imftimedtextnotify
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextnotify
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class IMFTimedTextNotify extends IUnknown{
      * 
      * The identifier of the track that was added.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackadded
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackadded
      */
     TrackAdded(trackId) {
         ComCall(3, this, "uint", trackId)
@@ -48,7 +48,7 @@ class IMFTimedTextNotify extends IUnknown{
      * 
      * The identifier of the track that was removed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackremoved
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackremoved
      */
     TrackRemoved(trackId) {
         ComCall(4, this, "uint", trackId)
@@ -63,7 +63,7 @@ class IMFTimedTextNotify extends IUnknown{
      * 
      * <b>TRUE</b> if the track was selected. <b>FALSE</b> if the track was deselected.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackselected
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-trackselected
      */
     TrackSelected(trackId, selected) {
         ComCall(5, this, "uint", trackId, "int", selected)
@@ -90,7 +90,7 @@ class IMFTimedTextNotify extends IUnknown{
      * 
      * The identifier of the track on which the error occurred.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextnotify-error
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-error
      */
     Error(errorCode, extendedErrorCode, sourceTrackId) {
         ComCall(7, this, "int", errorCode, "int", extendedErrorCode, "uint", sourceTrackId)
@@ -100,7 +100,7 @@ class IMFTimedTextNotify extends IUnknown{
      * Called when a cue event occurs in a text track.
      * @param {Integer} cueEvent Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/ne-mfmediaengine-mf_timed_text_cue_event">MF_TIMED_TEXT_CUE_EVENT</a></b>
      * 
-     * A value specifying the type of event that has occured.
+     * A value specifying the type of event that has occurred.
      * @param {Float} currentTime Type: <b>double</b>
      * 
      * The current time when the cue event occurred.
@@ -108,7 +108,7 @@ class IMFTimedTextNotify extends IUnknown{
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextcue">IMFTimedTextCue</a> object representing the cue.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextnotify-cue
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-cue
      */
     Cue(cueEvent, currentTime, cue) {
         ComCall(8, this, "int", cueEvent, "double", currentTime, "ptr", cue)
@@ -117,7 +117,7 @@ class IMFTimedTextNotify extends IUnknown{
     /**
      * Resets the timed-text-notify object.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextnotify-reset
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextnotify-reset
      */
     Reset() {
         ComCall(9, this)

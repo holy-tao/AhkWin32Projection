@@ -6,7 +6,6 @@
 /**
  * Exposes methods that are used by a namespace extension to specify icon overlays for the objects it contains.
  * @remarks
- * 
  * Icon overlays are small images placed at the lower-left corner of the icon that represents a Shell object. They are typically used to add some extra information to the icon. A commonly used icon overlay is the small arrow that indicates that a file or folder icon represents a shortcut.
  * 
  * Icon overlays are part of the system image list. They have two identifiers. One is a one-based overlay index that identifies the overlay relative to other overlays in the image list. The other is an image index that identifies the actual image. These two indexes are equivalent to the values that you assign to the <i>iOverlay</i> and <i>iImage</i> parameters, respectively, when you add an icon overlay to a private image list with <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-imagelist_setoverlayimage">ImageList::SetOverlayImage</a>.
@@ -20,8 +19,7 @@
  * This interface is implemented by namespace extensions that need to specify icon overlays for their objects.
  * 
  * This interface is not typically used by applications.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-ishelliconoverlay
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-ishelliconoverlay
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -48,6 +46,10 @@ class IShellIconOverlay extends IUnknown{
 
     /**
      * Gets the overlay index in the system image list.
+     * @remarks
+     * To retrieve the overlay index in the system image list, call <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgeticonoverlayindexa">SHGetIconOverlayIndex</a>.
+     * 
+     * If you set <i>pIndex</i> to point to OI_ASYNC when you call this method, the Shell icon overlay handler might return E_PENDING instead of storing the overlay index in <i>pIndex</i>. This return value indicates that computing the overlay is a slow operation and should be handled in the background. When an <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nn-shlobj_core-ishelliconoverlay">IShellIconOverlay</a> implementation returns E_PENDING, it is called back on a background worker thread without the OI_ASYNC flag. If you do not use OI_ASYNC when you call <b>GetOverlayIndex</b>, the overlay handler must compute the overlay index and store the value in <i>pIndex</i> before returning.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that identifies the object whose icon is being displayed.
@@ -119,7 +121,7 @@ class IShellIconOverlay extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayindex
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayindex
      */
     GetOverlayIndex(pidl, pIndex) {
         pIndexMarshal := pIndex is VarRef ? "int*" : "ptr"
@@ -130,6 +132,8 @@ class IShellIconOverlay extends IUnknown{
 
     /**
      * Gets the index of the icon overlay in the system image list.
+     * @remarks
+     * To retrieve the overlay's image index in the system image list, you must first call <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-shgeticonoverlayindexa">SHGetIconOverlayIndex</a> to retrieve the overlay index. Then use the <a href="https://docs.microsoft.com/windows/desktop/api/commctrl/nf-commctrl-indextooverlaymask">INDEXTOOVERLAYMASK</a> macro to convert the overlay index into the equivalent image index.
      * @param {Pointer<ITEMIDLIST>} pidl Type: <b>PCUITEMID_CHILD</b>
      * 
      * Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/shtypes/ns-shtypes-itemidlist">ITEMIDLIST</a> structure that identifies the object whose icon is being displayed.
@@ -179,7 +183,7 @@ class IShellIconOverlay extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayiconindex
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-ishelliconoverlay-getoverlayiconindex
      */
     GetOverlayIconIndex(pidl, pIconIndex) {
         pIconIndexMarshal := pIconIndex is VarRef ? "int*" : "ptr"

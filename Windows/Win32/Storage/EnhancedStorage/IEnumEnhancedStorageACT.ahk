@@ -6,7 +6,7 @@
 
 /**
  * Use this interface as the top level enumerator for all IEEE 1667 Addressable Contact Targets (ACT).
- * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nn-ehstorapi-ienumenhancedstorageact
+ * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nn-ehstorapi-ienumenhancedstorageact
  * @namespace Windows.Win32.Storage.EnhancedStorage
  * @version v4.0.30319
  */
@@ -39,6 +39,8 @@ class IEnumEnhancedStorageACT extends IUnknown{
 
     /**
      * Returns an enumeration of all the Addressable Command Targets (ACT) currently connected to the system. If at least one ACT is present, the Enhanced Storage API allocates an array of 1 or more IEnumEnhancedStorageACT pointers.
+     * @remarks
+     * The memory containing the array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ehstorapi/nn-ehstorapi-ienhancedstorageact">IEnhancedStorageACT</a> interfaces is allocated by the Enhanced Storage API and must be freed by passing the returned pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> method.
      * @param {Pointer<Pointer<IEnhancedStorageACT>>} pppIEnhancedStorageACTs Array of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ehstorapi/nn-ehstorapi-ienhancedstorageact">IEnhancedStorageACT</a> interface pointers that represent the ACTs for all devices connected to the system. This array is allocated within the API.
      * @param {Pointer<Integer>} pcEnhancedStorageACTs Count of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/ehstorapi/nn-ehstorapi-ienhancedstorageact">IEnhancedStorageACT</a> pointers returned. This is the dimension of the  array represented by <i>pppIEnhancedStorageACTs</i>.
      * @returns {HRESULT} This method can return one of these values.
@@ -82,7 +84,7 @@ class IEnumEnhancedStorageACT extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienumenhancedstorageact-getacts
+     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienumenhancedstorageact-getacts
      */
     GetACTs(pppIEnhancedStorageACTs, pcEnhancedStorageACTs) {
         pppIEnhancedStorageACTsMarshal := pppIEnhancedStorageACTs is VarRef ? "ptr*" : "ptr"
@@ -94,9 +96,11 @@ class IEnumEnhancedStorageACT extends IUnknown{
 
     /**
      * Returns the Addressable Command Target (ACT) associated with the volume specified via the string supplied by the client.
+     * @remarks
+     * This method can also be utilized by the client to determine if the specified volume resides on, and is represented by an IEEE 1667 ACT.
      * @param {PWSTR} szVolume A string that specifies the volume for which a matching ACT is searched for.
      * @returns {IEnhancedStorageACT} Pointer to an <b>IEnhancedStorageACT</b> interface pointer that represents the matching ACT. If no matching ACT is found the error <b>HRESULT_FROM_WIN32(ERROR_NOT_FOUND)</b> is returned.
-     * @see https://docs.microsoft.com/windows/win32/api//ehstorapi/nf-ehstorapi-ienumenhancedstorageact-getmatchingact
+     * @see https://learn.microsoft.com/windows/win32/api/ehstorapi/nf-ehstorapi-ienumenhancedstorageact-getmatchingact
      */
     GetMatchingACT(szVolume) {
         szVolume := szVolume is String ? StrPtr(szVolume) : szVolume

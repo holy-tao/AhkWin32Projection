@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that notify Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a connection.
- * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeconnectionsink
+ * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nn-tsgpolicyengine-itsgauthorizeconnectionsink
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */
@@ -32,6 +32,14 @@ class ITSGAuthorizeConnectionSink extends IUnknown{
 
     /**
      * Notifies Remote Desktop Gateway (RD Gateway) about the result of an attempt to authorize a connection.
+     * @remarks
+     * You can call this method from your implementation of 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/tsgpolicyengine/nf-tsgpolicyengine-itsgpolicyengine-authorizeconnection">AuthorizeConnection</a>. If 
+     *     authentication requires more than 1 second, we recommend launching a separate thread to perform 
+     *     authentication.
+     * 
+     * 
+     * For a sample that uses the <b>OnConnectionAuthorized</b> method, see the [Remote Desktop Gateway Pluggable Authentication and Authorization](https://github.com/microsoftarchive/msdn-code-gallery-community-m-r/tree/master/Remote%20Desktop%20Gateway%20Pluggable%20Authentication%20and%20Authorization%20Sample) sample.
      * @param {HRESULT} hrIn The result of the authorization attempt. Specify <b>S_OK</b> to indicate that the attempt succeeded. Specify any other value to indicate that the attempt failed.
      * @param {Guid} mainSessionId A unique identifier assigned to the connection request by RD Gateway.
      * @param {Integer} cbSoHResponse The number of bytes referenced by the  <i>pbSoHResponse</i> parameter.
@@ -41,8 +49,8 @@ class ITSGAuthorizeConnectionSink extends IUnknown{
      * @param {Integer} sessionTimeoutAction 
      * @param {Integer} trustClass This parameter is reserved. Always set it to  <b>AA_TRUSTEDUSER_TRUSTEDCLIENT</b>. If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
      * @param {Pointer<Integer>} policyAttributes An array of Boolean values  that specify the redirection settings associated with the connection. Each element of the array corresponds to a value of the <a href="https://docs.microsoft.com/windows/win32/api/tsgpolicyengine/ne-tsgpolicyengine-policyattributetype">PolicyAttributeType</a> enumeration. If the <i>hrIn</i> parameter is not <b>S_OK</b>, this parameter is ignored.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeconnectionsink-onconnectionauthorized
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/tsgpolicyengine/nf-tsgpolicyengine-itsgauthorizeconnectionsink-onconnectionauthorized
      */
     OnConnectionAuthorized(hrIn, mainSessionId, cbSoHResponse, pbSoHResponse, idleTimeout, sessionTimeout, sessionTimeoutAction, trustClass, policyAttributes) {
         pbSoHResponseMarshal := pbSoHResponse is VarRef ? "char*" : "ptr"

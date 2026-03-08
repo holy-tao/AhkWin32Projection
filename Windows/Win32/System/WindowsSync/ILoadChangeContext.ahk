@@ -6,7 +6,7 @@
 
 /**
  * Represents information about a change to be loaded from the item store.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-iloadchangecontext
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-iloadchangecontext
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class ILoadChangeContext extends IUnknown{
     /**
      * Gets the change item for which the change data should be retrieved from the item store.
      * @returns {ISyncChange} Returns the change item for which the change data should be retrieved from the item store.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iloadchangecontext-getsyncchange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iloadchangecontext-getsyncchange
      */
     GetSyncChange() {
         result := ComCall(3, this, "ptr*", &ppSyncChange := 0, "HRESULT")
@@ -43,6 +43,8 @@ class ILoadChangeContext extends IUnknown{
 
     /**
      * Indicates a recoverable error on this change has occurred.
+     * @remarks
+     * When this method is called, an <b>ISingleItemException</b> object is added to the learned knowledge; and the item change will not be enumerated again for the duration of the synchronization session.
      * @param {HRESULT} hrError The error code that is associated with the error that prevented the item data from being loaded.
      * @param {IRecoverableErrorData} pErrorData Additional information about the error.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
@@ -86,7 +88,7 @@ class ILoadChangeContext extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iloadchangecontext-setrecoverableerroronchange
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iloadchangecontext-setrecoverableerroronchange
      */
     SetRecoverableErrorOnChange(hrError, pErrorData) {
         result := ComCall(4, this, "int", hrError, "ptr", pErrorData, "HRESULT")
@@ -95,6 +97,8 @@ class ILoadChangeContext extends IUnknown{
 
     /**
      * Indicates that a recoverable error occurred when data for the specified change unit was loaded from the item store.
+     * @remarks
+     * When this method is called, an <b>IChangeUnitException</b> object is added to the learned knowledge; and the change unit change will not be enumerated again for the duration of the synchronization session.
      * @param {HRESULT} hrError The error code that is associated with the error that prevented the change unit data from being loaded.
      * @param {ISyncChangeUnit} pChangeUnit The change unit change that caused the error.
      * @param {IRecoverableErrorData} pErrorData Additional information about the error.
@@ -145,7 +149,7 @@ class ILoadChangeContext extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * The change that contains this change unit refers to an item creation. In this case, the error must be reported on the item change by using <a href="/previous-versions/windows/desktop/api/winsync/nf-winsync-iloadchangecontext-setrecoverableerroronchange">ILoadChangeContext::SetRecoverableErrorOnChange</a>.
+     * The change that contains this change unit refers to an item creation. In this case, the error must be reported on the item change by using <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/winsync/nf-winsync-iloadchangecontext-setrecoverableerroronchange">ILoadChangeContext::SetRecoverableErrorOnChange</a>.
      * 
      * </td>
      * </tr>
@@ -161,7 +165,7 @@ class ILoadChangeContext extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-iloadchangecontext-setrecoverableerroronchangeunit
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-iloadchangecontext-setrecoverableerroronchangeunit
      */
     SetRecoverableErrorOnChangeUnit(hrError, pChangeUnit, pErrorData) {
         result := ComCall(5, this, "int", hrError, "ptr", pChangeUnit, "ptr", pErrorData, "HRESULT")

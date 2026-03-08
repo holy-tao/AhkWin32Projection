@@ -4,8 +4,8 @@
 #Include .\IDWriteRenderingParams1.ahk
 
 /**
- * Represents text rendering settings for glyph rasterization and filtering.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nn-dwrite_2-idwriterenderingparams2
+ * Represents text rendering settings for glyph rasterization and filtering. (IDWriteRenderingParams2)
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nn-dwrite_2-idwriterenderingparams2
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -32,10 +32,10 @@ class IDWriteRenderingParams2 extends IDWriteRenderingParams1{
 
     /**
      * Gets the grid fitting mode.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a></b>
      * 
-     * Returns a <a href="/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a>-typed value for the grid fitting mode.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite_2/nf-dwrite_2-idwriterenderingparams2-getgridfitmode
+     * Returns a <a href="https://docs.microsoft.com/windows/win32/api/dwrite_2/ne-dwrite_2-dwrite_grid_fit_mode">DWRITE_GRID_FIT_MODE</a>-typed value for the grid fitting mode.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite_2/nf-dwrite_2-idwriterenderingparams2-getgridfitmode
      */
     GetGridFitMode() {
         result := ComCall(9, this, "int")

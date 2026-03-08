@@ -5,7 +5,7 @@
 
 /**
  * Use this interface to configure the device and initiate the session.
- * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nn-wcndevice-iwcndevice
+ * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nn-wcndevice-iwcndevice
  * @namespace Windows.Win32.NetworkManagement.WindowsConnectNow
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The IWCNDevice::SetPassword method configures the authentication method value, and if required, a password used for the pending session. This method may only be called prior to IWCNDevice::Connect.
+     * @remarks
+     * The byte array is not <b>NULL</b>-terminated.  For example, if the password is a 4-digit PIN, you should pass dwPasswordLength as 4 and pbPassword should point to a 4-byte array containing the PIN in ASCII.
      * @param {Integer} Type A <b>WCN_PASSWORD_TYPE</b> value that specifies the authentication method used for the session.
      * 
      * <table>
@@ -94,7 +96,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-setpassword
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-setpassword
      */
     SetPassword(Type, dwPasswordLength, pbPassword) {
         pbPasswordMarshal := pbPassword is VarRef ? "char*" : "ptr"
@@ -105,6 +107,10 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The IWCNDevice::Connect method initiates the session.
+     * @remarks
+     * After calling this method you may not call any other <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nn-wcndevice-iwcndevice">IWCNDevice</a> 'Set' methods.  There is no way to cancel or roll back device settings once a connection has been established.
+     * 
+     * <b>NULL</b>  can be passed via pNotify, in place of  the <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nn-wcndevice-iwcnconnectnotify">IWCNConnectNotify</a> callback interface to prevent  notification from being sent when the connect operation is complete.
      * @param {IWCNConnectNotify} pNotify A pointer to the implemented <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nn-wcndevice-iwcnconnectnotify">IWCNConnectNotify</a> callback interface which specifies if a connection has been successfully established.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -147,7 +153,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-connect
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-connect
      */
     Connect(pNotify) {
         result := ComCall(4, this, "ptr", pNotify, "HRESULT")
@@ -156,6 +162,8 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The IWCNDevice::GetAttribute method gets a cached attribute from the device.
+     * @remarks
+     * To only query the size of an attribute, a value of 0 (zero) can be passed via <i>dwMaxBufferSize</i> and <i>pdwBufferUsed</i> will be filled appropriately.
      * @param {Integer} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b>  value that represents a specific attribute value (for example,   <b>WCN_PASSWORD_TYPE</b>).
      * @param {Integer} dwMaxBufferSize The allocated size, in bytes, of <i>pbBuffer</i>.
      * @param {Pointer<Integer>} pbBuffer A user-allocated buffer that,  on successful return, contains the contents of the attribute.
@@ -201,7 +209,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-getattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getattribute
      */
     GetAttribute(AttributeType, dwMaxBufferSize, pbBuffer, pdwBufferUsed) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
@@ -215,7 +223,7 @@ class IWCNDevice extends IUnknown{
      * The GetIntegerAttribute method gets a cached attribute from the device as an integer.
      * @param {Integer} AttributeType A <b>WCN_ATTRIBUTE_TYPE</b> value  that represents a specific attribute value (for example, <b>WCN_PASSWORD_TYPE</b>).
      * @returns {Integer} Pointer to an unsigned-integer that represents the retrieved attribute value.
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-getintegerattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getintegerattribute
      */
     GetIntegerAttribute(AttributeType) {
         result := ComCall(6, this, "int", AttributeType, "uint*", &puInteger := 0, "HRESULT")
@@ -279,7 +287,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-getstringattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getstringattribute
      */
     GetStringAttribute(AttributeType, cchMaxString, wszString) {
         wszString := wszString is String ? StrPtr(wszString) : wszString
@@ -290,6 +298,8 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The IWCNDevice::GetNetworkProfile method gets a network profile from the device.
+     * @remarks
+     * This function can only be called after <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nf-wcndevice-iwcndevice-connect">IWCNDevice::Connect</a> has been called, and the session has completed successfully.
      * @param {Integer} cchMaxStringLength The allocated size, in characters, of <i>wszProfile</i>.
      * @param {PWSTR} wszProfile A string that specifies the XML WLAN network profile type.
      * @returns {HRESULT} This method can return one of these values.
@@ -311,7 +321,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-getnetworkprofile
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getnetworkprofile
      */
     GetNetworkProfile(cchMaxStringLength, wszProfile) {
         wszProfile := wszProfile is String ? StrPtr(wszProfile) : wszProfile
@@ -322,6 +332,13 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The IWCNDevice::SetNetworkProfile method queues an XML WLAN profile to be provisioned to the device. This method may only be called prior to IWCNDevice::Connect.
+     * @remarks
+     * Currently, the <b>Windows Connect Now API</b> (WCNAPI) supports the following profile types: <ul>
+     * <li>None (Open or Shared)</li>
+     * <li>WEP (Open or Shared)</li>
+     * <li>WPA-PSK (TKIP or AES)</li>
+     * <li>WPA2-PSK (TKIP or AES)</li>
+     * </ul>   If  the specified WLAN profile has extraneous settings (like IHV settings), these settings will be ignored. In the event a WLAN profile is not  compatible with the WCNAPI, an <b>HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED)</b> value is returned.
      * @param {PWSTR} pszProfileXml The XML WLAN profile XML string.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -364,7 +381,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-setnetworkprofile
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-setnetworkprofile
      */
     SetNetworkProfile(pszProfileXml) {
         pszProfileXml := pszProfileXml is String ? StrPtr(pszProfileXml) : pszProfileXml
@@ -375,6 +392,8 @@ class IWCNDevice extends IUnknown{
 
     /**
      * The GetVendorExtension method gets a cached vendor extension from the device.
+     * @remarks
+     * To query the size of a vendor extension, you can pass a value of 0 with the <i>dwMaxBufferSize</i> parameter, and <i>pdwBufferUsed</i> will receive the size.
      * @param {Pointer<WCN_VENDOR_EXTENSION_SPEC>} pVendorExtSpec A pointer to a user-defined <b>WCN_VENDOR_EXTENSION_SPEC</b> structure that describes the vendor extension to query for.
      * @param {Integer} dwMaxBufferSize The size, in bytes, of <i>pbBuffer</i>.
      * @param {Pointer<Integer>} pbBuffer An allocated buffer that,  on return, contains the contents of the  vendor extension.
@@ -420,7 +439,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-getvendorextension
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-getvendorextension
      */
     GetVendorExtension(pVendorExtSpec, dwMaxBufferSize, pbBuffer, pdwBufferUsed) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
@@ -476,7 +495,7 @@ class IWCNDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-setvendorextension
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-setvendorextension
      */
     SetVendorExtension(pVendorExtSpec, cbBuffer, pbBuffer) {
         pbBufferMarshal := pbBuffer is VarRef ? "char*" : "ptr"
@@ -487,8 +506,12 @@ class IWCNDevice extends IUnknown{
 
     /**
      * IWCNDevice::Unadvise method removes any callback previously set via IWCNDevice::Connect.
+     * @remarks
+     * It is not necessary to call <b>IWCNDevice::Unadvise</b> unless the application is shutting down and must ensure that no more callbacks are received on its <a href="https://docs.microsoft.com/windows/desktop/api/wcndevice/nn-wcndevice-iwcnconnectnotify">IWCNConnectNotify</a> callback.
+     * Do not call <b>IWCNDevice::Unadvise</b> from within an <b>IWCNConnectNotify</b> callback, since that will cause a deadlock.
+     * Note that <b>IWCNDevice::Unadvise</b> does not cancel the connect operation on the wire.
      * @returns {HRESULT} This method does not return a value.
-     * @see https://docs.microsoft.com/windows/win32/api//wcndevice/nf-wcndevice-iwcndevice-unadvise
+     * @see https://learn.microsoft.com/windows/win32/api/wcndevice/nf-wcndevice-iwcndevice-unadvise
      */
     Unadvise() {
         result := ComCall(12, this, "HRESULT")

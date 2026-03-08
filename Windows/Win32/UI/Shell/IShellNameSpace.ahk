@@ -293,10 +293,13 @@ class IShellNameSpace extends IShellFavoritesNameSpace{
     }
 
     /**
-     * 
+     * Hides all descendant nodes, controls, or content of the UI Automation element.
      * @param {VARIANT} var 
      * @param {Integer} iDepth 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * 
+     * Returns S_OK if successful or an error value otherwise.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/nf-uiautomationcoreapi-expandcollapsepattern_collapse
      */
     Expand(var, iDepth) {
         result := ComCall(39, this, "ptr", var, "int", iDepth, "HRESULT")

@@ -47,14 +47,14 @@ class IDebugClient3 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetKernelConnectionOptions(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetKernelConnectionOptions(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(4, this, "ptr", Buffer, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
+        result := ComCall(4, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &OptionsSize := 0, "HRESULT")
         return OptionsSize
     }
 
@@ -174,17 +174,74 @@ class IDebugClient3 extends IUnknown{
     }
 
     /**
-     * Creates a new process and its primary thread. The new process runs in the security context of the calling process.
+     * Creates a new process and its primary thread. The new process runs in the security context of the calling process. (ANSI)
+     * @remarks
+     * The process is assigned a process identifier. The identifier is valid until the process terminates. It can be used to identify the process, or specified in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openprocess">OpenProcess</a> function to open a handle to the process. The initial thread in the process is also assigned a thread identifier. It can be specified in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-openthread">OpenThread</a> function to open a handle to the thread. The identifier is valid until the thread terminates and can be used to uniquely identify the thread within the system. These identifiers are returned in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/ns-processthreadsapi-process_information">PROCESS_INFORMATION</a> structure.
+     * 
+     * The name of the executable in the command line that the operating system provides to a process is not necessarily identical to that in the command line that the calling process gives to the 
+     * <b>CreateProcess</b> function. The operating system may prepend a fully qualified path to an executable name that is provided without a fully qualified path.
+     * 
+     * The calling thread can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-waitforinputidle">WaitForInputIdle</a> function to wait until the new process has finished its initialization and is waiting for user input with no input pending. This can be useful for synchronization between parent and child processes, because 
+     * <b>CreateProcess</b> returns without waiting for the new process to finish its initialization. For example, the creating process would use 
+     * <b>WaitForInputIdle</b> before trying to find a window associated with the new process.
+     * 
+     * The preferred way to shut down a process is by using the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a> function, because this function sends notification of approaching termination to all DLLs attached to the process. Other means of shutting down a process do not notify the attached DLLs. Note that when a thread calls 
+     * <b>ExitProcess</b>, other threads of the process are terminated without an opportunity to execute any additional code (including the thread termination code of attached DLLs). For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/terminating-a-process">Terminating a Process</a>.
+     * 
+     * A  parent process can directly alter the environment variables of a child process during process creation.  This is the only  situation when a process can directly change the environment settings of another process. For more information, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/ProcThread/changing-environment-variables">Changing Environment Variables</a>.
+     * 
+     * If an application provides an environment block, the current directory information of the system drives is not automatically propagated to the new process. For example, there is an environment variable named =C: whose value is the current directory on drive C. An application must manually pass the current directory information to the new process. To do so, the application must explicitly create these environment variable strings, sort them alphabetically (because the system uses a sorted environment), and put them into the environment block. Typically, they will go at the front of the environment block, due to the environment block sort order.
+     * 
+     * One way to obtain the current directory information for a drive X is to make the following call: 
+     * <c>GetFullPathName("X:", ...)</c>. That avoids an application having to scan the environment block. If the full path returned is X:\, there is no need to pass that value on as environment data, since the root directory is the default current directory for drive X of a new process.
+     * 
+     * When a process is created with <b>CREATE_NEW_PROCESS_GROUP</b> specified, an implicit call to 
+     * <a href="https://docs.microsoft.com/windows/console/setconsolectrlhandler">SetConsoleCtrlHandler</a>(<b>NULL</b>,<b>TRUE</b>) is made on behalf of the new process; this means that the new process has CTRL+C disabled. This lets shells handle CTRL+C themselves, and selectively pass that signal on to sub-processes. CTRL+BREAK is not disabled, and may be used to interrupt the process/process group.
+     * 
+     * By default, passing <b>TRUE</b> as the value of the <i>bInheritHandles</i> parameter causes all inheritable handles to be inherited by the new process.
+     * This can be problematic for applications which create processes from multiple threads simultaneously
+     * yet desire each process to inherit different handles.
+     * Applications can use the
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-updateprocthreadattribute">UpdateProcThreadAttributeList</a> function
+     * with the <b>PROC_THREAD_ATTRIBUTE_HANDLE_LIST</b> parameter
+     * to provide a list of handles to be inherited by a particular process.
+     * 
+     * <h3><a id="Security_Remarks"></a><a id="security_remarks"></a><a id="SECURITY_REMARKS"></a>Security Remarks</h3>
+     * The first parameter, <i>lpApplicationName</i>, can be <b>NULL</b>, in which case the executable name must be in the  white space–delimited string pointed to by <i>lpCommandLine</i>. If the executable or path name has a space in it, there is a risk that a different executable could be run because of the way the function parses spaces. The following example is dangerous because the function will attempt to run "Program.exe", if it exists, instead of "MyApp.exe".
+     * 
+     * 
+     * ``` syntax
+     * 	LPTSTR szCmdline = _tcsdup(TEXT("C:\\Program Files\\MyApp -L -S"));
+     * 	CreateProcess(NULL, szCmdline, // ... );
+     * ```
+     * 
+     * If a malicious user were to create an application called "Program.exe" on a system, any program that incorrectly calls 
+     * <b>CreateProcess</b> using the Program Files directory will run this application instead of the intended application.
+     * 
+     * To avoid this problem, do not pass <b>NULL</b> for <i>lpApplicationName</i>. If you do pass <b>NULL</b> for <i>lpApplicationName</i>, use quotation marks around the executable path in <i>lpCommandLine</i>, as shown in the example below.
+     * 
+     * 
+     * ``` syntax
+     * 	LPTSTR szCmdline[] = _tcsdup(TEXT("\"C:\\Program Files\\MyApp\" -L -S"));
+     * 	CreateProcess(NULL, szCmdline, //...);
+     * ```
      * @param {Integer} Server 
      * @param {PSTR} CommandLine 
      * @param {Integer} CreateFlags 
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero. To get extended error information, call 
-     * <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
      * 
-     * Note that the function returns before the process has finished initialization. If a required DLL cannot be located or fails to initialize, the process is terminated. To get the termination status of a process, call <a href="/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//processthreadsapi/nf-processthreadsapi-createprocessa
+     * Note that the function returns before the process has finished initialization. If a required DLL cannot be located or fails to initialize, the process is terminated. To get the termination status of a process, call <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess">GetExitCodeProcess</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-createprocessa
      */
     CreateProcessA(Server, CommandLine, CreateFlags) {
         CommandLine := CommandLine is String ? StrPtr(CommandLine) : CommandLine
@@ -329,9 +386,10 @@ class IDebugClient3 extends IUnknown{
     }
 
     /**
-     * 
+     * Learn more about: EndSessionGrbit enumeration
      * @param {Integer} Flags 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/endsessiongrbit-enumeration
      */
     EndSession(Flags) {
         result := ComCall(26, this, "uint", Flags, "HRESULT")
@@ -339,8 +397,22 @@ class IDebugClient3 extends IUnknown{
     }
 
     /**
+     * Retrieves the termination status of the specified process.
+     * @remarks
+     * This function returns immediately. If the process has not terminated and the function succeeds, the status returned is <b>STILL_ACTIVE</b> (a macro for **STATUS_PENDING** (minwinbase.h)). If the process has terminated and the function succeeds, the status returned is one of the following values:
      * 
+     * <ul>
+     * <li>The exit value specified in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-exitprocess">ExitProcess</a> or 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/processthreadsapi/nf-processthreadsapi-terminateprocess">TerminateProcess</a> function.</li>
+     * <li>The return value from the <a href="https://docs.microsoft.com/cpp/cpp/main-function-command-line-args">main</a> or <a href="https://docs.microsoft.com/windows/win32/api/winbase/nf-winbase-winmain">WinMain</a> function of the process.</li>
+     * <li>The exception value for an unhandled exception that caused the process to terminate.</li>
+     * </ul>
+     * 
+     * > [!IMPORTANT]
+     * > The **GetExitCodeProcess** function returns a valid error code defined by the application only after the thread terminates. Therefore, an application should not use **STILL_ACTIVE** (259) as an error code (**STILL_ACTIVE** is a macro for **STATUS_PENDING** (minwinbase.h)). If a thread returns **STILL_ACTIVE** (259) as an error code, then applications that test for that value could interpret it to mean that the thread is still running, and continue to test for the completion of the thread after the thread has terminated, which could put the application into an infinite loop.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/processthreadsapi/nf-processthreadsapi-getexitcodeprocess
      */
     GetExitCode() {
         result := ComCall(27, this, "uint*", &Code := 0, "HRESULT")
@@ -475,14 +547,14 @@ class IDebugClient3 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetOutputLinePrefix(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetOutputLinePrefix(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(41, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
+        result := ComCall(41, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PrefixSize := 0, "HRESULT")
         return PrefixSize
     }
 
@@ -500,14 +572,14 @@ class IDebugClient3 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetIdentity(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetIdentity(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(43, this, "ptr", Buffer, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &IdentitySize := 0, "HRESULT")
         return IdentitySize
     }
 

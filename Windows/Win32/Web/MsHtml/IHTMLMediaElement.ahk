@@ -284,8 +284,27 @@ class IHTMLMediaElement extends IDispatch{
     }
 
     /**
+     * The load command loads a file in a device-specific format. Digital-video and video-overlay devices recognize this command.
+     * @remarks
+     * The "vidboard" device sends a notification message when the loading is completed.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFilePos"></span><span id="lpszfilepos"></span><span id="LPSZFILEPOS"></span>*lpszFilePos*
+     * 
+     * Path and filename to load. For video-overlay devices, this can also include a target rectangle for the data. To specify a target rectangle, specify "at" followed by **X1 Y1 X2 Y2**, where **X1 Y1** specify the upper left corner of the rectangle, and **X2 Y2** specify the width and height. The rectangle is relative to the video buffer origin.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/load
      */
     load() {
         result := ComCall(15, this, "HRESULT")
@@ -464,8 +483,64 @@ class IHTMLMediaElement extends IDispatch{
     }
 
     /**
+     * The play command starts playing a device. CD audio, digital-video, MIDI sequencer, videodisc, VCR, and waveform-audio devices recognize this command.
+     * @remarks
+     * Before issuing commands that use position values, you should set the desired time format by using the [set](set.md) command. This command begins playing at the current speed, as set with the set "speed" command. The direction is reverse if the "reverse" flag is specified, or if the "to" flag is specified as a value less than the "from" flag. If the "from" flag is not specified, playback begins at the current position. The "to" and "reverse" flags cannot be used together.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszPlayFlags"></span><span id="lpszplayflags"></span><span id="LPSZPLAYFLAGS"></span>*lpszPlayFlags*
+     * 
+     * Flag for playing a device. The following table lists device types that recognize the **play** command and the flags used by each type.
+     * 
+     * 
+     * 
+     * | Value        | Meaning                          | Meaning                           |
+     * |--------------|----------------------------------|-----------------------------------|
+     * | cdaudio      | from *position*                  | to *position*                     |
+     * | digitalvideo | from *position*fullscreen repeat | reverse to *position*window       |
+     * | sequencer    | from *position*                  | to *position*                     |
+     * | vcr          | at *time*from *position*reverse  | scan to *position*                |
+     * | videodisc    | fast from *position*reverse scan | slow speed *integer*to *position* |
+     * | waveaudio    | from *position*                  | to *position*                     |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * The following table lists the flags that can be specified in the **lpszPlayFlags** parameter and their meanings.
+     * 
+     * 
+     * 
+     * | Value           | Meaning                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+     * |-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | at *time*       | Indicates when the device should begin performing this command, or, if the device has been cued, when the cued command begins. For more information, see the [cue](cue.md) command.                                                                                                                                                                                                                                                                 |
+     * | fast            | Indicates that the device should play faster than normal. To determine the exact speed on a videodisc player, use the "speed" flag of the [status](status.md) command. To specify the speed more precisely, use the "speed" flag of this command.                                                                                                                                                                                                   |
+     * | from *position* | Specifies a starting position for the playback. If the "from" flag is not specified, playback begins at the current position. For **cdaudio** devices, if the "from" position is greater than the end position of the disc, or if the "from" position is greater than the "to" position, the driver returns an error. For **videodisc** devices, the default positions are in frames for CAV discs and in hours, minutes, and seconds for CLV discs. |
+     * | fullscreen      | Specifies that a full-screen display should be used. Use this flag only when playing compressed files. (Uncompressed files won't play full-screen.)                                                                                                                                                                                                                                                                                                  |
+     * | repeat          | Specifies that playback should restart when the end of the content is reached.                                                                                                                                                                                                                                                                                                                                                                       |
+     * | reverse         | Specifies that the play direction is backward. You cannot specify an ending location with the "reverse" flag. For videodiscs, "scan" applies only to CAV format.                                                                                                                                                                                                                                                                                     |
+     * | scan            | Plays as fast as possible without disabling video (although audio might be disabled). For videodiscs, "scan" applies only to CAV format.                                                                                                                                                                                                                                                                                                             |
+     * | slow            | Plays slowly. To determine the exact speed on a videodisc player, use the "speed" flag of the [status](status.md) command. To specify the speed more precisely, use the "speed" flag of this command. For videodiscs, "slow" applies only to CAV format.                                                                                                                                                                                            |
+     * | speed *integer* | Plays a videodisc at the specified speed, in frames per second. This flag applies only to CAV discs.                                                                                                                                                                                                                                                                                                                                                 |
+     * | to *position*   | Specifies an ending position for the playback. If the "to" flag is not specified, playback stops at the end of the content. For **cdaudio** devices, if the "to" position is greater than the end position of the disc, the driver returns an error. For **videodisc** devices, the default positions are in frames for CAV discs and in hours, minutes, and seconds for CLV discs.                                                                  |
+     * | window          | Specifies that playing should use the window associated with the device instance. This is the default setting.                                                                                                                                                                                                                                                                                                                                       |
+     * 
+     * 
+     * 
+     *  
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/play
      */
     play() {
         result := ComCall(34, this, "HRESULT")
@@ -473,8 +548,22 @@ class IHTMLMediaElement extends IDispatch{
     }
 
     /**
+     * The pause command pauses playing or recording.
+     * @remarks
+     * With the MCICDA, MCISEQ, and MCIPIONR drivers, the pause command works the same as the [stop](stop.md) command.
+     * @returns {HRESULT} <span id="lpszDeviceID"></span><span id="lpszdeviceid"></span><span id="LPSZDEVICEID"></span>*lpszDeviceID*
      * 
-     * @returns {HRESULT} 
+     * Identifier of an MCI device. This identifier or alias is assigned when the device is opened.
+     * 
+     * 
+     * <span id="lpszFlags"></span><span id="lpszflags"></span><span id="LPSZFLAGS"></span>*lpszFlags*
+     * 
+     * Can be "wait", "notify", or both. For digital-video and VCR devices, "test" can also be specified. For more information about these flags, see [The Wait, Notify, and Test Flags](the-wait-notify-and-test-flags.md).
+     * 
+     * 
+     * 
+     * Returns zero if successful or an error otherwise.
+     * @see https://learn.microsoft.com/windows/win32/Multimedia/pause
      */
     pause() {
         result := ComCall(35, this, "HRESULT")

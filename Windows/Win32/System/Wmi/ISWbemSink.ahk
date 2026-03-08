@@ -35,8 +35,15 @@ class ISWbemSink extends IDispatch{
     static VTableNames => ["Cancel"]
 
     /**
+     * Use the Cancel-Session packet to terminate the upload session with the BITS server.
+     * @remarks
+     * This packet cancels an upload job if it is sent before the last fragment is sent. Cancel-Session has no effect on a file whose last fragment has already been sent. When the BITS server receives the last fragment, it writes the file to its final destination and, in the case of an upload-reply, posts the file to the server application. In the upload-reply case, the Cancel-Session packet cancels the reply portion of an upload-reply job.
      * 
+     * The BITS server releases all resources and deletes all temporary files when it receives this packet.
+     * 
+     * The BITS client sends this packet when the user cancels the job.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Bits/cancel-session
      */
     Cancel() {
         result := ComCall(7, this, "HRESULT")

@@ -5,6 +5,12 @@
 #Include ..\Com\IDispatch.ahk
 
 /**
+ * Represents a vertical separator (visible or hidden) in custom SizeDefinition layout templates.
+ * @remarks
+ * Optional.
+ * 
+ * May occur one or more times for each [**GroupSizeDefinition**](windowsribbon-element-groupsizedefinition.md) element.
+ * @see https://learn.microsoft.com/windows/win32/windowsribbon/windowsribbon-element-columnbreak
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -60,8 +66,9 @@ class Column extends IDispatch{
     }
 
     /**
-     * 
+     * Contains the name of a header field in an email message.
      * @returns {BSTR} 
+     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-name-headerfieldtype-element
      */
     Name() {
         Name := BSTR()

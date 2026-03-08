@@ -5,7 +5,7 @@
 
 /**
  * Provides access to attribute values of the application.
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxmanifestapplication
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxmanifestapplication
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IAppxManifestApplication extends IUnknown{
 
     /**
      * Gets the value of a string element in the application metadata section of the manifest.
+     * @remarks
+     * If the *name* parameter is not a supported name of an element or attribute in the manifest, this method returns **E_INVALIDARG**. If the *name* parameter is supported but the element or attribute is not found in the manifest, this method returns **S_OK** and the return value of the *value* parameter is **NULL**.
+     * 
+     * The caller must free the memory allocated for *value* using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @param {PWSTR} name Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPCWSTR</a></b>
      * 
      * The name of the element or attribute value to get from the application metadata. Supported names include:
@@ -67,7 +71,7 @@ class IAppxManifestApplication extends IUnknown{
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The value of the requested element or attribute.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestapplication-getstringvalue
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplication-getstringvalue
      */
     GetStringValue(name) {
         name := name is String ? StrPtr(name) : name
@@ -78,10 +82,12 @@ class IAppxManifestApplication extends IUnknown{
 
     /**
      * Gets the application user model identifier.
+     * @remarks
+     * The caller must free the memory allocated for <i>appUserModelId</i> using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function.
      * @returns {PWSTR} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">LPWSTR</a>*</b>
      * 
      * The user model identifier.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxmanifestapplication-getappusermodelid
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxmanifestapplication-getappusermodelid
      */
     GetAppUserModelId() {
         result := ComCall(4, this, "ptr*", &appUserModelId := 0, "HRESULT")

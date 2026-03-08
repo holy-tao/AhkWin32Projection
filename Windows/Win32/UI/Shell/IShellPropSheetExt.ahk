@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that allow a property sheet handler to add or replace pages in the property sheet displayed for a file object.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-ishellpropsheetext
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-ishellpropsheetext
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -32,6 +32,19 @@ class IShellPropSheetExt extends IUnknown{
 
     /**
      * Adds one or more pages to a property sheet that the Shell displays for a file object. The Shell calls this method for each property sheet handler registered to the file type.
+     * @remarks
+     * For each page that the property sheet handler needs to add to a property sheet, the handler fills a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure, calls the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function, and then calls the function pointed to by <i>pfnAddPage</i>.
+     * 
+     * The <b>LPFNADDPROPSHEETPAGE</b> function pointer type is defined in Prsht.h as shown here. It accepts a handle to a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure and function-defined data through <i>lParam</i>.
+     * 
+     *                 
+     * 
+     * 
+     * ``` syntax
+     * typedef BOOL (* LPFNADDPROPSHEETPAGE)(HPROPSHEETPAGE, LPARAM);
+     * ```
+     * 
+     * You can request through your implementation that a particular property sheet page be displayed first, instead of the default page. To do so, return the one-based index of the desired page relative to the pages you added. For example, if you added three property sheet pages, A, B, and C, and you want B to be the selected page, then the return value should be 2. Note that this return value is only a request. The property sheet might still display the default page.
      * @param {Pointer<LPFNSVADDPROPSHEETPAGE>} pfnAddPage Type: <b>LPFNADDPROPSHEETPAGE</b>
      * 
      * A pointer to a function that the property sheet handler calls to add a page to the property sheet. The function takes a property sheet handle returned by the <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> function and the <i>lParam</i> parameter passed to this method.
@@ -41,7 +54,7 @@ class IShellPropSheetExt extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If successful, returns a one-based index to specify the page that should be initially displayed. See Remarks for more information.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-addpages
      */
     AddPages(pfnAddPage, lParam) {
         result := ComCall(3, this, "ptr", pfnAddPage, "ptr", lParam, "HRESULT")
@@ -50,6 +63,8 @@ class IShellPropSheetExt extends IUnknown{
 
     /**
      * Replaces a page in a property sheet for a Control Panel object.
+     * @remarks
+     * To replace a page, a property sheet handler fills a <a href="https://docs.microsoft.com/windows/desktop/api/prsht/ns-prsht-propsheetpagea_v2">PROPSHEETPAGE</a> structure, calls <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a>, and then calls the function specified by <i>pfnReplacePage</i>.
      * @param {Integer} uPageID Type: <b>UINT</b>
      * 
      * Not used.
@@ -63,8 +78,8 @@ class IShellPropSheetExt extends IUnknown{
      * The parameter to pass to the function specified by the <i>pfnReplacePage</i> parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-ishellpropsheetext-replacepage
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-ishellpropsheetext-replacepage
      */
     ReplacePage(uPageID, pfnReplaceWith, lParam) {
         result := ComCall(4, this, "uint", uPageID, "ptr", pfnReplaceWith, "ptr", lParam, "HRESULT")

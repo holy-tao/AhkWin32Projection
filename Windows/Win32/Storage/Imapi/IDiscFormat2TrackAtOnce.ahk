@@ -8,13 +8,10 @@
 /**
  * Use this interface to write audio to blank CD-R or CD-RW media in Track-At-Once mode.
  * @remarks
- * 
  * To create the <b>MsftDiscFormat2TrackAtOnce</b> object in a script, use IMAPI2.MsftDiscFormat2TrackAtOnce as the program identifier when calling <b>CreateObject</b>.
  * 
  * It is possible for a power state transition to take place during a burn operation (i.e. user log-off or system suspend) which leads to the  interruption of the burn process and  possible data loss. For programming considerations, see <a href="https://docs.microsoft.com/windows/desktop/imapi/preventing-logoff-or-suspend-during-a-burn">Preventing Logoff or Suspend During a Burn</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2/nn-imapi2-idiscformat2trackatonce
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2/nn-imapi2-idiscformat2trackatonce
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -156,7 +153,15 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Locks the current media for exclusive access.
+     * Locks the current media for exclusive access. (IDiscFormat2TrackAtOnce.PrepareMedia)
+     * @remarks
+     * Before calling this method, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_clientname">IDiscFormat2TrackAtOnce::put_ClientName</a> method. 
+     * 
+     * Also, you must call the <b>IDiscFormat2TrackAtOnce::PrepareMedia</b> method before calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-addaudiotrack">IDiscFormat2TrackAtOnce::AddAudioTrack</a> method. 
+     * 
+     * After the write is complete or you cancel the write operation, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-releasemedia">IDiscFormat2TrackAtOnce::ReleaseMedia</a> method to release the lock.
+     * 
+     * Note that Media Change Notification (MCN) and the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_donotfinalizemedia">IDiscFormat2TrackAtOnce::put_DoNotFinalizeMedia</a> property become read-only until the session is closed.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -503,7 +508,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-preparemedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-preparemedia
      */
     PrepareMedia() {
         result := ComCall(12, this, "HRESULT")
@@ -512,6 +517,32 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * Writes the data stream to the current media as a new track.
+     * @remarks
+     * Before calling this method, you must call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_recorder">IDiscFormat2TrackAtOnce::put_Recorder</a> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-preparemedia">IDiscFormat2TrackAtOnce::PrepareMedia</a> methods.
+     * 
+     * You should also consider calling the following methods if their default values are not appropriate for your application:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_bufferunderrunfreedisabled">IDiscFormat2TrackAtOnce::put_BufferUnderrunFreeDisabled</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_clientname">IDiscFormat2TrackAtOnce::put_ClientName</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_donotfinalizemedia">IDiscFormat2TrackAtOnce::put_DoNotFinalizeMedia</a>
+     * </li>
+     * </ul>
+     * To determine the progress of the write operation, you must implement the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-ddiscformat2trackatonceevents">DDiscFormat2TrackAtOnceEvents</a> interface. For examples that show how to implement an event handler in a script, see <a href="https://docs.microsoft.com/windows/desktop/imapi/monitoring-progress-with-events">Monitoring Progress With Events</a>.
+     * 
+     * The media can accommodate 99 tracks of audio data. Track numbering starts at 1. The last track is 99.
+     * 
+     * Silence, or data samples containing zeroes, will be added to the track-writing operation in the following ways:
+     * 
+     * <ul>
+     * <li>The minimum track size is 4 seconds and if needed, the track data will be enlarged to meet this requirement. </li>
+     * <li>Due to the nature of track-at-once recording, a two-second gap is added between successive audio tracks.  This gap is normally hidden by PC-based players, but may be noticeable on some consumer electronics equipment.</li>
+     * </ul>
      * @param {IStream} data An <b>IStream</b> interface of the audio data to write as the next track on the media.
      * 
      * The data format contains 44.1KHz, 16-bit stereo, raw audio samples. This is the same format used by the audio samples in a Microsoft WAV audio file (without the header).
@@ -874,7 +905,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-addaudiotrack
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-addaudiotrack
      */
     AddAudioTrack(data) {
         result := ComCall(13, this, "ptr", data, "HRESULT")
@@ -882,7 +913,15 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Cancels the current write operation.
+     * Cancels the current write operation. (IDiscFormat2TrackAtOnce.CancelAddTrack)
+     * @remarks
+     * To cancel the write operation, you must call this method from the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-ddiscformat2trackatonceevents-update">DDiscFormat2TrackAtOnceEvents::Update</a> event handler that you implemented. 
+     * 
+     * You must also call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-releasemedia">IDiscFormat2TrackAtOnce::ReleaseMedia</a> method after calling this method.
+     * 
+     * Note that calling this method does not immediately cancel the write operation on all media due to media-specific requirements. For example, when writing to a CD, the write operation can continue for up to three more minutes.
+     * 
+     * This method may result in a partial audio track having already been recorded.  The method will attempt to keep the media in a usable state and will simply treat the canceled track as being shorter than originally described by the <b>IStream</b>.  Callers should query the number of tracks and track sizes after canceling to determine the disc state.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -917,7 +956,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-canceladdtrack
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-canceladdtrack
      */
     CancelAddTrack() {
         result := ComCall(14, this, "HRESULT")
@@ -926,6 +965,8 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * Closes the track-writing session and releases the lock.
+     * @remarks
+     * This method release the lock set when you called the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-preparemedia">IDiscFormat2TrackAtOnce::PrepareMedia</a> method. You must call this method to close a writing session or after calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-canceladdtrack">IDiscFormat2TrackAtOnce::CancelAddTrack</a> method.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
      * <table>
@@ -1233,7 +1274,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-releasemedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-releasemedia
      */
     ReleaseMedia() {
         result := ComCall(15, this, "HRESULT")
@@ -1241,7 +1282,17 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Sets the write speed of the disc recorder.
+     * Sets the write speed of the disc recorder. (IDiscFormat2TrackAtOnce.SetWriteSpeed)
+     * @remarks
+     * This method sets the write speed and type of rotational-speed control for a recorder. Requested values might differ from the values set in the recorder. To specify the recorder, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_recorder">IDiscFormat2TrackAtOnce::put_Recorder</a> method. 
+     * 
+     * If the recorder supports the requested write speed,  the disc device uses the requested value. If the recorder does not support the requested write speed,  the recorder uses a write speed that it does support that is closest to the requested value. The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentwritespeed">IDiscFormat2TrackAtOnce::get_CurrentWriteSpeed</a> property contains the value used by the recorder.
+     * 
+     * To retrieve a list of the write speeds that the recorder and current media supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeds">IDiscFormat2TrackAtOnce::get_SupportedWriteSpeeds</a> method.
+     * 
+     * If you request constant angular velocity (CAV) for rotational-speed control type and the recorder does not support CAV,  the disc device uses another type of rotational-speed control type that it supports. The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentrotationtypeispurecav">IDiscFormat2TrackAtOnce::get_CurrentRotationTypeIsPureCAV</a> property indicates the value used by the recorder.
+     * 
+     * To retrieve the requested values, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedwritespeed">IDiscFormat2TrackAtOnce::get_RequestedWriteSpeed</a> and <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedrotationtypeispurecav">IDiscFormat2TrackAtOnce::get_RequestedRotationTypeIsPureCAV</a> methods.
      * @param {Integer} RequestedSectorsPerSecond Requested write speed measured in disc sectors per second.
      * 
      * A value of 0xFFFFFFFF (-1) requests that the write occurs using the fastest supported speed for the media.  This is the default.
@@ -1592,7 +1643,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-setwritespeed
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-setwritespeed
      */
     SetWriteSpeed(RequestedSectorsPerSecond, RotationTypeIsPureCAV) {
         result := ComCall(16, this, "int", RequestedSectorsPerSecond, "short", RotationTypeIsPureCAV, "HRESULT")
@@ -1600,7 +1651,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Sets the recording device to use for the write operation.
+     * Sets the recording device to use for the write operation. (IDiscFormat2TrackAtOnce.put_Recorder)
+     * @remarks
+     * The recorder must be compatible with the format defined by this  interface. To determine compatibility, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2-isrecordersupported">IDiscFormat2::IsRecorderSupported</a> method.
      * @param {IDiscRecorder2} value An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2">IDiscRecorder2</a> interface that identifies the recording device to use in the write operation.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -1649,7 +1702,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-put_recorder
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_recorder
      */
     put_Recorder(value) {
         result := ComCall(17, this, "ptr", value, "HRESULT")
@@ -1657,9 +1710,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the recording device to use for the write operation.
+     * Retrieves the recording device to use for the write operation. (IDiscFormat2TrackAtOnce.get_Recorder)
      * @returns {IDiscRecorder2} An <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-idiscrecorder2">IDiscRecorder2</a> interface that identifies the recording device to use in the write operation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_recorder
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_recorder
      */
     get_Recorder() {
         result := ComCall(18, this, "ptr*", &value := 0, "HRESULT")
@@ -1668,6 +1721,8 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * Determines if Buffer Underrun Free Recording is enabled.
+     * @remarks
+     * Buffer underrun can be an issue if the data stream does not enter the buffer fast enough to keep the device continuously writing. In turn, the stop and start action of writing can cause data on the disc to be unusable. Buffer Underrun Free (BUF) recording allows the laser to start and stop without damaging data already written to the disc. Disabling of BUF recording is possible only on CD-R/RW media.
      * @param {VARIANT_BOOL} value Set to VARIANT_TRUE to disable Buffer Underrun Free Recording; otherwise, VARIANT_FALSE. The default is VARIANT_FALSE (enabled).
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -1703,7 +1758,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-put_bufferunderrunfreedisabled
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_bufferunderrunfreedisabled
      */
     put_BufferUnderrunFreeDisabled(value) {
         result := ComCall(19, this, "short", value, "HRESULT")
@@ -1711,9 +1766,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Determines if Buffer Underrun Free recording is enabled.
+     * Determines if Buffer Underrun Free recording is enabled. (IDiscFormat2TrackAtOnce.get_BufferUnderrunFreeDisabled)
      * @returns {VARIANT_BOOL} Is VARIANT_TRUE if Buffer Underrun Free recording is disabled; otherwise, VARIANT_FALSE (enabled).
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_bufferunderrunfreedisabled
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_bufferunderrunfreedisabled
      */
     get_BufferUnderrunFreeDisabled() {
         result := ComCall(20, this, "short*", &value := 0, "HRESULT")
@@ -1721,9 +1776,16 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the number of existing audio tracks on the media.
+     * Retrieves the number of existing audio tracks on the media. (IDiscFormat2TrackAtOnce.get_NumberOfExistingTracks)
+     * @remarks
+     * The value is zero if:
+     * 
+     * <ul>
+     * <li>The media is blank</li>
+     * <li>You call this method outside a writing session</li>
+     * </ul>
      * @returns {Integer} Number of completed tracks written to disc, not including the track currently being added.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_numberofexistingtracks
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_numberofexistingtracks
      */
     get_NumberOfExistingTracks() {
         result := ComCall(21, this, "int*", &value := 0, "HRESULT")
@@ -1732,8 +1794,10 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * Retrieves the total sectors available on the media if writing one continuous audio track.
+     * @remarks
+     * This property can be retrieved at any time; however, during writing, the value  is cached.
      * @returns {Integer} Number of all sectors on the media that can be used for audio if one continuous audio track was recorded.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_totalsectorsonmedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_totalsectorsonmedia
      */
     get_TotalSectorsOnMedia() {
         result := ComCall(22, this, "int*", &value := 0, "HRESULT")
@@ -1742,8 +1806,10 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * Retrieves the number of sectors available for adding a new track to the media.
+     * @remarks
+     * If called during an <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-addaudiotrack">AddAudioTrack</a> operation, the available sectors do not reflect the sectors used in writing the current audio track. Instead, the reported value is the number of available sectors immediately preceding the call to AddAudioTrack.
      * @returns {Integer} Number of available sectors on the media that can be used for writing audio.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_freesectorsonmedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_freesectorsonmedia
      */
     get_FreeSectorsOnMedia() {
         result := ComCall(23, this, "int*", &value := 0, "HRESULT")
@@ -1752,8 +1818,10 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * Retrieves the total number of used sectors on the media.
+     * @remarks
+     * If you call this method from your event handler, the number reflects the sectors used before the write began.
      * @returns {Integer} Number of used sectors on the media, including audio tracks and overhead that exists between tracks.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_usedsectorsonmedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_usedsectorsonmedia
      */
     get_UsedSectorsOnMedia() {
         result := ComCall(24, this, "int*", &value := 0, "HRESULT")
@@ -1761,7 +1829,11 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Determines if the media is left open for writing after writing the audio track.
+     * Determines if the media is left open for writing after writing the audio track. (Put)
+     * @remarks
+     * You can set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-preparemedia">IDiscFormat2TrackAtOnce::PrepareMedia</a> method or after calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-releasemedia">IDiscFormat2TrackAtOnce::ReleaseMedia</a> method; you cannot set it during a track-writing session. 
+     * 
+     * This property is useful to create a multi-session CD with audio in the first session and data in the second session.
      * @param {VARIANT_BOOL} value Set to VARIANT_TRUE to leave the media open for writing after writing the audio track; otherwise, VARIANT_FALSE. The default is VARIANT_FALSE.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -1810,7 +1882,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-put_donotfinalizemedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_donotfinalizemedia
      */
     put_DoNotFinalizeMedia(value) {
         result := ComCall(25, this, "short", value, "HRESULT")
@@ -1818,9 +1890,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Determines if the media is left open for writing after writing the audio track.
+     * Determines if the media is left open for writing after writing the audio track. (Get)
      * @returns {VARIANT_BOOL} Is VARIANT_TRUE if the media is left open for writing after writing the audio track; otherwise, VARIANT_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_donotfinalizemedia
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_donotfinalizemedia
      */
     get_DoNotFinalizeMedia() {
         result := ComCall(26, this, "short*", &value := 0, "HRESULT")
@@ -1829,8 +1901,10 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
 
     /**
      * Retrieves the table of content for the audio tracks that were laid on the media within the track-writing session.
+     * @remarks
+     * The property is not accessible outside a track-writing session. Nor is the property accessible if the disc is blank.
      * @returns {Pointer<SAFEARRAY>} Table of contents for the audio tracks that were laid on the media within the track-writing session. Each element of the list is a <b>VARIANT</b> of type <b>VT_BYREF|VT_UI1</b>. The <b>pbVal</b> member of the variant contains a binary blob. For details of the blob, see the READ TOC command at ftp://ftp.t10.org/t10/drafts/mmc5/mmc5r03.pdf.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_expectedtableofcontents
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_expectedtableofcontents
      */
     get_ExpectedTableOfContents() {
         result := ComCall(27, this, "ptr*", &value := 0, "HRESULT")
@@ -1838,9 +1912,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the type of media in the disc device.
-     * @returns {Integer} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a>enumeration type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_currentphysicalmediatype
+     * Retrieves the type of media in the disc device. (IDiscFormat2TrackAtOnce.get_CurrentPhysicalMediaType)
+     * @returns {Integer} Type of media in the disc device. For possible values, see the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/ne-imapi2-imapi_media_physical_type">IMAPI_MEDIA_PHYSICAL_TYPE</a> enumeration type.
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentphysicalmediatype
      */
     get_CurrentPhysicalMediaType() {
         result := ComCall(28, this, "int*", &value := 0, "HRESULT")
@@ -1848,7 +1922,11 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Sets the friendly name of the client.
+     * Sets the friendly name of the client. (IDiscFormat2TrackAtOnce.put_ClientName)
+     * @remarks
+     * The name is used when the write operation requests exclusive access to the device. The <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscrecorder2-get_exclusiveaccessowner">IDiscRecorder2::get_ExclusiveAccessOwner</a> property contains the name of the client that has the lock.
+     * 
+     * Because any application with read/write access to the CDROM device during the write operation can use the IOCTL_CDROM_EXCLUSIVE_ACCESS (query) control code (see the Microsoft Windows Driver Development Kit (DDK)) to access the name, it is important that the name identify the program that is using this interface to write to the media. The name is restricted to the same character set as required by the IOCTL_CDROM_EXCLUSIVE_ACCESS control code.
      * @param {BSTR} value Name of the client application.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -1910,7 +1988,7 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-put_clientname
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-put_clientname
      */
     put_ClientName(value) {
         value := value is String ? BSTR.Alloc(value).Value : value
@@ -1920,9 +1998,9 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the friendly name of the client.
+     * Retrieves the friendly name of the client. (IDiscFormat2TrackAtOnce.get_ClientName)
      * @returns {BSTR} Name supplied by the client application.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_clientname
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_clientname
      */
     get_ClientName() {
         value := BSTR()
@@ -1931,11 +2009,13 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the requested write speed.
+     * Retrieves the requested write speed. (IDiscFormat2TrackAtOnce.get_RequestedWriteSpeed)
+     * @remarks
+     * This is the value specified in the most recent call to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-setwritespeed">IDiscFormat2TrackAtOnce::SetWriteSpeed</a> method.
      * @returns {Integer} Requested write speed measured in disc sectors per second.
      * 
      * A value of 0xFFFFFFFF (-1) requests that the write occurs using the fastest supported speed for the media.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedwritespeed
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedwritespeed
      */
     get_RequestedWriteSpeed() {
         result := ComCall(31, this, "int*", &value := 0, "HRESULT")
@@ -1943,9 +2023,11 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the requested rotational-speed control type.
+     * Retrieves the requested rotational-speed control type. (IDiscFormat2TrackAtOnce.get_RequestedRotationTypeIsPureCAV)
+     * @remarks
+     * This is the value specified in the most recent call to the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-setwritespeed">IDiscFormat2TrackAtOnce::SetWriteSpeed</a> method.
      * @returns {VARIANT_BOOL} Requested rotational-speed control type. Is VARIANT_TRUE for constant angular velocity (CAV)  rotational-speed control type. Otherwise, is VARIANT_FALSE for any other rotational-speed control type that the recorder supports.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedrotationtypeispurecav
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedrotationtypeispurecav
      */
     get_RequestedRotationTypeIsPureCAV() {
         result := ComCall(32, this, "short*", &value := 0, "HRESULT")
@@ -1953,9 +2035,15 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the drive's current write speed.
+     * Retrieves the drive's current write speed. (IDiscFormat2TrackAtOnce.get_CurrentWriteSpeed)
+     * @remarks
+     * To retrieve the requested write speed, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedwritespeed">IDiscFormat2TrackAtOnce::get_RequestedWriteSpeed</a> method.
+     * 
+     * To retrieve a list of the write speeds that the recorder and current media supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeds">IDiscFormat2TrackAtOnce::get_SupportedWriteSpeeds</a> method.
+     * 
+     * Note that the write speed is based on the media write speeds. The value of this property can change when a media change occurs.
      * @returns {Integer} The write speed of the current media, measured in sectors per second.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_currentwritespeed
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentwritespeed
      */
     get_CurrentWriteSpeed() {
         result := ComCall(33, this, "int*", &value := 0, "HRESULT")
@@ -1963,9 +2051,20 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves the current rotational-speed control used by the recorder.
+     * Retrieves the current rotational-speed control used by the recorder. (IDiscFormat2TrackAtOnce.get_CurrentRotationTypeIsPureCAV)
+     * @remarks
+     * To retrieve the requested rotational-speed control, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_requestedrotationtypeispurecav">IDiscFormat2TrackAtOnce::get_RequestedRotationTypeIsPureCAV</a> method.
+     * 
+     * Rotational-speed control types include the following:
+     * 
+     * <ul>
+     * <li>	CLV (Constant Linear Velocity). The disc is written at a constant speed. Standard rotational control.</li>
+     * <li>	CAV (Constant Angular Velocity). The disc is written at a constantly increasing speed.</li>
+     * <li>	ZCAV (Zone Constant Angular Velocity). The disc is divided into zones. After each zone, the write speed increases. This is an impure form of CAV.</li>
+     * <li>	PCAV (Partial Constant Angular Velocity). The disc speed increases up to a specified velocity. Once reached, the disc spins at the specified velocity for the duration of the disc writing.</li>
+     * </ul>
      * @returns {VARIANT_BOOL} Is VARIANT_TRUE if constant angular velocity (CAV)  rotational-speed control is in use. Otherwise, VARIANT_FALSE to indicate that another rotational-speed control that the recorder supports is in use.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_currentrotationtypeispurecav
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_currentrotationtypeispurecav
      */
     get_CurrentRotationTypeIsPureCAV() {
         result := ComCall(34, this, "short*", &value := 0, "HRESULT")
@@ -1973,9 +2072,13 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves a list of the write speeds supported by the disc recorder and current media.
+     * Retrieves a list of the write speeds supported by the disc recorder and current media. (IDiscFormat2TrackAtOnce.get_SupportedWriteSpeeds)
+     * @remarks
+     * You can use a speed from the list to set the write speed when calling the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-setwritespeed">IDiscFormat2TrackAtOnce::SetWriteSpeed</a> method.
+     * 
+     * To retrieve a list of the write configurations that the recorder and current media supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeddescriptors">IDiscFormat2TrackAtOnce::get_SupportedWriteSpeedDescriptors</a> method.
      * @returns {Pointer<SAFEARRAY>} List of the write speeds supported by the disc recorder and current media. Each element of the list is a <b>VARIANT</b> of type <b>VT_UI4</b>. The <b>ulVal</b> member of the variant contains the number of sectors written per second.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeds
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeds
      */
     get_SupportedWriteSpeeds() {
         result := ComCall(35, this, "ptr*", &supportedSpeeds := 0, "HRESULT")
@@ -1983,9 +2086,11 @@ class IDiscFormat2TrackAtOnce extends IDiscFormat2{
     }
 
     /**
-     * Retrieves a list of the detailed write configurations supported by the disc recorder and current media.
+     * Retrieves a list of the detailed write configurations supported by the disc recorder and current media. (IDiscFormat2TrackAtOnce.get_SupportedWriteSpeedDescriptors)
+     * @remarks
+     * To retrieve a list of the write speeds that the recorder and current media supports, call the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeds">IDiscFormat2TrackAtOnce::get_SupportedWriteSpeeds</a> method.
      * @returns {Pointer<SAFEARRAY>} List of the detailed write configurations supported by the disc recorder and current media. Each element of the list is a <b>VARIANT</b> of type <b>VT_Dispatch</b>. Query the <b>pdispVal</b> member of the variant for the <a href="https://docs.microsoft.com/windows/desktop/api/imapi2/nn-imapi2-iwritespeeddescriptor">IWriteSpeedDescriptor</a> interface, which contains the media type, write speed, rotational-speed control type.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeddescriptors
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2/nf-imapi2-idiscformat2trackatonce-get_supportedwritespeeddescriptors
      */
     get_SupportedWriteSpeedDescriptors() {
         result := ComCall(36, this, "ptr*", &supportedSpeedDescriptors := 0, "HRESULT")

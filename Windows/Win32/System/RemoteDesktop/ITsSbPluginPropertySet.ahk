@@ -5,7 +5,7 @@
 
 /**
  * Can be used to define custom plug-in properties as appropriate.
- * @see https://docs.microsoft.com/windows/win32/api//sbtsv/nn-sbtsv-itssbpluginpropertyset
+ * @see https://learn.microsoft.com/windows/win32/api/sbtsv/nn-sbtsv-itssbpluginpropertyset
  * @namespace Windows.Win32.System.RemoteDesktop
  * @version v4.0.30319
  */

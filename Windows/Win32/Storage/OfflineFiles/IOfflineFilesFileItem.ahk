@@ -5,7 +5,7 @@
 
 /**
  * Represents a file item in the Offline Files cache.
- * @see https://docs.microsoft.com/windows/win32/api//cscobj/nn-cscobj-iofflinefilesfileitem
+ * @see https://learn.microsoft.com/windows/win32/api/cscobj/nn-cscobj-iofflinefilesfileitem
  * @namespace Windows.Win32.Storage.OfflineFiles
  * @version v4.0.30319
  */
@@ -32,8 +32,12 @@ class IOfflineFilesFileItem extends IOfflineFilesItem{
 
     /**
      * Determines whether an item in the Offline Files cache is sparsely cached.
+     * @remarks
+     * A sparsely cached item is an item that has an entry in the Offline Files cache but is not completely cached; not all of its data blocks have been read into the cache.  Such items must first be filled before they are available for offline use.  The Offline Files service automatically fills sparse files on a frequent schedule.
+     * 
+     * To fill sparse files manually, use the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cscobj/nf-cscobj-iofflinefilescache-synchronize">IOfflineFilesCache::Synchronize</a> method, setting the OFFLINEFILES_SYNC_CONTROL_FLAG_FILLSPARSE control flag in the <i>dwSyncControl</i> parameter.
      * @returns {BOOL} Receives <b>TRUE</b> if the item is sparsely cached, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesfileitem-issparse
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-issparse
      */
     IsSparse() {
         result := ComCall(8, this, "int*", &pbIsSparse := 0, "HRESULT")
@@ -43,7 +47,7 @@ class IOfflineFilesFileItem extends IOfflineFilesItem{
     /**
      * Determines whether an item in the Offline Files cache is encrypted.
      * @returns {BOOL} Receives <b>TRUE</b> if the item is encrypted, or <b>FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//cscobj/nf-cscobj-iofflinefilesfileitem-isencrypted
+     * @see https://learn.microsoft.com/windows/win32/api/cscobj/nf-cscobj-iofflinefilesfileitem-isencrypted
      */
     IsEncrypted() {
         result := ComCall(9, this, "int*", &pbIsEncrypted := 0, "HRESULT")

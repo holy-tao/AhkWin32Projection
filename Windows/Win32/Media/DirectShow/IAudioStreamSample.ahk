@@ -6,7 +6,7 @@
 
 /**
  * Note  This interface is deprecated.
- * @see https://docs.microsoft.com/windows/win32/api//austream/nn-austream-iaudiostreamsample
+ * @see https://learn.microsoft.com/windows/win32/api/austream/nn-austream-iaudiostreamsample
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAudioStreamSample extends IStreamSample{
     /**
      * Note  This interface is deprecated. New applications should not use it. Retrieves the address of a pointer to the IAudioData object associated with the sample.
      * @returns {IAudioData} Address of a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/austream/nn-austream-iaudiodata">IAudioData</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//austream/nf-austream-iaudiostreamsample-getaudiodata
+     * @see https://learn.microsoft.com/windows/win32/api/austream/nf-austream-iaudiostreamsample-getaudiodata
      */
     GetAudioData() {
         result := ComCall(8, this, "ptr*", &ppAudio := 0, "HRESULT")

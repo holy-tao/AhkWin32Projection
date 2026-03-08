@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides a method to enumerate controller ports for a class implementing the IVdsController interface. This is needed to support MPIO.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdscontrollercontrollerport
+ * The IVdsControllerControllerPort (vdshwprv.h) interface provides a method to enumerate controller ports for a class implementing the IVdsController interface.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdscontrollercontrollerport
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,9 +32,9 @@ class IVdsControllerControllerPort extends IUnknown{
     static VTableNames => ["QueryControllerPorts"]
 
     /**
-     * Returns an IEnumVdsObject object that enumerates the ports of the controller.
+     * The IVdsControllerControllerPort::QueryControllerPorts method (vdshwprv.h) returns an IEnumVdsObject object that enumerates the ports of the controller.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the controller ports  as <a href="https://docs.microsoft.com/windows/desktop/VDS/controller-port-object">controller port objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the controller port objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdscontrollercontrollerport-querycontrollerports
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdscontrollercontrollerport-querycontrollerports
      */
     QueryControllerPorts() {
         result := ComCall(3, this, "ptr*", &ppEnum := 0, "HRESULT")

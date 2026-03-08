@@ -129,7 +129,7 @@ class IKsPinPipe extends IUnknown{
      * @returns {PWSTR} 
      */
     KsGetPinName() {
-        result := ComCall(12, this, "char*")
+        result := ComCall(12, this, "ptr")
         return result
     }
 
@@ -138,7 +138,7 @@ class IKsPinPipe extends IUnknown{
      * @returns {PWSTR} 
      */
     KsGetFilterName() {
-        result := ComCall(13, this, "char*")
+        result := ComCall(13, this, "ptr")
         return result
     }
 }

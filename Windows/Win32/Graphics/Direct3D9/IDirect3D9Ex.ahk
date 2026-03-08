@@ -7,7 +7,6 @@
 /**
  * Applications use the methods of the IDirect3D9Ex interface (which inherits from IDirect3D9) to create Microsoft Direct3D 9Ex objects and set up the environment.
  * @remarks
- * 
  * The <b>IDirect3D9Ex</b> interface is obtained by calling the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-direct3dcreate9ex">Direct3DCreate9Ex</a> function.
  * 
  * The <b>LPDIRECT3D9EX</b> and <b>PDIRECT3D9EX</b> types are defined as pointers to the <b>IDirect3D9Ex</b> interface:
@@ -19,9 +18,7 @@
  * typedef struct IDirect3D9Ex *LPDIRECT3D9EX, *PDIRECT3D9EX;
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d9/nn-d3d9-idirect3d9ex
+ * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3d9ex
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -48,16 +45,22 @@ class IDirect3D9Ex extends IDirect3D9{
 
     /**
      * Returns the number of display modes available.
+     * @remarks
+     * Events such as display mode changes on other heads of the same hardware, monitor change or its connection status change, and desktop extension/unextension could all affect the number of display mode available.
+     * 
+     * To fullscreen applications, S_PRESENT_MODE_CHANGED returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-presentex">PresentEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-checkdevicestate">CheckDeviceState</a> is the indication of display mode setting failure due to those events.
+     * 
+     * To increase the chance of setting a currently available display mode successfully, fullscreen applications should try to requery the available display mode list upon receiving S_PRESENT_MODE_CHANGED.
      * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Ordinal number denoting the display adapter from which to retrieve the display mode count.
      * @param {Pointer<D3DDISPLAYMODEFILTER>} pFilter Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodefilter">D3DDISPLAYMODEFILTER</a>*</b>
      * 
      * Specifies the characteristics of the desired display mode. See <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodefilter">D3DDISPLAYMODEFILTER</a>.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">UINT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * The number of display modes available. A return of value zero from this method is an indication that no such display mode is supported or simply this monitor is no longer available.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3d9ex-getadaptermodecountex
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadaptermodecountex
      */
     GetAdapterModeCountEx(Adapter, pFilter) {
         result := ComCall(17, this, "uint", Adapter, "ptr", pFilter, "uint")
@@ -78,13 +81,13 @@ class IDirect3D9Ex extends IDirect3D9{
      * @param {Pointer<D3DDISPLAYMODEEX>} pMode Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a>*</b>
      * 
      * A pointer to the available display mode of type <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplaymodeex">D3DDISPLAYMODEEX</a>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * <ul>
      * <li>If the device can be used on this adapter, D3D_OK is returned.</li>
      * <li>If the Adapter equals or exceeds the number of display adapters in the system, D3DERR_INVALIDCALL is returned.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3d9ex-enumadaptermodesex
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-enumadaptermodesex
      */
     EnumAdapterModesEx(Adapter, pFilter, Mode, pMode) {
         result := ComCall(18, this, "uint", Adapter, "ptr", pFilter, "uint", Mode, "ptr", pMode, "HRESULT")
@@ -93,6 +96,10 @@ class IDirect3D9Ex extends IDirect3D9{
 
     /**
      * Retrieves the current display mode and rotation settings of the adapter.
+     * @remarks
+     * <b>GetAdapterDisplayModeEx</b> does not return the correct format when the display is in an extended format, such as 2:10:10:10. Instead, it returns the format X8R8G8B8.
+     * 
+     * To windowed applications, a value of S_PRESENT_MODE_CHANGED returned from <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-presentex">PresentEx</a> or <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nf-d3d9-idirect3ddevice9ex-checkdevicestate">CheckDeviceState</a> indicates that the display mode changed and that the current display mode might have a different format. To avoid a color-converting Present blt, windowed applications can optionally get new display mode information by using this method and adjusting its swap chain format accordingly. This method returns D3DERR_NOTAVAILABLE if this head is no longer part of the desktop or if the monitor is disconnected.
      * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Ordinal number that denotes the display adapter to query. D3DADAPTER_DEFAULT is always the primary display adapter.
@@ -102,14 +109,14 @@ class IDirect3D9Ex extends IDirect3D9{
      * @param {Pointer<Integer>} pRotation Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplayrotation">D3DDISPLAYROTATION</a>*</b>
      * 
      * Pointer to a <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3ddisplayrotation">D3DDISPLAYROTATION</a> structure indicating the type of screen rotation the application will do. The value returned through this pointer is important when the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpresentflag">D3DPRESENTFLAG_NOAUTOROTATE</a> flag is used; otherwise, it can be set to <b>NULL</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. 
      * 
      * 
      * 
      * If <i>Adapter</i> is out of range or <i>pMode</i> is invalid, this method returns D3DERR_INVALIDCALL.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3d9ex-getadapterdisplaymodeex
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadapterdisplaymodeex
      */
     GetAdapterDisplayModeEx(Adapter, pMode, pRotation) {
         pRotationMarshal := pRotation is VarRef ? "int*" : "ptr"
@@ -119,7 +126,7 @@ class IDirect3D9Ex extends IDirect3D9{
     }
 
     /**
-     * Creates a device to represent the display adapter.
+     * Creates a device to represent the display adapter. (IDirect3D9Ex.CreateDeviceEx)
      * @param {Integer} Adapter Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT</a></b>
      * 
      * Ordinal number that denotes the display adapter. <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dadapter-default">D3DADAPTER_DEFAULT</a> is always the primary display adapter.
@@ -148,7 +155,7 @@ class IDirect3D9Ex extends IDirect3D9{
      * @returns {IDirect3DDevice9Ex} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3ddevice9ex">IDirect3DDevice9Ex</a>**</b>
      * 
      * Address of a pointer to the returned <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3ddevice9ex">IDirect3DDevice9Ex</a>, which represents the created device.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3d9ex-createdeviceex
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-createdeviceex
      */
     CreateDeviceEx(Adapter, DeviceType, hFocusWindow, BehaviorFlags, pPresentationParameters, pFullscreenDisplayMode) {
         hFocusWindow := hFocusWindow is Win32Handle ? NumGet(hFocusWindow, "ptr") : hFocusWindow
@@ -165,10 +172,10 @@ class IDirect3D9Ex extends IDirect3D9{
      * @param {Pointer<LUID>} pLUID Type: <b><a href="https://docs.microsoft.com/previous-versions/windows/hardware/drivers/ff549708(v=vs.85)">LUID</a>*</b>
      * 
      * A unique identifier for the given adapter.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9/nf-d3d9-idirect3d9ex-getadapterluid
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3d9ex-getadapterluid
      */
     GetAdapterLUID(Adapter, pLUID) {
         result := ComCall(21, this, "uint", Adapter, "ptr", pLUID, "HRESULT")

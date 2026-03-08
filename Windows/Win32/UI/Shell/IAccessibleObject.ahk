@@ -5,7 +5,7 @@
 
 /**
  * Exposes a method that can be used by an accessibility application.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-iaccessibleobject
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-iaccessibleobject
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -37,8 +37,8 @@ class IAccessibleObject extends IUnknown{
      * A pointer to a null-terminated, Unicode string containing the name.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-iaccessibleobject-setaccessiblename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-iaccessibleobject-setaccessiblename
      */
     SetAccessibleName(pszName) {
         pszName := pszName is String ? StrPtr(pszName) : pszName

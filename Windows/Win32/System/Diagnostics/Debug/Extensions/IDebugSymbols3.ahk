@@ -361,12 +361,12 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadTypedDataVirtual(Offset, Module, TypeId, Buffer, BufferSize) {
-        result := ComCall(25, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadTypedDataVirtual(Offset, Module, TypeId, Buffer_R, BufferSize) {
+        result := ComCall(25, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -375,12 +375,12 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WriteTypedDataVirtual(Offset, Module, TypeId, Buffer, BufferSize) {
-        result := ComCall(26, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WriteTypedDataVirtual(Offset, Module, TypeId, Buffer_R, BufferSize) {
+        result := ComCall(26, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -403,12 +403,12 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    ReadTypedDataPhysical(Offset, Module, TypeId, Buffer, BufferSize) {
-        result := ComCall(28, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
+    ReadTypedDataPhysical(Offset, Module, TypeId, Buffer_R, BufferSize) {
+        result := ComCall(28, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesRead := 0, "HRESULT")
         return BytesRead
     }
 
@@ -417,12 +417,12 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Offset 
      * @param {Integer} Module 
      * @param {Integer} TypeId 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    WriteTypedDataPhysical(Offset, Module, TypeId, Buffer, BufferSize) {
-        result := ComCall(29, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
+    WriteTypedDataPhysical(Offset, Module, TypeId, Buffer_R, BufferSize) {
+        result := ComCall(29, this, "uint", Offset, "uint", Module, "uint", TypeId, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BytesWritten := 0, "HRESULT")
         return BytesWritten
     }
 
@@ -512,19 +512,19 @@ class IDebugSymbols3 extends IUnknown{
     /**
      * 
      * @param {Integer} Handle 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} MatchSize 
      * @param {Pointer<Integer>} Offset 
      * @returns {HRESULT} 
      */
-    GetNextSymbolMatch(Handle, Buffer, BufferSize, MatchSize, Offset) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetNextSymbolMatch(Handle, Buffer_R, BufferSize, MatchSize, Offset) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         MatchSizeMarshal := MatchSize is VarRef ? "uint*" : "ptr"
         OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(37, this, "uint", Handle, "ptr", Buffer, "uint", BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
+        result := ComCall(37, this, "uint", Handle, "ptr", Buffer_R, "uint", BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -539,9 +539,13 @@ class IDebugSymbols3 extends IUnknown{
     }
 
     /**
-     * 
+     * The ReloadZone method reloads the DNS Zone from its database.
      * @param {PSTR} Module 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method has no parameters.
+     * 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-zone-reloadzone
      */
     Reload(Module) {
         Module := Module is String ? StrPtr(Module) : Module
@@ -552,14 +556,14 @@ class IDebugSymbols3 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolPath(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolPath(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(40, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(40, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
@@ -589,14 +593,14 @@ class IDebugSymbols3 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetImagePath(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetImagePath(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(43, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(43, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
@@ -626,28 +630,28 @@ class IDebugSymbols3 extends IUnknown{
 
     /**
      * 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSourcePath(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSourcePath(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(46, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(46, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSourcePathElement(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSourcePathElement(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(47, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &ElementSize := 0, "HRESULT")
+        result := ComCall(47, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ElementSize := 0, "HRESULT")
         return ElementSize
     }
 
@@ -681,37 +685,37 @@ class IDebugSymbols3 extends IUnknown{
      * @param {PSTR} File 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} FoundElement 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FoundSize 
      * @returns {HRESULT} 
      */
-    FindSourceFile(StartElement, File, Flags, FoundElement, Buffer, BufferSize, FoundSize) {
+    FindSourceFile(StartElement, File, Flags, FoundElement, Buffer_R, BufferSize, FoundSize) {
         File := File is String ? StrPtr(File) : File
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
         FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(50, this, "uint", StartElement, "ptr", File, "uint", Flags, FoundElementMarshal, FoundElement, "ptr", Buffer, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(50, this, "uint", StartElement, "ptr", File, "uint", Flags, FoundElementMarshal, FoundElement, "ptr", Buffer_R, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {PSTR} File 
-     * @param {Pointer<Integer>} Buffer 
+     * @param {Pointer<Integer>} Buffer_R 
      * @param {Integer} BufferLines 
      * @param {Pointer<Integer>} FileLines 
      * @returns {HRESULT} 
      */
-    GetSourceFileLineOffsets(File, Buffer, BufferLines, FileLines) {
+    GetSourceFileLineOffsets(File, Buffer_R, BufferLines, FileLines) {
         File := File is String ? StrPtr(File) : File
 
-        BufferMarshal := Buffer is VarRef ? "uint*" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "uint*" : "ptr"
         FileLinesMarshal := FileLines is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(51, this, "ptr", File, BufferMarshal, Buffer, "uint", BufferLines, FileLinesMarshal, FileLines, "HRESULT")
+        result := ComCall(51, this, "ptr", File, Buffer_RMarshal, Buffer_R, "uint", BufferLines, FileLinesMarshal, FileLines, "HRESULT")
         return result
     }
 
@@ -720,14 +724,14 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PSTR} Item 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetModuleVersionInformation(Index, Base, Item, Buffer, BufferSize) {
+    GetModuleVersionInformation(Index, Base, Item, Buffer_R, BufferSize) {
         Item := Item is String ? StrPtr(Item) : Item
 
-        result := ComCall(52, this, "uint", Index, "uint", Base, "ptr", Item, "ptr", Buffer, "uint", BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
+        result := ComCall(52, this, "uint", Index, "uint", Base, "ptr", Item, "ptr", Buffer_R, "uint", BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
         return VerInfoSize
     }
 
@@ -736,14 +740,14 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Which 
      * @param {Integer} Index 
      * @param {Integer} Base 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetModuleNameString(Which, Index, Base, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetModuleNameString(Which, Index, Base, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(53, this, "uint", Which, "uint", Index, "uint", Base, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(53, this, "uint", Which, "uint", Index, "uint", Base, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -1027,19 +1031,19 @@ class IDebugSymbols3 extends IUnknown{
     /**
      * 
      * @param {Integer} Handle 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} MatchSize 
      * @param {Pointer<Integer>} Offset 
      * @returns {HRESULT} 
      */
-    GetNextSymbolMatchWide(Handle, Buffer, BufferSize, MatchSize, Offset) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetNextSymbolMatchWide(Handle, Buffer_R, BufferSize, MatchSize, Offset) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         MatchSizeMarshal := MatchSize is VarRef ? "uint*" : "ptr"
         OffsetMarshal := Offset is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(74, this, "uint", Handle, "ptr", Buffer, "uint", BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
+        result := ComCall(74, this, "uint", Handle, "ptr", Buffer_R, "uint", BufferSize, MatchSizeMarshal, MatchSize, OffsetMarshal, Offset, "HRESULT")
         return result
     }
 
@@ -1057,14 +1061,14 @@ class IDebugSymbols3 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolPathWide(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolPathWide(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(76, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(76, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
@@ -1094,14 +1098,14 @@ class IDebugSymbols3 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetImagePathWide(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetImagePathWide(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(79, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(79, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
@@ -1131,28 +1135,28 @@ class IDebugSymbols3 extends IUnknown{
 
     /**
      * 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSourcePathWide(Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSourcePathWide(Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(82, this, "ptr", Buffer, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
+        result := ComCall(82, this, "ptr", Buffer_R, "uint", BufferSize, "uint*", &PathSize := 0, "HRESULT")
         return PathSize
     }
 
     /**
      * 
      * @param {Integer} Index 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSourcePathElementWide(Index, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSourcePathElementWide(Index, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(83, this, "uint", Index, "ptr", Buffer, "uint", BufferSize, "uint*", &ElementSize := 0, "HRESULT")
+        result := ComCall(83, this, "uint", Index, "ptr", Buffer_R, "uint", BufferSize, "uint*", &ElementSize := 0, "HRESULT")
         return ElementSize
     }
 
@@ -1186,37 +1190,37 @@ class IDebugSymbols3 extends IUnknown{
      * @param {PWSTR} File 
      * @param {Integer} Flags 
      * @param {Pointer<Integer>} FoundElement 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @param {Pointer<Integer>} FoundSize 
      * @returns {HRESULT} 
      */
-    FindSourceFileWide(StartElement, File, Flags, FoundElement, Buffer, BufferSize, FoundSize) {
+    FindSourceFileWide(StartElement, File, Flags, FoundElement, Buffer_R, BufferSize, FoundSize) {
         File := File is String ? StrPtr(File) : File
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
         FoundElementMarshal := FoundElement is VarRef ? "uint*" : "ptr"
         FoundSizeMarshal := FoundSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(86, this, "uint", StartElement, "ptr", File, "uint", Flags, FoundElementMarshal, FoundElement, "ptr", Buffer, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
+        result := ComCall(86, this, "uint", StartElement, "ptr", File, "uint", Flags, FoundElementMarshal, FoundElement, "ptr", Buffer_R, "uint", BufferSize, FoundSizeMarshal, FoundSize, "HRESULT")
         return result
     }
 
     /**
      * 
      * @param {PWSTR} File 
-     * @param {Pointer<Integer>} Buffer 
+     * @param {Pointer<Integer>} Buffer_R 
      * @param {Integer} BufferLines 
      * @param {Pointer<Integer>} FileLines 
      * @returns {HRESULT} 
      */
-    GetSourceFileLineOffsetsWide(File, Buffer, BufferLines, FileLines) {
+    GetSourceFileLineOffsetsWide(File, Buffer_R, BufferLines, FileLines) {
         File := File is String ? StrPtr(File) : File
 
-        BufferMarshal := Buffer is VarRef ? "uint*" : "ptr"
+        Buffer_RMarshal := Buffer_R is VarRef ? "uint*" : "ptr"
         FileLinesMarshal := FileLines is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(87, this, "ptr", File, BufferMarshal, Buffer, "uint", BufferLines, FileLinesMarshal, FileLines, "HRESULT")
+        result := ComCall(87, this, "ptr", File, Buffer_RMarshal, Buffer_R, "uint", BufferLines, FileLinesMarshal, FileLines, "HRESULT")
         return result
     }
 
@@ -1225,14 +1229,14 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Index 
      * @param {Integer} Base 
      * @param {PWSTR} Item 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetModuleVersionInformationWide(Index, Base, Item, Buffer, BufferSize) {
+    GetModuleVersionInformationWide(Index, Base, Item, Buffer_R, BufferSize) {
         Item := Item is String ? StrPtr(Item) : Item
 
-        result := ComCall(88, this, "uint", Index, "uint", Base, "ptr", Item, "ptr", Buffer, "uint", BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
+        result := ComCall(88, this, "uint", Index, "uint", Base, "ptr", Item, "ptr", Buffer_R, "uint", BufferSize, "uint*", &VerInfoSize := 0, "HRESULT")
         return VerInfoSize
     }
 
@@ -1241,14 +1245,14 @@ class IDebugSymbols3 extends IUnknown{
      * @param {Integer} Which 
      * @param {Integer} Index 
      * @param {Integer} Base 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetModuleNameStringWide(Which, Index, Base, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetModuleNameStringWide(Which, Index, Base, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(89, this, "uint", Which, "uint", Index, "uint", Base, "ptr", Buffer, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
+        result := ComCall(89, this, "uint", Which, "uint", Index, "uint", Base, "ptr", Buffer_R, "uint", BufferSize, "uint*", &NameSize := 0, "HRESULT")
         return NameSize
     }
 
@@ -1449,12 +1453,12 @@ class IDebugSymbols3 extends IUnknown{
      * 
      * @param {Integer} Offset 
      * @param {Integer} Flags 
-     * @param {Pointer} Buffer 
+     * @param {Pointer} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetFunctionEntryByOffset(Offset, Flags, Buffer, BufferSize) {
-        result := ComCall(104, this, "uint", Offset, "uint", Flags, "ptr", Buffer, "uint", BufferSize, "uint*", &BufferNeeded := 0, "HRESULT")
+    GetFunctionEntryByOffset(Offset, Flags, Buffer_R, BufferSize) {
+        result := ComCall(104, this, "uint", Offset, "uint", Flags, "ptr", Buffer_R, "uint", BufferSize, "uint*", &BufferNeeded := 0, "HRESULT")
         return BufferNeeded
     }
 
@@ -1619,14 +1623,14 @@ class IDebugSymbols3 extends IUnknown{
      * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Which 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolEntryString(Id, Which, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolEntryString(Id, Which, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(115, this, "ptr", Id, "uint", Which, "ptr", Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(115, this, "ptr", Id, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -1634,14 +1638,14 @@ class IDebugSymbols3 extends IUnknown{
      * 
      * @param {Pointer<DEBUG_MODULE_AND_ID>} Id 
      * @param {Integer} Which 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSymbolEntryStringWide(Id, Which, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSymbolEntryStringWide(Id, Which, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(116, this, "ptr", Id, "uint", Which, "ptr", Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(116, this, "ptr", Id, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -1731,14 +1735,14 @@ class IDebugSymbols3 extends IUnknown{
      * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Which 
-     * @param {PSTR} Buffer 
+     * @param {PSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSourceEntryString(Entry, Which, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSourceEntryString(Entry, Which, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(122, this, "ptr", Entry, "uint", Which, "ptr", Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(122, this, "ptr", Entry, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 
@@ -1746,14 +1750,14 @@ class IDebugSymbols3 extends IUnknown{
      * 
      * @param {Pointer<DEBUG_SYMBOL_SOURCE_ENTRY>} Entry 
      * @param {Integer} Which 
-     * @param {PWSTR} Buffer 
+     * @param {PWSTR} Buffer_R 
      * @param {Integer} BufferSize 
      * @returns {Integer} 
      */
-    GetSourceEntryStringWide(Entry, Which, Buffer, BufferSize) {
-        Buffer := Buffer is String ? StrPtr(Buffer) : Buffer
+    GetSourceEntryStringWide(Entry, Which, Buffer_R, BufferSize) {
+        Buffer_R := Buffer_R is String ? StrPtr(Buffer_R) : Buffer_R
 
-        result := ComCall(123, this, "ptr", Entry, "uint", Which, "ptr", Buffer, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
+        result := ComCall(123, this, "ptr", Entry, "uint", Which, "ptr", Buffer_R, "uint", BufferSize, "uint*", &StringSize := 0, "HRESULT")
         return StringSize
     }
 

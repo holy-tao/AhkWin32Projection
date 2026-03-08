@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * Use a Dynamic Host Configuration Protocol (DHCP) search to identify the proxy.
+ * @see https://learn.microsoft.com/windows/win32/api/wininet/nf-wininet-detectautoproxyurl
  * @namespace Windows.Win32.Networking.WinInet
  * @version v4.0.30319
  */

@@ -5,7 +5,7 @@
 
 /**
  * This interface is implemented to create and initialize objects to provide a specified access interface to a resource represented by the function instance. After the object is created, the Initialize method is called to initialize the object.
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryserviceprovider
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryserviceprovider
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IFunctionDiscoveryServiceProvider extends IUnknown{
 
     /**
      * Initializes an object that provides a specific interface that has been bound to the resource represented by the function instance.
+     * @remarks
+     * Any error code indicates failure. The provider should return an appropriate error code if it is unable to create the desired object.
      * @param {IFunctionInstance} pIFunctionInstance A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstance">IFunctionInstance</a> interface that represents the underlying resource.
      * @param {Pointer<Guid>} riid A reference to the identifier of the interface to be used to communicate with the object.
      * @returns {Pointer<Void>} The interface pointer requested in <i>riid</i>. Upon successful return, <i>*ppv</i> contains the requested interface pointer. Upon failure, <i>*ppv</i> contains <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryserviceprovider-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryserviceprovider-initialize
      */
     Initialize(pIFunctionInstance, riid) {
         result := ComCall(3, this, "ptr", pIFunctionInstance, "ptr", riid, "ptr*", &ppv := 0, "HRESULT")

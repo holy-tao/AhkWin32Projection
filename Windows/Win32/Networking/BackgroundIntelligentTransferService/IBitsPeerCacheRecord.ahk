@@ -6,7 +6,7 @@
 
 /**
  * Use IBitsPeerCacheRecord to get information about a file in the cache.
- * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nn-bits3_0-ibitspeercacherecord
+ * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nn-bits3_0-ibitspeercacherecord
  * @namespace Windows.Win32.Networking.BackgroundIntelligentTransferService
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IBitsPeerCacheRecord extends IUnknown{
     /**
      * Gets the identifier that uniquely identifies the record in the cache.
      * @returns {Guid} Identifier that uniquely identifies the record in the cache.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeercacherecord-getid
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getid
      */
     GetId() {
         pVal := Guid()
@@ -44,9 +44,11 @@ class IBitsPeerCacheRecord extends IUnknown{
 
     /**
      * Gets the origin URL of the cached file.
+     * @remarks
+     * This URL may be different than the URL originally specified in the BITS job if <a href="https://docs.microsoft.com/windows/desktop/api/bits2_5/nf-bits2_5-ibackgroundcopyjobhttpoptions-setsecurityflags">IBackgroundCopyJobHttpOptions::SetSecurityFlags</a> is set to BG_HTTP_REDIRECT_POLICY_ALLOW_REPORT or BG_HTTP_REDIRECT_POLICY_DISALLOW.
      * @returns {PWSTR} Null-terminated string that contains the origin URL of the cached file. Call the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppOriginUrl</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeercacherecord-getoriginurl
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getoriginurl
      */
     GetOriginUrl() {
         result := ComCall(4, this, "ptr*", &pVal := 0, "HRESULT")
@@ -56,7 +58,7 @@ class IBitsPeerCacheRecord extends IUnknown{
     /**
      * Gets the size of the file.
      * @returns {Integer} Size of the file, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeercacherecord-getfilesize
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getfilesize
      */
     GetFileSize() {
         result := ComCall(5, this, "uint*", &pVal := 0, "HRESULT")
@@ -67,7 +69,7 @@ class IBitsPeerCacheRecord extends IUnknown{
      * Gets the date and time that the file was last modified on the server.
      * @returns {FILETIME} Date and time that the file was last modified on the server. The time is specified as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeercacherecord-getfilemodificationtime
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getfilemodificationtime
      */
     GetFileModificationTime() {
         pVal := FILETIME()
@@ -79,7 +81,7 @@ class IBitsPeerCacheRecord extends IUnknown{
      * Gets the date and time that the file was last accessed.
      * @returns {FILETIME} Date and time that the file was last accessed. The time is specified as 
      * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-filetime">FILETIME</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeercacherecord-getlastaccesstime
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getlastaccesstime
      */
     GetLastAccessTime() {
         pVal := FILETIME()
@@ -89,6 +91,8 @@ class IBitsPeerCacheRecord extends IUnknown{
 
     /**
      * Determines whether the file has been validated.
+     * @remarks
+     * The file is available to serve after you validate the file. To validate the file, call the <a href="https://docs.microsoft.com/windows/desktop/api/bits3_0/nf-bits3_0-ibackgroundcopyfile3-setvalidationstate">IBackgroundCopyFile3::SetValidationState</a> method. The file is implicitly validated if the application calls <a href="https://docs.microsoft.com/windows/desktop/api/bits/nf-bits-ibackgroundcopyjob-complete">IBackgroundCopyJob::Complete</a> without calling <b>SetValidationState</b>. To remove the file from the cache after validation, see <a href="https://docs.microsoft.com/windows/desktop/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-deleteurl">IBitsPeerCacheAdministration::DeleteUrl</a> and <a href="https://docs.microsoft.com/windows/desktop/api/bits3_0/nf-bits3_0-ibitspeercacheadministration-deleterecord">IBitsPeerCacheAdministration::DeleteRecord</a>.
      * @returns {HRESULT} The method returns the following return values.
      * 
      * <table>
@@ -119,7 +123,7 @@ class IBitsPeerCacheRecord extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeercacherecord-isfilevalidated
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-isfilevalidated
      */
     IsFileValidated() {
         result := ComCall(8, this, "HRESULT")
@@ -128,6 +132,8 @@ class IBitsPeerCacheRecord extends IUnknown{
 
     /**
      * Gets the ranges of the file that are in the cache.
+     * @remarks
+     * The method always returns at least one range (for the complete file). Multiple ranges can be returned if the application called <a href="https://docs.microsoft.com/windows/desktop/api/bits2_0/nf-bits2_0-ibackgroundcopyjob3-addfilewithranges">IBackgroundCopyJob3::AddFileWithRanges</a> to download one or more ranges of a file.
      * @param {Pointer<Integer>} pRangeCount Number of elements in <i>ppRanges</i>.
      * @param {Pointer<Pointer<BG_FILE_RANGE>>} ppRanges Array of  <a href="https://docs.microsoft.com/windows/desktop/api/bits2_0/ns-bits2_0-bg_file_range">BG_FILE_RANGE</a> structures that specify the ranges of the file that are in the cache. When done, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free <i>ppRanges</i>.
      * @returns {HRESULT} The method returns the following return values.
@@ -149,7 +155,7 @@ class IBitsPeerCacheRecord extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bits3_0/nf-bits3_0-ibitspeercacherecord-getfileranges
+     * @see https://learn.microsoft.com/windows/win32/api/bits3_0/nf-bits3_0-ibitspeercacherecord-getfileranges
      */
     GetFileRanges(pRangeCount, ppRanges) {
         pRangeCountMarshal := pRangeCount is VarRef ? "uint*" : "ptr"

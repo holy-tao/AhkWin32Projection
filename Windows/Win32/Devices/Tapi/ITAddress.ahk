@@ -11,7 +11,7 @@
 
 /**
  * The ITAddress interface is the base interface for the Address object. Applications use this interface to get information about and use the Address object.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-itaddress
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-itaddress
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -105,7 +105,7 @@ class ITAddress extends IDispatch{
      * The get_State method gets the current state of the address in pAddressState.
      * @returns {Integer} Pointer to a member of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/ne-tapi3if-address_state">ADDRESS_STATE</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_state
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_state
      */
     get_State() {
         result := ComCall(7, this, "int*", &pAddressState := 0, "HRESULT")
@@ -114,8 +114,11 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_AddressName method gets the displayable name of the address.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppName</i> parameter.
      * @returns {BSTR} Pointer to <b>BSTR</b> containing a displayable address name.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_addressname
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_addressname
      */
     get_AddressName() {
         ppName := BSTR()
@@ -125,8 +128,16 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_ServiceProviderName method gets the name of the Telephony Service Provider (TSP) that supports this address:\_for example, Unimdm.tsp for the Unimodem service provider or H323.tsp for the H323 service provider.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppName</i> parameter.
+     * 			
+     * 
+     * You can retrieve the name of the provider in a TSP-dependent format using 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapabilitystring">ITAddressCapabilities::get_AddressCapabilityString</a> with <i>AddressCapString</i> set to ACS_PROVIDERSPECIFIC, which returns the string found in the <b>dwProviderInfoOffset</b> member of the TAPI 2.<i>x</i>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevcaps">LINEDEVCAPS</a> structure.
      * @returns {BSTR} Pointer to <b>BSTR</b> containing the service provider name.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_serviceprovidername
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_serviceprovidername
      */
     get_ServiceProviderName() {
         ppName := BSTR()
@@ -138,7 +149,7 @@ class ITAddress extends IDispatch{
      * The get_TAPIObject method gets a pointer to the TAPI object that owns this address.
      * @returns {ITTAPI} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ittapi">ITTAPI</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_tapiobject
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_tapiobject
      */
     get_TAPIObject() {
         result := ComCall(10, this, "ptr*", &ppTapiObject := 0, "HRESULT")
@@ -147,6 +158,24 @@ class ITAddress extends IDispatch{
 
     /**
      * The CreateCall method creates a new Call object that can be used to make an outgoing call and returns a pointer to the object's ITBasicCallControl interface. The newly created call is in the CS_IDLE state and has no media or terminals selected.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysallocstring">SysAllocString</a> to allocate memory for the <i>pDestAddress</i> parameter and use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory when the variable is no longer needed.
+     * 
+     * When the address type is LINEADDRESSTYPE_SDP, the application should call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/itsdp-get-isvalid">ITSDP::get_IsValid</a> method on <i>pDestAddress</i> to verify that the SDP information contained is properly constructed according to RFC 2327.
+     * 
+     * Calls used as consultation calls, such as during a conference, transfer, or forward operation, must be created using this method.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itbasiccallcontrol">ITBasicCallControl</a> interface returned by <b>ITAddress::CreateCall</b>. The application must call <b>Release</b> on the 
+     * <b>ITBasicCallControl</b> interface to free resources associated with it.
+     * 
+     * <div class="alert"><b>Note</b>    This method is not precisely the same as 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linemakecall">lineMakeCall</a> in TAPI 2. It supplies TAPI with much of the same information, but parallel operations are not performed until 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-connect">ITBasicCallControl::Connect</a> is called.</div>
+     * <div> </div>
      * @param {BSTR} pDestAddress This <b>BSTR</b> string contains a destination address. The format is provider-specific. This pointer can be <b>NULL</b> for non-dialed addresses (such as with a hot phone) or when all dialing is performed using 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-dial">ITBasicCallControl::Dial</a>. <b>NULL</b> in combination with a <b>NULL</b><i>pGroupID</i> in 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itbasiccallcontrol-pickup">ITBasicCallControl::Pickup</a> results in a group pickup. Service providers that have inverse multiplexing capabilities can allow an application to specify multiple addresses at once.
@@ -157,7 +186,7 @@ class ITAddress extends IDispatch{
      * <a href="https://docs.microsoft.com/windows/desktop/Tapi/tapimediatype--constants">media type</a> or types that will be involved in the call session.
      * @returns {ITBasicCallControl} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itbasiccallcontrol">ITBasicCallControl</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-createcall
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-createcall
      */
     CreateCall(pDestAddress, lAddressType, lMediaTypes) {
         pDestAddress := pDestAddress is String ? BSTR.Alloc(pDestAddress).Value : pDestAddress
@@ -168,10 +197,14 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_Calls method creates a collection of calls currently active on the address. This method is provided for Automation client applications, such as those written in Visual Basic. C and C++ applications must use the EnumerateCalls method.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface returned by ITAddress::get_Calls. The application must call <b>Release</b> on the 
+     * <b>ITCallInfo</b> interface to free resources associated with it.
      * @returns {VARIANT} Pointer to a <b>VARIANT</b> containing an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcollection">ITCollection</a> of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itcallinfo">ITCallInfo</a> interface pointers (call objects).
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_calls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_calls
      */
     get_Calls() {
         pVariant := VARIANT()
@@ -181,9 +214,13 @@ class ITAddress extends IDispatch{
 
     /**
      * The EnumerateCalls method enumerates calls on the current address. This method is provided for C and C++ applications. Automation client applications, such as those written in Visual Basic, must use the get_Calls method.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcall">IEnumCall</a> interface returned by <b>ITAddress::EnumerateCalls</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumCall</b> interface to free resources associated with it.
      * @returns {IEnumCall} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-ienumcall">IEnumCall</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-enumeratecalls
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-enumeratecalls
      */
     EnumerateCalls() {
         result := ComCall(13, this, "ptr*", &ppCallEnum := 0, "HRESULT")
@@ -192,9 +229,15 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_DialableAddress method gets the BSTR which can be used to connect to this address. The BSTR corresponds to the destination address string that another application would use to connect to this address, such as a phone number or an e-mail name.
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>pDialableAddress</i> parameter.
+     * 			
+     * 
+     * The availability of this value depends on the service provider. For example, on an address exposed by the Unimodem service provider, this method will return an empty string instead of a phone number.
      * @returns {BSTR} Pointer to <b>BSTR</b> containing the dialable address string. This will match the <i>pDestAddress</i> argument of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddress-createcall">ITAddress::CreateCall</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_dialableaddress
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_dialableaddress
      */
     get_DialableAddress() {
         pDialableAddress := BSTR()
@@ -204,9 +247,16 @@ class ITAddress extends IDispatch{
 
     /**
      * The CreateForwardInfoObject method creates the forwarding information object and returns an ITForwardInformation interface pointer.
+     * @remarks
+     * The application must set information on a newly created 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itforwardinformation">ITForwardInformation</a> object before the object can be used.
+     * 
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itforwardinformation">ITForwardInformation</a> interface returned by <b>ITAddress::CreateForwardInfoObject</b>. The application must call <b>Release</b> on the 
+     * <b>ITForwardInformation</b> interface to free resources associated with it.
      * @returns {ITForwardInformation} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itforwardinformation">ITForwardInformation</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-createforwardinfoobject
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-createforwardinfoobject
      */
     CreateForwardInfoObject() {
         result := ComCall(15, this, "ptr*", &ppForwardInfo := 0, "HRESULT")
@@ -215,6 +265,20 @@ class ITAddress extends IDispatch{
 
     /**
      * The Forward method forwards calls destined for the address according to the forwarding instructions contained in ITForwardInformation. If pForwardInfo is set to NULL, forwarding is canceled.
+     * @remarks
+     * The information in <i>pForwardInfo</i> overrides any previous forwarding instructions.
+     * 
+     * If 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddress-put_donotdisturb">ITAddress::put_DoNotDisturb</a> is called with <i>fDoNotDisturb</i> set to VARIANT_FALSE, all forwarding is canceled.
+     * 
+     * An application can determine whether non-<b>NULL</b> consultation call is required by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddresscapabilities-get_addresscapability">ITAddressCapabilities::get_AddressCapability</a> (AC_ADDRESSCAPFLAGS, <i>plCapability</i>) and checking whether the flag LINEADDRCAPFLAGS_FWDCONSULT, a member of 
+     * <a href="https://docs.microsoft.com/windows/desktop/Tapi/lineaddrcapflags--constants">LINEADDRCAPFLAGS_ Constants</a>, has been set in <i>plCapability</i>. If it is set, a non-<b>NULL</b> value is required for the <i>pCall</i> parameter of the 
+     * Forward method.
+     * 
+     * The 
+     * Forward method is, in part, a COM wrapper for the TAPI 2.1 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineforward">LineForward</a> function.
      * @param {ITForwardInformation} pForwardInfo Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itforwardinformation">ITForwardInformation</a> interface, or set to <b>NULL</b> to cancel forwarding.
      * @param {ITBasicCallControl} pCall Pointer to 
@@ -289,12 +353,12 @@ class ITAddress extends IDispatch{
      * </td>
      * <td width="60%">
      * See 
-     * <a href="/windows/desktop/api/tapi/nf-tapi-lineforward">LineForward</a> for error codes returned from this TAPI 2.1 function.
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-lineforward">LineForward</a> for error codes returned from this TAPI 2.1 function.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-forward
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-forward
      */
     Forward(pForwardInfo, pCall) {
         result := ComCall(16, this, "ptr", pForwardInfo, "ptr", pCall, "HRESULT")
@@ -303,9 +367,13 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_CurrentForwardInfo method gets a pointer to the current forwarding information object.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itforwardinformation">ITForwardInformation</a> interface returned by <b>ITAddress::get_ForwardInfo</b>. The application must call <b>Release</b> on the 
+     * <b>ITForwardInformation</b> interface to free resources associated with it.
      * @returns {ITForwardInformation} Pointer to 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itforwardinformation">ITForwardInformation</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_currentforwardinfo
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_currentforwardinfo
      */
     get_CurrentForwardInfo() {
         result := ComCall(17, this, "ptr*", &ppForwardInfo := 0, "HRESULT")
@@ -314,6 +382,10 @@ class ITAddress extends IDispatch{
 
     /**
      * The put_MessageWaiting method sets the status of the message waiting on the address.
+     * @remarks
+     * For programmers familiar with TAPI 2.<i>x:</i> This method turns on and off the flag LINEDEVSTATUSFLAGS_MSGWAIT in the <b>dwDevStatusFlags</b> member of the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevstatus">LINEDEVSTATUS</a> structure by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/nf-tapi-linesetlinedevstatus">lineSetLineDevStatus</a>.
      * @param {VARIANT_BOOL} fMessageWaiting Status of message waiting to be set.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -367,7 +439,7 @@ class ITAddress extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-put_messagewaiting
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-put_messagewaiting
      */
     put_MessageWaiting(fMessageWaiting) {
         result := ComCall(18, this, "short", fMessageWaiting, "HRESULT")
@@ -376,8 +448,11 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_MessageWaiting method determines if the address has a message waiting.
+     * @remarks
+     * In TAPI 2.<i>x</i>, this maps to the flag LINEDEVSTATUSFLAGS_MSGWAIT being set or not in the member <i>dwDevStatusFlags</i> from the structure 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-linedevstatus">LINEDEVSTATUS</a>.
      * @returns {VARIANT_BOOL} If VARIANT_TRUE is returned, a message is waiting; if VARIANT_FALSE is returned, no message is waiting.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_messagewaiting
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_messagewaiting
      */
     get_MessageWaiting() {
         result := ComCall(19, this, "short*", &pfMessageWaiting := 0, "HRESULT")
@@ -386,6 +461,12 @@ class ITAddress extends IDispatch{
 
     /**
      * The put_DoNotDisturb method sets the do not disturb status. The do not disturb feature may not be available on all addresses.
+     * @remarks
+     * The DoNotDisturb feature is implemented using forwarding. If 
+     * <b>put_DoNotDisturb</b> is called with VARIANT_TRUE, Tapi3.dll creates a 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineforward">LINEFORWARD</a> list with the mode set to LINEFORWARDMODE_UNCOND and only one LINEFORWARD item with the destination address set to <b>NULL</b>. If 
+     * <b>put_DoNotDisturb</b> is called with VARIANT_FALSE, Tapi3.dll cancels forwarding completely on this address, even those forwarding rules set with 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nf-tapi3if-itaddress-forward">ITAddress::Forward</a>.
      * @param {VARIANT_BOOL} fDoNotDisturb If VARIANT_TRUE, the do not disturb feature will be activated. If VARIANT_FALSE, the do not disturb feature will be deactivated and all forwarding canceled.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -439,7 +520,7 @@ class ITAddress extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-put_donotdisturb
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-put_donotdisturb
      */
     put_DoNotDisturb(fDoNotDisturb) {
         result := ComCall(20, this, "short", fDoNotDisturb, "HRESULT")
@@ -448,8 +529,13 @@ class ITAddress extends IDispatch{
 
     /**
      * The get_DoNotDisturb method gets the current status of the do not disturb feature on the address. The do not disturb feature may not be available on all addresses.
+     * @remarks
+     * For programmers familiar with TAPI 2.<i>x:</i> The DoNotDisturb feature is implemented using the "forward" feature, if present on the address. When 
+     * <b>get_DoNotDisturb</b> is called, Tapi3.dll gets the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineaddressstatus">LINEADDRESSSTATUS</a> of the address object, and looks for its 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi/ns-tapi-lineforward">LINEFORWARD</a> entries. If one such entry is found and if its <i>dwDestAddressOffset</i> member is 0 (zero), then DoNotDisturb is considered to be turned ON, and therefore VARIANT_TRUE is returned as the value for this method.
      * @returns {VARIANT_BOOL} If VARIANT_TRUE, the do not disturb feature has been activated. If VARIANT_FALSE, the do not disturb feature is not active.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-itaddress-get_donotdisturb
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-itaddress-get_donotdisturb
      */
     get_DoNotDisturb() {
         result := ComCall(21, this, "short*", &pfDoNotDisturb := 0, "HRESULT")

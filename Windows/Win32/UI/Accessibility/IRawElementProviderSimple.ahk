@@ -8,7 +8,6 @@
 /**
  * Defines methods and properties that expose simple UI elements.
  * @remarks
- * 
  * This interface can be implemented on:
  * 			
  * 
@@ -18,9 +17,7 @@
  * </ul>
  * Providers for complex elements must also implement <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragment">IRawElementProviderFragment</a> and, if they 
  * 			are root elements, <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/nn-uiautomationcore-irawelementproviderfragmentroot">IRawElementProviderFragmentRoot</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nn-uiautomationcore-irawelementprovidersimple
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nn-uiautomationcore-irawelementprovidersimple
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -62,17 +59,13 @@ class IRawElementProviderSimple extends IUnknown{
     /**
      * Specifies the type of Microsoft UI Automation provider; for example, whether it is a client-side (proxy) or server-side provider.
      * @remarks
-     * 
      * The method must return either <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-provideroptions">ProviderOptions_ServerSideProvider</a> or <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcore/ne-uiautomationcore-provideroptions">ProviderOptions_ClientSideProvider</a>.
      * 
      * UI Automation handles the various types of providers differently. 
      * 			For example, events from a server-side provider are broadcast to all listening clients, 
      * 			but events from client-side (proxy) providers remain in the client.
-     * 
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_provideroptions
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_provideroptions
      */
     get_ProviderOptions() {
         result := ComCall(3, this, "int*", &pRetVal := 0, "HRESULT")
@@ -89,7 +82,7 @@ class IRawElementProviderSimple extends IUnknown{
      * Receives a pointer to the object that supports the control pattern,
      * 				or <b>NULL</b> if the control pattern is not supported. 
      * 				This parameter is passed uninitialized.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-getpatternprovider
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-getpatternprovider
      */
     GetPatternProvider(patternId) {
         result := ComCall(4, this, "int", patternId, "ptr*", &pRetVal := 0, "HRESULT")
@@ -98,6 +91,34 @@ class IRawElementProviderSimple extends IUnknown{
 
     /**
      * Retrieves the value of a property supported by the Microsoft UI Automation provider.
+     * @remarks
+     * If a provider is explicitly hiding the property value (that is, the provider does not supply the property, and the request is not to be passed through to other providers), it should return a pointer obtained by using the             <a href="https://docs.microsoft.com/windows/desktop/api/uiautomationcoreapi/nf-uiautomationcoreapi-uiagetreservednotsupportedvalue">UiaGetReservedNotSupportedValue</a> function. For example: 
+     *             
+     * 
+     * 
+     * ```
+     * pRetVal->vt = VT_UNKNOWN;
+     * UiaGetReservedNotSupportedValue(&pRetVal->punkVal);
+     * ```
+     * 
+     * 
+     * UI Automation properties of the <b>double</b> type support Not a Number (NaN) values. When returning a NaN value, the provider should return a quiet (non-signaling) NaN to avoid raising an exception if floating-point exceptions are turned on. The following example shows how to create a quiet NaN:
+     * 
+     *             
+     * 
+     * 
+     * ```
+     * ULONGLONG ulNaN = 0xFFFFFFFFFFFFFFFF;
+     *     *pRetVal = *reinterpret_cast<double*>(&ulNaN);
+     * ```
+     * 
+     * 
+     * Alternatively, you can use the following function from the standard C++ libraries:
+     * 
+     * 
+     * ```
+     * numeric_limits<double>::quiet_NaN( )
+     * ```
      * @param {Integer} propertyId Type: <b>PROPERTYID</b>
      * 
      * The property identifier. For a list of property IDs, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-entry-propids">Property Identifiers</a>.
@@ -105,7 +126,7 @@ class IRawElementProviderSimple extends IUnknown{
      * 
      * Receives the property value, or <b>VT_EMPTY</b> if the property is not supported by this
      * 				provider. This parameter is passed uninitialized. See Remarks.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-getpropertyvalue
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-getpropertyvalue
      */
     GetPropertyValue(propertyId) {
         pRetVal := VARIANT()
@@ -116,7 +137,6 @@ class IRawElementProviderSimple extends IUnknown{
     /**
      * Specifies the host provider for this element.
      * @remarks
-     * 
      * This property is generally the Microsoft UI Automation provider for the window of a custom control.
      * 			UI Automation uses this provider in combination with the custom provider. For example, the runtime identifier 
      * 			of the element is usually obtained from the host provider.
@@ -124,11 +144,8 @@ class IRawElementProviderSimple extends IUnknown{
      * A host provider must be returned in the following cases: when the element is a fragment root, 
      * 			when the element is a simple element (such as a push button), and when the provider is a repositioning placeholder (for more information, see <a href="https://docs.microsoft.com/windows/desktop/WinAuto/uiauto-serversideprovider">Provider Repositioning</a>). 
      * 			 In other cases, the property should be <b>NULL</b>.
-     * 
-     * 
-     * 
      * @returns {IRawElementProviderSimple} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_hostrawelementprovider
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcore/nf-uiautomationcore-irawelementprovidersimple-get_hostrawelementprovider
      */
     get_HostRawElementProvider() {
         result := ComCall(6, this, "ptr*", &pRetVal := 0, "HRESULT")

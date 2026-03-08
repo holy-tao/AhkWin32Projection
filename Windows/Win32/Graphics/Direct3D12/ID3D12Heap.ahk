@@ -5,7 +5,7 @@
 
 /**
  * A heap is an abstraction of contiguous memory allocation, used to manage physical memory. This heap can be used with ID3D12Resource objects to support placed resources or reserved resources.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12heap
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12heap
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -32,10 +32,13 @@ class ID3D12Heap extends ID3D12Pageable{
 
     /**
      * Gets the heap description.
-     * @returns {D3D12_HEAP_DESC} Type: <b><a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc">D3D12_HEAP_DESC</a></b>
+     * @returns {D3D12_HEAP_DESC} This method has no parameters.
      * 
-     * Returns the <a href="/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc">D3D12_HEAP_DESC</a> structure that describes the heap.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12heap-getdesc
+     * 
+     * Type: **[**D3D12\_HEAP\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc)**
+     * 
+     * Returns the [**D3D12\_HEAP\_DESC**](/windows/desktop/api/d3d12/ns-d3d12-d3d12_heap_desc) structure that describes the heap.
+     * @see https://learn.microsoft.com/windows/win32/direct3d12/id3d12heap-getdesc
      */
     GetDesc() {
         result := ComCall(8, this, "ptr")

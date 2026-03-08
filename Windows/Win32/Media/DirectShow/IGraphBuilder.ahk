@@ -6,7 +6,7 @@
 
 /**
  * This interface provides methods that enable an application to build a filter graph.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-igraphbuilder
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-igraphbuilder
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -33,6 +33,10 @@ class IGraphBuilder extends IFilterGraph{
 
     /**
      * The Connect method connects the two pins, using intermediates if necessary.
+     * @remarks
+     * This method connects two pins directly or indirectly, adding intermediate filters if necessary. The method starts by attempting a direct connection. If that fails, it tries to use any filters that are already in the filter graph and have unconnected input pins. (It enumerates these in an arbitrary order.) If that fails, it searches for filters in the registry, and tries them in order of merit. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/intelligent-connect">Intelligent Connect</a>.
+     * 
+     * During the connection process, the Filter Graph Manager ignores pins on intermediate filters if the pin name begins with a tilde (~). For more information, see [PIN_INFO](/windows/desktop/api/strmif/ns-strmif-pin_info).
      * @param {IPin} ppinOut Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface on the output pin.
      * @param {IPin} ppinIn Pointer to the <b>IPin</b> interface on the input pin.
      * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include the following.
@@ -109,7 +113,7 @@ class IGraphBuilder extends IFilterGraph{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphbuilder-connect
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-connect
      */
     Connect(ppinOut, ppinIn) {
         result := ComCall(11, this, "ptr", ppinOut, "ptr", ppinIn, "HRESULT")
@@ -118,6 +122,10 @@ class IGraphBuilder extends IFilterGraph{
 
     /**
      * The Render method builds a filter graph that renders the data from a specified output pin.
+     * @remarks
+     * This method renders the data from a specified output pin, adding new filters to the graph as needed. Filters are tried in the same order as for the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-connect">IGraphBuilder::Connect</a> method. For more information, see <a href="https://docs.microsoft.com/windows/desktop/DirectShow/intelligent-connect">Intelligent Connect</a>.
+     * 
+     * During the connection process, the Filter Graph Manager ignores pins on intermediate filters if the pin name begins with a tilde (~). For more information, see [PIN_INFO](/windows/desktop/api/strmif/ns-strmif-pin_info).
      * @param {IPin} ppinOut Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ipin">IPin</a> interface on an output pin.
      * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include the following.
      * 
@@ -259,7 +267,7 @@ class IGraphBuilder extends IFilterGraph{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphbuilder-render
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-render
      */
     Render(ppinOut) {
         result := ComCall(12, this, "ptr", ppinOut, "HRESULT")
@@ -267,7 +275,13 @@ class IGraphBuilder extends IFilterGraph{
     }
 
     /**
-     * The RenderFile method builds a filter graph that renders the specified file.
+     * The RenderFile method builds a filter graph that renders the specified file. (IGraphBuilder.RenderFile)
+     * @remarks
+     * If the <i>lpwstrFile</i> parameter specifies a media file, the method builds a filter graph for default playback. First it adds a source filter that can read the file, using the same process as the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-addsourcefilter">IGraphBuilder::AddSourceFilter</a> method. Then it renders the output pins on the source filter, adding intermediate filters if necessary. It tries filters in the same order as the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-connect">IGraphBuilder::Connect</a> method.
+     * 
+     * During the connection process, the Filter Graph Manager ignores pins on intermediate filters if the pin name begins with a tilde (~). For more information, see [PIN_INFO](/windows/desktop/api/strmif/ns-strmif-pin_info).
+     * 
+     * Note that the <c>RenderFile</code> method does not remove any filters from the graph. If you call <code>RenderFile</c> twice, the second call simply adds more filters to the graph. When you run the graph, both sources will play at the same time.
      * @param {PWSTR} lpcwstrFile Specifies a wide-character string that contains the name of a media file.
      * @param {PWSTR} lpcwstrPlayList Reserved. Must be <b>NULL</b>.
      * @returns {HRESULT} Returns an <b>HRESULT</b>. Possible values include the following.
@@ -465,7 +479,7 @@ class IGraphBuilder extends IFilterGraph{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphbuilder-renderfile
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-renderfile
      */
     RenderFile(lpcwstrFile, lpcwstrPlayList) {
         lpcwstrFile := lpcwstrFile is String ? StrPtr(lpcwstrFile) : lpcwstrFile
@@ -477,10 +491,20 @@ class IGraphBuilder extends IFilterGraph{
 
     /**
      * The AddSourceFilter method adds a source filter for a specified file to the filter graph.
+     * @remarks
+     * This method searches for an installed filter that can read the specified file. If it finds one, the method adds it to the filter graph and returns a pointer to the filter's <b>IBaseFilter</b> interface. To determine the media type and compression scheme of the file, the Filter Graph Manager reads the first few bytes of the file, looking for specific patterns of bytes, as documented in the article <a href="https://docs.microsoft.com/windows/desktop/DirectShow/registering-a-custom-file-type">Registering a Custom File Type</a>.
+     * 
+     * The application is responsible for building the rest of the filter graph. To do so, call <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ibasefilter-enumpins">IBaseFilter::EnumPins</a> to enumerate the output pins on the source filter. Then use either the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-connect">IGraphBuilder::Connect</a> method or the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-render">IGraphBuilder::Render</a> method.
+     * 
+     * If the method succeeds, the <b>IBaseFilter</b> interface has an outstanding reference count. The caller must release the interface.
+     * 
+     * To render a file for default playback, use the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-igraphbuilder-renderfile">IGraphBuilder::RenderFile</a> method.
+     * 
+     * The Filter Graph Manager holds a reference count on the filter until the filter is removed from the graph or the Filter Graph Manager is released.
      * @param {PWSTR} lpcwstrFileName Specifies the name of the file to load.
      * @param {PWSTR} lpcwstrFilterName Specifies a name for the source filter.
      * @returns {IBaseFilter} Receives a pointer to the filter's <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-ibasefilter">IBaseFilter</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphbuilder-addsourcefilter
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-addsourcefilter
      */
     AddSourceFilter(lpcwstrFileName, lpcwstrFilterName) {
         lpcwstrFileName := lpcwstrFileName is String ? StrPtr(lpcwstrFileName) : lpcwstrFileName
@@ -492,9 +516,13 @@ class IGraphBuilder extends IFilterGraph{
 
     /**
      * The SetLogFile method sets the file for logging actions taken when attempting to perform an operation.
+     * @remarks
+     * This method is for use in debugging; it is intended to help you determine the cause of any failure to automatically build a filter graph.
+     * 
+     * The <i>hFile</i> parameter must be an open file handle. Your application is responsible for opening the file and for closing it when you are done logging. Before closing the file handle, call <c>SetLogFile</c> with a <b>NULL</b> file handle. This will ensure that the component does not attempt to use the file handle after you have closed it.
      * @param {Pointer} hFile Handle to the log file.
      * @returns {HRESULT} Returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphbuilder-setlogfile
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-setlogfile
      */
     SetLogFile(hFile) {
         result := ComCall(15, this, "ptr", hFile, "HRESULT")
@@ -504,7 +532,7 @@ class IGraphBuilder extends IFilterGraph{
     /**
      * The Abort method requests the Filter Graph Manager to halt its current task as quickly as possible.
      * @returns {HRESULT} Returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphbuilder-abort
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-abort
      */
     Abort() {
         result := ComCall(16, this, "HRESULT")
@@ -554,7 +582,7 @@ class IGraphBuilder extends IFilterGraph{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-igraphbuilder-shouldoperationcontinue
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-igraphbuilder-shouldoperationcontinue
      */
     ShouldOperationContinue() {
         result := ComCall(17, this, "HRESULT")

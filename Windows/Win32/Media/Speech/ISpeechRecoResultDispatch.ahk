@@ -111,11 +111,12 @@ class ISpeechRecoResultDispatch extends IDispatch{
     }
 
     /**
-     * 
+     * Defines the type that contains the list of recognition alternates for an ink word.
      * @param {Integer} RequestCount 
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @returns {ISpeechPhraseAlternates} 
+     * @see https://learn.microsoft.com/windows/win32/tablet/alternateslisttype-complex-type
      */
     Alternates(RequestCount, StartElement, Elements) {
         result := ComCall(12, this, "int", RequestCount, "int", StartElement, "int", Elements, "ptr*", &Alternates := 0, "HRESULT")
@@ -123,10 +124,11 @@ class ISpeechRecoResultDispatch extends IDispatch{
     }
 
     /**
-     * 
+     * The Audio Resampler performs one or both of the following actions on an audio stream.Change the sampling rate.Change the number of channels.
      * @param {Integer} StartElement 
      * @param {Integer} Elements 
      * @returns {ISpeechMemoryStream} 
+     * @see https://learn.microsoft.com/windows/win32/medfound/audioresampler
      */
     Audio(StartElement, Elements) {
         result := ComCall(13, this, "int", StartElement, "int", Elements, "ptr*", &Stream := 0, "HRESULT")

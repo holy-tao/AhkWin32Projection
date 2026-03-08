@@ -5,7 +5,7 @@
 
 /**
  * The IWMPacketSize2 interface provides methods to set and retrieve the minimum packet size for a profile.An IWMPacketSize2 interface can be obtained for either a profile object, a reader object, or a synchronous reader object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmpacketsize2
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmpacketsize2
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IWMPacketSize2 extends IWMPacketSize{
     /**
      * The GetMinPacketSize method retrieves the minimum packet size for files created with the profile. If you use this method from an interface belonging to a reader or synchronous reader object, the retrieved minimum packet size will always be zero.
      * @returns {Integer} Pointer to a <b>DWORD</b> that will receive the minimum packet size.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpacketsize2-getminpacketsize
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize2-getminpacketsize
      */
     GetMinPacketSize() {
         result := ComCall(5, this, "uint*", &pdwMinPacketSize := 0, "HRESULT")
@@ -42,9 +42,13 @@ class IWMPacketSize2 extends IWMPacketSize{
 
     /**
      * The SetMinPacketSize method sets the minimum packet size for files created with the profile. This method cannot be called from an interface belonging to a reader or synchronous reader object.
+     * @remarks
+     * This method is used to force the writer to create packet sizes that are larger than the default size. The writer object, by default, selects an optimal packet size based on the bit rate. At bit rates below 350 kbps, it is approximately 1440 bytes. Below 100 kbps, the default packet size is calculated to provide approximately 10 packets per second, or ((bit_rate / 8) / 10).
+     * 
+     * Although larger packets result in a smaller file, they can also make the file more difficult to stream over a network. Use this method with caution if you are creating files that will be streamed. It is recommended that the packet size never be set to a value greater than 8000 bytes, which is the default packet size above 350 kbps.
      * @param {Integer} dwMinPacketSize <b>DWORD</b> specifying the new minimum packet size for files created with the profile.
      * @returns {HRESULT} This method always returns S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmpacketsize2-setminpacketsize
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmpacketsize2-setminpacketsize
      */
     SetMinPacketSize(dwMinPacketSize) {
         result := ComCall(6, this, "uint", dwMinPacketSize, "HRESULT")

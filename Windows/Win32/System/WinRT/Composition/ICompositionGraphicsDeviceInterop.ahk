@@ -4,7 +4,9 @@
 #Include ..\..\Com\IUnknown.ahk
 
 /**
- * 
+ * A native interoperation interface that allows getting and setting the graphics device. This is interface is available in C++ only.
+ * @remarks
+ * See <a href="https://docs.microsoft.com/windows/desktop/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiondrawingsurfaceinterop">ICompositionDrawingSurfaceInterop</a> for usage examples.
  * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nn-windows-ui-composition-interop-icompositiongraphicsdeviceinterop
  * @namespace Windows.Win32.System.WinRT.Composition
  * @version v4.0.30319
@@ -31,8 +33,10 @@ class ICompositionGraphicsDeviceInterop extends IUnknown{
     static VTableNames => ["GetRenderingDevice", "SetRenderingDevice"]
 
     /**
+     * Gets the rendering device.
+     * @returns {IUnknown} Type: <b>IUnknown**</b>
      * 
-     * @returns {IUnknown} 
+     * The retrieved rendering device.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiongraphicsdeviceinterop-getrenderingdevice
      */
     GetRenderingDevice() {
@@ -41,9 +45,13 @@ class ICompositionGraphicsDeviceInterop extends IUnknown{
     }
 
     /**
+     * Sets the rendering device.
+     * @param {IUnknown} value Type: <b>IUnknown*</b>
      * 
-     * @param {IUnknown} value 
-     * @returns {HRESULT} 
+     * The new rendering device.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * If this method succeeds, it returns S_OK. Otherwise, it returns an HRESULT error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.ui.composition.interop/nf-windows-ui-composition-interop-icompositiongraphicsdeviceinterop-setrenderingdevice
      */
     SetRenderingDevice(value) {

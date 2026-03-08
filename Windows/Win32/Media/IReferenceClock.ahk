@@ -4,8 +4,15 @@
 #Include ..\System\Com\IUnknown.ahk
 
 /**
- * The IReferenceClock interface provides the reference time for the filter graph.Filters that can act as a reference clock can expose this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ireferenceclock
+ * The IReferenceClock interface provides access to an external clock. This interface is provided to enable all rendering routines to be synchronized to the same clock.This interface can be obtained from a reader object.
+ * @remarks
+ * The **IReferenceClock** interface inherits from the [**IUnknown**](/windows/desktop/api/unknwn/nn-unknwn-iunknown) interface. **IReferenceClock** also has these types of members:
+ * 
+ * -   [Methods](#methods)
+ * 
+ * 
+ * For information on other interfaces that can be obtained by using the QueryInterface method of this interface, see Reader Object.
+ * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock
  * @namespace Windows.Win32.Media
  * @version v4.0.30319
  */
@@ -33,7 +40,7 @@ class IReferenceClock extends IUnknown{
     /**
      * The GetTime method retrieves the current reference time.
      * @returns {Integer} Pointer to a variable that receives the current time, in 100-nanosecond units.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclock-gettime
+     * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-gettime
      */
     GetTime() {
         result := ComCall(3, this, "int64*", &pTime := 0, "HRESULT")
@@ -41,12 +48,12 @@ class IReferenceClock extends IUnknown{
     }
 
     /**
-     * The AdviseTime method creates a one-shot advise request.
-     * @param {Integer} baseTime Base reference time, in 100-nanosecond units. See Remarks.
-     * @param {Integer} streamTime Stream offset time, in 100-nanosecond units. See Remarks.
-     * @param {HANDLE} hEvent Handle to an event, created by the caller.
-     * @returns {Pointer} Pointer to a variable that receives an identifier for the advise request.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclock-advisetime
+     * The AdviseTime method requests an asynchronous notification that a time has elapsed.
+     * @param {Integer} baseTime 
+     * @param {Integer} streamTime 
+     * @param {HANDLE} hEvent Handle to an event, created by the caller. This event will be signaled when the time specified elapses.
+     * @returns {Pointer} Pointer to a variable that receives an identifier for the request. This is used to identify this call to **AdviseTime** in the future for example, to cancel the request.
+     * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-advisetime
      */
     AdviseTime(baseTime, streamTime, hEvent) {
         hEvent := hEvent is Win32Handle ? NumGet(hEvent, "ptr") : hEvent
@@ -56,12 +63,12 @@ class IReferenceClock extends IUnknown{
     }
 
     /**
-     * The AdvisePeriodic method creates a periodic advise request.
-     * @param {Integer} startTime Time of the first notification, in 100-nanosecond units. Must be greater than zero and less than MAX_TIME.
-     * @param {Integer} periodTime Time between notifications, in 100-nanosecond units. Must be greater than zero.
-     * @param {HANDLE} hSemaphore Handle to a semaphore, created by the caller.
-     * @returns {Pointer} Pointer to a variable that receives an identifier for the advise request.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclock-adviseperiodic
+     * This method is not implemented.
+     * @param {Integer} startTime 
+     * @param {Integer} periodTime 
+     * @param {HANDLE} hSemaphore 
+     * @returns {Pointer} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-adviseperiodic
      */
     AdvisePeriodic(startTime, periodTime, hSemaphore) {
         hSemaphore := hSemaphore is Win32Handle ? NumGet(hSemaphore, "ptr") : hSemaphore
@@ -71,39 +78,17 @@ class IReferenceClock extends IUnknown{
     }
 
     /**
-     * The Unadvise method removes a pending advise request.
-     * @param {Pointer} dwAdviseCookie Identifier of the request to remove. Use the value returned by <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ireferenceclock-advisetime">IReferenceClock::AdviseTime</a> or <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-ireferenceclock-adviseperiodic">IReferenceClock::AdvisePeriodic</a> in the <i>pdwAdviseToken</i> parameter.
-     * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
+     * The Unadvise method cancels a notification request.
+     * @param {Pointer} dwAdviseCookie Identifier of the request to remove. Use the value returned by AdviseTime in the pdwAdviseCookie parameter.
+     * @returns {HRESULT} The method returns an **HRESULT**. Possible values include, but are not limited to, those in the following table.
      * 
-     * <table>
-     * <tr>
-     * <th>Return code</th>
-     * <th>Description</th>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_FALSE</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Not found.
      * 
-     * </td>
-     * </tr>
-     * <tr>
-     * <td width="40%">
-     * <dl>
-     * <dt><b>S_OK</b></dt>
-     * </dl>
-     * </td>
-     * <td width="60%">
-     * Success.
      * 
-     * </td>
-     * </tr>
-     * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ireferenceclock-unadvise
+     * | Return code                                                                             | Description                                         |
+     * |-----------------------------------------------------------------------------------------|-----------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> </dl>    | The method succeeded.<br/>                    |
+     * | <dl> <dt>**S\_FALSE**</dt> </dl> | The identifier passed in does not exist.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/wmformat/ireferenceclock-unadvise
      */
     Unadvise(dwAdviseCookie) {
         result := ComCall(6, this, "ptr", dwAdviseCookie, "HRESULT")

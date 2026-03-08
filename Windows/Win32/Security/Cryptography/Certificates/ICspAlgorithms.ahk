@@ -8,7 +8,7 @@
 
 /**
  * The ICspAlgorithms interface defines the following methods and properties that manage a collection of ICspAlgorithm objects.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icspalgorithms
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspalgorithms
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -51,7 +51,7 @@ class ICspAlgorithms extends IDispatch{
      * Retrieves an ICspAlgorithm object from the collection by index number.
      * @param {Integer} Index 
      * @returns {ICspAlgorithm} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-get_itembyindex
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_itembyindex
      */
     get_ItemByIndex(Index) {
         result := ComCall(7, this, "int", Index, "ptr*", &pVal := 0, "HRESULT")
@@ -61,7 +61,7 @@ class ICspAlgorithms extends IDispatch{
     /**
      * Retrieves the number of ICspAlgorithm objects in the collection.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_count
      */
     get_Count() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -69,9 +69,9 @@ class ICspAlgorithms extends IDispatch{
     }
 
     /**
-     * Retrieves the enumerator for the collection.
+     * Retrieves the enumerator for the collection. (ICspAlgorithms.get__NewEnum)
      * @returns {IUnknown} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get__newenum
      */
     get__NewEnum() {
         result := ComCall(9, this, "ptr*", &pVal := 0, "HRESULT")
@@ -83,8 +83,8 @@ class ICspAlgorithms extends IDispatch{
      * @param {ICspAlgorithm} pVal Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509namevaluepair">ICspAlgorithm</a> interface to add.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-add
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-add
      */
     Add(pVal) {
         result := ComCall(10, this, "ptr", pVal, "HRESULT")
@@ -96,8 +96,8 @@ class ICspAlgorithms extends IDispatch{
      * @param {Integer} Index A <b>LONG</b> variable that contains the index of the object to remove.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-remove
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-remove
      */
     Remove(Index) {
         result := ComCall(11, this, "int", Index, "HRESULT")
@@ -108,8 +108,8 @@ class ICspAlgorithms extends IDispatch{
      * Removes all ICspAlgorithm objects from the collection.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-clear
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-clear
      */
     Clear() {
         result := ComCall(12, this, "HRESULT")
@@ -120,7 +120,7 @@ class ICspAlgorithms extends IDispatch{
      * Retrieves an ICspAlgorithm object from the collection by name.
      * @param {BSTR} strName 
      * @returns {ICspAlgorithm} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-get_itembyname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_itembyname
      */
     get_ItemByName(strName) {
         strName := strName is String ? BSTR.Alloc(strName).Value : strName
@@ -133,7 +133,7 @@ class ICspAlgorithms extends IDispatch{
      * Retrieves the index of an ICspAlgorithm object by object identifier (OID).
      * @param {IObjectId} pObjectId 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspalgorithms-get_indexbyobjectid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspalgorithms-get_indexbyobjectid
      */
     get_IndexByObjectId(pObjectId) {
         result := ComCall(14, this, "ptr", pObjectId, "int*", &pIndex := 0, "HRESULT")

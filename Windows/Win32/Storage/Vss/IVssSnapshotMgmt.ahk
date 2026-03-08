@@ -8,13 +8,9 @@
 /**
  * Provides a method that returns an interface to further configure a shadow copy provider.
  * @remarks
- * 
  * The <b>IVssSnapshotMgmt</b> interface can be invoked 
  *     remotely using DCOM. The caller must be a member of the local administrators group on the remote machine.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nn-vsmgmt-ivsssnapshotmgmt
+ * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nn-vsmgmt-ivsssnapshotmgmt
  * @namespace Windows.Win32.Storage.Vss
  * @version v4.0.30319
  */
@@ -52,7 +48,7 @@ class IVssSnapshotMgmt extends IUnknown{
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vsmgmt/nn-vsmgmt-ivssdifferentialsoftwaresnapshotmgmt">IVssDifferentialSoftwareSnapshotMgmt</a> 
      *       interface.
      * @returns {IUnknown} Address of an interface pointer that is filled in with the returned interface pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-getprovidermgmtinterface
+     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-getprovidermgmtinterface
      */
     GetProviderMgmtInterface(ProviderId, InterfaceId) {
         result := ComCall(3, this, "ptr", ProviderId, "ptr", InterfaceId, "ptr*", &ppItf := 0, "HRESULT")
@@ -60,11 +56,11 @@ class IVssSnapshotMgmt extends IUnknown{
     }
 
     /**
-     * Reserved for system use.
+     * Reserved for system use. (IVssSnapshotMgmt.QueryVolumesSupportedForSnapshots)
      * @param {Guid} ProviderId Reserved for system use. Do not use.
      * @param {Integer} lContext Reserved for system use. Do not use.
      * @returns {IVssEnumMgmtObject} Reserved for system use. Do not use.
-     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-queryvolumessupportedforsnapshots
+     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-queryvolumessupportedforsnapshots
      */
     QueryVolumesSupportedForSnapshots(ProviderId, lContext) {
         result := ComCall(4, this, "ptr", ProviderId, "int", lContext, "ptr*", &ppEnum := 0, "HRESULT")
@@ -72,11 +68,11 @@ class IVssSnapshotMgmt extends IUnknown{
     }
 
     /**
-     * Reserved for system use.
+     * Reserved for system use. (IVssSnapshotMgmt.QuerySnapshotsByVolume)
      * @param {Pointer<Integer>} pwszVolumeName Reserved for system use. Do not use.
      * @param {Guid} ProviderId Reserved for system use. Do not use.
      * @returns {IVssEnumObject} Reserved for system use. Do not use.
-     * @see https://docs.microsoft.com/windows/win32/api//vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-querysnapshotsbyvolume
+     * @see https://learn.microsoft.com/windows/win32/api/vsmgmt/nf-vsmgmt-ivsssnapshotmgmt-querysnapshotsbyvolume
      */
     QuerySnapshotsByVolume(pwszVolumeName, ProviderId) {
         pwszVolumeNameMarshal := pwszVolumeName is VarRef ? "ushort*" : "ptr"

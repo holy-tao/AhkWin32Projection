@@ -5,7 +5,7 @@
 
 /**
  * Provides methods to finalize updates that were previously staged or installed.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateinstaller4
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstaller4
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -32,11 +32,19 @@ class IUpdateInstaller4 extends IUpdateInstaller3{
 
     /**
      * Finalizes updates that were previously staged or installed.
+     * @remarks
+     * The **Commit** API was made public in the 1809 SDK. Any app compiled with the wuapi.h header can use the **Commit** method on previous versions of Windows 10 as well.
+     * 
+     * **Commit** should only be called once. This call should happen just prior to commencing a reboot. Calling it multiple times prior to a reboot is not supported and may cause the update to fail.
+     * 
+     * Calling **Commit** is required prior to rebooting when a feature update is pending reboot. If **Commit** is not called in this circumstance the update won’t be finalized and installed during the reboot.
+     * 
+     * **Commit** is safe to call prior to reboot for any other types of updates as well.
      * @param {Integer} dwFlags Reserved for future use.
      * @returns {HRESULT} Returns <b>S_OK</b> if successful. Otherwise, returns a COM or Windows 
      * 
      * error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller4-commit
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller4-commit
      */
     Commit(dwFlags) {
         result := ComCall(32, this, "uint", dwFlags, "HRESULT")

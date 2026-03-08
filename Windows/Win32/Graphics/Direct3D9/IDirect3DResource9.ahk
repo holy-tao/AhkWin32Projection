@@ -5,9 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Applications use the methods of the IDirect3DResource9 interface to query and prepare resources.
+ * The IDirect3DResource9 (d3d9.h) interface is used by applications to query and prepare resources.
  * @remarks
- * 
  * To create a texture resource, you can call one of the following methods.
  * 
  * <ul>
@@ -44,9 +43,7 @@
  *     typedef struct IDirect3DResource9 *LPDIRECT3DRESOURCE9, *PDIRECT3DRESOURCE9;
  * 
  * ```
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nn-d3d9helper-idirect3dresource9
+ * @see https://learn.microsoft.com/windows/win32/api/d3d9/nn-d3d9-idirect3dresource9
  * @namespace Windows.Win32.Graphics.Direct3D9
  * @version v4.0.30319
  */
@@ -72,11 +69,15 @@ class IDirect3DResource9 extends IUnknown{
     static VTableNames => ["GetDevice", "SetPrivateData", "GetPrivateData", "FreePrivateData", "SetPriority", "GetPriority", "PreLoad", "GetType"]
 
     /**
-     * Retrieves the device associated with a resource.
+     * The IDirect3DResource9::GetDevice (d3d9.h) method retrieves the device associated with a resource.
+     * @remarks
+     * This method allows navigation to the owning device object.
+     * 
+     * Calling this method will increase the internal reference count on the <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface. Failure to call <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> when finished using this <b>IDirect3DDevice9</b> interface results in a memory leak.
      * @returns {IDirect3DDevice9} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a>**</b>
      * 
      * Address of a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3ddevice9">IDirect3DDevice9</a> interface to fill with the device pointer, if the query succeeds.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-getdevice
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-getdevice
      */
     GetDevice() {
         result := ComCall(3, this, "ptr*", &ppDevice := 0, "HRESULT")
@@ -84,7 +85,9 @@ class IDirect3DResource9 extends IUnknown{
     }
 
     /**
-     * Associates data with the resource that is intended for use by the application, not by Direct3D. Data is passed by value, and multiple sets of data can be associated with a single resource.
+     * The IDirect3DResource9::SetPrivateData (d3d9.h) method associates data with the resource that is intended for use by the application, not by Direct3D.
+     * @remarks
+     * Direct3D does not manage the memory at pData. If this buffer was dynamically allocated, it is the calling application's responsibility to free the memory.
      * @param {Pointer<Guid>} refguid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Reference to the globally unique identifier that identifies the private data to set.
@@ -127,10 +130,10 @@ class IDirect3DResource9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_INVALIDCALL, E_OUTOFMEMORY.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-setprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-setprivatedata
      */
     SetPrivateData(refguid, pData, SizeOfData, Flags) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
@@ -140,7 +143,23 @@ class IDirect3DResource9 extends IUnknown{
     }
 
     /**
-     * Copies the private data associated with the resource to a provided buffer.
+     * The IDirect3DResource9::GetPrivateData (d3d9.h) method copies the private data associated with the resource to a provided buffer.
+     * @remarks
+     * This method is inherited by the following interfaces: 
+     *     
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dresource9">IDirect3DResource9</a>, 
+     *     
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dbasetexture9">IDirect3DBaseTexture9</a>,
+     *     
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dcubetexture9">IDirect3DCubeTexture9</a>, 
+     *     
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dtexture9">IDirect3DTexture9</a>, 
+     *     
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dvolumetexture9">IDirect3DVolumeTexture9</a>,
+     *     
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dindexbuffer9">IDirect3DIndexBuffer9</a>, 
+     *   
+     * <a href="https://docs.microsoft.com/windows/desktop/api/d3d9helper/nn-d3d9helper-idirect3dvertexbuffer9">IDirect3DVertexBuffer9</a>.
      * @param {Pointer<Guid>} refguid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * The globally unique identifier that identifies the private data to retrieve.
@@ -150,10 +169,10 @@ class IDirect3DResource9 extends IUnknown{
      * @param {Pointer<Integer>} pSizeOfData Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a>*</b>
      * 
      * Pointer to the size of the buffer at pData, in bytes. If this value is less than the actual size of the private data (such as 0), the method sets this parameter to the required buffer size and the method returns D3DERR_MOREDATA.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_INVALIDCALL, D3DERR_MOREDATA, D3DERR_NOTFOUND.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-getprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-getprivatedata
      */
     GetPrivateData(refguid, pData, pSizeOfData) {
         pDataMarshal := pData is VarRef ? "ptr" : "ptr"
@@ -164,14 +183,16 @@ class IDirect3DResource9 extends IUnknown{
     }
 
     /**
-     * Frees the specified private data associated with this resource.
+     * The IDirect3DResource9::FreePrivateData (d3d9.h) method frees the specified private data associated with this resource.
+     * @remarks
+     * Direct3D calls this method automatically when a resource is released.
      * @param {Pointer<Guid>} refguid Type: <b><a href="https://docs.microsoft.com/openspecs/windows_protocols/ms-oaut/6e7d7108-c213-40bc-8294-ac13fe68fd50">REFGUID</a></b>
      * 
      * Reference to the globally unique identifier that identifies the private data to free.
-     * @returns {HRESULT} Type: <b><a href="/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/win32/com/structure-of-com-error-codes">HRESULT</a></b>
      * 
      * If the method succeeds, the return value is D3D_OK. If the method fails, the return value can be one of the following: D3DERR_INVALIDCALL, D3DERR_NOTFOUND.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-freeprivatedata
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-freeprivatedata
      */
     FreePrivateData(refguid) {
         result := ComCall(6, this, "ptr", refguid, "HRESULT")
@@ -179,7 +200,13 @@ class IDirect3DResource9 extends IUnknown{
     }
 
     /**
-     * Assigns the priority of a resource for scheduling purposes.
+     * The IDirect3DResource9::SetPriority (d3d9.h) method assigns the priority of a resource for scheduling purposes.
+     * @remarks
+     * This method is used to change the priority of managed resources (resources created with the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpool">D3DPOOL_MANAGED</a> flag). This method returns 0 on non-managed resources.
+     * 
+     * Priorities are used to determine when managed resources are to be removed from memory. A resource assigned a low priority is removed before a resource with a high priority. If two resources have the same priority, the resource that was used more recently is kept in memory; the other resource is removed. Managed resources have a default priority of 0.
+     * 
+     * Windows Vista only - When this method is called using an <a href="https://docs.microsoft.com/windows/desktop/api/d3d9/nn-d3d9-idirect3d9ex">IDirect3D9Ex</a> interface, only resources created with the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dpool">D3DPOOL_DEFAULT</a> flag will be affected.
      * @param {Integer} PriorityNew Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Priority to assign to a resource.
@@ -196,10 +223,10 @@ class IDirect3DResource9 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Returns the previous priority value for the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-setpriority
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-setpriority
      */
     SetPriority(PriorityNew) {
         result := ComCall(7, this, "uint", PriorityNew, "uint")
@@ -207,11 +234,15 @@ class IDirect3DResource9 extends IUnknown{
     }
 
     /**
-     * Retrieves the priority for this resource.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
+     * The IDirect3DResource9::GetPriority (d3d9.h) method retrieves the priority for this resource.
+     * @remarks
+     * <b>IDirect3DResource9::GetPriority</b> is used for priority control of managed resources. This method returns 0 on nonmanaged resources.
+     * 
+     * Priorities are used to determine when managed resources are to be removed from memory. A resource assigned a low priority is removed before a resource with a high priority. If two resources have the same priority, the resource that was used more recently is kept in memory; the other resource is removed. Managed resources have a default priority of 0.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">DWORD</a></b>
      * 
      * Returns a DWORD value, indicating the priority of the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-getpriority
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-getpriority
      */
     GetPriority() {
         result := ComCall(8, this, "uint")
@@ -219,27 +250,24 @@ class IDirect3DResource9 extends IUnknown{
     }
 
     /**
-     * Preloads a managed resource.
+     * The IDirect3DResource9::PreLoad (d3d9.h) method preloads a managed resource.
      * @remarks
-     * 
      * Calling this method indicates that the application will need this managed resource shortly. This method has no effect on nonmanaged resources.
      * 
      * <b>IDirect3DResource9::PreLoad</b> detects "thrashing" conditions where more resources are being used in each frame than can fit in video memory simultaneously. Under such circumstances <b>IDirect3DResource9::PreLoad</b> silently does nothing.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-preload
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-preload
      */
     PreLoad() {
         ComCall(9, this)
     }
 
     /**
-     * Returns the type of the resource.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/direct3d9/d3dresourcetype">D3DRESOURCETYPE</a></b>
+     * The IDirect3DResource9::GetType (d3d9.h) method returns the type of the resource.
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dresourcetype">D3DRESOURCETYPE</a></b>
      * 
-     * Returns a member of the <a href="/windows/desktop/direct3d9/d3dresourcetype">D3DRESOURCETYPE</a> enumerated type, identifying the type of the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//d3d9helper/nf-d3d9helper-idirect3dresource9-gettype
+     * Returns a member of the <a href="https://docs.microsoft.com/windows/desktop/direct3d9/d3dresourcetype">D3DRESOURCETYPE</a> enumerated type, identifying the type of the resource.
+     * @see https://learn.microsoft.com/windows/win32/api/d3d9/nf-d3d9-idirect3dresource9-gettype
      */
     GetType() {
         result := ComCall(10, this, "int")

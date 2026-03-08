@@ -7,11 +7,8 @@
 /**
  * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_IPSinkInfo)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_ipsinkinfo
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_ipsinkinfo
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -52,9 +49,11 @@ class IBDA_IPSinkInfo extends IUnknown{
 
     /**
      * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @remarks
+     * The method allocates the memory for the array. The caller must free the memory by calling <b>CoTaskMemFree</b>.
      * @param {Pointer<Integer>} pulcbAddresses Receives the number of bytes in the returned array.
      * @returns {Pointer<Integer>} Pointer to variable that receives an array of bytes, of size *<i>pulcbAddresses</i>. Each IP address is 6 consecutive bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_multicastlist
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_multicastlist
      */
     get_MulticastList(pulcbAddresses) {
         pulcbAddressesMarshal := pulcbAddresses is VarRef ? "uint*" : "ptr"
@@ -65,8 +64,10 @@ class IBDA_IPSinkInfo extends IUnknown{
 
     /**
      * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @remarks
+     * The caller must free the returned string, using the <b>SysFreeString</b> method.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the IP address. The returned string has the form <c>N.N.N.N</code>; for example, <code>3.0.0.0</c>.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapteripaddress
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapteripaddress
      */
     get_AdapterIPAddress() {
         pbstrBuffer := BSTR()
@@ -76,8 +77,10 @@ class IBDA_IPSinkInfo extends IUnknown{
 
     /**
      * This interface is available for use in the Microsoft Windows 2000, Windows XP, and Windows Server 2003 operating systems. It may be altered or unavailable in subsequent versions.
+     * @remarks
+     * The caller must free the returned string, using the <b>SysFreeString</b> method.
      * @returns {BSTR} Pointer to a <b>BSTR</b> that receives the description.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapterdescription
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_ipsinkinfo-get_adapterdescription
      */
     get_AdapterDescription() {
         pbstrBuffer := BSTR()

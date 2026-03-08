@@ -6,7 +6,7 @@
 
 /**
  * The IWMPSyncDevice interface represents a device to which Windows Media Player 10 or later can copy digital media files.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpsyncdevice
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpsyncdevice
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -82,6 +82,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_friendlyName method retrieves the user-defined name of the device.
+     * @remarks
+     * The friendly name is the device name that appears in the Windows Media Player user interface.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> that contains the friendly name.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -113,7 +117,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_friendlyname
      */
     get_friendlyName(pbstrName) {
         result := ComCall(3, this, "ptr", pbstrName, "HRESULT")
@@ -122,6 +126,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The put_friendlyName method specifies the user-defined name of the device.
+     * @remarks
+     * The friendly name is the string that is displayed in the Windows Media Player user interface to identify the device. For devices that support storing the friendly name on the device, this method also changes the friendly name on the device.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {BSTR} bstrName String containing the friendly name.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -153,7 +161,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-put_friendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-put_friendlyname
      */
     put_friendlyName(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -164,6 +172,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_deviceName method retrieves the name of the device.
+     * @remarks
+     * This method retrieves the device name that appears in the Windows XP user interface.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<BSTR>} pbstrName Pointer to a <b>BSTR</b> that contains the name of the device.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -195,7 +207,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_devicename
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_devicename
      */
     get_deviceName(pbstrName) {
         result := ComCall(5, this, "ptr", pbstrName, "HRESULT")
@@ -204,6 +216,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_deviceId method retrieves the device identifier string.
+     * @remarks
+     * The device identifier is the serial number for the device. This value is not guaranteed to be unique for mass storage devices. However, it is unlikely that a particular user will encounter duplicate serial numbers.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<BSTR>} pbstrDeviceId Address of a <b>BSTR</b> variable that receives a string containing the device identifier.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -235,7 +251,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_deviceid
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_deviceid
      */
     get_deviceId(pbstrDeviceId) {
         result := ComCall(6, this, "ptr", pbstrDeviceId, "HRESULT")
@@ -244,6 +260,12 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_partnershipIndex method retrieves the index of the device partnership.
+     * @remarks
+     * Windows Media Player 10 or later supports up to 16 device partnerships, numbered 1 to 16. The Player allows one partnership with one computer for each device. Creating a new partnership destroys any existing partnership with the current device.
+     * 
+     * When <i>plIndex</i> equals zero, no partnership exists.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} plIndex Pointer to a <b>long</b> that contains the partnership index value. Possible values range from 0 to 16.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -275,7 +297,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_partnershipindex
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_partnershipindex
      */
     get_partnershipIndex(plIndex) {
         plIndexMarshal := plIndex is VarRef ? "int*" : "ptr"
@@ -286,6 +308,8 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_connected method retrieves a value indicating whether the device is connected to Windows Media Player.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<VARIANT_BOOL>} pvbConnected <b>VARIANT_BOOL</b> indicating whether the device is connected. The following table describes the possible values.
      * 
      * <table>
@@ -334,7 +358,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_connected
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_connected
      */
     get_connected(pvbConnected) {
         pvbConnectedMarshal := pvbConnected is VarRef ? "short*" : "ptr"
@@ -345,6 +369,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_status method retrieves a value that indicates the status of the relationship between Windows Media Player and the device.
+     * @remarks
+     * Windows Media Player 10 or later supports up to 16 device partnerships. The Player allows one partnership with one computer for each device. Creating a new partnership destroys any existing partnership with the current device.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} pwmpds Pointer to a <b>WMPDeviceStatus</b> enumeration value indicating the current status.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -376,7 +404,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_status
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_status
      */
     get_status(pwmpds) {
         pwmpdsMarshal := pwmpds is VarRef ? "int*" : "ptr"
@@ -387,6 +415,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_syncState method retrieves a value that indicates the current synchronization state for the device.
+     * @remarks
+     * Devices that have the status <b>wmpdsManualDevice</b> always return wmpssUnknown.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} pwmpss Pointer to a <b>WMPSyncState</b> enumeration value indicating the current synchronization state for the device.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -418,7 +450,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_syncstate
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_syncstate
      */
     get_syncState(pwmpss) {
         pwmpssMarshal := pwmpss is VarRef ? "int*" : "ptr"
@@ -429,6 +461,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The get_progress method retrieves a value that indicates the synchronization progress as percent complete.
+     * @remarks
+     * The <b>plProgress</b> value indicates the percent complete for the entire synchronization operation for the device.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {Pointer<Integer>} plProgress Pointer to a <b>long</b> that indicates the progress as percent complete. Possible values are 0 to 100.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -460,7 +496,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-get_progress
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-get_progress
      */
     get_progress(plProgress) {
         plProgressMarshal := plProgress is VarRef ? "int*" : "ptr"
@@ -471,6 +507,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The getItemInfo method retrieves a metadata value from the device.
+     * @remarks
+     * This method cannot retrieve metadata values for devices having the status <b>wmpdsManualDevice</b>.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {BSTR} bstrItemName <b>BSTR</b> containing the metadata item name. The following table lists the supported item names and describes the value that each retrieves.
      * 
      * <table>
@@ -706,7 +746,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-getiteminfo
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-getiteminfo
      */
     getItemInfo(bstrItemName, pbstrVal) {
         bstrItemName := bstrItemName is String ? BSTR.Alloc(bstrItemName).Value : bstrItemName
@@ -717,6 +757,14 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The createPartnership method creates a partnership between Windows Media Player and the device.
+     * @remarks
+     * This method starts the asynchronous process of creating a partnership. To get the result, you must handle the <b>CreatePartnershipComplete</b> event. If the partnership exists already, this method returns S_OK and no event occurs.
+     * 
+     * Windows Media Player 10 or later supports up to 16 device partnerships. The Player allows one partnership with one computer for each device. This means that creating a new partnership destroys any existing partnership with the current device.
+     * 
+     * Windows Media Player cannot create a partnership with a device having the status wmpdsManualDevice.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {VARIANT_BOOL} vbShowUI <b>VARIANT_BOOL</b> that specifies whether Windows Media Player displays the <b>Device Setup</b> dialog box. The following table describes the behavior for each possible value.
      * 
      * <table>
@@ -802,7 +850,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-createpartnership
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-createpartnership
      */
     createPartnership(vbShowUI) {
         result := ComCall(13, this, "short", vbShowUI, "HRESULT")
@@ -811,6 +859,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The deletePartnership method terminates the partnership between Windows Media Player and the device.
+     * @remarks
+     * When the partnership is deleted, the device status is set to <b>wmpdsPartnershipDeclined</b>. If no partnership exists, this method simply returns S_OK.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -874,7 +926,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-deletepartnership
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-deletepartnership
      */
     deletePartnership() {
         result := ComCall(14, this, "HRESULT")
@@ -883,6 +935,12 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The start method begins synchronization.
+     * @remarks
+     * Synchronization rules for a particular device are defined by the user in Windows Media Player. This method only starts the synchronization process.
+     * 
+     * Synchronization should not be confused with transferring, which is a manual operation in Windows Media Player. The Windows Media Player SDK does not provide methods for transferring digital media to a device.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -913,7 +971,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-start
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-start
      */
     start() {
         result := ComCall(15, this, "HRESULT")
@@ -922,6 +980,8 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The stop method ends synchronization.
+     * @remarks
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -952,7 +1012,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-stop
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-stop
      */
     stop() {
         result := ComCall(16, this, "HRESULT")
@@ -961,6 +1021,14 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The showSettings method displays the Windows Media Player synchronization settings dialog box.
+     * @remarks
+     * The remoted instance of Windows Media Player undocks, if necessary, and shows the device settings dialog box. If the Player was in skin mode, it returns to full mode. If the Player is locked in skin mode by corporate policy, the call fails.
+     * 
+     * When the user closes the dialog box, Windows Media Player returns to its original docking state.
+     * 
+     * Note that the events for docking and undocking Windows Media Player will occur normally.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -1024,7 +1092,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-showsettings
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-showsettings
      */
     showSettings() {
         result := ComCall(17, this, "HRESULT")
@@ -1033,6 +1101,10 @@ class IWMPSyncDevice extends IUnknown{
 
     /**
      * The isIdentical method compares the current device to the specified device and retrieves a value indicating whether they are the same device.
+     * @remarks
+     * This method is useful in event handlers that provide an <b>IWMPSyncDevice</b> pointer as a parameter.
+     * 
+     * <b>Windows Media Player 10 Mobile: </b>This method is not supported.
      * @param {IWMPSyncDevice} pDevice Pointer to an <b>IWMPSyncDevice</b> interface that represents the device to which to compare the current device.
      * @param {Pointer<VARIANT_BOOL>} pvbool Pointer to a <b>VARIANT_BOOL</b> that indicates the result of the comparison.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
@@ -1065,7 +1137,7 @@ class IWMPSyncDevice extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpsyncdevice-isidentical
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpsyncdevice-isidentical
      */
     isIdentical(pDevice, pvbool) {
         pvboolMarshal := pvbool is VarRef ? "short*" : "ptr"

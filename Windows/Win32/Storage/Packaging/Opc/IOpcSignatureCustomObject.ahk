@@ -6,7 +6,6 @@
 /**
  * Represents an application-specific Object element that has been or will be signed.
  * @remarks
- * 
  * An <b>IOpcSignatureCustomObject</b> interface pointer provides access to the XML markup of the <b>Object</b> element it represents. To access the XML markup of the  <b>Object</b> element, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturecustomobject-getxml">IOpcSignatureCustomObject::GetXml</a> method.
  * 
  * Serialized application-specific <b>Object</b> elements in signature markup can be added, removed, or modified by replacing the signature markup.
@@ -22,10 +21,7 @@
  * When a signature is generated, the markup of application-specific <b>Object</b> element is included in the signature markup.
  * 
  * Application-specific <b>Object</b> elements are not required for package signatures.
- * 
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//msopc/nn-msopc-iopcsignaturecustomobject
+ * @see https://learn.microsoft.com/windows/win32/api/msopc/nn-msopc-iopcsignaturecustomobject
  * @namespace Windows.Win32.Storage.Packaging.Opc
  * @version v4.0.30319
  */
@@ -52,6 +48,56 @@ class IOpcSignatureCustomObject extends IUnknown{
 
     /**
      * Gets the XML markup of an application-specific Object element.
+     * @remarks
+     * This method allocates memory used by the buffer returned in <i>xmlMarkup</i>.  If the method succeeds, call the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to free the memory.
+     * 
+     * Serialized application-specific <b>Object</b> elements in signature markup can be added, removed, or modified by replacing the signature markup.
+     * 
+     * To replace signature markup, call the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcdigitalsignaturemanager-replacesignaturexml">IOpcDigitalSignatureManager::ReplaceSignatureXml</a> method. The caller must ensure that addition, deletion, or modification of application-specific <b>Object</b> elements does not break the signature.
+     * 
+     * To sign an application-specific  <b>Object</b> element or a child of that element, create a reference to the XML element to be signed. Create the reference by calling the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/msopc/nf-msopc-iopcsignaturereferenceset-create">IOpcSignatureReferenceSet::Create</a> method with the <i>referenceUri</i> parameter value set to "#" followed by the <b>Id</b> attribute value  of the referenced element. For example, if the <b>Id</b> attribute of the referenced element is "Application",  set <i>referenceUri</i> to "#Application".
+     * 
+     * The following table shows a <a href="https://docs.microsoft.com/previous-versions/ms776429(v=vs.85)">byte order mark</a> at the beginning of an <i>xmlMarkup</i> buffer that contains "&lt;Object Id="id1"&gt;&lt;/Object&gt;":
+     * 		
+     * 
+     * <table>
+     * <tr>
+     * <th>Buffer Byte Index</th>
+     * <td>0</td>
+     * <td>1</td>
+     * <td>2</td>
+     * <td>3</td>
+     * <td>4</td>
+     * <td>5</td>
+     * <td>6</td>
+     * <td>7</td>
+     * <td>...</td>
+     * </tr>
+     * <tr>
+     * <th>UTF8 Value</th>
+     * <td>EF</td>
+     * <td>BB</td>
+     * <td>BF</td>
+     * <td>'&lt;'</td>
+     * <td>'O'</td>
+     * <td>'b'</td>
+     * <td>'j'</td>
+     * <td>'e'</td>
+     * <td>...</td>
+     * </tr>
+     * <tr>
+     * <th>UTF16LE Value</th>
+     * <td>FF</td>
+     * <td>FE</td>
+     * <td>'&lt;'</td>
+     * <td>00</td>
+     * <td>'O'</td>
+     * <td>00</td>
+     * <td>'b'</td>
+     * <td>00</td>
+     * <td>...</td>
+     * </tr>
+     * </table>
      * @param {Pointer<Pointer<Integer>>} xmlMarkup A pointer to a buffer that contains the XML markup of an <b>Object</b> element and includes the opening and closing <b>Object</b> tags.
      * 
      * In the buffer, XML markup is preceded by a <a href="https://docs.microsoft.com/previous-versions/ms776429(v=vs.85)">byte order mark</a> that corresponds to the encoding of the markup.
@@ -114,7 +160,7 @@ class IOpcSignatureCustomObject extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msopc/nf-msopc-iopcsignaturecustomobject-getxml
+     * @see https://learn.microsoft.com/windows/win32/api/msopc/nf-msopc-iopcsignaturecustomobject-getxml
      */
     GetXml(xmlMarkup, count) {
         xmlMarkupMarshal := xmlMarkup is VarRef ? "ptr*" : "ptr"

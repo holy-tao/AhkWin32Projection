@@ -8,7 +8,7 @@
 
 /**
  * Represents content being transmitted under a namespace over one or more sessions.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportcontent
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcontent
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -63,7 +63,7 @@ class IWdsTransportContent extends IDispatch{
     /**
      * Receives a pointer to an object of an IWdsTransportNamespace interface that represents the namespace associated with this content.
      * @returns {IWdsTransportNamespace} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_namespace
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_namespace
      */
     get_Namespace() {
         result := ComCall(7, this, "ptr*", &ppWdsTransportNamespace := 0, "HRESULT")
@@ -73,7 +73,7 @@ class IWdsTransportContent extends IDispatch{
     /**
      * Receives a unique content ID that identifies this content object on the server.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_id
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_id
      */
     get_Id() {
         result := ComCall(8, this, "uint*", &pulId := 0, "HRESULT")
@@ -83,12 +83,9 @@ class IWdsTransportContent extends IDispatch{
     /**
      * Receives a pointer to a string value that contains the name of the data object represented by this content object.
      * @remarks
-     * 
      * The format of the object name returned is defined by the content provider and its associated management applications.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-get_name
      */
     get_Name() {
         pbszName := BSTR()
@@ -99,7 +96,7 @@ class IWdsTransportContent extends IDispatch{
     /**
      * Retrieves a collection of active transport sessions associated with this content.
      * @returns {IWdsTransportCollection} A pointer to a collection of objects of the <a href="https://docs.microsoft.com/windows/desktop/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportsession">IWdsTransportSession</a> interface that represent active sessions under this content.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-retrievesessions
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-retrievesessions
      */
     RetrieveSessions() {
         result := ComCall(10, this, "ptr*", &ppWdsTransportSessions := 0, "HRESULT")
@@ -109,7 +106,7 @@ class IWdsTransportContent extends IDispatch{
     /**
      * Terminates the transmission of this content by terminating all active sessions under the content and disconnecting any clients that are joined to them.
      * @returns {HRESULT} Standard HRESULT error values are used: S_OK for success; others for failure.
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-terminate
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontent-terminate
      */
     Terminate() {
         result := ComCall(11, this, "HRESULT")

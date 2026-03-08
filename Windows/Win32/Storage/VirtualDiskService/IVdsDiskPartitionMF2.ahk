@@ -6,7 +6,7 @@
 
 /**
  * Provides a method to format a partition with additional formatting options.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdsdiskpartitionmf2
+ * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdsdiskpartitionmf2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IVdsDiskPartitionMF2 extends IUnknown{
      * @param {PWSTR} pwszLabel A <b>NULL</b>-terminated Unicode string containing the label to assign to the new file system for the partition.  The maximum label size is file system dependent.
      * @param {Integer} Options A bitmask of <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_format_option_flags">VDS_FORMAT_OPTION_FLAGS</a> enumeration values that specify formatting options.
      * @returns {IVdsAsync} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface that upon successful completion receives the <b>IVdsAsync</b> interface to monitor and control this operation.  Callers must release the interface received when they are done with it.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdsdiskpartitionmf2-formatpartitionex2
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdsdiskpartitionmf2-formatpartitionex2
      */
     FormatPartitionEx2(ullOffset, pwszFileSystemTypeName, usFileSystemRevision, ulDesiredUnitAllocationSize, pwszLabel, Options) {
         pwszFileSystemTypeName := pwszFileSystemTypeName is String ? StrPtr(pwszFileSystemTypeName) : pwszFileSystemTypeName

@@ -5,7 +5,7 @@
 
 /**
  * The ITfConfigureSystemKeystrokeFeed interface is implemented by the TSF manager to enable and disable the processing of keystrokes.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfconfiguresystemkeystrokefeed
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfconfiguresystemkeystrokefeed
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class ITfConfigureSystemKeystrokeFeed extends IUnknown{
 
     /**
      * ITfConfigureSystemKeystrokeFeed::DisableSystemKeystrokeFeed method
+     * @remarks
+     * By default, the TSF manager will process keystrokes and pass them to the text services. An application prevents this by calling this method. Typically, this method is called when text service input is inappropriate, for example when a menu is displayed.
+     * 
+     * Calls to this method are cumulative, so every call to this method requires a subsequent call to <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfconfiguresystemkeystrokefeed-enablesystemkeystrokefeed">ITfConfigureSystemKeystrokeFeed::EnableSystemKeystrokeFeed</a>.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -51,7 +55,7 @@ class ITfConfigureSystemKeystrokeFeed extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfconfiguresystemkeystrokefeed-disablesystemkeystrokefeed
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfconfiguresystemkeystrokefeed-disablesystemkeystrokefeed
      */
     DisableSystemKeystrokeFeed() {
         result := ComCall(3, this, "HRESULT")
@@ -60,6 +64,10 @@ class ITfConfigureSystemKeystrokeFeed extends IUnknown{
 
     /**
      * ITfConfigureSystemKeystrokeFeed::EnableSystemKeystrokeFeed method
+     * @remarks
+     * By default, the TSF manager will process keystrokes and pass them to the text services. An application prevents this by calling <b>DisableSystemKeystrokeFeed</b> .
+     * 
+     * Calls to <b>DisableSystemKeystrokeFeed</b> are cumulative, so every call to <b>DisableSystemKeystrokeFeed</b> requires a subsequent call to <b>EnableSystemKeystrokeFeed</b>. Calling <b>EnableSystemKeystrokeFeed</b> will not enable keystroke processing if <b>DisableSystemKeystrokeFeed</b> is called more than once.
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -90,7 +98,7 @@ class ITfConfigureSystemKeystrokeFeed extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfconfiguresystemkeystrokefeed-enablesystemkeystrokefeed
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfconfiguresystemkeystrokefeed-enablesystemkeystrokefeed
      */
     EnableSystemKeystrokeFeed() {
         result := ComCall(4, this, "HRESULT")

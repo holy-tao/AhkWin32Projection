@@ -6,7 +6,7 @@
 
 /**
  * Represents the result of an installation or uninstallation.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iinstallationresult
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iinstallationresult
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -55,7 +55,7 @@ class IInstallationResult extends IDispatch{
     /**
      * Gets the HRESULT of the exception, if any, that is raised during the installation.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationresult-get_hresult
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_hresult
      */
     get_HResult() {
         result := ComCall(7, this, "int*", &retval := 0, "HRESULT")
@@ -65,7 +65,7 @@ class IInstallationResult extends IDispatch{
     /**
      * Gets a Boolean value that indicates whether you must restart the computer to complete the installation or uninstallation of an update.
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationresult-get_rebootrequired
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_rebootrequired
      */
     get_RebootRequired() {
         result := ComCall(8, this, "short*", &retval := 0, "HRESULT")
@@ -73,9 +73,9 @@ class IInstallationResult extends IDispatch{
     }
 
     /**
-     * Gets an OperationResultCode value that specifies the result of an operation on an update.
+     * Gets an OperationResultCode value that specifies the result of an operation on an update. (IInstallationResult.get_ResultCode)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationresult-get_resultcode
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-get_resultcode
      */
     get_ResultCode() {
         result := ComCall(9, this, "int*", &retval := 0, "HRESULT")
@@ -86,7 +86,7 @@ class IInstallationResult extends IDispatch{
      * Returns an IUpdateInstallationResult interface that contains the installation results for a specified update.
      * @param {Integer} updateIndex The index of an update.
      * @returns {IUpdateInstallationResult} An interface that contains results for a specified update.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iinstallationresult-getupdateresult
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iinstallationresult-getupdateresult
      */
     GetUpdateResult(updateIndex) {
         result := ComCall(10, this, "int", updateIndex, "ptr*", &retval := 0, "HRESULT")

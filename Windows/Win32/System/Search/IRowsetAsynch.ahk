@@ -47,8 +47,13 @@ class IRowsetAsynch extends IUnknown{
     }
 
     /**
+     * Specifies that a running instances of the task is stopped at the end of the repetition pattern duration.
+     * @remarks
+     * For scripting development, this setting is specified using the [**RepetitionPattern.StopAtDurationEnd**](repetitionpattern-stopatdurationend.md) property.
      * 
+     * For C++ development, this setting is specified using the [**IRepetitionPattern::StopAtDurationEnd**](/windows/win32/api/taskschd/nf-taskschd-irepetitionpattern-get_stopatdurationend) property.
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/TaskSchd/taskschedulerschema-stopatdurationend-repetitiontype-element
      */
     Stop() {
         result := ComCall(4, this, "HRESULT")

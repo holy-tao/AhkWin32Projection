@@ -6,11 +6,8 @@
 /**
  * Initializes a video mixer or presenter.
  * @remarks
- * 
  * When the EVR loads the video mixer and the video presenter, the EVR queries the object for this interface and calls <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookupclient-initservicepointers">InitServicePointers</a>. Inside the <b>InitServicePointers</b> method, the object can query the EVR for interface pointers.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-imftopologyservicelookupclient
+ * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imftopologyservicelookupclient
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -37,6 +34,10 @@ class IMFTopologyServiceLookupClient extends IUnknown{
 
     /**
      * Signals the mixer or presenter to query the enhanced video renderer (EVR) for interface pointers.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-imftopologyservicelookup">IMFTopologyServiceLookup</a> pointer is guaranteed to be valid only during the call to <b>InitServicePointers</b>. The mixer or presenter should not store a pointer to this interface after the method returns.
+     * 
+     * When the EVR calls <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookupclient-releaseservicepointers">IMFTopologyServiceLookupClient::ReleaseServicePointers</a>, the mixer or presenter should release any pointers it obtained from the EVR.
      * @param {IMFTopologyServiceLookup} pLookup Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nn-evr-imftopologyservicelookup">IMFTopologyServiceLookup</a> interface. To query the EVR for an interface, call <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookup-lookupservice">IMFTopologyServiceLookup::LookupService</a>.
      * @returns {HRESULT} The method returns an HRESULT. Possible values include, but are not limited to, those in the following table.
      * 
@@ -57,7 +58,7 @@ class IMFTopologyServiceLookupClient extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imftopologyservicelookupclient-initservicepointers
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imftopologyservicelookupclient-initservicepointers
      */
     InitServicePointers(pLookup) {
         result := ComCall(3, this, "ptr", pLookup, "HRESULT")
@@ -66,6 +67,8 @@ class IMFTopologyServiceLookupClient extends IUnknown{
 
     /**
      * Signals the object to release the interface pointers obtained from the enhanced video renderer (EVR).
+     * @remarks
+     * After this method is called, any interface pointers obtained during the previous call to <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imftopologyservicelookupclient-initservicepointers">IMFTopologyServiceLookupClient::InitServicePointers</a> are no longer valid. The object must release them.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -85,7 +88,7 @@ class IMFTopologyServiceLookupClient extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imftopologyservicelookupclient-releaseservicepointers
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imftopologyservicelookupclient-releaseservicepointers
      */
     ReleaseServicePointers() {
         result := ComCall(4, this, "HRESULT")

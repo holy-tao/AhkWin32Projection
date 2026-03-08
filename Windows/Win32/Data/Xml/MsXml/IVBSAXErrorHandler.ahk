@@ -29,11 +29,14 @@ class IVBSAXErrorHandler extends IDispatch{
     static VTableNames => ["error", "fatalError", "ignorableWarning"]
 
     /**
-     * 
+     * Submits an error message to the information queue.
+     * @remarks
+     * This operation does nothing on devices that do not support it.
      * @param {IVBSAXLocator} oLocator 
      * @param {Pointer<BSTR>} strErrorMessage 
      * @param {Integer} nErrorCode 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This function does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/errorf
      */
     error(oLocator, strErrorMessage, nErrorCode) {
         result := ComCall(7, this, "ptr", oLocator, "ptr", strErrorMessage, "int", nErrorCode, "HRESULT")

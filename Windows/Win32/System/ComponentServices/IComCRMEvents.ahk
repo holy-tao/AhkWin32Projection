@@ -5,7 +5,7 @@
 
 /**
  * Notifies the subscriber about activities of the Compensating Resource Manager (CRM) feature of Component Services.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icomcrmevents
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icomcrmevents
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmrecoverystart
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmrecoverystart
      */
     OnCRMRecoveryStart(pInfo, guidApp) {
         result := ComCall(3, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
@@ -47,7 +47,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmrecoverydone
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmrecoverydone
      */
     OnCRMRecoveryDone(pInfo, guidApp) {
         result := ComCall(4, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
@@ -59,7 +59,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidApp The globally unique identifier (GUID) of the application.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmcheckpoint
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmcheckpoint
      */
     OnCRMCheckpoint(pInfo, guidApp) {
         result := ComCall(5, this, "ptr", pInfo, "ptr", guidApp, "HRESULT")
@@ -75,7 +75,7 @@ class IComCRMEvents extends IUnknown{
      * @param {PWSTR} szProgIdCompensator The ProgID of the CRM compensator.
      * @param {PWSTR} szDescription The description (blank if recovery).
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmbegin
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmbegin
      */
     OnCRMBegin(pInfo, guidClerkCLSID, guidActivity, guidTx, szProgIdCompensator, szDescription) {
         szProgIdCompensator := szProgIdCompensator is String ? StrPtr(szProgIdCompensator) : szProgIdCompensator
@@ -90,7 +90,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmprepare
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmprepare
      */
     OnCRMPrepare(pInfo, guidClerkCLSID) {
         result := ComCall(7, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -102,7 +102,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmcommit
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmcommit
      */
     OnCRMCommit(pInfo, guidClerkCLSID) {
         result := ComCall(8, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -114,7 +114,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmabort
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmabort
      */
     OnCRMAbort(pInfo, guidClerkCLSID) {
         result := ComCall(9, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -126,7 +126,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmindoubt
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmindoubt
      */
     OnCRMIndoubt(pInfo, guidClerkCLSID) {
         result := ComCall(10, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -138,7 +138,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmdone
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmdone
      */
     OnCRMDone(pInfo, guidClerkCLSID) {
         result := ComCall(11, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -150,7 +150,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmrelease
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmrelease
      */
     OnCRMRelease(pInfo, guidClerkCLSID) {
         result := ComCall(12, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -164,7 +164,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Integer} dwCrmRecordType The CRM log record type (internal).
      * @param {Integer} dwRecordSize The log record size (approximate).
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmanalyze
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmanalyze
      */
     OnCRMAnalyze(pInfo, guidClerkCLSID, dwCrmRecordType, dwRecordSize) {
         result := ComCall(13, this, "ptr", pInfo, "ptr", guidClerkCLSID, "uint", dwCrmRecordType, "uint", dwRecordSize, "HRESULT")
@@ -178,7 +178,7 @@ class IComCRMEvents extends IUnknown{
      * @param {BOOL} fVariants Indicates whether the log record is being written as a <b>Variant</b> array.
      * @param {Integer} dwRecordSize The log record size (approximate).
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmwrite
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmwrite
      */
     OnCRMWrite(pInfo, guidClerkCLSID, fVariants, dwRecordSize) {
         result := ComCall(14, this, "ptr", pInfo, "ptr", guidClerkCLSID, "int", fVariants, "uint", dwRecordSize, "HRESULT")
@@ -190,7 +190,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmforget
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmforget
      */
     OnCRMForget(pInfo, guidClerkCLSID) {
         result := ComCall(15, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -202,7 +202,7 @@ class IComCRMEvents extends IUnknown{
      * @param {Pointer<COMSVCSEVENTINFO>} pInfo A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/comsvcs/ns-comsvcs-comsvcseventinfo">COMSVCSEVENTINFO</a> structure.
      * @param {Guid} guidClerkCLSID The identifier of the CRM clerk.
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmforce
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmforce
      */
     OnCRMForce(pInfo, guidClerkCLSID) {
         result := ComCall(16, this, "ptr", pInfo, "ptr", guidClerkCLSID, "HRESULT")
@@ -216,7 +216,7 @@ class IComCRMEvents extends IUnknown{
      * @param {BOOL} fVariants Indicates whether the log record is being written as a <b>Variant</b> array.
      * @param {Integer} dwRecordSize The log record size (approximate).
      * @returns {HRESULT} The user verifies the return values from this method.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icomcrmevents-oncrmdeliver
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icomcrmevents-oncrmdeliver
      */
     OnCRMDeliver(pInfo, guidClerkCLSID, fVariants, dwRecordSize) {
         result := ComCall(17, this, "ptr", pInfo, "ptr", guidClerkCLSID, "int", fVariants, "uint", dwRecordSize, "HRESULT")

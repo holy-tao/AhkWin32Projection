@@ -8,8 +8,8 @@
 #Include ..\..\..\System\Com\IDispatch.ahk
 
 /**
- * Contains information about a cryptographic provider/algorithm pair.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-icspstatus
+ * Contains information about a cryptographic provider/algorithm pair. (ICspStatus)
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-icspstatus
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -72,11 +72,15 @@ class ICspStatus extends IDispatch{
 
     /**
      * Initializes the object from a cryptographic provider and an associated algorithm.
+     * @remarks
+     * The <b>Initialize</b> method saves the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithm">ICspAlgorithm</a> objects you specify in the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspstatus-get_cspinformation">CspInformation</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspstatus-get_cspalgorithm">CspAlgorithm</a> properties. The method also creates an empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentstatus">IX509EnrollmentStatus</a> object and saves it in the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspstatus-get_enrollmentstatus">EnrollmentStatus</a> property.
+     * 
+     * An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatuses">ICspStatuses</a> collection is typically initialized by an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestpkcs10">IX509CertificateRequestPkcs10</a> object. The <b>Initialize</b> method has been provided so that you can create <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> objects to add to a custom collection.
      * @param {ICspInformation} pCsp Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> interface that represents information about the provider.
      * @param {ICspAlgorithm} pAlgorithm Pointer to an  <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithm">ICspAlgorithm</a> interface that represents an algorithm supported by the provider identified in the  <i>pCsp</i> parameter. This parameter is optional and can be <b>NULL</b>.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -96,7 +100,7 @@ class ICspStatus extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspstatus-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-initialize
      */
     Initialize(pCsp, pAlgorithm) {
         result := ComCall(7, this, "ptr", pCsp, "ptr", pAlgorithm, "HRESULT")
@@ -104,9 +108,8 @@ class ICspStatus extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves the position of the ICspStatus object in the ICspStatuses collection.
+     * Specifies or retrieves the position of the ICspStatus object in the ICspStatuses collection. (Get)
      * @remarks
-     * 
      * To iterate through the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatuses">ICspStatuses</a> collection by ordinal, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspstatuses-get_itembyordinal">ItemByOrdinal</a> property. The ordinal order of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> objects in the collection can vary each time the collection is enumerated for a variety of reasons including, but not limited to, the following:<ul>
      * <li>Certificate request template settings</li>
      * <li>Property values for the cryptographic provider</li>
@@ -129,10 +132,8 @@ class ICspStatus extends IDispatch{
      * 
      * For another example, assume that a version 3 template specifies one specific CNG provider and  algorithm. That provider/algorithm pair (<a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> object) is ordered first, enabled for display and selected. All other algorithms supported by that provider are ordered later, not enabled for display, and not selected. All other providers that support the specified algorithm will be ordered later still, enabled for display, but not selected. All remaining provider/algorithm pairs will not be enabled for display and not selected.<div class="alert"><b>Note</b>  CNG providers do not support the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_keyspec">KeySpec</a> intended use concept. They return XCN_AT_NONE for this property value.</div>
      * <div> </div>
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspstatus-get_ordinal
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_ordinal
      */
     get_Ordinal() {
         result := ComCall(8, this, "int*", &pValue := 0, "HRESULT")
@@ -140,9 +141,8 @@ class ICspStatus extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves the position of the ICspStatus object in the ICspStatuses collection.
+     * Specifies or retrieves the position of the ICspStatus object in the ICspStatuses collection. (Put)
      * @remarks
-     * 
      * To iterate through the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatuses">ICspStatuses</a> collection by ordinal, call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspstatuses-get_itembyordinal">ItemByOrdinal</a> property. The ordinal order of the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> objects in the collection can vary each time the collection is enumerated for a variety of reasons including, but not limited to, the following:<ul>
      * <li>Certificate request template settings</li>
      * <li>Property values for the cryptographic provider</li>
@@ -165,11 +165,9 @@ class ICspStatus extends IDispatch{
      * 
      * For another example, assume that a version 3 template specifies one specific CNG provider and  algorithm. That provider/algorithm pair (<a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> object) is ordered first, enabled for display and selected. All other algorithms supported by that provider are ordered later, not enabled for display, and not selected. All other providers that support the specified algorithm will be ordered later still, enabled for display, but not selected. All remaining provider/algorithm pairs will not be enabled for display and not selected.<div class="alert"><b>Note</b>  CNG providers do not support the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspinformation-get_keyspec">KeySpec</a> intended use concept. They return XCN_AT_NONE for this property value.</div>
      * <div> </div>
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspstatus-put_ordinal
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-put_ordinal
      */
     put_Ordinal(Value) {
         result := ComCall(9, this, "int", Value, "HRESULT")
@@ -179,16 +177,13 @@ class ICspStatus extends IDispatch{
     /**
      * Retrieves an ICspAlgorithm object that contains information about an algorithm supported by the provider.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspalgorithm">ICspAlgorithm</a> object includes the following information about an algorithm:<ul>
      * <li>The default, minimum, maximum, and incremental lengths of the key.</li>
      * <li>The abbreviated and long name of the algorithm.</li>
      * <li>The cryptographic operations that can be performed by the algorithm.</li>
      * </ul>
-     * 
-     * 
      * @returns {ICspAlgorithm} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspstatus-get_cspalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_cspalgorithm
      */
     get_CspAlgorithm() {
         result := ComCall(10, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -198,7 +193,6 @@ class ICspStatus extends IDispatch{
     /**
      * Retrieves an ICspInformation object that contains general information about the provider.
      * @remarks
-     * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformation">ICspInformation</a> object includes the following information about a CSP:
      * 
      * <ul>
@@ -208,10 +202,8 @@ class ICspStatus extends IDispatch{
      * <li>The version number and name.</li>
      * <li>Whether the CSP is installed on the client computer.</li>
      * </ul>
-     * 
-     * 
      * @returns {ICspInformation} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspstatus-get_cspinformation
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_cspinformation
      */
     get_CspInformation() {
         result := ComCall(11, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -221,7 +213,6 @@ class ICspStatus extends IDispatch{
     /**
      * Retrieves an IX509EnrollmentStatus object that contains information about the certificate enrollment.
      * @remarks
-     * 
      * This property returns an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentstatus">IX509EnrollmentStatus</a> object. This object is typically populated when you create a PKCS #10 certificate request. The following three properties returned by this object provide information about the  provider/algorithm pair represented by an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> object:<ul>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_display">Display</a> property specifies whether the provider and algorithm should be displayed in a user interface.</li>
      * <li>The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_selected">Selected</a> property specifies whether the provider and algorithm can be used to create a key pair for a certificate request.</li>
@@ -232,10 +223,8 @@ class ICspStatus extends IDispatch{
      * To understand how these properties are important, assume that a certificate request is based on a template that specifies a particular provider and algorithm. The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_display">Display</a> and <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_status">Status</a> properties for this provider/algorithm pair are enabled. For other <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspstatus">ICspStatus</a> objects, one or both of these properties may not be enabled. For more complete examples, see the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-icspstatus-get_ordinal">Ordinal</a> property.
      * 
      * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509enrollmentstatus-get_status">Status</a> property is set to <b>EnrollUnknown</b> when the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509enrollmentstatus">IX509EnrollmentStatus</a> object is first created. If a provider/algorithm pair is not selected, the status may be set to <b>EnrollSkipped</b>. The status will be set to <b>EnrollError</b> if key creation fails for the selected provider and algorithm during certificate initialization.
-     * 
-     * 
      * @returns {IX509EnrollmentStatus} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspstatus-get_enrollmentstatus
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_enrollmentstatus
      */
     get_EnrollmentStatus() {
         result := ComCall(12, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -245,15 +234,12 @@ class ICspStatus extends IDispatch{
     /**
      * Retrieves a string that contains the name of the provider, the algorithm name, and the operations that can be performed by the algorithm.
      * @remarks
-     * 
      * The format of the string returned by this property depends on whether the provider is a CryptoAPI <a href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cryptographic service provider</a> (CSP) or a Cryptography API: Next Generation (CNG) provider.<ul>
      * <li>The format of the string for a CSP is <i>ProviderName(KeyType)</i> where <i>KeyType</i> is either "Signature" or "Encryption".</li>
      * <li>The format of the string for a CNG provider is <i>AlgorithmName,ProviderName</i> where <i>AlgorithmName</i> can be "Unknown Algorithm".</li>
      * </ul>
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-icspstatus-get_displayname
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-icspstatus-get_displayname
      */
     get_DisplayName() {
         pValue := BSTR()

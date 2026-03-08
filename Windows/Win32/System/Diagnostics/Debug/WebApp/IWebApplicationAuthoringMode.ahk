@@ -6,7 +6,7 @@
 
 /**
  * Provides the full local path to the authoring binary to be loaded into the WWAHost process.
- * @see https://docs.microsoft.com/windows/win32/api//webapplication/nn-webapplication-iwebapplicationauthoringmode
+ * @see https://learn.microsoft.com/windows/win32/api/webapplication/nn-webapplication-iwebapplicationauthoringmode
  * @namespace Windows.Win32.System.Diagnostics.Debug.WebApp
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IWebApplicationAuthoringMode extends IServiceProvider{
     /**
      * Gets the full local path to a DLL to be loaded into the WWAHost process.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//webapplication/nf-webapplication-iwebapplicationauthoringmode-get_authoringclientbinary
+     * @see https://learn.microsoft.com/windows/win32/api/webapplication/nf-webapplication-iwebapplicationauthoringmode-get_authoringclientbinary
      */
     get_AuthoringClientBinary() {
         designModeDllPath := BSTR()

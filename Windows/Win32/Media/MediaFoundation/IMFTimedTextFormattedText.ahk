@@ -5,7 +5,7 @@
 
 /**
  * Represents a block of formatted timed-text.
- * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nn-mfmediaengine-imftimedtextformattedtext
+ * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nn-mfmediaengine-imftimedtextformattedtext
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IMFTimedTextFormattedText extends IUnknown{
      * @returns {PWSTR} Type: <b>LPCWSTR*</b>
      * 
      * A pointer to a variable that receives the null-terminated wide-character string that contains the text.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-gettext
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-gettext
      */
     GetText() {
         result := ComCall(3, this, "ptr*", &text := 0, "HRESULT")
@@ -47,7 +47,7 @@ class IMFTimedTextFormattedText extends IUnknown{
      * @returns {Integer} Type: <b>DWORD</b>
      * 
      * Returns the number of subformats.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-getsubformattingcount
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-getsubformattingcount
      */
     GetSubformattingCount() {
         result := ComCall(4, this, "uint")
@@ -70,8 +70,8 @@ class IMFTimedTextFormattedText extends IUnknown{
      * A pointer to a memory block that receives a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/mfmediaengine/nn-mfmediaengine-imftimedtextstyle">IMFTimedTextStyle</a> interface for the subformat's timed-text style. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-getsubformatting
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/mfmediaengine/nf-mfmediaengine-imftimedtextformattedtext-getsubformatting
      */
     GetSubformatting(index, firstChar, charLength, style) {
         firstCharMarshal := firstChar is VarRef ? "uint*" : "ptr"

@@ -5,7 +5,7 @@
 
 /**
  * Enables the presenter for the enhanced video renderer (EVR) to request a specific frame from the video mixer.
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-imfdesiredsample
+ * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-imfdesiredsample
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -59,12 +59,12 @@ class IMFDesiredSample extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * No time stamp was set for this sample. See <a href="/windows/desktop/api/evr/nf-evr-imfdesiredsample-clear">IMFDesiredSample::Clear</a>.
+     * No time stamp was set for this sample. See <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfdesiredsample-clear">IMFDesiredSample::Clear</a>.
      * 
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfdesiredsample-getdesiredsampletimeandduration
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfdesiredsample-getdesiredsampletimeandduration
      */
     GetDesiredSampleTimeAndDuration(phnsSampleTime, phnsSampleDuration) {
         phnsSampleTimeMarshal := phnsSampleTime is VarRef ? "int64*" : "ptr"
@@ -77,14 +77,11 @@ class IMFDesiredSample extends IUnknown{
     /**
      * Called by the presenter to set the time and duration of the sample that it requests from the mixer.
      * @remarks
-     * 
      * This value should be set prior to passing the buffer to the mixer for a Mix operation. The mixer sets the actual start and duration times on the sample before sending it back.
-     * 
-     * 
      * @param {Integer} hnsSampleTime The time of the requested sample.
      * @param {Integer} hnsSampleDuration The duration of the requested sample.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfdesiredsample-setdesiredsampletimeandduration
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfdesiredsample-setdesiredsampletimeandduration
      */
     SetDesiredSampleTimeAndDuration(hnsSampleTime, hnsSampleDuration) {
         ComCall(4, this, "int64", hnsSampleTime, "int64", hnsSampleDuration)
@@ -93,14 +90,11 @@ class IMFDesiredSample extends IUnknown{
     /**
      * Clears the time stamps previously set by a call to IMFDesiredSample::SetDesiredSampleTimeAndDuration.
      * @remarks
-     * 
      * After this method is called, the <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-imfdesiredsample-getdesiredsampletimeandduration">IMFDesiredSample::GetDesiredSampleTimeAndDuration</a> method returns MF_E_NOT_AVAILABLE.
      * 
      * This method also clears the time stamp and duration and removes all attributes from the sample.
-     * 
-     * 
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-imfdesiredsample-clear
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-imfdesiredsample-clear
      */
     Clear() {
         ComCall(5, this)

@@ -5,7 +5,7 @@
 
 /**
  * The IResourceConsumer interface provides a callback mechanism for objects using the IResourceManager interface.An object must implement IResourceConsumer if it uses the IResourceManager interface to request resources from the filter graph manager.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iresourceconsumer
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iresourceconsumer
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -58,7 +58,7 @@ class IResourceConsumer extends IUnknown{
      * </dl>
      * </td>
      * <td width="60%">
-     * Consumer has not acquired the resource but will use <a href="/windows/desktop/api/strmif/nf-strmif-iresourcemanager-notifyacquire">IResourceManager::NotifyAcquire</a> when it does.
+     * Consumer has not acquired the resource but will use <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iresourcemanager-notifyacquire">IResourceManager::NotifyAcquire</a> when it does.
      * 
      * </td>
      * </tr>
@@ -77,7 +77,7 @@ class IResourceConsumer extends IUnknown{
      *  
      * 
      * The method may return some other error code, if the consumer fails to acquire the resource.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iresourceconsumer-acquireresource
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourceconsumer-acquireresource
      */
     AcquireResource(idResource) {
         result := ComCall(3, this, "int", idResource, "HRESULT")
@@ -87,8 +87,8 @@ class IResourceConsumer extends IUnknown{
     /**
      * The ReleaseResource method requests the resource consumer to release the specified resource.
      * @param {Integer} idResource Resource identifier to be released.
-     * @returns {HRESULT} Returns S_OK if the consumer has released it and requires it again when it becomes available, or S_FALSE if the consumer has not released it but will use <a href="/windows/desktop/api/strmif/nf-strmif-iresourcemanager-notifyrelease">IResourceManager::NotifyRelease</a> when it does.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iresourceconsumer-releaseresource
+     * @returns {HRESULT} Returns S_OK if the consumer has released it and requires it again when it becomes available, or S_FALSE if the consumer has not released it but will use <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iresourcemanager-notifyrelease">IResourceManager::NotifyRelease</a> when it does.
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iresourceconsumer-releaseresource
      */
     ReleaseResource(idResource) {
         result := ComCall(4, this, "int", idResource, "HRESULT")

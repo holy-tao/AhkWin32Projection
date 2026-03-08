@@ -45,13 +45,18 @@ class IDBProperties extends IUnknown{
     }
 
     /**
-     * 
+     * The GetPropertyInfo function returns a pointer to the property information of a given protocol.
+     * @remarks
+     * [*Experts*](e.md) and [*parsers*](p.md) can call the **GetPropertyInfo** function.
      * @param {Integer} cPropertyIDSets 
      * @param {Pointer<DBPROPIDSET>} rgPropertyIDSets 
      * @param {Pointer<Integer>} pcPropertyInfoSets 
      * @param {Pointer<Pointer<DBPROPINFOSET>>} prgPropertyInfoSets 
      * @param {Pointer<Pointer<Integer>>} ppDescBuffer 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function is successful, the return value is a pointer to the property.
+     * 
+     * If the function is unsuccessful, the return value is **NULL**.
+     * @see https://learn.microsoft.com/windows/win32/NetMon2/getpropertyinfo
      */
     GetPropertyInfo(cPropertyIDSets, rgPropertyIDSets, pcPropertyInfoSets, prgPropertyInfoSets, ppDescBuffer) {
         pcPropertyInfoSetsMarshal := pcPropertyInfoSets is VarRef ? "uint*" : "ptr"

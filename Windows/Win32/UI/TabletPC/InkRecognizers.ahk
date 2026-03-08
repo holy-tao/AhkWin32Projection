@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Gets the number of objects or collections contained in a collection. (IInkRecognizers.get_Count)
+ * @see https://learn.microsoft.com/windows/win32/api/msinkaut/nf-msinkaut-iinkrecognizers-get_count
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

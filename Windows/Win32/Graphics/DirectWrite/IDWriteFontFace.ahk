@@ -8,7 +8,7 @@
 
 /**
  * This interface exposes various font data such as metrics, names, and glyph outlines. It contains font face type, appropriate file references, and face identification data.
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritefontface
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontface
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -35,10 +35,10 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Obtains the file format type of a font face.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_face_type">DWRITE_FONT_FACE_TYPE</a></b>
      * 
      * A value that indicates the type of format for the font face (such as Type 1, TrueType, vector, or bitmap).
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-gettype
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-gettype
      */
     GetType() {
         result := ComCall(3, this, "int")
@@ -47,6 +47,10 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Obtains the font files representing a font face.
+     * @remarks
+     * The <b>IDWriteFontFace::GetFiles</b> method should be called twice.  The first time you call <b>GetFiles</b><i>fontFiles</i> should be <b>NULL</b>. When the method returns, <i>numberOfFiles</i> receives the number of font files that represent the font face.
+     * 
+     * Then, call the method a second time, passing the <i>numberOfFiles</i> value that was output the first call, and a non-null buffer of the correct size to store the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontfile">IDWriteFontFile</a> pointers.
      * @param {Pointer<Integer>} numberOfFiles Type: <b>UINT32*</b>
      * 
      * If <i>fontFiles</i> is <b>NULL</b>, receives the number of files representing the font face.  Otherwise, the number of font files being requested should be passed.  See the Remarks section below for more information.
@@ -56,7 +60,7 @@ class IDWriteFontFace extends IUnknown{
      *      This parameter can be <b>NULL</b> if the user wants only the number of files representing the font face.
      *      This API increments reference count of the font file pointers returned according to COM conventions, and the client
      *      should release them when finished.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getfiles
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getfiles
      */
     GetFiles(numberOfFiles) {
         numberOfFilesMarshal := numberOfFiles is VarRef ? "uint*" : "ptr"
@@ -71,7 +75,7 @@ class IDWriteFontFace extends IUnknown{
      * 
      * The zero-based index of a font face in cases when the font files contain a collection of font faces.
      *      If the font files contain a single face, this value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getindex
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getindex
      */
     GetIndex() {
         result := ComCall(5, this, "uint")
@@ -79,11 +83,11 @@ class IDWriteFontFace extends IUnknown{
     }
 
     /**
-     * Obtains the algorithmic style simulation flags of a font face.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
+     * Obtains the algorithmic style simulation flags of a font face. (IDWriteFontFace.GetSimulations)
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_simulations">DWRITE_FONT_SIMULATIONS</a></b>
      * 
      * Font face simulation flags for algorithmic means of making text bold or italic.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getsimulations
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getsimulations
      */
     GetSimulations() {
         result := ComCall(6, this, "int")
@@ -91,11 +95,11 @@ class IDWriteFontFace extends IUnknown{
     }
 
     /**
-     * Determines whether the font is a symbol font.
+     * Determines whether the font is a symbol font. (IDWriteFontFace.IsSymbolFont)
      * @returns {BOOL} Type: <b>BOOL</b>
      * 
      * Returns <b>TRUE</b> if the font is a symbol font, otherwise <b>FALSE</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-issymbolfont
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-issymbolfont
      */
     IsSymbolFont() {
         result := ComCall(7, this, "int")
@@ -103,13 +107,13 @@ class IDWriteFontFace extends IUnknown{
     }
 
     /**
-     * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations.
+     * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a font face and are used by applications for layout calculations. (IDWriteFontFace.GetMetrics)
      * @param {Pointer<DWRITE_FONT_METRICS>} fontFaceMetrics Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRICS</a>*</b>
      * 
      * When this method returns, a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRICS</a> structure that holds metrics (such as ascent, descent, or cap height) for the current font face element.
      *      The metrics returned by this function are in font design units.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getmetrics
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getmetrics
      */
     GetMetrics(fontFaceMetrics) {
         ComCall(8, this, "ptr", fontFaceMetrics)
@@ -120,7 +124,7 @@ class IDWriteFontFace extends IUnknown{
      * @returns {Integer} Type: <b>UINT16</b>
      * 
      * The number of glyphs in the font face.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getglyphcount
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphcount
      */
     GetGlyphCount() {
         result := ComCall(9, this, "ushort")
@@ -129,6 +133,8 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Obtains ideal (resolution-independent) glyph metrics in font design units.
+     * @remarks
+     * Design glyph metrics are used for glyph positioning.
      * @param {Pointer<Integer>} glyphIndices Type: <b>const UINT16*</b>
      * 
      *  An array of glyph indices for which to compute  metrics. The array must contain at least as many elements as specified by <i>glyphCount</i>.
@@ -143,7 +149,7 @@ class IDWriteFontFace extends IUnknown{
      * 
      * When this method returns, contains an array of DWRITE_GLYPH_METRICS structures.  <i>glyphMetrics</i> must be initialized with an empty buffer that contains at least as many elements as <i>glyphCount</i>.
      *      The metrics returned by this function are in font design units.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getdesignglyphmetrics
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getdesignglyphmetrics
      */
     GetDesignGlyphMetrics(glyphIndices, glyphCount, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
@@ -155,6 +161,14 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Returns the nominal mapping of UCS4 Unicode code points to glyph indices as defined by the font 'CMAP' table.
+     * @remarks
+     * Note that this mapping is primarily provided for line layout engines built on top of the physical font API.
+     *      Because of OpenType glyph substitution and line layout character substitution, the nominal conversion does not always correspond
+     *      to how a Unicode string will map to glyph indices when rendering using a particular font face.
+     *      Also, note that Unicode variant selectors provide for alternate mappings for character to glyph.
+     *      This call will always return the default variant.
+     * 
+     *  When characters are not present in the font this method returns the index 0, which is the undefined glyph or ".notdef" glyph.  If a character isn't in a font, IDWriteFont::HasCharacter returns false and GetUnicodeRanges doesn't return it in the range.
      * @param {Pointer<Integer>} codePoints Type: <b>const UINT32*</b>
      * 
      * An array of USC4 code points from which to obtain nominal glyph indices. The array must be allocated and be able to contain the number of elements specified by <i>codePointCount</i>.
@@ -164,7 +178,7 @@ class IDWriteFontFace extends IUnknown{
      * @returns {Integer} Type: <b>UINT16*</b>
      * 
      * When this method returns, contains a pointer to an array of nominal glyph indices filled by this function.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getglyphindices
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphindices
      */
     GetGlyphIndices(codePoints, codePointCount) {
         codePointsMarshal := codePoints is VarRef ? "uint*" : "ptr"
@@ -175,6 +189,9 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Finds the specified OpenType font table if it exists and returns a pointer to it. The function accesses the underlying font data through the IDWriteFontFileStream interface implemented by the font file loader.
+     * @remarks
+     * The context for the same tag may be different for each call,
+     *      so each one must be held and released separately.
      * @param {Integer} openTypeTableTag Type: <b>UINT32</b>
      * 
      * The four-character tag of a OpenType font table to find.
@@ -204,8 +221,8 @@ class IDWriteFontFace extends IUnknown{
      * When this method returns, <b>TRUE</b> if the font table exists; otherwise, <b>FALSE</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-trygetfonttable
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-trygetfonttable
      */
     TryGetFontTable(openTypeTableTag, tableData, tableSize, tableContext, exists) {
         tableDataMarshal := tableData is VarRef ? "ptr*" : "ptr"
@@ -223,7 +240,7 @@ class IDWriteFontFace extends IUnknown{
      * 
      * A pointer to the opaque context from <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-trygetfonttable">TryGetFontTable</a>.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-releasefonttable
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-releasefonttable
      */
     ReleaseFontTable(tableContext) {
         tableContextMarshal := tableContext is VarRef ? "ptr" : "ptr"
@@ -263,8 +280,8 @@ class IDWriteFontFace extends IUnknown{
      * A pointer to the interface that is called back to perform outline drawing operations.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getglyphrunoutline
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getglyphrunoutline
      */
     GetGlyphRunOutline(emSize, glyphIndices, glyphAdvances, glyphOffsets, glyphCount, isSideways, isRightToLeft, geometrySink) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"
@@ -275,7 +292,7 @@ class IDWriteFontFace extends IUnknown{
     }
 
     /**
-     * Determines the recommended rendering mode for the font, using the specified size and rendering parameters.
+     * Determines the recommended rendering mode for the font, using the specified size and rendering parameters. (IDWriteFontFace.GetRecommendedRenderingMode)
      * @param {Float} emSize Type: <b>FLOAT</b>
      * 
      * The logical size of the font in DIP units. A DIP ("device-independent pixel") equals 1/96 inch.
@@ -304,7 +321,7 @@ class IDWriteFontFace extends IUnknown{
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_rendering_mode">DWRITE_RENDERING_MODE</a>*</b>
      * 
      * When this method returns, contains a value that indicates the recommended rendering mode to use.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getrecommendedrenderingmode
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefontface-getrecommendedrenderingmode
      */
     GetRecommendedRenderingMode(emSize, pixelsPerDip, measuringMode, renderingParams) {
         result := ComCall(15, this, "float", emSize, "float", pixelsPerDip, "int", measuringMode, "ptr", renderingParams, "int*", &renderingMode := 0, "HRESULT")
@@ -313,19 +330,19 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Obtains design units and common metrics for the font face. These metrics are applicable to all the glyphs within a fontface and are used by applications for layout calculations.
-     * @param {Float} emSize Type: <b>FLOAT</b>
+     * @param {Float} emSize Type: **FLOAT**
      * 
      * The logical size of the font in DIP units.
-     * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
+     * @param {Float} pixelsPerDip Type: **FLOAT**
      * 
      * The number of physical pixels per DIP.
-     * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
+     * @param {Pointer<DWRITE_MATRIX>} transform Type: **const [**DWRITE\_MATRIX**](/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix)\***
      * 
-     * An optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the font size and <i>pixelsPerDip</i>.
-     * @returns {DWRITE_FONT_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRICS</a>*</b>
+     * An optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the font size and *pixelsPerDip*.
+     * @returns {DWRITE_FONT_METRICS} Type: **[**DWRITE\_FONT\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics)\***
      * 
-     * A pointer to a <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics">DWRITE_FONT_METRIC</a>S structure to fill in. The metrics returned by this function are in font design units.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getgdicompatiblemetrics
+     * A pointer to a [**DWRITE\_FONT\_METRIC**](/windows/win32/api/dwrite/ns-dwrite-dwrite_font_metrics)S structure to fill in. The metrics returned by this function are in font design units.
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontface-getgdicompatiblemetrics
      */
     GetGdiCompatibleMetrics(emSize, pixelsPerDip, transform) {
         fontFaceMetrics := DWRITE_FONT_METRICS()
@@ -335,32 +352,31 @@ class IDWriteFontFace extends IUnknown{
 
     /**
      * Obtains glyph metrics in font design units with the return values compatible with what GDI would produce.
-     * @param {Float} emSize Type: <b>FLOAT</b>
+     * @param {Float} emSize Type: **FLOAT**
      * 
      * The ogical size of the font in DIP units.
-     * @param {Float} pixelsPerDip Type: <b>FLOAT</b>
+     * @param {Float} pixelsPerDip Type: **FLOAT**
      * 
      * The number of physical pixels per DIP.
-     * @param {Pointer<DWRITE_MATRIX>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix">DWRITE_MATRIX</a>*</b>
+     * @param {Pointer<DWRITE_MATRIX>} transform Type: **const [**DWRITE\_MATRIX**](/windows/win32/api/dwrite/ns-dwrite-dwrite_matrix)\***
      * 
-     * An optional transform applied to the glyphs and their positions. This transform is applied after the
-     *     scaling specified by the font size and <i>pixelsPerDip</i>.
-     * @param {BOOL} useGdiNatural Type: <b>BOOL</b>
+     * An optional transform applied to the glyphs and their positions. This transform is applied after the scaling specified by the font size and *pixelsPerDip*.
+     * @param {BOOL} useGdiNatural Type: **BOOL**
      * 
-     * When set to <b>FALSE</b>, the metrics are the same as the metrics of GDI aliased text.  When set to <b>TRUE</b>, the metrics are the same as the metrics of text measured by GDI using a font created with <b>CLEARTYPE_NATURAL_QUALITY</b>.
-     * @param {Pointer<Integer>} glyphIndices Type: <b>const UINT16*</b>
+     * When set to **FALSE**, the metrics are the same as the metrics of GDI aliased text. When set to **TRUE**, the metrics are the same as the metrics of text measured by GDI using a font created with **CLEARTYPE\_NATURAL\_QUALITY**.
+     * @param {Pointer<Integer>} glyphIndices Type: **const UINT16\***
      * 
      * An array of glyph indices for which to compute the metrics.
-     * @param {Integer} glyphCount Type: <b>UINT32</b>
+     * @param {Integer} glyphCount Type: **UINT32**
      * 
-     * The number of elements in the <i>glyphIndices</i> array.
-     * @param {BOOL} isSideways Type: <b>BOOL</b>
+     * The number of elements in the *glyphIndices* array.
+     * @param {BOOL} isSideways Type: **BOOL**
      * 
-     * A BOOL value that indicates whether the font is being used in a sideways run.  This can affect the glyph metrics if the font has oblique simulation because sideways oblique simulation differs from non-sideways oblique simulation.
-     * @returns {DWRITE_GLYPH_METRICS} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics">DWRITE_GLYPH_METRICS</a>*</b>
+     * A BOOL value that indicates whether the font is being used in a sideways run. This can affect the glyph metrics if the font has oblique simulation because sideways oblique simulation differs from non-sideways oblique simulation.
+     * @returns {DWRITE_GLYPH_METRICS} Type: **[**DWRITE\_GLYPH\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics)\***
      * 
-     * An array of <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics">DWRITE_GLYPH_METRICS</a> structures filled by this function. The metrics are in font design units.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritefontface-getgdicompatibleglyphmetrics
+     * An array of [**DWRITE\_GLYPH\_METRICS**](/windows/win32/api/dwrite/ns-dwrite-dwrite_glyph_metrics) structures filled by this function. The metrics are in font design units.
+     * @see https://learn.microsoft.com/windows/win32/DirectWrite/idwritefontface-getgdicompatibleglyphmetrics
      */
     GetGdiCompatibleGlyphMetrics(emSize, pixelsPerDip, transform, useGdiNatural, glyphIndices, glyphCount, isSideways) {
         glyphIndicesMarshal := glyphIndices is VarRef ? "ushort*" : "ptr"

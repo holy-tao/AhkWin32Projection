@@ -5,7 +5,7 @@
 
 /**
  * Controls the preferred and blocked filter lists.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamplugincontrol
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamplugincontrol
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IAMPluginControl extends IUnknown{
      * Searches the preferred list for a class identifier (CLSID) that matches a specified subtype.
      * @param {Pointer<Guid>} subType A media subtype GUID to match.
      * @returns {Guid} Receives a CLSID from the preferred list.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamplugincontrol-getpreferredclsid
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-getpreferredclsid
      */
     GetPreferredClsid(subType) {
         clsid := Guid()
@@ -43,7 +43,7 @@ class IAMPluginControl extends IUnknown{
     }
 
     /**
-     * Gets a class identifier (CLSID) from the preferred list, specified by index value.
+     * IAMPluginControl::GetPreferredClsidByIndex (strmif.h) gets a class identifier (CLSID) from the preferred list, specified by index value.
      * @param {Integer} index The zero-based index of the CLSID to retrieve.
      * @param {Pointer<Guid>} subType Receives the subtype GUID associated with the CLSID.
      * @param {Pointer<Guid>} clsid Receives the CLSID at the specified index.
@@ -78,7 +78,7 @@ class IAMPluginControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamplugincontrol-getpreferredclsidbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-getpreferredclsidbyindex
      */
     GetPreferredClsidByIndex(index, subType, clsid) {
         result := ComCall(4, this, "uint", index, "ptr", subType, "ptr", clsid, "HRESULT")
@@ -86,11 +86,11 @@ class IAMPluginControl extends IUnknown{
     }
 
     /**
-     * Adds a class identifier (CLSID) to the preferred list or removes a CLSID from the list.
+     * Adds a class identifier (CLSID) to the preferred list or removes a CLSID from the list. (IAMPluginControl.SetPreferredClsid)
      * @param {Pointer<Guid>} subType A media subtype GUID to associate with the CLSID.
      * @param {Pointer<Guid>} clsid Pointer to the CLSID to add to the list. If this parameter is <b>NULL</b>, the entry associated with <i>subType</i> is removed from the list
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamplugincontrol-setpreferredclsid
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-setpreferredclsid
      */
     SetPreferredClsid(subType, clsid) {
         result := ComCall(5, this, "ptr", subType, "ptr", clsid, "HRESULT")
@@ -98,7 +98,7 @@ class IAMPluginControl extends IUnknown{
     }
 
     /**
-     * Queries whether a class identifier (CLSID) appears in the blocked list.
+     * Queries whether a class identifier (CLSID) appears in the blocked list. (IAMPluginControl.IsDisabled)
      * @param {Pointer<Guid>} clsid The CLSID to search for.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -132,7 +132,7 @@ class IAMPluginControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamplugincontrol-isdisabled
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-isdisabled
      */
     IsDisabled(clsid) {
         result := ComCall(6, this, "ptr", clsid, "HRESULT")
@@ -140,10 +140,10 @@ class IAMPluginControl extends IUnknown{
     }
 
     /**
-     * Gets a class identifier (CLSID) from the blocked list.
+     * IAMPluginControl::GetDisabledByIndex (strmif.h) gets a class identifier (CLSID) from the blocked list.
      * @param {Integer} index The zero-based index of the CLSID to retrieve.
      * @returns {Guid} Receives the CLSID at the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamplugincontrol-getdisabledbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-getdisabledbyindex
      */
     GetDisabledByIndex(index) {
         clsid := Guid()
@@ -152,11 +152,11 @@ class IAMPluginControl extends IUnknown{
     }
 
     /**
-     * Adds a class identifier (CLSID) to the blocked list, or removes a CLSID from the list.
+     * Adds a class identifier (CLSID) to the blocked list, or removes a CLSID from the list. (IAMPluginControl.SetDisabled)
      * @param {Pointer<Guid>} clsid The CLSID to add or remove.
      * @param {BOOL} disabled Specifies whether to add or remove the CSLID. If the value is <b>TRUE</b>, the method adds the CLSID to the blocked list. Otherwise, the method removes it from the list.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamplugincontrol-setdisabled
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-setdisabled
      */
     SetDisabled(clsid, disabled) {
         result := ComCall(8, this, "ptr", clsid, "int", disabled, "HRESULT")
@@ -197,7 +197,7 @@ class IAMPluginControl extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamplugincontrol-islegacydisabled
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamplugincontrol-islegacydisabled
      */
     IsLegacyDisabled(dllName) {
         dllName := dllName is String ? StrPtr(dllName) : dllName

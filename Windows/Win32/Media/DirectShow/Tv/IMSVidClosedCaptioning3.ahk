@@ -7,11 +7,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidClosedCaptioning3 interface retrieves the teletext filter. The MSVidClosedCaptioning feature exposes this interface.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidClosedCaptioning3)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidclosedcaptioning3
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidclosedcaptioning3
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -46,7 +43,7 @@ class IMSVidClosedCaptioning3 extends IMSVidClosedCaptioning2{
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
      * @returns {IUnknown} Pointer to a variable that receives a reference to the teletext filter.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidclosedcaptioning3-get_teletextfilter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidclosedcaptioning3-get_teletextfilter
      */
     get_TeleTextFilter() {
         result := ComCall(20, this, "ptr*", &punkTTFilter := 0, "HRESULT")

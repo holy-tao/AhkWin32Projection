@@ -8,7 +8,7 @@
 
 /**
  * Represents a wireless network interface card (NIC).
- * @see https://docs.microsoft.com/windows/win32/api//adhoc/nn-adhoc-idot11adhocinterface
+ * @see https://learn.microsoft.com/windows/win32/api/adhoc/nn-adhoc-idot11adhocinterface
  * @namespace Windows.Win32.NetworkManagement.WiFi
  * @version v4.0.30319
  */
@@ -99,7 +99,7 @@ class IDot11AdHocInterface extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-getdevicesignature
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getdevicesignature
      */
     GetDeviceSignature(pSignature) {
         result := ComCall(3, this, "ptr", pSignature, "HRESULT")
@@ -111,7 +111,7 @@ class IDot11AdHocInterface extends IUnknown{
      * @returns {PWSTR} The friendly name of the NIC. The SSID of the network is used as the friendly name.
      * 
      * You must free this string using <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-getfriendlyname
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getfriendlyname
      */
     GetFriendlyName() {
         result := ComCall(4, this, "ptr*", &ppszName := 0, "HRESULT")
@@ -184,7 +184,7 @@ class IDot11AdHocInterface extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-isdot11d
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isdot11d
      */
     IsDot11d(pf11d) {
         pf11dMarshal := pf11d is VarRef ? "char*" : "ptr"
@@ -195,6 +195,14 @@ class IDot11AdHocInterface extends IUnknown{
 
     /**
      * Specifies whether a NIC supports the creation or use of an ad hoc network.
+     * @remarks
+     * <i>pfAdHocCapable</i> can be set to <b>FALSE</b> for many reasons, including the following:
+     * 
+     * <ul>
+     * <li>Group policy prohibits the use of ad hoc networks on this interface</li>
+     * <li>The machine is configured to only connect to infrastructure networks, or the machine configuration disallows wireless connections</li>
+     * <li>The NIC does not support ad hoc networks</li>
+     * </ul>
      * @param {Pointer<Integer>} pfAdHocCapable A pointer to a boolean that specifies the NIC's ad hoc network capabilities. The boolean value is set to  <b>TRUE</b> if the NIC supports the creation and use of ad hoc networks and <b>FALSE</b> otherwise.
      * @returns {HRESULT} Possible return values include, but are not limited to, the following.
      * 
@@ -259,7 +267,7 @@ class IDot11AdHocInterface extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-isadhoccapable
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isadhoccapable
      */
     IsAdHocCapable(pfAdHocCapable) {
         pfAdHocCapableMarshal := pfAdHocCapable is VarRef ? "char*" : "ptr"
@@ -334,7 +342,7 @@ class IDot11AdHocInterface extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-isradioon
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-isradioon
      */
     IsRadioOn(pfIsRadioOn) {
         pfIsRadioOnMarshal := pfIsRadioOn is VarRef ? "char*" : "ptr"
@@ -346,7 +354,7 @@ class IDot11AdHocInterface extends IUnknown{
     /**
      * Gets the network that is currently active on the interface.
      * @returns {IDot11AdHocNetwork} A pointer to an IDot11AdHocNetwork object that represents the active network.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-getactivenetwork
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getactivenetwork
      */
     GetActiveNetwork() {
         result := ComCall(8, this, "ptr*", &ppNetwork := 0, "HRESULT")
@@ -356,7 +364,7 @@ class IDot11AdHocInterface extends IUnknown{
     /**
      * Gets the collection of security settings associated with this NIC.
      * @returns {IEnumDot11AdHocSecuritySettings} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocsecuritysettings">IEnumDot11AdHocSecuritySettings</a> interface that contains the collection of security settings.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-getienumsecuritysettings
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getienumsecuritysettings
      */
     GetIEnumSecuritySettings() {
         result := ComCall(9, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -367,7 +375,7 @@ class IDot11AdHocInterface extends IUnknown{
      * Gets the collection of networks associated with this NIC.
      * @param {Pointer<Guid>} pFilterGuid An optional parameter that specifies the GUID of the application that created the network. An application can use this identifier to limit the networks enumerated to networks created by the application. For this filtering to work correctly, all instances of the application on all machines must use the same GUID.
      * @returns {IEnumDot11AdHocNetworks} A pointer to a <a href="https://docs.microsoft.com/windows/desktop/api/adhoc/nn-adhoc-ienumdot11adhocnetworks">IEnumDot11AdHocNetworks</a> interface that contains the enumerated networks.
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-getienumdot11adhocnetworks
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getienumdot11adhocnetworks
      */
     GetIEnumDot11AdHocNetworks(pFilterGuid) {
         result := ComCall(10, this, "ptr", pFilterGuid, "ptr*", &ppEnum := 0, "HRESULT")
@@ -440,7 +448,7 @@ class IDot11AdHocInterface extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//adhoc/nf-adhoc-idot11adhocinterface-getstatus
+     * @see https://learn.microsoft.com/windows/win32/api/adhoc/nf-adhoc-idot11adhocinterface-getstatus
      */
     GetStatus(pState) {
         pStateMarshal := pState is VarRef ? "int*" : "ptr"

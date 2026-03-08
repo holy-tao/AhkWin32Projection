@@ -7,7 +7,7 @@
 
 /**
  * Represents a resource domain whose objects and device contexts can be used together. This interface performs all the same functions as the existing ID2D1Device1 interface. It also enables the creation of ID2D1DeviceContext2 objects.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1device2
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1device2
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class ID2D1Device2 extends ID2D1Device1{
      * @returns {ID2D1DeviceContext2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1devicecontext2">ID2D1DeviceContext2</a>**</b>
      * 
      * When this method returns, contains the address of a pointer to the new device context.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1device2-createdevicecontext
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device2-createdevicecontext
      */
     CreateDeviceContext(options) {
         result := ComCall(12, this, "int", options, "ptr*", &deviceContext2 := 0, "HRESULT")
@@ -53,7 +53,7 @@ class ID2D1Device2 extends ID2D1Device1{
      * 
      * The bitmap, created on this device, for which all referencing device contexts will be flushed.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1device2-flushdevicecontexts
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device2-flushdevicecontexts
      */
     FlushDeviceContexts(bitmap) {
         ComCall(13, this, "ptr", bitmap)
@@ -64,7 +64,7 @@ class ID2D1Device2 extends ID2D1Device1{
      * @returns {IDXGIDevice} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/dxgi/nn-dxgi-idxgidevice">IDXGIDevice</a>**</b>
      * 
      * The DXGI device associated with this Direct2D device.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1device2-getdxgidevice
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1device2-getdxgidevice
      */
     GetDxgiDevice() {
         result := ComCall(14, this, "ptr*", &dxgiDevice := 0, "HRESULT")

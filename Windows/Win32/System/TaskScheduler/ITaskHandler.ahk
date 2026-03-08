@@ -6,7 +6,7 @@
 
 /**
  * Defines the methods that are called by the Task Scheduler service to manage a COM handler.
- * @see https://docs.microsoft.com/windows/win32/api//taskschd/nn-taskschd-itaskhandler
+ * @see https://learn.microsoft.com/windows/win32/api/taskschd/nn-taskschd-itaskhandler
  * @namespace Windows.Win32.System.TaskScheduler
  * @version v4.0.30319
  */
@@ -33,10 +33,14 @@ class ITaskHandler extends IUnknown{
 
     /**
      * Called to start the COM handler.
+     * @remarks
+     * When implementing this method, the handler should return control immediately to the Task Scheduler (starting its own thread if inproc).
+     * 
+     * After  the handler starts its processing, it can call the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itaskhandlerstatus-updatestatus">UpdateStatus</a> method to indicate  its percentage of completion or call the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-itaskhandlerstatus-taskcompleted">TaskCompleted</a> method to indicate when the handler has completed its processing. These methods are provided by the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nn-taskschd-itaskhandlerstatus">ITaskHandlerStatus</a> interface.
      * @param {IUnknown} pHandlerServices An <b>IUnkown</b> interface that is used to communicate back with the Task Scheduler.
      * @param {BSTR} data The arguments that are required by the handler.  These arguments are defined in the <a href="https://docs.microsoft.com/windows/desktop/api/taskschd/nf-taskschd-icomhandleraction-get_data">Data</a> property of the COM handler action.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-start
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-start
      */
     Start(pHandlerServices, data) {
         data := data is String ? BSTR.Alloc(data).Value : data
@@ -48,7 +52,7 @@ class ITaskHandler extends IUnknown{
     /**
      * Called to stop the COM handler.
      * @returns {HRESULT} The return code that the Task Schedule will raise as an event when the COM handler action is completed.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-stop
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-stop
      */
     Stop() {
         result := ComCall(4, this, "int*", &pRetCode := 0, "HRESULT")
@@ -57,8 +61,8 @@ class ITaskHandler extends IUnknown{
 
     /**
      * Called to pause the COM handler.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-pause
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-pause
      */
     Pause() {
         result := ComCall(5, this, "HRESULT")
@@ -67,8 +71,8 @@ class ITaskHandler extends IUnknown{
 
     /**
      * Called to resume the COM handler.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//taskschd/nf-taskschd-itaskhandler-resume
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/taskschd/nf-taskschd-itaskhandler-resume
      */
     Resume() {
         result := ComCall(6, this, "HRESULT")

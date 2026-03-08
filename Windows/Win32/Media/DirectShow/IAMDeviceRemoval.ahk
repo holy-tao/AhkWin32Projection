@@ -5,7 +5,7 @@
 
 /**
  * The IAMDeviceRemoval interface provides a way for the Filter Graph Manager to register for device removal events for a capture device.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamdeviceremoval
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamdeviceremoval
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class IAMDeviceRemoval extends IUnknown{
 
     /**
      * The DeviceInfo method retrieves information about the device.
+     * @remarks
+     * For more information about the device interface classes and device paths, see Device I/O in the Windows SDK documentation.
      * @param {Pointer<Guid>} pclsidInterfaceClass Receives a GUID that specifies the device interface class.
      * @param {Pointer<PWSTR>} pwszSymbolicLink Receives a pointer to a string that contains the Plug and Play (PnP) device path for the device. The caller must release the string by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. This parameter can be <b>NULL</b>.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdeviceremoval-deviceinfo
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdeviceremoval-deviceinfo
      */
     DeviceInfo(pclsidInterfaceClass, pwszSymbolicLink) {
         pwszSymbolicLinkMarshal := pwszSymbolicLink is VarRef ? "ptr*" : "ptr"
@@ -47,7 +49,7 @@ class IAMDeviceRemoval extends IUnknown{
     /**
      * The Reassociate method reassociates the KsProxy filter with the device. The Filter Graph Manager calls this method if it receives a notification that the device has returned after being removed.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdeviceremoval-reassociate
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdeviceremoval-reassociate
      */
     Reassociate() {
         result := ComCall(4, this, "HRESULT")
@@ -57,7 +59,7 @@ class IAMDeviceRemoval extends IUnknown{
     /**
      * The Disassociate method disassociates the KsProxy filter from the device by closing the device handle. The Filter Graph Manager calls this method if it receives a notification that the device was removed.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. Otherwise it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamdeviceremoval-disassociate
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamdeviceremoval-disassociate
      */
     Disassociate() {
         result := ComCall(5, this, "HRESULT")

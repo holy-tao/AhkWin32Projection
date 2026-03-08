@@ -5,7 +5,7 @@
 
 /**
  * The IPortableDeviceEventCallback interface implemented by the application to receive asynchronous callbacks if an application has registered to receive them by calling IPortableDevice::Advise.
- * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nn-portabledeviceapi-iportabledeviceeventcallback
+ * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nn-portabledeviceapi-iportabledeviceeventcallback
  * @namespace Windows.Win32.Devices.PortableDevices
  * @version v4.0.30319
  */
@@ -32,9 +32,11 @@ class IPortableDeviceEventCallback extends IUnknown{
 
     /**
      * The OnEvent method is called by the SDK to notify the application about asynchronous events.
+     * @remarks
+     * The application must register to receive events by calling <a href="https://docs.microsoft.com/windows/desktop/api/portabledeviceapi/nf-portabledeviceapi-iportabledevice-advise">IPortableDevice::Advise</a>.
      * @param {IPortableDeviceValues} pEventParameters Pointer to an <a href="https://docs.microsoft.com/windows/desktop/wpd_sdk/iportabledevicevalues">IPortableDeviceValues</a> interface that contains event details.
      * @returns {HRESULT} Any values returned by the application are ignored by Windows Portable Devices.
-     * @see https://docs.microsoft.com/windows/win32/api//portabledeviceapi/nf-portabledeviceapi-iportabledeviceeventcallback-onevent
+     * @see https://learn.microsoft.com/windows/win32/api/portabledeviceapi/nf-portabledeviceapi-iportabledeviceeventcallback-onevent
      */
     OnEvent(pEventParameters) {
         result := ComCall(3, this, "ptr", pEventParameters, "HRESULT")

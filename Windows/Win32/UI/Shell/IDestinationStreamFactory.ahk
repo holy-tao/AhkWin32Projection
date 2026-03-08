@@ -7,11 +7,8 @@
 /**
  * Exposes a method for manually copying a stream or file before applying changes to properties.
  * @remarks
- * 
  * The default copy-on-write behavior provided by <a href="https://docs.microsoft.com/windows/desktop/api/propsys/nn-propsys-ipropertystore">IPropertyStore</a> causes the entire source stream to be duplicated during a write operation. This can be costly for large streams, especially when a large portion of the stream is to be changed. <b>IDestinationStreamFactory</b> provides an alternative for the property handler author, who can use it manually to ensure that property changes do not corrupt the stream in case of failure. To do this, the author marks the handler as NoTransactedMode in the handler's CoClass registry key, and queries the stream for this interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-idestinationstreamfactory
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-idestinationstreamfactory
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -38,10 +35,12 @@ class IDestinationStreamFactory extends IUnknown{
 
     /**
      * Gets an empty stream that receives the new version of the file being copied.
+     * @remarks
+     * The property handler author calls <b>IDestinationStreamFactory::GetDestinationStream</b> to get a new empty stream that the new version of the file will write to. The handler builds the destination stream manually, copying from the source stream as necessary.
      * @returns {IStream} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-istream">IStream</a>**</b>
      * 
      * The address of a pointer to the new stream.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-idestinationstreamfactory-getdestinationstream
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-idestinationstreamfactory-getdestinationstream
      */
     GetDestinationStream() {
         result := ComCall(3, this, "ptr*", &ppstm := 0, "HRESULT")

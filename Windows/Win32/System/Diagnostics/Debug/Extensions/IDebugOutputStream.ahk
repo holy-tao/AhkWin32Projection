@@ -29,9 +29,13 @@ class IDebugOutputStream extends IUnknown{
     static VTableNames => ["Write"]
 
     /**
-     * 
+     * The WriteBackRootHintDatafile method writes the RootHints back to the DNS Cache file.
      * @param {PWSTR} psz 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} This method has no parameters.
+     * 
+     * 
+     * This method does not return a value.
+     * @see https://learn.microsoft.com/windows/win32/DNS/microsoftdns-roothints-writebackroothintdatafile
      */
     Write(psz) {
         psz := psz is String ? StrPtr(psz) : psz

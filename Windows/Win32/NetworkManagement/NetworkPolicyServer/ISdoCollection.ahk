@@ -8,13 +8,10 @@
 /**
  * Use the ISdoCollection interface to manipulate a collection of SDO objects.
  * @remarks
- * 
  * To obtain a collection, call 
  * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdo-getproperty">ISdo::GetProperty</a>, specifying a collection's property. For more information, see 
  * <a href="https://docs.microsoft.com/windows/desktop/Nps/sdo-retrieving-a-collection">Retrieving a Collection</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//sdoias/nn-sdoias-isdocollection
+ * @see https://learn.microsoft.com/windows/win32/api/sdoias/nn-sdoias-isdocollection
  * @namespace Windows.Win32.NetworkManagement.NetworkPolicyServer
  * @version v4.0.30319
  */
@@ -56,7 +53,7 @@ class ISdoCollection extends IDispatch{
     /**
      * The get_Count method returns the number of items in the collection.
      * @returns {Integer} Pointer to a <b>LONG</b> that contains the number of items in the collection.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-get_count
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-get_count
      */
     get_Count() {
         result := ComCall(7, this, "int*", &pCount := 0, "HRESULT")
@@ -65,12 +62,17 @@ class ISdoCollection extends IDispatch{
 
     /**
      * The Add method adds an item to the Server Data Objects (SDO) collection.
+     * @remarks
+     * If you specify the name of the object to add, ensure that the name is unique by calling 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/sdoias/nf-sdoias-isdocollection-isnameunique">ISdoCollection::IsNameUnique</a>.
+     * 
+     * If the <i>bstrName</i> parameter is not specified, <b>ISdoCollection::Add</b> obtains it from the object specified by the <i>ppItem</i> parameter.
      * @param {BSTR} bstrName Specifies the name of the SDO Object. This parameter may be <b>NULL</b>.
      * @param {Pointer<IDispatch>} ppItem Pointer to an <b>IDispatch</b> interface pointer for the Item to add. This parameter must not be <b>NULL</b>.
      * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
      * If the method fails, the return value is one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-add
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-add
      */
     Add(bstrName, ppItem) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -88,7 +90,7 @@ class ISdoCollection extends IDispatch{
      * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
      * If the method fails, the return value is one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-remove
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-remove
      */
     Remove(pItem) {
         result := ComCall(9, this, "ptr", pItem, "HRESULT")
@@ -100,7 +102,7 @@ class ISdoCollection extends IDispatch{
      * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
      * If the method fails, the return value is one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-removeall
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-removeall
      */
     RemoveAll() {
         result := ComCall(10, this, "HRESULT")
@@ -112,7 +114,7 @@ class ISdoCollection extends IDispatch{
      * @returns {HRESULT} If the method succeeds the return value is <b>S_OK</b>.
      * 
      * If the method fails, the return value is one of the following error codes.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-reload
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-reload
      */
     Reload() {
         result := ComCall(11, this, "HRESULT")
@@ -121,9 +123,11 @@ class ISdoCollection extends IDispatch{
 
     /**
      * The IsNameUnique method tests whether the specified name is unique in the collection.
+     * @remarks
+     * Neither of the parameters may be <b>NULL</b>.
      * @param {BSTR} bstrName Specifies the name to test.
      * @returns {VARIANT_BOOL} Pointer to a <b>VARIANT</b> that specifies whether the name is unique. The returned value is <b>VARIANT_TRUE</b> if the name is unique, <b>VARIANT_FALSE</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-isnameunique
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-isnameunique
      */
     IsNameUnique(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -134,12 +138,14 @@ class ISdoCollection extends IDispatch{
 
     /**
      * The Item method retrieves the specified item from the collection.
+     * @remarks
+     * Neither of the parameters can be <b>NULL</b>.
      * @param {Pointer<VARIANT>} Name Pointer to a 
      * <a href="https://docs.microsoft.com/windows/desktop/api/oaidl/ns-oaidl-variant">VARIANT</a>. Store the name of the object in a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> in this <b>VARIANT</b>.
      * @returns {IDispatch} Pointer to an interface pointer that receives the address of an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-idispatch">IDispatch</a> interface for the object.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-item
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-item
      */
     Item(Name) {
         result := ComCall(13, this, "ptr", Name, "ptr*", &pItem := 0, "HRESULT")
@@ -148,12 +154,17 @@ class ISdoCollection extends IDispatch{
 
     /**
      * The get__NewEnum method retrieves an IEnumVARIANT interface for a Server Data Objects (SDO) collection.
+     * @remarks
+     * Initialize the SDO before calling this method.
+     * 
+     * <div class="alert"><b>Note</b>  Two underscores are used between "get" and "NewEnum" in the name of this method.</div>
+     * <div> </div>
      * @returns {IUnknown} Pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface pointer. On successful return the <b>IUnknown</b> interface pointer, points to an 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oaidl/nn-oaidl-ienumvariant">IEnumVARIANT</a> interface.
      * 
      * This parameter must not be <b>NULL</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//sdoias/nf-sdoias-isdocollection-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/sdoias/nf-sdoias-isdocollection-get__newenum
      */
     get__NewEnum() {
         result := ComCall(14, this, "ptr*", &ppEnumVARIANT := 0, "HRESULT")

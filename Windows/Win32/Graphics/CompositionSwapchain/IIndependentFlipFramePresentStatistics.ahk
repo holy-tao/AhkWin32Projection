@@ -4,6 +4,8 @@
 #Include .\IPresentStatistics.ahk
 
 /**
+ * Describes how the system displayed an instance of a particular piece of content within a particular independent-flip present.
+ * @remarks
  * 
  * @see https://learn.microsoft.com/windows/win32/api/presentation/nn-presentation-iindependentflipframepresentstatistics
  * @namespace Windows.Win32.Graphics.CompositionSwapchain
@@ -31,8 +33,10 @@ class IIndependentFlipFramePresentStatistics extends IPresentStatistics{
     static VTableNames => ["GetOutputAdapterLUID", "GetOutputVidPnSourceId", "GetContentTag", "GetDisplayedTime", "GetPresentDuration"]
 
     /**
+     * Gets the locally unique ID (LUID) that refers to the display adapter on which this independent-flip present occurred.
+     * @returns {LUID} Type: **[LUID](/windows/win32/api/winnt/ns-winnt-luid)**
      * 
-     * @returns {LUID} 
+     * A locally unique ID (LUID) that refers to the display adapter on which this independent-flip present occurred.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-iindependentflipframepresentstatistics-getoutputadapterluid
      */
     GetOutputAdapterLUID() {
@@ -41,8 +45,10 @@ class IIndependentFlipFramePresentStatistics extends IPresentStatistics{
     }
 
     /**
+     * Gets an integer that identifies a video present source on the display adapter.
+     * @returns {Integer} Type: **[UINT](/windows/desktop/winprog/windows-data-types)**
      * 
-     * @returns {Integer} 
+     * An integer that identifies a video present source on the display adapter.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-iindependentflipframepresentstatistics-getoutputvidpnsourceid
      */
     GetOutputVidPnSourceId() {
@@ -51,8 +57,10 @@ class IIndependentFlipFramePresentStatistics extends IPresentStatistics{
     }
 
     /**
+     * Gets the tag of the content on which statistics are being reporting. (IIndependentFlipFramePresentStatistics::GetContentTag)
+     * @returns {Pointer} Type: **[UINT_PTR_](/windows/desktop/winprog/windows-data-types)**
      * 
-     * @returns {Pointer} 
+     * The tag of the content on which statistics are being reporting.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-iindependentflipframepresentstatistics-getcontenttag
      */
     GetContentTag() {
@@ -61,8 +69,10 @@ class IIndependentFlipFramePresentStatistics extends IPresentStatistics{
     }
 
     /**
+     * Gets the time the present was displayed.
+     * @returns {SystemInterruptTime} TYPE: **[SystemInterruptTime](/windows/win32/api/presentationtypes/ns-presentationtypes-systeminterrupttime)**
      * 
-     * @returns {SystemInterruptTime} 
+     * The time the present was displayed.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-iindependentflipframepresentstatistics-getdisplayedtime
      */
     GetDisplayedTime() {
@@ -71,8 +81,12 @@ class IIndependentFlipFramePresentStatistics extends IPresentStatistics{
     }
 
     /**
+     * Gets the actual amount of time the present was displayed.
+     * @remarks
+     * The actual present duration may be different from the preferred present duration requested by the application if the system decided not to honor the preferred duration. This usually happens either because it was not supported by the driver, or other content on screen influenced the system to go with another duration.
+     * @returns {SystemInterruptTime} TYPE: **[SystemInterruptTime](/windows/win32/api/presentationtypes/ns-presentationtypes-systeminterrupttime)**
      * 
-     * @returns {SystemInterruptTime} 
+     * The actual amount of time the present was displayed.
      * @see https://learn.microsoft.com/windows/win32/api/presentation/nf-presentation-iindependentflipframepresentstatistics-getpresentduration
      */
     GetPresentDuration() {

@@ -5,7 +5,7 @@
 
 /**
  * Controls the speed of the video decoder.
- * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nn-wmcodecdsp-iwmvideodecoderhurryup
+ * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nn-wmcodecdsp-iwmvideodecoderhurryup
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -92,7 +92,7 @@ class IWMVideoDecoderHurryup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderhurryup-sethurryup
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderhurryup-sethurryup
      */
     SetHurryup(lHurryup) {
         result := ComCall(3, this, "int", lHurryup, "HRESULT")
@@ -161,7 +161,7 @@ class IWMVideoDecoderHurryup extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderhurryup-gethurryup
+     * @see https://learn.microsoft.com/windows/win32/api/wmcodecdsp/nf-wmcodecdsp-iwmvideodecoderhurryup-gethurryup
      */
     GetHurryup(plHurryup) {
         plHurryupMarshal := plHurryup is VarRef ? "int*" : "ptr"

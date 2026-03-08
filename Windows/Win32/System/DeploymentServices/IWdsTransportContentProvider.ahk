@@ -6,7 +6,7 @@
 
 /**
  * Used to describe a content provider.
- * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nn-wdstptmgmt-iwdstransportcontentprovider
+ * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nn-wdstptmgmt-iwdstransportcontentprovider
  * @namespace Windows.Win32.System.DeploymentServices
  * @version v4.0.30319
  */
@@ -68,7 +68,7 @@ class IWdsTransportContentProvider extends IDispatch{
     /**
      * Retrieves the name of the content provider.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_name
      */
     get_Name() {
         pbszName := BSTR()
@@ -79,7 +79,7 @@ class IWdsTransportContentProvider extends IDispatch{
     /**
      * Retrieves the description of the content provider.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_description
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_description
      */
     get_Description() {
         pbszDescription := BSTR()
@@ -90,7 +90,7 @@ class IWdsTransportContentProvider extends IDispatch{
     /**
      * Retrieves the path to the content provider’s DLL.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_filepath
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_filepath
      */
     get_FilePath() {
         pbszFilePath := BSTR()
@@ -101,7 +101,7 @@ class IWdsTransportContentProvider extends IDispatch{
     /**
      * Retrieves the name of the method called to initialize the content provider.
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_initializationroutine
+     * @see https://learn.microsoft.com/windows/win32/api/wdstptmgmt/nf-wdstptmgmt-iwdstransportcontentprovider-get_initializationroutine
      */
     get_InitializationRoutine() {
         pbszInitializationRoutine := BSTR()

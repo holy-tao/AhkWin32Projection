@@ -7,7 +7,7 @@
 
 /**
  * This interface is passed to all IFunctionDiscoveryProvider::Query method calls and contains query definition information. Providers should use this to determine what the constraints are for each query request they receive.
- * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryproviderquery
+ * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-ifunctiondiscoveryproviderquery
  * @namespace Windows.Win32.Devices.FunctionDiscovery
  * @version v4.0.30319
  */
@@ -36,8 +36,8 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
      * Determines whether a query is for a single function instance or multiple function instances.
      * @param {Pointer<BOOL>} pisInstanceQuery If this parameter is <b>TRUE</b>, there is a provider instance identifier constraint in the query constraints collection.
      * @param {Pointer<Pointer<Integer>>} ppszConstraintValue The value of the provider instance identifier constraint.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-isinstancequery
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-isinstancequery
      */
     IsInstanceQuery(pisInstanceQuery, ppszConstraintValue) {
         pisInstanceQueryMarshal := pisInstanceQuery is VarRef ? "int*" : "ptr"
@@ -49,10 +49,12 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
 
     /**
      * Determines whether a query is for function instances in a specific subcategory.
+     * @remarks
+     * If the provider does not support subcategories, the provider should return an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryapi/nn-functiondiscoveryapi-ifunctioninstancecollection">IFunctionInstanceCollection</a> with 0 instances in response to the query.
      * @param {Pointer<BOOL>} pisSubcategoryQuery If this parameter is <b>TRUE</b>, there is a subcategory constraint in the query constraints collection.
      * @param {Pointer<Pointer<Integer>>} ppszConstraintValue The value of the subcategory constraint.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-issubcategoryquery
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-issubcategoryquery
      */
     IsSubcategoryQuery(pisSubcategoryQuery, ppszConstraintValue) {
         pisSubcategoryQueryMarshal := pisSubcategoryQuery is VarRef ? "int*" : "ptr"
@@ -64,8 +66,12 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
 
     /**
      * Retrieves the current query constraints.
+     * @remarks
+     * Providers are expected to apply all query constraints when returning results. Providers should ignore any query constraints they do not recognize.
+     * 
+     * The provider should examine all constraints to determine the query to perform.
      * @returns {IProviderQueryConstraintCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderqueryconstraintcollection">IProviderQueryConstraintCollection</a> interface pointer that receives the collection of query constraints.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-getqueryconstraints
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-getqueryconstraints
      */
     GetQueryConstraints() {
         result := ComCall(5, this, "ptr*", &ppIProviderQueryConstraints := 0, "HRESULT")
@@ -74,8 +80,12 @@ class IFunctionDiscoveryProviderQuery extends IUnknown{
 
     /**
      * Retrieves the current property constraints.
+     * @remarks
+     * Function Discovery will apply all property constraints to the results returned by the provider, but it is more efficient if the provider can apply the property constraints to the results.
+     * 
+     *   The provider should examine all constraints to determine the query to perform.
      * @returns {IProviderPropertyConstraintCollection} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/functiondiscoveryprovider/nn-functiondiscoveryprovider-iproviderpropertyconstraintcollection">IProviderPropertyConstraintCollection</a> interface pointer that receives the collection of property constraints.
-     * @see https://docs.microsoft.com/windows/win32/api//functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-getpropertyconstraints
+     * @see https://learn.microsoft.com/windows/win32/api/functiondiscoveryprovider/nf-functiondiscoveryprovider-ifunctiondiscoveryproviderquery-getpropertyconstraints
      */
     GetPropertyConstraints() {
         result := ComCall(6, this, "ptr*", &ppIProviderPropertyConstraints := 0, "HRESULT")

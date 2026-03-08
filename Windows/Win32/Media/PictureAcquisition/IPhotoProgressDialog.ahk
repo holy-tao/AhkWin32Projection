@@ -7,7 +7,7 @@
 
 /**
  * Provides the progress dialog box that may be displayed when enumerating or importing images. The dialog box is modal and runs in its own thread.
- * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nn-photoacquire-iphotoprogressdialog
+ * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nn-photoacquire-iphotoprogressdialog
  * @namespace Windows.Win32.Media.PictureAcquisition
  * @version v4.0.30319
  */
@@ -40,6 +40,10 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * The Create method creates and displays a progress dialog box that can be shown during image enumeration and acquisition.
+     * @remarks
+     * The dialog box that is created is modal, and runs in its own thread.
+     * 
+     * To close the dialog, call <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoprogressdialog-destroy">Destroy</a>.
      * @param {HWND} hwndParent Handle of the parent window.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -60,7 +64,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-create
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-create
      */
     Create(hwndParent) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent
@@ -72,7 +76,7 @@ class IPhotoProgressDialog extends IUnknown{
     /**
      * The GetWindow method retrieves the handle to the progress dialog box.
      * @returns {HWND} Specifies the handle to the progress dialog box.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-getwindow
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-getwindow
      */
     GetWindow() {
         phwndProgressDialog := HWND()
@@ -82,6 +86,8 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * The Destroy method closes and disposes of the progress dialog box shown during image enumeration and acquisition.
+     * @remarks
+     * Calling <c>Destroy</code> is the only way to close the progress dialog box. If <code>Destroy</c> is not called, the dialog box will remain open. The dialog box is not automatically closed when the operation in progress completes.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -101,7 +107,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-destroy
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-destroy
      */
     Destroy() {
         result := ComCall(5, this, "HRESULT")
@@ -130,7 +136,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-settitle
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-settitle
      */
     SetTitle(pszTitle) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
@@ -162,7 +168,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-showcheckbox
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-showcheckbox
      */
     ShowCheckbox(nCheckboxId, fShow) {
         result := ComCall(7, this, "int", nCheckboxId, "int", fShow, "HRESULT")
@@ -192,7 +198,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtext
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtext
      */
     SetCheckboxText(nCheckboxId, pszCheckboxText) {
         pszCheckboxText := pszCheckboxText is String ? StrPtr(pszCheckboxText) : pszCheckboxText
@@ -235,7 +241,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtooltip
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setcheckboxtooltip
      */
     SetCheckboxTooltip(nCheckboxId, pszCheckboxTooltipText) {
         pszCheckboxTooltipText := pszCheckboxTooltipText is String ? StrPtr(pszCheckboxTooltipText) : pszCheckboxTooltipText
@@ -248,7 +254,7 @@ class IPhotoProgressDialog extends IUnknown{
      * The IsCheckboxChecked method indicates whether the check box in the progress dialog box (typically indicating whether to delete files after transfer) is selected.
      * @param {Integer} nCheckboxId Integer value containing the check box identifier (ID).
      * @returns {BOOL} Pointer to a flag that, if set to <b>TRUE</b>, indicates that the check box is selected.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-ischeckboxchecked
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-ischeckboxchecked
      */
     IsCheckboxChecked(nCheckboxId) {
         result := ComCall(11, this, "int", nCheckboxId, "int*", &pfChecked := 0, "HRESULT")
@@ -257,6 +263,8 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * Sets the caption of the progress dialog box.
+     * @remarks
+     * The caption text is displayed above the progress indicator bar in the dialog box.
      * @param {PWSTR} pszTitle Pointer to a null-terminated string containing the title of the progress dialog box.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -277,7 +285,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setcaption
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setcaption
      */
     SetCaption(pszTitle) {
         pszTitle := pszTitle is String ? StrPtr(pszTitle) : pszTitle
@@ -359,7 +367,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setimage
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setimage
      */
     SetImage(nImageType, hIcon, hBitmap) {
         hIcon := hIcon is Win32Handle ? NumGet(hIcon, "ptr") : hIcon
@@ -371,6 +379,8 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * The SetPercentComplete method sets a value indicating the completed portion of the current operation.
+     * @remarks
+     * If you pass PROGRESS_INDETERMINATE to <c>SetPercentComplete</c>, the progress bar will not progress from left to right (from 0 to 100%), but will instead animate to indicate that an operation with an indeterminate end is taking place.
      * @param {Integer} nPercent Integer value indicating the percentage of the operation that has completed. This value may be between 0 and 100 only.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -391,7 +401,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setpercentcomplete
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setpercentcomplete
      */
     SetPercentComplete(nPercent) {
         result := ComCall(14, this, "int", nPercent, "HRESULT")
@@ -420,7 +430,7 @@ class IPhotoProgressDialog extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-setprogresstext
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-setprogresstext
      */
     SetProgressText(pszProgressText) {
         pszProgressText := pszProgressText is String ? StrPtr(pszProgressText) : pszProgressText
@@ -464,7 +474,7 @@ class IPhotoProgressDialog extends IUnknown{
     /**
      * The IsCancelled method indicates whether the operation has been canceled via the progress dialog box.
      * @returns {BOOL} Pointer to a flag that, if set to <b>TRUE</b>, indicates the action has been canceled.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-iscancelled
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-iscancelled
      */
     IsCancelled() {
         result := ComCall(19, this, "int*", &pfCancelled := 0, "HRESULT")
@@ -473,11 +483,13 @@ class IPhotoProgressDialog extends IUnknown{
 
     /**
      * Retrieves descriptive information entered by the user, such as the tag name of the images to store.
+     * @remarks
+     * If the progress dialog box has been suppressed in <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquire-acquire">IPhotoAcquire::Acquire</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nf-photoacquire-iphotoacquireprogresscb-getuserinput">IPhotoAcquireProgressCB::GetUserInput</a> is either not implemented, or returns E_NOTIMPL, this method will return S_FALSE, and <i>pPropVarResult</i> will contain the value stored in the optional <i>pPropVarDefault</i> argument.
      * @param {Pointer<Guid>} riidType Specifies the interface identifier (ID) of the prompt type. Currently, the only supported value is IID_IUserInputString.
      * @param {IUnknown} pUnknown Pointer to an object of the prompt class. Currently, the only supported type is <a href="https://docs.microsoft.com/windows/desktop/api/photoacquire/nn-photoacquire-iuserinputstring">IUserInputString</a>.
      * @param {Pointer<PROPVARIANT>} pPropVarDefault Pointer to a property variant containing the default value to be used if no input is supplied.
      * @returns {PROPVARIANT} Pointer to a property variant that stores the user input. Must be freed by the caller using <b>ClearPropVariant</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//photoacquire/nf-photoacquire-iphotoprogressdialog-getuserinput
+     * @see https://learn.microsoft.com/windows/win32/api/photoacquire/nf-photoacquire-iphotoprogressdialog-getuserinput
      */
     GetUserInput(riidType, pUnknown, pPropVarDefault) {
         pPropVarResult := PROPVARIANT()

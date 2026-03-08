@@ -7,7 +7,6 @@
 /**
  * Exposes methods that manage the border space for one or more IDockingWindow objects. This interface is implemented by the browser and is similar to the IOleInPlaceUIWindow interface.
  * @remarks
- * 
  * <b>IDockingWindowSite</b> is derived from <a href="https://docs.microsoft.com/windows/desktop/api/oleidl/nn-oleidl-iolewindow">IOleWindow</a>. See the following topics for details on these methods also available to <b>IDockingWindowSite</b> through that inheritance.
  * 
  * 
@@ -34,8 +33,7 @@
  * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * You use <b>IDockingWindowSite</b> to negotiate the space for a docking window object in a browser frame.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nn-shlobj_core-idockingwindowsite
+ * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nn-shlobj_core-idockingwindowsite
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -68,7 +66,7 @@ class IDockingWindowSite extends IOleWindow{
      * @returns {RECT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a>*</b>
      * 
      * Pointer to a structure that, when this method returns successfully, receives the entire available border space for the browser. The docking window object should use this information to determine where to place itself. See the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nf-shobjidl_core-idockingwindow-resizeborderdw">IDockingWindow::ResizeBorderDW</a> method for more information.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-idockingwindowsite-getborderdw
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-idockingwindowsite-getborderdw
      */
     GetBorderDW(punkObj) {
         prcBorder := RECT()
@@ -87,7 +85,7 @@ class IDockingWindowSite extends IOleWindow{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the border space request is approved or modified, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-idockingwindowsite-requestborderspacedw
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-idockingwindowsite-requestborderspacedw
      */
     RequestBorderSpaceDW(punkObj, pbw) {
         result := ComCall(6, this, "ptr", punkObj, "ptr", pbw, "HRESULT")
@@ -104,8 +102,8 @@ class IDockingWindowSite extends IOleWindow{
      * A pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/cc136564(v=vs.85)">BORDERWIDTHS</a> structure that contains the coordinates of the <a href="https://docs.microsoft.com/windows/desktop/api/shobjidl_core/nn-shobjidl_core-idockingwindow">IDockingWindow</a> object's border space. The border space should be approved through a successful call to the <a href="https://docs.microsoft.com/windows/desktop/api/shlobj_core/nf-shlobj_core-idockingwindowsite-requestborderspacedw">IDockingWindowSite::RequestBorderSpaceDW</a> method before <b>SetBorderSpaceDW</b> is called with these coordinates.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shlobj_core/nf-shlobj_core-idockingwindowsite-setborderspacedw
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shlobj_core/nf-shlobj_core-idockingwindowsite-setborderspacedw
      */
     SetBorderSpaceDW(punkObj, pbw) {
         result := ComCall(7, this, "ptr", punkObj, "ptr", pbw, "HRESULT")

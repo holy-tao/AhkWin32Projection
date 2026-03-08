@@ -5,8 +5,8 @@
 #Include ..\..\System\Com\IUnknown.ahk
 
 /**
- * Provides methods for applying and querying logical unit number (LUN) hints.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdslun2
+ * The IVdsLun2 interface (vdshwprv.h) provides methods for applying and querying logical unit number (LUN) hints.
+ * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nn-vdshwprv-ivdslun2
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -32,10 +32,15 @@ class IVdsLun2 extends IUnknown{
     static VTableNames => ["QueryHints2", "ApplyHints2"]
 
     /**
-     * Returns the hints currently applied to the LUN. This method is identical to the IVdsLun::QueryHints method, except that it uses a VDS_HINTS2 structure instead of a VDS_HINTS structure.
+     * The IVdsLun2::QueryHints2 (vdshwprv.h) method returns the hints currently applied to the LUN. This method is identical to the IVdsLun::QueryHints method.
+     * @remarks
+     * Callers can specify hints by passing in the <i>pHints2</i> parameter to the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem2::CreateLun2</a> method when 
+     *     creating a LUN or by using the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun-applyhints">IVdsLun2::ApplyHints2</a> 
+     *     method to apply a set of new hints to an existing LUN.
      * @returns {VDS_HINTS2} A pointer to the returned LUN hints. See the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints2">VDS_HINTS2</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslun2-queryhints2
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun2-queryhints2
      */
     QueryHints2() {
         pHints2 := VDS_HINTS2()
@@ -44,10 +49,15 @@ class IVdsLun2 extends IUnknown{
     }
 
     /**
-     * Applies a new set of hints to the LUN. Hints that are applied to a LUN are simultaneously applied to all plexes. This method is identical to the IVdsLun::ApplyHints method, except that it uses a VDS_HINTS2 structure instead of a VDS_HINTS structure.
+     * The IVdsLun2::ApplyHints2 (vdshwprv.h) method applies a new set of hints to the LUN. Hints that are applied to a LUN are simultaneously applied to all plexes.
+     * @remarks
+     * Callers can also specify hints by passing in the <i>pHints</i> 
+     *     parameter to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdssubsystem-createlun">IVdsSubSystem2::CreateLun2</a> 
+     *     method when creating a LUN. To query for existing hints, use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdslun2-queryhints2">IVdsLun2::QueryHints2</a> method.
      * @param {Pointer<VDS_HINTS2>} pHints2 A pointer to the new hints to be applied to the LUN. See the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_hints2">VDS_HINTS2</a> structure.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -64,9 +74,9 @@ class IVdsLun2 extends IUnknown{
      * <td width="60%">
      * There is a software or communication problem inside a provider that caches information 
      *         about the array. Use the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-reenumerate">IVdsHwProvider::Reenumerate</a> method 
      *         followed by the 
-     *         <a href="/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
+     *         <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdshwprovider-refresh">IVdsHwProvider::Refresh</a> method to restore 
      *         the cache.
      * 
      * </td>
@@ -121,7 +131,7 @@ class IVdsLun2 extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdslun2-applyhints2
+     * @see https://learn.microsoft.com/windows/win32/api/vdshwprv/nf-vdshwprv-ivdslun2-applyhints2
      */
     ApplyHints2(pHints2) {
         result := ComCall(4, this, "ptr", pHints2, "HRESULT")

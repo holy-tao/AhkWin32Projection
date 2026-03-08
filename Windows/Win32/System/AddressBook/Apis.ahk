@@ -1445,11 +1445,7 @@ class AddressBook {
         lpszFileNameMarshal := lpszFileName is VarRef ? "char*" : "ptr"
         lpszPrefixMarshal := lpszPrefix is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\OpenStreamOnFile", "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "uint", ulFlags, lpszFileNameMarshal, lpszFileName, lpszPrefixMarshal, lpszPrefix, "ptr*", &lppStream := 0, "HRESULT")
         return IStream(lppStream)
     }
 
@@ -1624,11 +1620,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumns
      */
     static HrAddColumns(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer) {
-        result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrAddColumns", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "HRESULT")
         return result
     }
 
@@ -1649,11 +1641,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hraddcolumnsex
      */
     static HrAddColumnsEx(lptbl, lpproptagColumnsNew, lpAllocateBuffer, lpFreeBuffer, lpfnFilterColumns) {
-        result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "ptr", lpfnFilterColumns, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrAddColumnsEx", "ptr", lptbl, "ptr", lpproptagColumnsNew, "ptr", lpAllocateBuffer, "ptr", lpFreeBuffer, "ptr", lpfnFilterColumns, "HRESULT")
         return result
     }
 
@@ -1674,11 +1662,7 @@ class AddressBook {
     static HrAllocAdviseSink(lpfnCallback, lpvContext) {
         lpvContextMarshal := lpvContext is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", &lppAdviseSink := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrAllocAdviseSink", "ptr", lpfnCallback, lpvContextMarshal, lpvContext, "ptr*", &lppAdviseSink := 0, "HRESULT")
         return IMAPIAdviseSink(lppAdviseSink)
     }
 
@@ -1703,11 +1687,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrthisthreadadvisesink
      */
     static HrThisThreadAdviseSink(lpAdviseSink) {
-        result := DllCall("MAPI32.dll\HrThisThreadAdviseSink", "ptr", lpAdviseSink, "ptr*", &lppAdviseSink := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrThisThreadAdviseSink", "ptr", lpAdviseSink, "ptr*", &lppAdviseSink := 0, "HRESULT")
         return IMAPIAdviseSink(lppAdviseSink)
     }
 
@@ -1730,11 +1710,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrdispatchnotifications
      */
     static HrDispatchNotifications(ulFlags) {
-        result := DllCall("MAPI32.dll\HrDispatchNotifications", "uint", ulFlags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrDispatchNotifications", "uint", ulFlags, "HRESULT")
         return result
     }
 
@@ -1762,11 +1738,7 @@ class AddressBook {
     static BuildDisplayTable(lpAllocateBuffer, lpAllocateMore, lpFreeBuffer, lpMalloc, hInstance, cPages, lpPage, ulFlags, lppTable, lppTblData) {
         hInstance := hInstance is Win32Handle ? NumGet(hInstance, "ptr") : hInstance
 
-        result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr*", lppTable, "ptr*", lppTblData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\BuildDisplayTable", "ptr", lpAllocateBuffer, "ptr", lpAllocateMore, "ptr", lpFreeBuffer, "ptr", lpMalloc, "ptr", hInstance, "uint", cPages, "ptr", lpPage, "uint", ulFlags, "ptr*", lppTable, "ptr*", lppTblData, "HRESULT")
         return result
     }
 
@@ -2034,11 +2006,7 @@ class AddressBook {
     static HrGetOneProp(lpMapiProp, ulPropTag, lppProp) {
         lppPropMarshal := lppProp is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, "uint", ulPropTag, lppPropMarshal, lppProp, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrGetOneProp", "ptr", lpMapiProp, "uint", ulPropTag, lppPropMarshal, lppProp, "HRESULT")
         return result
     }
 
@@ -2054,11 +2022,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hrsetoneprop
      */
     static HrSetOneProp(lpMapiProp, lpProp) {
-        result := DllCall("MAPI32.dll\HrSetOneProp", "ptr", lpMapiProp, "ptr", lpProp, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrSetOneProp", "ptr", lpMapiProp, "ptr", lpProp, "HRESULT")
         return result
     }
 
@@ -2143,11 +2107,7 @@ class AddressBook {
     static HrQueryAllRows(lpTable, lpPropTags, lpRestriction, lpSortOrderSet, crowsMax, lppRows) {
         lppRowsMarshal := lppRows is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, "ptr", lpPropTags, "ptr", lpRestriction, "ptr", lpSortOrderSet, "int", crowsMax, lppRowsMarshal, lppRows, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrQueryAllRows", "ptr", lpTable, "ptr", lpPropTags, "ptr", lpRestriction, "ptr", lpSortOrderSet, "int", crowsMax, lppRowsMarshal, lppRows, "HRESULT")
         return result
     }
 
@@ -2379,11 +2339,7 @@ class AddressBook {
     static WrapStoreEntryID(ulFlags, lpszDLLName, cbOrigEntry, lpOrigEntry, lppWrappedEntry) {
         lpszDLLNameMarshal := lpszDLLName is VarRef ? "char*" : "ptr"
 
-        result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, lpszDLLNameMarshal, lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, "uint*", &lpcbWrappedEntry := 0, "ptr", lppWrappedEntry, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\WrapStoreEntryID", "uint", ulFlags, lpszDLLNameMarshal, lpszDLLName, "uint", cbOrigEntry, "ptr", lpOrigEntry, "uint*", &lpcbWrappedEntry := 0, "ptr", lppWrappedEntry, "HRESULT")
         return lpcbWrappedEntry
     }
 
@@ -2418,11 +2374,7 @@ class AddressBook {
     static RTFSync(lpMessage, ulFlags, lpfMessageUpdated) {
         lpfMessageUpdatedMarshal := lpfMessageUpdated is VarRef ? "int*" : "ptr"
 
-        result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, lpfMessageUpdatedMarshal, lpfMessageUpdated, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\RTFSync", "ptr", lpMessage, "uint", ulFlags, lpfMessageUpdatedMarshal, lpfMessageUpdated, "HRESULT")
         return result
     }
 
@@ -2450,11 +2402,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/wrapcompressedrtfstream
      */
     static WrapCompressedRTFStream(lpCompressedRTFStream, ulFlags) {
-        result := DllCall("MAPI32.dll\WrapCompressedRTFStream", "ptr", lpCompressedRTFStream, "uint", ulFlags, "ptr*", &lpUncompressedRTFStream := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\WrapCompressedRTFStream", "ptr", lpCompressedRTFStream, "uint", ulFlags, "ptr*", &lpUncompressedRTFStream := 0, "HRESULT")
         return IStream(lpUncompressedRTFStream)
     }
 
@@ -2485,11 +2433,7 @@ class AddressBook {
      * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/hristoragefromstream
      */
     static HrIStorageFromStream(lpUnkIn, lpInterface, ulFlags) {
-        result := DllCall("MAPI32.dll\HrIStorageFromStream", "ptr", lpUnkIn, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppStorageOut := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("MAPI32.dll\HrIStorageFromStream", "ptr", lpUnkIn, "ptr", lpInterface, "uint", ulFlags, "ptr*", &lppStorageOut := 0, "HRESULT")
         return IStorage(lppStorageOut)
     }
 

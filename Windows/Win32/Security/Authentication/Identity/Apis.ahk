@@ -10096,7 +10096,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditSetSystemPolicy", "ptr", pAuditPolicy, "uint", dwPolicyCount, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10166,7 +10166,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditSetPerUserPolicy", "ptr", pSid, "ptr", pAuditPolicy, "uint", dwPolicyCount, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10238,7 +10238,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditQuerySystemPolicy", "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10311,7 +10311,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditQueryPerUserPolicy", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10369,7 +10369,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditEnumeratePerUserPolicy", ppAuditSidArrayMarshal, ppAuditSidArray, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10442,7 +10442,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyBySid", "ptr", pSid, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10517,7 +10517,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditComputeEffectivePolicyByToken", "ptr", hTokenHandle, "ptr", pSubCategoryGuids, "uint", dwPolicyCount, ppAuditPolicyMarshal, ppAuditPolicy, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10544,7 +10544,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditEnumerateCategories", ppAuditCategoriesArrayMarshal, ppAuditCategoriesArray, pdwCountReturnedMarshal, pdwCountReturned, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10573,7 +10573,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditEnumerateSubCategories", "ptr", pAuditCategoryGuid, "char", bRetrieveAllSubCategories, ppAuditSubCategoriesArrayMarshal, ppAuditSubCategoriesArray, pdwCountReturnedMarshal, pdwCountReturned, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10602,7 +10602,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameW", "ptr", pAuditCategoryGuid, ppszCategoryNameMarshal, ppszCategoryName, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10631,7 +10631,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditLookupCategoryNameA", "ptr", pAuditCategoryGuid, ppszCategoryNameMarshal, ppszCategoryName, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10660,7 +10660,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameW", "ptr", pAuditSubCategoryGuid, ppszSubCategoryNameMarshal, ppszSubCategoryName, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10689,7 +10689,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditLookupSubCategoryNameA", "ptr", pAuditSubCategoryGuid, ppszSubCategoryNameMarshal, ppszSubCategoryName, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10713,7 +10713,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditLookupCategoryIdFromCategoryGuid", "ptr", pAuditCategoryGuid, pAuditCategoryIdMarshal, pAuditCategoryId, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10735,7 +10735,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditLookupCategoryGuidFromCategoryId", "int", AuditCategoryId, "ptr", pAuditCategoryGuid, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10792,7 +10792,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditSetSecurity", "uint", SecurityInformation, "ptr", pSecurityDescriptor, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10847,7 +10847,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditQuerySecurity", "uint", SecurityInformation, "ptr", ppSecurityDescriptor, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10910,7 +10910,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclW", "ptr", ObjectTypeName, "ptr", Acl, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -10973,7 +10973,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditSetGlobalSaclA", "ptr", ObjectTypeName, "ptr", Acl, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11038,7 +11038,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclW", "ptr", ObjectTypeName, AclMarshal, Acl, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11103,7 +11103,7 @@ class Identity {
 
         result := DllCall("ADVAPI32.dll\AuditQueryGlobalSaclA", "ptr", ObjectTypeName, AclMarshal, Acl, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -11168,11 +11168,7 @@ class Identity {
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, "int64*", &ptsExpiry := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\AcquireCredentialsHandleW", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, "int64*", &ptsExpiry := 0, "HRESULT")
         return ptsExpiry
     }
 
@@ -11228,11 +11224,7 @@ class Identity {
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, "int64*", &ptsExpiry := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\AcquireCredentialsHandleA", "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pvLogonIdMarshal, pvLogonId, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "ptr", phCredential, "int64*", &ptsExpiry := 0, "HRESULT")
         return ptsExpiry
     }
 
@@ -11265,11 +11257,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static FreeCredentialsHandle(phCredential) {
-        result := DllCall("SECUR32.dll\FreeCredentialsHandle", "ptr", phCredential, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\FreeCredentialsHandle", "ptr", phCredential, "HRESULT")
         return result
     }
 
@@ -11292,11 +11280,7 @@ class Identity {
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\AddCredentialsW", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "HRESULT")
         return ptsExpiry
     }
 
@@ -11319,11 +11303,7 @@ class Identity {
         pAuthDataMarshal := pAuthData is VarRef ? "ptr" : "ptr"
         pvGetKeyArgumentMarshal := pvGetKeyArgument is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\AddCredentialsA", "ptr", hCredentials, "ptr", pszPrincipal, "ptr", pszPackage, "uint", fCredentialUse, pAuthDataMarshal, pAuthData, "ptr", pGetKeyFn, pvGetKeyArgumentMarshal, pvGetKeyArgument, "int64*", &ptsExpiry := 0, "HRESULT")
         return ptsExpiry
     }
 
@@ -11353,11 +11333,7 @@ class Identity {
         pszOldPasswordMarshal := pszOldPassword is VarRef ? "ushort*" : "ptr"
         pszNewPasswordMarshal := pszNewPassword is VarRef ? "ushort*" : "ptr"
 
-        result := DllCall("SECUR32.dll\ChangeAccountPasswordW", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ChangeAccountPasswordW", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "HRESULT")
         return result
     }
 
@@ -11387,11 +11363,7 @@ class Identity {
         pszOldPasswordMarshal := pszOldPassword is VarRef ? "char*" : "ptr"
         pszNewPasswordMarshal := pszNewPassword is VarRef ? "char*" : "ptr"
 
-        result := DllCall("SECUR32.dll\ChangeAccountPasswordA", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ChangeAccountPasswordA", pszPackageNameMarshal, pszPackageName, pszDomainNameMarshal, pszDomainName, pszAccountNameMarshal, pszAccountName, pszOldPasswordMarshal, pszOldPassword, pszNewPasswordMarshal, pszNewPassword, "char", bImpersonating, "uint", dwReserved, "ptr", pOutput, "HRESULT")
         return result
     }
 
@@ -12661,11 +12633,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static CompleteAuthToken(phContext, pToken) {
-        result := DllCall("SECUR32.dll\CompleteAuthToken", "ptr", phContext, "ptr", pToken, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\CompleteAuthToken", "ptr", phContext, "ptr", pToken, "HRESULT")
         return result
     }
 
@@ -12747,11 +12715,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static ImpersonateSecurityContext(phContext) {
-        result := DllCall("SECUR32.dll\ImpersonateSecurityContext", "ptr", phContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ImpersonateSecurityContext", "ptr", phContext, "HRESULT")
         return result
     }
 
@@ -12788,11 +12752,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static RevertSecurityContext(phContext) {
-        result := DllCall("SECUR32.dll\RevertSecurityContext", "ptr", phContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\RevertSecurityContext", "ptr", phContext, "HRESULT")
         return result
     }
 
@@ -12806,11 +12766,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static QuerySecurityContextToken(phContext) {
-        result := DllCall("SECUR32.dll\QuerySecurityContextToken", "ptr", phContext, "ptr*", &Token := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QuerySecurityContextToken", "ptr", phContext, "ptr*", &Token := 0, "HRESULT")
         return Token
     }
 
@@ -12846,11 +12802,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static DeleteSecurityContext(phContext) {
-        result := DllCall("SECUR32.dll\DeleteSecurityContext", "ptr", phContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\DeleteSecurityContext", "ptr", phContext, "HRESULT")
         return result
     }
 
@@ -12892,11 +12844,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static ApplyControlToken(phContext, pInput) {
-        result := DllCall("SECUR32.dll\ApplyControlToken", "ptr", phContext, "ptr", pInput, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ApplyControlToken", "ptr", phContext, "ptr", pInput, "HRESULT")
         return result
     }
 
@@ -12920,11 +12868,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static QueryContextAttributesW(phContext, ulAttribute) {
-        result := DllCall("SECUR32.dll\QueryContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", &pBuffer := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QueryContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", &pBuffer := 0, "HRESULT")
         return pBuffer
     }
 
@@ -12944,11 +12888,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static QueryContextAttributesExW(phContext, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SspiCli.dll\QueryContextAttributesExW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\QueryContextAttributesExW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -12972,11 +12912,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static QueryContextAttributesA(phContext, ulAttribute) {
-        result := DllCall("SECUR32.dll\QueryContextAttributesA", "ptr", phContext, "uint", ulAttribute, "ptr", &pBuffer := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QueryContextAttributesA", "ptr", phContext, "uint", ulAttribute, "ptr", &pBuffer := 0, "HRESULT")
         return pBuffer
     }
 
@@ -12996,11 +12932,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static QueryContextAttributesExA(phContext, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SspiCli.dll\QueryContextAttributesExA", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\QueryContextAttributesExA", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13038,11 +12970,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static SetContextAttributesW(phContext, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SECUR32.dll\SetContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SetContextAttributesW", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13080,11 +13008,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static SetContextAttributesA(phContext, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SECUR32.dll\SetContextAttributesA", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SetContextAttributesA", "ptr", phContext, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13246,11 +13170,7 @@ class Identity {
     static QueryCredentialsAttributesW(phCredential, ulAttribute, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\QueryCredentialsAttributesW", "ptr", phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QueryCredentialsAttributesW", "ptr", phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -13264,11 +13184,7 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycredentialsattributesexw
      */
     static QueryCredentialsAttributesExW(phCredential, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SspiCli.dll\QueryCredentialsAttributesExW", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\QueryCredentialsAttributesExW", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13430,11 +13346,7 @@ class Identity {
     static QueryCredentialsAttributesA(phCredential, ulAttribute, pBuffer) {
         pBufferMarshal := pBuffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\QueryCredentialsAttributesA", "ptr", phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QueryCredentialsAttributesA", "ptr", phCredential, "uint", ulAttribute, pBufferMarshal, pBuffer, "HRESULT")
         return result
     }
 
@@ -13448,11 +13360,7 @@ class Identity {
      * @see https://learn.microsoft.com/windows/win32/api/sspi/nf-sspi-querycredentialsattributesexa
      */
     static QueryCredentialsAttributesExA(phCredential, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SspiCli.dll\QueryCredentialsAttributesExA", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\QueryCredentialsAttributesExA", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13584,11 +13492,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static SetCredentialsAttributesW(phCredential, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SECUR32.dll\SetCredentialsAttributesW", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SetCredentialsAttributesW", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13720,11 +13624,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static SetCredentialsAttributesA(phCredential, ulAttribute, pBuffer, cbBuffer) {
-        result := DllCall("SECUR32.dll\SetCredentialsAttributesA", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SetCredentialsAttributesA", "ptr", phCredential, "uint", ulAttribute, "ptr", pBuffer, "uint", cbBuffer, "HRESULT")
         return result
     }
 
@@ -13744,11 +13644,7 @@ class Identity {
     static FreeContextBuffer(pvContextBuffer) {
         pvContextBufferMarshal := pvContextBuffer is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\FreeContextBuffer", pvContextBufferMarshal, pvContextBuffer, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\FreeContextBuffer", pvContextBufferMarshal, pvContextBuffer, "HRESULT")
         return result
     }
 
@@ -13759,11 +13655,7 @@ class Identity {
      * @returns {Integer} 
      */
     static SecAllocateAndSetIPAddress(lpIpAddress, cchIpAddress) {
-        result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, "int*", &FreeCallContext := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\SecAllocateAndSetIPAddress", "ptr", lpIpAddress, "uint", cchIpAddress, "int*", &FreeCallContext := 0, "HRESULT")
         return FreeCallContext
     }
 
@@ -13777,11 +13669,7 @@ class Identity {
     static SecAllocateAndSetCallTarget(lpIpAddress, cchIpAddress, TargetName) {
         TargetName := TargetName is String ? StrPtr(TargetName) : TargetName
 
-        result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, "int*", &FreeCallContext := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\SecAllocateAndSetCallTarget", "ptr", lpIpAddress, "uint", cchIpAddress, "ptr", TargetName, "int*", &FreeCallContext := 0, "HRESULT")
         return FreeCallContext
     }
 
@@ -14016,11 +13904,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static MakeSignature(phContext, fQOP, pMessage, MessageSeqNo) {
-        result := DllCall("SECUR32.dll\MakeSignature", "ptr", phContext, "uint", fQOP, "ptr", pMessage, "uint", MessageSeqNo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\MakeSignature", "ptr", phContext, "uint", fQOP, "ptr", pMessage, "uint", MessageSeqNo, "HRESULT")
         return result
     }
 
@@ -14043,11 +13927,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static VerifySignature(phContext, pMessage, MessageSeqNo) {
-        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\VerifySignature", "ptr", phContext, "ptr", pMessage, "uint", MessageSeqNo, "uint*", &pfQOP := 0, "HRESULT")
         return pfQOP
     }
 
@@ -14358,11 +14238,7 @@ class Identity {
         pcPackagesMarshal := pcPackages is VarRef ? "uint*" : "ptr"
         ppPackageInfoMarshal := ppPackageInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesW", pcPackagesMarshal, pcPackages, ppPackageInfoMarshal, ppPackageInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesW", pcPackagesMarshal, pcPackages, ppPackageInfoMarshal, ppPackageInfo, "HRESULT")
         return result
     }
 
@@ -14436,11 +14312,7 @@ class Identity {
         pcPackagesMarshal := pcPackages is VarRef ? "uint*" : "ptr"
         ppPackageInfoMarshal := ppPackageInfo is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesA", pcPackagesMarshal, pcPackages, ppPackageInfoMarshal, ppPackageInfo, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\EnumerateSecurityPackagesA", pcPackagesMarshal, pcPackages, ppPackageInfoMarshal, ppPackageInfo, "HRESULT")
         return result
     }
 
@@ -14465,11 +14337,7 @@ class Identity {
     static QuerySecurityPackageInfoW(pszPackageName) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoW", "ptr", pszPackageName, "ptr*", &ppPackageInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoW", "ptr", pszPackageName, "ptr*", &ppPackageInfo := 0, "HRESULT")
         return ppPackageInfo
     }
 
@@ -14494,11 +14362,7 @@ class Identity {
     static QuerySecurityPackageInfoA(pszPackageName) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoA", "ptr", pszPackageName, "ptr*", &ppPackageInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\QuerySecurityPackageInfoA", "ptr", pszPackageName, "ptr*", &ppPackageInfo := 0, "HRESULT")
         return ppPackageInfo
     }
 
@@ -14515,11 +14379,7 @@ class Identity {
      * @since windows5.1.2600
      */
     static ExportSecurityContext(phContext, fFlags, pPackedContext) {
-        result := DllCall("SECUR32.dll\ExportSecurityContext", "ptr", phContext, "uint", fFlags, "ptr", pPackedContext, "ptr*", &pToken := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ExportSecurityContext", "ptr", phContext, "uint", fFlags, "ptr", pPackedContext, "ptr*", &pToken := 0, "HRESULT")
         return pToken
     }
 
@@ -14605,11 +14465,7 @@ class Identity {
 
         TokenMarshal := Token is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\ImportSecurityContextW", "ptr", pszPackage, "ptr", pPackedContext, TokenMarshal, Token, "ptr", phContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ImportSecurityContextW", "ptr", pszPackage, "ptr", pPackedContext, TokenMarshal, Token, "ptr", phContext, "HRESULT")
         return result
     }
 
@@ -14695,11 +14551,7 @@ class Identity {
 
         TokenMarshal := Token is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\ImportSecurityContextA", "ptr", pszPackage, "ptr", pPackedContext, TokenMarshal, Token, "ptr", phContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\ImportSecurityContextA", "ptr", pszPackage, "ptr", pPackedContext, TokenMarshal, Token, "ptr", phContext, "HRESULT")
         return result
     }
 
@@ -14767,11 +14619,7 @@ class Identity {
         ProfileListMarshal := ProfileList is VarRef ? "ptr*" : "ptr"
         ProfileCountMarshal := ProfileCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslEnumerateProfilesA", ProfileListMarshal, ProfileList, ProfileCountMarshal, ProfileCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslEnumerateProfilesA", ProfileListMarshal, ProfileList, ProfileCountMarshal, ProfileCount, "HRESULT")
         return result
     }
 
@@ -14804,11 +14652,7 @@ class Identity {
         ProfileListMarshal := ProfileList is VarRef ? "ptr*" : "ptr"
         ProfileCountMarshal := ProfileCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslEnumerateProfilesW", ProfileListMarshal, ProfileList, ProfileCountMarshal, ProfileCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslEnumerateProfilesW", ProfileListMarshal, ProfileList, ProfileCountMarshal, ProfileCount, "HRESULT")
         return result
     }
 
@@ -14825,11 +14669,7 @@ class Identity {
     static SaslGetProfilePackageA(ProfileName) {
         ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
-        result := DllCall("SECUR32.dll\SaslGetProfilePackageA", "ptr", ProfileName, "ptr*", &PackageInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslGetProfilePackageA", "ptr", ProfileName, "ptr*", &PackageInfo := 0, "HRESULT")
         return PackageInfo
     }
 
@@ -14846,11 +14686,7 @@ class Identity {
     static SaslGetProfilePackageW(ProfileName) {
         ProfileName := ProfileName is String ? StrPtr(ProfileName) : ProfileName
 
-        result := DllCall("SECUR32.dll\SaslGetProfilePackageW", "ptr", ProfileName, "ptr*", &PackageInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslGetProfilePackageW", "ptr", ProfileName, "ptr*", &PackageInfo := 0, "HRESULT")
         return PackageInfo
     }
 
@@ -14865,11 +14701,7 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslIdentifyPackageA(pInput) {
-        result := DllCall("SECUR32.dll\SaslIdentifyPackageA", "ptr", pInput, "ptr*", &PackageInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslIdentifyPackageA", "ptr", pInput, "ptr*", &PackageInfo := 0, "HRESULT")
         return PackageInfo
     }
 
@@ -14884,11 +14716,7 @@ class Identity {
      * @since windowsserver2003
      */
     static SaslIdentifyPackageW(pInput) {
-        result := DllCall("SECUR32.dll\SaslIdentifyPackageW", "ptr", pInput, "ptr*", &PackageInfo := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslIdentifyPackageW", "ptr", pInput, "ptr*", &PackageInfo := 0, "HRESULT")
         return PackageInfo
     }
 
@@ -15470,11 +15298,7 @@ class Identity {
     static SaslSetContextOption(ContextHandle, Option, Value, Size) {
         ValueMarshal := Value is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslSetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslSetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, "HRESULT")
         return result
     }
 
@@ -15588,11 +15412,7 @@ class Identity {
         ValueMarshal := Value is VarRef ? "ptr" : "ptr"
         NeededMarshal := Needed is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SaslGetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, NeededMarshal, Needed, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SaslGetContextOption", "ptr", ContextHandle, "uint", Option, ValueMarshal, Value, "uint", Size, NeededMarshal, Needed, "HRESULT")
         return result
     }
 
@@ -15765,11 +15585,7 @@ class Identity {
         pCredmanCredentialTypeMarshal := pCredmanCredentialType is VarRef ? "uint*" : "ptr"
         ppszCredmanTargetNameMarshal := ppszCredmanTargetName is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiPrepareForCredRead", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, ppszCredmanTargetNameMarshal, ppszCredmanTargetName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiPrepareForCredRead", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, ppszCredmanTargetNameMarshal, ppszCredmanTargetName, "HRESULT")
         return result
     }
 
@@ -15800,11 +15616,7 @@ class Identity {
         ppCredentialBlobMarshal := ppCredentialBlob is VarRef ? "ptr*" : "ptr"
         pCredentialBlobSizeMarshal := pCredentialBlobSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, ppszCredmanTargetNameMarshal, ppszCredmanTargetName, ppszCredmanUserNameMarshal, ppszCredmanUserName, ppCredentialBlobMarshal, ppCredentialBlob, pCredentialBlobSizeMarshal, pCredentialBlobSize, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiPrepareForCredWrite", AuthIdentityMarshal, AuthIdentity, "ptr", pszTargetName, pCredmanCredentialTypeMarshal, pCredmanCredentialType, ppszCredmanTargetNameMarshal, ppszCredmanTargetName, ppszCredmanUserNameMarshal, ppszCredmanUserName, ppCredentialBlobMarshal, ppCredentialBlob, pCredentialBlobSizeMarshal, pCredentialBlobSize, "HRESULT")
         return result
     }
 
@@ -15820,11 +15632,7 @@ class Identity {
     static SspiEncryptAuthIdentity(AuthData) {
         AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiEncryptAuthIdentity", AuthDataMarshal, AuthData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiEncryptAuthIdentity", AuthDataMarshal, AuthData, "HRESULT")
         return result
     }
 
@@ -15844,11 +15652,7 @@ class Identity {
     static SspiEncryptAuthIdentityEx(Options, AuthData) {
         AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SspiCli.dll\SspiEncryptAuthIdentityEx", "uint", Options, AuthDataMarshal, AuthData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\SspiEncryptAuthIdentityEx", "uint", Options, AuthDataMarshal, AuthData, "HRESULT")
         return result
     }
 
@@ -15864,11 +15668,7 @@ class Identity {
     static SspiDecryptAuthIdentity(EncryptedAuthData) {
         EncryptedAuthDataMarshal := EncryptedAuthData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiDecryptAuthIdentity", EncryptedAuthDataMarshal, EncryptedAuthData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiDecryptAuthIdentity", EncryptedAuthDataMarshal, EncryptedAuthData, "HRESULT")
         return result
     }
 
@@ -15885,11 +15685,7 @@ class Identity {
     static SspiDecryptAuthIdentityEx(Options, EncryptedAuthData) {
         EncryptedAuthDataMarshal := EncryptedAuthData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SspiCli.dll\SspiDecryptAuthIdentityEx", "uint", Options, EncryptedAuthDataMarshal, EncryptedAuthData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\SspiDecryptAuthIdentityEx", "uint", Options, EncryptedAuthDataMarshal, EncryptedAuthData, "HRESULT")
         return result
     }
 
@@ -15950,11 +15746,7 @@ class Identity {
         ppszDomainNameMarshal := ppszDomainName is VarRef ? "ptr*" : "ptr"
         ppszPackedCredentialsStringMarshal := ppszPackedCredentialsString is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiEncodeAuthIdentityAsStrings", pAuthIdentityMarshal, pAuthIdentity, ppszUserNameMarshal, ppszUserName, ppszDomainNameMarshal, ppszDomainName, ppszPackedCredentialsStringMarshal, ppszPackedCredentialsString, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiEncodeAuthIdentityAsStrings", pAuthIdentityMarshal, pAuthIdentity, ppszUserNameMarshal, ppszUserName, ppszDomainNameMarshal, ppszDomainName, ppszPackedCredentialsStringMarshal, ppszPackedCredentialsString, "HRESULT")
         return result
     }
 
@@ -15970,11 +15762,7 @@ class Identity {
     static SspiValidateAuthIdentity(AuthData) {
         AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiValidateAuthIdentity", AuthDataMarshal, AuthData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiValidateAuthIdentity", AuthDataMarshal, AuthData, "HRESULT")
         return result
     }
 
@@ -15988,11 +15776,7 @@ class Identity {
     static SspiCopyAuthIdentity(AuthData) {
         AuthDataMarshal := AuthData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiCopyAuthIdentity", AuthDataMarshal, AuthData, "ptr*", &AuthDataCopy := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiCopyAuthIdentity", AuthDataMarshal, AuthData, "ptr*", &AuthDataCopy := 0, "HRESULT")
         return AuthDataCopy
     }
 
@@ -16051,11 +15835,7 @@ class Identity {
         pszDomainName := pszDomainName is String ? StrPtr(pszDomainName) : pszDomainName
         pszPackedCredentialsString := pszPackedCredentialsString is String ? StrPtr(pszPackedCredentialsString) : pszPackedCredentialsString
 
-        result := DllCall("SECUR32.dll\SspiEncodeStringsAsAuthIdentity", "ptr", pszUserName, "ptr", pszDomainName, "ptr", pszPackedCredentialsString, "ptr*", &ppAuthIdentity := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiEncodeStringsAsAuthIdentity", "ptr", pszUserName, "ptr", pszDomainName, "ptr", pszPackedCredentialsString, "ptr*", &ppAuthIdentity := 0, "HRESULT")
         return ppAuthIdentity
     }
 
@@ -16077,11 +15857,7 @@ class Identity {
         SameSuppliedUserMarshal := SameSuppliedUser is VarRef ? "char*" : "ptr"
         SameSuppliedIdentityMarshal := SameSuppliedIdentity is VarRef ? "char*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", AuthIdentity1Marshal, AuthIdentity1, AuthIdentity2Marshal, AuthIdentity2, SameSuppliedUserMarshal, SameSuppliedUser, SameSuppliedIdentityMarshal, SameSuppliedIdentity, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiCompareAuthIdentities", AuthIdentity1Marshal, AuthIdentity1, AuthIdentity2Marshal, AuthIdentity2, SameSuppliedUserMarshal, SameSuppliedUser, SameSuppliedIdentityMarshal, SameSuppliedIdentity, "HRESULT")
         return result
     }
 
@@ -16101,11 +15877,7 @@ class Identity {
         AuthIdentityLengthMarshal := AuthIdentityLength is VarRef ? "uint*" : "ptr"
         AuthIdentityByteArrayMarshal := AuthIdentityByteArray is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiMarshalAuthIdentity", AuthIdentityMarshal, AuthIdentity, AuthIdentityLengthMarshal, AuthIdentityLength, AuthIdentityByteArrayMarshal, AuthIdentityByteArray, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiMarshalAuthIdentity", AuthIdentityMarshal, AuthIdentity, AuthIdentityLengthMarshal, AuthIdentityLength, AuthIdentityByteArrayMarshal, AuthIdentityByteArray, "HRESULT")
         return result
     }
 
@@ -16118,11 +15890,7 @@ class Identity {
      * @since windows6.1
      */
     static SspiUnmarshalAuthIdentity(AuthIdentityLength, AuthIdentityByteArray) {
-        result := DllCall("SECUR32.dll\SspiUnmarshalAuthIdentity", "uint", AuthIdentityLength, "ptr", AuthIdentityByteArray, "ptr*", &ppAuthIdentity := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiUnmarshalAuthIdentity", "uint", AuthIdentityLength, "ptr", AuthIdentityByteArray, "ptr*", &ppAuthIdentity := 0, "HRESULT")
         return ppAuthIdentity
     }
 
@@ -16148,11 +15916,7 @@ class Identity {
     static SspiGetTargetHostName(pszTargetName) {
         pszTargetName := pszTargetName is String ? StrPtr(pszTargetName) : pszTargetName
 
-        result := DllCall("SECUR32.dll\SspiGetTargetHostName", "ptr", pszTargetName, "ptr*", &pszHostName := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiGetTargetHostName", "ptr", pszTargetName, "ptr*", &pszHostName := 0, "HRESULT")
         return pszHostName
     }
 
@@ -16169,11 +15933,7 @@ class Identity {
 
         AuthIdentityMarshal := AuthIdentity is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SECUR32.dll\SspiExcludePackage", AuthIdentityMarshal, AuthIdentity, "ptr", pszPackageName, "ptr*", &ppNewAuthIdentity := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\SspiExcludePackage", AuthIdentityMarshal, AuthIdentity, "ptr", pszPackageName, "ptr*", &ppNewAuthIdentity := 0, "HRESULT")
         return ppNewAuthIdentity
     }
 
@@ -16184,11 +15944,7 @@ class Identity {
      * @returns {HRESULT} 
      */
     static SspiSetChannelBindingFlags(pBindings, flags) {
-        result := DllCall("SspiCli.dll\SspiSetChannelBindingFlags", "ptr", pBindings, "uint", flags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SspiCli.dll\SspiSetChannelBindingFlags", "ptr", pBindings, "uint", flags, "HRESULT")
         return result
     }
 
@@ -16208,11 +15964,7 @@ class Identity {
     static AddSecurityPackageA(pszPackageName, pOptions) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        result := DllCall("SECUR32.dll\AddSecurityPackageA", "ptr", pszPackageName, "ptr", pOptions, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\AddSecurityPackageA", "ptr", pszPackageName, "ptr", pOptions, "HRESULT")
         return result
     }
 
@@ -16232,11 +15984,7 @@ class Identity {
     static AddSecurityPackageW(pszPackageName, pOptions) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        result := DllCall("SECUR32.dll\AddSecurityPackageW", "ptr", pszPackageName, "ptr", pOptions, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\AddSecurityPackageW", "ptr", pszPackageName, "ptr", pOptions, "HRESULT")
         return result
     }
 
@@ -16255,11 +16003,7 @@ class Identity {
     static DeleteSecurityPackageA(pszPackageName) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        result := DllCall("SECUR32.dll\DeleteSecurityPackageA", "ptr", pszPackageName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\DeleteSecurityPackageA", "ptr", pszPackageName, "HRESULT")
         return result
     }
 
@@ -16278,11 +16022,7 @@ class Identity {
     static DeleteSecurityPackageW(pszPackageName) {
         pszPackageName := pszPackageName is String ? StrPtr(pszPackageName) : pszPackageName
 
-        result := DllCall("SECUR32.dll\DeleteSecurityPackageW", "ptr", pszPackageName, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SECUR32.dll\DeleteSecurityPackageW", "ptr", pszPackageName, "HRESULT")
         return result
     }
 
@@ -16465,11 +16205,7 @@ class Identity {
         ServerIdentityMarshal := ServerIdentity is VarRef ? "ptr*" : "ptr"
         ServerIdentitySizeMarshal := ServerIdentitySize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("SCHANNEL.dll\SslGetServerIdentity", "ptr", ClientHello, "uint", ClientHelloSize, ServerIdentityMarshal, ServerIdentity, ServerIdentitySizeMarshal, ServerIdentitySize, "uint", Flags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SCHANNEL.dll\SslGetServerIdentity", "ptr", ClientHello, "uint", ClientHelloSize, ServerIdentityMarshal, ServerIdentity, ServerIdentitySizeMarshal, ServerIdentitySize, "uint", Flags, "HRESULT")
         return result
     }
 
@@ -16485,11 +16221,7 @@ class Identity {
     static SslGetExtensions(clientHello, clientHelloByteSize, genericExtensions, genericExtensionsCount, flags) {
         clientHelloMarshal := clientHello is VarRef ? "char*" : "ptr"
 
-        result := DllCall("SCHANNEL.dll\SslGetExtensions", clientHelloMarshal, clientHello, "uint", clientHelloByteSize, "ptr", genericExtensions, "char", genericExtensionsCount, "uint*", &bytesToRead := 0, "int", flags, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SCHANNEL.dll\SslGetExtensions", clientHelloMarshal, clientHello, "uint", clientHelloByteSize, "ptr", genericExtensions, "char", genericExtensionsCount, "uint*", &bytesToRead := 0, "int", flags, "HRESULT")
         return bytesToRead
     }
 
@@ -16499,11 +16231,7 @@ class Identity {
      * @returns {Pointer<CERT_CONTEXT>} 
      */
     static SslDeserializeCertificateStore(SerializedCertificateStore) {
-        result := DllCall("SCHANNEL.dll\SslDeserializeCertificateStore", "ptr", SerializedCertificateStore, "ptr*", &ppCertContext := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SCHANNEL.dll\SslDeserializeCertificateStore", "ptr", SerializedCertificateStore, "ptr*", &ppCertContext := 0, "HRESULT")
         return ppCertContext
     }
 
@@ -16533,11 +16261,7 @@ class Identity {
         tokenBindingSizeMarshal := tokenBindingSize is VarRef ? "uint*" : "ptr"
         resultDataMarshal := resultData is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", "int", keyType, "ptr", targetURL, "int", bindingType, "ptr", tlsEKM, "uint", tlsEKMSize, "int", extensionFormat, extensionDataMarshal, extensionData, tokenBindingMarshal, tokenBinding, tokenBindingSizeMarshal, tokenBindingSize, resultDataMarshal, resultData, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateBinding", "int", keyType, "ptr", targetURL, "int", bindingType, "ptr", tlsEKM, "uint", tlsEKMSize, "int", extensionFormat, extensionDataMarshal, extensionData, tokenBindingMarshal, tokenBinding, tokenBindingSizeMarshal, tokenBindingSize, resultDataMarshal, resultData, "HRESULT")
         return result
     }
 
@@ -16560,11 +16284,7 @@ class Identity {
         tokenBindingMessageMarshal := tokenBindingMessage is VarRef ? "ptr*" : "ptr"
         tokenBindingMessageSizeMarshal := tokenBindingMessageSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateMessage", tokenBindingsMarshal, tokenBindings, tokenBindingsSizeMarshal, tokenBindingsSize, "uint", tokenBindingsCount, tokenBindingMessageMarshal, tokenBindingMessage, tokenBindingMessageSizeMarshal, tokenBindingMessageSize, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateMessage", tokenBindingsMarshal, tokenBindings, tokenBindingsSizeMarshal, tokenBindingsSize, "uint", tokenBindingsCount, tokenBindingMessageMarshal, tokenBindingMessage, tokenBindingMessageSizeMarshal, tokenBindingMessageSize, "HRESULT")
         return result
     }
 
@@ -16584,11 +16304,7 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingVerifyMessage(tokenBindingMessage, tokenBindingMessageSize, keyType, tlsEKM, tlsEKMSize) {
-        result := DllCall("TOKENBINDING.dll\TokenBindingVerifyMessage", "ptr", tokenBindingMessage, "uint", tokenBindingMessageSize, "int", keyType, "ptr", tlsEKM, "uint", tlsEKMSize, "ptr*", &resultList := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingVerifyMessage", "ptr", tokenBindingMessage, "uint", tokenBindingMessageSize, "int", keyType, "ptr", tlsEKM, "uint", tlsEKMSize, "ptr*", &resultList := 0, "HRESULT")
         return resultList
     }
 
@@ -16601,11 +16317,7 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingGetKeyTypesClient() {
-        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesClient", "ptr*", &keyTypes := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesClient", "ptr*", &keyTypes := 0, "HRESULT")
         return keyTypes
     }
 
@@ -16620,11 +16332,7 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingGetKeyTypesServer() {
-        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesServer", "ptr*", &keyTypes := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingGetKeyTypesServer", "ptr*", &keyTypes := 0, "HRESULT")
         return keyTypes
     }
 
@@ -16640,11 +16348,7 @@ class Identity {
     static TokenBindingDeleteBinding(targetURL) {
         targetURL := targetURL is String ? StrPtr(targetURL) : targetURL
 
-        result := DllCall("TOKENBINDING.dll\TokenBindingDeleteBinding", "ptr", targetURL, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingDeleteBinding", "ptr", targetURL, "HRESULT")
         return result
     }
 
@@ -16657,11 +16361,7 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingDeleteAllBindings() {
-        result := DllCall("TOKENBINDING.dll\TokenBindingDeleteAllBindings", "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingDeleteAllBindings", "HRESULT")
         return result
     }
 
@@ -16679,11 +16379,7 @@ class Identity {
      * @since windows10.0.10240
      */
     static TokenBindingGenerateID(keyType, publicKey, publicKeySize) {
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateID", "int", keyType, "ptr", publicKey, "uint", publicKeySize, "ptr*", &resultData := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateID", "int", keyType, "ptr", publicKey, "uint", publicKeySize, "ptr*", &resultData := 0, "HRESULT")
         return resultData
     }
 
@@ -16696,11 +16392,7 @@ class Identity {
     static TokenBindingGenerateIDForUri(keyType, targetUri) {
         targetUri := targetUri is String ? StrPtr(targetUri) : targetUri
 
-        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateIDForUri", "int", keyType, "ptr", targetUri, "ptr*", &resultData := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingGenerateIDForUri", "int", keyType, "ptr", targetUri, "ptr*", &resultData := 0, "HRESULT")
         return resultData
     }
 
@@ -16714,11 +16406,7 @@ class Identity {
         majorVersionMarshal := majorVersion is VarRef ? "char*" : "ptr"
         minorVersionMarshal := minorVersion is VarRef ? "char*" : "ptr"
 
-        result := DllCall("TOKENBINDING.dll\TokenBindingGetHighestSupportedVersion", majorVersionMarshal, majorVersion, minorVersionMarshal, minorVersion, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("TOKENBINDING.dll\TokenBindingGetHighestSupportedVersion", majorVersionMarshal, majorVersion, minorVersionMarshal, minorVersion, "HRESULT")
         return result
     }
 
@@ -16792,7 +16480,7 @@ class Identity {
 
         result := DllCall("SECUR32.dll\GetUserNameExA", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -16868,7 +16556,7 @@ class Identity {
 
         result := DllCall("SECUR32.dll\GetUserNameExW", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -16904,7 +16592,7 @@ class Identity {
 
         result := DllCall("SECUR32.dll\GetComputerObjectNameA", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -16940,7 +16628,7 @@ class Identity {
 
         result := DllCall("SECUR32.dll\GetComputerObjectNameW", "int", NameFormat, "ptr", lpNameBuffer, nSizeMarshal, nSize, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -16988,7 +16676,7 @@ class Identity {
 
         result := DllCall("SECUR32.dll\TranslateNameA", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, nSizeMarshal, nSize, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17036,7 +16724,7 @@ class Identity {
 
         result := DllCall("SECUR32.dll\TranslateNameW", "ptr", lpAccountName, "int", AccountNameFormat, "int", DesiredNameFormat, "ptr", lpTranslatedName, nSizeMarshal, nSize, "char")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -17051,11 +16739,7 @@ class Identity {
      * @since windows8.0
      */
     static SLOpen() {
-        result := DllCall("SLC.dll\SLOpen", "ptr*", &phSLC := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLOpen", "ptr*", &phSLC := 0, "HRESULT")
         return phSLC
     }
 
@@ -17092,11 +16776,7 @@ class Identity {
     static SLClose(hSLC) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLClose", hSLCMarshal, hSLC, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLClose", hSLCMarshal, hSLC, "HRESULT")
         return result
     }
 
@@ -17211,11 +16891,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLInstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPkeyId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLInstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPkeyId, "HRESULT")
         return result
     }
 
@@ -17291,11 +16967,7 @@ class Identity {
     static SLUninstallProofOfPurchase(hSLC, pPKeyId) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLUninstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pPKeyId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLUninstallProofOfPurchase", hSLCMarshal, hSLC, "ptr", pPKeyId, "HRESULT")
         return result
     }
 
@@ -17377,11 +17049,7 @@ class Identity {
     static SLInstallLicense(hSLC, cbLicenseBlob, pbLicenseBlob, pLicenseFileId) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLInstallLicense", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLInstallLicense", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "HRESULT")
         return result
     }
 
@@ -17457,11 +17125,7 @@ class Identity {
     static SLUninstallLicense(hSLC, pLicenseFileId) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLUninstallLicense", hSLCMarshal, hSLC, "ptr", pLicenseFileId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLUninstallLicense", hSLCMarshal, hSLC, "ptr", pLicenseFileId, "HRESULT")
         return result
     }
 
@@ -17537,11 +17201,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLConsumeRight", hSLCMarshal, hSLC, "ptr", pAppId, "ptr", pProductSkuId, "ptr", pwszRightName, "ptr", pvReserved, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLConsumeRight", hSLCMarshal, hSLC, "ptr", pAppId, "ptr", pProductSkuId, "ptr", pwszRightName, "ptr", pvReserved, "HRESULT")
         return result
     }
 
@@ -17691,11 +17351,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetProductSkuInformation", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetProductSkuInformation", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -17879,11 +17535,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetPKeyInformation", hSLCMarshal, hSLC, "ptr", pPKeyId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetPKeyInformation", hSLCMarshal, hSLC, "ptr", pPKeyId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -18033,11 +17685,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetLicenseInformation", hSLCMarshal, hSLC, "ptr", pSLLicenseId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetLicenseInformation", hSLCMarshal, hSLC, "ptr", pSLLicenseId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -18235,11 +17883,7 @@ class Identity {
         pnStatusCountMarshal := pnStatusCount is VarRef ? "uint*" : "ptr"
         ppLicensingStatusMarshal := ppLicensingStatus is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetLicensingStatusInformation", hSLCMarshal, hSLC, "ptr", pAppID, "ptr", pProductSkuId, "ptr", pwszRightName, pnStatusCountMarshal, pnStatusCount, ppLicensingStatusMarshal, ppLicensingStatus, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetLicensingStatusInformation", hSLCMarshal, hSLC, "ptr", pAppID, "ptr", pProductSkuId, "ptr", pwszRightName, pnStatusCountMarshal, pnStatusCount, ppLicensingStatusMarshal, ppLicensingStatus, "HRESULT")
         return result
     }
 
@@ -18358,11 +18002,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetPolicyInformation", hSLCMarshal, hSLC, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetPolicyInformation", hSLCMarshal, hSLC, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -18385,11 +18025,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", hSLCMarshal, hSLC, "ptr", pwszValueName, "uint*", &pdwValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetPolicyInformationDWORD", hSLCMarshal, hSLC, "ptr", pwszValueName, "uint*", &pdwValue := 0, "HRESULT")
         return pdwValue
     }
 
@@ -18570,11 +18206,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetServiceInformation", hSLCMarshal, hSLC, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetServiceInformation", hSLCMarshal, hSLC, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -18810,11 +18442,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetApplicationInformation", hSLCMarshal, hSLC, "ptr", pApplicationId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetApplicationInformation", hSLCMarshal, hSLC, "ptr", pApplicationId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -18910,11 +18538,7 @@ class Identity {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
         pvAppSpecificDataMarshal := pvAppSpecificData is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("slcext.dll\SLActivateProduct", hSLCMarshal, hSLC, "ptr", pProductSkuId, "uint", cbAppSpecificData, pvAppSpecificDataMarshal, pvAppSpecificData, "ptr", pActivationInfo, "ptr", pwszProxyServer, "ushort", wProxyPort, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("slcext.dll\SLActivateProduct", hSLCMarshal, hSLC, "ptr", pProductSkuId, "uint", cbAppSpecificData, pvAppSpecificDataMarshal, pvAppSpecificData, "ptr", pActivationInfo, "ptr", pwszProxyServer, "ushort", wProxyPort, "HRESULT")
         return result
     }
 
@@ -18947,11 +18571,7 @@ class Identity {
         pwszAcquisitionType := pwszAcquisitionType is String ? StrPtr(pwszAcquisitionType) : pwszAcquisitionType
         pwszProxyServer := pwszProxyServer is String ? StrPtr(pwszProxyServer) : pwszProxyServer
 
-        result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, "ushort", wProxyPort, "int*", &phrStatus := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("slcext.dll\SLGetServerStatus", "ptr", pwszServerURL, "ptr", pwszAcquisitionType, "ptr", pwszProxyServer, "ushort", wProxyPort, "int*", &phrStatus := 0, "HRESULT")
         return phrStatus
     }
 
@@ -18973,11 +18593,7 @@ class Identity {
     static SLGenerateOfflineInstallationId(hSLC, pProductSkuId) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLGenerateOfflineInstallationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr*", &ppwszInstallationId := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGenerateOfflineInstallationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr*", &ppwszInstallationId := 0, "HRESULT")
         return ppwszInstallationId
     }
 
@@ -19002,11 +18618,7 @@ class Identity {
     static SLGenerateOfflineInstallationIdEx(hSLC, pProductSkuId, pActivationInfo) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLGenerateOfflineInstallationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr*", &ppwszInstallationId := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGenerateOfflineInstallationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr*", &ppwszInstallationId := 0, "HRESULT")
         return ppwszInstallationId
     }
 
@@ -19079,11 +18691,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLDepositOfflineConfirmationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLDepositOfflineConfirmationId", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "HRESULT")
         return result
     }
 
@@ -19159,11 +18767,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLDepositOfflineConfirmationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLDepositOfflineConfirmationIdEx", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pActivationInfo, "ptr", pwszInstallationId, "ptr", pwszConfirmationId, "HRESULT")
         return result
     }
 
@@ -19216,11 +18820,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetPKeyId", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPKeyId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetPKeyId", hSLCMarshal, hSLC, "ptr", pwszPKeyAlgorithm, "ptr", pwszPKeyString, "uint", cbPKeySpecificData, "ptr", pbPKeySpecificData, "ptr", pPKeyId, "HRESULT")
         return result
     }
 
@@ -19268,11 +18868,7 @@ class Identity {
         pnProductKeyIdsMarshal := pnProductKeyIds is VarRef ? "uint*" : "ptr"
         ppProductKeyIdsMarshal := ppProductKeyIds is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetInstalledProductKeyIds", hSLCMarshal, hSLC, "ptr", pProductSkuId, pnProductKeyIdsMarshal, pnProductKeyIds, ppProductKeyIdsMarshal, ppProductKeyIds, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetInstalledProductKeyIds", hSLCMarshal, hSLC, "ptr", pProductSkuId, pnProductKeyIdsMarshal, pnProductKeyIds, ppProductKeyIdsMarshal, ppProductKeyIds, "HRESULT")
         return result
     }
 
@@ -19339,11 +18935,7 @@ class Identity {
     static SLSetCurrentProductKey(hSLC, pProductSkuId, pProductKeyId) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLSetCurrentProductKey", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pProductKeyId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLSetCurrentProductKey", hSLCMarshal, hSLC, "ptr", pProductSkuId, "ptr", pProductKeyId, "HRESULT")
         return result
     }
 
@@ -19619,11 +19211,7 @@ class Identity {
         pnReturnIdsMarshal := pnReturnIds is VarRef ? "uint*" : "ptr"
         ppReturnIdsMarshal := ppReturnIds is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetSLIDList", hSLCMarshal, hSLC, "int", eQueryIdType, "ptr", pQueryId, "int", eReturnIdType, pnReturnIdsMarshal, pnReturnIds, ppReturnIdsMarshal, ppReturnIds, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetSLIDList", hSLCMarshal, hSLC, "int", eQueryIdType, "ptr", pQueryId, "int", eReturnIdType, pnReturnIdsMarshal, pnReturnIds, ppReturnIdsMarshal, ppReturnIds, "HRESULT")
         return result
     }
 
@@ -19683,11 +19271,7 @@ class Identity {
     static SLGetLicenseFileId(hSLC, cbLicenseBlob, pbLicenseBlob, pLicenseFileId) {
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetLicenseFileId", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetLicenseFileId", hSLCMarshal, hSLC, "uint", cbLicenseBlob, "ptr", pbLicenseBlob, "ptr", pLicenseFileId, "HRESULT")
         return result
     }
 
@@ -19747,11 +19331,7 @@ class Identity {
         pcbLicenseFileMarshal := pcbLicenseFile is VarRef ? "uint*" : "ptr"
         ppbLicenseFileMarshal := ppbLicenseFile is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetLicense", hSLCMarshal, hSLC, "ptr", pLicenseFileId, pcbLicenseFileMarshal, pcbLicenseFile, ppbLicenseFileMarshal, ppbLicenseFile, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetLicense", hSLCMarshal, hSLC, "ptr", pLicenseFileId, pcbLicenseFileMarshal, pcbLicenseFile, ppbLicenseFileMarshal, ppbLicenseFile, "HRESULT")
         return result
     }
 
@@ -19820,11 +19400,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLFireEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLFireEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "HRESULT")
         return result
     }
 
@@ -19873,11 +19449,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLRegisterEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLRegisterEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "HRESULT")
         return result
     }
 
@@ -19950,11 +19522,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("SLC.dll\SLUnregisterEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLUnregisterEvent", hSLCMarshal, hSLC, "ptr", pwszEventId, "ptr", pApplicationId, "ptr", hEvent, "HRESULT")
         return result
     }
 
@@ -20012,11 +19580,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetWindowsInformation", "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetWindowsInformation", "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -20030,11 +19594,7 @@ class Identity {
     static SLGetWindowsInformationDWORD(pwszValueName) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, "uint*", &pdwValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetWindowsInformationDWORD", "ptr", pwszValueName, "uint*", &pdwValue := 0, "HRESULT")
         return pdwValue
     }
 
@@ -20049,11 +19609,7 @@ class Identity {
      * @since windows6.0.6000
      */
     static SLIsGenuineLocal(pAppId, pUIOptions) {
-        result := DllCall("SLWGA.dll\SLIsGenuineLocal", "ptr", pAppId, "int*", &pGenuineState := 0, "ptr", pUIOptions, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLWGA.dll\SLIsGenuineLocal", "ptr", pAppId, "int*", &pGenuineState := 0, "ptr", pUIOptions, "HRESULT")
         return pGenuineState
     }
 
@@ -20078,11 +19634,7 @@ class Identity {
         ppTicketBlobMarshal := ppTicketBlob is VarRef ? "ptr*" : "ptr"
         pcbTicketBlobMarshal := pcbTicketBlob is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("slcext.dll\SLAcquireGenuineTicket", ppTicketBlobMarshal, ppTicketBlob, pcbTicketBlobMarshal, pcbTicketBlob, "ptr", pwszTemplateId, "ptr", pwszServerUrl, "ptr", pwszClientToken, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("slcext.dll\SLAcquireGenuineTicket", ppTicketBlobMarshal, ppTicketBlob, pcbTicketBlobMarshal, pcbTicketBlob, "ptr", pwszTemplateId, "ptr", pwszServerUrl, "ptr", pwszClientToken, "HRESULT")
         return result
     }
 
@@ -20214,11 +19766,7 @@ class Identity {
     static SLSetGenuineInformation(pQueryId, pwszValueName, eDataType, cbValue, pbValue) {
         pwszValueName := pwszValueName is String ? StrPtr(pwszValueName) : pwszValueName
 
-        result := DllCall("SLC.dll\SLSetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "uint", eDataType, "uint", cbValue, "ptr", pbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLSetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, "uint", eDataType, "uint", cbValue, "ptr", pbValue, "HRESULT")
         return result
     }
 
@@ -20364,11 +19912,7 @@ class Identity {
 
         hSLCMarshal := hSLC is VarRef ? "ptr" : "ptr"
 
-        result := DllCall("slcext.dll\SLGetReferralInformation", hSLCMarshal, hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr*", &ppwszValue := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("slcext.dll\SLGetReferralInformation", hSLCMarshal, hSLC, "int", eReferralType, "ptr", pSkuOrAppId, "ptr", pwszValueName, "ptr*", &ppwszValue := 0, "HRESULT")
         return ppwszValue
     }
 
@@ -20474,11 +20018,7 @@ class Identity {
         pcbValueMarshal := pcbValue is VarRef ? "uint*" : "ptr"
         ppbValueMarshal := ppbValue is VarRef ? "ptr*" : "ptr"
 
-        result := DllCall("SLC.dll\SLGetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("SLC.dll\SLGetGenuineInformation", "ptr", pQueryId, "ptr", pwszValueName, peDataTypeMarshal, peDataType, pcbValueMarshal, pcbValue, ppbValueMarshal, ppbValue, "HRESULT")
         return result
     }
 
@@ -20554,11 +20094,7 @@ class Identity {
         valueTypeMarshal := valueType is VarRef ? "uint*" : "ptr"
         resultDataSizeMarshal := resultDataSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", valueName, valueTypeMarshal, valueType, "ptr", dataBuffer, "uint", dataSize, resultDataSizeMarshal, resultDataSize, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("api-ms-win-core-slapi-l1-1-0.dll\SLQueryLicenseValueFromApp", "ptr", valueName, valueTypeMarshal, valueType, "ptr", dataBuffer, "uint", dataSize, resultDataSizeMarshal, resultDataSize, "HRESULT")
         return result
     }
 

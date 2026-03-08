@@ -6,7 +6,7 @@
 
 /**
  * The IFilterMapper3 interface extends the IFilterMapper2 interface. The Filter Mapper object implements this interface.Note  This interface is deprecated. .
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-ifiltermapper3
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-ifiltermapper3
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IFilterMapper3 extends IFilterMapper2{
     /**
      * The GetICreateDevEnum method returns a pointer to the ICreateDevEnum interface. You can use the ICreateDevEnum interface to create an enumerator for a category of filters, such as video capture devices or audio capture devices.
      * @returns {ICreateDevEnum} Receives a pointer to the <b>ICreateDevEnum</b> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-ifiltermapper3-geticreatedevenum
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-ifiltermapper3-geticreatedevenum
      */
     GetICreateDevEnum() {
         result := ComCall(7, this, "ptr*", &ppEnum := 0, "HRESULT")

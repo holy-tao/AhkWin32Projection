@@ -9,7 +9,7 @@
 
 /**
  * Provides methods to query and perform management operations on a pack containing disks and volumes.
- * @see https://docs.microsoft.com/windows/win32/api//vds/nn-vds-ivdspack
+ * @see https://learn.microsoft.com/windows/win32/api/vds/nn-vds-ivdspack
  * @namespace Windows.Win32.Storage.VirtualDiskService
  * @version v4.0.30319
  */
@@ -40,7 +40,7 @@ class IVdsPack extends IUnknown{
      *       passed in by the caller. VDS allocates memory for the <b>pwszName</b> member. Callers must 
      *       free the string by using the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> 
      *       function.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-getproperties
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-getproperties
      */
     GetProperties() {
         pPackProp := VDS_PACK_PROP()
@@ -51,7 +51,7 @@ class IVdsPack extends IUnknown{
     /**
      * Returns the software provider associated with a pack.
      * @returns {IVdsProvider} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsprovider">IVdsProvider</a> interface pointer. Callers must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-getprovider
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-getprovider
      */
     GetProvider() {
         result := ComCall(4, this, "ptr*", &ppProvider := 0, "HRESULT")
@@ -61,7 +61,7 @@ class IVdsPack extends IUnknown{
     /**
      * Returns an object that enumerates the volumes in the pack.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the volumes  as <a href="https://docs.microsoft.com/windows/desktop/VDS/volume-object">volume objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the volume objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-queryvolumes
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-queryvolumes
      */
     QueryVolumes() {
         result := ComCall(5, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -71,7 +71,7 @@ class IVdsPack extends IUnknown{
     /**
      * Returns an object that enumerates the disks in the pack.
      * @returns {IEnumVdsObject} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ienumvdsobject">IEnumVdsObject</a> interface pointer that can be used to enumerate the disks  as <a href="https://docs.microsoft.com/windows/desktop/VDS/disk-object">disk objects</a>. For more information, see <a href="https://docs.microsoft.com/windows/desktop/VDS/working-with-enumeration-objects">Working with Enumeration Objects</a>. Callers must release the interface and each of the disk objects when they are no longer needed by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-querydisks
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-querydisks
      */
     QueryDisks() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")
@@ -80,6 +80,44 @@ class IVdsPack extends IUnknown{
 
     /**
      * Creates a volume within the pack.
+     * @remarks
+     * <div class="alert"><b>Note</b>  This method cannot be used to create a volume on a removable disk.</div>
+     * <div> </div>
+     * Callers use this method to create a new simple, spanned, striped, mirrored, or striped with 
+     *     parity (RAID-5) volume in the current pack. Simple and spanned volumes have exactly one plex and one member. 
+     *     Striped and RAID-5 volumes have multiple columns and members. Mirrored volumes consist of multiple plexes.
+     * 
+     * Basic disks can contain only simple volumes. Dynamic disks can contain volumes of all types as 
+     *     long as the operating system supports the binding operation; non-server platforms do not support fault-tolerant 
+     *     binding operations. All newly created volumes lack a drive letter.
+     * 
+     * On a basic disk, this method creates a primary partition. If there are already three primary partitions on the disk, it creates an extended partition to cover the largest contiguous free disk space extent left on the disk, and then creates a logical drive within the extended partition.
+     * 
+     * A disk cannot contribute to more than one plex of the same volume; however, a single disk can 
+     *     contribute to multiple volumes. A simple volume has only one 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_input_disk">VDS_INPUT_DISK</a> structure, whereas, spanned, striped, 
+     *     mirrored, and RAID-5 volumes have one structure for each contributing disk.
+     * 
+     * The size of the disk specified in the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/ns-vds-vds_input_disk">VDS_INPUT_DISK</a> structure  can be the full disk or a 
+     *     portion of the disk. When two disks form a mirrored volume, VDS uses the smallest disk to calculate the size of 
+     *     the mirror. (Provider policy determines the actual offset, length, and number of disk extents allocated on a 
+     *     given input disk.) Use the 
+     *     <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-queryvolumes">IVdsPack::QueryVolumes</a> method to  determine 
+     *     the exact size of the created volume.
+     * 
+     * To create a logical volume with an optional alignment parameter, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack2-createvolume2">IVdsPack2::CreateVolume2</a> method or use the <b>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\vds\Alignment</b> registry key to specify the alignment value in bytes.
+     * 
+     * <b>Windows 7, Windows Server 2008 R2, Windows Vista and Windows Server 2008:  </b>On a basic disk, the CreateVolume method ignores the <b>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\vds\Alignment</b> registry key. This is a known issue and is being addressed. As a workaround, use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-createpartition">IVdsAdvancedDisk::CreatePartition</a>  or <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdscreatepartitionex-createpartitionex">IVdsCreatePartitionEx::CreatePartitionEx</a> method to create partitions on the basic disk so that they are aligned correctly.<p class="note">Dynamic partitions and volumes are aligned using the values under the following registry key:
+     * 
+     * <p class="note"><b>HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\vds\Alignment</b>
+     * 
+     * <p class="note">The default alignment is 1 MB if the disk is 4 GB or larger, or 64 KB if the disk is smaller than 4 GB.
+     * 
+     * 
+     * 
+     * Implementers must return a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> 
+     *     interface for this method, regardless of whether the call initiates an asynchronous operation.
      * @param {Integer} type A volume type enumerated by <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_volume_type">VDS_VOLUME_TYPE</a>. 
      *       Volumes on basic disks can have only one extent, and only the <b>VDS_VT_SIMPLE</b> flag is 
      *       valid.
@@ -103,7 +141,7 @@ class IVdsPack extends IUnknown{
      * If you call <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nf-vdshwprv-ivdsasync-wait">IVdsAsync::Wait</a> on this method and a success HRESULT value is returned, 
      *       you must release the interfaces returned in the 
      *       <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/ns-vdshwprv-vds_async_output">VDS_ASYNC_OUTPUT</a> structure by calling the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nf-unknwn-iunknown-release">IUnknown::Release</a> method on each interface pointer. However, if <b>Wait</b> returns a failure HRESULT value, or if the <i>pHrResult</i> parameter of <b>Wait</b> receives a failure HRESULT value, the interface pointers in the <b>VDS_ASYNC_OUTPUT</b> structure are <b>NULL</b> and do not need to be released. You can test for success or failure HRESULT values by using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-succeeded">SUCCEEDED</a> and <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-failed">FAILED</a> macros defined in Winerror.h.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-createvolume
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-createvolume
      */
     CreateVolume(type, pInputDiskArray, lNumberOfDisks, ulStripeSize) {
         result := ComCall(7, this, "int", type, "ptr", pInputDiskArray, "int", lNumberOfDisks, "uint", ulStripeSize, "ptr*", &ppAsync := 0, "HRESULT")
@@ -112,10 +150,24 @@ class IVdsPack extends IUnknown{
 
     /**
      * Adds a disk to an online pack.
+     * @remarks
+     * VDS implements this method.
+     * 
+     * This method initializes a raw disk (a disk that has no partitioning defined) and adds it to the pack. Before this method is called, the raw disk is owned by the VDS service. After this method returns, the disk is owned by the basic provider.
+     * 
+     * To undo the effect of this method—that is, to remove the partitioning format and cause the disk to be a raw disk that is owned by the VDS service—use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdsadvanceddisk-clean">IVdsAdvancedDisk::Clean</a> method.
+     * 
+     * You cannot use <b>AddDisk</b> to redefine the partitioning on an existing disk. 
+     * 
+     * 
+     * 
+     * If you add a GPT disk to a basic pack, the	 operation automatically creates a MSR partition on the disk. Devices running the WinPE operating system are the  exception because an administrator might prefer to create an ESP partition on the disk. The ESP partition, if present, must be the first partition on the disk. 
+     * 
+     * If you add the disk to a dynamic pack, the operation does not create a MSR partition.
      * @param {Guid} DiskId The GUID of the disk.
-     * @param {Integer} PartitionStyle The style can be MBR or GPT. See the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a>enumeration.
+     * @param {Integer} PartitionStyle The style can be MBR or GPT. See the <a href="https://docs.microsoft.com/windows/desktop/api/vds/ne-vds-vds_partition_style">VDS_PARTITION_STYLE</a> enumeration.
      * @param {BOOL} bAsHotSpare If true,  VDS can use the disk as a hot spare; otherwise, the disk cannot be used for this operation. Only hardware providers support hot sparing.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -230,7 +282,7 @@ class IVdsPack extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-adddisk
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-adddisk
      */
     AddDisk(DiskId, PartitionStyle, bAsHotSpare) {
         result := ComCall(8, this, "ptr", DiskId, "int", PartitionStyle, "int", bAsHotSpare, "HRESULT")
@@ -239,6 +291,19 @@ class IVdsPack extends IUnknown{
 
     /**
      * Migrates a set of disks from one pack to another pack.
+     * @remarks
+     * VDS implements this method.
+     * 
+     * A single pack can have only one basic disk. As such, you can migrate only one disk at a time between a basic and dynamic pack.
+     * 
+     * You should force this operation when converting a basic disk to dynamic disk format and the end of the disk lacks 
+     *     enough space for the LDM database. Set the <i>bForce</i> parameter to <b>true</b> and force the 
+     *     operation despite the space limitation. Likewise, if an OEM partition is in the middle of a MBR disk with free 
+     *     space or data volumes on either side.
+     * 
+     * After migrating dynamic disks to a dynamic pack, you should use the <a href="https://docs.microsoft.com/windows/desktop/api/vds/nf-vds-ivdspack-getproperties">IVdsPack::GetProperties</a> method to determine whether the source or destination pack is now the online pack.
+     * 
+     * For information about using the <b>MigrateDisks</b> method to add foreign disks to a pack, see <a href="https://docs.microsoft.com/windows/desktop/VDS/adding-foreign-disks-to-a-pack">Adding Foreign Disks to a Pack</a>.
      * @param {Pointer<Guid>} pDiskArray A pointer to an array of GUIDs; one for each disk.
      * @param {Integer} lNumberOfDisks The number of disks to migrate.
      * @param {Guid} TargetPack The GUID of the pack object.
@@ -252,7 +317,7 @@ class IVdsPack extends IUnknown{
      *       <b>S_OK</b>; otherwise, it receives the warning code or error code that was returned by the provider. For the list 
      *       of additional result codes, see Return Values.
      * @param {Pointer<BOOL>} pbRebootNeeded If this parameter is set to <b>TRUE</b>, you must restart the computer to complete the operation. If it is set to <b>FALSE</b>, the operation completes without restarting.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -402,7 +467,7 @@ class IVdsPack extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-migratedisks
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-migratedisks
      */
     MigrateDisks(pDiskArray, lNumberOfDisks, TargetPack, bForce, bQueryOnly, pResults, pbRebootNeeded) {
         pResultsMarshal := pResults is VarRef ? "int*" : "ptr"
@@ -413,13 +478,26 @@ class IVdsPack extends IUnknown{
     }
 
     /**
-     * Not supported.This method is reserved for future use.
+     * Not supported.This method is reserved for future use. (IVdsPack.ReplaceDisk)
+     * @remarks
+     * Callers can use this method for media migration (replacing an old disk with a new disk) or when repairing a 
+     *     fault-tolerant set with a missing or failed member—especially for those providers that do not implement hot sparing.
+     * 
+     * The new disk must be in the same pack as the old disk and cannot contain data; it can have the wrong 
+     *     partitioning style. In the event of a successful replacement, the old disk retains the partitioning style but no 
+     *     valid volumes.
+     * 
+     * Implementers must return a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> 
+     *     interface for this method, regardless of whether the call initiates an asynchronous operation. If your provider 
+     *     does not implement hot sparing, it must support the failed-member scenario: start synchronizing the exposed 
+     *     fault-tolerant volume again after the caller invokes the 
+     *     <b>ReplaceDisk</b> method.
      * @param {Guid} OldDiskId The GUID of the old disk.
      * @param {Guid} NewDiskId The GUID of the new disk.
      * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer, 
      *       which VDS initializes on return. Callers must release the interface. Use this interface to cancel, wait for, or 
      *       query the status of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-replacedisk
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-replacedisk
      */
     ReplaceDisk(OldDiskId, NewDiskId) {
         result := ComCall(10, this, "ptr", OldDiskId, "ptr", NewDiskId, "ptr*", &ppAsync := 0, "HRESULT")
@@ -428,8 +506,10 @@ class IVdsPack extends IUnknown{
 
     /**
      * Removes a disk that is missing from the pack. This method applies to software provider objects only.
+     * @remarks
+     * Use this method for dynamic disks only.
      * @param {Guid} DiskId The VDS_OBJECT_ID of the missing disk.
-     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
+     * @returns {HRESULT} This method can return standard HRESULT values, such as E_INVALIDARG or E_OUTOFMEMORY, and <a href="https://docs.microsoft.com/windows/desktop/VDS/virtual-disk-service-common-return-codes">VDS-specific return values</a>. It can also return converted <a href="https://docs.microsoft.com/windows/desktop/Debug/system-error-codes">system error codes</a>  using the <a href="https://docs.microsoft.com/windows/desktop/api/winerror/nf-winerror-hresult_from_win32">HRESULT_FROM_WIN32</a> macro. Errors can originate from VDS itself or from the underlying <a href="https://docs.microsoft.com/windows/desktop/VDS/about-vds">VDS provider</a> that is being used. Possible return values include the following.
      * 
      * <table>
      * <tr>
@@ -460,7 +540,7 @@ class IVdsPack extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-removemissingdisk
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-removemissingdisk
      */
     RemoveMissingDisk(DiskId) {
         result := ComCall(11, this, "ptr", DiskId, "HRESULT")
@@ -469,10 +549,19 @@ class IVdsPack extends IUnknown{
 
     /**
      * Returns a failing or failed pack to a healthy state, if possible. This method is supported only for dynamic packs.
+     * @remarks
+     * Although this method attempts to return a pack and all pack-related objects to a healthy state, it does not 
+     *     always succeed. When successful, the <b>Recover</b> method 
+     *     refreshes the state of all objects in the pack. It also synchronizes the providers with the underlying state of 
+     *     the disks and other objects.
+     *    
+     * 
+     * Implementers must return a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> 
+     *     interface for this method, regardless of whether the call initiates an asynchronous operation.
      * @returns {IVdsAsync} The address of an <a href="https://docs.microsoft.com/windows/desktop/api/vdshwprv/nn-vdshwprv-ivdsasync">IVdsAsync</a> interface pointer, which VDS 
      *       initializes on return. Callers must release the interface. Use this interface to cancel, wait for, or query the 
      *       status of the operation.
-     * @see https://docs.microsoft.com/windows/win32/api//vds/nf-vds-ivdspack-recover
+     * @see https://learn.microsoft.com/windows/win32/api/vds/nf-vds-ivdspack-recover
      */
     Recover() {
         result := ComCall(12, this, "ptr*", &ppAsync := 0, "HRESULT")

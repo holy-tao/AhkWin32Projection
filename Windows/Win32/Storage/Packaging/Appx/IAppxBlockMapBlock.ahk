@@ -6,15 +6,12 @@
 /**
  * The IAppxBlockMapBlock interface provides a read-only object that represents an individual block within a file contained in the block map file (AppxBlockMap.xml) for the App package.
  * @remarks
- * 
  * Each <b>Block</b> element has an attribute for the hash value and compressed size of the block.
  * 
  * For a code example, see the [Query app package and app manifest sample](https://github.com/microsoft/Windows-classic-samples/tree/master/Samples/AppxPackingDescribeAppx).
  * 
  * <div class="code"></div>
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nn-appxpackaging-iappxblockmapblock
+ * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nn-appxpackaging-iappxblockmapblock
  * @namespace Windows.Win32.Storage.Packaging.Appx
  * @version v4.0.30319
  */
@@ -41,27 +38,33 @@ class IAppxBlockMapBlock extends IUnknown{
 
     /**
      * Retrieves the hash value of the block.
+     * @remarks
+     * The <i>buffer</i> value corresponds to the <b>Hash</b> attribute of the <b>Block</b> element.
+     * 
+     * The caller is responsible for deallocating the memory used for <i>buffer</i>. Use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function to deallocate the memory.
      * @param {Pointer<Integer>} bufferSize Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
      * 
      * The length of  <i>buffer</i>.
-     * @returns {Pointer<Integer>} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">BYTE</a>**</b>
-     * 
-     * The byte sequence representing the hash value of the block.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapblock-gethash
+     * @returns {Pointer<Integer>} 
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-gethash
      */
     GetHash(bufferSize) {
         bufferSizeMarshal := bufferSize is VarRef ? "uint*" : "ptr"
 
-        result := ComCall(3, this, bufferSizeMarshal, bufferSize, "ptr*", &buffer := 0, "HRESULT")
-        return buffer
+        result := ComCall(3, this, bufferSizeMarshal, bufferSize, "ptr*", &buffer_R := 0, "HRESULT")
+        return buffer_R
     }
 
     /**
      * Retrieves compressed size of the block.
+     * @remarks
+     * This size corresponds to the compressed size of the block. 
+     * 
+     * The <i>size</i> value corresponds to the <b>Size</b> attribute of the <a href="https://docs.microsoft.com/uwp/schemas/blockmapschema/element-block">Block</a> element in the block map.
      * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">UINT32</a>*</b>
      * 
      * The compressed size of the block, in bytes.
-     * @see https://docs.microsoft.com/windows/win32/api//appxpackaging/nf-appxpackaging-iappxblockmapblock-getcompressedsize
+     * @see https://learn.microsoft.com/windows/win32/api/appxpackaging/nf-appxpackaging-iappxblockmapblock-getcompressedsize
      */
     GetCompressedSize() {
         result := ComCall(4, this, "uint*", &size := 0, "HRESULT")

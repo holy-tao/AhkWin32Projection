@@ -9,7 +9,7 @@
 
 /**
  * Navigates the settings tree, retrieves the metadata for a particular setting, and retrieves or modify its value.
- * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nn-wcmconfig-isettingsitem
+ * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nn-wcmconfig-isettingsitem
  * @namespace Windows.Win32.System.SettingsManagementInfrastructure
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the name of the item.
      * @returns {BSTR} The name of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getname
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getname
      */
     GetName() {
         Name := BSTR()
@@ -48,7 +48,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the current value from the item.
      * @returns {VARIANT} The value of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getvalue
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalue
      */
     GetValue() {
         Value := VARIANT()
@@ -100,7 +100,7 @@ class ISettingsItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-setvalue
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-setvalue
      */
     SetValue(Value) {
         result := ComCall(5, this, "ptr", Value, "HRESULT")
@@ -110,7 +110,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the setting type for the item.
      * @returns {Integer} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmsettingtype">WcmSettingType</a> value that contains the setting type of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getsettingtype
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingtype
      */
     GetSettingType() {
         result := ComCall(6, this, "int*", &Type := 0, "HRESULT")
@@ -120,7 +120,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the type information for the item.
      * @returns {Integer} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype">WcmDataType</a> value that indicates the data type of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getdatatype
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getdatatype
      */
     GetDataType() {
         result := ComCall(7, this, "int*", &Type := 0, "HRESULT")
@@ -131,7 +131,7 @@ class ISettingsItem extends IUnknown{
      * Gets the value from the current item as a byte array.
      * @param {Pointer<Pointer<Integer>>} Data An array of BYTE pointers, allocated with <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemalloc">CoTaskMemAlloc</a>, of length DataSize.
      * @returns {Integer} The length of the data.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getvalueraw
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getvalueraw
      */
     GetValueRaw(Data) {
         DataMarshal := Data is VarRef ? "ptr*" : "ptr"
@@ -186,7 +186,7 @@ class ISettingsItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-setvalueraw
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-setvalueraw
      */
     SetValueRaw(DataType, Data, DataSize) {
         DataMarshal := Data is VarRef ? "char*" : "ptr"
@@ -198,7 +198,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Determines whether the current item has a child item.
      * @returns {BOOL} <b>True</b> if a child item is present, <b>false</b> otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-haschild
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-haschild
      */
     HasChild() {
         result := ComCall(10, this, "int*", &ItemHasChild := 0, "HRESULT")
@@ -208,7 +208,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the dictionary of the child items that correspond to this item.
      * @returns {IItemEnumerator} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> interface pointer used to access the children.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-children
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-children
      */
     Children() {
         result := ComCall(11, this, "ptr*", &Children := 0, "HRESULT")
@@ -219,7 +219,7 @@ class ISettingsItem extends IUnknown{
      * Gets the child item that has the specified name.
      * @param {PWSTR} Name The name of the child item.
      * @returns {ISettingsItem} A pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> object that corresponds to the child item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getchild
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getchild
      */
     GetChild(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -232,7 +232,7 @@ class ISettingsItem extends IUnknown{
      * Gets a setting based on the given path.
      * @param {PWSTR} Path Path of the list element or attribute to retrieve. The path is relative to the current setting.
      * @returns {ISettingsItem} An <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> interface pointer used to access the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath
      */
     GetSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
@@ -243,9 +243,12 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Creates a setting object specified by the path.
+     * @remarks
+     * <div class="alert"><b>Note</b>  When creating a scalar list item, you must set a value on the resulting <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> before releasing it, or it will not be persisted.</div>
+     * <div> </div>
      * @param {PWSTR} Path A pointer to the path.
      * @returns {ISettingsItem} A pointer to the newly created <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath
      */
     CreateSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
@@ -342,7 +345,7 @@ class ISettingsItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-removesettingbypath
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-removesettingbypath
      */
     RemoveSettingByPath(Path) {
         Path := Path is String ? StrPtr(Path) : Path
@@ -355,7 +358,7 @@ class ISettingsItem extends IUnknown{
      * Gets the list information for this item.
      * @param {Pointer<BSTR>} KeyName The name of the key.
      * @returns {Integer} A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmdatatype">WcmDataType</a> value that indicates the data type of the item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getlistkeyinformation
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getlistkeyinformation
      */
     GetListKeyInformation(KeyName) {
         result := ComCall(16, this, "ptr", KeyName, "int*", &DataType := 0, "HRESULT")
@@ -364,9 +367,12 @@ class ISettingsItem extends IUnknown{
 
     /**
      * Creates a new list element.
+     * @remarks
+     * <div class="alert"><b>Note</b>  When creating a scalar list item, you must set a value on the resulting <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> before releasing it, or it will not be persisted.</div>
+     * <div> </div>
      * @param {Pointer<VARIANT>} KeyData The information for the key that defines the identity of the new list item. To determine the  correct value for the key data parameter, consult the information returned from <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getlistkeyinformation">ISettingsItem::GetListKeyInformation</a>. The variant obtained from <b>ISettingsItem::GetListKeyInformation</b> should be coercible to the type of the key. If the <b>ISettingsItem::GetListKeyInformation</b> method returns <b>S_FALSE</b>, use a string type for the key data.
      * @returns {ISettingsItem} A pointer to the  newly created <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-isettingsitem">ISettingsItem</a> list item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-createlistelement
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-createlistelement
      */
     CreateListElement(KeyData) {
         result := ComCall(17, this, "ptr", KeyData, "ptr*", &Child := 0, "HRESULT")
@@ -461,7 +467,7 @@ class ISettingsItem extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-removelistelement
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-removelistelement
      */
     RemoveListElement(ElementName) {
         ElementName := ElementName is String ? StrPtr(ElementName) : ElementName
@@ -473,7 +479,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the dictionary of attributes.
      * @returns {IItemEnumerator} A pointer to an  <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nn-wcmconfig-iitemenumerator">IItemEnumerator</a> object that represents the dictionary of attributes.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-attributes
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-attributes
      */
     Attributes() {
         result := ComCall(19, this, "ptr*", &Attributes := 0, "HRESULT")
@@ -484,7 +490,7 @@ class ISettingsItem extends IUnknown{
      * Gets the value of an attribute by specifying its name.
      * @param {PWSTR} Name The name of the attribute.
      * @returns {VARIANT} The value of  the attribute.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getattribute
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getattribute
      */
     GetAttribute(Name) {
         Name := Name is String ? StrPtr(Name) : Name
@@ -497,7 +503,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the path for the item.
      * @returns {BSTR} The path to the current setting. This path should be handled as opaque, and should be used only for invocations of <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-createsettingbypath">CreateSettingByPath</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-getsettingbypath">GetSettingByPath</a>, or <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wcmconfig/nf-wcmconfig-isettingsitem-removesettingbypath">RemoveSettingByPath</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getpath
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getpath
      */
     GetPath() {
         Path := BSTR()
@@ -508,7 +514,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Gets the restrictions defined for this item.
      * @returns {Integer} A bitmask of  the <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets">WcmRestrictionFacets</a> values that are defined for this item.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getrestrictionfacets
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestrictionfacets
      */
     GetRestrictionFacets() {
         result := ComCall(22, this, "int*", &RestrictionFacets := 0, "HRESULT")
@@ -519,7 +525,7 @@ class ISettingsItem extends IUnknown{
      * Gets the information for a given restriction.
      * @param {Integer} RestrictionFacet A <a href="https://docs.microsoft.com/windows/win32/api/wcmconfig/ne-wcmconfig-wcmrestrictionfacets">WcmRestrictionFacets</a> value that indicates the type of restriction facet.
      * @returns {VARIANT} A pointer to the facet data.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getrestriction
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getrestriction
      */
     GetRestriction(RestrictionFacet) {
         FacetData := VARIANT()
@@ -530,7 +536,7 @@ class ISettingsItem extends IUnknown{
     /**
      * Extracts key values for any list that already exists in the image, for example, DNS, http settings, and user account information.
      * @returns {VARIANT} The value of the key for the list element. The type of the value returned is the actual type of the key. For example, the type is a string in the case of a dynamically keyed list. The value is unescaped appropriately to reverse the changes made by SMI for the purpose of storing it. The VARIANT type is overwritten with the correct type if the predefined VARIANT type is incorrect.
-     * @see https://docs.microsoft.com/windows/win32/api//wcmconfig/nf-wcmconfig-isettingsitem-getkeyvalue
+     * @see https://learn.microsoft.com/windows/win32/api/wcmconfig/nf-wcmconfig-isettingsitem-getkeyvalue
      */
     GetKeyValue() {
         Value := VARIANT()

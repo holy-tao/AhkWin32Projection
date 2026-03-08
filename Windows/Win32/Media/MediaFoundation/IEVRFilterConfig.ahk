@@ -6,13 +6,10 @@
 /**
  * Sets the number of input pins on the DirectShow Enhanced Video Renderer (EVR) filter.
  * @remarks
- * 
  * The DirectShow EVR filter starts with one input pin, which corresponds to the reference stream. To create additional pins for video substreams, call <a href="https://docs.microsoft.com/windows/desktop/api/evr/nf-evr-ievrfilterconfig-setnumberofstreams">SetNumberOfStreams</a>.
  * 
  * The EVR media sink for Media Foundation does not support this interface. To add new streams to the EVR media sink, call <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nf-mfidl-imfmediasink-addstreamsink">IMFMediaSink::AddStreamSink</a>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//evr/nn-evr-ievrfilterconfig
+ * @see https://learn.microsoft.com/windows/win32/api/evr/nn-evr-ievrfilterconfig
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -39,6 +36,8 @@ class IEVRFilterConfig extends IUnknown{
 
     /**
      * Sets the number of input pins on the EVR filter.
+     * @remarks
+     * After this method has been called, it cannot be called a second time on the same instance of the EVR filter. Also, the method fails if any input pins are connected.
      * @param {Integer} dwMaxStreams Specifies the total number of input pins on the EVR filter. This value includes the input pin for the reference stream, which is created by default. For example, to mix one substream plus the reference stream, set this parameter to 2.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -81,7 +80,7 @@ class IEVRFilterConfig extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-ievrfilterconfig-setnumberofstreams
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrfilterconfig-setnumberofstreams
      */
     SetNumberOfStreams(dwMaxStreams) {
         result := ComCall(3, this, "uint", dwMaxStreams, "HRESULT")
@@ -91,7 +90,7 @@ class IEVRFilterConfig extends IUnknown{
     /**
      * Retrieves the number of input pins on the EVR filter. The EVR filter always has at least one input pin, which corresponds to the reference stream.
      * @returns {Integer} Receives the number of streams.
-     * @see https://docs.microsoft.com/windows/win32/api//evr/nf-evr-ievrfilterconfig-getnumberofstreams
+     * @see https://learn.microsoft.com/windows/win32/api/evr/nf-evr-ievrfilterconfig-getnumberofstreams
      */
     GetNumberOfStreams() {
         result := ComCall(4, this, "uint*", &pdwMaxStreams := 0, "HRESULT")

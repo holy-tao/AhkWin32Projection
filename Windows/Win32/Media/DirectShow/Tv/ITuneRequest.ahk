@@ -10,11 +10,8 @@
 /**
  * The ITuneRequest interface is the base interface for all tune requests.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(ITuneRequest)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//tuner/nn-tuner-itunerequest
+ * @see https://learn.microsoft.com/windows/win32/api/tuner/nn-tuner-itunerequest
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -69,8 +66,10 @@ class ITuneRequest extends IDispatch{
 
     /**
      * The get_TuningSpace method retrieves the tuning space that was used to create this tune request.
+     * @remarks
+     * You must first access the tuning space in order to obtain the default locator and the default preferred component types.
      * @returns {ITuningSpace} Receives a pointer to the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-ituningspace">ITuningSpace</a> interface. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunerequest-get_tuningspace
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_tuningspace
      */
     get_TuningSpace() {
         result := ComCall(7, this, "ptr*", &TuningSpace := 0, "HRESULT")
@@ -79,8 +78,14 @@ class ITuneRequest extends IDispatch{
 
     /**
      * The get_Components method retrieves the components contained in this tune request.
+     * @remarks
+     * A tune request always contains a collection of components, but the collection can be empty. If the component information is present in the transport stream tables, a Guide Store loader can obtain the information from the TIF and include it in the tune request at the time it creates it.
+     * 
+     * If the method succeeds, the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponents">IComponents</a> interface has an outstanding reference count. The caller must release the interface.
+     * 
+     * After a tune request is submitted to the Network Provider filter, the Network Provider updates the component lists in the tune request. You can get the updated component list by calling <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nf-tuner-ituner-get_tunerequest">ITuner::get_TuneRequest</a> on the Network Provider, and then calling <b>get_Components</b> on the returned tune request. (The original tune request that was submitted to the Network Provider does not get updated, because the Network Provider creates an internal copy of the tune request. Therefore, you have to call <b>get_TuneRequest</b> to get the updated component list.)
      * @returns {IComponents} Receives an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tuner/nn-tuner-icomponents">IComponents</a> interface pointer. The caller must release the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunerequest-get_components
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_components
      */
     get_Components() {
         result := ComCall(8, this, "ptr*", &Components := 0, "HRESULT")
@@ -89,8 +94,10 @@ class ITuneRequest extends IDispatch{
 
     /**
      * The Clone method returns a new copy of this tune request.
+     * @remarks
+     * This method performs a "deep copy" of the object; in other words it copies all sub-objects as well, including <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/components-object">Components</a>, <a href="https://docs.microsoft.com/previous-versions/windows/desktop/mstv/languagecomponenttype-object">LanguageComponentType</a> objects, and so on.
      * @returns {ITuneRequest} Address of an <b>ITuneRequest</b> interface pointer that will be set to the new object.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunerequest-clone
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-clone
      */
     Clone() {
         result := ComCall(9, this, "ptr*", &NewTuneRequest := 0, "HRESULT")
@@ -100,7 +107,7 @@ class ITuneRequest extends IDispatch{
     /**
      * The get_Locator method is called from the Network Provider to get the ILocator object associated with the requested broadcast.
      * @returns {ILocator} Address of an <b>ILocator</b> interface pointer that will be set to the new object.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunerequest-get_locator
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-get_locator
      */
     get_Locator() {
         result := ComCall(10, this, "ptr*", &Locator := 0, "HRESULT")
@@ -111,7 +118,7 @@ class ITuneRequest extends IDispatch{
      * The put_Locator method is called from the Network Provider to set the ILocator object associated with the requested broadcast.
      * @param {ILocator} Locator Pointer to an <b>ILocator</b> interface that specifies the new locator.
      * @returns {HRESULT} Returns S_OK if successful. If the method fails, error information can be retrieved using the standard COM <b>IErrorInfo</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tuner/nf-tuner-itunerequest-put_locator
+     * @see https://learn.microsoft.com/windows/win32/api/tuner/nf-tuner-itunerequest-put_locator
      */
     put_Locator(Locator) {
         result := ComCall(11, this, "ptr", Locator, "HRESULT")

@@ -15,7 +15,7 @@
 
 /**
  * Extends the ITextDocument interface, adding methods that enable the Input Method Editor (IME) to drive the rich edit control, and methods to retrieve other interfaces such as ITextDisplays, ITextRange2, ITextFont2, ITextPara2, and so on.
- * @see https://docs.microsoft.com/windows/win32/api//tom/nn-tom-itextdocument2
+ * @see https://learn.microsoft.com/windows/win32/api/tom/nn-tom-itextdocument2
  * @namespace Windows.Win32.UI.Controls.RichEdit
  * @version v4.0.30319
  */
@@ -43,7 +43,7 @@ class ITextDocument2 extends ITextDocument{
     /**
      * Gets the caret type.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getcarettype
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getcarettype
      */
     GetCaretType() {
         result := ComCall(26, this, "int*", &pValue := 0, "HRESULT")
@@ -53,10 +53,10 @@ class ITextDocument2 extends ITextDocument{
     /**
      * Sets the caret type.
      * @param {Integer} Value Type: <b>long</b>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setcarettype
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setcarettype
      */
     SetCaretType(Value) {
         result := ComCall(27, this, "int", Value, "HRESULT")
@@ -65,10 +65,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Gets the displays collection for this Text Object Model (TOM) engine instance.
+     * @remarks
+     * The rich edit control doesn't implement this method.
      * @returns {ITextDisplays} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextdisplays">ITextDisplays</a>**</b>
      * 
      * The displays collection.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getdisplays
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getdisplays
      */
     GetDisplays() {
         result := ComCall(28, this, "ptr*", &ppDisplays := 0, "HRESULT")
@@ -80,7 +82,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {ITextFont2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont2">ITextFont2</a>**</b>
      * 
      * The object that provides the default character format information.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getdocumentfont
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getdocumentfont
      */
     GetDocumentFont() {
         result := ComCall(29, this, "ptr*", &ppFont := 0, "HRESULT")
@@ -89,13 +91,15 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Sets the default character formatting for this instance of the Text Object Model (TOM) engine.
+     * @remarks
+     * You can also set the default character formatting by calling <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextfont-reset">ITextFont::Reset(tomDefault)</a>.
      * @param {ITextFont2} pFont Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextfont2">ITextFont2</a>*</b>
      * 
      * The font object that provides the default character formatting.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setdocumentfont
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setdocumentfont
      */
     SetDocumentFont(pFont) {
         result := ComCall(30, this, "ptr", pFont, "HRESULT")
@@ -107,7 +111,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {ITextPara2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara2">ITextPara2</a>**</b>
      * 
      * The object that provides the default paragraph format  information.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getdocumentpara
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getdocumentpara
      */
     GetDocumentPara() {
         result := ComCall(31, this, "ptr*", &ppPara := 0, "HRESULT")
@@ -116,13 +120,15 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Sets the default paragraph formatting for this instance of the Text Object Model (TOM) engine.
+     * @remarks
+     * You can also set the default paragraph formatting by calling <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextpara-reset">ITextPara::Reset(tomDefault)</a>.
      * @param {ITextPara2} pPara Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextpara2">ITextPara2</a>*</b>
      * 
      * The paragraph object that provides the default paragraph formatting
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setdocumentpara
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setdocumentpara
      */
     SetDocumentPara(pPara) {
         result := ComCall(32, this, "ptr", pPara, "HRESULT")
@@ -132,7 +138,7 @@ class ITextDocument2 extends ITextDocument{
     /**
      * Gets the East Asian flags.
      * @returns {Integer} Type: <b>long*</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-geteastasianflags
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteastasianflags
      */
     GetEastAsianFlags() {
         result := ComCall(33, this, "int*", &pFlags := 0, "HRESULT")
@@ -144,7 +150,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * The name of the TOM engine.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getgenerator
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getgenerator
      */
     GetGenerator() {
         pbstr := BSTR()
@@ -157,10 +163,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * Use <b>tomTrue</b> to turn  on the IME in-progress flag, or <b>tomFalse</b> to turn it off.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setimeinprogress
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setimeinprogress
      */
     SetIMEInProgress(Value) {
         result := ComCall(35, this, "int", Value, "HRESULT")
@@ -172,7 +178,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The notification mode. This parameter is set to <b>tomTrue</b> if notifications are active, or <b>tomFalse</b> if not.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getnotificationmode
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getnotificationmode
      */
     GetNotificationMode() {
         result := ComCall(36, this, "int*", &pValue := 0, "HRESULT")
@@ -184,10 +190,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The notification mode. Use <b>tomTrue</b> to turn on notifications, or  <b>tomFalse</b> to turn them off.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setnotificationmode
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setnotificationmode
      */
     SetNotificationMode(Value) {
         result := ComCall(37, this, "int", Value, "HRESULT")
@@ -195,11 +201,11 @@ class ITextDocument2 extends ITextDocument{
     }
 
     /**
-     * Gets the active selection.
+     * Gets the active selection. (ITextDocument2.GetSelection2)
      * @returns {ITextSelection2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextselection2">ITextSelection2</a>**</b>
      * 
      * The active selection. This parameter is <b>NULL</b> if the rich edit control is not in-place active.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getselection2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getselection2
      */
     GetSelection2() {
         result := ComCall(38, this, "ptr*", &ppSel := 0, "HRESULT")
@@ -208,10 +214,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Gets an object for enumerating the stories in a document.
+     * @remarks
+     * Call this method only if the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument-getstorycount">ITextDocument::GetStoryCount</a> method returns a value that is greater than one.
      * @returns {ITextStoryRanges2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstoryranges2">ITextStoryRanges2</a>**</b>
      * 
      * The object for enumerating stories.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getstoryranges2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getstoryranges2
      */
     GetStoryRanges2() {
         result := ComCall(39, this, "ptr*", &ppStories := 0, "HRESULT")
@@ -250,7 +258,7 @@ class ITextDocument2 extends ITextDocument{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-gettypographyoptions
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-gettypographyoptions
      */
     GetTypographyOptions() {
         result := ComCall(40, this, "int*", &pOptions := 0, "HRESULT")
@@ -262,7 +270,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The version number. Byte 3 gives the major version number, byte 2 the minor version number, and the low-order 16 bits give the build number.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getversion
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getversion
      */
     GetVersion() {
         result := ComCall(41, this, "int*", &pValue := 0, "HRESULT")
@@ -271,10 +279,14 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Gets the handle of the window that the Text Object Model (TOM) engine is using to display output.
+     * @remarks
+     * A rich edit control doesn't need to own the window that the TOM engine is using. For example, the rich edit control might be windowless. 
+     * 
+     * The Input Method Editor (IME) needs the handle of the window that is receiving keyboard messages. This method retrieves that handle.
      * @returns {Integer} Type: <b>__int64*</b>
      * 
      * The handle of the window that the TOM engine is using.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getwindow
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getwindow
      */
     GetWindow() {
         result := ComCall(42, this, "int64*", &pHwnd := 0, "HRESULT")
@@ -283,13 +295,15 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Attaches a new message filter to the edit instance. All window messages that the edit instance receives are forwarded to the message filter.
+     * @remarks
+     * The message filter must be bound to the document before it can be used.
      * @param {IUnknown} pFilter Type: <b>IUnknown*</b>
      * 
      * The message filter.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-attachmsgfilter
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-attachmsgfilter
      */
     AttachMsgFilter(pFilter) {
         result := ComCall(43, this, "ptr", pFilter, "HRESULT")
@@ -304,10 +318,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Pointer<Integer>} pcch Type: <b>long*</b>
      * 
      * The number of characters that exceed the maximum text limit. This parameter is 0 if the number of characters does not exceed the limit.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-checktextlimit
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-checktextlimit
      */
     CheckTextLimit(cch, pcch) {
         pcchMarshal := pcch is VarRef ? "int*" : "ptr"
@@ -318,10 +332,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Gets the call manager.
+     * @remarks
+     * The call manager object is opaque to the caller. The Text Object Model (TOM) engine uses the object to handle internal notifications for particular scenarios.
      * @returns {IUnknown} Type: <b>IUnknown**</b>
      * 
      * The call manager object.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getcallmanager
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getcallmanager
      */
     GetCallManager() {
         result := ComCall(45, this, "ptr*", &ppVoid := 0, "HRESULT")
@@ -343,10 +359,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Pointer<Integer>} pBottom Type: <b>long*</b>
      * 
      * The y-coordinate of the lower-right corner of the rectangle.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getclientrect
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getclientrect
      */
     GetClientRect(Type, pLeft, pTop, pRight, pBottom) {
         pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
@@ -360,11 +376,13 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Retrieves the color used for special text attributes.
+     * @remarks
+     * The first 16 index values are for special underline colors. If an index between 1 and 16 hasn't been defined by a call to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument2-seteffectcolor">ITextDocument2:SetEffectColor</a> method, <b>GetEffectColor</b> returns the corresponding Microsoft Word default color.
      * @param {Integer} Index Type: <b>long</b>
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The color that corresponds to the specified index.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-geteffectcolor
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-geteffectcolor
      */
     GetEffectColor(Index) {
         result := ComCall(47, this, "int", Index, "int*", &pValue := 0, "HRESULT")
@@ -376,7 +394,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {Integer} Type: <b>__int64*</b>
      * 
      * The IMM input context.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getimmcontext
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getimmcontext
      */
     GetImmContext() {
         result := ComCall(48, this, "int64*", &pContext := 0, "HRESULT")
@@ -405,10 +423,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Pointer<Integer>} pNewFontSize Type: <b>long*</b>
      * 
      * The new font size.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getpreferredfont
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getpreferredfont
      */
     GetPreferredFont(cp, CharRep, Options, curCharRep, curFontSize, pbstr, pPitchAndFamily, pNewFontSize) {
         pPitchAndFamilyMarshal := pPitchAndFamily is VarRef ? "int*" : "ptr"
@@ -430,7 +448,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {Integer} Type: <b>long*</b>
      * 
      * The value of the property.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getproperty
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getproperty
      */
     GetProperty(Type) {
         result := ComCall(50, this, "int", Type, "int*", &pValue := 0, "HRESULT")
@@ -439,10 +457,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Gets a collection of rich-text strings.
+     * @remarks
+     * The collection is useful for manipulating rich text, particularly for transforming mathematical text from linear to built-up form, or vice versa.
      * @returns {ITextStrings} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstrings">ITextStrings</a>**</b>
      * 
      * The collection of rich-text strings.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getstrings
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getstrings
      */
     GetStrings() {
         result := ComCall(51, this, "ptr*", &ppStrs := 0, "HRESULT")
@@ -454,10 +474,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Notify Type: <b>long</b>
      * 
      * An IME notification code.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-notify
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-notify
      */
     Notify(Notify) {
         result := ComCall(52, this, "int", Notify, "HRESULT")
@@ -475,7 +495,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {ITextRange2} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextrange2">ITextRange2</a>**</b>
      * 
      * The new text range.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-range2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-range2
      */
     Range2(cpActive, cpAnchor) {
         result := ComCall(53, this, "int", cpActive, "int", cpAnchor, "ptr*", &ppRange := 0, "HRESULT")
@@ -494,7 +514,7 @@ class ITextDocument2 extends ITextDocument{
      * 
      * The alignment type of the specified point. For a list of valid values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextrange-getpoint">ITextRange::GetPoint</a>.
      * @returns {ITextRange2} Type: <b>ITextRange2**</b>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-rangefrompoint2
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-rangefrompoint2
      */
     RangeFromPoint2(x, y, Type) {
         result := ComCall(54, this, "int", x, "int", y, "int", Type, "ptr*", &ppRange := 0, "HRESULT")
@@ -506,10 +526,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {IUnknown} pVoid Type: <b>IUnknown*</b>
      * 
      * The call manager object to release.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-releasecallmanager
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-releasecallmanager
      */
     ReleaseCallManager(pVoid) {
         result := ComCall(55, this, "ptr", pVoid, "HRESULT")
@@ -521,10 +541,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Context Type: <b>int64</b>
      * 
      * The IMM input context to release.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-releaseimmcontext
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-releaseimmcontext
      */
     ReleaseImmContext(Context) {
         result := ComCall(56, this, "int64", Context, "HRESULT")
@@ -533,16 +553,18 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Specifies the color to use for special text attributes.
+     * @remarks
+     * The first 16 index values are for special underline colors. If an index between 1 and 16 hasn't been defined by a call to the <b>ITextDocument2:SetEffectColor</b> method, the corresponding Microsoft Word default color is used.
      * @param {Integer} Index Type: <b>long</b>
      * 
      * The index of the color to retrieve. For a list of values, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument2-geteffectcolor">GetEffectColor</a>.
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new color for the specified index.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-seteffectcolor
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-seteffectcolor
      */
     SetEffectColor(Index, Value) {
         result := ComCall(57, this, "int", Index, "int", Value, "HRESULT")
@@ -557,10 +579,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * The new property value.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setproperty
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setproperty
      */
     SetProperty(Type, Value) {
         result := ComCall(58, this, "int", Type, "int", Value, "HRESULT")
@@ -575,10 +597,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Mask Type: <b>long</b>
      * 
      * A mask identifying the options to set. For example, to turn on <b>TO_ADVANCEDTYPOGRAPHY</b>, call <b>ITextDocument2::SetTypographyOptions (TO_ADVANCEDTYPOGRAPHY, TO_ADVANCEDTYPOGRAPHY)</b>.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-settypographyoptions
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-settypographyoptions
      */
     SetTypographyOptions(Options, Mask) {
         result := ComCall(59, this, "int", Options, "int", Mask, "HRESULT")
@@ -587,10 +609,10 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Generates a system beep.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-sysbeep
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-sysbeep
      */
     SysBeep() {
         result := ComCall(60, this, "HRESULT")
@@ -602,10 +624,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Value Type: <b>long</b>
      * 
      * Scroll flag. Use <b>tomTrue</b> to scroll the caret into view.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-update
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-update
      */
     Update(Value) {
         result := ComCall(61, this, "int", Value, "HRESULT")
@@ -614,10 +636,10 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Notifies the client that the view has changed and the client should update the view if the Text Object Model (TOM) engine is in-place active.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-updatewindow
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-updatewindow
      */
     UpdateWindow() {
         result := ComCall(62, this, "HRESULT")
@@ -761,7 +783,7 @@ class ITextDocument2 extends ITextDocument{
      * </dl>
      * </td>
      * <td width="60%">
-     * Style mask for the <b>tomMathDocDiffUpright</b>, <b>tomMathDocDiffItalic</b>, <b>tomMathDocDiffOpenItalic </b>options.
+     * Style mask for the <b>tomMathDocDiffUpright</b>, <b>tomMathDocDiffItalic</b>, <b>tomMathDocDiffOpenItalic </b> options.
      * 
      * </td>
      * </tr>
@@ -906,7 +928,7 @@ class ITextDocument2 extends ITextDocument{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getmathproperties
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getmathproperties
      */
     GetMathProperties() {
         result := ComCall(63, this, "int*", &pOptions := 0, "HRESULT")
@@ -921,10 +943,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {Integer} Mask Type: <b>long</b>
      * 
      * The math mask. For a list of possible masks, see <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument2-getmathproperties">GetMathProperties</a>
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setmathproperties
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setmathproperties
      */
     SetMathProperties(Options, Mask) {
         result := ComCall(64, this, "int", Options, "int", Mask, "HRESULT")
@@ -936,7 +958,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {ITextStory} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstory">ITextStory</a>**</b>
      * 
      * The active story.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getactivestory
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getactivestory
      */
     GetActiveStory() {
         result := ComCall(65, this, "ptr*", &ppStory := 0, "HRESULT")
@@ -948,10 +970,10 @@ class ITextDocument2 extends ITextDocument{
      * @param {ITextStory} pStory Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstory">ITextStory</a>*</b>
      * 
      * The story to set as active.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
      * If the method succeeds, it returns <b>NOERROR</b>. Otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-setactivestory
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-setactivestory
      */
     SetActiveStory(pStory) {
         result := ComCall(66, this, "ptr", pStory, "HRESULT")
@@ -960,10 +982,12 @@ class ITextDocument2 extends ITextDocument{
 
     /**
      * Gets the main story.
+     * @remarks
+     * A rich edit control automatically includes the main story; a call to the <a href="https://docs.microsoft.com/windows/desktop/api/tom/nf-tom-itextdocument2-getnewstory">ITextDocument2::GetNewStory</a> method is not required.
      * @returns {ITextStory} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstory">ITextStory</a>**</b>
      * 
      * The main story.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getmainstory
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getmainstory
      */
     GetMainStory() {
         result := ComCall(67, this, "ptr*", &ppStory := 0, "HRESULT")
@@ -975,7 +999,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {ITextStory} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstory">ITextStory</a>**</b>
      * 
      * The new story.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getnewstory
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getnewstory
      */
     GetNewStory() {
         result := ComCall(68, this, "ptr*", &ppStory := 0, "HRESULT")
@@ -990,7 +1014,7 @@ class ITextDocument2 extends ITextDocument{
      * @returns {ITextStory} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/tom/nn-tom-itextstory">ITextStory</a>**</b>
      * 
      * The story.
-     * @see https://docs.microsoft.com/windows/win32/api//tom/nf-tom-itextdocument2-getstory
+     * @see https://learn.microsoft.com/windows/win32/api/tom/nf-tom-itextdocument2-getstory
      */
     GetStory(Index) {
         result := ComCall(69, this, "int", Index, "ptr*", &ppStory := 0, "HRESULT")

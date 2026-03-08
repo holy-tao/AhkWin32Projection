@@ -4,8 +4,8 @@
 #Include .\IUpdate3.ahk
 
 /**
- * Contains the properties and methods that are available to an update.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdate4
+ * Contains the properties and methods that are available to an update. (IUpdate4)
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdate4
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -40,12 +40,9 @@ class IUpdate4 extends IUpdate3{
     /**
      * Gets a Boolean value that indicates whether this is a per-user update.
      * @remarks
-     * 
      * Per-user updates are  designed to alter the current user’s environment only; not the environment of the machine as a whole. For example, an update which only alters files in the current user’s user directory could be a per-user update; an update which alters files in the Program Files directory or the Windows directory would not be a per-user update. Per-user updates are currently not processed by Automatic Updates or displayed in the Windows Update user interface. Instead, they are only available to callers who specifically request them in searches by using the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdatesearcher3">IUpdateSearcher3</a> interface.  On computers running versions of Windows Update Agent that do not implement the <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nn-wuapi-iupdate4">IUpdate4</a> interface, only per-machine updates will be available; per-user updates will never be detected.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdate4-get_peruser
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdate4-get_peruser
      */
     get_PerUser() {
         result := ComCall(57, this, "short*", &retval := 0, "HRESULT")

@@ -2058,7 +2058,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\cldap_openW", "ptr", HostName, "uint", PortNumber, "CDecl ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2093,7 +2093,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\cldap_openA", "ptr", HostName, "uint", PortNumber, "CDecl ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -2128,7 +2128,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\cldap_open", "ptr", HostName, "uint", PortNumber, "CDecl ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8832,7 +8832,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\LdapUTF8ToUnicode", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -8859,7 +8859,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\LdapUnicodeToUTF8", "ptr", lpSrcStr, "int", cchSrc, "ptr", lpDestStr, "int", cchDest, "CDecl int")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -9332,7 +9332,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\ldap_search_init_pageW", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, "CDecl ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -9386,7 +9386,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\ldap_search_init_pageA", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, "CDecl ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result
@@ -9440,7 +9440,7 @@ class Ldap {
 
         result := DllCall("WLDAP32.dll\ldap_search_init_page", "ptr", ExternalHandle, "ptr", DistinguishedName, "uint", ScopeOfSearch, "ptr", SearchFilter, AttributeListMarshal, AttributeList, "uint", AttributesOnly, ServerControlsMarshal, ServerControls, ClientControlsMarshal, ClientControls, "uint", PageTimeLimit, "uint", TotalSizeLimit, SortKeysMarshal, SortKeys, "CDecl ptr")
         if(A_LastError) {
-            throw OSError(A_LastError || result)
+            throw OSError(A_LastError)
         }
 
         return result

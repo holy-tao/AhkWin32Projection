@@ -6,15 +6,12 @@
 /**
  * Provides an asynchronous callback mechanism used by a credential provider to notify it of changes in the list of credentials or their fields.
  * @remarks
- * 
  * <h3><a id="When_to_Use"></a><a id="when_to_use"></a><a id="WHEN_TO_USE"></a>When to Use</h3>
  * An implementation of <b>ICredentialProviderEvents</b> is provided for use by outside parties implementing a credential provider.
  * 
  * <h3><a id="When_to_Implement"></a><a id="when_to_implement"></a><a id="WHEN_TO_IMPLEMENT"></a>When to Implement</h3>
  * Outside parties do not need to implement <b>ICredentialProviderEvents</b> themselves.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nn-credentialprovider-icredentialproviderevents
+ * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nn-credentialprovider-icredentialproviderevents
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -41,13 +38,22 @@ class ICredentialProviderEvents extends IUnknown{
 
     /**
      * Signals the Logon UI or Credential UI that the enumerated list of credentials has changed.
+     * @remarks
+     * In the past, many credential providers used <b>ICredentialProviderEvents::CredentialsChanged</b> to update UI. While this works, it causes a re-enumeration of all the credentials from the calling credential provider. The processing of this event can, under some circumstances, lead to flashing or focus changes in the UI due to this re-enumeration. Therefore, using <b>ICredentialProviderEvents::CredentialsChanged</b> solely for UI updates is discouraged. The new recommendation is as follows:
+     * 
+     *                 
+     * 
+     * <ul>
+     * <li>Use <b>ICredentialProviderEvents::CredentialsChanged</b> only if a credential provider needs to do an auto logon or change the number of credentials it is enumerating.</li>
+     * <li>Use <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nn-credentialprovider-icredentialprovidercredentialevents2">ICredentialProviderCredentialEvents2</a> to update a credential provider's Logon UI or Credential UI.</li>
+     * </ul>
      * @param {Pointer} upAdviseContext Type: <b>UINT_PTR</b>
      * 
      * A pointer to an integer that uniquely identifies which credential provider has requested re-enumeration. The credential provider should pass back the interface pointer it received from <a href="https://docs.microsoft.com/windows/desktop/api/credentialprovider/nf-credentialprovider-icredentialprovider-advise">Advise</a> in this parameter.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//credentialprovider/nf-credentialprovider-icredentialproviderevents-credentialschanged
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/credentialprovider/nf-credentialprovider-icredentialproviderevents-credentialschanged
      */
     CredentialsChanged(upAdviseContext) {
         result := ComCall(3, this, "ptr", upAdviseContext, "HRESULT")

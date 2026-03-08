@@ -4,8 +4,8 @@
 #Include .\ICreateTypeInfo.ahk
 
 /**
- * Provides the tools for creating and administering the type information defined through the type description.
- * @see https://docs.microsoft.com/windows/win32/api//oaidl/nn-oaidl-icreatetypeinfo2
+ * Provides the tools for creating and administering the type information defined through the type description. (ICreateTypeInfo2)
+ * @see https://learn.microsoft.com/windows/win32/api/oaidl/nn-oaidl-icreatetypeinfo2
  * @namespace Windows.Win32.System.Ole
  * @version v4.0.30319
  */
@@ -77,7 +77,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-deletefuncdesc
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletefuncdesc
      */
     DeleteFuncDesc(index) {
         result := ComCall(26, this, "uint", index, "HRESULT")
@@ -132,7 +132,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-deletefuncdescbymemid
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletefuncdescbymemid
      */
     DeleteFuncDescByMemId(memid, invKind) {
         result := ComCall(27, this, "int", memid, "int", invKind, "HRESULT")
@@ -140,7 +140,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
     }
 
     /**
-     * Deletes the specified VARDESC structure.
+     * Deletes the specified VARDESC structure. (ICreateTypeInfo2.DeleteVarDesc)
      * @param {Integer} index The index number of the VARDESC structure.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -232,7 +232,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-deletevardesc
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletevardesc
      */
     DeleteVarDesc(index) {
         result := ComCall(28, this, "uint", index, "HRESULT")
@@ -240,7 +240,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
     }
 
     /**
-     * Deletes the specified VARDESC structure.
+     * Deletes the specified VARDESC structure. (ICreateTypeInfo2.DeleteVarDescByMemId)
      * @param {Integer} memid The member identifier of the VARDESC to be deleted.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -332,7 +332,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-deletevardescbymemid
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deletevardescbymemid
      */
     DeleteVarDescByMemId(memid) {
         result := ComCall(29, this, "int", memid, "HRESULT")
@@ -386,7 +386,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-deleteimpltype
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-deleteimpltype
      */
     DeleteImplType(index) {
         result := ComCall(30, this, "uint", index, "HRESULT")
@@ -441,7 +441,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setcustdata
      */
     SetCustData(guid, pVarVal) {
         result := ComCall(31, this, "ptr", guid, "ptr", pVarVal, "HRESULT")
@@ -497,7 +497,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setfunccustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setfunccustdata
      */
     SetFuncCustData(index, guid, pVarVal) {
         result := ComCall(32, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
@@ -554,7 +554,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setparamcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setparamcustdata
      */
     SetParamCustData(indexFunc, indexParam, guid, pVarVal) {
         result := ComCall(33, this, "uint", indexFunc, "uint", indexParam, "ptr", guid, "ptr", pVarVal, "HRESULT")
@@ -610,7 +610,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setvarcustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setvarcustdata
      */
     SetVarCustData(index, guid, pVarVal) {
         result := ComCall(34, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
@@ -666,7 +666,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setimpltypecustdata
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setimpltypecustdata
      */
     SetImplTypeCustData(index, guid, pVarVal) {
         result := ComCall(35, this, "uint", index, "ptr", guid, "ptr", pVarVal, "HRESULT")
@@ -720,7 +720,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-sethelpstringcontext
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-sethelpstringcontext
      */
     SetHelpStringContext(dwHelpStringContext) {
         result := ComCall(36, this, "uint", dwHelpStringContext, "HRESULT")
@@ -775,7 +775,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setfunchelpstringcontext
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setfunchelpstringcontext
      */
     SetFuncHelpStringContext(index, dwHelpStringContext) {
         result := ComCall(37, this, "uint", index, "uint", dwHelpStringContext, "HRESULT")
@@ -830,7 +830,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setvarhelpstringcontext
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setvarhelpstringcontext
      */
     SetVarHelpStringContext(index, dwHelpStringContext) {
         result := ComCall(38, this, "uint", index, "uint", dwHelpStringContext, "HRESULT")
@@ -838,8 +838,9 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * Enables the user to remove a single name and all associated data from the name cache.
+     * @returns {HRESULT} Returns <b>TRUE</b> if the name and associated data are removed from the name cache; otherwise, it returns <b>FALSE</b>.
+     * @see https://learn.microsoft.com/windows/win32/api/filehc/nf-filehc-invalidatename
      */
     Invalidate() {
         result := ComCall(39, this, "HRESULT")
@@ -893,7 +894,7 @@ class ICreateTypeInfo2 extends ICreateTypeInfo{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//oaidl/nf-oaidl-icreatetypeinfo2-setname
+     * @see https://learn.microsoft.com/windows/win32/api/oaidl/nf-oaidl-icreatetypeinfo2-setname
      */
     SetName(szName) {
         szName := szName is String ? StrPtr(szName) : szName

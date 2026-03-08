@@ -5,7 +5,7 @@
 
 /**
  * Encapsulates the functionality of one or more output protection systems that a trusted output supports.
- * @see https://docs.microsoft.com/windows/win32/api//mfidl/nn-mfidl-imfoutputtrustauthority
+ * @see https://learn.microsoft.com/windows/win32/api/mfidl/nn-mfidl-imfoutputtrustauthority
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IMFOutputTrustAuthority extends IUnknown{
     /**
      * Retrieves the action that is performed by this output trust authority (OTA).
      * @returns {Integer} Receives a member of the <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/ne-mfidl-mfpolicymanager_action">MFPOLICYMANAGER_ACTION</a> enumeration.
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputtrustauthority-getaction
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-getaction
      */
     GetAction() {
         result := ComCall(3, this, "int*", &pAction := 0, "HRESULT")
@@ -42,6 +42,8 @@ class IMFOutputTrustAuthority extends IUnknown{
 
     /**
      * Sets one or more policy objects on the output trust authority (OTA).
+     * @remarks
+     * If the method returns <b>MF_S_WAIT_FOR_POLICY_SET</b>, the OTA sends an <a href="https://docs.microsoft.com/windows/desktop/medfound/mepolicyset">MEPolicySet</a> event when it enforces the policy.
      * @param {Pointer<IMFOutputPolicy>} ppPolicy The address of  an array of <a href="https://docs.microsoft.com/windows/desktop/api/mfidl/nn-mfidl-imfoutputpolicy">IMFOutputPolicy</a> pointers.
      * @param {Integer} nPolicy The number of elements in the <i>ppPolicy</i> array.
      * @param {Pointer<Pointer<Integer>>} ppbTicket Receives either a pointer to a buffer allocated by the OTA, or the value <b>NULL</b>. If this parameter receives a non-<b>NULL</b> value, the caller must release the buffer by calling <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a>. 
@@ -93,7 +95,7 @@ class IMFOutputTrustAuthority extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfidl/nf-mfidl-imfoutputtrustauthority-setpolicy
+     * @see https://learn.microsoft.com/windows/win32/api/mfidl/nf-mfidl-imfoutputtrustauthority-setpolicy
      */
     SetPolicy(ppPolicy, nPolicy, ppbTicket, pcbTicket) {
         ppbTicketMarshal := ppbTicket is VarRef ? "ptr*" : "ptr"

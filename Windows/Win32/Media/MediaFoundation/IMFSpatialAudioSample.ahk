@@ -6,7 +6,7 @@
 
 /**
  * Represents a multimedia sample with spatial sound information. Every IMFSpatialAudioSample contains one or more IMFSpatialAudioObjectBuffer objects.
- * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nn-mfspatialaudio-imfspatialaudiosample
+ * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nn-mfspatialaudio-imfspatialaudiosample
  * @namespace Windows.Win32.Media.MediaFoundation
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IMFSpatialAudioSample extends IMFSample{
     /**
      * Gets the count of spatial audio objects, represented by IMFSpatialAudioObjectBuffer objects, in the sample.
      * @returns {Integer} A pointer to a 32 bit variable where the total number of audio objects in the sample will be stored.
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getobjectcount
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getobjectcount
      */
     GetObjectCount() {
         result := ComCall(47, this, "uint*", &pdwObjectCount := 0, "HRESULT")
@@ -74,7 +74,7 @@ class IMFSpatialAudioSample extends IMFSample{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-addspatialaudioobject
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-addspatialaudioobject
      */
     AddSpatialAudioObject(pAudioObjBuffer) {
         result := ComCall(48, this, "ptr", pAudioObjBuffer, "HRESULT")
@@ -85,7 +85,7 @@ class IMFSpatialAudioSample extends IMFSample{
      * Returns the spatial audio object, represented by an IMFSpatialAudioObjectBuffer object, corresponding to the specified index.
      * @param {Integer} dwIndex A 32 bit variable with the 0-based index of the requested audio object.
      * @returns {IMFSpatialAudioObjectBuffer} A pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/mfspatialaudio/nn-mfspatialaudio-imfspatialaudioobjectbuffer">IMFSpatialAudioObjectBuffer</a> object in which the spatial audio object corresponding with the specified index will be stored.
-     * @see https://docs.microsoft.com/windows/win32/api//mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getspatialaudioobjectbyindex
+     * @see https://learn.microsoft.com/windows/win32/api/mfspatialaudio/nf-mfspatialaudio-imfspatialaudiosample-getspatialaudioobjectbyindex
      */
     GetSpatialAudioObjectByIndex(dwIndex) {
         result := ComCall(49, this, "uint", dwIndex, "ptr*", &ppAudioObjBuffer := 0, "HRESULT")

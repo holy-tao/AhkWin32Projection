@@ -5,7 +5,7 @@
 
 /**
  * Exposes the math input control event handlers.
- * @see https://docs.microsoft.com/windows/win32/api//micaut/nn-micaut-_imathinputcontrolevents
+ * @see https://learn.microsoft.com/windows/win32/api/micaut/nn-micaut-_imathinputcontrolevents
  * @namespace Windows.Win32.UI.TabletPC
  * @version v4.0.30319
  */

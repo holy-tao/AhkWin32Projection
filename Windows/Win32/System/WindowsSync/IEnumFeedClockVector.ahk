@@ -7,7 +7,7 @@
 
 /**
  * Enumerates the clock vector elements that are stored in a clock vector that contains FeedSync information.
- * @see https://docs.microsoft.com/windows/win32/api//winsync/nn-winsync-ienumfeedclockvector
+ * @see https://learn.microsoft.com/windows/win32/api/winsync/nn-winsync-ienumfeedclockvector
  * @namespace Windows.Win32.System.WindowsSync
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class IEnumFeedClockVector extends IUnknown{
      * @param {Integer} cClockVectorElements The number of clock vector elements to retrieve.
      * @param {Pointer<Integer>} pcFetched Returns the number of clock vector elements that were retrieved. This value can be <b>NULL</b> if <i>cClockVectorElements</i> is 1; otherwise, it cannot be <b>NULL</b>.
      * @returns {IFeedClockVectorElement} Returns the next <i>pcFetched</i> clock vector elements.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumfeedclockvector-next
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumfeedclockvector-next
      */
     Next(cClockVectorElements, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -47,7 +47,7 @@ class IEnumFeedClockVector extends IUnknown{
     }
 
     /**
-     * Skips the specified number of clock vector elements.
+     * Skips the specified number of clock vector elements. (IEnumFeedClockVector.Skip)
      * @param {Integer} cSyncVersions The number of elements to skip.
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
@@ -87,7 +87,7 @@ class IEnumFeedClockVector extends IUnknown{
      * <td width="60%"></td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumfeedclockvector-skip
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumfeedclockvector-skip
      */
     Skip(cSyncVersions) {
         result := ComCall(4, this, "uint", cSyncVersions, "HRESULT")
@@ -95,7 +95,7 @@ class IEnumFeedClockVector extends IUnknown{
     }
 
     /**
-     * Resets the enumerator to the beginning of the clock vector.
+     * Resets the enumerator to the beginning of the clock vector. (IEnumFeedClockVector.Reset)
      * @returns {HRESULT} The possible return codes include, but are not limited to, the values shown in the following table.
      * 
      * <table>
@@ -115,7 +115,7 @@ class IEnumFeedClockVector extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumfeedclockvector-reset
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumfeedclockvector-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -123,9 +123,9 @@ class IEnumFeedClockVector extends IUnknown{
     }
 
     /**
-     * Clones the enumerator and returns a new enumerator that is in the same state as the current one.
+     * Clones the enumerator and returns a new enumerator that is in the same state as the current one. (IEnumFeedClockVector.Clone)
      * @returns {IEnumFeedClockVector} Returns the newly cloned enumerator.
-     * @see https://docs.microsoft.com/windows/win32/api//winsync/nf-winsync-ienumfeedclockvector-clone
+     * @see https://learn.microsoft.com/windows/win32/api/winsync/nf-winsync-ienumfeedclockvector-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppiEnum := 0, "HRESULT")

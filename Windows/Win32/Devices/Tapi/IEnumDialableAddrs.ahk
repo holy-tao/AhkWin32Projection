@@ -7,7 +7,7 @@
 
 /**
  * The IEnumDialableAddrs interface provides COM-standard enumeration methods to discover and use the available dialable addresses in a directory. The ITDirectoryObject::EnumerateDialableAddrs method returns a pointer to this interface.
- * @see https://docs.microsoft.com/windows/win32/api//rend/nn-rend-ienumdialableaddrs
+ * @see https://learn.microsoft.com/windows/win32/api/rend/nn-rend-ienumdialableaddrs
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -33,11 +33,14 @@ class IEnumDialableAddrs extends IUnknown{
     static VTableNames => ["Next", "Reset", "Skip", "Clone"]
 
     /**
-     * The Next method gets the next specified number of elements in the enumeration sequence.
+     * The Next method gets the next specified number of elements in the enumeration sequence. (IEnumDialableAddrs.Next)
+     * @remarks
+     * The application must use 
+     * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/oleauto/nf-oleauto-sysfreestring">SysFreeString</a> to free the memory allocated for the <i>ppElements</i> parameter.
      * @param {Integer} celt Number of elements requested.
      * @param {Pointer<Integer>} pcFetched Pointer to the number of elements actually supplied. May be <b>NULL</b> if <i>celt</i> is one.
      * @returns {BSTR} Pointer to a <b>BSTR</b> representation of the address list.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdialableaddrs-next
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-next
      */
     Next(celt, pcFetched) {
         pcFetchedMarshal := pcFetched is VarRef ? "uint*" : "ptr"
@@ -48,7 +51,7 @@ class IEnumDialableAddrs extends IUnknown{
     }
 
     /**
-     * The Reset method resets to the beginning of the enumeration sequence.
+     * The Reset method resets to the beginning of the enumeration sequence. (IEnumDialableAddrs.Reset)
      * @returns {HRESULT} This method can return one of these values.
      * 
      * <table>
@@ -68,7 +71,7 @@ class IEnumDialableAddrs extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdialableaddrs-reset
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-reset
      */
     Reset() {
         result := ComCall(4, this, "HRESULT")
@@ -76,7 +79,7 @@ class IEnumDialableAddrs extends IUnknown{
     }
 
     /**
-     * The Skip method skips over the next specified number of elements in the enumeration sequence.
+     * The Skip method skips over the next specified number of elements in the enumeration sequence. (IEnumDialableAddrs.Skip)
      * @param {Integer} celt Number of elements to skip.
      * @returns {HRESULT} This method can return one of these values.
      * 
@@ -108,7 +111,7 @@ class IEnumDialableAddrs extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdialableaddrs-skip
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-skip
      */
     Skip(celt) {
         result := ComCall(5, this, "uint", celt, "HRESULT")
@@ -116,10 +119,14 @@ class IEnumDialableAddrs extends IUnknown{
     }
 
     /**
-     * The Clone method creates another enumerator that contains the same enumeration state as the current one.
+     * The Clone method creates another enumerator that contains the same enumeration state as the current one. (IEnumDialableAddrs.Clone)
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdialableaddrs">IEnumDialableAddrs</a> interface returned by <b>IEnumDialableAddrs::Clone</b>. The application must call <b>Release</b> on the 
+     * <b>IEnumDialableAddrs</b> interface to free resources associated with it.
      * @returns {IEnumDialableAddrs} Pointer to the new 
      * <a href="https://docs.microsoft.com/windows/desktop/api/rend/nn-rend-ienumdialableaddrs">IEnumDialableAddrs</a> object.
-     * @see https://docs.microsoft.com/windows/win32/api//rend/nf-rend-ienumdialableaddrs-clone
+     * @see https://learn.microsoft.com/windows/win32/api/rend/nf-rend-ienumdialableaddrs-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

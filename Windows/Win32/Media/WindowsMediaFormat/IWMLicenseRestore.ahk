@@ -5,7 +5,7 @@
 
 /**
  * The IWMLicenseRestore interface manages the restoring of licenses.This interface is obtained from another interface on the backup restorer object.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmlicenserestore
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmlicenserestore
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -32,6 +32,10 @@ class IWMLicenseRestore extends IUnknown{
 
     /**
      * The RestoreLicenses method restores licenses that were previously backed up.
+     * @remarks
+     * For more information on how to specify the location of the backup file (there are predefined properties for the backup path and restore path for this purpose), see <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmbackuprestoreprops">IWMBackupRestoreProps Interface</a>.
+     * 
+     * The operation of this method is asynchronous, and an <b>IWMStatusCallback</b> interface can be used to track progress.
      * @param {Integer} dwFlags <b>DWORD</b> containing the flags.
      * 
      * <table>
@@ -48,7 +52,7 @@ class IWMLicenseRestore extends IUnknown{
      * </table>
      * @param {IWMStatusCallback} pCallback Pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmstatuscallback">IWMStatusCallback</a> interface.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlicenserestore-restorelicenses
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserestore-restorelicenses
      */
     RestoreLicenses(dwFlags, pCallback) {
         result := ComCall(3, this, "uint", dwFlags, "ptr", pCallback, "HRESULT")
@@ -57,8 +61,10 @@ class IWMLicenseRestore extends IUnknown{
 
     /**
      * The CancelLicenseRestore method cancels a current restore operation.
+     * @remarks
+     * This method operates asynchronously, and a call to this method cancels a restore operation that is in progress.
      * @returns {HRESULT} If the method succeeds, it returns S_OK. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmlicenserestore-cancellicenserestore
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmlicenserestore-cancellicenserestore
      */
     CancelLicenseRestore() {
         result := ComCall(4, this, "HRESULT")

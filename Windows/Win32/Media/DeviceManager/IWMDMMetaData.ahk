@@ -5,7 +5,7 @@
 
 /**
  * The IWMDMMetaData interface sets and retrieves metadata properties (such as artist, album, genre, and so on) of a storage.
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmmetadata
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmmetadata
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -43,8 +43,8 @@ class IWMDMMetaData extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-additem
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-additem
      */
     AddItem(Type, pwszTagName, pValue, iLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
@@ -68,8 +68,8 @@ class IWMDMMetaData extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-querybyname
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyname
      */
     QueryByName(pwszTagName, pType, pValue, pcbLength) {
         pwszTagName := pwszTagName is String ? StrPtr(pwszTagName) : pwszTagName
@@ -96,8 +96,8 @@ class IWMDMMetaData extends IUnknown{
      * <li>Windows error codes converted to HRESULT values </li>
      * <li>Windows Media Device Manager error codes </li>
      * </ul>
-     * For an extensive list of possible error codes, see <a href="/windows/desktop/WMDM/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex
+     * For an extensive list of possible error codes, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex
      */
     QueryByIndex(iIndex, ppwszName, pType, ppValue, pcbLength) {
         ppwszNameMarshal := ppwszName is VarRef ? "ptr*" : "ptr"
@@ -111,8 +111,10 @@ class IWMDMMetaData extends IUnknown{
 
     /**
      * The GetItemCount method retrieves the total number of properties held by the interface.
+     * @remarks
+     * This method could be used along with <a href="https://docs.microsoft.com/windows/desktop/api/mswmdm/nf-mswmdm-iwmdmmetadata-querybyindex">QueryByIndex</a> to enumerate all properties on a storage or device.
      * @returns {Integer} Pointer to an integer that receives the total number of metadata properties stored by the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmmetadata-getitemcount
      */
     GetItemCount() {
         result := ComCall(6, this, "uint*", &iCount := 0, "HRESULT")

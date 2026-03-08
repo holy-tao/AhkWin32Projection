@@ -8,7 +8,7 @@
 
 /**
  * The ITfContextView interface is implemented by the TSF manager and used by a client (application or text service) to obtain information about a context view.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcontextview
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcontextview
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -35,6 +35,9 @@ class ITfContextView extends IUnknown{
 
     /**
      * The ITfContextView::GetRangeFromPoint method converts a point, in screen coordinates, to an empty range of text positioned at a corresponding location.
+     * @remarks
+     * <img alt="Point 1 is in character bounding box and point 2 is outside the character bounding box." border="border" src="./images/RngFig01.gif"/>
+     * By default, the method will return a range positioned at 0 for point 1 and TF_E_INVALIDPOINT for point 2. If the <i>dwFlags</i> parameter is set to <a href="https://docs.microsoft.com/windows/desktop/TSF/gxfpf--constants">GXFPF_ROUND_NEAREST</a>, the method returns range position 1 for point 1. If the <i>dwFlags</i> parameter is set to GXFPF_NEAREST then the method returns range position 2 for point 2.
      * @param {Integer} ec Specifies the edit cookie with read-only access.
      * @param {Pointer<POINT>} ppt Specifies the point in screen coordinates.
      * @param {Integer} dwFlags Specifies the range position to return based upon the screen coordinates of the point to a character bounding box. By default, the range position returned is the character bounding box containing the screen coordinates of the point. If the point is outside a character bounding box, the method returns <b>NULL</b> or <a href="https://docs.microsoft.com/windows/desktop/TSF/manager-return-values">TF_E_INVALIDPOINT</a>. Other bit flags for this parameter are as follows.
@@ -68,7 +71,7 @@ class ITfContextView extends IUnknown{
      * </tr>
      * </table>
      * @returns {ITfRange} Receives a pointer to the ITfRange interface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextview-getrangefrompoint
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getrangefrompoint
      */
     GetRangeFromPoint(ec, ppt, dwFlags) {
         result := ComCall(3, this, "uint", ec, "ptr", ppt, "uint", dwFlags, "ptr*", &ppRange := 0, "HRESULT")
@@ -77,6 +80,8 @@ class ITfContextView extends IUnknown{
 
     /**
      * The ITfContextView::GetTextExt method returns the bounding box, in screen coordinates, of a range of text.
+     * @remarks
+     * If the document window is minimized, or if the specified text is not currently visible, the method returns S_OK with the <i>prc</i> parameter set to {0,0,0,0}.
      * @param {Integer} ec Specifies an edit cookie with read-only access.
      * @param {ITfRange} pRange Specifies the range to query
      * @param {Pointer<RECT>} prc Receives the bounding box, in screen coordinates, of the range.
@@ -122,7 +127,7 @@ class ITfContextView extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextview-gettextext
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-gettextext
      */
     GetTextExt(ec, pRange, prc, pfClipped) {
         pfClippedMarshal := pfClipped is VarRef ? "int*" : "ptr"
@@ -133,8 +138,10 @@ class ITfContextView extends IUnknown{
 
     /**
      * The ITfContextView::GetScreenExt method returns the bounding box, in screen coordinates, of the document display.
+     * @remarks
+     * The <i>prc</i> parameter is cleared to {0,0,0,0} if the document is not currently displayed.
      * @returns {RECT} Receives the bounding box, in screen coordinates, of the display surface.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextview-getscreenext
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getscreenext
      */
     GetScreenExt() {
         prc := RECT()
@@ -144,8 +151,10 @@ class ITfContextView extends IUnknown{
 
     /**
      * The ITfContextView::GetWnd method returns the handle to a window that corresponds to the current document.
+     * @remarks
+     * A document might not have a corresponding window handle if the document is in memory but not displayed on the screen or if the document is a windowless control and the control does not have the window handle of the owner of the windowless controls. Callers cannot assume that the <i>phwnd</i> parameter will receive a non-<b>NULL</b> value even if the method is successful. Callers can also receive a <b>NULL</b> value for the <i>phwnd</i> parameter.
      * @returns {HWND} Receives a pointer to the handle of the window that corresponds to the current document.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcontextview-getwnd
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcontextview-getwnd
      */
     GetWnd() {
         phwnd := HWND()

@@ -298,8 +298,11 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Pause method pauses playback at the current location.
+     * @remarks
+     * If playback is already paused, this method does nothing.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/pause-method
      */
     Pause() {
         result := ComCall(26, this, "HRESULT")
@@ -307,8 +310,9 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * 
-     * @returns {HRESULT} 
+     * The Resume method resumes playback after a menu has been displayed.
+     * @returns {HRESULT} No return value.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/resume-method
      */
     Resume() {
         result := ComCall(27, this, "HRESULT")
@@ -336,11 +340,14 @@ class ISpeechRecoContext extends IDispatch{
     }
 
     /**
-     * 
+     * The DVDAdm.BookmarkOnClose property sets or retrieves a value that tells the MSDVDAdm object whether to automatically save a bookmark of the current location and settings when the user closes the application.
+     * @remarks
+     * This property is read/write with a default value of true.
      * @param {Integer} Options 
      * @param {VARIANT} StreamPos 
      * @param {VARIANT} BookmarkId 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Returns a Boolean value, which if true, indicates that the MSDVDAdm control will save a bookmark of all DVD settings, including position on disc, parental level, and parental country/region when the user closes the DVD player application.
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/bookmarkonclose-property
      */
     Bookmark(Options, StreamPos, BookmarkId) {
         result := ComCall(30, this, "int", Options, "ptr", StreamPos, "ptr", BookmarkId, "HRESULT")

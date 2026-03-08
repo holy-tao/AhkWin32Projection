@@ -7,7 +7,6 @@
 /**
  * The IDWriteTextFormat interface describes the font and paragraph properties used to format text, and it describes locale information.
  * @remarks
- * 
  * To get a reference to the <b>IDWriteTextFormat</b> interface, the application must call the <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritefactory-createtextformat">IDWriteFactory::CreateTextFormat</a> method as shown in the following code.
  * 
  * 
@@ -45,9 +44,7 @@
  * 
  * <h3><a id="DirectWrite_and_Direct2D"></a><a id="directwrite_and_direct2d"></a><a id="DIRECTWRITE_AND_DIRECT2D"></a>DirectWrite and Direct2D</h3>
  * To draw simple text with a single format, <a href="https://docs.microsoft.com/windows/win32/Direct2D/direct2d-portal">Direct2D</a> provides the  <a href="https://docs.microsoft.com/windows/win32/api/d2d1/nf-d2d1-id2d1rendertarget-drawtext(constwchar_uint32_idwritetextformat_constd2d1_rect_f__id2d1brush_d2d1_draw_text_options_dwrite_measuring_mode)">ID2D1RenderTarget::DrawText</a> method, which draws a string using the format information provided by an <b>IDWriteTextFormat</b> object.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//dwrite/nn-dwrite-idwritetextformat
+ * @see https://learn.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritetextformat
  * @namespace Windows.Win32.Graphics.DirectWrite
  * @version v4.0.30319
  */
@@ -74,6 +71,14 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Sets the alignment of text in a paragraph, relative to the leading and trailing edge of a layout box for a IDWriteTextFormat interface.
+     * @remarks
+     * The text can be aligned to the leading or trailing edge of the layout box, or it can be centered.  The following illustration shows text with the alignment set to <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT_LEADING</a>, <b>DWRITE_TEXT_ALIGNMENT_CENTER</b>, and <b>DWRITE_TEXT_ALIGNMENT_TRAILING</b>, respectively.  
+     * 
+     * <img alt="Illustration of text paragraphs with leading, centered, and trailing alignment" src="./images/TextAlignment.png"/>
+     * 
+     * <div class="alert"><b>Note</b>  The alignment is dependent on reading direction, the above is for left-to-right reading direction.  For right-to-left reading direction it would be the opposite.</div>
+     * <div> </div>
+     * See <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a> for more information.
      * @param {Integer} textAlignment Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a></b>
      * 
      * The text alignment option being set for the paragraph of type DWRITE_TEXT_ALIGNMENT.  For more information, see Remarks.
@@ -109,7 +114,7 @@ class IDWriteTextFormat extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-settextalignment
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-settextalignment
      */
     SetTextAlignment(textAlignment) {
         result := ComCall(3, this, "int", textAlignment, "HRESULT")
@@ -123,8 +128,8 @@ class IDWriteTextFormat extends IUnknown{
      * The paragraph alignment option being set for a paragraph; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a> for more information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-setparagraphalignment
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setparagraphalignment
      */
     SetParagraphAlignment(paragraphAlignment) {
         result := ComCall(4, this, "int", paragraphAlignment, "HRESULT")
@@ -138,8 +143,8 @@ class IDWriteTextFormat extends IUnknown{
      * The word wrapping option being set for a paragraph; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a> for more information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-setwordwrapping
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setwordwrapping
      */
     SetWordWrapping(wordWrapping) {
         result := ComCall(5, this, "int", wordWrapping, "HRESULT")
@@ -148,14 +153,18 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Sets the paragraph reading direction.
+     * @remarks
+     * The reading direction and flow direction must always be set 90 degrees orthogonal to each other, or else you will get the error DWRITE_E_FLOWDIRECTIONCONFLICTS when you 
+     *         use layout functions like Draw or GetMetrics. So if you set a vertical reading direction (for example, to DWRITE_READING_DIRECTION_TOP_TO_BOTTOM), then you must also 
+     *         use SetFlowDirection to set the flow direction appropriately (for example, to DWRITE_FLOW_DIRECTION_RIGHT_TO_LEFT).
      * @param {Integer} readingDirection Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
      * 
      * The text reading direction (for example, <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION_RIGHT_TO_LEFT</a> for languages, such as 
      *             Arabic, that read from right to left) for a paragraph.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-setreadingdirection
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setreadingdirection
      */
     SetReadingDirection(readingDirection) {
         result := ComCall(6, this, "int", readingDirection, "HRESULT")
@@ -169,8 +178,8 @@ class IDWriteTextFormat extends IUnknown{
      * The paragraph flow direction; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a> for more information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-setflowdirection
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setflowdirection
      */
     SetFlowDirection(flowDirection) {
         result := ComCall(7, this, "int", flowDirection, "HRESULT")
@@ -184,8 +193,8 @@ class IDWriteTextFormat extends IUnknown{
      * The fixed distance between two adjacent tab stops.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-setincrementaltabstop
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setincrementaltabstop
      */
     SetIncrementalTabStop(incrementalTabStop) {
         result := ComCall(8, this, "float", incrementalTabStop, "HRESULT")
@@ -202,8 +211,8 @@ class IDWriteTextFormat extends IUnknown{
      * Application-defined omission sign. This parameter may be <b>NULL</b>. See <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwriteinlineobject">IDWriteInlineObject</a> for more information.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-settrimming
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-settrimming
      */
     SetTrimming(trimmingOptions, trimmingSign) {
         result := ComCall(9, this, "ptr", trimmingOptions, "ptr", trimmingSign, "HRESULT")
@@ -212,6 +221,9 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Sets the line spacing.
+     * @remarks
+     * For the default method, spacing depends solely on the content.
+     *      For uniform spacing, the specified line height overrides the content.
      * @param {Integer} lineSpacingMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a></b>
      * 
      * Specifies how line height is being determined; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a> for more information.
@@ -223,8 +235,8 @@ class IDWriteTextFormat extends IUnknown{
      * The distance from top of line to baseline. A reasonable ratio to <i>lineSpacing</i> is 80 percent.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-setlinespacing
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-setlinespacing
      */
     SetLineSpacing(lineSpacingMethod, lineSpacing, baseline) {
         result := ComCall(10, this, "int", lineSpacingMethod, "float", lineSpacing, "float", baseline, "HRESULT")
@@ -233,10 +245,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the alignment option of text relative to the layout box's leading and trailing edge.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_text_alignment">DWRITE_TEXT_ALIGNMENT</a></b>
      * 
      * Returns the text alignment option of the current paragraph.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-gettextalignment
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-gettextalignment
      */
     GetTextAlignment() {
         result := ComCall(11, this, "int")
@@ -245,10 +257,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the alignment option of a paragraph which is relative to the top and bottom edges of a layout box.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_paragraph_alignment">DWRITE_PARAGRAPH_ALIGNMENT</a></b>
      * 
      * A value that indicates the current paragraph alignment option.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getparagraphalignment
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getparagraphalignment
      */
     GetParagraphAlignment() {
         result := ComCall(12, this, "int")
@@ -257,10 +269,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the word wrapping option.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a></b>
      * 
-     * Returns the word wrapping option; see <a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a> for more information.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getwordwrapping
+     * Returns the word wrapping option; see <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_word_wrapping">DWRITE_WORD_WRAPPING</a> for more information.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getwordwrapping
      */
     GetWordWrapping() {
         result := ComCall(13, this, "int")
@@ -269,10 +281,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the current reading direction for text in a paragraph.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_reading_direction">DWRITE_READING_DIRECTION</a></b>
      * 
      * A value that indicates the current reading direction for text in a  paragraph.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getreadingdirection
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getreadingdirection
      */
     GetReadingDirection() {
         result := ComCall(14, this, "int")
@@ -281,10 +293,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the direction that text lines flow.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION</a></b>
      * 
-     * The direction that text lines flow within their parent container.  For example, <a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION_TOP_TO_BOTTOM</a> indicates that text lines are placed from top to bottom.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getflowdirection
+     * The direction that text lines flow within their parent container.  For example, <a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_flow_direction">DWRITE_FLOW_DIRECTION_TOP_TO_BOTTOM</a> indicates that text lines are placed from top to bottom.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getflowdirection
      */
     GetFlowDirection() {
         result := ComCall(15, this, "int")
@@ -296,7 +308,7 @@ class IDWriteTextFormat extends IUnknown{
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The incremental tab stop value.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getincrementaltabstop
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getincrementaltabstop
      */
     GetIncrementalTabStop() {
         result := ComCall(16, this, "float")
@@ -313,8 +325,8 @@ class IDWriteTextFormat extends IUnknown{
      * When this method returns, contains an address of a pointer to a trimming omission sign. This parameter may be <b>NULL</b>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-gettrimming
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-gettrimming
      */
     GetTrimming(trimmingOptions, trimmingSign) {
         result := ComCall(17, this, "ptr", trimmingOptions, "ptr*", trimmingSign, "HRESULT")
@@ -322,7 +334,7 @@ class IDWriteTextFormat extends IUnknown{
     }
 
     /**
-     * Gets the line spacing adjustment set for a multiline text paragraph.
+     * Gets the line spacing adjustment set for a multiline text paragraph. (IDWriteTextFormat.GetLineSpacing)
      * @param {Pointer<Integer>} lineSpacingMethod Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_line_spacing_method">DWRITE_LINE_SPACING_METHOD</a>*</b>
      * 
      * A value that indicates how line height is determined.
@@ -334,8 +346,8 @@ class IDWriteTextFormat extends IUnknown{
      * When this method returns, contains the distance from top of line to baseline. A reasonable ratio to <i>lineSpacing</i> is 80 percent.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getlinespacing
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlinespacing
      */
     GetLineSpacing(lineSpacingMethod, lineSpacing, baseline) {
         lineSpacingMethodMarshal := lineSpacingMethod is VarRef ? "int*" : "ptr"
@@ -351,7 +363,7 @@ class IDWriteTextFormat extends IUnknown{
      * @returns {IDWriteFontCollection} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/nn-dwrite-idwritefontcollection">IDWriteFontCollection</a>**</b>
      * 
      * When this method returns, contains an address of a pointer to the font collection being used for the current text.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getfontcollection
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontcollection
      */
     GetFontCollection() {
         result := ComCall(19, this, "ptr*", &fontCollection := 0, "HRESULT")
@@ -363,7 +375,7 @@ class IDWriteTextFormat extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The size of the character array, in character count, not including the terminated <b>NULL</b> character.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getfontfamilynamelength
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontfamilynamelength
      */
     GetFontFamilyNameLength() {
         result := ComCall(20, this, "uint")
@@ -380,8 +392,8 @@ class IDWriteTextFormat extends IUnknown{
      * The size of the <i>fontFamilyName</i> character array, in character count, including the terminated <b>NULL</b> character.  To find the size of <i>fontFamilyName</i>, use <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontfamilynamelength">GetFontFamilyNameLength</a>.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getfontfamilyname
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontfamilyname
      */
     GetFontFamilyName(fontFamilyName, nameSize) {
         fontFamilyName := fontFamilyName is String ? StrPtr(fontFamilyName) : fontFamilyName
@@ -392,10 +404,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the font weight of the text.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_weight">DWRITE_FONT_WEIGHT</a></b>
      * 
      * A value that indicates the type of weight (such as normal, bold, or black).
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getfontweight
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontweight
      */
     GetFontWeight() {
         result := ComCall(22, this, "int")
@@ -404,10 +416,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the font style of the text.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_style">DWRITE_FONT_STYLE</a></b>
      * 
      * A value which indicates the type of font style (such as  slope or incline).
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getfontstyle
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontstyle
      */
     GetFontStyle() {
         result := ComCall(23, this, "int")
@@ -416,10 +428,10 @@ class IDWriteTextFormat extends IUnknown{
 
     /**
      * Gets the font stretch of the text.
-     * @returns {Integer} Type: <b><a href="/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/dwrite/ne-dwrite-dwrite_font_stretch">DWRITE_FONT_STRETCH</a></b>
      * 
      * A value which indicates the type of font stretch (such as  normal or condensed).
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getfontstretch
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontstretch
      */
     GetFontStretch() {
         result := ComCall(24, this, "int")
@@ -431,7 +443,7 @@ class IDWriteTextFormat extends IUnknown{
      * @returns {Float} Type: <b>FLOAT</b>
      * 
      * The current font size in DIP units.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getfontsize
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getfontsize
      */
     GetFontSize() {
         result := ComCall(25, this, "float")
@@ -443,7 +455,7 @@ class IDWriteTextFormat extends IUnknown{
      * @returns {Integer} Type: <b>UINT32</b>
      * 
      * The size of the character array in character count, not including the terminated <b>NULL</b> character.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getlocalenamelength
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlocalenamelength
      */
     GetLocaleNameLength() {
         result := ComCall(26, this, "uint")
@@ -460,8 +472,8 @@ class IDWriteTextFormat extends IUnknown{
      * The size of the character array, in character count, including the terminated <b>NULL</b> character. Use <a href="https://docs.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlocalenamelength">GetLocaleNameLength</a> to get the size of the locale name character array.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//dwrite/nf-dwrite-idwritetextformat-getlocalename
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/dwrite/nf-dwrite-idwritetextformat-getlocalename
      */
     GetLocaleName(localeName, nameSize) {
         localeName := localeName is String ? StrPtr(localeName) : localeName

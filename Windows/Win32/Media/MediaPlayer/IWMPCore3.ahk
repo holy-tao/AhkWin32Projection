@@ -8,7 +8,7 @@
 
 /**
  * The IWMPCore3 interface provides methods that supplement the IWMPCore2 interface.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmpcore3
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmpcore3
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -35,10 +35,16 @@ class IWMPCore3 extends IWMPCore2{
 
     /**
      * The newPlaylist method retrieves a pointer to an IWMPPlaylist interface for a new playlist.
+     * @remarks
+     * If the <i>bstrURL</i> parameter is a null or empty string, this method creates an empty <b>Playlist</b> object. If the <i>bstrname</i> parameter is an empty string, this method applies the current metafile name.
+     * 
+     * The new playlist created with this method is not added to the library. To add a new playlist to the library, use <b>IWMPPlaylistCollection::importPlaylist</b> or <b>IWMPPlaylistCollection::newPlaylist</b>. Any leading or trailing spaces in the playlist name are automatically removed when it is added to the library.
+     * 
+     * Because the library allows multiple playlists with the same name, you may want to check for the presence of a playlist with a given name before adding a new one.
      * @param {BSTR} bstrName <b>BSTR</b> containing the playlist name.
      * @param {BSTR} bstrURL <b>BSTR</b> containing the playlist URL.
      * @returns {IWMPPlaylist} Pointer to a pointer to an <b>IWMPPlaylist</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcore3-newplaylist
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore3-newplaylist
      */
     newPlaylist(bstrName, bstrURL) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -50,9 +56,11 @@ class IWMPCore3 extends IWMPCore2{
 
     /**
      * The newMedia method retrieves a pointer to an IWMPMedia interface for a new media item.
+     * @remarks
+     * The <i>bstrURL</i> parameter must not be an empty string or null.
      * @param {BSTR} bstrURL <b>BSTR</b> containing the URL.
      * @returns {IWMPMedia} Pointer to a pointer to an <b>IWMPMedia</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmpcore3-newmedia
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmpcore3-newmedia
      */
     newMedia(bstrURL) {
         bstrURL := bstrURL is String ? BSTR.Alloc(bstrURL).Value : bstrURL

@@ -30,8 +30,11 @@ class IHostSecurityContext extends IUnknown{
     static VTableNames => ["Capture"]
 
     /**
-     * 
+     * The Capture method captures a still image from the video frame when the MSWebDVD object is in windowless mode.
+     * @remarks
+     * This method captures the current frame from the DVD-Video image and pastes it into a window from which the user can save or edit the image. The MSWebDVD object must be in windowless mode for this method to succeed.
      * @returns {IHostSecurityContext} 
+     * @see https://learn.microsoft.com/windows/win32/DirectShow/capture-method
      */
     Capture() {
         result := ComCall(3, this, "ptr*", &ppClonedContext := 0, "HRESULT")

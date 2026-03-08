@@ -6,12 +6,9 @@
 /**
  * Allows a custom effect's interface and behavior to be specified by the effect author.
  * @remarks
- * 
  * This interface is created by the effect author from a static factory registered through 
  *       the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1factory1-registereffectfromstring">ID2D1Factory::RegisterEffect</a>  method.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1effectimpl
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1effectimpl
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -38,6 +35,12 @@ class ID2D1EffectImpl extends IUnknown{
 
     /**
      * The effect can use this method to do one time initialization tasks.
+     * @remarks
+     * This moves resource creation cost to the <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createeffect">CreateEffect</a> call, rather than during rendering.
+     * 
+     * If the implementation fails this call, the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/nf-d2d1_1-id2d1devicecontext-createeffect">ID2D1DeviceContext::CreateEffect</a> call also fails.
+     * 
+     * The following example shows an effect implementing an initialize method.
      * @param {ID2D1EffectContext} effectContext Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1effectcontext">ID2D1EffectContext</a>*</b>
      * 
      * An internal context interface that creates and returns effect author–centric types.
@@ -48,7 +51,7 @@ class ID2D1EffectImpl extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-initialize
      */
     Initialize(effectContext, transformGraph) {
         result := ComCall(3, this, "ptr", effectContext, "ptr", transformGraph, "HRESULT")
@@ -57,13 +60,26 @@ class ID2D1EffectImpl extends IUnknown{
 
     /**
      * Prepares an effect for the rendering process.
+     * @remarks
+     * This method is called by the renderer when the effect is within an effect graph that is drawn.
+     * 
+     *  The method will be called:
+     * 
+     * <ul>
+     * <li>If the effect has been initialized but has not previously been drawn.</li>
+     * <li>If an effect property has been set since the last draw call.</li>
+     * <li>If the context state has changed since the effect was last drawn.</li>
+     * </ul>
+     * The method will not otherwise be called. The transforms created by the effect will be called to handle their input and output rectangles for every draw call.
+     * 
+     * Most effects defer creating any resources or specifying a topology until this call is made. They store their properties and map them to a concrete set of rendering techniques when first drawn.
      * @param {Integer} changeType Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/ne-d2d1effectauthor-d2d1_change_type">D2D1_CHANGE_TYPE</a></b>
      * 
      * Indicates the type of change the effect should expect.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * If the method succeeds, it returns <b>S_OK</b>. If it fails, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-prepareforrender
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-prepareforrender
      */
     PrepareForRender(changeType) {
         result := ComCall(4, this, "int", changeType, "HRESULT")
@@ -84,7 +100,7 @@ class ID2D1EffectImpl extends IUnknown{
      * </li>
      * <li>The effect object will be placed into an error state, if subsequently used to render, the context will be placed into a temporary error state, that particular effect will fail to render and the failure will be returned on the next EndDraw or Flush call.</li>
      * </ul>
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-setgraph
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1effectimpl-setgraph
      */
     SetGraph(transformGraph) {
         result := ComCall(5, this, "ptr", transformGraph, "HRESULT")

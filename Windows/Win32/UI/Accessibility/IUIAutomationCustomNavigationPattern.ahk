@@ -6,7 +6,7 @@
 
 /**
  * Exposes a method to support access by a Microsoft UI Automation client to controls that support a custom navigation order.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationcustomnavigationpattern
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationcustomnavigationpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IUIAutomationCustomNavigationPattern extends IUnknown{
      * Gets the next element in the specified direction within the logical UI tree.
      * @param {Integer} direction 
      * @returns {IUIAutomationElement} The next element as specified by the <i>direction</i> parameter.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationcustomnavigationpattern-navigate
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationcustomnavigationpattern-navigate
      */
     Navigate(direction) {
         result := ComCall(3, this, "int", direction, "ptr*", &pRetVal := 0, "HRESULT")

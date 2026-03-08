@@ -5,7 +5,7 @@
 
 /**
  * The ITfCompartmentEventSink interface is implemented by a client (application or text service) and used by the TSF manager to notify the client when compartment data changes.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfcompartmenteventsink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfcompartmenteventsink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,9 +32,13 @@ class ITfCompartmentEventSink extends IUnknown{
 
     /**
      * ITfCompartmentEventSink::OnChange method
+     * @remarks
+     * When this method is called, the data has changed. The new data can be obtained at this time by calling <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcompartment-getvalue">ITfCompartment::GetValue</a>.
+     * 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcompartment-setvalue">ITfCompartment::SetValue</a> will return E_UNEXPECTED if called from within this notification.
      * @param {Pointer<Guid>} rguid Contains a GUID that identifies the compartment that changed.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfcompartmenteventsink-onchange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfcompartmenteventsink-onchange
      */
     OnChange(rguid) {
         result := ComCall(3, this, "ptr", rguid, "HRESULT")

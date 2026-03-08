@@ -29,13 +29,14 @@ class ISpEnginePronunciation extends IUnknown{
     static VTableNames => ["Normalize", "GetPronunciations"]
 
     /**
-     * 
+     * Contains values that specify the behavior of UiaGetUpdatedCache.
      * @param {PWSTR} pszWord 
      * @param {PWSTR} pszLeftContext 
      * @param {PWSTR} pszRightContext 
      * @param {Integer} LangID 
      * @param {Pointer<SPNORMALIZATIONLIST>} pNormalizationList 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationcoreapi/ne-uiautomationcoreapi-normalizestate
      */
     Normalize(pszWord, pszLeftContext, pszRightContext, LangID, pNormalizationList) {
         pszWord := pszWord is String ? StrPtr(pszWord) : pszWord

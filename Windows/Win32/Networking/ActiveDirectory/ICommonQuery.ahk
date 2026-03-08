@@ -6,7 +6,7 @@
 
 /**
  * Used to programmatically display the system-supplied directory service query dialog box.
- * @see https://docs.microsoft.com/windows/win32/api//cmnquery/nn-cmnquery-icommonquery
+ * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nn-cmnquery-icommonquery
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -37,7 +37,7 @@ class ICommonQuery extends IUnknown{
      * @param {Pointer<OPENQUERYWINDOW>} pQueryWnd Address of an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/cmnquery/ns-cmnquery-openquerywindow">OPENQUERYWINDOW</a> structure that defines the query to perform and the characteristics of the query dialog.
      * @returns {IDataObject} Address of an <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface pointer that receives the results of the query. This parameter only receives valid data if this method returns <b>S_OK</b>. This <b>IDataObject</b> supports the following clipboard formats.
-     * @see https://docs.microsoft.com/windows/win32/api//cmnquery/nf-cmnquery-icommonquery-openquerywindow
+     * @see https://learn.microsoft.com/windows/win32/api/cmnquery/nf-cmnquery-icommonquery-openquerywindow
      */
     OpenQueryWindow(hwndParent, pQueryWnd) {
         hwndParent := hwndParent is Win32Handle ? NumGet(hwndParent, "ptr") : hwndParent

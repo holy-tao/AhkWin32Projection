@@ -5,7 +5,7 @@
 
 /**
  * Enables the access control editor to communicate with the caller of the CreateSecurityPage and EditSecurity functions.
- * @see https://docs.microsoft.com/windows/win32/api//aclui/nn-aclui-isecurityinformation
+ * @see https://learn.microsoft.com/windows/win32/api/aclui/nn-aclui-isecurityinformation
  * @namespace Windows.Win32.Security.Authorization.UI
  * @version v4.0.30319
  */
@@ -32,12 +32,15 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The GetObjectInformation method requests information that the access control editor uses to initialize its pages and to determine the editing options available to the user.
+     * @remarks
+     * The system does not free the string pointers that you return in the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-si_object_info">SI_OBJECT_INFO</a> structure.
      * @param {Pointer<SI_OBJECT_INFO>} pObjectInfo A pointer to an 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-si_object_info">SI_OBJECT_INFO</a> structure. Your implementation must fill this structure to pass information back to the access control editor.
      * @returns {HRESULT} Returns S_OK if successful.
      * 
      * Returns a nonzero error code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation-getobjectinformation
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getobjectinformation
      */
     GetObjectInformation(pObjectInfo) {
         result := ComCall(3, this, "ptr", pObjectInfo, "HRESULT")
@@ -66,7 +69,7 @@ class ISecurityInformation extends IUnknown{
      * @returns {HRESULT} Returns S_OK if successful.
      * 
      * Returns a nonzero error code if an error occurs. Returns E_ACCESSDENIED if the user does not have permission to read the requested security information.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation-getsecurity
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getsecurity
      */
     GetSecurity(RequestedInformation, ppSecurityDescriptor, fDefault) {
         result := ComCall(4, this, "uint", RequestedInformation, "ptr", ppSecurityDescriptor, "int", fDefault, "HRESULT")
@@ -75,13 +78,15 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The SetSecurity method provides a security descriptor containing the security information the user wants to apply to the securable object. The access control editor calls this method when the user clicks Okay or Apply.
+     * @remarks
+     * To build a complete security descriptor for the object, the application must merge the new security descriptor parts, as defined by the <i>SecurityInformation</i> parameter, into the object's existing security descriptor.
      * @param {Integer} SecurityInformation A set of
      * @param {PSECURITY_DESCRIPTOR} pSecurityDescriptor A pointer to a security descriptor containing the new security information. Do not assume the security descriptor is in <a href="https://docs.microsoft.com/windows/desktop/SecGloss/s-gly">self-relative</a> form; it  can be either 
      * <a href="https://docs.microsoft.com/windows/desktop/SecAuthZ/absolute-and-self-relative-security-descriptors">absolute or self-relative</a>.
      * @returns {HRESULT} Returns S_OK if successful.
      * 
      * Returns a nonzero error code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation-setsecurity
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-setsecurity
      */
     SetSecurity(SecurityInformation, pSecurityDescriptor) {
         pSecurityDescriptor := pSecurityDescriptor is Win32Handle ? NumGet(pSecurityDescriptor, "ptr") : pSecurityDescriptor
@@ -92,6 +97,10 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The GetAccessRights method requests information about the access rights that can be controlled for a securable object.
+     * @remarks
+     * The <b>GetAccessRights</b> method is called each time a property page is initialized.
+     * 
+     * The access control editor does not free the pointer returned in <i>ppAccess</i>.
      * @param {Pointer<Guid>} pguidObjectType A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object for which access rights are being requested. If this parameter is <b>NULL</b> or a pointer to GUID_NULL, return the access rights for the object being edited. Otherwise, the GUID identifies a child object type returned by the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/nf-aclui-isecurityinformation-getinherittypes">ISecurityInformation::GetInheritTypes</a> method. The GUID corresponds to the <b>InheritedObjectType</b> member of an object-specific ACE.
@@ -102,8 +111,8 @@ class ISecurityInformation extends IUnknown{
      * @param {Pointer<Integer>} piDefaultAccess A pointer to <b>ULONG</b> that indicates the zero-based index of the array entry that contains the default access rights. The access control editor uses this entry as the initial access rights in a new ACE.
      * @returns {HRESULT} If the function succeeds, the function returns  S_OK.
      * 
-     *  If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation-getaccessrights
+     *  If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getaccessrights
      */
     GetAccessRights(pguidObjectType, dwFlags, ppAccess, pcAccesses, piDefaultAccess) {
         ppAccessMarshal := ppAccess is VarRef ? "ptr*" : "ptr"
@@ -116,6 +125,9 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The MapGeneric method requests that the generic access rights in an access mask be mapped to their corresponding standard and specific access rights.
+     * @remarks
+     * Your <b>MapGeneric</b> implementation can call the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-mapgenericmask">MapGenericMask</a> function to map the generic access rights in the access mask.
      * @param {Pointer<Guid>} pguidObjectType A pointer to a 
      * <a href="https://docs.microsoft.com/windows/win32/api/guiddef/ns-guiddef-guid">GUID</a> structure that identifies the type of object to which the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">access mask</a> applies. If this member is <b>NULL</b> or a pointer to GUID_NULL, the access mask applies to the object itself.
      * @param {Pointer<Integer>} pAceFlags A pointer to the <b>AceFlags</b> member of the 
@@ -123,8 +135,8 @@ class ISecurityInformation extends IUnknown{
      * @param {Pointer<Integer>} pMask A pointer to an access mask that contains the generic access rights to map. Your implementation must map the generic access rights to the corresponding standard and specific access rights for the specified object type.
      * @returns {HRESULT} If the function succeeds, the function returns S_OK.
      * 
-     *  If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation-mapgeneric
+     *  If the function fails, it returns an <b>HRESULT</b> value that indicates the error. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-mapgeneric
      */
     MapGeneric(pguidObjectType, pAceFlags, pMask) {
         pAceFlagsMarshal := pAceFlags is VarRef ? "char*" : "ptr"
@@ -136,13 +148,15 @@ class ISecurityInformation extends IUnknown{
 
     /**
      * The GetInheritTypes method requests information about how ACEs can be inherited by child objects. For more information, see ACE Inheritance.
+     * @remarks
+     * The access control editor does not free the pointer returned in <i>ppInheritTypes</i>.
      * @param {Pointer<Pointer<SI_INHERIT_TYPE>>} ppInheritTypes A pointer to a variable you should set to a pointer to an array of 
      * <a href="https://docs.microsoft.com/windows/desktop/api/aclui/ns-aclui-si_inherit_type">SI_INHERIT_TYPE</a> structures. The array should include one entry for each combination of inheritance flags and child object type that you support.
      * @param {Pointer<Integer>} pcInheritTypes A pointer to a variable that you should set to indicate the number of entries in the <i>ppInheritTypes</i> array.
      * @returns {HRESULT} Returns S_OK if successful.
      * 
      * Returns a nonzero error code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation-getinherittypes
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-getinherittypes
      */
     GetInheritTypes(ppInheritTypes, pcInheritTypes) {
         ppInheritTypesMarshal := ppInheritTypes is VarRef ? "ptr*" : "ptr"
@@ -161,7 +175,7 @@ class ISecurityInformation extends IUnknown{
      * @returns {HRESULT} Returns S_OK if successful.
      * 
      * Returns a nonzero error code if an error occurs.
-     * @see https://docs.microsoft.com/windows/win32/api//aclui/nf-aclui-isecurityinformation-propertysheetpagecallback
+     * @see https://learn.microsoft.com/windows/win32/api/aclui/nf-aclui-isecurityinformation-propertysheetpagecallback
      */
     PropertySheetPageCallback(hwnd, uMsg, uPage) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

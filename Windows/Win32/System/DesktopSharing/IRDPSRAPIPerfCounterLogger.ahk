@@ -5,7 +5,7 @@
 
 /**
  * Enables a client application to implement custom performance logging.
- * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterlogger
+ * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nn-rdpencomapi-irdpsrapiperfcounterlogger
  * @namespace Windows.Win32.System.DesktopSharing
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IRDPSRAPIPerfCounterLogger extends IUnknown{
      * Logs a value.
      * @param {Integer} lValue The value to log.
      * @returns {HRESULT} If the method succeeds, the return value is <b>S_OK</b>. Otherwise, the return value is an error code.
-     * @see https://docs.microsoft.com/windows/win32/api//rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterlogger-logvalue
+     * @see https://learn.microsoft.com/windows/win32/api/rdpencomapi/nf-rdpencomapi-irdpsrapiperfcounterlogger-logvalue
      */
     LogValue(lValue) {
         result := ComCall(3, this, "int64", lValue, "HRESULT")

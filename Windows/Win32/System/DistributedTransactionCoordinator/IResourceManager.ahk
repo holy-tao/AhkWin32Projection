@@ -5,7 +5,7 @@
 
 /**
  * The IResourceManager interface resolves contentions for system resources.The filter graph manager exposes this interface.
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iresourcemanager
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iresourcemanager
  * @namespace Windows.Win32.System.DistributedTransactionCoordinator
  * @version v4.0.30319
  */
@@ -31,13 +31,14 @@ class IResourceManager extends IUnknown{
     static VTableNames => ["Enlist", "Reenlist", "ReenlistmentComplete", "GetDistributedTransactionManager"]
 
     /**
-     * 
+     * KTM defines the following enlistment access masks to be used when opening enlistments.
      * @param {ITransaction} pTransaction 
      * @param {ITransactionResourceAsync} pRes 
      * @param {Pointer<BOID>} pUOW 
      * @param {Pointer<Integer>} pisoLevel 
      * @param {Pointer<ITransactionEnlistmentAsync>} ppEnlist 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Ktm/enlistment-access-masks
      */
     Enlist(pTransaction, pRes, pUOW, pisoLevel, ppEnlist) {
         pisoLevelMarshal := pisoLevel is VarRef ? "int*" : "ptr"

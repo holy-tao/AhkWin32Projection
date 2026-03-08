@@ -29,12 +29,13 @@ class IDtcToXaHelperFactory extends IUnknown{
     static VTableNames => ["Create"]
 
     /**
-     * 
+     * The Create Time/Date Summary property conveys the time and date when an author created the installation package, transform, or patch package.
      * @param {PSTR} pszDSN 
      * @param {PSTR} pszClientDllName 
      * @param {Pointer<Guid>} pguidRm 
      * @param {Pointer<IDtcToXaHelper>} ppXaHelper 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Msi/create-time-date-summary
      */
     Create(pszDSN, pszClientDllName, pguidRm, ppXaHelper) {
         pszDSN := pszDSN is String ? StrPtr(pszDSN) : pszDSN

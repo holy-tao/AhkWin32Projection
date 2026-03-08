@@ -29,7 +29,9 @@ class ITableDefinition extends IUnknown{
     static VTableNames => ["CreateTable", "DropTable", "AddColumn", "DropColumn"]
 
     /**
-     * 
+     * CreateTable creates structures and an object handle for an ITableData object which can be used to create table contents.
+     * @remarks
+     * The _lpAllocateBuffer_, _lpAllocateMore_, and _lpFreeBuffer_ input parameters point to the [MAPIAllocateBuffer](mapiallocatebuffer.md), [MAPIAllocateMore](mapiallocatemore.md), and [MAPIFreeBuffer](mapifreebuffer.md) functions, respectively. A client application calling **CreateTable** passes in pointers to the MAPI functions just named; a service provider passes the pointers to these functions that it received in its initialization call or retrieved with a call to the [IMAPISupport::GetMemAllocRoutines](imapisupport-getmemallocroutines.md) method.
      * @param {IUnknown} pUnkOuter 
      * @param {Pointer<DBID>} pTableID 
      * @param {Pointer} cColumnDescs 
@@ -39,7 +41,10 @@ class ITableDefinition extends IUnknown{
      * @param {Pointer<DBPROPSET>} rgPropertySets 
      * @param {Pointer<Pointer<DBID>>} ppTableID 
      * @param {Pointer<IUnknown>} ppRowset 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} S_OK
+     *   
+     * > The call succeeded and has returned the expected value or values.
+     * @see https://learn.microsoft.com/office/client-developer/outlook/mapi/createtable
      */
     CreateTable(pUnkOuter, pTableID, cColumnDescs, rgColumnDescs, riid, cPropertySets, rgPropertySets, ppTableID, ppRowset) {
         ppTableIDMarshal := ppTableID is VarRef ? "ptr*" : "ptr"

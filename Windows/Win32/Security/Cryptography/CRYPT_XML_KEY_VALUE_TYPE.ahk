@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Enum.ahk
 
 /**
+ * The key is a custom key type.
+ * @see https://learn.microsoft.com/windows/win32/api/cryptxml/ns-cryptxml-crypt_xml_key_value
  * @namespace Windows.Win32.Security.Cryptography
  * @version v4.0.30319
  */

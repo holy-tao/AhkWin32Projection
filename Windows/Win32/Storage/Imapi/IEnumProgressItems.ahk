@@ -7,11 +7,8 @@
 /**
  * Use this interface to enumerate a collection of progress items.
  * @remarks
- * 
  * This is a <b>EnumProgressItems</b> object in script.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nn-imapi2fs-ienumprogressitems
+ * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nn-imapi2fs-ienumprogressitems
  * @namespace Windows.Win32.Storage.Imapi
  * @version v4.0.30319
  */
@@ -43,7 +40,9 @@ class IEnumProgressItems extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves a specified number of items in the enumeration sequence.
+     * Retrieves a specified number of items in the enumeration sequence. (IEnumProgressItems.Next)
+     * @remarks
+     * If there are fewer than the requested number of elements left in the sequence, it retrieves the remaining elements.
      * @param {Integer} celt Number of items to retrieve.
      * @param {Pointer<IProgressItem>} rgelt Array of <a href="https://docs.microsoft.com/windows/desktop/api/imapi2fs/nn-imapi2fs-iprogressitem">IProgressItem</a> interfaces. You must release each interface in rgelt when done.
      * @param {Pointer<Integer>} pceltFetched Number of elements returned in rgelt. You can set <i>pceltFetched</i> to <b>NULL</b> if <i>celt</i> is one. Otherwise, initialize the value of <i>pceltFetched</i> to 0 before calling this method.
@@ -96,7 +95,7 @@ class IEnumProgressItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumprogressitems-next
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ienumprogressitems-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -106,7 +105,9 @@ class IEnumProgressItems extends IUnknown{
     }
 
     /**
-     * Skips a specified number of items in the enumeration sequence.
+     * Skips a specified number of items in the enumeration sequence. (IEnumProgressItems.Skip)
+     * @remarks
+     * If there are fewer elements left in the sequence than the requested number of elements to skip, it skips past the last element in the sequence.
      * @param {Integer} celt Number of items to skip.
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation. The following error codes are commonly returned on operation failure, but do not represent the only possible error values:
      * 
@@ -127,7 +128,7 @@ class IEnumProgressItems extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumprogressitems-skip
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ienumprogressitems-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "HRESULT")
@@ -135,9 +136,9 @@ class IEnumProgressItems extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumProgressItems.Reset)
      * @returns {HRESULT} S_OK is returned on success, but other success codes may be returned as a result of implementation.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumprogressitems-reset
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ienumprogressitems-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -145,9 +146,11 @@ class IEnumProgressItems extends IUnknown{
     }
 
     /**
-     * Creates another enumerator that contains the same enumeration state as the current one.
+     * Creates another enumerator that contains the same enumeration state as the current one. (IEnumProgressItems.Clone)
+     * @remarks
+     * Using this method, a client can record a particular point in the enumeration sequence, and then return to that point at a later time. The new enumerator supports the same interface as the original one.
      * @returns {IEnumProgressItems} Receives the interface pointer to the enumeration object. If the method is unsuccessful, the value of this output variable is undefined. You must release <i>ppEnum</i> when done.
-     * @see https://docs.microsoft.com/windows/win32/api//imapi2fs/nf-imapi2fs-ienumprogressitems-clone
+     * @see https://learn.microsoft.com/windows/win32/api/imapi2fs/nf-imapi2fs-ienumprogressitems-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppEnum := 0, "HRESULT")

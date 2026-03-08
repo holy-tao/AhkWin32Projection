@@ -5,7 +5,7 @@
 
 /**
  * Exposes methods that show, hide, and query deskbands.
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nn-shobjidl-itraydeskband
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nn-shobjidl-itraydeskband
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -43,8 +43,8 @@ class ITrayDeskBand extends IUnknown{
      * A reference to a deskband CLSID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-itraydeskband-showdeskband
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-itraydeskband-showdeskband
      */
     ShowDeskBand(clsid) {
         result := ComCall(3, this, "ptr", clsid, "HRESULT")
@@ -58,8 +58,8 @@ class ITrayDeskBand extends IUnknown{
      * A reference to a deskband CLSID.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-itraydeskband-hidedeskband
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-itraydeskband-hidedeskband
      */
     HideDeskBand(clsid) {
         result := ComCall(4, this, "ptr", clsid, "HRESULT")
@@ -74,7 +74,7 @@ class ITrayDeskBand extends IUnknown{
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
      * Returns S_OK if the deskband is shown, S_FALSE if the deskband is not shown, or an error value otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-itraydeskband-isdeskbandshown
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-itraydeskband-isdeskbandshown
      */
     IsDeskBandShown(clsid) {
         result := ComCall(5, this, "ptr", clsid, "HRESULT")
@@ -83,10 +83,12 @@ class ITrayDeskBand extends IUnknown{
 
     /**
      * Refreshes the deskband registration cache.
+     * @remarks
+     * Call this method immediately after making a change to the deskband registration. For example, through the CLSID_StdComponentCategoriesMgr object.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl/nf-shobjidl-itraydeskband-deskbandregistrationchanged
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl/nf-shobjidl-itraydeskband-deskbandregistrationchanged
      */
     DeskBandRegistrationChanged() {
         result := ComCall(6, this, "HRESULT")

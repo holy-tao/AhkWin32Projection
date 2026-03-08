@@ -6,7 +6,7 @@
 
 /**
  * The IX509CertificateTemplate interface represents a certificate request template. It can be used to initialize an IX509CertificateTemplateWritable interface.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509certificatetemplate
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificatetemplate
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -35,7 +35,7 @@ class IX509CertificateTemplate extends IDispatch{
      * Retrieves a template property value.
      * @param {Integer} property 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificatetemplate-get_property
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificatetemplate-get_property
      */
     get_Property(property) {
         pValue := VARIANT()

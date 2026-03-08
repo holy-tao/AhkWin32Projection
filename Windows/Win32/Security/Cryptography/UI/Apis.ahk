@@ -656,11 +656,7 @@ class UI {
         ppOutBufferMarshal := ppOutBuffer is VarRef ? "ptr*" : "ptr"
         pulOutBufferSizeMarshal := pulOutBufferSize is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, ppOutBufferMarshal, ppOutBuffer, pulOutBufferSizeMarshal, pulOutBufferSize, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("CRYPTUI.dll\CertSelectionGetSerializedBlob", "ptr", pcsi, ppOutBufferMarshal, ppOutBuffer, pulOutBufferSizeMarshal, pulOutBufferSize, "HRESULT")
         return result
     }
 
@@ -751,8 +747,8 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateW", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -778,8 +774,8 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIDlgViewCertificateA", "ptr", pCertViewInfo, pfPropertiesChangedMarshal, pfPropertiesChanged, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -810,8 +806,8 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIWizExport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pExportInfo, pvoidMarshal, pvoid, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result
@@ -855,8 +851,8 @@ class UI {
         A_LastError := 0
 
         result := DllCall("CRYPTUI.dll\CryptUIWizImport", "uint", dwFlags, "ptr", hwndParent, "ptr", pwszWizardTitle, "ptr", pImportSrc, "ptr", hDestCertStore, "int")
-        if((!result && A_LastError)) {
-            throw OSError(A_LastError || result)
+        if(!result && A_LastError) {
+            throw OSError(A_LastError)
         }
 
         return result

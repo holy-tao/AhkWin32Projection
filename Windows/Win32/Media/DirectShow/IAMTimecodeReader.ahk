@@ -7,7 +7,6 @@
 /**
  * The IAMTimecodeReader interface reads SMPTE or MIDI timecode from an external device. The MSDV and MSTape drivers support this interface for reading timecode from an external DV or MPEG-2 camcorder.
  * @remarks
- * 
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the PROPSETID_TIMECODE_READER property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
  * 
  * SMPTE timecode is a frame addressing system that identifies video and audio sources, makes automatic track synchronization possible, and provides a container for additional data related to the source material. SMPTE timecode's main purpose is to provide a machine-readable address for video and audio. It is displayed in hh:mm:ss:ff (hours, minutes, seconds, frames) format and is thoroughly defined in ANSI/SMPTE 12-1986.
@@ -34,9 +33,7 @@
  * Implement this interface on an external device filter when you want to specify how an external device should read SMPTE/MIDI timecode information. Expose the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nn-strmif-imediaseeking">IMediaSeeking</a> interface on your filter so that applications can convert timecode to reference time, using the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-imediaseeking-converttimeformat">IMediaSeeking::ConvertTimeFormat</a> method.
  * 
  * The external device must be able to read timecode and send it to the computer over its control interface. If this is not the case, you must either have a timecode reader card in your computer, or you can write a software decoder that converts VITC (Vertical Interval Timecode) in captured video frames or LTC (Linear Timecode) captured as an audio signal into DirectShow timecode samples.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamtimecodereader
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamtimecodereader
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -71,6 +68,14 @@ class IAMTimecodeReader extends IUnknown{
 
     /**
      * The GetTCRMode method retrieves the timecode reader's properties.
+     * @remarks
+     * Linear timecode is recorded on an analog audio track as a bi-phase mark -encoded signal. Each timecode frame is one video frame time in duration.
+     * 
+     * Vertical timecode is usually stored in two lines of a video signal's vertical interval, somewhere between lines 11 and 20.
+     * 
+     * Control track is a once-per-frame signal recorded on a special track on a tape. The head and drive servo mechanisms use it to keep everything locked. It is also used to drive the counter on machines without timecode capability, and can optionally be used on machines equipped with a timecode reader.
+     * 
+     * Note that ED_TCR_LAST_VALUE is used when implementing timecode notification because the application does not want to initiate another timecode request to the external device. This method is not recommended for frame-accurate applications because of multithreading issues.
      * @param {Integer} Param Timecode reader property to get (either ED_TCR_SOURCE or ED_TCR_NOTIFY_ENABLE).
      * @returns {Integer} Pointer to the value of the requested timecode reader property. If <i>Param</i> is set to ED_TCR_NOTIFY_ENABLE, then this parameter will return OATRUE—meaning that notifications are enabled—or OAFALSE. If <i>Param</i> is set to ED_TCR_SOURCE, then this value must be one of the following.
      * 
@@ -98,7 +103,7 @@ class IAMTimecodeReader extends IUnknown{
      * <td>Last read value</td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-gettcrmode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettcrmode
      */
     GetTCRMode(Param) {
         result := ComCall(3, this, "int", Param, "int*", &pValue := 0, "HRESULT")
@@ -107,6 +112,14 @@ class IAMTimecodeReader extends IUnknown{
 
     /**
      * The SetTCRMode method sets the timecode reader properties.
+     * @remarks
+     * Linear timecode is recorded on an analog audio track as an NRZ bi-phase mark-encoded signal. Each timecode frame is one video frame time in duration.
+     * 
+     * Vertical timecode is usually stored in two lines of a video signal's vertical interval, somewhere between 10 and 20.
+     * 
+     * Control track is a once-per-frame signal recorded on a special track on a tape. The head and drive servo mechanisms use it to keep everything locked. It is also used to drive the counter on machines without timecode capability, and can optionally be used on machines equipped with a timecode reader.
+     * 
+     * Note that ED_TCR_LAST_VALUE is used when implementing timecode notification because the application does not want to initiate another timecode request to the external device. This method is not recommended for frame-accurate applications because of multithreading issues.
      * @param {Integer} Param Property you want to set (use ED_TCR_SOURCE or ED_TCR_NOTIFY_ENABLE).
      * @param {Integer} Value Value of the specified property; If <i>Param</i> returns ED_TCR_NOTIFY_ENABLE, then this value will return OATRUE or OAFALSE. If <i>Param</i> returns ED_TCR_SOURCE, then this value must be one of the following.
      * 
@@ -135,7 +148,7 @@ class IAMTimecodeReader extends IUnknown{
      * </tr>
      * </table>
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-settcrmode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-settcrmode
      */
     SetTCRMode(Param, Value) {
         result := ComCall(4, this, "int", Param, "int", Value, "HRESULT")
@@ -144,9 +157,13 @@ class IAMTimecodeReader extends IUnknown{
 
     /**
      * The put_VITCLine method specifies the vertical interval line that the timecode reader will use to read timecode.
+     * @remarks
+     * If VITC mode is specified in the <a href="https://docs.microsoft.com/windows/desktop/api/strmif/nf-strmif-iamtimecodereader-settcrmode">IAMTimecodeReader::SetTCRMode</a> method, you must specify which line or lines will contain timecode information. To read VITC on specific multiple lines, the caller would make successive calls to <c>IAMTimecodeReader::put_VITCLine</c>, once for each line desired.
+     * 
+     * Set the high bit to add to the list of lines for readers that test across multiple lines.
      * @param {Integer} Line Vertical line containing timecode information (valid lines are 11-20; 0 means autoselect).
      * @returns {HRESULT} Returns E_NOTIMPL.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-put_vitcline
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-put_vitcline
      */
     put_VITCLine(Line) {
         result := ComCall(5, this, "int", Line, "HRESULT")
@@ -155,8 +172,10 @@ class IAMTimecodeReader extends IUnknown{
 
     /**
      * The get_VITCLine method retrieves the vertical interval line that the timecode reader is using to read timecode.
+     * @remarks
+     * The high bit indicates that multiple lines are used and successive calls will cycle through the line numbers.
      * @returns {Integer} Pointer to the vertical line containing timecode information (valid lines are from 11 through 20).
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-get_vitcline
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-get_vitcline
      */
     get_VITCLine() {
         result := ComCall(6, this, "int*", &pLine := 0, "HRESULT")
@@ -165,8 +184,80 @@ class IAMTimecodeReader extends IUnknown{
 
     /**
      * The GetTimecode method retrieves the most recent timecode, userbit, and flag values available in the stream.
+     * @remarks
+     * Use this method to monitor the timecode and to parse duplicates and discontinuities.
+     * 
+     * The timecode contains undefined bits, called <i>userbits</i>. Applications can use these bits to store synchronization information or other custom information.
+     * 
+     * <h3><a id="DV_and_MPEG_Camcorder_Implementation"></a><a id="dv_and_mpeg_camcorder_implementation"></a><a id="DV_AND_MPEG_CAMCORDER_IMPLEMENTATION"></a>DV and MPEG Camcorder Implementation</h3>
+     * The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/msdv-driver">MSDV</a> driver supports reading SMPTE timecode or absolute track numbers (ATN). The <a href="https://docs.microsoft.com/windows/desktop/DirectShow/mstape-driver">MSTape</a> driver supports reading the relative time counter (RTC). To read time information on these devices, do the following:
+     * 
+     * Set the <b>dwFlags</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample">TIMECODE_SAMPLE</a> structure to one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Constant</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>ED_DEVCAP_TIMECODE_READ</td>
+     * <td>Timecode (DV)</td>
+     * </tr>
+     * <tr>
+     * <td>ED_DEVCAP_ATN_READ</td>
+     * <td>Absolute track number (DV)</td>
+     * </tr>
+     * <tr>
+     * <td>ED_DEVCAP_RTC_READ</td>
+     * <td>Relative time counter (MPEG tape)</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * The <b>timecode</b> member of the <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample">TIMECODE_SAMPLE</a> structure is a <a href="https://docs.microsoft.com/windows/desktop/DirectShow/getting-timecode-from-the-device">TIMECODE</a> structure. Initialize that structure's <b>dwFrames</b> member to zero.
+     * 
+     * All other structure members are ignored.
+     * 
+     * When the method returns, the <b>dwFrames</b> member contains the time information, in the following format.
+     * 
+     * <table>
+     * <tr>
+     * <th>Time Information</th>
+     * <th>Format</th>
+     * </tr>
+     * <tr>
+     * <td>Timecode</td>
+     * <td>Hours, minutes, seconds, and frames, as a binary coded decimal (BCD) value: <i>0xhhmmssff</i>.</td>
+     * </tr>
+     * <tr>
+     * <td>ATN</td>
+     * <td>Track number.</td>
+     * </tr>
+     * <tr>
+     * <td>RTC</td>
+     * <td>Hours, minutes, seconds, and frames, as a BCD value: <i>0xhhmmssff</i>. The most significant bit of the frames byte is a sign bit. If the frame count is not available, the remaining frame bits are set to 0x7F.</td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * Also, the <b>dwUser</b> member receives the <i>blank flag</i> bit from the device, which has one of the following values.
+     * 
+     * <table>
+     * <tr>
+     * <th>Value</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td>0x00</td>
+     * <td>Not a discontinuity.</td>
+     * </tr>
+     * <tr>
+     * <td>0x01</td>
+     * <td>Discontinuity. </td>
+     * </tr>
+     * </table>
      * @returns {TIMECODE_SAMPLE} Pointer to a <a href="https://docs.microsoft.com/windows/win32/api/strmif/ns-strmif-timecode_sample">TIMECODE_SAMPLE</a> structure.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamtimecodereader-gettimecode
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamtimecodereader-gettimecode
      */
     GetTimecode() {
         pTimecodeSample := TIMECODE_SAMPLE()

@@ -4,7 +4,7 @@
 
 /**
  * Provides a metadata locator with a destination for the metadata it has discovered.
- * @see https://docs.microsoft.com/windows/win32/api//roparameterizediid/ns-roparameterizediid-irosimplemetadatabuilder
+ * @see https://learn.microsoft.com/windows/win32/api/roparameterizediid/ns-roparameterizediid-irosimplemetadatabuilder
  * @namespace Windows.Win32.System.WinRT.Metadata
  * @version v4.0.30319
  */

@@ -4,7 +4,7 @@
 #Include ..\..\..\Com\IUnknown.ahk
 
 /**
- * 
+ * Native interoperation interface that provides a counterpart to IGraphicsEffect and allows for metadata queries. This interface is available in C++ only.
  * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nn-windows-graphics-effects-interop-igraphicseffectd2d1interop
  * @namespace Windows.Win32.System.WinRT.Graphics.Direct2D
  * @version v4.0.30319
@@ -31,8 +31,10 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
     static VTableNames => ["GetEffectId", "GetNamedPropertyMapping", "GetPropertyCount", "GetProperty", "GetSource", "GetSourceCount"]
 
     /**
+     * Retrieves the ID of the effect.
+     * @returns {Guid} Type: <b>GUID*</b>
      * 
-     * @returns {Guid} 
+     * When this method returns, this parameter will contain the ID of the effect.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-geteffectid
      */
     GetEffectId() {
@@ -42,11 +44,19 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
     }
 
     /**
+     * Retrieves the mapping for an effect property.
+     * @param {PWSTR} name Type: <b>LPCWSTR</b>
      * 
-     * @param {PWSTR} name 
-     * @param {Pointer<Integer>} index 
-     * @param {Pointer<Integer>} mapping 
-     * @returns {HRESULT} 
+     * Name of the property.
+     * @param {Pointer<Integer>} index Type: <b>UINT*</b>
+     * 
+     * When this method returns, this parameter will contain the index of the property.
+     * @param {Pointer<Integer>} mapping Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/windows.graphics.effects.interop/ne-windows-graphics-effects-interop-graphics_effect_property_mapping">GRAPHICS_EFFECT_PROPERTY_MAPPING</a>*</b>
+     * 
+     * Indicates how a strongly-typed effect property maps to an underlying Direct2D effect property.
+     * @returns {HRESULT} Type: <b>HRESULT</b>
+     * 
+     * This method returns an HRESULT success or error code.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getnamedpropertymapping
      */
     GetNamedPropertyMapping(name, index, mapping) {
@@ -60,8 +70,10 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
     }
 
     /**
+     * Retrieve the property count for the effect.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
+     * When the method returns, this parameter will contain the property count.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getpropertycount
      */
     GetPropertyCount() {
@@ -70,9 +82,13 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
     }
 
     /**
+     * Retrieves the effect property at the specified index.
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
-     * @returns {Pointer<IPropertyValue>} 
+     * The index of the property to retrieve.
+     * @returns {Pointer<IPropertyValue>} Type: <b>Windows::Foundation::IPropertyValue**</b>
+     * 
+     * When this method returns, this parameter will contain the retrieved property.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getproperty
      */
     GetProperty(index) {
@@ -81,9 +97,13 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
     }
 
     /**
+     * Retrieves the effect source at the specified index.
+     * @param {Integer} index Type: <b>UINT</b>
      * 
-     * @param {Integer} index 
-     * @returns {Pointer<IGraphicsEffectSource>} 
+     * Index of the source the retrieve.
+     * @returns {Pointer<IGraphicsEffectSource>} Type: <b>IGraphicsEffectSource**</b>
+     * 
+     * When the method returns, this parameter will contain the source at the specified index.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getsource
      */
     GetSource(index) {
@@ -92,8 +112,10 @@ class IGraphicsEffectD2D1Interop extends IUnknown{
     }
 
     /**
+     * Retrieves the source count for the effect.
+     * @returns {Integer} Type: <b>UINT*</b>
      * 
-     * @returns {Integer} 
+     * When the method returns, this parameter will contain the source count for the effect.
      * @see https://learn.microsoft.com/windows/win32/api/windows.graphics.effects.interop/nf-windows-graphics-effects-interop-igraphicseffectd2d1interop-getsourcecount
      */
     GetSourceCount() {

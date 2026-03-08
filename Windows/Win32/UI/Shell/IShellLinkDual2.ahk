@@ -5,7 +5,7 @@
 #Include .\IShellLinkDual.ahk
 
 /**
- * 
+ * Extends the ShellLinkObject object and supports one additional property.
  * @see https://learn.microsoft.com/windows/win32/shell/ishelllinkdual2-object
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319

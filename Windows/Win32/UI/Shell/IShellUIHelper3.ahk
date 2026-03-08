@@ -30,9 +30,12 @@ class IShellUIHelper3 extends IShellUIHelper2{
     static VTableNames => ["AddService", "IsServiceInstalled", "InPrivateFilteringEnabled", "AddToFavoritesBar", "BuildNewTabPage", "SetRecentlyClosedVisible", "SetActivitiesVisible", "ContentDiscoveryReset", "IsSuggestedSitesEnabled", "EnableSuggestedSites", "NavigateToSuggestedSites", "ShowTabsHelp", "ShowInPrivateHelp"]
 
     /**
-     * 
+     * Defines the possible ways in which the IUpdateServiceManager2 interface can process service registration requests.
+     * @remarks
+     * For info about how  <a href="https://docs.microsoft.com/windows/desktop/api/wuapi/nf-wuapi-iupdateservicemanager2-addservice2">IUpdateServiceManager2::AddService2</a> behaves when you specify different combinations of <b>AddServiceFlag</b> values in the <i>flags</i> parameter, see the Remarks section of <b>IUpdateServiceManager2::AddService2</b>.
      * @param {BSTR} URL 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/ne-wuapi-addserviceflag
      */
     AddService(URL) {
         URL := URL is String ? BSTR.Alloc(URL).Value : URL

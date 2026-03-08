@@ -5,7 +5,7 @@
 
 /**
  * The IAMParse interface sets and retrieves the parse time for an MPEG-2 stream.
- * @see https://docs.microsoft.com/windows/win32/api//amparse/nn-amparse-iamparse
+ * @see https://learn.microsoft.com/windows/win32/api/amparse/nn-amparse-iamparse
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -32,8 +32,10 @@ class IAMParse extends IUnknown{
 
     /**
      * The GetParseTime method retrieves the current stream parse time. For MPEG-2, this corresponds to the system clock time computed for the current stream position.
+     * @remarks
+     * The parse time for the MPEG-2 Splitter filter is the current stream position in system clock units. The initial value of the parse time is zero.
      * @returns {Integer} Pointer to the current parse time.
-     * @see https://docs.microsoft.com/windows/win32/api//amparse/nf-amparse-iamparse-getparsetime
+     * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-getparsetime
      */
     GetParseTime() {
         result := ComCall(3, this, "int64*", &prtCurrent := 0, "HRESULT")
@@ -42,6 +44,8 @@ class IAMParse extends IUnknown{
 
     /**
      * The SetParseTime method sets the current stream parse time. For MPEG-2, this corresponds to the system clock time computed for the current stream position.
+     * @remarks
+     * The parse time for the MPEG-2 Splitter filter is the current stream position in system clock units. The initial value of the parse time is zero.
      * @param {Integer} rtCurrent Current stream parse time.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
      * 
@@ -73,7 +77,7 @@ class IAMParse extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//amparse/nf-amparse-iamparse-setparsetime
+     * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-setparsetime
      */
     SetParseTime(rtCurrent) {
         result := ComCall(4, this, "int64", rtCurrent, "HRESULT")
@@ -82,8 +86,10 @@ class IAMParse extends IUnknown{
 
     /**
      * The Flush method clears the current file data to allow for a more rapid switch to a new file.
+     * @remarks
+     * Although this method can make transitions much more immediate, it can also make them appear less seamless.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value.
-     * @see https://docs.microsoft.com/windows/win32/api//amparse/nf-amparse-iamparse-flush
+     * @see https://learn.microsoft.com/windows/win32/api/amparse/nf-amparse-iamparse-flush
      */
     Flush() {
         result := ComCall(5, this, "HRESULT")

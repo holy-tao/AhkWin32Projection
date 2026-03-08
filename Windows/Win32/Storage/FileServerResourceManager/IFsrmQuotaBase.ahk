@@ -8,7 +8,7 @@
 
 /**
  * Base interface for all quota interfaces.
- * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nn-fsrmquota-ifsrmquotabase
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nn-fsrmquota-ifsrmquotabase
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */
@@ -57,15 +57,11 @@ class IFsrmQuotaBase extends IFsrmObject{
     }
 
     /**
-     * Retrieves or sets the quota limit for the object.
+     * Retrieves or sets the quota limit for the object. (Get)
      * @remarks
-     * 
      * If the quota limit is enforced, an IO operation that exceeds the limit will fail.
-     * 
-     * 
-     * 
      * @returns {VARIANT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotalimit
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotalimit
      */
     get_QuotaLimit() {
         quotaLimit := VARIANT()
@@ -74,16 +70,12 @@ class IFsrmQuotaBase extends IFsrmObject{
     }
 
     /**
-     * Retrieves or sets the quota limit for the object.
+     * Retrieves or sets the quota limit for the object. (Put)
      * @remarks
-     * 
      * If the quota limit is enforced, an IO operation that exceeds the limit will fail.
-     * 
-     * 
-     * 
      * @param {VARIANT} quotaLimit 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-put_quotalimit
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-put_quotalimit
      */
     put_QuotaLimit(quotaLimit) {
         result := ComCall(13, this, "ptr", quotaLimit, "HRESULT")
@@ -91,9 +83,9 @@ class IFsrmQuotaBase extends IFsrmObject{
     }
 
     /**
-     * Retrieves or sets the quota flags for the object.
+     * Retrieves or sets the quota flags for the object. (Get)
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotaflags
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotaflags
      */
     get_QuotaFlags() {
         result := ComCall(14, this, "int*", &quotaFlags := 0, "HRESULT")
@@ -101,10 +93,10 @@ class IFsrmQuotaBase extends IFsrmObject{
     }
 
     /**
-     * Retrieves or sets the quota flags for the object.
+     * Retrieves or sets the quota flags for the object. (Put)
      * @param {Integer} quotaFlags 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-put_quotaflags
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-put_quotaflags
      */
     put_QuotaFlags(quotaFlags) {
         result := ComCall(15, this, "int", quotaFlags, "HRESULT")
@@ -114,13 +106,10 @@ class IFsrmQuotaBase extends IFsrmObject{
     /**
      * Retrieves the thresholds for the quota object.
      * @remarks
-     * 
      * To set a threshold, call the 
      *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-addthreshold">IFsrmQuotaBase::AddThreshold</a> method.
-     * 
-     * 
      * @returns {Pointer<SAFEARRAY>} 
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-get_thresholds
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_thresholds
      */
     get_Thresholds() {
         result := ComCall(16, this, "ptr*", &thresholds := 0, "HRESULT")
@@ -129,11 +118,17 @@ class IFsrmQuotaBase extends IFsrmObject{
 
     /**
      * Adds a threshold to the quota object.
+     * @remarks
+     * You can specify up to 16 unique thresholds for a quota.
+     * 
+     * A threshold defines the percentage (as a whole number) of directory quota limit used. When the size of all 
+     *     data in the directory exceeds the threshold, the FSRM server performs the specified actions (see 
+     *     <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-createthresholdaction">IFsrmQuotaBase::CreateThresholdAction</a>).
      * @param {Integer} threshold The threshold to add to the quota object. The threshold is expressed as a percentage of the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-get_quotalimit">quota limit</a>. The value must be from 1 through 
      *       250, inclusively.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-addthreshold
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-addthreshold
      */
     AddThreshold(threshold) {
         result := ComCall(17, this, "int", threshold, "HRESULT")
@@ -142,9 +137,12 @@ class IFsrmQuotaBase extends IFsrmObject{
 
     /**
      * Deletes a threshold from the quota object.
+     * @remarks
+     * All the actions associated with the threshold are also deleted. Note that the actions are not deleted until 
+     *     the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmobject-commit">IFsrmQuotaBase::Commit</a> method is called.
      * @param {Integer} threshold The threshold to delete.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-deletethreshold
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-deletethreshold
      */
     DeleteThreshold(threshold) {
         result := ComCall(18, this, "int", threshold, "HRESULT")
@@ -156,7 +154,7 @@ class IFsrmQuotaBase extends IFsrmObject{
      * @param {Integer} threshold The previous threshold value.
      * @param {Integer} newThreshold The new threshold value.  The value must be from 1 through 250, inclusively.
      * @returns {HRESULT} The method returns the following return values.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-modifythreshold
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-modifythreshold
      */
     ModifyThreshold(threshold, newThreshold) {
         result := ComCall(19, this, "int", threshold, "int", newThreshold, "HRESULT")
@@ -165,6 +163,10 @@ class IFsrmQuotaBase extends IFsrmObject{
 
     /**
      * Creates an action and associates it with the specified threshold.
+     * @remarks
+     * You can specify up to four unique actions for each threshold.
+     * 
+     * The action is deleted if the threshold is deleted.
      * @param {Integer} threshold The threshold with which to associate the action. Specify the same value that you specified when calling 
      *       the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-addthreshold">IFsrmQuotaBase::AddThreshold</a> 
      *       method.
@@ -174,7 +176,7 @@ class IFsrmQuotaBase extends IFsrmObject{
      *       Query the interface for the action interface that you specified in the <i>actionType</i> 
      *       parameter. For example, if the action type is <b>FsrmActionType_Command</b>, query the 
      *       interface for the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmactioncommand">IFsrmActionCommand</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-createthresholdaction
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-createthresholdaction
      */
     CreateThresholdAction(threshold, actionType) {
         result := ComCall(20, this, "int", threshold, "int", actionType, "ptr*", &action := 0, "HRESULT")
@@ -190,7 +192,7 @@ class IFsrmQuotaBase extends IFsrmObject{
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nn-fsrm-ifsrmaction">IFsrmAction</a> interface. You can use the 
      *       <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/fsrm/nf-fsrm-ifsrmaction-get_actiontype">IFsrmAction::ActionType</a> property to determine 
      *       the actual action interface to query.
-     * @see https://docs.microsoft.com/windows/win32/api//fsrmquota/nf-fsrmquota-ifsrmquotabase-enumthresholdactions
+     * @see https://learn.microsoft.com/windows/win32/api/fsrmquota/nf-fsrmquota-ifsrmquotabase-enumthresholdactions
      */
     EnumThresholdActions(threshold) {
         result := ComCall(21, this, "int", threshold, "ptr*", &actions := 0, "HRESULT")

@@ -7,11 +7,8 @@
 /**
  * The IStaticPortMapping interface provides methods to retrieve and change the information for a particular port mapping.
  * @remarks
- * 
  * The NAT API with UPnP technology uses the combination of the external port and the protocol to identify the port mapping.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//natupnp/nn-natupnp-istaticportmapping
+ * @see https://learn.microsoft.com/windows/win32/api/natupnp/nn-natupnp-istaticportmapping
  * @namespace Windows.Win32.NetworkManagement.WindowsFirewall
  * @version v4.0.30319
  */
@@ -89,7 +86,7 @@ class IStaticPortMapping extends IDispatch{
      * The get_ExternalIPAddress method retrieves the external IP address for this port mapping on the NAT computer.
      * @returns {BSTR} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that receives the external IP address for this port mapping on the NAT computer.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_externalipaddress
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_externalipaddress
      */
     get_ExternalIPAddress() {
         pVal := BSTR()
@@ -100,7 +97,7 @@ class IStaticPortMapping extends IDispatch{
     /**
      * The get_ExternalPort method retrieves the external port on the NAT computer for this port mapping.
      * @returns {Integer} Pointer to a <b>long</b> variable that receives the external port on the NAT computer for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_externalport
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_externalport
      */
     get_ExternalPort() {
         result := ComCall(8, this, "int*", &pVal := 0, "HRESULT")
@@ -110,7 +107,7 @@ class IStaticPortMapping extends IDispatch{
     /**
      * The get_InternalPort method retrieves the internal port on the client computer for this port mapping.
      * @returns {Integer} Pointer to a <b>long</b> variable that receives the internal port on the client computer for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_internalport
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_internalport
      */
     get_InternalPort() {
         result := ComCall(9, this, "int*", &pVal := 0, "HRESULT")
@@ -121,7 +118,7 @@ class IStaticPortMapping extends IDispatch{
      * The get_Protocol method retrieves the protocol associated with this port mapping.
      * @returns {BSTR} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that, receives the protocol for this port mapping. The protocol is either "UDP" or "TCP".
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_protocol
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_protocol
      */
     get_Protocol() {
         pVal := BSTR()
@@ -133,7 +130,7 @@ class IStaticPortMapping extends IDispatch{
      * The get_InternalClient method retrieves the name of the internal client for this port mapping.
      * @returns {BSTR} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that receives the name of the internal client for this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_internalclient
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_internalclient
      */
     get_InternalClient() {
         pVal := BSTR()
@@ -144,7 +141,7 @@ class IStaticPortMapping extends IDispatch{
     /**
      * The get_Enabled method retrieves whether the port mapping is enabled.
      * @returns {VARIANT_BOOL} Pointer to a <b>VARIANT_BOOL</b> that receives a value that indicates whether the port mapping is enabled. The value is VARIANT_TRUE if the port mapping is enabled, VARIANT_FALSE otherwise.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_enabled
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_enabled
      */
     get_Enabled() {
         result := ComCall(12, this, "short*", &pVal := 0, "HRESULT")
@@ -155,7 +152,7 @@ class IStaticPortMapping extends IDispatch{
      * The get_Description method retrieves the description associated with this port mapping.
      * @returns {BSTR} Pointer to a 
      * <a href="https://docs.microsoft.com/previous-versions/windows/desktop/automat/bstr">BSTR</a> variable that, on successful return, receives the description associated with this port mapping.
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-get_description
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-get_description
      */
     get_Description() {
         pVal := BSTR()
@@ -268,7 +265,7 @@ class IStaticPortMapping extends IDispatch{
      * 
      * 
      * <div> </div>
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-editinternalclient
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-editinternalclient
      */
     EditInternalClient(bstrInternalClient) {
         bstrInternalClient := bstrInternalClient is String ? BSTR.Alloc(bstrInternalClient).Value : bstrInternalClient
@@ -378,7 +375,7 @@ class IStaticPortMapping extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-enable
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-enable
      */
     Enable(vb) {
         result := ComCall(15, this, "short", vb, "HRESULT")
@@ -486,7 +483,7 @@ class IStaticPortMapping extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-editdescription
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-editdescription
      */
     EditDescription(bstrDescription) {
         bstrDescription := bstrDescription is String ? BSTR.Alloc(bstrDescription).Value : bstrDescription
@@ -596,7 +593,7 @@ class IStaticPortMapping extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//natupnp/nf-natupnp-istaticportmapping-editinternalport
+     * @see https://learn.microsoft.com/windows/win32/api/natupnp/nf-natupnp-istaticportmapping-editinternalport
      */
     EditInternalPort(lInternalPort) {
         result := ComCall(17, this, "int", lInternalPort, "HRESULT")

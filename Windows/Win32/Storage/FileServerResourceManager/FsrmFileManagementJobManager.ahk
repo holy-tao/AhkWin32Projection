@@ -2,6 +2,8 @@
 #Include ..\..\..\..\Win32Struct.ahk
 
 /**
+ * Retrieves the descriptions for the macros contained in the IFsrmFileManagementJobManager::ActionVariables property.
+ * @see https://learn.microsoft.com/windows/win32/api/fsrmreports/nf-fsrmreports-ifsrmfilemanagementjobmanager-get_actionvariabledescriptions
  * @namespace Windows.Win32.Storage.FileServerResourceManager
  * @version v4.0.30319
  */

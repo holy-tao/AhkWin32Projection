@@ -142,6 +142,8 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * Retrieves the coordinates of a window's client area.
+     * @remarks
+     * In conformance with conventions for the <a href="https://docs.microsoft.com/windows/desktop/api/windef/ns-windef-rect">RECT</a> structure, the bottom-right coordinates of the returned rectangle are exclusive. In other words, the pixel at (<b>right</b>, <b>bottom</b>) lies immediately outside the rectangle.
      * @param {Integer} Type 
      * @param {Pointer<Integer>} pLeft 
      * @param {Pointer<Integer>} pTop 
@@ -151,8 +153,8 @@ class ITextDocument2Old extends ITextDocument{
      * 
      * If the function succeeds, the return value is nonzero.
      * 
-     * If the function fails, the return value is zero. To get extended error information, call <a href="/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getclientrect
+     * If the function fails, the return value is zero. To get extended error information, call <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getclientrect
      */
     GetClientRect(Type, pLeft, pTop, pRight, pBottom) {
         pLeftMarshal := pLeft is VarRef ? "int*" : "ptr"
@@ -175,8 +177,10 @@ class ITextDocument2Old extends ITextDocument{
 
     /**
      * Retrieves a handle to a window that has the specified relationship (Z-Order or owner) to the specified window.
+     * @remarks
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-enumchildwindows">EnumChildWindows</a> function is more reliable than calling <b>GetWindow</b> in a loop. An application that calls <b>GetWindow</b> to perform this task risks being caught in an infinite loop or referencing a handle to a window that has been destroyed.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-getwindow
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getwindow
      */
     GetWindow() {
         result := ComCall(38, this, "int*", &phWnd := 0, "HRESULT")
@@ -197,7 +201,7 @@ class ITextDocument2Old extends ITextDocument{
      * @returns {HRESULT} If the function succeeds, the return value is nonzero.
      * 
      * If the function fails, the return value is zero.
-     * @see https://docs.microsoft.com/windows/win32/api//winuser/nf-winuser-updatewindow
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-updatewindow
      */
     UpdateWindow() {
         result := ComCall(40, this, "HRESULT")
@@ -237,9 +241,10 @@ class ITextDocument2Old extends ITextDocument{
     }
 
     /**
-     * 
+     * Learn more about: Update constructor
      * @param {Integer} Mode 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/extensible-storage-engine/update-constructor
      */
     Update(Mode) {
         result := ComCall(44, this, "int", Mode, "HRESULT")
@@ -247,9 +252,100 @@ class ITextDocument2Old extends ITextDocument{
     }
 
     /**
+     * The NotifyAddrChange function causes a notification to be sent to the caller whenever a change occurs in the table that maps IPv4 addresses to interfaces.
+     * @remarks
+     * The  
+     * <b>NotifyAddrChange</b> function may be called in two ways:<ul>
+     * <li>Synchronous method</li>
+     * <li>Asynchronous method</li>
+     * </ul>
      * 
+     * 
+     * If the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters, the call to 
+     * <b>NotifyAddrChange</b> is synchronous and will block until an IP address change occurs. In this case if a change occurs, the <b>NotifyAddrChange</b> function completes to indicate that a change has occurred. 
+     * 
+     * If the <b>NotifyAddrChange</b> function is called synchronously, a notification will be sent on the next IPv4 address change until the application terminates. 
+     * 
+     * If the caller specifies a handle variable and an 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/minwinbase/ns-minwinbase-overlapped">OVERLAPPED</a> structure, then the <b>NotifyAddrChange</b> function call is asynchronous and the caller can use the returned handle with the <b>OVERLAPPED</b> structure to receive asynchronous notification of IPv4 address changes using the <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a> function. See the following topics for information about using the handle and 
+     * <b>OVERLAPPED</b> structure to receive notifications:
+     * 
+     * <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/Sync/synchronization-and-overlapped-input-and-output">Synchronization and Overlapped Input and Output</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/ioapiset/nf-ioapiset-getoverlappedresult">GetOverlappedResult</a>
+     * </li>
+     * </ul>
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-cancelipchangenotify">CancelIPChangeNotify</a> function cancels notification of IPv4 address and route changes previously requested with successful calls to the <b>NotifyAddrChange</b> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-notifyroutechange">NotifyRouteChange</a> functions.
+     * 
+     * Once an application has been notified of a change, the application can then call the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getipaddrtable">GetIpAddrTable</a> or <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-getadaptersaddresses">GetAdaptersAddresses</a> function to retrieve the table of IPv4 addresses to determine what has changed. If the application is notified and requires notification for the next change, then the <b>NotifyAddrChange</b> function must be called again.
+     * 
+     * If the <b>NotifyAddrChange</b> function is called asynchronously, a notification will be sent on the next IPv4 address change until either the application cancels the notification by calling the <a href="https://docs.microsoft.com/windows/desktop/api/iphlpapi/nf-iphlpapi-cancelipchangenotify">CancelIPChangeNotify</a> function or the application terminates. If the application terminates, the system will automatically cancel the registration for the notification. It is still recommended that an application explicitly cancel any notification before it terminates.  
+     * 
+     * Any registration for a notification does not persist across a system shut down or reboot.
+     * 
+     * On Windows Vista and later, the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/netioapi/nf-netioapi-notifyipinterfacechange">NotifyIpInterfaceChange</a> function  can be used to  register to be notified for changes to IPv4 and IPv6 interfaces on  the local computer.
      * @param {Integer} Notify 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is NO_ERROR if the caller specifies <b>NULL</b> for the <i>Handle</i> and <i>overlapped</i> parameters. If the caller specifies non-<b>NULL</b> parameters, the return value for success is ERROR_IO_PENDING.
+     * 
+     * If the function fails, use 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winbase/nf-winbase-formatmessage">FormatMessage</a> to obtain the message string for the returned error.
+     * 
+     * <table>
+     * <tr>
+     * <th>Return code</th>
+     * <th>Description</th>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_CANCELLED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * The context is being deregistered, so the call was canceled immediately.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_INVALID_PARAMETER</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * An invalid parameter was passed. This error is returned if the both the <i>Handle</i> and <i>overlapped</i> parameters are not <b>NULL</b>, but the memory specified by the
+     *     input parameters cannot be written by the calling process.  This error is also returned if the client already has made a change notification request, so this duplicate request will fail.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_ENOUGH_MEMORY</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * There was insufficient memory available to complete the operation.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td width="40%">
+     * <dl>
+     * <dt><b>ERROR_NOT_SUPPORTED</b></dt>
+     * </dl>
+     * </td>
+     * <td width="60%">
+     * This error is returned on versions of Windows where this function is not supported such as Windows 98/95 and Windows NT 4.0.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     * @see https://learn.microsoft.com/windows/win32/api/iphlpapi/nf-iphlpapi-notifyaddrchange
      */
     Notify(Notify) {
         result := ComCall(45, this, "int", Notify, "HRESULT")

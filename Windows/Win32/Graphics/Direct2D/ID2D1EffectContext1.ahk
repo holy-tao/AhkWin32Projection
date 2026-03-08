@@ -5,8 +5,8 @@
 #Include .\ID2D1EffectContext.ahk
 
 /**
- * Provides factory methods and other state management for effect and transform authors.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor_1/nn-d2d1effectauthor_1-id2d1effectcontext1
+ * Provides factory methods and other state management for effect and transform authors. (ID2D1EffectContext1)
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor_1/nn-d2d1effectauthor_1-id2d1effectcontext1
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,7 +32,7 @@ class ID2D1EffectContext1 extends ID2D1EffectContext{
     static VTableNames => ["CreateLookupTable3D"]
 
     /**
-     * Creates a 3D lookup table for mapping a 3-channel input to a 3-channel output. The table data must be provided in 4-channel format.
+     * Creates a 3D lookup table for mapping a 3-channel input to a 3-channel output. The table data must be provided in 4-channel format. (ID2D1EffectContext1.CreateLookupTable3D)
      * @param {Integer} precision Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_1/ne-d2d1_1-d2d1_buffer_precision">D2D1_BUFFER_PRECISION</a></b>
      * 
      * Precision of the input lookup table data.
@@ -52,7 +52,7 @@ class ID2D1EffectContext1 extends ID2D1EffectContext{
      * @returns {ID2D1LookupTable3D} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/nn-d2d1_3-id2d1lookuptable3d">ID2D1LookupTable3D</a>**</b>
      * 
      * Receives the new lookup table instance.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor_1/nf-d2d1effectauthor_1-id2d1effectcontext1-createlookuptable3d
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor_1/nf-d2d1effectauthor_1-id2d1effectcontext1-createlookuptable3d
      */
     CreateLookupTable3D(precision, extents, data, dataCount, strides) {
         extentsMarshal := extents is VarRef ? "uint*" : "ptr"

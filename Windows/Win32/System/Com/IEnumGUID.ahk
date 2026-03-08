@@ -7,10 +7,8 @@
 /**
  * Enables clients to enumerate through a collection of class IDs for COM classes.
  * @remarks
- * 
  * Alternate names for this interface are <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542667(v=vs.85)">IEnumCLSID</a> and <a href="https://docs.microsoft.com/previous-versions/windows/desktop/legacy/dd542661(v=vs.85)">IEnumCATID</a>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//comcat/nn-comcat-ienumguid
+ * @see https://learn.microsoft.com/windows/win32/api/comcat/nn-comcat-ienumguid
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -36,14 +34,14 @@ class IEnumGUID extends IUnknown{
     static VTableNames => ["Next", "Skip", "Reset", "Clone"]
 
     /**
-     * Retrieves the specified number of items in the enumeration sequence.
+     * Retrieves the specified number of items in the enumeration sequence. (IEnumGUID.Next)
      * @param {Integer} celt The number of items to be retrieved. If there are fewer than the requested number of items left in the sequence, this method retrieves the remaining elements.
      * @param {Pointer<Guid>} rgelt An array of enumerated items.
      * 
      * The enumerator is responsible for allocating any memory, and the caller is responsible for freeing it. If <i>celt</i> is greater than 1, the caller must also pass a non-NULL pointer passed to <i>pceltFetched</i> to know how many pointers to release.
      * @param {Pointer<Integer>} pceltFetched The number of items that were retrieved. This parameter is always less than or equal to the number of items requested.
      * @returns {HRESULT} If the method retrieves the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumguid-next
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumguid-next
      */
     Next(celt, rgelt, pceltFetched) {
         pceltFetchedMarshal := pceltFetched is VarRef ? "uint*" : "ptr"
@@ -53,10 +51,10 @@ class IEnumGUID extends IUnknown{
     }
 
     /**
-     * Skips over the specified number of items in the enumeration sequence.
+     * Skips over the specified number of items in the enumeration sequence. (IEnumGUID.Skip)
      * @param {Integer} celt The number of items to be skipped.
      * @returns {HRESULT} If the method skips the number of items requested, the return value is S_OK. Otherwise, it is S_FALSE.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumguid-skip
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumguid-skip
      */
     Skip(celt) {
         result := ComCall(4, this, "uint", celt, "int")
@@ -64,9 +62,11 @@ class IEnumGUID extends IUnknown{
     }
 
     /**
-     * Resets the enumeration sequence to the beginning.
+     * Resets the enumeration sequence to the beginning. (IEnumGUID.Reset)
+     * @remarks
+     * There is no guarantee that the same set of objects will be enumerated after the reset operation has completed. A static collection is reset to the beginning, but it can be too expensive for some collections, such as files in a directory, to guarantee this condition.
      * @returns {HRESULT} The return value is S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumguid-reset
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumguid-reset
      */
     Reset() {
         result := ComCall(5, this, "HRESULT")
@@ -74,9 +74,9 @@ class IEnumGUID extends IUnknown{
     }
 
     /**
-     * Creates a new enumerator that contains the same enumeration state as the current one.
+     * Creates a new enumerator that contains the same enumeration state as the current one. (IEnumGUID.Clone)
      * @returns {IEnumGUID} A pointer to the cloned enumerator object.
-     * @see https://docs.microsoft.com/windows/win32/api//comcat/nf-comcat-ienumguid-clone
+     * @see https://learn.microsoft.com/windows/win32/api/comcat/nf-comcat-ienumguid-clone
      */
     Clone() {
         result := ComCall(6, this, "ptr*", &ppenum := 0, "HRESULT")

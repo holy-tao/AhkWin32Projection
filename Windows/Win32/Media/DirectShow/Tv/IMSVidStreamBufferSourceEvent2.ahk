@@ -6,11 +6,8 @@
 /**
  * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005. The IMSVidStreamBufferSourceEvent2 interface is used to receive events from the MSVidStreamBufferSource object.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSourceEvent2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersourceevent2
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersourceevent2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -37,6 +34,8 @@ class IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferSourceEvent{
 
     /**
      * This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005.
+     * @remarks
+     * For both parameters, 1.0 represents normal speed. Fractional values are allowed. For example, 0.2 would represent a rate that is slower than normal playback and 1.7 would represent a rate that is faster than normal playback.
      * @param {Float} qwNewRate Specifies the new playback rate.
      * @param {Float} qwOldRate Specifies the previous playback rate.
      * @returns {HRESULT} Returns an <b>HRESULT</b> value. Possible values include the following.
@@ -58,7 +57,7 @@ class IMSVidStreamBufferSourceEvent2 extends IMSVidStreamBufferSourceEvent{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersourceevent2-ratechange
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersourceevent2-ratechange
      */
     RateChange(qwNewRate, qwOldRate) {
         result := ComCall(17, this, "double", qwNewRate, "double", qwOldRate, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * The optional, application-implemented IWMDMNotification interface allows applications and service providers to receive notifications when either devices or memory storages (such as RAM cards) are connected or disconnected from the computer.Note  This method will be called only for registered Plug and Play devices. Other device arrivals or departures will not cause this interface to be called. This interface GUID is not properly defined in mssachlp.lib; therefore, you must
- * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nn-mswmdm-iwmdmnotification
+ * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nn-mswmdm-iwmdmnotification
  * @namespace Windows.Win32.Media.DeviceManager
  * @version v4.0.30319
  */
@@ -32,6 +32,8 @@ class IWMDMNotification extends IUnknown{
 
     /**
      * The WMDMMessage method is a callback method implemented by a client, and called by Windows Media Device Manager when a Plug and Play compliant device or storage medium is connected or removed.
+     * @remarks
+     * To learn how an application subscribes to receive notifications through this method, see <a href="https://docs.microsoft.com/windows/desktop/WMDM/enabling-notifications">Enabling Notifications</a>.
      * @param {Integer} dwMessageType A <b>DWORD</b> specifying the message type.
      * 
      * The possible values for the event types are the following:
@@ -62,7 +64,7 @@ class IWMDMNotification extends IUnknown{
      * </table>
      * @param {PWSTR} pwszCanonicalName Pointer to a wide-character, null-terminated string specifying the canonical name of the device for which this event is generated. The application does not release this value.
      * @returns {HRESULT} The return value is an <b>HRESULT</b> in which application can return results of its processing of the message. The return value is ignored by WMDM.
-     * @see https://docs.microsoft.com/windows/win32/api//mswmdm/nf-mswmdm-iwmdmnotification-wmdmmessage
+     * @see https://learn.microsoft.com/windows/win32/api/mswmdm/nf-mswmdm-iwmdmnotification-wmdmmessage
      */
     WMDMMessage(dwMessageType, pwszCanonicalName) {
         pwszCanonicalName := pwszCanonicalName is String ? StrPtr(pwszCanonicalName) : pwszCanonicalName

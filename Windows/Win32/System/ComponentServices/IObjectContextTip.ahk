@@ -5,7 +5,7 @@
 
 /**
  * Retrieves properties describing the Transaction Internet Protocol (TIP) transaction context.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-iobjectcontexttip
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-iobjectcontexttip
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IObjectContextTip extends IUnknown{
      * Retrieves the URL of the TIP context.
      * @param {Pointer<BSTR>} pTipUrl The URL of the TIP transaction context, or <b>NULL</b> if the transaction context does not exist.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-iobjectcontexttip-gettipurl
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-iobjectcontexttip-gettipurl
      */
     GetTipUrl(pTipUrl) {
         result := ComCall(3, this, "ptr", pTipUrl, "HRESULT")

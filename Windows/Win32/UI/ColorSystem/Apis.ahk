@@ -3548,11 +3548,7 @@ class ColorSystem {
     static ColorProfileAddDisplayAssociation(scope, profileName, targetAdapterID, sourceID, setAsDefault, associateAsAdvancedColor) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
 
-        result := DllCall("mscms.dll\ColorProfileAddDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", setAsDefault, "int", associateAsAdvancedColor, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mscms.dll\ColorProfileAddDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", setAsDefault, "int", associateAsAdvancedColor, "HRESULT")
         return result
     }
 
@@ -3571,11 +3567,7 @@ class ColorSystem {
     static ColorProfileRemoveDisplayAssociation(scope, profileName, targetAdapterID, sourceID, dissociateAdvancedColor) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
 
-        result := DllCall("mscms.dll\ColorProfileRemoveDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", dissociateAdvancedColor, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mscms.dll\ColorProfileRemoveDisplayAssociation", "int", scope, "ptr", profileName, "ptr", targetAdapterID, "uint", sourceID, "int", dissociateAdvancedColor, "HRESULT")
         return result
     }
 
@@ -3595,11 +3587,7 @@ class ColorSystem {
     static ColorProfileSetDisplayDefaultAssociation(scope, profileName, profileType, profileSubType, targetAdapterID, sourceID) {
         profileName := profileName is String ? StrPtr(profileName) : profileName
 
-        result := DllCall("mscms.dll\ColorProfileSetDisplayDefaultAssociation", "int", scope, "ptr", profileName, "int", profileType, "int", profileSubType, "ptr", targetAdapterID, "uint", sourceID, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mscms.dll\ColorProfileSetDisplayDefaultAssociation", "int", scope, "ptr", profileName, "int", profileType, "int", profileSubType, "ptr", targetAdapterID, "uint", sourceID, "HRESULT")
         return result
     }
 
@@ -3619,11 +3607,7 @@ class ColorSystem {
         profileListMarshal := profileList is VarRef ? "ptr*" : "ptr"
         profileCountMarshal := profileCount is VarRef ? "uint*" : "ptr"
 
-        result := DllCall("mscms.dll\ColorProfileGetDisplayList", "int", scope, "ptr", targetAdapterID, "uint", sourceID, profileListMarshal, profileList, profileCountMarshal, profileCount, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mscms.dll\ColorProfileGetDisplayList", "int", scope, "ptr", targetAdapterID, "uint", sourceID, profileListMarshal, profileList, profileCountMarshal, profileCount, "HRESULT")
         return result
     }
 
@@ -3640,11 +3624,7 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplaydefault
      */
     static ColorProfileGetDisplayDefault(scope, targetAdapterID, sourceID, profileType, profileSubType) {
-        result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr*", &profileName := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mscms.dll\ColorProfileGetDisplayDefault", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", profileType, "int", profileSubType, "ptr*", &profileName := 0, "HRESULT")
         return profileName
     }
 
@@ -3658,11 +3638,7 @@ class ColorSystem {
      * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-colorprofilegetdisplayuserscope
      */
     static ColorProfileGetDisplayUserScope(targetAdapterID, sourceID) {
-        result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", &scope := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mscms.dll\ColorProfileGetDisplayUserScope", "ptr", targetAdapterID, "uint", sourceID, "int*", &scope := 0, "HRESULT")
         return scope
     }
 
@@ -3675,11 +3651,7 @@ class ColorSystem {
      * @returns {Void} 
      */
     static ColorProfileGetDeviceCapabilities(scope, targetAdapterID, sourceID, capsType) {
-        result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, "ptr", &outputCapabilities := 0, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("mscms.dll\ColorProfileGetDeviceCapabilities", "int", scope, "ptr", targetAdapterID, "uint", sourceID, "int", capsType, "ptr", &outputCapabilities := 0, "HRESULT")
         return outputCapabilities
     }
 

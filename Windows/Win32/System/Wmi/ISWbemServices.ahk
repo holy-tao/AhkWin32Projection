@@ -47,11 +47,12 @@ class ISWbemServices extends IDispatch{
     }
 
     /**
-     * 
+     * Get started learning the basics of building great desktop apps in this section.
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @returns {ISWbemObject} 
+     * @see https://learn.microsoft.com/windows/win32/desktop-programming
      */
     Get(strObjectPath, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
@@ -61,13 +62,87 @@ class ISWbemServices extends IDispatch{
     }
 
     /**
+     * Determines whether a key is up or down at the time the function is called, and whether the key was pressed after a previous call to GetAsyncKeyState.
+     * @remarks
+     * The <b>GetAsyncKeyState</b> function works with mouse buttons. However, it checks on the state of the physical mouse buttons, not on the logical mouse buttons that the physical buttons are mapped to. For example, the call <b>GetAsyncKeyState</b>(VK_LBUTTON) always returns the state of the left physical mouse button, regardless of whether it is mapped to the left or right logical mouse button. You can determine the system's current mapping of physical mouse buttons to logical mouse buttons by calling <c>GetSystemMetrics(SM_SWAPBUTTON)</c>.
      * 
+     * which returns TRUE if the mouse buttons have been swapped.
+     * 
+     * Although the least significant bit of the return value indicates whether the key has been pressed since the last query, due to the preemptive multitasking nature of Windows, another application can call <b>GetAsyncKeyState</b> and receive the "recently pressed" bit instead of your application. The behavior of the least significant bit of the return value is retained strictly for compatibility with 16-bit Windows applications (which are non-preemptive) and should not be relied upon.
+     * 
+     * You can use the virtual-key code constants <b>VK_SHIFT</b>, <b>VK_CONTROL</b>, and <b>VK_MENU</b> as values for the 
+     *     <i>vKey</i> parameter. This gives the state of the SHIFT, CTRL, or ALT keys without distinguishing between left and right.
+     * 
+     * You can use the following virtual-key code constants as values for 
+     *     <i>vKey</i> to distinguish between the left and right instances of those keys.
+     * 
+     * <table class="clsStd">
+     * <tr>
+     * <th>Code</th>
+     * <th>Meaning</th>
+     * </tr>
+     * <tr>
+     * <td><b>VK_LSHIFT</b></td>
+     * <td>
+     * Left-shift key.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>VK_RSHIFT</b></td>
+     * <td>
+     * Right-shift key.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>VK_LCONTROL</b></td>
+     * <td>
+     * Left-control key.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>VK_RCONTROL</b></td>
+     * <td>
+     * Right-control key.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>VK_LMENU</b></td>
+     * <td>
+     * Left-menu key.
+     * 
+     * </td>
+     * </tr>
+     * <tr>
+     * <td><b>VK_RMENU</b></td>
+     * <td>
+     * Right-menu key.
+     * 
+     * </td>
+     * </tr>
+     * </table>
+     *  
+     * 
+     * These left- and right-distinguishing constants are only available when you call the <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getkeyboardstate">GetKeyboardState</a>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-setkeyboardstate">SetKeyboardState</a>, <b>GetAsyncKeyState</b>, <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-getkeystate">GetKeyState</a>, and <a href="https://docs.microsoft.com/windows/desktop/api/winuser/nf-winuser-mapvirtualkeya">MapVirtualKey</a> functions.
      * @param {IDispatch} objWbemSink 
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
      * @param {IDispatch} objWbemAsyncContext 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} Type: <b>SHORT</b>
+     * 
+     * If the function succeeds, the return value specifies whether the key was pressed since the last call to <b>GetAsyncKeyState</b>, and whether the key is currently up or down. If the most significant bit is set, the key is down, and if the least significant bit is set, the key was pressed after the previous call to <b>GetAsyncKeyState</b>. However, you should not rely on this last behavior; for more information, see the Remarks.
+     * 
+     * The return value is zero for the following cases:
+     * 
+     * <ul>
+     * <li>The current desktop is not the active desktop</li>
+     * <li>The foreground thread belongs to another process and the desktop does not allow the hook or the journal record.</li>
+     * </ul>
+     * @see https://learn.microsoft.com/windows/win32/api/winuser/nf-winuser-getasynckeystate
      */
     GetAsync(objWbemSink, strObjectPath, iFlags, objWbemNamedValueSet, objWbemAsyncContext) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath
@@ -77,11 +152,20 @@ class ISWbemServices extends IDispatch{
     }
 
     /**
-     * 
+     * Deletes an access control entry (ACE) from an access control list (ACL).
+     * @remarks
+     * An application can use the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/winnt/ns-winnt-acl_size_information">ACL_SIZE_INFORMATION</a> structure retrieved by the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getaclinformation">GetAclInformation</a> function to discover the size of the ACL and the number of ACEs it contains. The 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/securitybaseapi/nf-securitybaseapi-getace">GetAce</a> function retrieves information about an individual ACE.
      * @param {BSTR} strObjectPath 
      * @param {Integer} iFlags 
      * @param {IDispatch} objWbemNamedValueSet 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the function returns nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/securitybaseapi/nf-securitybaseapi-deleteace
      */
     Delete(strObjectPath, iFlags, objWbemNamedValueSet) {
         strObjectPath := strObjectPath is String ? BSTR.Alloc(strObjectPath).Value : strObjectPath

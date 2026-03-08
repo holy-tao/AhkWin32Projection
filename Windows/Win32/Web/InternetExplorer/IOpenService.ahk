@@ -30,8 +30,9 @@ class IOpenService extends IUnknown{
     static VTableNames => ["IsDefault", "SetDefault", "GetID"]
 
     /**
-     * 
+     * IsDefault
      * @returns {BOOL} 
+     * @see https://learn.microsoft.com/windows/win32/mbn/element-isdefault
      */
     IsDefault() {
         result := ComCall(3, this, "int*", &pfIsDefault := 0, "HRESULT")
@@ -39,10 +40,17 @@ class IOpenService extends IUnknown{
     }
 
     /**
-     * 
+     * Sets the default configuration for a communications device. (Unicode)
+     * @remarks
+     * > [!NOTE]
+     * > The winbase.h header defines SetDefaultCommConfig as an alias which automatically selects the ANSI or Unicode version of this function based on the definition of the UNICODE preprocessor constant. Mixing usage of the encoding-neutral alias with code that not encoding-neutral can lead to mismatches that result in compilation or runtime errors. For more information, see [Conventions for Function Prototypes](/windows/win32/intl/conventions-for-function-prototypes).
      * @param {BOOL} fDefault 
      * @param {HWND} hwnd 
-     * @returns {HRESULT} 
+     * @returns {HRESULT} If the function succeeds, the return value is nonzero.
+     * 
+     * If the function fails, the return value is zero. To get extended error information, call 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/errhandlingapi/nf-errhandlingapi-getlasterror">GetLastError</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/winbase/nf-winbase-setdefaultcommconfigw
      */
     SetDefault(fDefault, hwnd) {
         hwnd := hwnd is Win32Handle ? NumGet(hwnd, "ptr") : hwnd

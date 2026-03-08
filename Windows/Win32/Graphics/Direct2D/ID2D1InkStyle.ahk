@@ -4,8 +4,8 @@
 #Include .\ID2D1Resource.ahk
 
 /**
- * Represents a collection of style properties to be used by methods like ID2D1DeviceContext2::DrawInkwhen rendering ink. The ink style defines the nib (pen tip) shape and transform.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nn-d2d1_3-id2d1inkstyle
+ * Represents a collection of style properties to be used by methods like ID2D1DeviceContext2::DrawInk when rendering ink. The ink style defines the nib (pen tip) shape and transform.
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nn-d2d1_3-id2d1inkstyle
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -31,8 +31,10 @@ class ID2D1InkStyle extends ID2D1Resource{
     static VTableNames => ["SetNibTransform", "GetNibTransform", "SetNibShape", "GetNibShape"]
 
     /**
+     * Sets the transform to apply to this style's nib shape. (overload 1/2)
+     * @param {Pointer<D2D_MATRIX_3X2_F>} transform Type: <b>const <a href="https://docs.microsoft.com/windows/desktop/Direct2D/d2d1-matrix-3x2-f">D2D1_MATRIX_3X2_F</a></b>
      * 
-     * @param {Pointer<D2D_MATRIX_3X2_F>} transform 
+     * The transform to apply to this style’s nib shape. Note that the translation components of the transform matrix are ignored for the purposes of rendering.
      * @returns {String} Nothing - always returns an empty string
      * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-setnibtransform(constd2d1_matrix_3x2_f_)
      */
@@ -46,7 +48,7 @@ class ID2D1InkStyle extends ID2D1Resource{
      * 
      * When this method returns, contains a pointer to the transform to be applied to this style's nib shape.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibtransform
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibtransform
      */
     GetNibTransform(transform) {
         ComCall(5, this, "ptr", transform)
@@ -58,7 +60,7 @@ class ID2D1InkStyle extends ID2D1Resource{
      * 
      * The pre-transform nib shape to use in this style.
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1inkstyle-setnibshape
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-setnibshape
      */
     SetNibShape(nibShape) {
         ComCall(6, this, "int", nibShape)
@@ -66,10 +68,10 @@ class ID2D1InkStyle extends ID2D1Resource{
 
     /**
      * Retrieves the pre-transform nib shape for this style.
-     * @returns {Integer} Type: <b><a href="/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
+     * @returns {Integer} Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1_3/ne-d2d1_3-d2d1_ink_nib_shape">D2D1_INK_NIB_SHAPE</a></b>
      * 
      * Returns the pre-transform nib shape for this style.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibshape
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1_3/nf-d2d1_3-id2d1inkstyle-getnibshape
      */
     GetNibShape() {
         result := ComCall(7, this, "int")

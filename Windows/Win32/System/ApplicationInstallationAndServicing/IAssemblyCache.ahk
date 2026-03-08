@@ -6,7 +6,7 @@
 
 /**
  * The IAssemblyCache interface can be used to install, uninstall, or query a side-by-side assembly. An instance of IAssemblyCache is obtained by calling the CreateAssemblyCache function.
- * @see https://docs.microsoft.com/windows/win32/api//winsxs/nn-winsxs-iassemblycache
+ * @see https://learn.microsoft.com/windows/win32/api/winsxs/nn-winsxs-iassemblycache
  * @namespace Windows.Win32.System.ApplicationInstallationAndServicing
  * @version v4.0.30319
  */
@@ -70,7 +70,7 @@ class IAssemblyCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-uninstallassembly
+     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycache-uninstallassembly
      */
     UninstallAssembly(dwFlags, pszAssemblyName, pRefData, pulDisposition) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
@@ -116,7 +116,7 @@ class IAssemblyCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-queryassemblyinfo
+     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycache-queryassemblyinfo
      */
     QueryAssemblyInfo(dwFlags, pszAssemblyName, pAsmInfo) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
@@ -131,7 +131,7 @@ class IAssemblyCache extends IUnknown{
      * @param {Pointer<Void>} pvReserved Reserved.
      * @param {PWSTR} pszAssemblyName Pointer to a null-terminated string value containing the fully-specified strong name of the assembly that is being installed. The name provided is verified to match the name of the assembly in the manifest. Partial names return <b>FUSION_E_INVALID_NAME</b>. If this parameter is null, the name is not verified.
      * @returns {IAssemblyCacheItem} Pointer to a location containing the pointer to the instance of the <a href="https://docs.microsoft.com/windows/desktop/api/winsxs/nn-winsxs-iassemblycacheitem">IAssemblyCacheItem</a> that receives the information.
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-createassemblycacheitem
+     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycache-createassemblycacheitem
      */
     CreateAssemblyCacheItem(dwFlags, pvReserved, pszAssemblyName) {
         pszAssemblyName := pszAssemblyName is String ? StrPtr(pszAssemblyName) : pszAssemblyName
@@ -143,8 +143,9 @@ class IAssemblyCache extends IUnknown{
     }
 
     /**
-     * 
+     * The following words are reserved for use by the HLSL language. Do not use them to name variables or functions in your HLSL code.
      * @returns {IUnknown} 
+     * @see https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl-appendix-reserved-words
      */
     Reserved() {
         result := ComCall(6, this, "ptr*", &ppUnk := 0, "HRESULT")
@@ -218,7 +219,7 @@ class IAssemblyCache extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//winsxs/nf-winsxs-iassemblycache-installassembly
+     * @see https://learn.microsoft.com/windows/win32/api/winsxs/nf-winsxs-iassemblycache-installassembly
      */
     InstallAssembly(dwFlags, pszManifestFilePath, pRefData) {
         pszManifestFilePath := pszManifestFilePath is String ? StrPtr(pszManifestFilePath) : pszManifestFilePath

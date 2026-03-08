@@ -6,7 +6,7 @@
 #Include .\FolderItemVerbs.ahk
 
 /**
- * 
+ * Represents an item in a Shell folder. This object contains properties and methods that allow you to retrieve information about the item.
  * @see https://learn.microsoft.com/windows/win32/shell/folderitem
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
@@ -274,7 +274,7 @@ class FolderItem extends IDispatch{
     }
 
     /**
-     * 
+     * Retrieves the item's FolderItemVerbs object. This object is the collection of verbs that can be executed on the item.
      * @returns {FolderItemVerbs} 
      * @see https://learn.microsoft.com/windows/win32/shell/folderitem-verbs
      */
@@ -284,9 +284,15 @@ class FolderItem extends IDispatch{
     }
 
     /**
+     * Executes a verb on the item.
+     * @remarks
+     * A verb is a string used to specify a particular action that an item supports. Invoking a verb is equivalent to selecting a command from an item's shortcut menu. Typically, invoking a verb launches a related application. For example, invoking the "open" verb on a .txt file opens the file with a text editor, usually Microsoft Notepad. See [Launching Applications](launch.md) for further discussion of verbs.
      * 
-     * @param {VARIANT} vVerb 
-     * @returns {HRESULT} 
+     * The [**FolderItemVerbs**](folderitemverbs.md) object represents the collection of verbs associated with the item. The default verb may vary for different items, but it is typically "open".
+     * @param {VARIANT} vVerb Type: **Variant**
+     * 
+     * A string that specifies the verb to be executed. It must be one of the values returned by the item's [**FolderItemVerb.Name**](folderitemverb-name.md) property. If no verb is specified, the default verb will be invoked.
+     * @returns {HRESULT} This method does not return a value.
      * @see https://learn.microsoft.com/windows/win32/shell/folderitem-invokeverb
      */
     InvokeVerb(vVerb) {

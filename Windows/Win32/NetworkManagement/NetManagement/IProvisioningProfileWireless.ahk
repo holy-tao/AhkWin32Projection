@@ -31,11 +31,13 @@ class IProvisioningProfileWireless extends IUnknown{
 
     /**
      * Creates a new user profile.
+     * @remarks
+     * The caller must have administrator privileges to call this function.
      * @param {BSTR} bstrXMLWirelessConfigProfile 
      * @param {BSTR} bstrXMLConnectionConfigProfile 
      * @param {Pointer<Guid>} pAdapterInstanceGuid 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//userenv/nf-userenv-createprofile
+     * @see https://learn.microsoft.com/windows/win32/api/userenv/nf-userenv-createprofile
      */
     CreateProfile(bstrXMLWirelessConfigProfile, bstrXMLConnectionConfigProfile, pAdapterInstanceGuid) {
         bstrXMLWirelessConfigProfile := bstrXMLWirelessConfigProfile is String ? BSTR.Alloc(bstrXMLWirelessConfigProfile).Value : bstrXMLWirelessConfigProfile

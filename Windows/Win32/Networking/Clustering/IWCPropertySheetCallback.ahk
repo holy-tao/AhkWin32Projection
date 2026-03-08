@@ -6,15 +6,12 @@
 /**
  * The IWCPropertySheetCallback interface is called by a Failover Cluster Administrator extension to add property pages to a Failover Cluster Administrator property sheet.
  * @remarks
- * 
  * Use the <i>piCallback</i> pointer that you receive when Failover Cluster Administrator calls 
  *      your 
  *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendpropertysheet-createpropertysheetpages">IWEExtendPropertySheet::CreatePropertySheetPages</a> 
  *      method to call the <b>IWCPropertySheetCallback</b> 
  *      interface.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nn-cluadmex-iwcpropertysheetcallback
+ * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nn-cluadmex-iwcpropertysheetcallback
  * @namespace Windows.Win32.Networking.Clustering
  * @version v4.0.30319
  */
@@ -41,6 +38,15 @@ class IWCPropertySheetCallback extends IUnknown{
 
     /**
      * Adds a property page to a Failover Cluster Administrator property sheet.
+     * @remarks
+     * Call the 
+     *      <b>AddPropertySheetPage</b> 
+     *      method from your 
+     *      <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/cluadmex/nf-cluadmex-iweextendpropertysheet-createpropertysheetpages">IWEExtendPropertySheet::CreatePropertySheetPages</a> 
+     *      implementation. However, before you call 
+     *      <b>AddPropertySheetPage</b>, 
+     *      call the function <a href="https://docs.microsoft.com/windows/desktop/api/prsht/nf-prsht-createpropertysheetpagea">CreatePropertySheetPage</a> 
+     *      to retrieve a handle to pass in the <i>hpage</i> parameter.
      * @param {Pointer<Integer>} hpage Handle to the property page to be added.
      * @returns {HRESULT} If 
      *        <b>AddPropertySheetPage</b> 
@@ -76,7 +82,7 @@ class IWCPropertySheetCallback extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//cluadmex/nf-cluadmex-iwcpropertysheetcallback-addpropertysheetpage
+     * @see https://learn.microsoft.com/windows/win32/api/cluadmex/nf-cluadmex-iwcpropertysheetcallback-addpropertysheetpage
      */
     AddPropertySheetPage(hpage) {
         hpageMarshal := hpage is VarRef ? "int*" : "ptr"

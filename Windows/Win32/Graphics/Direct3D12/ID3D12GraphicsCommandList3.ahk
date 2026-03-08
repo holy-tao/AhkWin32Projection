@@ -5,7 +5,7 @@
 
 /**
  * Encapsulates a list of graphics commands for rendering.
- * @see https://docs.microsoft.com/windows/win32/api//d3d12/nn-d3d12-id3d12graphicscommandlist3
+ * @see https://learn.microsoft.com/windows/win32/api/d3d12/nn-d3d12-id3d12graphicscommandlist3
  * @namespace Windows.Win32.Graphics.Direct3D12
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ID3D12GraphicsCommandList3 extends ID3D12GraphicsCommandList2{
      * 
      * An optional pointer to an **ID3D12ProtectedResourceSession**. You can obtain an **ID3D12ProtectedResourceSession** by calling [ID3D12Device4::CreateProtectedResourceSession](./nf-d3d12-id3d12device4-createprotectedresourcesession.md).
      * @returns {String} Nothing - always returns an empty string
-     * @see https://docs.microsoft.com/windows/win32/api//d3d12/nf-d3d12-id3d12graphicscommandlist3-setprotectedresourcesession
+     * @see https://learn.microsoft.com/windows/win32/api/d3d12/nf-d3d12-id3d12graphicscommandlist3-setprotectedresourcesession
      */
     SetProtectedResourceSession(pProtectedResourceSession) {
         ComCall(67, this, "ptr", pProtectedResourceSession)

@@ -7,7 +7,7 @@
 
 /**
  * The IADsMembers interface is a dual interface.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadsmembers
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadsmembers
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -66,7 +66,7 @@ class IADsMembers extends IDispatch{
     /**
      * The IADsMembers::get__NewEnum method gets a dependent enumerator object that implements IEnumVARIANT for this ADSI collection object. Be aware that there are two underscore characters in the function name (get__NewEnum).
      * @returns {IUnknown} Pointer to a pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/unknwn/nn-unknwn-iunknown">IUnknown</a> interface on the enumerator object for this collection.
-     * @see https://docs.microsoft.com/windows/win32/api//iads/nf-iads-iadsmembers-get__newenum
+     * @see https://learn.microsoft.com/windows/win32/api/iads/nf-iads-iadsmembers-get__newenum
      */
     get__NewEnum() {
         result := ComCall(8, this, "ptr*", &ppEnumerator := 0, "HRESULT")

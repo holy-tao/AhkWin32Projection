@@ -5,7 +5,7 @@
 
 /**
  * Creates an object that is enlisted within a manual transaction.
- * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nn-comsvcs-icreatewithtransactionex
+ * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nn-comsvcs-icreatewithtransactionex
  * @namespace Windows.Win32.System.ComponentServices
  * @version v4.0.30319
  */
@@ -36,7 +36,7 @@ class ICreateWithTransactionEx extends IUnknown{
      * @param {Pointer<Guid>} rclsid The CLSID of the type of object to instantiate.
      * @param {Pointer<Guid>} riid The ID of the interface to be returned by the <i>ppvObj</i> parameter.
      * @returns {Pointer<Void>} A new object of the type specified by the <i>rclsid</i> argument through the interface specified by the <i>riid</i> argument.
-     * @see https://docs.microsoft.com/windows/win32/api//comsvcs/nf-comsvcs-icreatewithtransactionex-createinstance
+     * @see https://learn.microsoft.com/windows/win32/api/comsvcs/nf-comsvcs-icreatewithtransactionex-createinstance
      */
     CreateInstance(pTransaction, rclsid, riid) {
         result := ComCall(3, this, "ptr", pTransaction, "ptr", rclsid, "ptr", riid, "ptr*", &pObject := 0, "HRESULT")

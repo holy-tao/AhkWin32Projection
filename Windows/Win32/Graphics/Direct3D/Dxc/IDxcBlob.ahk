@@ -38,8 +38,9 @@ class IDxcBlob extends IUnknown{
     }
 
     /**
-     * 
+     * For current documentation on Windows Media codecs and digital signal processors, see Windows Media Audio and Video Codec and DSP APIs. | GetBufferSizeBits
      * @returns {Pointer} 
+     * @see https://learn.microsoft.com/windows/win32/wmformat/iwmcodecleakybucket-getbuffersizebits
      */
     GetBufferSize() {
         result := ComCall(4, this, "ptr")

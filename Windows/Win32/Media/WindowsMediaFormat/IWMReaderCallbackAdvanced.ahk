@@ -6,7 +6,7 @@
 
 /**
  * The IWMReaderCallback interface is implemented by the application to handle data being read from a file.
- * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nn-wmsdkidl-iwmreadercallbackadvanced
+ * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nn-wmsdkidl-iwmreadercallbackadvanced
  * @namespace Windows.Win32.Media.WindowsMediaFormat
  * @version v4.0.30319
  */
@@ -33,6 +33,18 @@ class IWMReaderCallbackAdvanced extends IUnknown{
 
     /**
      * The OnStreamSample method delivers stream samples from the source file without decompressing them first.
+     * @remarks
+     * When using the asynchronous reader, only compressed samples can be delivered for a stream number. If you want to retrieve uncompressed samples by stream number, you should use the synchronous reader.
+     * 
+     * There are many reasons why you might want to retrieve compressed samples. The most common use is to transfer a stream from one ASF file to another.
+     * 
+     * If you receive compressed samples, you must either keep them compressed, or decompress them with your application. The Windows Media Format SDK does not provide methods to decompress samples once they have been removed from a file.
+     * 
+     * This method is not able to deliver secure content. If protected content is used, the method will return NS_E_PROTECTEDCONTENT.
+     * 
+     * The samples delivered by this method are compressed, but are in all other ways exactly the same as samples delivered through <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreadercallback-onsample">IWMReaderCallback::OnSample</a>.
+     * 
+     * To get samples for a particular stream, call <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-setreceivestreamsamples">IWMReaderAdvanced::SetReceiveStreamSamples</a>.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
      * @param {Integer} cnsSampleTime <b>QWORD</b> containing the sample time, in 100-nanosecond units.
      * @param {Integer} cnsSampleDuration <b>QWORD</b> containing the sample duration, in 100-nanosecond units.
@@ -62,10 +74,10 @@ class IWMReaderCallbackAdvanced extends IUnknown{
      * <td>Some data has been lost between the previous sample, and the sample with this flag set.</td>
      * </tr>
      * </table>
-     * @param {INSSBuffer} pSample Pointer to a sample stored in an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface. The reader calls <b>SAFE_RELEASE</b> on this pointer after your <b>OnStreamSample</b> method returns. You can call <b>AddRef</b> on this pointer if you need to keep a reference count on the buffer. Do not call <b>Release</b> on this pointer unless you have called <b>AddRef</b>.
+     * @param {INSSBuffer} pSample Pointer to a sample stored in an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface. The reader calls <b>SAFE_RELEASE</b> on this pointer after your <b>OnStreamSample</b> method returns. You can call <b>AddRef</b> on this pointer if you need to keep a reference count on the buffer. Do not call <b>Release</b> on this pointer unless you have called <b>AddRef</b>.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application.
-     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="/windows/desktop/wmformat/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamsample
+     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamsample
      */
     OnStreamSample(wStreamNum, cnsSampleTime, cnsSampleDuration, dwFlags, pSample, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
@@ -76,10 +88,12 @@ class IWMReaderCallbackAdvanced extends IUnknown{
 
     /**
      * The OnTime method notifies the application of the clock time the reader is working to. This method is used when a user-provided clock has been specified.
+     * @remarks
+     * There are two cases in which callbacks indicating what the reader registers as the current elapsed time must be received by an application. The first case occurs when there are gaps in an ASF file (for example, no audio for 10 seconds). The <b>OnTime</b> method continues to be called, while <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreadercallback-onsample">OnSample</a> does not. In the second case, if the application is driving the clock, the reader calls <b>OnTime</b> after it has delivered all the data up to the point requested by the application in a call to <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-delivertime">IWMReaderAdvanced::DeliverTime</a>.
      * @param {Integer} cnsCurrentTime <b>QWORD</b> containing the current time in 100-nanosecond units.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
-     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="/windows/desktop/wmformat/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-ontime
+     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-ontime
      */
     OnTime(cnsCurrentTime, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
@@ -90,12 +104,16 @@ class IWMReaderCallbackAdvanced extends IUnknown{
 
     /**
      * The OnStreamSelection method notifies the application of stream changes made due to bandwidth restrictions. To have this method called, call IWMReaderAdvanced::SetReceiveSelectionCallbacks.
+     * @remarks
+     * Stream numbers are in the range of 1 through 63.
+     * 
+     * The application can also get callbacks when stream changes due to bandwidth restrictions occur.
      * @param {Integer} wStreamCount <b>WORD</b> containing the number of entries in the <i>pStreamNumbers</i> array.
      * @param {Pointer<Integer>} pStreamNumbers Pointer to an array of stream numbers.
      * @param {Pointer<Integer>} pSelections Pointer to an array of members of the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/ne-wmsdkidl-wmt_stream_selection">WMT_STREAM_SELECTION</a> enumeration type. Each element in this array corresponds to the stream number contained in the corresponding element of the array pointed to by <i>pStreamNumbers</i>.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
-     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="/windows/desktop/wmformat/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamselection
+     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onstreamselection
      */
     OnStreamSelection(wStreamCount, pStreamNumbers, pSelections, pvContext) {
         pStreamNumbersMarshal := pStreamNumbers is VarRef ? "ushort*" : "ptr"
@@ -108,11 +126,13 @@ class IWMReaderCallbackAdvanced extends IUnknown{
 
     /**
      * The OnOutputPropsChanged method indicates that the media properties for the specified output have changed. This change occurs as a result of a call to the IWMReader::SetOutputProps method.
+     * @remarks
+     * This method is called by the reader if the caller gets an asynchronous result from the <b>SetOutputProps</b> method call. The next sample received for this output has these properties. After a call to <b>SetOutputProps</b> and before <b>OnOutputPropsChanged</b> is called, the contents of the media type are undefined.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {Pointer<WM_MEDIA_TYPE>} pMediaType Pointer to a <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsdkidl/ns-wmsdkidl-wm_media_type">WM_MEDIA_TYPE</a> structure.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <b>IWMReader::Start</b> method.
-     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="/windows/desktop/wmformat/error-codes">Error Codes</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onoutputpropschanged
+     * @returns {HRESULT} To use this method, you must implement it in your application. You can return whatever <b>HRESULT</b> error codes are appropriate to your implementation. For more information about the <b>HRESULT</b> error codes included for use by the Windows Media Format SDK, see <a href="https://docs.microsoft.com/windows/desktop/wmformat/error-codes">Error Codes</a>.
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-onoutputpropschanged
      */
     OnOutputPropsChanged(dwOutputNum, pMediaType, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
@@ -123,11 +143,21 @@ class IWMReaderCallbackAdvanced extends IUnknown{
 
     /**
      * The AllocateForStream method allocates user-created buffers for stream samples delivered to IWMReaderCallbackAdvanced::OnStreamSample. For more information about allocating your own buffers, see User Allocated Sample Support.
+     * @remarks
+     * Stream numbers are in the range of 1 through 63.
+     * 
+     * An extended version of this method called <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforstreamex">AllocateForStreamEx</a> exists in the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmreaderallocatorex">IWMReaderAllocatorEx</a> interface.
+     * 
+     * When allocating buffers, you can use whatever logic suits your application. Typically, applications initialize a pool of buffers for the file or a pool of buffers for each stream or output. When the application is done with a sample, the buffer is put back into the pool for use.
+     * 
+     * You can determine the size needed to hold the largest sample of a stream by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxstreamsamplesize">IWMReaderAdvanced::GetMaxStreamSampleSize</a>. This is the size you should make the samples in the pool used for the output.
+     * 
+     * When you allocate a sample in your implementation of this method, you should call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer-setlength">INSSBuffer::SetLength</a> to set the length of the buffer to the length passed by the reader in the <i>cbBuffer</i> parameter. If you do not set the current length on the buffer, the reader may encounter an error.
      * @param {Integer} wStreamNum <b>WORD</b> containing the stream number.
      * @param {Integer} cbBuffer Size of the buffer, in bytes.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
-     * @returns {INSSBuffer} If the method succeeds, returns a pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforstream
+     * @returns {INSSBuffer} If the method succeeds, returns a pointer to a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforstream
      */
     AllocateForStream(wStreamNum, cbBuffer, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"
@@ -138,11 +168,19 @@ class IWMReaderCallbackAdvanced extends IUnknown{
 
     /**
      * The AllocateForOutput method allocates user-created buffers for samples delivered to IWMReaderCallback::OnSample. For more information about allocating your own buffers, see User Allocated Sample Support.
+     * @remarks
+     * An extended version of this method called <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderallocatorex-allocateforoutputex">AllocateForOutputEx</a> exists in the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nn-wmsdkidl-iwmreaderallocatorex">IWMReaderAllocatorEx</a> interface.
+     * 
+     * When allocating buffers, you can use whatever logic suits your application. Typically, applications initialize a pool of buffers for the file or a pool of buffers for each stream or output. When the application is done with a sample, the buffer is put back into the pool for use.
+     * 
+     * You can determine the size needed to hold the largest sample of an output by calling <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreaderadvanced-getmaxoutputsamplesize">IWMReaderAdvanced::GetMaxOutputSampleSize</a>. This is the size you should make the samples in the pool used for the output.
+     * 
+     * When you allocate a sample in your implementation of this method, you should call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nf-wmsbuffer-inssbuffer-setlength">INSSBuffer::SetLength</a> to set the length of the buffer to the length passed by the reader in the <i>cbBuffer</i> parameter. If you do not set the current length on the buffer, the reader may encounter an error.
      * @param {Integer} dwOutputNum <b>DWORD</b> containing the output number.
      * @param {Integer} cbBuffer Size of the buffer, in bytes.
      * @param {Pointer<Void>} pvContext Generic pointer, for use by the application. This pointer is the context pointer given to the <a href="https://docs.microsoft.com/windows/desktop/api/wmsdkidl/nf-wmsdkidl-iwmreader-start">IWMReader::Start</a> method.
-     * @returns {INSSBuffer} If the method succeeds, returns a pointer to a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforoutput
+     * @returns {INSSBuffer} If the method succeeds, returns a pointer to a pointer to an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/wmsbuffer/nn-wmsbuffer-inssbuffer">INSSBuffer</a> interface.
+     * @see https://learn.microsoft.com/windows/win32/api/wmsdkidl/nf-wmsdkidl-iwmreadercallbackadvanced-allocateforoutput
      */
     AllocateForOutput(dwOutputNum, cbBuffer, pvContext) {
         pvContextMarshal := pvContext is VarRef ? "ptr" : "ptr"

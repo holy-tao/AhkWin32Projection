@@ -5,7 +5,7 @@
 
 /**
  * Provides a semaphore that can be used to provide temporarily exclusive access to a shared resource such as a file.
- * @see https://docs.microsoft.com/windows/win32/api//objidl/nn-objidl-iblockinglock
+ * @see https://learn.microsoft.com/windows/win32/api/objidl/nn-objidl-iblockinglock
  * @namespace Windows.Win32.System.Com
  * @version v4.0.30319
  */
@@ -34,7 +34,7 @@ class IBlockingLock extends IUnknown{
      * Requests a lock on a shared resource.
      * @param {Integer} dwTimeout The time interval after which the attempted lock operation fails.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iblockinglock-lock
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iblockinglock-lock
      */
     Lock(dwTimeout) {
         result := ComCall(3, this, "uint", dwTimeout, "HRESULT")
@@ -44,7 +44,7 @@ class IBlockingLock extends IUnknown{
     /**
      * Releases a lock on a shared resource.
      * @returns {HRESULT} This method can return the standard return values E_INVALIDARG, E_OUTOFMEMORY, E_UNEXPECTED, E_FAIL, and S_OK.
-     * @see https://docs.microsoft.com/windows/win32/api//objidl/nf-objidl-iblockinglock-unlock
+     * @see https://learn.microsoft.com/windows/win32/api/objidl/nf-objidl-iblockinglock-unlock
      */
     Unlock() {
         result := ComCall(4, this, "HRESULT")

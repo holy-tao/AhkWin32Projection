@@ -5,7 +5,7 @@
 
 /**
  * The ITfStatusSink interface supports changes to the global document status. This advise sink is installed by calling ITfSource::AdviseSink with IID_ITfStatusSink. A text service can optionally implement this interface.
- * @see https://docs.microsoft.com/windows/win32/api//msctf/nn-msctf-itfstatussink
+ * @see https://learn.microsoft.com/windows/win32/api/msctf/nn-msctf-itfstatussink
  * @namespace Windows.Win32.UI.TextServices
  * @version v4.0.30319
  */
@@ -32,10 +32,12 @@ class ITfStatusSink extends IUnknown{
 
     /**
      * ITfStatusSink::OnStatusChange method
+     * @remarks
+     * This method receives a callback when one of the flags of the <b>dwDynamicFlags</b> member of the <b>TF_STATUS</b> structure changes value. To obtain the changed flag(s), use the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nf-msctf-itfcontext-getstatus">ITfContext::GetStatus</a> method.
      * @param {ITfContext} pic Pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/msctf/nn-msctf-itfcontext">ITfContext</a> interface whose status has changed.
      * @param {Integer} dwFlags Indicates that one of the dynamic flags changed.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//msctf/nf-msctf-itfstatussink-onstatuschange
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/msctf/nf-msctf-itfstatussink-onstatuschange
      */
     OnStatusChange(pic, dwFlags) {
         result := ComCall(3, this, "ptr", pic, "uint", dwFlags, "HRESULT")

@@ -5,7 +5,7 @@
 
 /**
  * Implements methods that get data from an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor.
- * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nn-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor
+ * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nn-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -33,7 +33,7 @@ class IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown{
     /**
      * Gets the tag that identifies an Integrated Digital Services Broadcasting (ISDB) terrestrial delivery system descriptor.
      * @returns {Integer} Receives the terrestrial delivery system descriptor tag. For terrestrial delivery system descriptors, this value is 0xFA.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-gettag
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-gettag
      */
     GetTag() {
         result := ComCall(3, this, "char*", &pbVal := 0, "HRESULT")
@@ -43,7 +43,7 @@ class IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown{
     /**
      * Gets the body length of an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor, in bytes.
      * @returns {Integer} Receives the descriptor length.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getlength
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getlength
      */
     GetLength() {
         result := ComCall(4, this, "char*", &pbVal := 0, "HRESULT")
@@ -53,7 +53,7 @@ class IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown{
     /**
      * Gets the service area code from an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor.
      * @returns {Integer} Receives the area code.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getareacode
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getareacode
      */
     GetAreaCode() {
         result := ComCall(5, this, "ushort*", &pwVal := 0, "HRESULT")
@@ -63,7 +63,7 @@ class IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown{
     /**
      * Gets the guard interval from an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getguardinterval
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getguardinterval
      */
     GetGuardInterval() {
         result := ComCall(6, this, "char*", &pbVal := 0, "HRESULT")
@@ -73,7 +73,7 @@ class IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown{
     /**
      * Gets the transmission mode from an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor.
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-gettransmissionmode
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-gettransmissionmode
      */
     GetTransmissionMode() {
         result := ComCall(7, this, "char*", &pbVal := 0, "HRESULT")
@@ -83,7 +83,7 @@ class IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown{
     /**
      * Gets the number of records in an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor.
      * @returns {Integer} Receives the number of records.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getcountofrecords
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getcountofrecords
      */
     GetCountOfRecords() {
         result := ComCall(8, this, "char*", &pbVal := 0, "HRESULT")
@@ -94,7 +94,7 @@ class IIsdbTerrestrialDeliverySystemDescriptor extends IUnknown{
      * Gets the center frequency from an Integrated Services Digital Broadcasting (ISDB) terrestrial delivery system descriptor.
      * @param {Integer} bRecordIndex Zero-based index of the descriptor to return. To get the number of descriptors, call <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/dvbsiparser/nf-dvbsiparser-idvbparentalratingdescriptor-getcountofrecords">IIsdbTerrestrialDeliverySystemDescriptor::GetCountOfRecords</a>
      * @returns {Integer} Receives the center frequency, in units of 1/7 MHz.
-     * @see https://docs.microsoft.com/windows/win32/api//dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getrecordfrequency
+     * @see https://learn.microsoft.com/windows/win32/api/dvbsiparser/nf-dvbsiparser-iisdbterrestrialdeliverysystemdescriptor-getrecordfrequency
      */
     GetRecordFrequency(bRecordIndex) {
         result := ComCall(9, this, "char", bRecordIndex, "uint*", &pdwVal := 0, "HRESULT")

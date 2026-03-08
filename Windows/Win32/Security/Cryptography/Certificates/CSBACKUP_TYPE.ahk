@@ -2,6 +2,8 @@
 #Include ..\..\..\..\..\Win32Enum.ahk
 
 /**
+ * Backup the Certificate Services database, logs and related files.
+ * @see https://learn.microsoft.com/windows/win32/api/certbcli/nf-certbcli-certsrvbackuppreparew
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */

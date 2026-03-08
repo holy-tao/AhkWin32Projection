@@ -8,13 +8,10 @@
 /**
  * The dictionary is used by an XPS package to share resources.
  * @remarks
- * 
  * The interface pointers stored in a dictionary will usually point to interfaces, such as <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a>                 and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a>, that are derived from the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface. To determine the interface type, call the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype">IXpsOMShareable::GetType</a> method.
  * 
  * A dictionary cannot contain duplicate interface pointers.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary
+ * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomdictionary
  * @namespace Windows.Win32.Storage.Xps
  * @version v4.0.30319
  */
@@ -42,7 +39,7 @@ class IXpsOMDictionary extends IUnknown{
     /**
      * Gets a pointer to the interface that contains the dictionary.
      * @returns {IUnknown} The <b>IUnknown</b> interface of the interface that contains the dictionary.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getowner
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getowner
      */
     GetOwner() {
         result := ComCall(3, this, "ptr*", &owner := 0, "HRESULT")
@@ -52,7 +49,7 @@ class IXpsOMDictionary extends IUnknown{
     /**
      * Gets the number of entries in the dictionary.
      * @returns {Integer} The number of entries in the  dictionary.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getcount
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getcount
      */
     GetCount() {
         result := ComCall(4, this, "uint*", &count := 0, "HRESULT")
@@ -61,10 +58,14 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * Gets the IXpsOMShareable interface pointer and the key name string of the entry at a specified index in the dictionary.
+     * @remarks
+     * The interface pointers that are stored in a dictionary will usually point to interfaces, such as <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a>                 and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a>, that are derived from the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface. To determine the interface type, call the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype">IXpsOMShareable::GetType</a> method.
+     * 
+     * This method allocates the memory used by the string that is returned in <i>key</i>.  If <i>key</i> is not <b>NULL</b>, use the <a href="https://docs.microsoft.com/windows/desktop/api/combaseapi/nf-combaseapi-cotaskmemfree">CoTaskMemFree</a> function  to free the memory.
      * @param {Integer} index The zero-based index of the dictionary entry that is to be obtained.
      * @param {Pointer<PWSTR>} key The key string that is found at the location specified by <i>index</i>.
      * @returns {IXpsOMShareable} The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface pointer that is found at the location specified by <i>index</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getat
      */
     GetAt(index, key) {
         keyMarshal := key is VarRef ? "ptr*" : "ptr"
@@ -75,10 +76,12 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * Gets the IXpsOMShareable interface pointer of the entry that contains the specified key.
+     * @remarks
+     * The interface pointers stored in a dictionary will usually point to interfaces, such as  <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a>                 and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a>, that are derived from the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface. To determine the interface type, call the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype">IXpsOMShareable::GetType</a> method.
      * @param {PWSTR} key The entry's key to be found in the dictionary.
      * @param {IXpsOMShareable} beforeEntry The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface pointer to the last entry in the dictionary which is to be searched for <i>key</i>. If <i>beforeEntry</i> is <b>NULL</b> or is an interface pointer to an entry that is not in the dictionary, the entire dictionary will be searched.
      * @returns {IXpsOMShareable} The interface pointer to the dictionary entry whose key matches <i>key</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getbykey
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getbykey
      */
     GetByKey(key, beforeEntry) {
         key := key is String ? StrPtr(key) : key
@@ -91,7 +94,7 @@ class IXpsOMDictionary extends IUnknown{
      * Gets the index of an IXpsOMShareable interface from the dictionary.
      * @param {IXpsOMShareable} entry The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface pointer to be found in the dictionary.
      * @returns {Integer} The zero-based index of <i>entry</i> in the dictionary.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getindex
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-getindex
      */
     GetIndex(entry) {
         result := ComCall(7, this, "ptr", entry, "uint*", &index := 0, "HRESULT")
@@ -100,13 +103,19 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * Appends an IXpsOMShareable interface along with its key to the end of the dictionary.
+     * @remarks
+     * The interface pointers stored in a dictionary will usually point to interfaces, such as <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a>                 and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a>, that are derived from the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface. To determine the interface type, call the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype">IXpsOMShareable::GetType</a> method.
+     * 
+     * The figure that follows illustrates how the dictionary is changed by the <b>Append</b> method.
+     * 
+     * <img alt="A figure that shows how Append adds an entry to the dictionary" src="./images/dictionary_append.png"/>
      * @param {PWSTR} key The key to be used for this entry.
      * 
      * The string referenced by <i>key</i> must be unique in the dictionary.
      * @param {IXpsOMShareable} entry A pointer to the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface that is to be appended  to the dictionary.
      * 
      * A dictionary cannot contain duplicate interface pointers. This parameter must contain an interface pointer that is not already in the dictionary.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -136,7 +145,7 @@ class IXpsOMDictionary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-append
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-append
      */
     Append(key, entry) {
         key := key is String ? StrPtr(key) : key
@@ -147,6 +156,14 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * Inserts an IXpsOMShareable interface at a specified location in the dictionary and sets the key to identify the interface.
+     * @remarks
+     * The interface pointers stored in the dictionary will usually be pointers to interfaces, such as <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a>                 and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a>, that are derived from the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface. To determine the interface type, call the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype">IXpsOMShareable::GetType</a> method.
+     * 
+     * At the location specified by <i>index</i>, this method inserts the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface pointer and  sets the key;  the interface pointer and key are passed in <i>value</i> and <i>key</i>, respectively.  Before <i>value</i> and <i>key</i> are inserted, the interface pointer and the key at this and all subsequent locations  are moved up by one index.
+     * 
+     * The figure that follows illustrates how the dictionary is changed by the <b>InsertAt</b> method.
+     * 
+     * <img alt="A figure that shows how InsertAt adds an entry to the dictionary" src="./images/dictionary_insertat.png"/>
      * @param {Integer} index The zero-based index in the dictionary where the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface is to be inserted.
      * @param {PWSTR} key The key to be used to identify the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface in the dictionary.
      * 
@@ -154,7 +171,7 @@ class IXpsOMDictionary extends IUnknown{
      * @param {IXpsOMShareable} entry The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface pointer to be inserted at the location specified by <i>index</i>.
      * 
      * A dictionary cannot contain duplicate interface pointers. This parameter must contain an interface pointer that is not already in the dictionary.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -184,7 +201,7 @@ class IXpsOMDictionary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-insertat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-insertat
      */
     InsertAt(index, key, entry) {
         key := key is String ? StrPtr(key) : key
@@ -195,9 +212,15 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * Removes and releases the entry from a specified location in the dictionary.
+     * @remarks
+     * At  the location specified by <i>index</i>, this method releases the interface  referenced by the pointer. After releasing the interface, this method compacts the dictionary by   reducing by 1 the index of each pointer subsequent to <i>index</i>.
+     * 
+     * The figure that follows illustrates how the dictionary is changed by the <b>RemoveAt</b> method.
+     * 
+     * <img alt="A figure that shows how RemoveAt removes an entry from the dictionary" src="./images/dictionary_removeat.png"/>
      * @param {Integer} index The zero-based index in the dictionary from which  an entry is to be removed and released.
      * @returns {HRESULT} If the method succeeds, it returns S_OK; otherwise, it returns an <b>HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-removeat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-removeat
      */
     RemoveAt(index) {
         result := ComCall(10, this, "uint", index, "HRESULT")
@@ -206,6 +229,14 @@ class IXpsOMDictionary extends IUnknown{
 
     /**
      * Replaces the entry at a specified location in the dictionary.
+     * @remarks
+     * At the location specified by <i>index</i>, this method releases the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface referenced by the existing pointer, then replaces it with the interface pointer that is passed in <i>entry</i> and assigns it the key passed in <i>key</i>.
+     * 
+     * The interface pointers stored in a dictionary will usually point to interfaces, such as <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsombrush">IXpsOMBrush</a>                 and <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomvisual">IXpsOMVisual</a>, that are derived from the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface. To determine the interface type, call the <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomshareable-gettype">GetType</a> method.
+     * 
+     * The figure that follows illustrates how the dictionary is changed by the <b>SetAt</b> method.
+     * 
+     * <img alt="A figure that shows how RemoveAt removes an entry from the dictionary" src="./images/dictionary_setat.png"/>
      * @param {Integer} index The zero-based index in the dictionary in which an  entry is to be replaced.
      * @param {PWSTR} key The key to be used for the new entry.
      * 
@@ -213,7 +244,7 @@ class IXpsOMDictionary extends IUnknown{
      * @param {IXpsOMShareable} entry The <a href="https://docs.microsoft.com/windows/desktop/api/xpsobjectmodel/nn-xpsobjectmodel-ixpsomshareable">IXpsOMShareable</a> interface pointer that will replace current contents at the location specified by <i>index</i>.
      * 
      * A dictionary cannot contain duplicate interface pointers. This parameter must contain an interface pointer that is not already in the dictionary.
-     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
+     * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the table that follows. For information about  XPS document API return values that are not listed in this table, see <a href="https://docs.microsoft.com/previous-versions/windows/desktop/dd372955(v=vs.85)">XPS Document Errors</a>.
      * 
      * <table>
      * <tr>
@@ -243,7 +274,7 @@ class IXpsOMDictionary extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-setat
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-setat
      */
     SetAt(index, key, entry) {
         key := key is String ? StrPtr(key) : key
@@ -253,9 +284,9 @@ class IXpsOMDictionary extends IUnknown{
     }
 
     /**
-     * Makes a deep copy of the interface.
+     * Makes a deep copy of the interface. (IXpsOMDictionary.Clone)
      * @returns {IXpsOMDictionary} A pointer to the copy of the interface.
-     * @see https://docs.microsoft.com/windows/win32/api//xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-clone
+     * @see https://learn.microsoft.com/windows/win32/api/xpsobjectmodel/nf-xpsobjectmodel-ixpsomdictionary-clone
      */
     Clone() {
         result := ComCall(12, this, "ptr*", &dictionary := 0, "HRESULT")

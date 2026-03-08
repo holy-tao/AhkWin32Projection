@@ -7,11 +7,8 @@
 /**
  * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. The IMSVidGenericSink2 interface represents a generic output device that supports streaming output. It is implemented by the MSVidGenericSink object.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidGenericSink2)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidgenericsink2
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidgenericsink2
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -38,6 +35,8 @@ class IMSVidGenericSink2 extends IMSVidGenericSink{
 
     /**
      * Note  This topic applies to Update Rollup 2 for Microsoft Windows XP Media Center Edition 2005 or later. .
+     * @remarks
+     * Use this method to insert additional filters to the graph other than the sink filter. To specify the sink filter, call <a href="https://docs.microsoft.com/windows/desktop/api/segment/nf-segment-imsvidgenericsink-setsinkfilter">IMSVidGenericSink::SetSinkFilter</a>.
      * @param {BSTR} bstrName <b>BSTR</b> that contains the CLSID of the filter. The <b>BSTR</b> must use the following format: <c>{XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX}</c>
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -58,7 +57,7 @@ class IMSVidGenericSink2 extends IMSVidGenericSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgenericsink2-addfilter
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink2-addfilter
      */
     AddFilter(bstrName) {
         bstrName := bstrName is String ? BSTR.Alloc(bstrName).Value : bstrName
@@ -88,7 +87,7 @@ class IMSVidGenericSink2 extends IMSVidGenericSink{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidgenericsink2-resetfilterlist
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidgenericsink2-resetfilterlist
      */
     ResetFilterList() {
         result := ComCall(20, this, "HRESULT")

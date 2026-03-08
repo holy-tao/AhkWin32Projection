@@ -148,11 +148,7 @@ class DirectoryServices {
         pwszObjectPath := pwszObjectPath is String ? StrPtr(pwszObjectPath) : pwszObjectPath
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
 
-        result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("DSSEC.dll\DSCreateISecurityInfoObject", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "HRESULT")
         return ISecurityInformation(ppSI)
     }
 
@@ -262,11 +258,7 @@ class DirectoryServices {
         pwszUserName := pwszUserName is String ? StrPtr(pwszUserName) : pwszUserName
         pwszPassword := pwszPassword is String ? StrPtr(pwszPassword) : pwszPassword
 
-        result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("DSSEC.dll\DSCreateISecurityInfoObjectEx", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "ptr", pwszServer, "ptr", pwszUserName, "ptr", pwszPassword, "uint", dwFlags, "ptr*", &ppSI := 0, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "HRESULT")
         return ISecurityInformation(ppSI)
     }
 
@@ -376,11 +368,7 @@ class DirectoryServices {
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
 
         phPage := HPROPSHEETPAGE()
-        result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", phPage, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("DSSEC.dll\DSCreateSecurityPage", "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", phPage, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "HRESULT")
         return phPage
     }
 
@@ -406,11 +394,7 @@ class DirectoryServices {
         pwszObjectClass := pwszObjectClass is String ? StrPtr(pwszObjectClass) : pwszObjectClass
         pwszCaption := pwszCaption is String ? StrPtr(pwszCaption) : pwszCaption
 
-        result := DllCall("DSSEC.dll\DSEditSecurity", "ptr", hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", pwszCaption, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "int")
-        if(result != 0) {
-            throw OSError(A_LastError || result)
-        }
-
+        result := DllCall("DSSEC.dll\DSEditSecurity", "ptr", hwndOwner, "ptr", pwszObjectPath, "ptr", pwszObjectClass, "uint", dwFlags, "ptr", pwszCaption, "ptr", pfnReadSD, "ptr", pfnWriteSD, "ptr", lpContext, "HRESULT")
         return result
     }
 

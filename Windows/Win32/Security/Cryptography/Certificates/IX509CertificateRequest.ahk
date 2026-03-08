@@ -9,7 +9,7 @@
 
 /**
  * The IX509CertificateRequest interface represents an abstract base certificate request that identifies methods and properties common to and inherited by each of the request objects implemented by the Certificate Enrollment API.
- * @see https://docs.microsoft.com/windows/win32/api//certenroll/nn-certenroll-ix509certificaterequest
+ * @see https://learn.microsoft.com/windows/win32/api/certenroll/nn-certenroll-ix509certificaterequest
  * @namespace Windows.Win32.Security.Cryptography.Certificates
  * @version v4.0.30319
  */
@@ -114,10 +114,46 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * Initializes the request object for a user or a computer.
+     * @remarks
+     * The  <b>Initialize</b> method initializes various objects depending on the type of certificate request being created. If you call this method from an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestpkcs10">IX509CertificateRequestPkcs10</a> object, a private key object is created and the following objects are initialized:<ul>
+     * <li>An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icryptattributes">ICryptAttributes</a> collection.</li>
+     * <li>An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509extensions">IX509Extensions</a> collection.</li>
+     * <li>An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> collection that contains the default critical extension object identifiers, XCN_OID_KEY_USAGE and XCN_OID_BASIC_CONSTRAINTS2. This collection can be retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_criticalextensions">CriticalExtensions</a> property.</li>
+     * <li>An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> collection for the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestpkcs10-get_suppressoids">SuppressOids</a> property.</li>
+     * <li>An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> object that contains the values you specified in the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property or a collection of all providers installed on the computer. This collection is used to create a private key.</li>
+     * </ul>
+     * 
+     * 
+     * If you call this method from an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestcmc">IX509CertificateRequestCmc</a> object, an inner PKCS #10 request is created as above and the following objects are initialized:<ul>
+     * <li>An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icryptattributes">ICryptAttributes</a> collection.</li>
+     * <li>An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509namevaluepairs">IX509NameValuePairs</a> collection.</li>
+     * <li>An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509extensions">IX509Extensions</a> collection.</li>
+     * <li>An <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-iobjectids">IObjectIds</a> collection that contains the default critical extension object identifiers, XCN_OID_KEY_USAGE and XCN_OID_BASIC_CONSTRAINTS2. This collection can be retrieved by calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_criticalextensions">CriticalExtensions</a> property.</li>
+     * <li>An empty IObjectIds collection for the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_suppressoids">SuppressOids</a> property.</li>
+     * <li>An empty <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-isignercertificates">ISignerCertificates</a> collection.</li>
+     * </ul>
+     * 
+     * 
+     * If you call this method from an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequestpkcs7">IX509CertificateRequestPkcs7</a> object, an inner PKCS #10 request is created as above.
+     * 
+     * The following properties can be called before you call this method. <ul>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_parentwindow">ParentWindow</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_silent">Silent</a>
+     * </li>
+     * <li>
+     * <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_uicontextmessage">UIContextMessage</a>
+     * </li>
+     * </ul>
+     * 
+     * 
+     * You must call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations">CSPInformations</a> property before calling this method if you want to specify an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-icspinformations">ICspInformations</a> collection.
      * @param {Integer} Context 
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -136,7 +172,7 @@ class IX509CertificateRequest extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-initialize
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-initialize
      */
     Initialize(Context) {
         result := ComCall(7, this, "int", Context, "HRESULT")
@@ -145,9 +181,32 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * Signs and encodes a certificate request and creates a key pair if one does not exist.
+     * @remarks
+     * For a PKCS #10 request, this method:<ul>
+     * <li>Updates the private key or creates the key if necessary.</li>
+     * <li>Populates the public key from the private key.</li>
+     * <li>Updates the extensions, adding any default extensions and taking account of the suppressed OID collection and critical extension OID collection.</li>
+     * <li>Updates the attributes, adding default attributes and taking account of the suppressed OID collection.</li>
+     * <li>Assembles and encodes the unsigned updated request.</li>
+     * <li>Creates and encodes a signature.</li>
+     * <li>Encodes the signature and the unsigned request.</li>
+     * </ul>
+     * 
+     * 
+     * For a CMC request, this method:<ul>
+     * <li>Encodes all inner request objects.</li>
+     * <li>Updates the extensions for the outer request object, adding any default extensions and taking account of the suppressed OID collection and critical extension OID collection.</li>
+     * <li>Updates the attributes for the outer request object, adding default attributes and taking account of the suppressed OID collection.</li>
+     * <li>Updates the name-value pair collection.</li>
+     * <li>Encodes the CMC content that consists of the encoded inner request and the updated outer request.</li>
+     * <li>Creates and encodes a signature for each signing certificate.</li>
+     * <li>Creates and encodes a  primary signature.</li>
+     * <li>Assembles the encoded CMC content (including the inner request and the updated outer request) and the encoded signatures.</li>
+     * <li>Encodes the assembled content into a PKCS #7 message.</li>
+     * </ul>
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -162,7 +221,7 @@ class IX509CertificateRequest extends IDispatch{
      * </dl>
      * </td>
      * <td width="60%">
-     * The <a href="/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a> property has been set for a CMC request but a key exchange certificate could not be found.
+     * The <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequestcmc-get_archiveprivatekey">ArchivePrivateKey</a> property has been set for a CMC request but a key exchange certificate could not be found.
      * 
      * </td>
      * </tr>
@@ -179,7 +238,7 @@ class IX509CertificateRequest extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-encode
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-encode
      */
     Encode() {
         result := ComCall(8, this, "HRESULT")
@@ -188,9 +247,13 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * Restores the state of the request object to that which existed before the Encode method was called.
+     * @remarks
+     * You can use this method to reconfigure (re-encode and re-sign) a certificate request in response to rejection of the request by a certification authority.  The signature and the raw data are cleared. The extensions and attributes are reset to the values they had before the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method was called, but critical extension flags are not. For a CMC request object, each nested request is also reset.
+     * 
+     * This method is typically used for a CMC key archival request when the private key is encrypted and included in the request.
      * @returns {HRESULT} If the function succeeds, the function returns <b>S_OK</b>.
      * 
-     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
+     * If the function fails, it returns an <b>HRESULT</b> value that indicates the error. Possible values include, but are not limited to, those in the following table. For a list of common error codes, see <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/common-hresult-values">Common HRESULT Values</a>.
      * 
      * <table>
      * <tr>
@@ -234,7 +297,7 @@ class IX509CertificateRequest extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-resetforencode
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-resetforencode
      */
     ResetForEncode() {
         result := ComCall(9, this, "HRESULT")
@@ -243,9 +306,15 @@ class IX509CertificateRequest extends IDispatch{
 
     /**
      * Retrieves a nested request object.
+     * @remarks
+     * A top-level request object can be a PKCS #10, PKCS #7, or CMC request. The following rules apply to inner request objects:<ul>
+     * <li>A PKCS #10 request cannot contain an inner request object.</li>
+     * <li>A PKCS #7 request can contain only a PKCS #10 inner request object.</li>
+     * <li>A CMC request can contain a CMC or a PKCS #10 inner request object. For a CMC request that contains an inner CMC request, there is no theoretical limit to the number of nested levels that can exist before the final inner PKCS #10 request is reached. That is, a top-level CMC request can contain an inner CMC request that also contains an inner CMC request and so on.</li>
+     * </ul>
      * @param {Integer} Level A value of an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/ne-certenroll-innerrequestlevel">InnerRequestLevel</a> enumeration that specifies the envelopment level of the data to retrieve. You can use the <i>LevelNext</i> value to iterate through the nested levels or the <i>LevelInnermost</i> value to retrieve the most deeply nested request object. You cannot specify <i>LevelNext</i> for a PKCS #10 request.
      * @returns {IX509CertificateRequest} Address of a variable that receives a pointer to an <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509certificaterequest">IX509CertificateRequest</a> interface that contains the nested request. Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-get_type">Type</a> property to determine whether the inner request object is a PKCS #10 or a CMC request. Then call <b>QueryInterface</b> to retrieve the appropriate pointer.
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-getinnerrequest
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-getinnerrequest
      */
     GetInnerRequest(Level) {
         result := ComCall(10, this, "int", Level, "ptr*", &ppValue := 0, "HRESULT")
@@ -255,12 +324,9 @@ class IX509CertificateRequest extends IDispatch{
     /**
      * Retrieves a value that specifies the type of the request object.
      * @remarks
-     * 
      * You can use this property with the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-getinnerrequest">GetInnerRequest</a> method to determine the type of the inner request object.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_type
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_type
      */
     get_Type() {
         result := ComCall(11, this, "int*", &pValue := 0, "HRESULT")
@@ -270,12 +336,9 @@ class IX509CertificateRequest extends IDispatch{
     /**
      * Retrieves a value that specifies whether the certificate is intended for a computer or a user.
      * @remarks
-     * 
      * For a PKCS #7 or CMC request, the property value is retrieved from the inner request object.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_enrollmentcontext
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_enrollmentcontext
      */
     get_EnrollmentContext() {
         result := ComCall(12, this, "int*", &pValue := 0, "HRESULT")
@@ -283,9 +346,8 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether any of the key-related modal dialogs are displayed during the certificate enrollment process.
+     * Specifies or retrieves a Boolean value that indicates whether any of the key-related modal dialogs are displayed during the certificate enrollment process. (Get)
      * @remarks
-     * 
      * This property value is used by key-related Certificate Enrollment Control modal dialogs that:<ul>
      * <li>Direct a user to insert a smart card</li>
      * <li>Request a smart card pin number</li>
@@ -297,10 +359,8 @@ class IX509CertificateRequest extends IDispatch{
      * You can set this property before calling any initialization  method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method. For a PKCS #10 request, the property value is retrieved from and specified on the associated <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object if the key exists. For a PKCS #7 or CMC request the property value is updated on the inner request and all signing certificates.
      * 
      * If the certificate request contains nested requests and you set the <b>Silent</b> property on the top level request, it is automatically propagated to all of the inner requests. You can, however, set the property manually on each of the inner objects.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_silent
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_silent
      */
     get_Silent() {
         result := ComCall(13, this, "short*", &pValue := 0, "HRESULT")
@@ -308,9 +368,8 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether any of the key-related modal dialogs are displayed during the certificate enrollment process.
+     * Specifies or retrieves a Boolean value that indicates whether any of the key-related modal dialogs are displayed during the certificate enrollment process. (Put)
      * @remarks
-     * 
      * This property value is used by key-related Certificate Enrollment Control modal dialogs that:<ul>
      * <li>Direct a user to insert a smart card</li>
      * <li>Request a smart card pin number</li>
@@ -322,11 +381,9 @@ class IX509CertificateRequest extends IDispatch{
      * You can set this property before calling any initialization  method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method. For a PKCS #10 request, the property value is retrieved from and specified on the associated <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object if the key exists. For a PKCS #7 or CMC request the property value is updated on the inner request and all signing certificates.
      * 
      * If the certificate request contains nested requests and you set the <b>Silent</b> property on the top level request, it is automatically propagated to all of the inner requests. You can, however, set the property manually on each of the inner objects.
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_silent
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_silent
      */
     put_Silent(Value) {
         result := ComCall(14, this, "short", Value, "HRESULT")
@@ -334,9 +391,8 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves the ID of the window used by key-related user interface dialogs.
+     * Specifies and retrieves the ID of the window used by key-related user interface dialogs. (Get)
      * @remarks
-     * 
      * This property value is used by key-related Certificate Enrollment Control modal dialogs that:<ul>
      * <li>Direct a user to insert a smart card</li>
      * <li>Request a smart card pin number</li>
@@ -350,10 +406,8 @@ class IX509CertificateRequest extends IDispatch{
      * You can set this property before calling any initialization method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method. If the certificate request contains nested requests and you set the <b>ParentWindow</b> property on the top level request, it is automatically propagated to all of the inner requests. You can, however, set the property manually on each of the inner objects.
      * 
      * For a PKCS #10 request, the property value is retrieved from and specified on the associated <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object if the key exists. For a PKCS #7 or CMC request the window ID is updated on the inner request and all signing certificates.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_parentwindow
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_parentwindow
      */
     get_ParentWindow() {
         result := ComCall(15, this, "int*", &pValue := 0, "HRESULT")
@@ -361,9 +415,8 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves the ID of the window used by key-related user interface dialogs.
+     * Specifies and retrieves the ID of the window used by key-related user interface dialogs. (Put)
      * @remarks
-     * 
      * This property value is used by key-related Certificate Enrollment Control modal dialogs that:<ul>
      * <li>Direct a user to insert a smart card</li>
      * <li>Request a smart card pin number</li>
@@ -377,11 +430,9 @@ class IX509CertificateRequest extends IDispatch{
      * You can set this property before calling any initialization method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method. If the certificate request contains nested requests and you set the <b>ParentWindow</b> property on the top level request, it is automatically propagated to all of the inner requests. You can, however, set the property manually on each of the inner objects.
      * 
      * For a PKCS #10 request, the property value is retrieved from and specified on the associated <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object if the key exists. For a PKCS #7 or CMC request the window ID is updated on the inner request and all signing certificates.
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_parentwindow
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_parentwindow
      */
     put_ParentWindow(Value) {
         result := ComCall(16, this, "int", Value, "HRESULT")
@@ -389,16 +440,13 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a context string to display in the user interface.
+     * Specifies or retrieves a context string to display in the user interface. (Get)
      * @remarks
-     * 
      * You can set this property before calling any initialization method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method. For a PKCS #10 request, the property value is retrieved from and specified on the associated <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object if the key exists. For a PKCS #7 or CMC request the property value is updated on the inner request and all signing certificates.
      * 
      * The context string should include additional information about an action. For example, if the user interface instructs the user to enter a smartcard PIN, the context string can indicate that a PIN is used to verify the identity of the user so that the request can be signed.
-     * 
-     * 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_uicontextmessage
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_uicontextmessage
      */
     get_UIContextMessage() {
         pValue := BSTR()
@@ -407,17 +455,14 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a context string to display in the user interface.
+     * Specifies or retrieves a context string to display in the user interface. (Put)
      * @remarks
-     * 
      * You can set this property before calling any initialization method or the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method. For a PKCS #10 request, the property value is retrieved from and specified on the associated <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nn-certenroll-ix509privatekey">IX509PrivateKey</a> object if the key exists. For a PKCS #7 or CMC request the property value is updated on the inner request and all signing certificates.
      * 
      * The context string should include additional information about an action. For example, if the user interface instructs the user to enter a smartcard PIN, the context string can indicate that a PIN is used to verify the identity of the user so that the request can be signed.
-     * 
-     * 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_uicontextmessage
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_uicontextmessage
      */
     put_UIContextMessage(Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
@@ -427,14 +472,11 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the default extensions and attributes are included in the request.
+     * Specifies or retrieves a Boolean value that indicates whether the default extensions and attributes are included in the request. (Get)
      * @remarks
-     * 
      * You must initialize the request object before calling this property. Set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method to suppress inclusion and encoding of default extensions and attributes in the certificate request.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_suppressdefaults
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_suppressdefaults
      */
     get_SuppressDefaults() {
         result := ComCall(19, this, "short*", &pValue := 0, "HRESULT")
@@ -442,15 +484,12 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a Boolean value that indicates whether the default extensions and attributes are included in the request.
+     * Specifies or retrieves a Boolean value that indicates whether the default extensions and attributes are included in the request. (Put)
      * @remarks
-     * 
      * You must initialize the request object before calling this property. Set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method to suppress inclusion and encoding of default extensions and attributes in the certificate request.
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_suppressdefaults
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_suppressdefaults
      */
     put_SuppressDefaults(Value) {
         result := ComCall(20, this, "short", Value, "HRESULT")
@@ -458,17 +497,14 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a byte array that contains the Distinguished Encoding Rules (DER) encoded certificate that is being renewed.
+     * Specifies or retrieves a byte array that contains the Distinguished Encoding Rules (DER) encoded certificate that is being renewed. (Get)
      * @remarks
-     * 
      * The certificate is encoded by using DER as defined by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) standard. The encoding process creates a byte array. The byte array is returned in a  string that is either a pure binary sequence or is Unicode encoded so that it can be displayed as text.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_renewalcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_renewalcertificate
      */
     get_RenewalCertificate(Encoding) {
         pValue := BSTR()
@@ -477,18 +513,15 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies or retrieves a byte array that contains the Distinguished Encoding Rules (DER) encoded certificate that is being renewed.
+     * Specifies or retrieves a byte array that contains the Distinguished Encoding Rules (DER) encoded certificate that is being renewed. (Put)
      * @remarks
-     * 
      * The certificate is encoded by using DER as defined by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) standard. The encoding process creates a byte array. The byte array is returned in a  string that is either a pure binary sequence or is Unicode encoded so that it can be displayed as text.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @param {BSTR} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_renewalcertificate
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_renewalcertificate
      */
     put_RenewalCertificate(Encoding, Value) {
         Value := Value is String ? BSTR.Alloc(Value).Value : Value
@@ -498,14 +531,11 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a value that identifies the executable that created the request.
+     * Specifies and retrieves a value that identifies the executable that created the request. (Get)
      * @remarks
-     * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_clientid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_clientid
      */
     get_ClientId() {
         result := ComCall(23, this, "int*", &pValue := 0, "HRESULT")
@@ -513,15 +543,12 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a value that identifies the executable that created the request.
+     * Specifies and retrieves a value that identifies the executable that created the request. (Put)
      * @remarks
-     * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @param {Integer} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_clientid
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_clientid
      */
     put_ClientId(Value) {
         result := ComCall(24, this, "int", Value, "HRESULT")
@@ -529,18 +556,15 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a collection of cryptographic providers available for use by the request object.
+     * Specifies and retrieves a collection of cryptographic providers available for use by the request object. (Get)
      * @remarks
-     * 
      * If you want to specify a collection of providers, you must set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a> method. The collection that you specify must contain all providers currently installed on the computer. If you specify a subset or a superset, the behavior of this property is undefined.
      * 
      * If you do not specify a collection, the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a> method sets the property value to a collection of all providers installed on the computer.
      * 
      * The <b>CspInformations</b> property exists so that the caller can avoid forcing the request object to fill the collection. This is useful when the caller is creating multiple requests in one session.
-     * 
-     * 
      * @returns {ICspInformations} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_cspinformations
      */
     get_CspInformations() {
         result := ComCall(25, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -548,19 +572,16 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a collection of cryptographic providers available for use by the request object.
+     * Specifies and retrieves a collection of cryptographic providers available for use by the request object. (Put)
      * @remarks
-     * 
      * If you want to specify a collection of providers, you must set this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a> method. The collection that you specify must contain all providers currently installed on the computer. If you specify a subset or a superset, the behavior of this property is undefined.
      * 
      * If you do not specify a collection, the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-initialize">Initialize</a> method sets the property value to a collection of all providers installed on the computer.
      * 
      * The <b>CspInformations</b> property exists so that the caller can avoid forcing the request object to fill the collection. This is useful when the caller is creating multiple requests in one session.
-     * 
-     * 
      * @param {ICspInformations} pValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_cspinformations
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_cspinformations
      */
     put_CspInformations(pValue) {
         result := ComCall(26, this, "ptr", pValue, "HRESULT")
@@ -568,16 +589,13 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves the object identifier (OID) of the hash algorithm used to sign the certificate request.
+     * Specifies and retrieves the object identifier (OID) of the hash algorithm used to sign the certificate request. (Get)
      * @remarks
-     * 
      * If the certificate request contains nested requests and you set the <b>HashAlgorithm</b> property on the top level request, it is automatically propagated to all of the inner requests, overwriting values that may have been previously set. You can, however, set the property manually on each of the inner objects.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @returns {IObjectId} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_hashalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_hashalgorithm
      */
     get_HashAlgorithm() {
         result := ComCall(27, this, "ptr*", &ppValue := 0, "HRESULT")
@@ -585,17 +603,14 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves the object identifier (OID) of the hash algorithm used to sign the certificate request.
+     * Specifies and retrieves the object identifier (OID) of the hash algorithm used to sign the certificate request. (Put)
      * @remarks
-     * 
      * If the certificate request contains nested requests and you set the <b>HashAlgorithm</b> property on the top level request, it is automatically propagated to all of the inner requests, overwriting values that may have been previously set. You can, however, set the property manually on each of the inner objects.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @param {IObjectId} pValue 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_hashalgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_hashalgorithm
      */
     put_HashAlgorithm(pValue) {
         result := ComCall(28, this, "ptr", pValue, "HRESULT")
@@ -603,9 +618,8 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a Boolean value that indicates whether the signature algorithm object identifier (OID) for a PKCS
+     * Specifies and retrieves a Boolean value that indicates whether the signature algorithm object identifier (OID) for a PKCS (Get)
      * @remarks
-     * 
      * Discrete algorithms are represented by separate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) for the hashing algorithm and the signing algorithm. Examples include the following values.<table>
      * <tr>
      * <th>Discrete algorithm OID</th>
@@ -681,10 +695,8 @@ class IX509CertificateRequest extends IDispatch{
      * For a PKCS #10 request or certificate signature using the RSA public key algorithm, a property value of False (which indicates a combined OID) implies a version 1.5 signature and True (discrete OID) implies a version 2.1 signature.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @returns {VARIANT_BOOL} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_alternatesignaturealgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_alternatesignaturealgorithm
      */
     get_AlternateSignatureAlgorithm() {
         result := ComCall(29, this, "short*", &pValue := 0, "HRESULT")
@@ -692,9 +704,8 @@ class IX509CertificateRequest extends IDispatch{
     }
 
     /**
-     * Specifies and retrieves a Boolean value that indicates whether the signature algorithm object identifier (OID) for a PKCS
+     * Specifies and retrieves a Boolean value that indicates whether the signature algorithm object identifier (OID) for a PKCS (Put)
      * @remarks
-     * 
      * Discrete algorithms are represented by separate <a href="https://docs.microsoft.com/windows/desktop/SecGloss/o-gly">object identifiers</a> (OIDs) for the hashing algorithm and the signing algorithm. Examples include the following values.<table>
      * <tr>
      * <th>Discrete algorithm OID</th>
@@ -770,11 +781,9 @@ class IX509CertificateRequest extends IDispatch{
      * For a PKCS #10 request or certificate signature using the RSA public key algorithm, a property value of False (which indicates a combined OID) implies a version 1.5 signature and True (discrete OID) implies a version 2.1 signature.
      * 
      * You must initialize the request object before calling this property. You can call this property before calling the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method.
-     * 
-     * 
      * @param {VARIANT_BOOL} Value 
      * @returns {HRESULT} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-put_alternatesignaturealgorithm
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-put_alternatesignaturealgorithm
      */
     put_AlternateSignatureAlgorithm(Value) {
         result := ComCall(30, this, "short", Value, "HRESULT")
@@ -784,13 +793,10 @@ class IX509CertificateRequest extends IDispatch{
     /**
      * Retrieves a byte array that contains the signed, Distinguished Encoding Rules (DER) encoded certificate request.
      * @remarks
-     * 
      * Call the <a href="https://docs.microsoft.com/windows/desktop/api/certenroll/nf-certenroll-ix509certificaterequest-encode">Encode</a> method to encode a certificate request using DER as defined by the <a href="https://docs.microsoft.com/windows/desktop/SecGloss/a-gly">Abstract Syntax Notation One</a> (ASN.1) standard. The encoding process creates a byte array that the <b>RawData</b> property returns   as a string. The string is either a pure binary sequence, or it is Unicode encoded so that it can be displayed as text.
-     * 
-     * 
      * @param {Integer} Encoding 
      * @returns {BSTR} 
-     * @see https://docs.microsoft.com/windows/win32/api//certenroll/nf-certenroll-ix509certificaterequest-get_rawdata
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/nf-certenroll-ix509certificaterequest-get_rawdata
      */
     get_RawData(Encoding) {
         pValue := BSTR()

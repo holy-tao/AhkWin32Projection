@@ -6,7 +6,7 @@
 
 /**
  * The IWMPError interface provides methods for accessing a collection of IWMPErrorItem pointers.
- * @see https://docs.microsoft.com/windows/win32/api//wmp/nn-wmp-iwmperror
+ * @see https://learn.microsoft.com/windows/win32/api/wmp/nn-wmp-iwmperror
  * @namespace Windows.Win32.Media.MediaPlayer
  * @version v4.0.30319
  */
@@ -39,6 +39,10 @@ class IWMPError extends IDispatch{
 
     /**
      * The clearErrorQueue method clears the errors from the error queue.
+     * @remarks
+     * Use this method to clear the error queue after a series of errors has been processed.
+     * 
+     * You should set a <b>VARIANT_BOOL</b> to <b>FALSE</b> and pass it into <b>IWMPSettings::put_enableErrorDialogs</b> if you choose to display custom error messages.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -58,7 +62,7 @@ class IWMPError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-clearerrorqueue
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-clearerrorqueue
      */
     clearErrorQueue() {
         result := ComCall(7, this, "HRESULT")
@@ -67,6 +71,8 @@ class IWMPError extends IDispatch{
 
     /**
      * The get_errorCount method retrieves the number of errors in the error queue.
+     * @remarks
+     * You should set a <b>VARIANT_BOOL</b> to <b>FALSE</b> and pass it into <b>IWMPSettings::put_enableErrorDialogs</b> if you choose to display custom error messages.
      * @param {Pointer<Integer>} plNumErrors Pointer to a <b>long</b> containing the number of errors.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
@@ -87,7 +93,7 @@ class IWMPError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-get_errorcount
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_errorcount
      */
     get_errorCount(plNumErrors) {
         plNumErrorsMarshal := plNumErrors is VarRef ? "int*" : "ptr"
@@ -98,9 +104,13 @@ class IWMPError extends IDispatch{
 
     /**
      * The get_item method retrieves a pointer to an IWMPErrorItem interface from the error queue.
+     * @remarks
+     * Windows Media Player can generate a number of errors in response to an error condition. This method retrieves a specific error in the queue by using an index number. The index numbers for the error queue begin with zero.
+     * 
+     * You should set a <b>VARIANT_BOOL</b> to <b>FALSE</b> and pass it into <b>IWMPSettings::put_enableErrorDialogs</b> if you choose to display custom error messages.
      * @param {Integer} dwIndex <b>long</b> containing the index of the pointer to an <b>IWMPErrorItem</b> interface.
      * @returns {IWMPErrorItem} Pointer to a pointer to an <b>IWMPErrorItem</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-get_item
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-get_item
      */
     get_item(dwIndex) {
         result := ComCall(9, this, "int", dwIndex, "ptr*", &ppErrorItem := 0, "HRESULT")
@@ -109,6 +119,16 @@ class IWMPError extends IDispatch{
 
     /**
      * The webHelp method launches the Windows Media Player Web Help page to display further information about the first error in the error queue (index zero).
+     * @remarks
+     * The Web Help pages always contain the latest and most detailed information about Windows Media Player errors. This method automatically transfers the other information needed by Web Help, such as the operating system version being used.
+     * 
+     * To access the Web Help pages directly, use the following error code and support center links.
+     * 
+     * <ul>
+     * <li><a href="https://support.microsoft.com/windows/windows-media-player-errors-b3a9ccc1-6267-093e-0aa3-ea860644ecd4">Windows Media Player errors</a></li>
+     * <li><a href="https://support.microsoft.com/ph/7763#tab0">Windows Media Player Solution Center</a></li>
+     * </ul>
+     * <b>Windows Media Player 10 Mobile: </b>This method always returns S_OK, but does not launch the Windows Media Player Web Help page.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include, but are not limited to, those in the following table.
      * 
      * <table>
@@ -128,7 +148,7 @@ class IWMPError extends IDispatch{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//wmp/nf-wmp-iwmperror-webhelp
+     * @see https://learn.microsoft.com/windows/win32/api/wmp/nf-wmp-iwmperror-webhelp
      */
     webHelp() {
         result := ComCall(10, this, "HRESULT")

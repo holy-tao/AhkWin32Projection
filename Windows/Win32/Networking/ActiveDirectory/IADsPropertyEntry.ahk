@@ -7,7 +7,7 @@
 
 /**
  * The IADsPropertyEntry interface is used to manage a property entry in the property cache.
- * @see https://docs.microsoft.com/windows/win32/api//iads/nn-iads-iadspropertyentry
+ * @see https://learn.microsoft.com/windows/win32/api/iads/nn-iads-iadspropertyentry
  * @namespace Windows.Win32.Networking.ActiveDirectory
  * @version v4.0.30319
  */
@@ -65,8 +65,27 @@ class IADsPropertyEntry extends IDispatch{
     }
 
     /**
+     * Resets the TPM to its factory-default state.
+     * @remarks
+     * Running this method can help prepare a TPM-equipped computer for recycling.
      * 
-     * @returns {HRESULT} 
+     * To clear the TPM but no longer have the TPM owner authorization, you need physical access to the computer. The [**SetPhysicalPresenceRequest**](setphysicalpresencerequest-win32-tpm.md) method includes functionality to help clear the TPM without TPM owner authorization.
+     * 
+     * Managed Object Format (MOF) files contain the definitions for Windows Management Instrumentation (WMI) classes. MOF files are not installed as part of the Windows SDK. They are installed on the server when you add the associated role by using the Server Manager. For more information about MOF files, see [Managed Object Format (MOF)](../wmisdk/managed-object-format--mof-.md).
+     * @returns {HRESULT} Type: **uint32**
+     * 
+     * All TPM errors as well as errors specific to TPM Base Services can be returned.
+     * 
+     * The following table lists some of the common return codes.
+     * 
+     * 
+     * 
+     * | Return code/value                                                                                                                                                                         | Description                                                                                                                                                                          |
+     * |-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+     * | <dl> <dt>**S\_OK**</dt> <dt>0 (0x0)</dt> </dl>                                         | The method was successful.<br/>                                                                                                                                                |
+     * | <dl> <dt>**TPM\_E\_AUTHFAIL**</dt> <dt>2150105089 (0x80280001)</dt> </dl>              | The provided owner authorization value cannot perform the request.<br/>                                                                                                        |
+     * | <dl> <dt>**TPM\_E\_DEFEND\_LOCK\_RUNNING**</dt> <dt>2150107139 (0x80280803)</dt> </dl> | The TPM is defending against dictionary attacks and is in a time-out period. For more information, see the [**ResetAuthLockOut**](resetauthlockout-win32-tpm.md) method.<br/> |
+     * @see https://learn.microsoft.com/windows/win32/SecProv/clear-win32-tpm
      */
     Clear() {
         result := ComCall(7, this, "HRESULT")

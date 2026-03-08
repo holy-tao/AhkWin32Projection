@@ -5,7 +5,7 @@
 
 /**
  * A specialized implementation of the Shantzis calculations to a transform implemented on the GPU.
- * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nn-d2d1effectauthor-id2d1drawtransform
+ * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1drawtransform
  * @namespace Windows.Win32.Graphics.Direct2D
  * @version v4.0.30319
  */
@@ -32,13 +32,17 @@ class ID2D1DrawTransform extends ID2D1Transform{
 
     /**
      * Provides the GPU render info interface to the transform implementation.
+     * @remarks
+     * The transform can maintain a  reference to this interface for its lifetime. If any properties change on the transform, it can apply these changes to the corresponding <i>drawInfo</i> interface. 
+     * 
+     * This is also used to determine that the corresponding nodes in the graph are dirty.
      * @param {ID2D1DrawInfo} drawInfo Type: <b><a href="https://docs.microsoft.com/windows/desktop/api/d2d1effectauthor/nn-d2d1effectauthor-id2d1drawinfo">ID2D1DrawInfo</a>*</b>
      * 
      * The interface supplied back to the calling method to allow it to specify the GPU based transform pass.
      * @returns {HRESULT} Type: <b>HRESULT</b>
      * 
-     * Any HRESULT value can be returned when implementing this method. A failure will be returned from the corresponding <a href="/windows/desktop/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">ID2D1DeviceContext::EndDraw</a> call.
-     * @see https://docs.microsoft.com/windows/win32/api//d2d1effectauthor/nf-d2d1effectauthor-id2d1drawtransform-setdrawinfo
+     * Any HRESULT value can be returned when implementing this method. A failure will be returned from the corresponding <a href="https://docs.microsoft.com/windows/desktop/api/d2d1/nf-d2d1-id2d1rendertarget-enddraw">ID2D1DeviceContext::EndDraw</a> call.
+     * @see https://learn.microsoft.com/windows/win32/api/d2d1effectauthor/nf-d2d1effectauthor-id2d1drawtransform-setdrawinfo
      */
     SetDrawInfo(drawInfo) {
         result := ComCall(7, this, "ptr", drawInfo, "HRESULT")

@@ -6,10 +6,8 @@
 /**
  * Exposes a method to discover objects that are named with a GUID from another object. Unlike QueryService this interface will not delegate its functionality on to other objects.
  * @remarks
- * 
  * Similar to <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678965(v=vs.85)">IServiceProvider</a>, except that this method does not imply that unhandled or unknown requests should be forwarded.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nn-shobjidl_core-iobjectprovider
+ * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nn-shobjidl_core-iobjectprovider
  * @namespace Windows.Win32.UI.Shell
  * @version v4.0.30319
  */
@@ -36,6 +34,8 @@ class IObjectProvider extends IUnknown{
 
     /**
      * Queries for a specified object.
+     * @remarks
+     * Object implementers that want to enable the discovery of other objects that they can produce or that they hold should implement <b>IObjectProvider::QueryObject</b> and publish the <b>GUID</b> values that name those objects for clients of that object. Note that objects should not pass on the request for an object to other objects like <a href="https://docs.microsoft.com/previous-versions/windows/internet-explorer/ie-developer/platform-apis/cc678966(v=vs.85)">QueryService</a>.
      * @param {Pointer<Guid>} guidObject Type: <b>REFGUID</b>
      * 
      * A reference to the <b>GUID</b> used to identify the object.
@@ -45,7 +45,7 @@ class IObjectProvider extends IUnknown{
      * @returns {Pointer<Void>} Type: <b>void**</b>
      * 
      * On success, contains the address of a pointer to the object specified by <i>riid</i>.
-     * @see https://docs.microsoft.com/windows/win32/api//shobjidl_core/nf-shobjidl_core-iobjectprovider-queryobject
+     * @see https://learn.microsoft.com/windows/win32/api/shobjidl_core/nf-shobjidl_core-iobjectprovider-queryobject
      */
     QueryObject(guidObject, riid) {
         result := ComCall(3, this, "ptr", guidObject, "ptr", riid, "ptr*", &ppvOut := 0, "HRESULT")

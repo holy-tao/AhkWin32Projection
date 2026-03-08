@@ -5,7 +5,7 @@
 
 /**
  * Enables a snap-in component to add pages to the property sheet of an item.
- * @see https://docs.microsoft.com/windows/win32/api//mmc/nn-mmc-iextendpropertysheet
+ * @see https://learn.microsoft.com/windows/win32/api/mmc/nn-mmc-iextendpropertysheet
  * @namespace Windows.Win32.System.Mmc
  * @version v4.0.30319
  */
@@ -32,6 +32,17 @@ class IExtendPropertySheet extends IUnknown{
 
     /**
      * Adds pages to a property sheet.
+     * @remarks
+     * The IPropertySheetCallback interface is passed to the snap-in during a call to this method. The lifetime of this interface is under the control of MMC. As such, the pointer lpIDataObject is valid only during the lifetime of the immediate call to this method. Caching the lpIDataObject pointer value outside of the callback is not recommended.
+     * 
+     * The handle specified by the handle parameter must be saved in the property page object to notify the parent of property changes using the API function 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-mmcpropertychangenotify">MMCPropertyChangeNotify</a>.
+     * 
+     * If the snap-in returns a success code (S_OK, S_FALSE) from 
+     * CreatePropertyPages, then the snap-in must call 
+     * MMCFreeNotifyHandle. If the snap-in returns an error code, then MMC immediately frees the handle. For more information about when 
+     * MMCFreeNotifyHandle should be called, see 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nf-mmc-mmcfreenotifyhandle">MMCFreeNotifyHandle</a>.
      * @param {IPropertySheetCallback} lpProvider A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/mmc/nn-mmc-ipropertysheetcallback">IPropertySheetCallback</a> interface.
      * @param {Pointer} handle A value that specifies the handle used to route the 
@@ -45,7 +56,7 @@ class IExtendPropertySheet extends IUnknown{
      * @param {IDataObject} lpIDataObject A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object that contains context information about the scope or result item.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendpropertysheet-createpropertypages
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendpropertysheet-createpropertypages
      */
     CreatePropertyPages(lpProvider, handle, lpIDataObject) {
         result := ComCall(3, this, "ptr", lpProvider, "ptr", handle, "ptr", lpIDataObject, "HRESULT")
@@ -54,10 +65,13 @@ class IExtendPropertySheet extends IUnknown{
 
     /**
      * Determines whether the object requires pages.
+     * @remarks
+     * The console calls this method to determine whether the 
+     * <b>Properties</b> menu item should be added to the context menu.
      * @param {IDataObject} lpDataObject A pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/objidl/nn-objidl-idataobject">IDataObject</a> interface on the object that contains context information about the scope or result item.
      * @returns {HRESULT} This method can return one of these values.
-     * @see https://docs.microsoft.com/windows/win32/api//mmc/nf-mmc-iextendpropertysheet-querypagesfor
+     * @see https://learn.microsoft.com/windows/win32/api/mmc/nf-mmc-iextendpropertysheet-querypagesfor
      */
     QueryPagesFor(lpDataObject) {
         result := ComCall(4, this, "ptr", lpDataObject, "HRESULT")

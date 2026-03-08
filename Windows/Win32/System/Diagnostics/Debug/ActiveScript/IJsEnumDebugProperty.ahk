@@ -43,8 +43,13 @@ class IJsEnumDebugProperty extends IUnknown{
     }
 
     /**
+     * Retrieves the number of tagged elements in a given color profile.
+     * @remarks
+     * This function will fail if *hProfile* is not a valid ICC profile.
      * 
+     * This function does not support Windows Color System (WCS) profiles CAMP, DMP, and GMMP.
      * @returns {Integer} 
+     * @see https://learn.microsoft.com/windows/win32/api/icm/nf-icm-getcountcolorprofileelements
      */
     GetCount() {
         result := ComCall(4, this, "uint*", &pCount := 0, "HRESULT")

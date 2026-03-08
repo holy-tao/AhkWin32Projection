@@ -30,7 +30,7 @@ class ICertRequestD extends IUnknown{
     static VTableNames => ["Request", "GetCACert", "Ping"]
 
     /**
-     * 
+     * Specifies the type of application that created a certificate request.
      * @param {Integer} dwFlags 
      * @param {PWSTR} pwszAuthority 
      * @param {Pointer<Integer>} pdwRequestId 
@@ -41,6 +41,7 @@ class ICertRequestD extends IUnknown{
      * @param {Pointer<CERTTRANSBLOB>} pctbEncodedCert 
      * @param {Pointer<CERTTRANSBLOB>} pctbDispositionMessage 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/api/certenroll/ne-certenroll-requestclientinfoclientid
      */
     Request(dwFlags, pwszAuthority, pdwRequestId, pdwDisposition, pwszAttributes, pctbRequest, pctbCertChain, pctbEncodedCert, pctbDispositionMessage) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority
@@ -68,9 +69,12 @@ class ICertRequestD extends IUnknown{
     }
 
     /**
-     * 
+     * Use the Ping packet to establish a connection and negotiate security with the server.
+     * @remarks
+     * The **Ping** packet is optional. Instead of sending a **Ping** packet, you can use the [**Create-Session**](create-session.md) packet to establish a connection and negotiate security. However, it is more efficient to use the **Ping** packet for this purpose.
      * @param {PWSTR} pwszAuthority 
      * @returns {HRESULT} 
+     * @see https://learn.microsoft.com/windows/win32/Bits/ping
      */
     Ping(pwszAuthority) {
         pwszAuthority := pwszAuthority is String ? StrPtr(pwszAuthority) : pwszAuthority

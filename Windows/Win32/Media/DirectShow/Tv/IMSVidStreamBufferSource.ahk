@@ -7,11 +7,8 @@
 /**
  * The IMSVidStreamBufferSource interface represents the Stream Buffer Source filter within the Video Control.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IMSVidStreamBufferSource)</c>.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//segment/nn-segment-imsvidstreambuffersource
+ * @see https://learn.microsoft.com/windows/win32/api/segment/nn-segment-imsvidstreambuffersource
  * @namespace Windows.Win32.Media.DirectShow.Tv
  * @version v4.0.30319
  */
@@ -80,7 +77,7 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
     /**
      * The get_Start method retrieves the start time.
      * @returns {Integer} Pointer to a variable that receives the start time, in hundredths of seconds.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource-get_start
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_start
      */
     get_Start() {
         result := ComCall(34, this, "int*", &lStart := 0, "HRESULT")
@@ -89,8 +86,10 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * The get_RecordingAttribute method retrieves the Stream Buffer Source filter that this object manages.
+     * @remarks
+     * The caller must release the returned <b>IUnknown</b> interface.
      * @returns {IUnknown} Receives a pointer to the filter's <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource-get_recordingattribute
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_recordingattribute
      */
     get_RecordingAttribute() {
         result := ComCall(35, this, "ptr*", &pRecordingAttribute := 0, "HRESULT")
@@ -99,9 +98,9 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * The CurrentRatings method retrieves the current ratings information from the data source.
-     * @param {Pointer<Integer>} pEnSystem Pointer to a variable that receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_system">EnTvRat_System</a> enumeration value.
-     * @param {Pointer<Integer>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_genericlevel">EnTvRat_GenericLevel</a> enumeration value.
-     * @param {Pointer<Integer>} pBfEnAttr Pointer to a variable that receives the ratings attributes, as a bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-bfentvrat_genericattributes">BfEnTvRat_GenericAttributes</a> enumeration.
+     * @param {Pointer<Integer>} pEnSystem Pointer to a variable that receives the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration value.
+     * @param {Pointer<Integer>} pEnRating Receives the rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration value.
+     * @param {Pointer<Integer>} pBfEnAttr Pointer to a variable that receives the ratings attributes, as a bitwise combination of zero or more flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
      * <table>
@@ -121,7 +120,7 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource-currentratings
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-currentratings
      */
     CurrentRatings(pEnSystem, pEnRating, pBfEnAttr) {
         pEnSystemMarshal := pEnSystem is VarRef ? "int*" : "ptr"
@@ -134,9 +133,9 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * The MaxRatingsLevel method specifies the maximum ratings level the object is permitted to play.
-     * @param {Integer} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_system">EnTvRat_System</a> enumeration value.
-     * @param {Integer} enRating Specifies the maximum rating level, as an <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-entvrat_genericlevel">EnTvRat_GenericLevel</a> enumeration value.
-     * @param {Integer} lbfEnAttr Specifies zero or more ratings attributes, as a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/windows/desktop/api/tvratings/ne-tvratings-bfentvrat_genericattributes">BfEnTvRat_GenericAttributes</a> enumeration.
+     * @param {Integer} enSystem Specifies the rating system, as an <a href="https://docs.microsoft.com/previous-versions/dd375612(v=vs.85)">EnTvRat_System</a> enumeration value.
+     * @param {Integer} enRating Specifies the maximum rating level, as an <a href="https://docs.microsoft.com/previous-versions/dd375610(v=vs.85)">EnTvRat_GenericLevel</a> enumeration value.
+     * @param {Integer} lbfEnAttr Specifies zero or more ratings attributes, as a bitwise combination of flags from the <a href="https://docs.microsoft.com/previous-versions/dd318226(v=vs.85)">BfEnTvRat_GenericAttributes</a> enumeration.
      * @returns {HRESULT} The method returns an <b>HRESULT</b>. Possible values include the following.
      * 
      * <table>
@@ -156,7 +155,7 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource-maxratingslevel
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-maxratingslevel
      */
     MaxRatingsLevel(enSystem, enRating, lbfEnAttr) {
         result := ComCall(37, this, "int", enSystem, "int", enRating, "int", lbfEnAttr, "HRESULT")
@@ -185,7 +184,7 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource-put_blockunrated
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-put_blockunrated
      */
     put_BlockUnrated(bBlock) {
         result := ComCall(38, this, "short", bBlock, "HRESULT")
@@ -214,7 +213,7 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource-put_unrateddelay
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-put_unrateddelay
      */
     put_UnratedDelay(dwDelay) {
         result := ComCall(39, this, "int", dwDelay, "HRESULT")
@@ -223,8 +222,10 @@ class IMSVidStreamBufferSource extends IMSVidFilePlayback{
 
     /**
      * The get_SBESource method retrieves a pointer to the Stream Buffer Source filter.
+     * @remarks
+     * The caller must release the <b>IUnknown</b> interface.
      * @returns {IUnknown} Receives a pointer to the filter's <b>IUnknown</b> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//segment/nf-segment-imsvidstreambuffersource-get_sbesource
+     * @see https://learn.microsoft.com/windows/win32/api/segment/nf-segment-imsvidstreambuffersource-get_sbesource
      */
     get_SBESource() {
         result := ComCall(40, this, "ptr*", &sbeFilter := 0, "HRESULT")

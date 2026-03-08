@@ -7,10 +7,8 @@
 /**
  * Retrieves out-of-band guide data from a media transform device (MTD). This interface provides access to a device's Guide Data Delivery Service.
  * @remarks
- * 
  * To declare the interface identifier (IID) for this interface, use the <b>__uuidof</b> operator: <c>__uuidof(IBDA_GuideDataDeliveryService)</c>.
- * 
- * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nn-bdaiface-ibda_guidedatadeliveryservice
+ * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nn-bdaiface-ibda_guidedatadeliveryservice
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -55,7 +53,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getguidedatatype
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getguidedatatype
      */
     GetGuideDataType() {
         pguidDataType := Guid()
@@ -98,7 +96,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getguidedata
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getguidedata
      */
     GetGuideData(pulcbBufferLen, pbBuffer, pulGuideDataPercentageProgress) {
         pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : "ptr"
@@ -111,8 +109,8 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
 
     /**
      * Requests updated guide data from the media transform device (MTD).
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-requestguidedataupdate
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-requestguidedataupdate
      */
     RequestGuideDataUpdate() {
         result := ComCall(5, this, "HRESULT")
@@ -123,7 +121,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
      * Converts a service identifier into an XML tune request.
      * @param {Integer} ul64ServiceIdx Identifier for the service.
      * @returns {BSTR} Receives the XML tune request. The caller must release the string by calling <b>SysFreeString</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-gettunexmlfromserviceidx
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-gettunexmlfromserviceidx
      */
     GetTuneXmlFromServiceIdx(ul64ServiceIdx) {
         pbstrTuneXml := BSTR()
@@ -135,7 +133,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
      * Gets a list of services that are available on the the media transform device (MTD).
      * @param {Pointer<Integer>} pulcbBufferLen On input, specifies the size of the <i>pbBuffer</i> array, in bytes. On output, receives the size of the data that was written to the <i>pbBuffer</i> array.
      * @returns {Integer} Pointer to a byte array that receives a list of service identifiers. A service identifier is a 64-bit value. To translate a service identifier into a tune request, call <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-gettunexmlfromserviceidx">IBDA_GuideDataDeliveryService::GetTuneXmlFromServiceIdx</a>.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getservices
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getservices
      */
     GetServices(pulcbBufferLen) {
         pulcbBufferLenMarshal := pulcbBufferLen is VarRef ? "uint*" : "ptr"
@@ -148,7 +146,7 @@ class IBDA_GuideDataDeliveryService extends IUnknown{
      * Gets service information from an XML tune request.
      * @param {BSTR} bstrTuneXml The XML tune request. For more information, see <a href="https://docs.microsoft.com/windows/desktop/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-gettunexmlfromserviceidx">IBDA_GuideDataDeliveryService::GetTuneXmlFromServiceIdx</a>.
      * @returns {BSTR} Receives an XML string that contains information about the service. The caller must release the string by calling <b>SysFreeString</b>.
-     * @see https://docs.microsoft.com/windows/win32/api//bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getserviceinfofromtunexml
+     * @see https://learn.microsoft.com/windows/win32/api/bdaiface/nf-bdaiface-ibda_guidedatadeliveryservice-getserviceinfofromtunexml
      */
     GetServiceInfoFromTuneXml(bstrTuneXml) {
         bstrTuneXml := bstrTuneXml is String ? BSTR.Alloc(bstrTuneXml).Value : bstrTuneXml

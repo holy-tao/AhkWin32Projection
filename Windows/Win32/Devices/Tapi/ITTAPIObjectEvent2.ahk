@@ -6,7 +6,7 @@
 
 /**
  * The ITTAPIObjectEvent2 interface is an extension of the ITTAPIObjectEvent interface. ITTAPIObjectEvent2 exposes an additional method that returns a pointer to an ITPhone interface on the phone object that caused the TAPI object event.
- * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nn-tapi3if-ittapiobjectevent2
+ * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nn-tapi3if-ittapiobjectevent2
  * @namespace Windows.Win32.Devices.Tapi
  * @version v4.0.30319
  */
@@ -40,9 +40,13 @@ class ITTAPIObjectEvent2 extends ITTAPIObjectEvent{
 
     /**
      * The get_Phone method returns a pointer to the ITPhone interface on the phone object that caused this TAPI object event to be fired.
+     * @remarks
+     * TAPI calls the <b>AddRef</b> method on the 
+     * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface returned by <b>ITTAPIObjectEvent2::get_Phone</b>. The application must call <b>Release</b> on the 
+     * <b>ITPhone</b> interface to free resources associated with it.
      * @returns {ITPhone} Pointer to the 
      * <a href="https://docs.microsoft.com/windows/desktop/api/tapi3if/nn-tapi3if-itphone">ITPhone</a> interface.
-     * @see https://docs.microsoft.com/windows/win32/api//tapi3if/nf-tapi3if-ittapiobjectevent2-get_phone
+     * @see https://learn.microsoft.com/windows/win32/api/tapi3if/nf-tapi3if-ittapiobjectevent2-get_phone
      */
     get_Phone() {
         result := ComCall(11, this, "ptr*", &ppPhone := 0, "HRESULT")

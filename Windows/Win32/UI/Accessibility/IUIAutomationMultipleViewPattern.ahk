@@ -6,7 +6,7 @@
 
 /**
  * Provides access to a control that can switch between multiple representations of the same information or set of child controls.
- * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nn-uiautomationclient-iuiautomationmultipleviewpattern
+ * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nn-uiautomationclient-iuiautomationmultipleviewpattern
  * @namespace Windows.Win32.UI.Accessibility
  * @version v4.0.30319
  */
@@ -46,14 +46,14 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
     }
 
     /**
-     * Retrieves the name of a control-specific view.
+     * Retrieves the name of a control-specific view. (IUIAutomationMultipleViewPattern.GetViewName)
      * @param {Integer} view Type: <b>int</b>
      * 
      * The identifier of the view.
      * @returns {BSTR} Type: <b>BSTR*</b>
      * 
      * Receives a pointer to a localized view name.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getviewname
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getviewname
      */
     GetViewName(view) {
         name := BSTR()
@@ -66,10 +66,10 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
      * @param {Integer} view Type: <b>int</b>
      * 
      * The control-specific view identifier.
-     * @returns {HRESULT} Type: <b><a href="/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
+     * @returns {HRESULT} Type: <b><a href="https://docs.microsoft.com/windows/desktop/WinProg/windows-data-types">HRESULT</a></b>
      * 
-     * If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-setcurrentview
+     * If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-setcurrentview
      */
     SetCurrentView(view) {
         result := ComCall(4, this, "int", view, "HRESULT")
@@ -79,12 +79,9 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
     /**
      * Retrieves the control-specific identifier of the current view of the control.
      * @remarks
-     * 
      * The property values are control-specific.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-get_currentcurrentview
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-get_currentcurrentview
      */
     get_CurrentCurrentView() {
         result := ComCall(5, this, "int*", &retVal := 0, "HRESULT")
@@ -92,11 +89,11 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
     }
 
     /**
-     * Retrieves a collection of control-specific view identifiers.
+     * Retrieves a collection of control-specific view identifiers. (IUIAutomationMultipleViewPattern.GetCurrentSupportedViews)
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives a pointer to an array of view identifiers.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcurrentsupportedviews
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcurrentsupportedviews
      */
     GetCurrentSupportedViews() {
         result := ComCall(6, this, "ptr*", &retVal := 0, "HRESULT")
@@ -106,12 +103,9 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
     /**
      * Retrieves the cached control-specific identifier of the current view of the control.
      * @remarks
-     * 
      * The property values are control-specific.
-     * 
-     * 
      * @returns {Integer} 
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-get_cachedcurrentview
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-get_cachedcurrentview
      */
     get_CachedCurrentView() {
         result := ComCall(7, this, "int*", &retVal := 0, "HRESULT")
@@ -123,7 +117,7 @@ class IUIAutomationMultipleViewPattern extends IUnknown{
      * @returns {Pointer<SAFEARRAY>} Type: <b><a href="https://docs.microsoft.com/windows/win32/api/oaidl/ns-oaidl-safearray">SAFEARRAY</a>**</b>
      * 
      * Receives a pointer to an array of view identifiers.
-     * @see https://docs.microsoft.com/windows/win32/api//uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcachedsupportedviews
+     * @see https://learn.microsoft.com/windows/win32/api/uiautomationclient/nf-uiautomationclient-iuiautomationmultipleviewpattern-getcachedsupportedviews
      */
     GetCachedSupportedViews() {
         result := ComCall(8, this, "ptr*", &retVal := 0, "HRESULT")

@@ -4,8 +4,8 @@
 #Include .\IUpdateInstaller2.ahk
 
 /**
- * Installs or uninstalls updates on a computer.
- * @see https://docs.microsoft.com/windows/win32/api//wuapi/nn-wuapi-iupdateinstaller3
+ * Installs or uninstalls updates on a computer. (IUpdateInstaller3)
+ * @see https://learn.microsoft.com/windows/win32/api/wuapi/nn-wuapi-iupdateinstaller3
  * @namespace Windows.Win32.System.UpdateAgent
  * @version v4.0.30319
  */
@@ -41,7 +41,7 @@ class IUpdateInstaller3 extends IUpdateInstaller2{
     /**
      * Gets a value indicating whether the update installer will attempt to close applications, blocking immediate installation of updates.
      * @returns {VARIANT_BOOL} True if the installer will attempt to close applications.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller3-get_attemptcloseappsifnecessary
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller3-get_attemptcloseappsifnecessary
      */
     get_AttemptCloseAppsIfNecessary() {
         result := ComCall(30, this, "short*", &retval := 0, "HRESULT")
@@ -52,7 +52,7 @@ class IUpdateInstaller3 extends IUpdateInstaller2{
      * Sets a value indicating whether the update installer will attempt to close applications, blocking immediate installation of updates.
      * @param {VARIANT_BOOL} value Set to True if the installer should attempt to close applications.
      * @returns {HRESULT} Returns S_OK on success.
-     * @see https://docs.microsoft.com/windows/win32/api//wuapi/nf-wuapi-iupdateinstaller3-put_attemptcloseappsifnecessary
+     * @see https://learn.microsoft.com/windows/win32/api/wuapi/nf-wuapi-iupdateinstaller3-put_attemptcloseappsifnecessary
      */
     put_AttemptCloseAppsIfNecessary(value) {
         result := ComCall(31, this, "short", value, "HRESULT")

@@ -6,11 +6,8 @@
 /**
  * The IAMVideoProcAmp interface adjusts the qualities of an incoming video signal, such as brightness, contrast, hue, saturation, gamma, and sharpness.The WDM Video Capture filter exposes this interface if the hardware supports image adjustment.
  * @remarks
- * 
  * For Windows Driver Model (WDM) devices, the <a href="https://docs.microsoft.com/windows/desktop/DirectShow/wdm-video-capture-filter">WDM Video Capture Filter</a> automatically exposes this interface if the WDM driver supports the <a href="https://docs.microsoft.com/windows-hardware/drivers/stream/propsetid-vidcap-videoprocamp">PROPSETID_VIDCAP_VIDEOPROCAMP</a> property set. For more information, see the <a href="https://docs.microsoft.com/windows-hardware/drivers/gettingstarted/">Windows Driver Kit (WDK)</a> documentation.
- * 
- * 
- * @see https://docs.microsoft.com/windows/win32/api//strmif/nn-strmif-iamvideoprocamp
+ * @see https://learn.microsoft.com/windows/win32/api/strmif/nn-strmif-iamvideoprocamp
  * @namespace Windows.Win32.Media.DirectShow
  * @version v4.0.30319
  */
@@ -95,7 +92,7 @@ class IAMVideoProcAmp extends IUnknown{
      * </td>
      * </tr>
      * </table>
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideoprocamp-getrange
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideoprocamp-getrange
      */
     GetRange(Property, pMin, pMax, pSteppingDelta, pDefault, pCapsFlags) {
         pMinMarshal := pMin is VarRef ? "int*" : "ptr"
@@ -110,12 +107,14 @@ class IAMVideoProcAmp extends IUnknown{
 
     /**
      * The Set method sets video quality for a specified property.
+     * @remarks
+     * If the <i>pCapsFlags</i> parameter is <b>VideoProcAmp_Flags_Auto</b>, the <i>lValue</i> parameter is ignored.
      * @param {Integer} Property The property to set, specified as a [VideoProcAmpProperty](/windows/desktop/api/strmif/ne-strmif-videoprocampproperty) enumeration value.
      * @param {Integer} lValue The new value of the property.
      * @param {Integer} Flags The desired control setting, specified as a [VideoProcAmpFlags](/windows/desktop/api/strmif/ne-strmif-videoprocampflags) enumeration
      *           value.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideoprocamp-set
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideoprocamp-set
      */
     Set(Property, lValue, Flags) {
         result := ComCall(4, this, "int", Property, "int", lValue, "int", Flags, "HRESULT")
@@ -127,8 +126,8 @@ class IAMVideoProcAmp extends IUnknown{
      * @param {Integer} Property Specifies the property to retrieve, as a value from the [VideoProcAmpProperty](/windows/desktop/api/strmif/ne-strmif-videoprocampproperty) enumeration.
      * @param {Pointer<Integer>} lValue Receives the value of the property.
      * @param {Pointer<Integer>} Flags Receives a member of the [VideoProcAmpFlags](/windows/desktop/api/strmif/ne-strmif-videoprocampflags) enumeration. The returned value indicates whether the setting is controlled manually or automatically.
-     * @returns {HRESULT} If this method succeeds, it returns <b xmlns:loc="http://microsoft.com/wdcml/l10n">S_OK</b>. Otherwise, it returns an <b xmlns:loc="http://microsoft.com/wdcml/l10n">HRESULT</b> error code.
-     * @see https://docs.microsoft.com/windows/win32/api//strmif/nf-strmif-iamvideoprocamp-get
+     * @returns {HRESULT} If this method succeeds, it returns <b>S_OK</b>. Otherwise, it returns an <b>HRESULT</b> error code.
+     * @see https://learn.microsoft.com/windows/win32/api/strmif/nf-strmif-iamvideoprocamp-get
      */
     Get(Property, lValue, Flags) {
         lValueMarshal := lValue is VarRef ? "int*" : "ptr"
